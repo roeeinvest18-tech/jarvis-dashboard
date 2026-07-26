@@ -136,6 +136,12 @@ function renderTaskZone(payload) {
   const badgeMount = document.getElementById('done-badge-mount');
   if (!section || !mount) return;
 
+  // tasks.json is withheld from the public build, so on the hosted page the
+  // zone hides rather than offering a quick-add box whose captures could
+  // never sync anywhere. Locally-captured tasks still keep it open, so a
+  // first capture before any export doesn't make the zone vanish.
+  if (!payload && loadCaptured().length === 0) { section.hidden = true; return; }
+
   section.hidden = false;
   const tasks = mergeTasks(payload);
   const doneThisWeek = (payload && payload.done_this_week) || 0;

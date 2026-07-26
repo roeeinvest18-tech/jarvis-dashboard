@@ -41,12 +41,18 @@ function renderPriorityStrip(priority) {
   const mount = document.getElementById('priority-list');
   if (!section || !mount) return;
 
-  const items = (priority && priority.items) || [];
+  // Absent data and empty data mean different things. On the public build
+  // priority.json is deliberately withheld, so the section is not applicable
+  // and hides entirely -- claiming "nothing needs you" would be asserting
+  // something this page has no way to know.
+  if (!priority) { section.hidden = true; return; }
+
+  const items = priority.items || [];
   section.hidden = false;
 
   if (items.length === 0) {
-    // A quiet day is a real result, not a failure state -- the whole point of
-    // the cap is that it's allowed to show nothing.
+    // A quiet day IS a real result here: the feed ran and ranked nothing above
+    // the threshold. That's the cap working, not a failure state.
     mount.innerHTML = `<div class="priority-quiet">Nothing needs you right now.</div>`;
     return;
   }
