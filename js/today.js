@@ -132,6 +132,12 @@ function renderZoneCalendar(calendar) {
     : renderEmptyZone('Nothing scheduled today.');
 }
 
+function renderScopeNote() {
+  const mount = document.getElementById('scope-note');
+  if (!mount) return;
+  mount.innerHTML = renderPublicScopeNote(document.querySelectorAll('.zone-withheld').length);
+}
+
 async function loadAndRender() {
   const d = await DASHBOARD.fetchAll();
   renderMarketHeader(d.scan, d.cciOversold);
@@ -140,6 +146,7 @@ async function loadAndRender() {
   renderZoneEmail(d.emails);
   renderTaskZone(d.tasks);
   renderZoneCalendar(d.calendar);
+  renderScopeNote();
   updateLastUpdated(d.scan ? d.scan.generated_at : null);
 }
 

@@ -202,11 +202,24 @@ function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
 // exactly that -- so the zone stays, states plainly that it isn't published
 // here, and says where the full version is.
 function renderWithheldZone(label) {
+  // One compact line. This renders once per withheld zone, so the full
+  // two-line explanation repeated four times turned the public page into a
+  // wall of identical apologies -- the "how to see it" hint now appears once
+  // in the page footer instead.
   return `<div class="zone-withheld">
-    <span class="zone-withheld-title">Not published to the public dashboard</span>
-    <span class="zone-withheld-body">${escapeHtml(label)} — local only.
-      Run <code>python build_pwa.py --serve</code> for the full view.</span>
+    <span class="zone-withheld-lock" aria-hidden="true">🔒</span>
+    <span class="zone-withheld-body"><b>${escapeHtml(label)}</b> — local only, not published here.</span>
   </div>`;
+}
+
+// Footer shown once on a public build, explaining the page's scope.
+function renderPublicScopeNote(withheldCount) {
+  if (!withheldCount) return '';
+  return `<p class="public-scope-note">
+    This is the public trading view. ${withheldCount} zone${withheldCount === 1 ? '' : 's'}
+    (tasks, email, calendar, priorities) stay on your machine —
+    run <code>python build_pwa.py --serve</code> to see them.
+  </p>`;
 }
 
 // A zone whose data loaded but is empty. Different fact, different message:
