@@ -713,15 +713,33 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 
 /* The tappable bubble. 32px min height keeps it a comfortable touch target
    on a phone without turning the checklist into a full-width list. */
+/* A bubble is a pill containing two independent buttons: the checkbox
+   (toggles done) and the label (expands sub-steps). The pill itself is a
+   container so the two hit areas stay visually one control. */
+.bubble-wrap { display: inline-flex; flex-direction: column; align-items: flex-start; }
+
 .bubble {
   display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  align-items: stretch;
   min-height: 32px;
-  padding: 5px 11px;
   border-radius: 16px;
   background: var(--raised);
   border: 1px solid var(--raised);
+  overflow: hidden;
+}
+.bubble:hover { border-color: var(--amber-a50); }
+.bubble.is-done {
+  background: oklch(72% 0.17 145 / 0.14);
+  border-color: oklch(72% 0.17 145 / 0.45);
+}
+
+.bubble-toggle,
+.bubble-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
   color: var(--text-mid);
   font-family: var(--font-sans);
   font-size: 12px;
@@ -729,16 +747,87 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   cursor: pointer;
   text-align: left;
 }
-.bubble:hover { border-color: var(--amber-a50); }
-.bubble:active { transform: scale(0.97); }
-.bubble[aria-pressed="true"] {
-  background: oklch(72% 0.17 145 / 0.14);
-  border-color: oklch(72% 0.17 145 / 0.45);
+.bubble-toggle { padding: 5px 4px 5px 11px; }
+.bubble-label { padding: 5px 11px 5px 4px; }
+.bubble-toggle:active, .bubble-label:active { transform: scale(0.97); }
+/* Separator makes the two hit areas legible as separate actions. */
+.bubble-label { border-left: 1px solid oklch(100% 0 0 / 0.06); }
+
+.bubble.is-done .bubble-toggle,
+.bubble.is-done .bubble-label { color: var(--gain); }
+.bubble.is-done .bubble-label > span:first-child {
+  text-decoration: line-through;
+  text-decoration-color: oklch(72% 0.17 145 / 0.5);
+}
+
+.bubble-check { flex-shrink: 0; font-size: 11px; width: 12px; }
+.bubble-caret { font-size: 9px; color: var(--text-low); }
+.bubble-substep-count { font-size: 10px; color: var(--text-low); }
+.bubble-label[aria-expanded="true"] .bubble-caret { color: var(--amber); }
+
+/* ---- Sub-step drill-down panel ---- */
+
+.substep-panel {
+  margin: var(--sp-1) 0 var(--sp-2) var(--sp-4);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  border-left: 2px solid var(--amber-a50);
+  border-radius: var(--r-md);
+  min-width: 240px;
+}
+
+.substep-list { margin: 0; padding-left: 20px; }
+.substep-list li { margin: 2px 0; }
+.substep-list li::marker { color: var(--text-low); font-family: var(--font-mono); font-size: 11px; }
+
+.substep-toggle {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 3px 0;
+  color: var(--text-mid);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+.substep-toggle:hover .substep-label { color: var(--text-hi); }
+.substep-check { flex-shrink: 0; font-size: 10px; width: 12px; }
+.substep.is-done .substep-label {
   color: var(--gain);
   text-decoration: line-through;
   text-decoration-color: oklch(72% 0.17 145 / 0.5);
 }
-.bubble-check { flex-shrink: 0; font-size: 11px; width: 12px; }
+.substep-empty { margin: 0 0 var(--sp-2); font-size: 11px; color: var(--text-low); font-style: italic; }
+
+.substep-add { display: flex; gap: 6px; margin-top: var(--sp-2); }
+.substep-add input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-sm);
+  color: var(--text-hi);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  padding: 5px 8px;
+}
+.substep-add input::placeholder { color: var(--text-low); }
+.substep-add input:focus { outline: none; border-color: var(--amber-a50); }
+.substep-add button {
+  background: var(--amber-a14);
+  border: 1px solid var(--amber-a50);
+  color: var(--amber);
+  border-radius: var(--r-sm);
+  padding: 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
 
 .task-needs-decompose {
   font-size: 11px;
@@ -795,3 +884,14 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   justify-content: space-between;
   gap: var(--sp-2);
 }
+
+/* New email priority tiers (security alerts, CI failures, social digest).
+   Same dot vocabulary as the existing tiers — colour carries urgency, and
+   the sender line always states what it is, so colour is never the only cue. */
+.priority-dot.security_alert { background: var(--loss); box-shadow: 0 0 0 3px oklch(65% 0.19 25 / 0.18); }
+.priority-dot.ci_failure { background: var(--amber); }
+.priority-dot.digest { background: var(--text-low); }
+
+/* The digest is a summary of muted senders, not an item to act on — it sits
+   visually quieter than everything above it. */
+.context-panel:has(.priority-dot.digest) { opacity: 0.72; }

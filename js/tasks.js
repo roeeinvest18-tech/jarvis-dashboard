@@ -13,6 +13,13 @@
 
 const TASKS_LOCAL_KEY = 'jarvis:tasks:overlay';
 const TASKS_DRAFT_KEY = 'jarvis:tasks:captured';
+// Sub-step ticks and locally-added sub-steps, same overlay rationale as
+// above: a tap can't reach the repo, so it lives here and is merged on load.
+const SUBSTEP_STATE_KEY = 'jarvis:tasks:substeps';
+const SUBSTEP_ADDED_KEY = 'jarvis:tasks:substepsAdded';
+// Which bubbles are expanded. Kept in memory only -- an expanded panel is a
+// transient view state, not something worth persisting across sessions.
+const expandedBubbles = new Set();
 
 function loadOverlay() {
   try {
@@ -44,6 +51,42 @@ function saveCaptured(list) {
   } catch (e) {
     /* non-fatal */
   }
+}
+
+function loadJson(key, fallback) {
+  try {
+    return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+  } catch (e) {
+    return fallback;
+  }
+}
+
+function saveJson(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    /* non-fatal */
+  }
+}
+
+// Sub-steps the user added in the browser, keyed by bubble id, merged onto
+// whatever the shared file already has for that bubble.
+function loadAddedSubsteps() { return loadJson(SUBSTEP_ADDED_KEY, {}); }
+function loadSubstepState() { return loadJson(SUBSTEP_STATE_KEY, {}); }
+
+function mergeSubsteps(bubble) {
+  const added = loadAddedSubsteps()[bubble.id] || [];
+  const state = loadSubstepState();
+  const fromServer = bubble.subSteps || [];
+
+  // Server list first, then anything added locally that isn't already there.
+  const serverLabels = new Set(fromServer.map(s => (s.label || '').toLowerCase()));
+  const localOnly = added.filter(s => !serverLabels.has((s.label || '').toLowerCase()));
+
+  return [...fromServer, ...localOnly].map(s => ({
+    ...s,
+    done: Object.prototype.hasOwnProperty.call(state, s.id) ? state[s.id] : !!s.done,
+  }));
 }
 
 // Merge server tasks with locally captured ones, then apply tick overlay.
@@ -87,15 +130,70 @@ function mergeTasks(serverPayload) {
   return merged;
 }
 
+// A bubble is two independent controls sharing one pill:
+//   - the checkbox toggles the bubble's own done state
+//   - the label expands its numbered sub-step panel
+// They're separate <button>s rather than one element with click-target
+// maths, so keyboard and screen-reader users get the same two actions.
 function renderBubble(taskId, bubble) {
   const pressed = bubble.done ? 'true' : 'false';
+  const steps = mergeSubsteps(bubble);
+  const hasSteps = steps.length > 0;
+  const expanded = expandedBubbles.has(bubble.id);
+  const doneCount = steps.filter(s => s.done).length;
+  const panelId = `substeps-${bubble.id}`;
+
+  // The expand affordance only exists once there's something to expand,
+  // or while the add-panel is open.
+  const caret = hasSteps
+    ? `<span class="bubble-caret" aria-hidden="true">${expanded ? '▾' : '▸'}</span>
+       <span class="bubble-substep-count mono">${doneCount}/${steps.length}</span>`
+    : '';
+
   return `
-    <button type="button" class="bubble" role="checkbox" aria-checked="${pressed}"
-            aria-pressed="${pressed}"
-            data-task="${escapeHtml(taskId)}" data-bubble="${escapeHtml(bubble.id)}">
-      <span class="bubble-check" aria-hidden="true">${bubble.done ? '✅' : '○'}</span>
-      <span>${escapeHtml(bubble.label)}</span>
-    </button>`;
+    <span class="bubble-wrap">
+      <span class="bubble ${bubble.done ? 'is-done' : ''}">
+        <button type="button" class="bubble-toggle" role="checkbox" aria-checked="${pressed}"
+                aria-pressed="${pressed}"
+                aria-label="Mark ${escapeHtml(bubble.label)} ${bubble.done ? 'not done' : 'done'}"
+                data-task="${escapeHtml(taskId)}" data-bubble="${escapeHtml(bubble.id)}">
+          <span class="bubble-check" aria-hidden="true">${bubble.done ? '✅' : '○'}</span>
+        </button>
+        <button type="button" class="bubble-label" aria-expanded="${expanded}"
+                aria-controls="${panelId}"
+                data-task="${escapeHtml(taskId)}" data-expand="${escapeHtml(bubble.id)}">
+          <span>${escapeHtml(bubble.label)}</span>
+          ${caret}
+        </button>
+      </span>
+      ${expanded ? renderSubstepPanel(taskId, bubble, steps, panelId) : ''}
+    </span>`;
+}
+
+function renderSubstepPanel(taskId, bubble, steps, panelId) {
+  const list = steps.length
+    ? `<ol class="substep-list">
+        ${steps.map(s => `
+          <li class="substep ${s.done ? 'is-done' : ''}">
+            <button type="button" class="substep-toggle" role="checkbox"
+                    aria-checked="${s.done ? 'true' : 'false'}"
+                    data-task="${escapeHtml(taskId)}" data-bubble="${escapeHtml(bubble.id)}"
+                    data-substep="${escapeHtml(s.id)}">
+              <span class="substep-check" aria-hidden="true">${s.done ? '✅' : '○'}</span>
+              <span class="substep-label">${escapeHtml(s.label)}</span>
+            </button>
+          </li>`).join('')}
+      </ol>`
+    : `<p class="substep-empty">No sub-steps yet.</p>`;
+
+  return `
+    <div class="substep-panel" id="${panelId}" data-panel-for="${escapeHtml(bubble.id)}">
+      ${list}
+      <form class="substep-add" data-task="${escapeHtml(taskId)}" data-bubble="${escapeHtml(bubble.id)}">
+        <input type="text" placeholder="Add a step…" aria-label="Add a sub-step to ${escapeHtml(bubble.label)}">
+        <button type="submit" aria-label="Add sub-step">+</button>
+      </form>
+    </div>`;
 }
 
 function renderTaskCard(task) {
@@ -198,14 +296,66 @@ function wireQuickAdd(payload) {
 }
 
 function wireBubbles(payload) {
-  document.querySelectorAll('.bubble').forEach(btn => {
+  // Checkbox: toggles the bubble only. Never touches its sub-steps.
+  document.querySelectorAll('.bubble-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
-      const bubbleId = btn.dataset.bubble;
       const overlay = loadOverlay();
-      const nowDone = !(btn.getAttribute('aria-pressed') === 'true');
-      overlay[bubbleId] = nowDone;
+      overlay[btn.dataset.bubble] = !(btn.getAttribute('aria-pressed') === 'true');
       saveOverlay(overlay);
       renderTaskZone(payload);
+    });
+  });
+
+  // Label: expands/collapses the numbered panel. Never changes done state.
+  document.querySelectorAll('.bubble-label').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.expand;
+      if (expandedBubbles.has(id)) expandedBubbles.delete(id);
+      else expandedBubbles.add(id);
+      renderTaskZone(payload);
+    });
+  });
+
+  // Sub-step checkbox: independent of the parent bubble in both directions.
+  document.querySelectorAll('.substep-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const state = loadSubstepState();
+      const id = btn.dataset.substep;
+      state[id] = !(btn.getAttribute('aria-checked') === 'true');
+      saveJson(SUBSTEP_STATE_KEY, state);
+      renderTaskZone(payload);
+    });
+  });
+
+  // Add a sub-step inline.
+  document.querySelectorAll('.substep-add').forEach(form => {
+    form.addEventListener('submit', ev => {
+      ev.preventDefault();
+      const input = form.querySelector('input');
+      const label = (input.value || '').trim();
+      if (!label) return;
+
+      const bubbleId = form.dataset.bubble;
+      const added = loadAddedSubsteps();
+      const list = added[bubbleId] || [];
+      // Local ids are prefixed so they're distinguishable from skill-generated
+      // ones when the two lists are merged.
+      list.push({
+        id: `local-${bubbleId}-${Date.now().toString(36)}`,
+        label,
+        done: false,
+        added_at: new Date().toISOString(),
+      });
+      added[bubbleId] = list;
+      saveJson(SUBSTEP_ADDED_KEY, added);
+
+      input.value = '';
+      expandedBubbles.add(bubbleId);   // keep the panel open after adding
+      renderTaskZone(payload);
+      // Return focus so several steps can be added in a row.
+      const reopened = document.querySelector(
+        `.substep-add[data-bubble="${CSS.escape(bubbleId)}"] input`);
+      if (reopened) reopened.focus();
     });
   });
 }
