@@ -204,7 +204,7 @@ function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
 function renderWithheldZone(label) {
   return `<div class="zone-withheld">
     <span class="zone-withheld-title">Not published to the public dashboard</span>
-    <span class="zone-withheld-body">${escapeHtml(label)} stays on your machine.
+    <span class="zone-withheld-body">${escapeHtml(label)} — local only.
       Run <code>python build_pwa.py --serve</code> for the full view.</span>
   </div>`;
 }
