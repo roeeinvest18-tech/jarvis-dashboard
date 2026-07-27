@@ -234,11 +234,17 @@ function renderTaskZone(payload) {
   const badgeMount = document.getElementById('done-badge-mount');
   if (!section || !mount) return;
 
-  // tasks.json is withheld from the public build, so on the hosted page the
-  // zone hides rather than offering a quick-add box whose captures could
-  // never sync anywhere. Locally-captured tasks still keep it open, so a
-  // first capture before any export doesn't make the zone vanish.
-  if (!payload && loadCaptured().length === 0) { section.hidden = true; return; }
+  // Withheld (public build) is not the same as empty. Vanishing made the
+  // page look truncated, so the zone stays and says which it is. No
+  // quick-add on the public build -- captures there could never sync.
+  if (!payload && loadCaptured().length === 0) {
+    section.hidden = false;
+    if (badgeMount) badgeMount.innerHTML = '';
+    mount.innerHTML = DASHBOARD.isWithheld('tasks')
+      ? renderWithheldZone('Your tasks')
+      : renderEmptyZone('No tasks yet. Run task_manager.py to add one.');
+    return;
+  }
 
   section.hidden = false;
   const tasks = mergeTasks(payload);

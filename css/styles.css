@@ -895,3 +895,24 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 /* The digest is a summary of muted senders, not an item to act on — it sits
    visually quieter than everything above it. */
 .context-panel:has(.priority-dot.digest) { opacity: 0.72; }
+
+/* Withheld-zone placeholder: quiet, clearly not an error, and visibly
+   different from an empty state so the two aren't confused. */
+.zone-withheld {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: var(--sp-3);
+  border: 1px dashed var(--raised);
+  border-radius: var(--r-md);
+  background: transparent;
+}
+.zone-withheld-title { font-size: 12px; color: var(--text-mid); font-weight: 600; }
+.zone-withheld-body { font-size: 11px; color: var(--text-low); line-height: 1.5; }
+.zone-withheld code {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: var(--raised);
+  padding: 1px 4px;
+  border-radius: var(--r-sm);
+}

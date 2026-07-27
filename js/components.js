@@ -196,3 +196,21 @@ function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
     <div class="stock-detail-mount" data-ticker-detail="${escapeHtml(r.ticker)}" hidden></div>
   `;
 }
+
+// A zone whose data file is absent renders this instead of vanishing.
+// Vanishing is indistinguishable from a broken page -- the user reported
+// exactly that -- so the zone stays, states plainly that it isn't published
+// here, and says where the full version is.
+function renderWithheldZone(label) {
+  return `<div class="zone-withheld">
+    <span class="zone-withheld-title">Not published to the public dashboard</span>
+    <span class="zone-withheld-body">${escapeHtml(label)} stays on your machine.
+      Run <code>python build_pwa.py --serve</code> for the full view.</span>
+  </div>`;
+}
+
+// A zone whose data loaded but is empty. Different fact, different message:
+// this one really is "nothing today".
+function renderEmptyZone(message) {
+  return `<div class="empty-state">${escapeHtml(message)}</div>`;
+}

@@ -1,0 +1,16 @@
+{
+  "variant": "public",
+  "allowlist": [
+    "cci_oversold.json",
+    "scan.json"
+  ],
+  "withheld": [
+    "priority.json",
+    "tasks.json",
+    "trade_notes.json"
+  ],
+  "published": [
+    "cci_oversold.json",
+    "scan.json"
+  ]
+}

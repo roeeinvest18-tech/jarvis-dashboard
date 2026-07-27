@@ -13,8 +13,11 @@
 //                    it's existing working functionality the spec didn't ask
 //                    to drop.
 //
-// Any zone with no data hides itself. The trading zone is the exception: it's
-// the page's primary content, so it shows an empty state instead of vanishing.
+// No zone ever vanishes. Each renders one of three states, because they mean
+// different things and a blank page is indistinguishable from a broken one:
+//   withheld  the data file isn't in this build (public dashboard) -> say so
+//   empty     the feed ran and found nothing -> "nothing today"
+//   populated the normal case
 
 renderNav('today');
 renderTopbar('app-header', 'Today');
@@ -41,11 +44,14 @@ function renderPriorityStrip(priority) {
   const mount = document.getElementById('priority-list');
   if (!section || !mount) return;
 
-  // Absent data and empty data mean different things. On the public build
-  // priority.json is deliberately withheld, so the section is not applicable
-  // and hides entirely -- claiming "nothing needs you" would be asserting
-  // something this page has no way to know.
-  if (!priority) { section.hidden = true; return; }
+  // Three distinct states, three distinct messages. Claiming "nothing needs
+  // you" from a file this build never had would be asserting something the
+  // page has no way to know.
+  if (!priority) {
+    section.hidden = false;
+    mount.innerHTML = renderWithheldZone('Your cross-domain priorities');
+    return;
+  }
 
   const items = priority.items || [];
   section.hidden = false;
@@ -92,20 +98,38 @@ function renderZoneTrading(scan, tradeNotes) {
 
 function renderZoneEmail(emails) {
   const section = document.getElementById('zone-email');
-  if (!section) return;
-  const items = (emails && emails.items) || [];
-  if (items.length === 0) { section.hidden = true; return; }
+  const mount = document.getElementById('emails-list');
+  if (!section || !mount) return;
   section.hidden = false;
-  document.getElementById('emails-list').innerHTML = items.map(renderEmailRow).join('');
+
+  if (!emails) {
+    mount.innerHTML = DASHBOARD.isWithheld('emails')
+      ? renderWithheldZone('Important email')
+      : renderEmptyZone('Email feed not set up yet — see README_SETUP.md.');
+    return;
+  }
+  const items = emails.items || [];
+  mount.innerHTML = items.length
+    ? items.map(renderEmailRow).join('')
+    : renderEmptyZone('No important email today.');
 }
 
 function renderZoneCalendar(calendar) {
   const section = document.getElementById('zone-calendar');
-  if (!section) return;
-  const events = (calendar && calendar.events) || [];
-  if (events.length === 0) { section.hidden = true; return; }
+  const mount = document.getElementById('calendar-list');
+  if (!section || !mount) return;
   section.hidden = false;
-  document.getElementById('calendar-list').innerHTML = events.map(renderCalendarRow).join('');
+
+  if (!calendar) {
+    mount.innerHTML = DASHBOARD.isWithheld('calendar')
+      ? renderWithheldZone("Today's calendar")
+      : renderEmptyZone('Calendar feed not set up yet — see README_SETUP.md.');
+    return;
+  }
+  const events = calendar.events || [];
+  mount.innerHTML = events.length
+    ? events.map(renderCalendarRow).join('')
+    : renderEmptyZone('Nothing scheduled today.');
 }
 
 async function loadAndRender() {

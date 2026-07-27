@@ -9,6 +9,7 @@ const DASHBOARD = {
     cciOversold: 'dashboard_data/cci_oversold.json',
     emails: 'dashboard_data/emails.json',
     calendar: 'dashboard_data/calendar.json',
+    build: 'dashboard_data/build.json',
     tasks: 'dashboard_data/tasks.json',
     priority: 'dashboard_data/priority.json',
     tradeNotes: 'dashboard_data/trade_notes.json',
@@ -16,11 +17,21 @@ const DASHBOARD = {
 
   cache: {},
 
+  // Feeds whose file wasn't there at all (404). Distinct from a feed that
+  // loaded and happens to be empty: "withheld from this build" and "nothing
+  // to show today" are different facts, and collapsing them makes a
+  // deliberately-trimmed public page look broken.
+  missing: new Set(),
+
   async fetchOne(key) {
     const url = `${this.FILES[key]}?t=${Date.now()}`;
     try {
       const res = await fetch(url, { cache: 'no-store' });
-      if (!res.ok) return null;
+      if (!res.ok) {
+        if (res.status === 404) this.missing.add(key);
+        return null;
+      }
+      this.missing.delete(key);
       const json = await res.json();
       this.cache[key] = json;
       try { localStorage.setItem(`dash:${key}`, JSON.stringify(json)); } catch (e) { /* storage full/unavailable — non-fatal */ }
@@ -36,9 +47,26 @@ const DASHBOARD = {
   },
 
   async fetchAll() {
-    const keys = ['scan', 'cciOversold', 'emails', 'calendar', 'tasks', 'priority', 'tradeNotes'];
+    const keys = ['scan', 'cciOversold', 'emails', 'calendar', 'tasks', 'priority',
+                  'tradeNotes', 'build'];
+    this.missing.clear();
     const results = await Promise.all(keys.map(k => this.fetchOne(k)));
-    return Object.fromEntries(keys.map((k, i) => [k, results[i]]));
+    const out = Object.fromEntries(keys.map((k, i) => [k, results[i]]));
+    this.build = out.build || null;
+    return out;
+  },
+
+  // True only when THIS build deliberately excluded the feed. A file that's
+  // simply absent because its feed was never configured is a different
+  // situation and gets a different message.
+  isWithheld(key) {
+    const file = (this.FILES[key] || '').split('/').pop();
+    const b = this.build;
+    if (!b) return false;
+    // A public build excludes anything off its allowlist by policy -- true
+    // even for feeds that have no file yet, which would still never ship.
+    if (b.allowlist) return !b.allowlist.includes(file);
+    return (b.withheld || []).includes(file);
   },
 };
 
