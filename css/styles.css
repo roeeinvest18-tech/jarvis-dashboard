@@ -945,3 +945,80 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   padding: 1px 4px;
   border-radius: var(--r-sm);
 }
+
+/* Unlock banner for the 3 password-encrypted zones (email/tasks/calendar).
+   Amber border (not the dashed muted style of .zone-withheld) since this one
+   is actionable -- there's something to actually do here, not just a fact
+   to note. */
+.unlock-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  border: 1px solid var(--amber-a50);
+  border-radius: var(--r-md);
+  background: var(--amber-a14);
+}
+.unlock-label { font-size: 12px; color: var(--text-mid); flex: 1 1 200px; }
+.unlock-form input[type="password"] {
+  flex: 1 1 140px;
+  min-width: 0;
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-md);
+  color: var(--text-hi);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  padding: 8px var(--sp-3);
+}
+.unlock-form input[type="password"]:focus { outline: none; border-color: var(--amber-a50); }
+.unlock-form button {
+  background: var(--amber-a14);
+  border: 1px solid var(--amber-a50);
+  color: var(--amber);
+  border-radius: var(--r-md);
+  padding: 8px var(--sp-4);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.unlock-form button:active { transform: scale(0.97); }
+.unlock-remember {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-low);
+  flex-basis: 100%;
+}
+.unlock-error { font-size: 11px; color: var(--loss); flex-basis: 100%; }
+
+/* Add-a-sub-task control on every task card. Sits below the bubble row and
+   is deliberately quieter than the top-level quick-add: capturing a task is
+   the primary action, breaking one down is secondary. */
+.bubble-add { display: flex; gap: 6px; margin-top: var(--sp-2); max-width: 340px; }
+.bubble-add input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--raised);
+  border-radius: 16px;
+  color: var(--text-hi);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  padding: 6px 11px;
+}
+.bubble-add input::placeholder { color: var(--text-low); }
+.bubble-add input:focus { outline: none; border-color: var(--amber-a50); }
+.bubble-add button {
+  background: var(--amber-a14);
+  border: 1px solid var(--amber-a50);
+  color: var(--amber);
+  border-radius: 16px;
+  min-width: 34px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.bubble-add button:active { transform: scale(0.96); }

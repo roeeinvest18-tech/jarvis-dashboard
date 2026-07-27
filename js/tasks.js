@@ -17,6 +17,10 @@ const TASKS_DRAFT_KEY = 'jarvis:tasks:captured';
 // above: a tap can't reach the repo, so it lives here and is merged on load.
 const SUBSTEP_STATE_KEY = 'jarvis:tasks:substeps';
 const SUBSTEP_ADDED_KEY = 'jarvis:tasks:substepsAdded';
+// Sub-tasks (bubbles) the user typed in the browser, keyed by task id.
+// The decompose skill is one way to get bubbles; this is the other, so a
+// task added on the phone isn't a dead end until you reach a terminal.
+const BUBBLE_ADDED_KEY = 'jarvis:tasks:bubblesAdded';
 // Which bubbles are expanded. Kept in memory only -- an expanded panel is a
 // transient view state, not something worth persisting across sessions.
 const expandedBubbles = new Set();
@@ -73,6 +77,7 @@ function saveJson(key, value) {
 // whatever the shared file already has for that bubble.
 function loadAddedSubsteps() { return loadJson(SUBSTEP_ADDED_KEY, {}); }
 function loadSubstepState() { return loadJson(SUBSTEP_STATE_KEY, {}); }
+function loadAddedBubbles() { return loadJson(BUBBLE_ADDED_KEY, {}); }
 
 function mergeSubsteps(bubble) {
   const added = loadAddedSubsteps()[bubble.id] || [];
@@ -101,11 +106,24 @@ function mergeTasks(serverPayload) {
   const stillLocal = captured.filter(t => !serverTitles.has((t.title || '').toLowerCase()));
   if (stillLocal.length !== captured.length) saveCaptured(stillLocal);
 
-  const merged = server.map(task => {
-    const bubbles = (task.bubbles || []).map(b => ({
+  const addedBubbles = loadAddedBubbles();
+
+  // Skill-generated bubbles first, then any the user typed here that aren't
+  // already present. Matching on label means a later decomposition that
+  // happens to name the same sub-task absorbs the local one rather than
+  // showing it twice.
+  const withLocalBubbles = (task, serverBubbles) => {
+    const mine = addedBubbles[task.id] || [];
+    const seen = new Set(serverBubbles.map(b => (b.label || '').toLowerCase()));
+    const extra = mine.filter(b => !seen.has((b.label || '').toLowerCase()));
+    return [...serverBubbles, ...extra].map(b => ({
       ...b,
       done: Object.prototype.hasOwnProperty.call(overlay, b.id) ? overlay[b.id] : !!b.done,
     }));
+  };
+
+  const merged = server.map(task => {
+    const bubbles = withLocalBubbles(task, task.bubbles || []);
     return {
       ...task,
       bubbles,
@@ -116,13 +134,14 @@ function mergeTasks(serverPayload) {
   });
 
   stillLocal.forEach(t => {
+    const bubbles = withLocalBubbles(t, []);
     merged.push({
       id: t.id,
       title: t.title,
-      bubbles: [],
-      done_count: 0,
-      total_count: 0,
-      decomposed: false,
+      bubbles,
+      done_count: bubbles.filter(b => b.done).length,
+      total_count: bubbles.length,
+      decomposed: bubbles.length > 0,
       is_local: true,
     });
   });
@@ -200,9 +219,18 @@ function renderTaskCard(task) {
   const hasBubbles = task.total_count > 0;
   const body = hasBubbles
     ? `<div class="bubble-row">${task.bubbles.map(b => renderBubble(task.id, b)).join('')}</div>`
-    : `<div class="task-needs-decompose">${task.is_local
-        ? 'Captured on this device — run the task-decompose skill to break it down.'
-        : 'Not broken down yet — run the task-decompose skill.'}</div>`;
+    : `<div class="task-needs-decompose">No sub-tasks yet — add one below, or run the
+         task-decompose skill to generate them.</div>`;
+
+  // Always available, whether or not bubbles exist. Without this a task added
+  // on the phone was a dead end until you reached a terminal, which defeats
+  // the point of frictionless capture.
+  const addBubble = `
+    <form class="bubble-add" data-task="${escapeHtml(task.id)}">
+      <input type="text" placeholder="Add a sub-task…"
+             aria-label="Add a sub-task to ${escapeHtml(task.title)}">
+      <button type="submit" aria-label="Add sub-task">+</button>
+    </form>`;
 
   return `
     <div class="task-card" data-task-card="${escapeHtml(task.id)}">
@@ -211,6 +239,7 @@ function renderTaskCard(task) {
         ${hasBubbles ? `<span class="task-progress mono">${task.done_count}/${task.total_count}</span>` : ''}
       </div>
       ${body}
+      ${addBubble}
     </div>`;
 }
 
@@ -233,6 +262,13 @@ function renderTaskZone(payload) {
   const mount = document.getElementById('tasks-list');
   const badgeMount = document.getElementById('done-badge-mount');
   if (!section || !mount) return;
+
+  if (DASHBOARD.locked.has('tasks')) {
+    section.hidden = false;
+    if (badgeMount) badgeMount.innerHTML = '';
+    mount.innerHTML = renderLockedZone('Your tasks');
+    return;
+  }
 
   // Withheld (public build) is not the same as empty. Vanishing made the
   // page look truncated, so the zone stays and says which it is. No
@@ -330,6 +366,44 @@ function wireBubbles(payload) {
       state[id] = !(btn.getAttribute('aria-checked') === 'true');
       saveJson(SUBSTEP_STATE_KEY, state);
       renderTaskZone(payload);
+    });
+  });
+
+  // Add a sub-task (bubble) to a main task inline.
+  document.querySelectorAll('.bubble-add').forEach(form => {
+    form.addEventListener('submit', ev => {
+      ev.preventDefault();
+      const input = form.querySelector('input');
+      const label = (input.value || '').trim();
+      if (!label) return;
+
+      const taskId = form.dataset.task;
+      const added = loadAddedBubbles();
+      const list = added[taskId] || [];
+
+      // Don't create a duplicate of a bubble that's already on the card.
+      const card = form.closest('.task-card');
+      const existing = new Set(
+        [...card.querySelectorAll('.bubble-label > span:first-child')]
+          .map(e => e.textContent.trim().toLowerCase())
+      );
+      if (existing.has(label.toLowerCase())) { input.value = ''; return; }
+
+      list.push({
+        id: `localb-${taskId}-${Date.now().toString(36)}`,
+        label,
+        done: false,
+        added_at: new Date().toISOString(),
+      });
+      added[taskId] = list;
+      saveJson(BUBBLE_ADDED_KEY, added);
+
+      input.value = '';
+      renderTaskZone(payload);
+      // Refocus so several sub-tasks can be typed in a row.
+      const reopened = document.querySelector(
+        `.bubble-add[data-task="${CSS.escape(taskId)}"] input`);
+      if (reopened) reopened.focus();
     });
   });
 

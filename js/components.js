@@ -212,14 +212,33 @@ function renderWithheldZone(label) {
   </div>`;
 }
 
+// A zone whose ciphertext shipped but hasn't been unlocked yet. Distinct
+// from renderWithheldZone: the data is right there on the page, just
+// unreadable without the password entered in the unlock banner above.
+function renderLockedZone(label) {
+  return `<div class="zone-withheld zone-locked">
+    <span class="zone-withheld-lock" aria-hidden="true">🔒</span>
+    <span class="zone-withheld-body"><b>${escapeHtml(label)}</b> — locked. Enter your password above to view.</span>
+  </div>`;
+}
+
 // Footer shown once on a public build, explaining the page's scope.
-function renderPublicScopeNote(withheldCount) {
-  if (!withheldCount) return '';
-  return `<p class="public-scope-note">
-    This is the public trading view. ${withheldCount} zone${withheldCount === 1 ? '' : 's'}
-    (tasks, email, calendar, priorities) stay on your machine —
-    run <code>python build_pwa.py --serve</code> to see them.
-  </p>`;
+// withheldCount: zones that never ship here (priorities, trade notes) --
+// run the local build to see them. lockedCount: zones that DID ship, just
+// encrypted (email/tasks/calendar) -- the unlock banner above handles those,
+// so they get a different sentence rather than "stay on your machine".
+function renderPublicScopeNote(withheldCount, lockedCount) {
+  const parts = [];
+  if (lockedCount) {
+    parts.push(`${lockedCount} zone${lockedCount === 1 ? '' : 's'} above ${lockedCount === 1 ? 'is' : 'are'}
+      password-locked — enter your password once to unlock them on this device.`);
+  }
+  if (withheldCount) {
+    parts.push(`${withheldCount} zone${withheldCount === 1 ? '' : 's'} (priorities, trade notes)
+      stay on your machine — run <code>python build_pwa.py --serve</code> to see them.`);
+  }
+  if (!parts.length) return '';
+  return `<p class="public-scope-note">${parts.join(' ')}</p>`;
 }
 
 // A zone whose data loaded but is empty. Different fact, different message:

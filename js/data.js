@@ -2,6 +2,40 @@
 // files (synced here by GitHub Actions from the private morning-scout repo).
 // No client ever talks to Gmail/CalDAV/IBKR/yfinance directly -- this is a
 // pure viewer. Manual refresh only: no polling, no websockets.
+//
+// email/tasks/calendar ship as password-encrypted envelopes on the public
+// build (see build_pwa.py's ENCRYPTED_ZONE_ALLOWLIST) -- the ciphertext is
+// world-readable same as everything else on GitHub Pages, but unreadable
+// without the password. Decryption happens entirely in the browser via
+// SubtleCrypto; the password is never sent anywhere.
+
+// A remembered password lives only in this browser's localStorage, so
+// unlocking is one-time per device, not per page load -- but a stranger who
+// just has the URL never has it.
+const ZONE_PASSWORD_KEY = 'jarvis:zonePassword';
+
+function base64ToBytes(b64) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+
+// Mirrors build_pwa.py's encrypt_payload(): PBKDF2-SHA256 -> AES-256-GCM,
+// both sides using the standard construct (12-byte IV, tag appended to the
+// ciphertext) so no custom framing has to travel with the envelope.
+async function decryptEnvelope(envelope, password) {
+  const salt = base64ToBytes(envelope.salt);
+  const iv = base64ToBytes(envelope.iv);
+  const ciphertext = base64ToBytes(envelope.ciphertext);
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: envelope.iterations, hash: 'SHA-256' },
+    keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ciphertext);
+  return new TextDecoder().decode(plainBuf);
+}
 
 const DASHBOARD = {
   FILES: {
@@ -23,6 +57,14 @@ const DASHBOARD = {
   // deliberately-trimmed public page look broken.
   missing: new Set(),
 
+  // Feeds that loaded but arrived as a password-encrypted envelope (public
+  // build, email/tasks/calendar). Distinct from both "withheld" (never
+  // shipped at all) and "empty" (shipped, decrypted, nothing in it) --
+  // "locked" means the ciphertext is sitting right there, just unreadable
+  // without the password.
+  locked: new Set(),
+  encryptedCache: {},
+
   async fetchOne(key) {
     const url = `${this.FILES[key]}?t=${Date.now()}`;
     try {
@@ -33,6 +75,12 @@ const DASHBOARD = {
       }
       this.missing.delete(key);
       const json = await res.json();
+      if (json && json.encrypted === true) {
+        this.encryptedCache[key] = json;
+        this.locked.add(key);
+        return null;
+      }
+      this.locked.delete(key);
       this.cache[key] = json;
       try { localStorage.setItem(`dash:${key}`, JSON.stringify(json)); } catch (e) { /* storage full/unavailable — non-fatal */ }
       return json;
@@ -53,7 +101,43 @@ const DASHBOARD = {
     const results = await Promise.all(keys.map(k => this.fetchOne(k)));
     const out = Object.fromEntries(keys.map((k, i) => [k, results[i]]));
     this.build = out.build || null;
+    // A remembered password (see ZONE_PASSWORD_KEY) unlocks silently, same
+    // device only -- a stranger with just the URL never sees it prompted.
+    if (this.locked.size) {
+      const remembered = localStorage.getItem(ZONE_PASSWORD_KEY);
+      if (remembered) await this.unlockAll(remembered);
+    }
+    for (const key of Object.keys(this.encryptedCache)) {
+      if (!this.locked.has(key)) out[key] = this.cache[key];
+    }
     return out;
+  },
+
+  // Tries `password` against every locked zone. Returns true if at least one
+  // unlocked -- all 3 personal zones are encrypted with the same password,
+  // so in practice this is all-or-nothing, but a partial success (e.g. a
+  // future zone added with a different password) still surfaces what it can.
+  async unlockAll(password) {
+    let any = false;
+    for (const key of Object.keys(this.encryptedCache)) {
+      if (await this.unlockOne(key, password)) any = true;
+    }
+    return any;
+  },
+
+  async unlockOne(key, password) {
+    const envelope = this.encryptedCache[key];
+    if (!envelope) return false;
+    try {
+      const plaintext = await decryptEnvelope(envelope, password);
+      const json = JSON.parse(plaintext);
+      this.cache[key] = json;
+      this.locked.delete(key);
+      try { localStorage.setItem(`dash:${key}`, JSON.stringify(json)); } catch (e) { /* non-fatal */ }
+      return true;
+    } catch (e) {
+      return false;
+    }
   },
 
   // True only when THIS build deliberately excluded the feed. A file that's

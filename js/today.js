@@ -102,6 +102,10 @@ function renderZoneEmail(emails) {
   if (!section || !mount) return;
   section.hidden = false;
 
+  if (DASHBOARD.locked.has('emails')) {
+    mount.innerHTML = renderLockedZone('Important email');
+    return;
+  }
   if (!emails) {
     mount.innerHTML = DASHBOARD.isWithheld('emails')
       ? renderWithheldZone('Important email')
@@ -120,6 +124,10 @@ function renderZoneCalendar(calendar) {
   if (!section || !mount) return;
   section.hidden = false;
 
+  if (DASHBOARD.locked.has('calendar')) {
+    mount.innerHTML = renderLockedZone("Today's calendar");
+    return;
+  }
   if (!calendar) {
     mount.innerHTML = DASHBOARD.isWithheld('calendar')
       ? renderWithheldZone("Today's calendar")
@@ -135,12 +143,61 @@ function renderZoneCalendar(calendar) {
 function renderScopeNote() {
   const mount = document.getElementById('scope-note');
   if (!mount) return;
-  mount.innerHTML = renderPublicScopeNote(document.querySelectorAll('.zone-withheld').length);
+  const lockedCount = document.querySelectorAll('.zone-locked').length;
+  const withheldCount = document.querySelectorAll('.zone-withheld').length - lockedCount;
+  mount.innerHTML = renderPublicScopeNote(withheldCount, lockedCount);
+}
+
+// One shared prompt unlocks all 3 encrypted zones at once -- they're all
+// encrypted with the same password, so a per-zone prompt would just mean
+// typing it three times. Sits above "Needs you now" so it's the first thing
+// visible on a locked page.
+function renderUnlockBanner() {
+  let mount = document.getElementById('zone-unlock');
+  if (!DASHBOARD.locked.size) {
+    if (mount) mount.remove();
+    return;
+  }
+  if (!mount) {
+    mount = document.createElement('section');
+    mount.className = 'zone';
+    mount.id = 'zone-unlock';
+    document.getElementById('zone-priority').before(mount);
+  }
+  mount.innerHTML = `
+    <form id="unlock-form" class="unlock-form" autocomplete="off">
+      <span class="zone-withheld-lock" aria-hidden="true">🔒</span>
+      <span class="unlock-label">Email, tasks and calendar are locked on this device.</span>
+      <input type="password" id="unlock-password" placeholder="Password" autocomplete="current-password" required>
+      <button type="submit">Unlock</button>
+      <label class="unlock-remember">
+        <input type="checkbox" id="unlock-remember" checked> Remember on this device
+      </label>
+      <span id="unlock-error" class="unlock-error" hidden>Wrong password — try again.</span>
+    </form>`;
+  document.getElementById('unlock-form').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const pwInput = document.getElementById('unlock-password');
+    const password = pwInput.value;
+    const remember = document.getElementById('unlock-remember').checked;
+    const ok = await DASHBOARD.unlockAll(password);
+    if (!ok) {
+      document.getElementById('unlock-error').hidden = false;
+      pwInput.value = '';
+      pwInput.focus();
+      return;
+    }
+    if (remember) {
+      try { localStorage.setItem(ZONE_PASSWORD_KEY, password); } catch (e) { /* non-fatal */ }
+    }
+    loadAndRender();
+  });
 }
 
 async function loadAndRender() {
   const d = await DASHBOARD.fetchAll();
   renderMarketHeader(d.scan, d.cciOversold);
+  renderUnlockBanner();
   renderPriorityStrip(d.priority);
   renderZoneTrading(d.scan, d.tradeNotes);
   renderZoneEmail(d.emails);
