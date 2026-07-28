@@ -141,6 +141,16 @@ button {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Refresh success/error feedback -- separate from the spinner, which only
+   confirms a fetch happened, not whether it actually got fresh data. */
+.refresh-indicator {
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.refresh-indicator.is-success { color: var(--gain); }
+.refresh-indicator.is-error { color: var(--loss); }
+
 /* ---- Section headers --------------------------------------------------- */
 
 .section-label {
@@ -702,20 +712,92 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 
 .task-card-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--sp-2);
   margin-bottom: var(--sp-2);
 }
-.task-title { font-size: 13px; font-weight: 600; color: var(--text-hi); flex: 1; min-width: 0; }
+.task-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-hi);
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 2px 0;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.task-title:hover { color: var(--amber); }
 .task-progress { font-family: var(--font-mono); font-size: 11px; color: var(--text-low); flex-shrink: 0; }
+
+.task-title-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--panel);
+  border: 1px solid var(--amber-a50);
+  border-radius: var(--r-md);
+  color: var(--text-hi);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px var(--sp-2);
+}
+.task-title-input:focus { outline: none; }
+
+/* Trash icon: transparent by default, only tinted on hover/focus so it
+   doesn't compete visually with the title -- but never display:none, so a
+   touch device (no :hover) can always reach it, per the one-handed-mobile
+   requirement. */
+.task-delete,
+.bubble-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-low);
+  cursor: pointer;
+  padding: 8px;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: var(--r-sm);
+}
+.task-delete:hover, .task-delete:focus-visible,
+.bubble-delete:hover, .bubble-delete:focus-visible { color: var(--loss); background: oklch(65% 0.19 25 / 0.12); }
+
+.task-confirm-text { font-size: 12px; color: var(--text-mid); flex: 1; min-width: 0; }
+.task-confirm-yes, .task-confirm-no,
+.bubble-confirm-yes, .bubble-confirm-no {
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--r-sm);
+  padding: 5px 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.task-confirm-yes, .bubble-confirm-yes {
+  background: oklch(65% 0.19 25 / 0.16);
+  border: 1px solid oklch(65% 0.19 25 / 0.45);
+  color: var(--loss-text);
+}
+.task-confirm-no, .bubble-confirm-no {
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  color: var(--text-mid);
+}
 
 .bubble-row { display: flex; flex-wrap: wrap; gap: 6px; }
 
 /* The tappable bubble. 32px min height keeps it a comfortable touch target
    on a phone without turning the checklist into a full-width list. */
-/* A bubble is a pill containing two independent buttons: the checkbox
-   (toggles done) and the label (expands sub-steps). The pill itself is a
-   container so the two hit areas stay visually one control. */
+/* A bubble packs the checkbox, editable label, expand caret, and delete
+   icon into one pill so they read as one control while staying separately
+   tappable. */
 .bubble-wrap { display: inline-flex; flex-direction: column; align-items: flex-start; }
 
 .bubble {
@@ -732,9 +814,11 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   background: oklch(72% 0.17 145 / 0.14);
   border-color: oklch(72% 0.17 145 / 0.45);
 }
+.bubble.is-editing { border-color: var(--amber-a50); }
 
 .bubble-toggle,
-.bubble-label {
+.bubble-text,
+.bubble-expand {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -748,14 +832,15 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   text-align: left;
 }
 .bubble-toggle { padding: 5px 4px 5px 11px; }
-.bubble-label { padding: 5px 11px 5px 4px; }
-.bubble-toggle:active, .bubble-label:active { transform: scale(0.97); }
-/* Separator makes the two hit areas legible as separate actions. */
-.bubble-label { border-left: 1px solid oklch(100% 0 0 / 0.06); }
+.bubble-text { padding: 5px 8px; }
+.bubble-expand { padding: 5px 6px; }
+.bubble-toggle:active, .bubble-text:active, .bubble-expand:active { transform: scale(0.97); }
+/* Separator makes the hit areas legible as separate actions. */
+.bubble-text { border-left: 1px solid oklch(100% 0 0 / 0.06); }
 
 .bubble.is-done .bubble-toggle,
-.bubble.is-done .bubble-label { color: var(--gain); }
-.bubble.is-done .bubble-label > span:first-child {
+.bubble.is-done .bubble-text { color: var(--gain); }
+.bubble.is-done .bubble-text {
   text-decoration: line-through;
   text-decoration-color: oklch(72% 0.17 145 / 0.5);
 }
@@ -763,7 +848,29 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 .bubble-check { flex-shrink: 0; font-size: 11px; width: 12px; }
 .bubble-caret { font-size: 9px; color: var(--text-low); }
 .bubble-substep-count { font-size: 10px; color: var(--text-low); }
-.bubble-label[aria-expanded="true"] .bubble-caret { color: var(--amber); }
+.bubble-expand[aria-expanded="true"] .bubble-caret { color: var(--amber); }
+
+.bubble-label-input {
+  flex: 1;
+  min-width: 90px;
+  background: var(--panel);
+  border: none;
+  border-left: 1px solid var(--amber-a50);
+  color: var(--text-hi);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  padding: 5px 8px;
+}
+.bubble-label-input:focus { outline: none; }
+
+.bubble-confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+}
+.bubble-confirm-text { font-size: 11px; color: var(--text-mid); }
+.bubble-confirm-yes, .bubble-confirm-no { padding: 3px 8px; font-size: 11px; }
 
 /* ---- Sub-step drill-down panel ---- */
 

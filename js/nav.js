@@ -34,6 +34,7 @@ function renderTopbar(mountId, title) {
   mount.innerHTML = `
     <h1 class="topbar-title">${title}</h1>
     <div style="display:flex;align-items:center;gap:10px;">
+      <span class="refresh-indicator" id="refresh-indicator" hidden></span>
       <span class="topbar-meta" id="last-updated">updated —</span>
       <button class="refresh-btn" id="refresh-btn" type="button" aria-label="Refresh data">
         ${ICONS.refresh()}
@@ -45,12 +46,36 @@ function renderTopbar(mountId, title) {
 
 function wireRefreshButton(onRefresh) {
   const btn = document.getElementById('refresh-btn');
+  const indicator = document.getElementById('refresh-indicator');
   if (!btn) return;
+  let hideTimer = null;
+
+  // Success/error feedback distinct from the spinner: the spinner only
+  // shows "a fetch is happening", not "did it actually get fresh data or
+  // silently fall back to what was already cached" -- a real gap when the
+  // whole point of the button is confirming a refresh took effect.
+  const flash = (text, kind) => {
+    if (!indicator) return;
+    clearTimeout(hideTimer);
+    indicator.textContent = text;
+    indicator.className = `refresh-indicator is-${kind}`;
+    indicator.hidden = false;
+    hideTimer = setTimeout(() => { indicator.hidden = true; }, 4000);
+  };
+
   btn.addEventListener('click', async () => {
     btn.classList.add('is-loading');
     btn.disabled = true;
+    if (indicator) indicator.hidden = true;
     try {
       await onRefresh();
+      if (DASHBOARD.networkFailed.size) {
+        flash("Couldn't reach the server — showing last known data", 'error');
+      } else {
+        flash('Updated', 'success');
+      }
+    } catch (e) {
+      flash('Refresh failed', 'error');
     } finally {
       btn.classList.remove('is-loading');
       btn.disabled = false;

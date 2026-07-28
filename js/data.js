@@ -65,6 +65,13 @@ const DASHBOARD = {
   locked: new Set(),
   encryptedCache: {},
 
+  // Keys where the actual network request failed this fetchAll() (offline,
+  // DNS, CORS, etc.) and we fell back to a cached copy. Distinct from a 404
+  // (that file just isn't published in this build, which is normal) --
+  // this is what the refresh button's success/error indicator checks, so a
+  // real fetch failure surfaces instead of silently re-showing stale data.
+  networkFailed: new Set(),
+
   async fetchOne(key) {
     const url = `${this.FILES[key]}?t=${Date.now()}`;
     try {
@@ -86,6 +93,7 @@ const DASHBOARD = {
       return json;
     } catch (e) {
       // Offline or file genuinely missing -- fall back to last-known-good.
+      this.networkFailed.add(key);
       const stored = localStorage.getItem(`dash:${key}`);
       if (stored) {
         try { return JSON.parse(stored); } catch (parseErr) { return null; }
@@ -98,6 +106,7 @@ const DASHBOARD = {
     const keys = ['scan', 'cciOversold', 'emails', 'calendar', 'tasks', 'priority',
                   'tradeNotes', 'build'];
     this.missing.clear();
+    this.networkFailed.clear();
     const results = await Promise.all(keys.map(k => this.fetchOne(k)));
     const out = Object.fromEntries(keys.map((k, i) => [k, results[i]]));
     this.build = out.build || null;

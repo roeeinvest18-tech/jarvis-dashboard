@@ -69,4 +69,13 @@ const ICONS = {
       <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
       <line x1="13.5" y1="13.5" x2="17.5" y2="17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
+
+  trash: (size = 13) => `
+    <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
+      <path d="M2.5 3.5H11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M5 3.5V2.2C5 1.8 5.3 1.5 5.7 1.5H8.3C8.7 1.5 9 1.8 9 2.2V3.5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3.5 3.5L4 12C4 12.4 4.3 12.7 4.7 12.7H9.3C9.7 12.7 10 12.4 10 12L10.5 3.5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="6" y1="6" x2="6" y2="10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="8" y1="6" x2="8" y2="10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>`,
 };

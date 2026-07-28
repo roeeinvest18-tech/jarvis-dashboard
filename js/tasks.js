@@ -21,9 +21,28 @@ const SUBSTEP_ADDED_KEY = 'jarvis:tasks:substepsAdded';
 // The decompose skill is one way to get bubbles; this is the other, so a
 // task added on the phone isn't a dead end until you reach a terminal.
 const BUBBLE_ADDED_KEY = 'jarvis:tasks:bubblesAdded';
+
+// Edit and delete are overlays too, same reasoning: a title/label edit or a
+// delete can't reach the repo (or task_manager.py's own captured-locally
+// list), so both are recorded here and applied on top of whatever the
+// server or a local capture already has, keyed by id so a later re-export
+// doesn't clobber them. Deleting is a client-side tombstone, not a real
+// delete -- task_manager.py still has to be run to remove it from the
+// shared file, same as ticks already work.
+const TASK_TITLE_EDITS_KEY = 'jarvis:tasks:titleEdits';
+const BUBBLE_LABEL_EDITS_KEY = 'jarvis:tasks:bubbleLabelEdits';
+const DELETED_TASKS_KEY = 'jarvis:tasks:deletedTasks';
+const DELETED_BUBBLES_KEY = 'jarvis:tasks:deletedBubbles';
+
 // Which bubbles are expanded. Kept in memory only -- an expanded panel is a
 // transient view state, not something worth persisting across sessions.
 const expandedBubbles = new Set();
+// Which single task/bubble is mid-edit or mid-delete-confirm. Only one of
+// each at a time -- in-memory, transient view state, same as expandedBubbles.
+let editingTaskId = null;
+let editingBubbleId = null;
+let confirmingDeleteTaskId = null;
+let confirmingDeleteBubbleId = null;
 
 function loadOverlay() {
   try {
@@ -94,19 +113,34 @@ function mergeSubsteps(bubble) {
   }));
 }
 
-// Merge server tasks with locally captured ones, then apply tick overlay.
+// Merge server tasks with locally captured ones, then apply the tick,
+// edit, and delete overlays.
 function mergeTasks(serverPayload) {
   const overlay = loadOverlay();
   const captured = loadCaptured();
-  const server = (serverPayload && serverPayload.active) || [];
+  const deletedTasks = new Set(loadJson(DELETED_TASKS_KEY, []));
+  const deletedBubbles = new Set(loadJson(DELETED_BUBBLES_KEY, []));
+  const titleEdits = loadJson(TASK_TITLE_EDITS_KEY, {});
+  const bubbleLabelEdits = loadJson(BUBBLE_LABEL_EDITS_KEY, {});
+
+  // A deleted task is a client-side tombstone -- task_manager.py doesn't
+  // know about it yet, so it's filtered out here rather than actually
+  // removed from tasks.json. Deleting a task takes all its bubbles with it
+  // automatically, since the whole task object just stops rendering.
+  const server = ((serverPayload && serverPayload.active) || [])
+    .filter(t => !deletedTasks.has(t.id));
 
   // A locally captured task disappears from the local list once the same
   // title shows up from the server -- that means task_manager.py picked it up.
   const serverTitles = new Set(server.map(t => (t.title || '').toLowerCase()));
-  const stillLocal = captured.filter(t => !serverTitles.has((t.title || '').toLowerCase()));
+  const stillLocal = captured
+    .filter(t => !deletedTasks.has(t.id))
+    .filter(t => !serverTitles.has((t.title || '').toLowerCase()));
   if (stillLocal.length !== captured.length) saveCaptured(stillLocal);
 
   const addedBubbles = loadAddedBubbles();
+  const titleFor = (task) => Object.prototype.hasOwnProperty.call(titleEdits, task.id)
+    ? titleEdits[task.id] : task.title;
 
   // Skill-generated bubbles first, then any the user typed here that aren't
   // already present. Matching on label means a later decomposition that
@@ -116,16 +150,20 @@ function mergeTasks(serverPayload) {
     const mine = addedBubbles[task.id] || [];
     const seen = new Set(serverBubbles.map(b => (b.label || '').toLowerCase()));
     const extra = mine.filter(b => !seen.has((b.label || '').toLowerCase()));
-    return [...serverBubbles, ...extra].map(b => ({
-      ...b,
-      done: Object.prototype.hasOwnProperty.call(overlay, b.id) ? overlay[b.id] : !!b.done,
-    }));
+    return [...serverBubbles, ...extra]
+      .filter(b => !deletedBubbles.has(b.id))
+      .map(b => ({
+        ...b,
+        label: Object.prototype.hasOwnProperty.call(bubbleLabelEdits, b.id) ? bubbleLabelEdits[b.id] : b.label,
+        done: Object.prototype.hasOwnProperty.call(overlay, b.id) ? overlay[b.id] : !!b.done,
+      }));
   };
 
   const merged = server.map(task => {
     const bubbles = withLocalBubbles(task, task.bubbles || []);
     return {
       ...task,
+      title: titleFor(task),
       bubbles,
       done_count: bubbles.filter(b => b.done).length,
       total_count: bubbles.length,
@@ -137,7 +175,7 @@ function mergeTasks(serverPayload) {
     const bubbles = withLocalBubbles(t, []);
     merged.push({
       id: t.id,
-      title: t.title,
+      title: titleFor(t),
       bubbles,
       done_count: bubbles.filter(b => b.done).length,
       total_count: bubbles.length,
@@ -149,11 +187,15 @@ function mergeTasks(serverPayload) {
   return merged;
 }
 
-// A bubble is two independent controls sharing one pill:
+// A bubble packs several independent controls into one pill:
 //   - the checkbox toggles the bubble's own done state
-//   - the label expands its numbered sub-step panel
-// They're separate <button>s rather than one element with click-target
-// maths, so keyboard and screen-reader users get the same two actions.
+//   - the label text opens inline edit mode (tap/click)
+//   - the caret expands its numbered sub-step panel (always present, even
+//     with zero steps yet, so a bubble with none can still get its first one)
+//   - the trash icon opens an inline delete-confirm, replacing the label
+// Edit and delete-confirm are mutually exclusive with expansion -- only one
+// of "editing this bubble" / "confirming its delete" / "showing its normal
+// controls" is ever true at once.
 function renderBubble(taskId, bubble) {
   const pressed = bubble.done ? 'true' : 'false';
   const steps = mergeSubsteps(bubble);
@@ -161,31 +203,57 @@ function renderBubble(taskId, bubble) {
   const expanded = expandedBubbles.has(bubble.id);
   const doneCount = steps.filter(s => s.done).length;
   const panelId = `substeps-${bubble.id}`;
+  const isEditing = editingBubbleId === bubble.id;
+  const isConfirmingDelete = confirmingDeleteBubbleId === bubble.id;
 
-  // The expand affordance only exists once there's something to expand,
-  // or while the add-panel is open.
-  const caret = hasSteps
-    ? `<span class="bubble-caret" aria-hidden="true">${expanded ? '▾' : '▸'}</span>
-       <span class="bubble-substep-count mono">${doneCount}/${steps.length}</span>`
-    : '';
+  let middle;
+  if (isConfirmingDelete) {
+    middle = `
+      <span class="bubble-confirm">
+        <span class="bubble-confirm-text">Delete?</span>
+        <button type="button" class="bubble-confirm-yes"
+                data-task="${escapeHtml(taskId)}" data-bubble="${escapeHtml(bubble.id)}">Yes</button>
+        <button type="button" class="bubble-confirm-no"
+                data-task="${escapeHtml(taskId)}" data-bubble="${escapeHtml(bubble.id)}">No</button>
+      </span>`;
+  } else if (isEditing) {
+    middle = `
+      <input type="text" class="bubble-label-input" value="${escapeHtml(bubble.label)}"
+             aria-label="Edit sub-task"
+             data-task="${escapeHtml(taskId)}" data-bubble="${escapeHtml(bubble.id)}">`;
+  } else {
+    middle = `
+      <button type="button" class="bubble-text"
+              data-task="${escapeHtml(taskId)}" data-edit="${escapeHtml(bubble.id)}">
+        ${escapeHtml(bubble.label)}
+      </button>`;
+  }
+
+  const trailingControls = (isEditing || isConfirmingDelete) ? '' : `
+      <button type="button" class="bubble-expand" aria-expanded="${expanded}"
+              aria-controls="${panelId}" aria-label="${expanded ? 'Collapse' : 'Expand'} sub-steps"
+              data-task="${escapeHtml(taskId)}" data-expand="${escapeHtml(bubble.id)}">
+        <span class="bubble-caret" aria-hidden="true">${expanded ? '▾' : '▸'}</span>
+        ${hasSteps ? `<span class="bubble-substep-count mono">${doneCount}/${steps.length}</span>` : ''}
+      </button>
+      <button type="button" class="bubble-delete" aria-label="Delete ${escapeHtml(bubble.label)}"
+              data-task="${escapeHtml(taskId)}" data-delete="${escapeHtml(bubble.id)}">
+        ${ICONS.trash()}
+      </button>`;
 
   return `
     <span class="bubble-wrap">
-      <span class="bubble ${bubble.done ? 'is-done' : ''}">
+      <span class="bubble ${bubble.done ? 'is-done' : ''} ${isEditing ? 'is-editing' : ''}">
         <button type="button" class="bubble-toggle" role="checkbox" aria-checked="${pressed}"
                 aria-pressed="${pressed}"
                 aria-label="Mark ${escapeHtml(bubble.label)} ${bubble.done ? 'not done' : 'done'}"
                 data-task="${escapeHtml(taskId)}" data-bubble="${escapeHtml(bubble.id)}">
           <span class="bubble-check" aria-hidden="true">${bubble.done ? '✅' : '○'}</span>
         </button>
-        <button type="button" class="bubble-label" aria-expanded="${expanded}"
-                aria-controls="${panelId}"
-                data-task="${escapeHtml(taskId)}" data-expand="${escapeHtml(bubble.id)}">
-          <span>${escapeHtml(bubble.label)}</span>
-          ${caret}
-        </button>
+        ${middle}
+        ${trailingControls}
       </span>
-      ${expanded ? renderSubstepPanel(taskId, bubble, steps, panelId) : ''}
+      ${(expanded && !isEditing && !isConfirmingDelete) ? renderSubstepPanel(taskId, bubble, steps, panelId) : ''}
     </span>`;
 }
 
@@ -217,6 +285,9 @@ function renderSubstepPanel(taskId, bubble, steps, panelId) {
 
 function renderTaskCard(task) {
   const hasBubbles = task.total_count > 0;
+  const isEditing = editingTaskId === task.id;
+  const isConfirmingDelete = confirmingDeleteTaskId === task.id;
+
   const body = hasBubbles
     ? `<div class="bubble-row">${task.bubbles.map(b => renderBubble(task.id, b)).join('')}</div>`
     : `<div class="task-needs-decompose">No sub-tasks yet — add one below, or run the
@@ -232,14 +303,37 @@ function renderTaskCard(task) {
       <button type="submit" aria-label="Add sub-task">+</button>
     </form>`;
 
+  let head;
+  if (isConfirmingDelete) {
+    head = `
+      <div class="task-card-head">
+        <span class="task-confirm-text">Delete "${escapeHtml(task.title)}" and its sub-tasks?</span>
+        <button type="button" class="task-confirm-yes" data-task="${escapeHtml(task.id)}">Delete</button>
+        <button type="button" class="task-confirm-no" data-task="${escapeHtml(task.id)}">Cancel</button>
+      </div>`;
+  } else if (isEditing) {
+    head = `
+      <div class="task-card-head">
+        <input type="text" class="task-title-input" value="${escapeHtml(task.title)}"
+               aria-label="Edit task title" data-task="${escapeHtml(task.id)}">
+      </div>`;
+  } else {
+    head = `
+      <div class="task-card-head">
+        <button type="button" class="task-title" data-task-edit="${escapeHtml(task.id)}">
+          ${escapeHtml(task.title)}
+        </button>
+        ${hasBubbles ? `<span class="task-progress mono">${task.done_count}/${task.total_count}</span>` : ''}
+        <button type="button" class="task-delete" aria-label="Delete ${escapeHtml(task.title)}"
+                data-task-delete="${escapeHtml(task.id)}">${ICONS.trash()}</button>
+      </div>`;
+  }
+
   return `
     <div class="task-card" data-task-card="${escapeHtml(task.id)}">
-      <div class="task-card-head">
-        <span class="task-title">${escapeHtml(task.title)}</span>
-        ${hasBubbles ? `<span class="task-progress mono">${task.done_count}/${task.total_count}</span>` : ''}
-      </div>
-      ${body}
-      ${addBubble}
+      ${head}
+      ${!isConfirmingDelete ? body : ''}
+      ${!isConfirmingDelete && !isEditing ? addBubble : ''}
     </div>`;
 }
 
@@ -348,12 +442,131 @@ function wireBubbles(payload) {
     });
   });
 
-  // Label: expands/collapses the numbered panel. Never changes done state.
-  document.querySelectorAll('.bubble-label').forEach(btn => {
+  // Caret: expands/collapses the numbered sub-step panel. Never changes
+  // done state, and is independent of edit/delete.
+  document.querySelectorAll('.bubble-expand').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.expand;
       if (expandedBubbles.has(id)) expandedBubbles.delete(id);
       else expandedBubbles.add(id);
+      renderTaskZone(payload);
+    });
+  });
+
+  // Bubble label text: tap to enter inline edit mode.
+  document.querySelectorAll('.bubble-text').forEach(btn => {
+    btn.addEventListener('click', () => {
+      editingBubbleId = btn.dataset.edit;
+      confirmingDeleteBubbleId = null;
+      renderTaskZone(payload);
+      const input = document.querySelector('.bubble-label-input');
+      if (input) { input.focus(); input.select(); }
+    });
+  });
+
+  // Bubble edit input: save on blur/Enter, cancel (discard, don't save an
+  // empty label) on Escape. Escape must still exit edit mode -- only the
+  // save step is skipped, not the re-render, or the input is left stuck
+  // open with no way out but a page refresh.
+  document.querySelectorAll('.bubble-label-input').forEach(input => {
+    let cancelled = false;
+    const commit = () => {
+      if (!cancelled) {
+        const value = input.value.trim();
+        if (value) {
+          const edits = loadJson(BUBBLE_LABEL_EDITS_KEY, {});
+          edits[input.dataset.bubble] = value;
+          saveJson(BUBBLE_LABEL_EDITS_KEY, edits);
+        }
+      }
+      editingBubbleId = null;
+      renderTaskZone(payload);
+    };
+    input.addEventListener('blur', commit);
+    input.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter') { ev.preventDefault(); input.blur(); }
+      else if (ev.key === 'Escape') { cancelled = true; input.blur(); }
+    });
+  });
+
+  // Bubble delete: trash icon opens an inline "Delete?" confirm, replacing
+  // the label -- no browser confirm() popup, matches the design system.
+  document.querySelectorAll('.bubble-delete').forEach(btn => {
+    btn.addEventListener('click', () => {
+      confirmingDeleteBubbleId = btn.dataset.delete;
+      editingBubbleId = null;
+      renderTaskZone(payload);
+    });
+  });
+  document.querySelectorAll('.bubble-confirm-yes').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const deleted = new Set(loadJson(DELETED_BUBBLES_KEY, []));
+      deleted.add(btn.dataset.bubble);
+      saveJson(DELETED_BUBBLES_KEY, [...deleted]);
+      confirmingDeleteBubbleId = null;
+      renderTaskZone(payload);
+    });
+  });
+  document.querySelectorAll('.bubble-confirm-no').forEach(btn => {
+    btn.addEventListener('click', () => {
+      confirmingDeleteBubbleId = null;
+      renderTaskZone(payload);
+    });
+  });
+
+  // Task title: tap to enter inline edit mode.
+  document.querySelectorAll('.task-title').forEach(btn => {
+    btn.addEventListener('click', () => {
+      editingTaskId = btn.dataset.taskEdit;
+      confirmingDeleteTaskId = null;
+      renderTaskZone(payload);
+      const input = document.querySelector('.task-title-input');
+      if (input) { input.focus(); input.select(); }
+    });
+  });
+
+  document.querySelectorAll('.task-title-input').forEach(input => {
+    let cancelled = false;
+    const commit = () => {
+      if (!cancelled) {
+        const value = input.value.trim();
+        if (value) {
+          const edits = loadJson(TASK_TITLE_EDITS_KEY, {});
+          edits[input.dataset.task] = value;
+          saveJson(TASK_TITLE_EDITS_KEY, edits);
+        }
+      }
+      editingTaskId = null;
+      renderTaskZone(payload);
+    };
+    input.addEventListener('blur', commit);
+    input.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter') { ev.preventDefault(); input.blur(); }
+      else if (ev.key === 'Escape') { cancelled = true; input.blur(); }
+    });
+  });
+
+  // Task delete: trash icon opens an inline confirm row that replaces the
+  // whole card head; confirming removes the task and all its sub-tasks.
+  document.querySelectorAll('.task-delete').forEach(btn => {
+    btn.addEventListener('click', () => {
+      confirmingDeleteTaskId = btn.dataset.taskDelete;
+      editingTaskId = null;
+      renderTaskZone(payload);
+    });
+  });
+  document.querySelectorAll('.task-confirm-yes').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const deleted = new Set(loadJson(DELETED_TASKS_KEY, []));
+      deleted.add(btn.dataset.task);
+      saveJson(DELETED_TASKS_KEY, [...deleted]);
+      confirmingDeleteTaskId = null;
+      renderTaskZone(payload);
+    });
+  });
+  document.querySelectorAll('.task-confirm-no').forEach(btn => {
+    btn.addEventListener('click', () => {
+      confirmingDeleteTaskId = null;
       renderTaskZone(payload);
     });
   });
@@ -384,7 +597,7 @@ function wireBubbles(payload) {
       // Don't create a duplicate of a bubble that's already on the card.
       const card = form.closest('.task-card');
       const existing = new Set(
-        [...card.querySelectorAll('.bubble-label > span:first-child')]
+        [...card.querySelectorAll('.bubble-text')]
           .map(e => e.textContent.trim().toLowerCase())
       );
       if (existing.has(label.toLowerCase())) { input.value = ''; return; }
