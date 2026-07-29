@@ -251,6 +251,15 @@ button {
   font-size: 13px;
   color: var(--text-mid);
 }
+/* Jarvis Today card only -- Full Scan keeps .stock-price (real-time price).
+   Same box model so removing/adding these doesn't reflow the row. */
+.stock-marketcap, .stock-avgvol {
+  width: 72px;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-mid);
+}
 .stock-change {
   width: 66px;
   flex-shrink: 0;
@@ -620,28 +629,6 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   text-align: center;
   border: 1px dashed var(--raised);
   border-radius: var(--r-md);
-}
-
-/* ---- Setup tag: Zone Reclaim vs Fresh Breakout -------------------------- */
-
-.setup-tag {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.04em;
-  padding: 2px 5px;
-  border-radius: var(--r-sm);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.setup-tag.is-reclaim {
-  background: oklch(78% 0.16 75 / 0.16);
-  color: var(--amber);
-  border: 1px solid var(--amber-a50);
-}
-.setup-tag.is-fresh {
-  background: var(--raised);
-  color: var(--text-low);
-  border: 1px solid var(--raised);
 }
 
 /* Distance from SMA150, shown on every card per spec. */
@@ -1129,3 +1116,153 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   cursor: pointer;
 }
 .bubble-add button:active { transform: scale(0.96); }
+
+/* ---- Training zone -------------------------------------------------------- */
+
+.training-log-form {
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-lg);
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.training-log-head { font-size: 12px; font-weight: 600; color: var(--text-mid); margin-bottom: 2px; }
+.training-log-row {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 60px);
+  gap: var(--sp-2);
+  align-items: center;
+}
+.training-log-drill { font-size: 12px; color: var(--text-hi); }
+.training-set-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-sm);
+  color: var(--text-hi);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 8px;
+}
+.training-set-input::placeholder { color: var(--text-low); }
+.training-set-input:focus { outline: none; border-color: var(--amber-a50); }
+/* No visible stepper -- native up/down arrows read as clutter on a dense
+   5-drill x 3-set form and invite mis-taps on mobile. */
+.training-set-input::-webkit-outer-spin-button,
+.training-set-input::-webkit-inner-spin-button,
+.drill-set-edit-input::-webkit-outer-spin-button,
+.drill-set-edit-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.training-set-input,
+.drill-set-edit-input {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.training-log-form button[type="submit"] {
+  align-self: flex-start;
+  background: var(--amber-a14);
+  border: 1px solid var(--amber-a50);
+  color: var(--amber);
+  border-radius: var(--r-md);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.training-log-form button[type="submit"]:active { transform: scale(0.97); }
+
+/* A missed scheduled day (Sun/Tue/Thu with no logged session) stays in the
+   history rather than silently vanishing -- same "don't hide gaps" instinct
+   as the zone withheld/empty states above, just for a single missed day. */
+.training-missed {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--amber-a14);
+  border: 1px solid var(--amber-a50);
+  border-radius: var(--r-md);
+  padding: var(--sp-2) var(--sp-3);
+  font-size: 12px;
+  color: var(--text-mid);
+}
+.training-missed-icon { flex-shrink: 0; }
+
+.drill-section {
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-lg);
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.drill-section + .drill-section { margin-top: var(--sp-2); }
+
+.drill-summary { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
+.drill-name { font-size: 13px; font-weight: 700; color: var(--text-hi); flex: 1; min-width: 0; }
+.drill-total { font-size: 13px; color: var(--text-hi); }
+.drill-delta { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 10px; }
+.drill-delta.is-up { color: var(--gain); background: oklch(72% 0.17 145 / 0.14); }
+.drill-delta.is-down { color: var(--loss-text); background: oklch(65% 0.19 25 / 0.16); }
+.drill-delta.is-flat { color: var(--text-low); background: var(--raised); }
+.drill-pr-flag { font-size: 12px; }
+
+.drill-sparkline { display: block; }
+
+table.drill-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.drill-table th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text-low);
+  padding: var(--sp-1) var(--sp-2);
+  border-bottom: 1px solid var(--raised);
+}
+table.drill-table td {
+  padding: var(--sp-1) var(--sp-2);
+  border-top: 1px solid var(--bg);
+  font-family: var(--font-mono);
+}
+
+.drill-row-edit {
+  background: transparent;
+  border: none;
+  color: var(--text-mid);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 2px;
+  text-align: left;
+}
+.drill-row-edit:hover, .drill-row-edit:focus-visible { color: var(--amber); }
+
+.drill-set-edit-input {
+  width: 48px;
+  background: var(--bg);
+  border: 1px solid var(--amber-a50);
+  border-radius: var(--r-sm);
+  color: var(--text-hi);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 4px 6px;
+}
+.drill-set-edit-input:focus { outline: none; }
+
+.drill-row-save {
+  background: var(--amber-a14);
+  border: 1px solid var(--amber-a50);
+  color: var(--amber);
+  border-radius: var(--r-sm);
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.drill-row-save:active { transform: scale(0.96); }

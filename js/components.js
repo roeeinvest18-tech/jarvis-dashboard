@@ -141,14 +141,7 @@ function renderPriorityItem(item) {
     </div>`;
 }
 
-// ---- Jarvis: setup tag + SMA distance on the stock card --------------------
-
-function setupTagHtml(r) {
-  const tag = r.setup_tag;
-  if (!tag) return '';
-  const isReclaim = tag === 'Zone Reclaim';
-  return `<span class="setup-tag ${isReclaim ? 'is-reclaim' : 'is-fresh'}">${escapeHtml(tag)}</span>`;
-}
+// ---- Jarvis: SMA distance on the stock card --------------------------------
 
 function smaDistanceHtml(r) {
   const pct = r.pct_from_sma150 !== undefined && r.pct_from_sma150 !== null
@@ -162,7 +155,7 @@ function smaDistanceHtml(r) {
 }
 
 // Card used by the Jarvis Today page: adds the spec's required
-// distance-from-SMA150 and Zone Reclaim / Fresh Breakout tag, plus the
+// distance-from-SMA150, market cap + 10-day average volume, plus the
 // position's own exit thesis when one exists.
 function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
   const changeCls = r.change_pct >= 0 ? 'gain' : 'loss';
@@ -182,10 +175,10 @@ function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
     <button type="button" class="stock-row ${r.confluence ? 'is-confluence' : ''}" data-ticker="${escapeHtml(r.ticker)}" aria-expanded="false">
       <span class="stock-rank mono">${rank}</span>
       <span class="stock-ticker">${escapeHtml(r.ticker)}</span>
-      <span class="stock-price mono">${fmtPrice(r.price)}</span>
+      <span class="stock-marketcap mono" title="Market cap">${fmtCompactNumber(r.market_cap)}</span>
       <span class="stock-change mono ${changeCls}">${fmtChange(r.change_pct)}</span>
       ${smaDistanceHtml(r)}
-      ${setupTagHtml(r)}
+      <span class="stock-avgvol mono" title="10-day average volume">${fmtCompactNumber(r.avg_volume_10d)}</span>
       <span class="stock-spacer"></span>
       <span class="stock-badges">
         ${recurringChipHtml(isRecurring)}

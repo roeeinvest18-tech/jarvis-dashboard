@@ -3,7 +3,8 @@
   "allowlist": [
     "cci_oversold.json",
     "scan.json",
-    "tasks.json"
+    "tasks.json",
+    "training.json"
   ],
   "withheld": [
     "priority.json",
@@ -12,6 +13,7 @@
   "published": [
     "cci_oversold.json",
     "scan.json",
-    "tasks.json"
+    "tasks.json",
+    "training.json"
   ]
 }

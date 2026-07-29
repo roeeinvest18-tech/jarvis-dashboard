@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-07-29T00:00:00+00:00",
+  "schedule": ["Sun", "Tue", "Thu"],
+  "drills": [
+    { "id": "pull_ups", "label": "Pull ups" },
+    { "id": "push_ups", "label": "Push ups" },
+    { "id": "shoulders", "label": "Shoulders" },
+    { "id": "chin_ups", "label": "Chin ups" },
+    { "id": "triceps_extension", "label": "Triceps extension" }
+  ],
+  "sessions": []
+}

@@ -47,6 +47,7 @@ const DASHBOARD = {
     tasks: 'dashboard_data/tasks.json',
     priority: 'dashboard_data/priority.json',
     tradeNotes: 'dashboard_data/trade_notes.json',
+    training: 'dashboard_data/training.json',
   },
 
   cache: {},
@@ -104,7 +105,7 @@ const DASHBOARD = {
 
   async fetchAll() {
     const keys = ['scan', 'cciOversold', 'emails', 'calendar', 'tasks', 'priority',
-                  'tradeNotes', 'build'];
+                  'tradeNotes', 'training', 'build'];
     this.missing.clear();
     this.networkFailed.clear();
     const results = await Promise.all(keys.map(k => this.fetchOne(k)));
@@ -180,6 +181,21 @@ function fmtPct(v, digits = 1) {
   if (v === null || v === undefined) return null;
   const sign = v >= 0 ? '+' : '';
   return `${sign}${v.toFixed(digits)}%`;
+}
+
+// Compact large-number notation (1.2B, 340M, 850K) for market cap and
+// volume figures -- 1 decimal at T/B scale, whole numbers at M/K scale,
+// matching how those are conventionally shown ("1.2B" but "340M", not
+// "340.0M"). Null covers ETFs, which yfinance doesn't report a market
+// cap for.
+function fmtCompactNumber(v) {
+  if (v === null || v === undefined || !Number.isFinite(v)) return '—';
+  const abs = Math.abs(v);
+  if (abs >= 1e12) return (v / 1e12).toFixed(1) + 'T';
+  if (abs >= 1e9) return (v / 1e9).toFixed(1) + 'B';
+  if (abs >= 1e6) return (v / 1e6).toFixed(0) + 'M';
+  if (abs >= 1e3) return (v / 1e3).toFixed(0) + 'K';
+  return String(Math.round(v));
 }
 
 function fmtTime(isoOrHHMM) {

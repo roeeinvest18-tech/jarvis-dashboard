@@ -4,14 +4,16 @@
 //   Priority strip   the silence budget: at most 3 items, ranked across all
 //                    three domains by priority_engine.py. Not a fourth feed --
 //                    it's the filter that stops the feeds competing for attention.
-//   Zone A Trading   top 10 from the nightly scan, with the spec's required
-//                    distance-from-SMA150 and Zone Reclaim / Fresh Breakout tag,
-//                    plus the position's own exit thesis where one exists.
+//   Zone A Trading   top 10 from the nightly scan, with distance-from-SMA150,
+//                    market cap, 10-day average volume, plus the position's
+//                    own exit thesis where one exists.
 //   Zone B Email     important/flagged only, classified by the Gmail feed.
 //   Zone C Tasks     quick-add + tappable sub-task bubbles.
 //   Zone D Calendar  kept below the spec's three zones rather than removed --
 //                    it's existing working functionality the spec didn't ask
 //                    to drop.
+//   Zone E Training  strength routine logged 3x/week (Sun/Tue/Thu), entirely
+//                    client-side -- see training.js.
 //
 // No zone ever vanishes. Each renders one of three states, because they mean
 // different things and a blank page is indistinguishable from a broken one:
@@ -203,6 +205,7 @@ async function loadAndRender() {
   renderZoneEmail(d.emails);
   renderTaskZone(d.tasks);
   renderZoneCalendar(d.calendar);
+  renderTrainingZone(d.training);
   renderScopeNote();
   updateLastUpdated(d.scan ? d.scan.generated_at : null);
 }
