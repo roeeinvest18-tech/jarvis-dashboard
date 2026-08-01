@@ -1192,6 +1192,22 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 }
 .training-missed-icon { flex-shrink: 0; }
 
+/* Cross-device sync status line, shown once a sync token is configured
+   (the token-entry form above it reuses .unlock-form instead). */
+.training-sync-status.is-pending { color: var(--text-low); }
+.training-sync-status.is-success { color: var(--gain); }
+.training-sync-status.is-error { color: var(--loss); }
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 4px;
+  font-size: inherit;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .drill-section {
   background: var(--panel);
   border: 1px solid var(--raised);

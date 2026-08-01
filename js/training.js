@@ -1,12 +1,13 @@
 // Training zone: strength routine logged 3x/week (Sun/Tue/Thu).
 //
-// Persistence model, same reasoning as tasks.js: the PWA is a static viewer
-// with no backend, so a submitted session can't write back to the repo.
-// Every logged session, and every correction to a past one, lives in
-// localStorage and is overlaid on whatever dashboard_data/training.json
-// ships (an empty seed today -- nothing writes it server-side yet, but
-// fetching it the same way as every other zone means a future export
-// script could seed real history later without a frontend change).
+// Persistence model: every logged session, and every correction to a past
+// one, is written to localStorage first (so logging never blocks on a
+// network round trip) and overlaid on whatever dashboard_data/training.json
+// ships. If a GitHub sync token is configured on this device (see
+// GITHUB_SYNC below), that local write is then pushed straight to
+// training.json in this repo via the Contents API, which is what makes a
+// session logged on the phone show up on the desktop -- without a token,
+// sessions stay local-only to the device that logged them, same as before.
 
 const TRAINING_DRILLS = [
   { id: 'pull_ups', label: 'Pull ups' },
@@ -46,6 +47,156 @@ function saveTrainingJson(key, value) {
 function loadCapturedSessions() { return loadTrainingJson(TRAINING_CAPTURED_KEY, []); }
 function saveCapturedSessions(list) { saveTrainingJson(TRAINING_CAPTURED_KEY, list); }
 
+// Cross-device sync: writes straight to training.json in THIS repo via
+// GitHub's Contents API. Needs a fine-grained personal access token scoped
+// to Contents: Read and write on morning-scout-dashboard only (created at
+// github.com/settings/personal-access-tokens/new) -- entered once per
+// device via the banner in renderTrainingSyncBanner() and kept in
+// localStorage, same "remembered on this device" model as ZONE_PASSWORD_KEY
+// in data.js. Without a token this whole path is inert: nothing here runs,
+// sessions just stay local as they always did.
+const GITHUB_SYNC = {
+  owner: 'roeeinvest18-tech',
+  repo: 'morning-scout-dashboard',
+  path: 'dashboard_data/training.json',
+  branch: 'main',
+};
+const GITHUB_TOKEN_KEY = 'jarvis:trainingSyncToken';
+
+function getSyncToken() {
+  try { return localStorage.getItem(GITHUB_TOKEN_KEY) || ''; } catch (e) { return ''; }
+}
+function setSyncToken(token) {
+  try {
+    if (token) localStorage.setItem(GITHUB_TOKEN_KEY, token);
+    else localStorage.removeItem(GITHUB_TOKEN_KEY);
+  } catch (e) { /* storage full or blocked -- non-fatal */ }
+}
+
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = '';
+  bytes.forEach(b => { binary += String.fromCharCode(b); });
+  return btoa(binary);
+}
+function base64ToUtf8(b64) {
+  const binary = atob(b64.replace(/\n/g, ''));
+  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+async function githubGetTrainingFile(token) {
+  const url = `https://api.github.com/repos/${GITHUB_SYNC.owner}/${GITHUB_SYNC.repo}/contents/${GITHUB_SYNC.path}?ref=${GITHUB_SYNC.branch}`;
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' },
+  });
+  if (!res.ok) throw new Error(`GitHub read failed (${res.status})`);
+  const data = await res.json();
+  return { sha: data.sha, json: JSON.parse(base64ToUtf8(data.content)) };
+}
+
+async function githubPutTrainingFile(token, json, sha, message) {
+  const url = `https://api.github.com/repos/${GITHUB_SYNC.owner}/${GITHUB_SYNC.repo}/contents/${GITHUB_SYNC.path}`;
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      message,
+      content: utf8ToBase64(JSON.stringify(json, null, 2) + '\n'),
+      sha,
+      branch: GITHUB_SYNC.branch,
+    }),
+  });
+  if (!res.ok) {
+    const detail = await res.json().catch(() => null);
+    throw new Error(`GitHub write failed (${res.status})${detail && detail.message ? `: ${detail.message}` : ''}`);
+  }
+}
+
+function unsyncedCapturedSessions() {
+  return loadCapturedSessions().filter(s => !s.synced);
+}
+function pendingEdits() {
+  return loadTrainingJson(TRAINING_EDITS_KEY, {});
+}
+
+let lastSyncError = null;
+let syncInFlight = null;
+
+// Pushes every locally-captured session and every local correction into
+// training.json in one commit, then marks them synced so the next fetch of
+// the server copy can prune them out of localStorage (see
+// pruneSyncedCaptured). A no-op (no network call at all) when there's
+// nothing pending or no token configured -- safe to call opportunistically
+// after every local write and on every fresh page load. Concurrent callers
+// (e.g. an auto-sync-on-load racing a manual retry click) share the same
+// in-flight promise instead of issuing overlapping GET+PUT pairs.
+function syncTrainingToGithub() {
+  if (syncInFlight) return syncInFlight;
+
+  const run = async () => {
+    const token = getSyncToken();
+    if (!token) return { ok: false, reason: 'no-token' };
+
+    const pending = unsyncedCapturedSessions();
+    const edits = pendingEdits();
+    if (pending.length === 0 && Object.keys(edits).length === 0) return { ok: true, reason: 'nothing-pending' };
+
+    try {
+      const { sha, json } = await githubGetTrainingFile(token);
+      const byId = new Map((Array.isArray(json.sessions) ? json.sessions : []).map(s => [s.id, s]));
+
+      pending.forEach(s => {
+        const { synced, ...clean } = s;
+        byId.set(clean.id, clean);
+      });
+      for (const [sessionId, drillEdits] of Object.entries(edits)) {
+        const existing = byId.get(sessionId);
+        if (existing) byId.set(sessionId, { ...existing, drills: { ...existing.drills, ...drillEdits } });
+      }
+
+      const sessions = [...byId.values()].sort((a, b) => {
+        if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+        return (a.logged_at || '') < (b.logged_at || '') ? -1 : 1;
+      });
+
+      await githubPutTrainingFile(
+        token,
+        { ...json, generated_at: new Date().toISOString(), sessions },
+        sha,
+        `Sync training log ${todayIso()}`
+      );
+
+      const captured = loadCapturedSessions().map(s => (byId.has(s.id) ? { ...s, synced: true } : s));
+      saveCapturedSessions(captured);
+      saveTrainingJson(TRAINING_EDITS_KEY, {});
+      lastSyncError = null;
+      return { ok: true };
+    } catch (e) {
+      lastSyncError = e.message || String(e);
+      return { ok: false, reason: 'error', error: e };
+    }
+  };
+
+  syncInFlight = run().finally(() => { syncInFlight = null; });
+  return syncInFlight;
+}
+
+// Local captures confirmed present in a freshly-fetched server payload no
+// longer need to live in localStorage -- keeps device storage from growing
+// forever as sessions make it upstream (from this device or, via the shared
+// repo, from another one).
+function pruneSyncedCaptured(serverPayload) {
+  const serverIds = new Set(((serverPayload && serverPayload.sessions) || []).map(s => s.id));
+  const captured = loadCapturedSessions();
+  const kept = captured.filter(s => !(s.synced && serverIds.has(s.id)));
+  if (kept.length !== captured.length) saveCapturedSessions(kept);
+}
+
 const WEEKDAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function weekdayName(dateStr) {
@@ -62,12 +213,20 @@ function todayIso() { return toIsoDate(new Date()); }
 // overlay corrections -- same shape as tasks.js's mergeTasks(). A
 // correction replaces only the drills it names, so fixing one drill's
 // numbers never touches another drill logged the same session.
+//
+// Deduped by id: a session logged on this device shows up in `captured`
+// immediately, and again in `server` once syncTrainingToGithub() has pushed
+// it and a later fetch picks it back up -- without this it would render as
+// two rows for the window between those two events.
 function mergeSessions(serverPayload) {
   const edits = loadTrainingJson(TRAINING_EDITS_KEY, {});
   const server = (serverPayload && serverPayload.sessions) || [];
   const captured = loadCapturedSessions();
 
-  const merged = [...server, ...captured].map(s => {
+  const byId = new Map();
+  [...server, ...captured].forEach(s => byId.set(s.id, s));
+
+  const merged = [...byId.values()].map(s => {
     const edit = edits[s.id];
     return edit ? { ...s, drills: { ...s.drills, ...edit } } : s;
   });
@@ -264,10 +423,25 @@ function renderTrainingLogFormHtml() {
     </form>`;
 }
 
+// Fires at most once per distinct fetched payload (tracked by object
+// identity) -- retries a sync that failed while offline on the previous
+// visit, without re-attempting on every internal re-render this module
+// triggers for edit/save UI state (those reuse the same payload reference).
+let lastAutoSyncPayload = null;
+function maybeAutoSync(payload) {
+  if (!payload || payload === lastAutoSyncPayload) return;
+  lastAutoSyncPayload = payload;
+  if (!getSyncToken()) return;
+  if (unsyncedCapturedSessions().length === 0 && Object.keys(pendingEdits()).length === 0) return;
+  syncTrainingToGithub().then(() => renderTrainingZone(payload));
+}
+
 function renderTrainingZone(payload) {
   const section = document.getElementById('zone-training');
   const mount = document.getElementById('training-list');
   if (!section || !mount) return;
+
+  if (payload) pruneSyncedCaptured(payload);
 
   if (!payload && loadCapturedSessions().length === 0) {
     section.hidden = false;
@@ -275,8 +449,9 @@ function renderTrainingZone(payload) {
       mount.innerHTML = renderWithheldZone('Training log');
       return;
     }
-    mount.innerHTML = `${renderTrainingLogFormHtml()}${renderEmptyZone('No sessions logged yet — log one above.')}`;
+    mount.innerHTML = `${renderTrainingLogFormHtml()}${renderTrainingSyncBannerHtml()}${renderEmptyZone('No sessions logged yet — log one above.')}`;
     wireTrainingLogForm(payload);
+    wireTrainingSyncBanner(payload);
     return;
   }
 
@@ -285,14 +460,72 @@ function renderTrainingZone(payload) {
 
   mount.innerHTML = `
     ${renderTrainingLogFormHtml()}
+    ${renderTrainingSyncBannerHtml()}
     ${renderMissedBanner(sessions)}
     ${TRAINING_DRILLS.map(d => renderDrillSection(sessions, d)).join('')}
-    <p class="local-note">Sessions are saved in this browser. Editing a past
-      entry recalculates its progress and PRs immediately.</p>
   `;
 
   wireTrainingLogForm(payload);
   wireTrainingRowEdit(payload);
+  wireTrainingSyncBanner(payload);
+  maybeAutoSync(payload);
+}
+
+// Token entry (no token yet) or a status line once one's configured --
+// same visual language as data.js's zone-unlock banner (amber = actionable)
+// for the token form, .local-note for the quieter status states.
+function renderTrainingSyncBannerHtml() {
+  const token = getSyncToken();
+  if (!token) {
+    return `
+      <form class="unlock-form" id="training-sync-form" autocomplete="off">
+        <span class="unlock-label">Sessions on this device aren't shared with your other devices yet. Add a sync token to fix that.</span>
+        <input type="password" id="training-sync-token-input" placeholder="GitHub token" autocomplete="off" required>
+        <button type="submit">Save</button>
+      </form>`;
+  }
+
+  const pendingCount = unsyncedCapturedSessions().length + Object.keys(pendingEdits()).length;
+  if (lastSyncError) {
+    return `<p class="local-note training-sync-status is-error">Sync failed: ${escapeHtml(lastSyncError)} — will retry automatically.
+      <button type="button" id="training-sync-retry" class="link-btn">Retry now</button></p>`;
+  }
+  if (pendingCount > 0) {
+    return `<p class="local-note training-sync-status is-pending">Syncing to your other devices…</p>`;
+  }
+  return `<p class="local-note training-sync-status is-success">Synced to your other devices.
+    <button type="button" id="training-sync-forget" class="link-btn">Remove sync token</button></p>`;
+}
+
+function wireTrainingSyncBanner(payload) {
+  const form = document.getElementById('training-sync-form');
+  if (form) {
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const input = document.getElementById('training-sync-token-input');
+      const token = input.value.trim();
+      if (!token) return;
+      setSyncToken(token);
+      await syncTrainingToGithub();
+      renderTrainingZone(payload);
+    });
+  }
+
+  const retryBtn = document.getElementById('training-sync-retry');
+  if (retryBtn) {
+    retryBtn.addEventListener('click', async () => {
+      await syncTrainingToGithub();
+      renderTrainingZone(payload);
+    });
+  }
+
+  const forgetBtn = document.getElementById('training-sync-forget');
+  if (forgetBtn) {
+    forgetBtn.addEventListener('click', () => {
+      setSyncToken('');
+      renderTrainingZone(payload);
+    });
+  }
 }
 
 function wireTrainingLogForm(payload) {
@@ -322,6 +555,7 @@ function wireTrainingLogForm(payload) {
     });
     saveCapturedSessions(captured);
     renderTrainingZone(payload);
+    syncTrainingToGithub().then(() => renderTrainingZone(payload));
   });
 }
 
@@ -371,4 +605,5 @@ function commitTrainingRowEdit(payload, btn) {
 
   editingTrainingRow = null;
   renderTrainingZone(payload);
+  syncTrainingToGithub().then(() => renderTrainingZone(payload));
 }
