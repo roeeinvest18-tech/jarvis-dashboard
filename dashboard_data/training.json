@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02T09:02:34.598Z",
+  "generated_at": "2026-08-02T15:01:10.635Z",
   "schedule": [
     "Sun",
     "Tue",
@@ -55,6 +55,34 @@
           12,
           12,
           14
+        ]
+      }
+    },
+    {
+      "id": "local-msbxh4sz",
+      "date": "2026-08-02",
+      "weekday": "Sunday",
+      "logged_at": "2026-08-02T15:01:10.163Z",
+      "drills": {
+        "pull_ups": [
+          2,
+          2
+        ],
+        "push_ups": [
+          10,
+          10
+        ],
+        "shoulders": [
+          10,
+          10
+        ],
+        "chin_ups": [
+          5,
+          6
+        ],
+        "triceps_extension": [
+          10,
+          10
         ]
       }
     }
