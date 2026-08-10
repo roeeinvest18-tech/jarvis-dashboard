@@ -24,6 +24,12 @@ const TRAINING_CAPTURED_KEY = 'jarvis:training:captured';
 // Only the drills actually corrected are present; everything else in the
 // session is left as originally logged.
 const TRAINING_EDITS_KEY = 'jarvis:training:edits';
+// Tombstone of deleted session ids, same pattern as tasks.js's
+// jarvis:tasks:deletedTasks -- the underlying session (server-synced or
+// local-only) is never mutated in place, just filtered out everywhere it's
+// read from, so a delete can never resurrect a stale edit or re-appear from
+// a captured-list entry that predates the delete.
+const TRAINING_DELETED_KEY = 'jarvis:training:deleted';
 
 // Cross-device sync (2026-08-10): logging on one device used to be
 // invisible on another -- there was no server write path at all, just
@@ -76,6 +82,7 @@ async function syncTrainingWithServer() {
       body: JSON.stringify({
         sessions: loadCapturedSessions(),
         edits: loadTrainingJson(TRAINING_EDITS_KEY, {}),
+        deleted: loadTrainingJson(TRAINING_DELETED_KEY, []),
       }),
     });
     if (!resp.ok) return null;
@@ -95,6 +102,14 @@ async function syncTrainingWithServer() {
 // time, in-memory only -- transient view state, same as tasks.js's
 // editingTaskId.
 let editingTrainingRow = null;
+
+// Session id mid-delete-confirm (inline "Delete? Yes/No", no browser
+// confirm()), and whether the collapsible session list is expanded --
+// both in-memory only. Without tracking the open state explicitly, the
+// <details> element would collapse on every re-render (confirm click,
+// sync completing) since renderTrainingZone rebuilds the DOM from scratch.
+let confirmingDeleteSessionId = null;
+let trainingSessionListOpen = false;
 
 function loadTrainingJson(key, fallback) {
   try {
@@ -130,13 +145,16 @@ function todayIso() { return toIsoDate(new Date()); }
 // numbers never touches another drill logged the same session.
 function mergeSessions(serverPayload) {
   const edits = loadTrainingJson(TRAINING_EDITS_KEY, {});
+  const deleted = new Set(loadTrainingJson(TRAINING_DELETED_KEY, []));
   const server = (serverPayload && serverPayload.sessions) || [];
   const captured = loadCapturedSessions();
 
-  const merged = [...server, ...captured].map(s => {
-    const edit = edits[s.id];
-    return edit ? { ...s, drills: { ...s.drills, ...edit } } : s;
-  });
+  const merged = [...server, ...captured]
+    .filter(s => !deleted.has(s.id))
+    .map(s => {
+      const edit = edits[s.id];
+      return edit ? { ...s, drills: { ...s.drills, ...edit } } : s;
+    });
 
   // Ordered by the actual session (date, then logged_at to break same-day
   // ties) -- every delta/PR/graph calculation below walks this order, never
@@ -248,6 +266,73 @@ function renderMissedBanner(sessions) {
   </div>`;
 }
 
+function sessionSummaryLabel(session) {
+  const parts = TRAINING_DRILLS
+    .filter(d => sessionHasDrill(session, d.id))
+    .map(d => `${d.label} ${drillTotal(session, d.id)}`);
+  return parts.length ? parts.join(' · ') : 'No drills recorded';
+}
+
+// A whole logged session (all drills for that day), distinct from the
+// per-drill-row edit above -- deleting here removes the entry everywhere at
+// once rather than one drill's numbers. Collapsed in a <details> by default
+// since it's a secondary "manage" view, not the primary read surface.
+function renderSessionLogList(sessions) {
+  if (sessions.length === 0) return '';
+  const open = trainingSessionListOpen || confirmingDeleteSessionId !== null;
+  const rows = [...sessions].reverse().map(s => {
+    const dateLabel = `${weekdayName(s.date)}, ${s.date}`;
+    if (confirmingDeleteSessionId === s.id) {
+      return `<div class="training-session-row is-confirming">
+        <span class="task-confirm-text">Delete the ${escapeHtml(dateLabel)} session? This removes all drills logged that day, everywhere it's synced.</span>
+        <button type="button" class="task-confirm-yes" data-session-delete-yes="${escapeHtml(s.id)}">Delete</button>
+        <button type="button" class="task-confirm-no" data-session-delete-no="${escapeHtml(s.id)}">Cancel</button>
+      </div>`;
+    }
+    return `<div class="training-session-row">
+      <span class="training-session-date mono">${escapeHtml(dateLabel)}</span>
+      <span class="training-session-summary">${escapeHtml(sessionSummaryLabel(s))}</span>
+      <button type="button" class="task-delete" aria-label="Delete session logged ${escapeHtml(dateLabel)}"
+              data-session-delete="${escapeHtml(s.id)}">${ICONS.trash()}</button>
+    </div>`;
+  }).join('');
+  return `
+    <details class="training-session-list"${open ? ' open' : ''}>
+      <summary class="local-note">Logged sessions (${sessions.length}) — view / delete</summary>
+      <div class="training-session-rows">${rows}</div>
+    </details>`;
+}
+
+function wireTrainingSessionList(payload) {
+  const details = document.querySelector('.training-session-list');
+  if (details) {
+    details.addEventListener('toggle', () => { trainingSessionListOpen = details.open; });
+  }
+
+  document.querySelectorAll('[data-session-delete]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      confirmingDeleteSessionId = btn.dataset.sessionDelete;
+      renderTrainingZone(payload);
+    });
+  });
+  document.querySelectorAll('[data-session-delete-yes]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const deleted = new Set(loadTrainingJson(TRAINING_DELETED_KEY, []));
+      deleted.add(btn.dataset.sessionDeleteYes);
+      saveTrainingJson(TRAINING_DELETED_KEY, [...deleted]);
+      confirmingDeleteSessionId = null;
+      renderTrainingZone(payload);
+      triggerTrainingSync(payload);
+    });
+  });
+  document.querySelectorAll('[data-session-delete-no]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      confirmingDeleteSessionId = null;
+      renderTrainingZone(payload);
+    });
+  });
+}
+
 function renderDrillRow(session, drill, prSetKeys) {
   const sets = drillSets(session, drill.id);
   const dateLabel = `${weekdayName(session.date).slice(0, 3)} ${session.date.slice(5)}`;
@@ -318,7 +403,12 @@ function renderTrainingLogFormHtml() {
   const date = todayIso();
   return `
     <form class="training-log-form" id="training-log-form" autocomplete="off">
-      <div class="training-log-head">Log today — ${escapeHtml(weekdayName(date))}, ${escapeHtml(date)}</div>
+      <div class="training-log-head">
+        <span>Log a session</span>
+        <input type="date" id="training-log-date" class="training-log-date"
+               value="${escapeHtml(date)}" max="${escapeHtml(date)}" aria-label="Session date">
+        <span class="training-log-weekday mono" id="training-log-weekday">${escapeHtml(weekdayName(date))}</span>
+      </div>
       ${TRAINING_DRILLS.map(d => `
         <div class="training-log-row">
           <span class="training-log-drill">${escapeHtml(d.label)}</span>
@@ -417,6 +507,7 @@ function renderTrainingZone(payload) {
   mount.innerHTML = `
     ${renderTrainingLogFormHtml()}
     ${renderMissedBanner(sessions)}
+    ${renderSessionLogList(sessions)}
     ${TRAINING_DRILLS.map((d, i) => renderDrillSection(sessions, d, i)).join('')}
     <p class="local-note">Sessions are saved in this browser. Editing a past
       entry recalculates its progress and PRs immediately.</p>
@@ -425,12 +516,29 @@ function renderTrainingZone(payload) {
 
   wireTrainingLogForm(payload);
   wireTrainingRowEdit(payload);
+  wireTrainingSessionList(payload);
   wireTrainingSyncSection(payload);
 }
 
 function wireTrainingLogForm(payload) {
   const form = document.getElementById('training-log-form');
   if (!form) return;
+
+  // Date defaults to today but is editable -- retroactive logging (e.g.
+  // catching up on yesterday's session) needs no separate UI, just a
+  // different value in the same field. Capped at today via `max` so a
+  // session can't be logged for a date that hasn't happened yet; the
+  // weekday label next to it is re-derived live so it never contradicts
+  // whatever date is picked.
+  const dateInput = document.getElementById('training-log-date');
+  const weekdayLabel = document.getElementById('training-log-weekday');
+  if (dateInput && weekdayLabel) {
+    dateInput.addEventListener('change', () => {
+      const picked = dateInput.value || todayIso();
+      weekdayLabel.textContent = weekdayName(picked);
+    });
+  }
+
   form.addEventListener('submit', ev => {
     ev.preventDefault();
     const drills = {};
@@ -444,7 +552,9 @@ function wireTrainingLogForm(payload) {
     });
     if (Object.keys(drills).length === 0) return;   // nothing entered -- no-op
 
-    const date = todayIso();
+    const today = todayIso();
+    const pickedDate = dateInput && dateInput.value ? dateInput.value : today;
+    const date = pickedDate > today ? today : pickedDate;   // defensive clamp past the `max` attribute
     const captured = loadCapturedSessions();
     captured.push({
       id: `local-${Date.now().toString(36)}`,

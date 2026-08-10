@@ -1428,7 +1428,28 @@ table.scan-table .detail-row td { animation: enter .28s ease both; }
   flex-direction: column;
   gap: var(--sp-2);
 }
-.training-log-head { font-size: 12px; font-weight: 600; color: var(--text-mid); margin-bottom: 2px; }
+.training-log-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin-bottom: 2px;
+}
+/* Retroactive logging: the date is editable (capped at today), not fixed to
+   "now", so yesterday's forgotten session logs the same way today's does. */
+.training-log-date {
+  background: var(--bg);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-sm);
+  color: var(--text-hi);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 5px 8px;
+}
+.training-log-date:focus { outline: none; border-color: var(--zone-training-a50); }
+.training-log-weekday { color: var(--text-low); font-weight: 400; }
 .training-log-row {
   display: grid;
   grid-template-columns: 1fr repeat(3, 60px);
@@ -1491,6 +1512,41 @@ table.scan-table .detail-row td { animation: enter .28s ease both; }
   color: var(--text-mid);
 }
 .training-missed-icon { flex-shrink: 0; }
+
+/* Collapsible "manage sessions" view: the primary read surface is the
+   per-drill tables below, this is the secondary place to delete a whole
+   session (all drills logged that day) at once. Reuses .task-delete /
+   .task-confirm-* from the task zone rather than inventing new destructive-
+   action styling. */
+.training-session-list { margin-top: var(--sp-1); }
+.training-session-list summary { cursor: pointer; list-style: none; }
+.training-session-list summary::-webkit-details-marker { display: none; }
+.training-session-rows {
+  margin-top: var(--sp-2);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.training-session-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-sm);
+  padding: 6px var(--sp-2);
+}
+.training-session-row.is-confirming { background: oklch(65% 0.19 25 / 0.08); }
+.training-session-date { font-size: 12px; color: var(--text-hi); flex-shrink: 0; }
+.training-session-summary {
+  font-size: 12px;
+  color: var(--text-mid);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .drill-section {
   background: var(--panel);
