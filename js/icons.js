@@ -9,7 +9,7 @@ const ICONS = {
       <path d="M1 11L5 5L8 8L13 1" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
 
-  volumeSurge: (color = 'var(--cyan)', size = 12) => `
+  volumeSurge: (color = 'var(--zone-trading)', size = 12) => `
     <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
       <rect x="1" y="8" width="2.5" height="5" fill="${color}"/>
       <rect x="5.75" y="4" width="2.5" height="9" fill="${color}"/>
@@ -19,7 +19,7 @@ const ICONS = {
   maCross: (size = 12) => `
     <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
       <line x1="1" y1="10" x2="13" y2="4" stroke="var(--text-mid)" stroke-width="1.6"/>
-      <line x1="1" y1="4" x2="13" y2="10" stroke="var(--amber)" stroke-width="1.6"/>
+      <line x1="1" y1="4" x2="13" y2="10" stroke="var(--zone-trading)" stroke-width="1.6"/>
     </svg>`,
 
   earningsSoon: (size = 12) => `
@@ -31,11 +31,11 @@ const ICONS = {
 
   confluenceStar: (size = 10) => `
     <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
-      <path d="M7 1L8.6 5.1L13 5.6L9.7 8.5L10.7 13L7 10.6L3.3 13L4.3 8.5L1 5.6L5.4 5.1Z" fill="var(--amber)"/>
+      <path d="M7 1L8.6 5.1L13 5.6L9.7 8.5L10.7 13L7 10.6L3.3 13L4.3 8.5L1 5.6L5.4 5.1Z" fill="var(--zone-trading)"/>
     </svg>`,
 
   // Additions beyond the design system, same single-stroke language.
-  recurring: (color = 'var(--cyan)', size = 12) => `
+  recurring: (color = 'var(--zone-trading)', size = 12) => `
     <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
       <path d="M2 7a5 5 0 0 1 8.5-3.5L12 2" stroke="${color}" stroke-width="1.6" fill="none" stroke-linecap="round"/>
       <path d="M12 7a5 5 0 0 1-8.5 3.5L2 12" stroke="${color}" stroke-width="1.6" fill="none" stroke-linecap="round"/>
@@ -77,5 +77,23 @@ const ICONS = {
       <path d="M3.5 3.5L4 12C4 12.4 4.3 12.7 4.7 12.7H9.3C9.7 12.7 10 12.4 10 12L10.5 3.5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
       <line x1="6" y1="6" x2="6" y2="10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
       <line x1="8" y1="6" x2="8" y2="10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>`,
+
+  search: (size = 15) => `
+    <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
+      <circle cx="6" cy="6" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="9.3" y1="9.3" x2="13" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+
+  mailRead: (size = 15) => `
+    <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
+      <rect x="1.5" y="3" width="11" height="8" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <path d="M2 3.8L7 7.5L12 3.8" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+
+  bell: (size = 15) => `
+    <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
+      <path d="M4 5.5a3 3 0 0 1 6 0v2.3l1 2H3l1-2Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M5.7 11.8a1.4 1.4 0 0 0 2.6 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
     </svg>`,
 };

@@ -8,7 +8,7 @@ const state = {
   scan: null,
   cciOversold: null,
   activeTab: 'scan',
-  search: '',
+  search: getGlobalSearch(),
   minScore: 0,
   sector: '',
   confluenceOnly: false,
@@ -38,7 +38,12 @@ function populateSectorOptions(stocks) {
 
 function applyFilters(stocks) {
   return stocks.filter(r => {
-    if (state.search && !r.ticker.toLowerCase().includes(state.search.toLowerCase())) return false;
+    if (state.search) {
+      const term = state.search.toLowerCase();
+      const tickerMatch = r.ticker.toLowerCase().includes(term);
+      const sectorMatch = (r.sector_etf || '').toLowerCase().includes(term);
+      if (!tickerMatch && !sectorMatch) return false;
+    }
     if (r.score < state.minScore) return false;
     if (state.sector && r.sector_etf !== state.sector) return false;
     if (state.confluenceOnly && !r.confluence) return false;
@@ -99,9 +104,19 @@ function wireTableExpansion(mount) {
 
 function renderOversoldTable() {
   const mount = document.getElementById('oversold-table-body');
-  const list = state.cciOversold ? state.cciOversold.watchlist || [] : [];
+  const co = state.cciOversold;
+  const list = co ? co.watchlist || [] : [];
   const empty = document.getElementById('oversold-empty');
   const wrap = document.getElementById('oversold-table-wrap');
+  const modeNote = document.getElementById('oversold-mode-note');
+  const regimeTag = document.getElementById('oversold-regime-tag');
+
+  modeNote.hidden = !(co && co.mode === 'fallback' && list.length > 0);
+  if (!modeNote.hidden) {
+    modeNote.textContent = 'No reclaims today — showing the stocks closest to reclaiming the -100 line.';
+  }
+  regimeTag.hidden = !(co && co.market_regime === 'DEFENSIVE');
+
   if (list.length === 0) {
     empty.hidden = false;
     wrap.hidden = true;
@@ -111,11 +126,11 @@ function renderOversoldTable() {
   wrap.hidden = false;
   mount.innerHTML = list.map(r => `
     <tr>
-      <td class="mono">${r.consecutive_days}d</td>
+      <td class="mono">${r.is_fallback ? '—' : (r.reclaim_bars_ago === 0 ? 'today' : `${r.reclaim_bars_ago}d ago`)}</td>
       <td class="mono">${escapeHtml(r.ticker)}</td>
       <td class="mono">${fmtPrice(r.price)}</td>
       <td class="mono ${r.change_pct >= 0 ? 'gain' : 'loss'}">${fmtChange(r.change_pct)}</td>
-      <td class="mono">${Math.round(r.cci)}</td>
+      <td class="mono">${Math.round(r.cci)}${r.is_fallback ? ' ↗' : ''}</td>
       <td class="mono">${r.sma150_pct !== null ? fmtPct(r.sma150_pct) : '—'}</td>
       <td class="mono">${escapeHtml(r.sector_etf || '—')}</td>
       <td>${r.earnings_days !== null && r.earnings_days !== undefined && r.earnings_days <= 14 ? ICONS.earningsSoon() : ''}</td>
@@ -131,8 +146,10 @@ function switchTab(tab) {
 }
 
 function wireControls() {
-  document.getElementById('search-input').addEventListener('input', (e) => {
-    state.search = e.target.value;
+  // Ticker/sector search now lives in the shared global search bar
+  // (nav.js), so this page just reacts to it.
+  window.addEventListener('globalsearch:change', (e) => {
+    state.search = e.detail;
     renderScanTable();
   });
   document.getElementById('min-score').addEventListener('input', (e) => {

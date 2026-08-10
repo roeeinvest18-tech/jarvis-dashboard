@@ -64,40 +64,157 @@ function renderStockDetail(r) {
   </dl>`;
 }
 
+// Toggles the `.is-open` class rather than `hidden` -- the mount uses a
+// grid-template-rows 0fr/1fr transition (styles.css) so the expand/collapse
+// animates, which a `hidden` (display:none) toggle can't do smoothly.
 function wireStockCardExpansion(container) {
   container.querySelectorAll('.stock-row').forEach(btn => {
     btn.addEventListener('click', () => {
       const ticker = btn.dataset.ticker;
       const mount = container.querySelector(`[data-ticker-detail="${CSS.escape(ticker)}"]`);
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
-      mount.hidden = expanded;
+      if (!mount) return;
+      const nowOpen = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(nowOpen));
+      mount.classList.toggle('is-open', nowOpen);
+      mount.setAttribute('aria-hidden', String(!nowOpen));
+    });
+  });
+  wireStockNotes(container);
+}
+
+// ---- Per-stock notes --------------------------------------------------
+// Public/plaintext tier (same as scan.json/training.json, per the user's
+// explicit choice) -- pure localStorage, no dashboard_data file, no
+// unlock-password gating. Same read/write helper shape as tasks.js's
+// loadJson/saveJson.
+const STOCK_NOTES_KEY = 'jarvis:stockNotes';
+
+function loadStockNotes() {
+  try { return JSON.parse(localStorage.getItem(STOCK_NOTES_KEY) || '{}'); } catch (e) { return {}; }
+}
+
+function saveStockNote(ticker, text) {
+  const notes = loadStockNotes();
+  if (text) {
+    notes[ticker] = { text, updatedAt: new Date().toISOString() };
+  } else {
+    delete notes[ticker]; // empty note is the same as no note
+  }
+  try { localStorage.setItem(STOCK_NOTES_KEY, JSON.stringify(notes)); } catch (e) { /* non-fatal */ }
+}
+
+function stockNotesHtml(ticker) {
+  const note = loadStockNotes()[ticker];
+  return `
+    <div class="stock-notes">
+      <span class="stock-notes-label">Your note</span>
+      <textarea data-notes-ticker="${escapeHtml(ticker)}" placeholder="e.g. watching for pullback to 38…"
+                aria-label="Personal note on ${escapeHtml(ticker)}">${escapeHtml(note ? note.text : '')}</textarea>
+      <div class="stock-notes-saved" data-notes-saved="${escapeHtml(ticker)}"></div>
+    </div>`;
+}
+
+// Autosave on blur, same UX as tasks.js's bubble-label inline edit -- no
+// explicit save button, with a brief "Saved" flash confirming the write.
+function wireStockNotes(container) {
+  container.querySelectorAll('[data-notes-ticker]').forEach(textarea => {
+    textarea.addEventListener('blur', () => {
+      const ticker = textarea.dataset.notesTicker;
+      saveStockNote(ticker, textarea.value.trim());
+      const flash = container.querySelector(`[data-notes-saved="${CSS.escape(ticker)}"]`);
+      if (flash) {
+        flash.textContent = 'Saved';
+        setTimeout(() => { if (flash.textContent === 'Saved') flash.textContent = ''; }, 2000);
+      }
     });
   });
 }
 
 // ---- Context panels: email + calendar --------------------------------------
 
-function renderEmailRow(item) {
+// Read state is a local-only annotation -- this static viewer has no
+// write-back path to Gmail (no credentials, no backend), same hard
+// constraint as everything else here. Swipe or tap just remembers "I've
+// seen this" in this browser; it never touches the actual mailbox.
+const EMAIL_READ_KEY = 'jarvis:email:read';
+
+// emails.json items may not carry a stable id -- fall back to a composite
+// key so read-state still survives a reload even without one.
+function emailReadKey(item) {
+  return item.id || `${item.sender || ''}|${item.subject || ''}|${item.received || ''}`;
+}
+
+function loadReadEmails() {
+  try { return new Set(JSON.parse(localStorage.getItem(EMAIL_READ_KEY) || '[]')); } catch (e) { return new Set(); }
+}
+
+function setEmailRead(key, isRead) {
+  const set = loadReadEmails();
+  if (isRead) set.add(key); else set.delete(key);
+  try { localStorage.setItem(EMAIL_READ_KEY, JSON.stringify([...set])); } catch (e) { /* non-fatal */ }
+}
+
+function renderEmailRow(item, index) {
+  const key = emailReadKey(item);
+  const isRead = loadReadEmails().has(key);
+  const label = isRead ? 'Mark unread' : 'Mark read';
   return `
-    <div class="context-panel">
-      <span class="priority-dot ${item.priority}"></span>
-      <div class="context-body">
-        <div class="context-row-top">
-          <span class="context-sender">${escapeHtml(item.sender)}</span>
-          <span class="context-time">${fmtTime(item.received)}</span>
+    <div class="swipeable" data-swipe-role="email" data-email-key="${escapeHtml(key)}">
+      <div class="swipe-reveal is-read">${ICONS.mailRead()}&nbsp;Mark read</div>
+      <div class="context-panel swipeable-surface ${isRead ? 'is-read' : ''}" style="--i:${index}" data-email-surface="${escapeHtml(key)}">
+        <span class="priority-dot ${item.priority}"></span>
+        <div class="context-body">
+          <div class="context-row-top">
+            <span class="context-sender">${escapeHtml(item.sender)}</span>
+            <span class="context-time">${fmtTime(item.received)}</span>
+          </div>
+          <div class="context-subject">${escapeHtml(item.subject)}</div>
+          ${item.preview ? `<div class="context-preview">${escapeHtml(item.preview)}</div>` : ''}
+          ${item.deadline ? `<div class="context-deadline">Deadline: ${escapeHtml(item.deadline)}</div>` : ''}
         </div>
-        <div class="context-subject">${escapeHtml(item.subject)}</div>
-        ${item.preview ? `<div class="context-preview">${escapeHtml(item.preview)}</div>` : ''}
-        ${item.deadline ? `<div class="context-deadline">Deadline: ${escapeHtml(item.deadline)}</div>` : ''}
+        <button type="button" class="context-mark-read" data-email-toggle="${escapeHtml(key)}"
+                aria-label="${label}" title="${label}">${ICONS.mailRead()}</button>
       </div>
     </div>
   `;
 }
 
-function renderCalendarRow(event) {
+// Tap affordance (desktop/non-touch) + swipe (touch, via gestures.js) both
+// land here so they stay in sync through one code path.
+function wireEmailRows(container) {
+  container.querySelectorAll('[data-email-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.emailToggle;
+      const surface = container.querySelector(`[data-email-surface="${CSS.escape(key)}"]`);
+      if (!surface) return;
+      const nowRead = !surface.classList.contains('is-read');
+      setEmailRead(key, nowRead);
+      surface.classList.toggle('is-read', nowRead);
+      const label = nowRead ? 'Mark unread' : 'Mark read';
+      btn.setAttribute('aria-label', label);
+      btn.title = label;
+    });
+  });
+
+  if (typeof wireSwipe !== 'function') return; // gestures.js not loaded on this page
+  container.querySelectorAll('.swipeable[data-swipe-role="email"]').forEach(el => {
+    const key = el.dataset.emailKey;
+    const surface = el.querySelector('.swipeable-surface');
+    wireSwipe(el, {
+      revealClass: 'is-read',
+      onSwipe: () => {
+        setEmailRead(key, true);
+        surface.classList.add('is-read');
+        const btn = surface.querySelector('.context-mark-read');
+        if (btn) { btn.setAttribute('aria-label', 'Mark unread'); btn.title = 'Mark unread'; }
+      },
+    });
+  });
+}
+
+function renderCalendarRow(event, index) {
   return `
-    <div class="context-panel">
+    <div class="context-panel" style="--i:${index}">
       <span class="calendar-time mono">${event.all_day ? 'All day' : (event.time || '')}</span>
       <span class="calendar-title">${escapeHtml(event.title)}</span>
     </div>
@@ -172,7 +289,7 @@ function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
     : '';
 
   return `
-    <button type="button" class="stock-row ${r.confluence ? 'is-confluence' : ''}" data-ticker="${escapeHtml(r.ticker)}" aria-expanded="false">
+    <button type="button" class="stock-row ${r.confluence ? 'is-confluence' : ''}" data-ticker="${escapeHtml(r.ticker)}" aria-expanded="false" style="--i:${rank - 1}">
       <span class="stock-rank mono">${rank}</span>
       <span class="stock-ticker">${escapeHtml(r.ticker)}</span>
       <span class="stock-marketcap mono" title="Market cap">${fmtCompactNumber(r.market_cap)}</span>
@@ -186,7 +303,12 @@ function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
       </span>
     </button>
     ${thesis}
-    <div class="stock-detail-mount" data-ticker-detail="${escapeHtml(r.ticker)}" hidden></div>
+    <div class="stock-detail-mount" data-ticker-detail="${escapeHtml(r.ticker)}" aria-hidden="true">
+      <div class="stock-detail-panel">
+        ${renderStockDetail(r)}
+        ${stockNotesHtml(r.ticker)}
+      </div>
+    </div>
   `;
 }
 

@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Full Scan Results — Jarvis</title>
 <meta name="description" content="Every scanned ticker, sortable and filterable, plus the CCI oversold watchlist.">
-<meta name="theme-color" content="#1c1d21">
+<meta name="theme-color" content="#17151d">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -26,7 +26,6 @@
 
   <section id="panel-scan" role="tabpanel">
     <div class="toolbar">
-      <input type="search" class="search-input" id="search-input" placeholder="Search ticker…" aria-label="Search ticker">
       <label class="mono" style="font-size:12px;color:var(--text-mid);display:flex;align-items:center;gap:6px;">
         Min score
         <input type="number" id="min-score" class="filter-select" min="0" max="100" value="0" style="width:64px;">
@@ -64,13 +63,15 @@
   </section>
 
   <section id="panel-oversold" role="tabpanel" hidden>
-    <p class="mono" style="font-size:12px;color:var(--text-mid);">Sorted by consecutive oversold days. Potential reversal candidates — not buy signals.</p>
-    <div id="oversold-empty" class="empty-state" hidden>No stocks currently oversold 2+ consecutive days.</div>
+    <p class="mono" style="font-size:12px;color:var(--text-mid);">Stocks reclaiming CCI(20)'s -100 oversold line. Potential reversal candidates — not buy signals.</p>
+    <p id="oversold-mode-note" class="mono" style="font-size:12px;color:var(--text-mid);" hidden></p>
+    <span id="oversold-regime-tag" class="regime-tag" hidden>⚠️ Defensive regime — lower reliability</span>
+    <div id="oversold-empty" class="empty-state" hidden>Nothing has reclaimed -100, and nothing is close.</div>
     <div id="oversold-table-wrap" class="table-scroll" hidden>
       <table class="scan-table">
         <thead>
           <tr>
-            <th>Days</th>
+            <th>Reclaimed</th>
             <th>Ticker</th>
             <th>Price</th>
             <th>Change</th>
@@ -91,6 +92,7 @@
 <script src="js/nav.js"></script>
 <script src="js/components.js"></script>
 <script src="js/scan.js"></script>
+<script src="js/push.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

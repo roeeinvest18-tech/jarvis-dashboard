@@ -3,7 +3,11 @@
 // to localStorage itself, which is a more accurate "last known good" than
 // whatever this worker happened to have cached.
 
-const CACHE_NAME = 'jarvis-shell-v2';
+// v3: purple redesign -- new JS files (gestures.js, push.js) and the CSS
+// rewrite need a fresh cache name or an already-installed PWA would keep
+// serving the old amber shell until CACHE_NAME changes by hand (bit us
+// before, see project memory).
+const CACHE_NAME = 'jarvis-shell-v3';
 const SHELL_ASSETS = [
   './',
   'index.html',
@@ -13,11 +17,14 @@ const SHELL_ASSETS = [
   'js/app.js',
   'js/data.js',
   'js/nav.js',
+  'js/gestures.js',
   'js/icons.js',
   'js/components.js',
   'js/today.js',
   'js/tasks.js',
+  'js/training.js',
   'js/scan.js',
+  'js/push.js',
   'icons/icon-192.png',
   'icons/icon-512.png',
 ];
@@ -65,5 +72,32 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() => caches.match(event.request))
+  );
+});
+
+// Push notifications mirror the existing Telegram alerts -- market_data.py's
+// send_push() sends { title, body } as the payload alongside every
+// send_telegram() call, so this is a pure display step, no new alert logic.
+self.addEventListener('push', (event) => {
+  let data = { title: 'Jarvis', body: 'New alert' };
+  try { if (event.data) data = { ...data, ...event.data.json() }; } catch (e) { /* non-fatal */ }
+  event.waitUntil(
+    self.registration.showNotification(data.title, {
+      body: data.body,
+      icon: 'icons/icon-192.png',
+      badge: 'icons/icon-192.png',
+    })
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+      for (const client of clients) {
+        if ('focus' in client) return client.focus();
+      }
+      if (self.clients.openWindow) return self.clients.openWindow('./');
+    })
   );
 });

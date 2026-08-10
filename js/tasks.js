@@ -241,9 +241,7 @@ function renderBubble(taskId, bubble) {
         ${ICONS.trash()}
       </button>`;
 
-  return `
-    <span class="bubble-wrap">
-      <span class="bubble ${bubble.done ? 'is-done' : ''} ${isEditing ? 'is-editing' : ''}">
+  const bubbleInner = `
         <button type="button" class="bubble-toggle" role="checkbox" aria-checked="${pressed}"
                 aria-pressed="${pressed}"
                 aria-label="Mark ${escapeHtml(bubble.label)} ${bubble.done ? 'not done' : 'done'}"
@@ -251,8 +249,22 @@ function renderBubble(taskId, bubble) {
           <span class="bubble-check" aria-hidden="true">${bubble.done ? '✅' : '○'}</span>
         </button>
         ${middle}
-        ${trailingControls}
-      </span>
+        ${trailingControls}`;
+
+  // Swipe-to-complete only applies to the bubble's normal (not editing/
+  // confirming) state -- a mid-edit text input shouldn't also be a swipe
+  // target. wireBubbles() wires the actual gesture via gestures.js.
+  const bubbleEl = (!isEditing && !isConfirmingDelete)
+    ? `
+      <span class="swipeable" data-swipe-role="task">
+        <span class="swipe-reveal is-complete">${bubble.done ? '○ Undone' : '✓ Done'}</span>
+        <span class="bubble swipeable-surface ${bubble.done ? 'is-done' : ''}">${bubbleInner}</span>
+      </span>`
+    : `<span class="bubble ${bubble.done ? 'is-done' : ''} ${isEditing ? 'is-editing' : ''}">${bubbleInner}</span>`;
+
+  return `
+    <span class="bubble-wrap">
+      ${bubbleEl}
       ${(expanded && !isEditing && !isConfirmingDelete) ? renderSubstepPanel(taskId, bubble, steps, panelId) : ''}
     </span>`;
 }
@@ -431,16 +443,35 @@ function wireQuickAdd(payload) {
   });
 }
 
+// Shared by the tap checkbox and the swipe gesture so desktop and mobile
+// stay in sync through one code path.
+function toggleBubbleDone(bubbleId, currentlyDone, payload) {
+  const overlay = loadOverlay();
+  overlay[bubbleId] = !currentlyDone;
+  saveOverlay(overlay);
+  renderTaskZone(payload);
+}
+
 function wireBubbles(payload) {
   // Checkbox: toggles the bubble only. Never touches its sub-steps.
   document.querySelectorAll('.bubble-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
-      const overlay = loadOverlay();
-      overlay[btn.dataset.bubble] = !(btn.getAttribute('aria-pressed') === 'true');
-      saveOverlay(overlay);
-      renderTaskZone(payload);
+      toggleBubbleDone(btn.dataset.bubble, btn.getAttribute('aria-pressed') === 'true', payload);
     });
   });
+
+  // Swipe a bubble to toggle it done, same effect as tapping the checkbox.
+  if (typeof wireSwipe === 'function') {
+    document.querySelectorAll('.swipeable[data-swipe-role="task"]').forEach(el => {
+      wireSwipe(el, {
+        onSwipe: () => {
+          const toggleBtn = el.querySelector('.bubble-toggle');
+          if (!toggleBtn) return;
+          toggleBubbleDone(toggleBtn.dataset.bubble, toggleBtn.getAttribute('aria-pressed') === 'true', payload);
+        },
+      });
+    });
+  }
 
   // Caret: expands/collapses the numbered sub-step panel. Never changes
   // done state, and is independent of edit/delete.

@@ -73,6 +73,14 @@ function noteIndex(tradeNotes) {
   return map;
 }
 
+// Ticker/sector search filters Top 10 too (Full Scan already had its own
+// filter bar) -- only zones with ticker/sector data respond to it.
+function matchesGlobalSearch(r, term) {
+  if (!term) return true;
+  const t = term.toLowerCase();
+  return (r.ticker || '').toLowerCase().includes(t) || (r.sector_etf || '').toLowerCase().includes(t);
+}
+
 function renderZoneTrading(scan, tradeNotes) {
   const listMount = document.getElementById('top10-list');
   if (!listMount) return;
@@ -92,9 +100,18 @@ function renderZoneTrading(scan, tradeNotes) {
     ? scan.top10.map(t => byTicker[t]).filter(Boolean)
     : [...scan.stocks].sort((a, b) => b.score - a.score).slice(0, 10);
 
-  listMount.innerHTML = `<div class="stock-list">${
-    ordered.map((r, i) => renderJarvisStockCard(r, i + 1, recurringSet, notes)).join('')
-  }</div>`;
+  const term = getGlobalSearch();
+  const shown = ordered.filter(r => matchesGlobalSearch(r, term));
+
+  const searchNote = term
+    ? `<p class="search-scope-note">${shown.length} of ${ordered.length} shown for "${escapeHtml(term)}"</p>`
+    : '';
+
+  listMount.innerHTML = shown.length
+    ? `<div class="stock-list">${
+        shown.map((r, i) => renderJarvisStockCard(r, ordered.indexOf(r) + 1, recurringSet, notes)).join('')
+      }</div>${searchNote}`
+    : `<div class="empty-state">No Top 10 tickers match "${escapeHtml(term)}".</div>${searchNote}`;
   wireStockCardExpansion(listMount);
 }
 
@@ -116,8 +133,9 @@ function renderZoneEmail(emails) {
   }
   const items = emails.items || [];
   mount.innerHTML = items.length
-    ? items.map(renderEmailRow).join('')
+    ? items.map((item, i) => renderEmailRow(item, i)).join('')
     : renderEmptyZone('No important email today.');
+  wireEmailRows(mount);
 }
 
 function renderZoneCalendar(calendar) {
@@ -138,7 +156,7 @@ function renderZoneCalendar(calendar) {
   }
   const events = calendar.events || [];
   mount.innerHTML = events.length
-    ? events.map(renderCalendarRow).join('')
+    ? events.map((event, i) => renderCalendarRow(event, i)).join('')
     : renderEmptyZone('Nothing scheduled today.');
 }
 
@@ -196,8 +214,11 @@ function renderUnlockBanner() {
   });
 }
 
+let lastFetched = null;
+
 async function loadAndRender() {
   const d = await DASHBOARD.fetchAll();
+  lastFetched = d;
   renderMarketHeader(d.scan, d.cciOversold);
   renderUnlockBanner();
   renderPriorityStrip(d.priority);
@@ -206,9 +227,16 @@ async function loadAndRender() {
   renderTaskZone(d.tasks);
   renderZoneCalendar(d.calendar);
   renderTrainingZone(d.training);
+  triggerTrainingSync(d.training);
   renderScopeNote();
   updateLastUpdated(d.scan ? d.scan.generated_at : null);
 }
+
+// Re-filter Top 10 in place when the shared search bar changes -- no
+// refetch needed, just a re-render of the trading zone from cached data.
+window.addEventListener('globalsearch:change', () => {
+  if (lastFetched) renderZoneTrading(lastFetched.scan, lastFetched.tradeNotes);
+});
 
 wireRefreshButton(loadAndRender);
 loadAndRender();

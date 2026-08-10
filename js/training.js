@@ -25,6 +25,72 @@ const TRAINING_CAPTURED_KEY = 'jarvis:training:captured';
 // session is left as originally logged.
 const TRAINING_EDITS_KEY = 'jarvis:training:edits';
 
+// Cross-device sync (2026-08-10): logging on one device used to be
+// invisible on another -- there was no server write path at all, just
+// localStorage. Now, if a sync URL+token are configured, captured
+// sessions/edits get pushed to a small Flask endpoint on the always-on
+// Railway app (webhook_server.py's /training route, backed by
+// training_store.py) and merged with whatever other devices already pushed.
+// Still offline-first: local writes happen immediately and render right
+// away; sync is a best-effort background reconciliation, never a blocker.
+const TRAINING_SYNC_URL_KEY = 'jarvis:training:syncUrl';
+const TRAINING_SYNC_TOKEN_KEY = 'jarvis:training:syncToken';
+
+function trainingSyncConfig() {
+  try {
+    return {
+      url: (localStorage.getItem(TRAINING_SYNC_URL_KEY) || '').replace(/\/+$/, ''),
+      token: localStorage.getItem(TRAINING_SYNC_TOKEN_KEY) || '',
+    };
+  } catch (e) {
+    return { url: '', token: '' };
+  }
+}
+
+function saveTrainingSyncConfig(url, token) {
+  try {
+    localStorage.setItem(TRAINING_SYNC_URL_KEY, url.replace(/\/+$/, ''));
+    localStorage.setItem(TRAINING_SYNC_TOKEN_KEY, token);
+  } catch (e) { /* non-fatal */ }
+}
+
+function clearTrainingSyncConfig() {
+  try {
+    localStorage.removeItem(TRAINING_SYNC_URL_KEY);
+    localStorage.removeItem(TRAINING_SYNC_TOKEN_KEY);
+  } catch (e) { /* non-fatal */ }
+}
+
+// Pushes whatever's captured/edited locally, and pulls back the server's
+// merged view (which may include sessions another device already pushed) --
+// same shape as training_store.merge_and_save's return. Silent on any
+// failure (offline, wrong token, server asleep): the caller just keeps
+// showing local data and tries again next render.
+async function syncTrainingWithServer() {
+  const { url, token } = trainingSyncConfig();
+  if (!url || !token) return null;
+  try {
+    const resp = await fetch(`${url}/training`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sessions: loadCapturedSessions(),
+        edits: loadTrainingJson(TRAINING_EDITS_KEY, {}),
+      }),
+    });
+    if (!resp.ok) return null;
+    const state = await resp.json();
+    // The server response is now the merged source of truth for the synced
+    // set, so it replaces (not appends to) the local cache -- otherwise an
+    // already-synced local entry would get re-POSTed and re-merged forever.
+    saveCapturedSessions(state.sessions || []);
+    saveTrainingJson(TRAINING_EDITS_KEY, state.edits || {});
+    return state;
+  } catch (e) {
+    return null;
+  }
+}
+
 // `${sessionId}:${drillId}` of the row currently mid-edit. Only one at a
 // time, in-memory only -- transient view state, same as tasks.js's
 // editingTaskId.
@@ -165,7 +231,7 @@ function renderSparkline(history, drillId) {
   }).join(' ');
   return `
     <svg class="drill-sparkline" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true">
-      <polyline points="${points}" fill="none" stroke="var(--amber)" stroke-width="1.5"
+      <polyline points="${points}" fill="none" stroke="var(--zone-training)" stroke-width="1.5"
                 stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`;
 }
@@ -217,7 +283,7 @@ function renderDrillRow(session, drill, prSetKeys) {
   </tr>`;
 }
 
-function renderDrillSection(sessions, drill) {
+function renderDrillSection(sessions, drill, index = 0) {
   const summary = drillSummary(sessions, drill.id);
 
   const summaryLine = summary
@@ -233,7 +299,7 @@ function renderDrillSection(sessions, drill) {
     : `<tr><td colspan="6" class="substep-empty">Not logged yet.</td></tr>`;
 
   return `
-    <div class="drill-section">
+    <div class="drill-section" style="--i:${index}">
       <div class="drill-summary">
         <span class="drill-name">${escapeHtml(drill.label)}</span>
         ${summaryLine}
@@ -264,6 +330,70 @@ function renderTrainingLogFormHtml() {
     </form>`;
 }
 
+// Sync status/setup line, shown at the bottom of the zone either way so
+// it's discoverable without hunting for a settings page. Setup lives here
+// (not in a global settings screen) because it's the only zone that needs
+// it -- everything else is either read-only-from-server or intentionally
+// local-only (tasks' quick-add).
+function renderTrainingSyncSectionHtml() {
+  const { url, token } = trainingSyncConfig();
+  if (url && token) {
+    let host = url;
+    try { host = new URL(url).host; } catch (e) { /* keep raw string if unparseable */ }
+    return `<p class="local-note">Synced across devices via ${escapeHtml(host)}.
+      <button type="button" id="training-sync-forget" class="push-banner-dismiss">Turn off sync</button></p>`;
+  }
+  return `
+    <details class="training-sync-setup">
+      <summary class="local-note">Sync across devices (optional) — set up</summary>
+      <form id="training-sync-form" class="unlock-form" autocomplete="off">
+        <input type="url" id="training-sync-url" placeholder="https://your-app.up.railway.app" required>
+        <input type="password" id="training-sync-token" placeholder="Sync token" required autocomplete="off">
+        <button type="submit">Save</button>
+      </form>
+    </details>`;
+}
+
+function wireTrainingSyncSection(payload) {
+  const form = document.getElementById('training-sync-form');
+  if (form) {
+    form.addEventListener('submit', ev => {
+      ev.preventDefault();
+      const url = document.getElementById('training-sync-url').value.trim();
+      const token = document.getElementById('training-sync-token').value.trim();
+      if (!url || !token) return;
+      saveTrainingSyncConfig(url, token);
+      renderTrainingZone(payload);
+      triggerTrainingSync(payload);
+    });
+  }
+  const forget = document.getElementById('training-sync-forget');
+  if (forget) {
+    forget.addEventListener('click', () => {
+      clearTrainingSyncConfig();
+      renderTrainingZone(payload);
+    });
+  }
+}
+
+// Guards against overlapping sync requests (e.g. a log-session submit while
+// an on-load sync is still in flight); NOT a "only once ever" gate -- each
+// call site (initial load, manual refresh, log, edit) legitimately wants its
+// own sync attempt. A successful sync re-renders with the merged server
+// state; that re-render never itself calls triggerTrainingSync, so this
+// can't chain into a request loop.
+let trainingSyncInFlight = false;
+function triggerTrainingSync(payload) {
+  if (trainingSyncInFlight) return;
+  const { url, token } = trainingSyncConfig();
+  if (!url || !token) return;
+  trainingSyncInFlight = true;
+  syncTrainingWithServer().then(state => {
+    trainingSyncInFlight = false;
+    if (state) renderTrainingZone(payload);
+  });
+}
+
 function renderTrainingZone(payload) {
   const section = document.getElementById('zone-training');
   const mount = document.getElementById('training-list');
@@ -275,8 +405,9 @@ function renderTrainingZone(payload) {
       mount.innerHTML = renderWithheldZone('Training log');
       return;
     }
-    mount.innerHTML = `${renderTrainingLogFormHtml()}${renderEmptyZone('No sessions logged yet — log one above.')}`;
+    mount.innerHTML = `${renderTrainingLogFormHtml()}${renderEmptyZone('No sessions logged yet — log one above.')}${renderTrainingSyncSectionHtml()}`;
     wireTrainingLogForm(payload);
+    wireTrainingSyncSection(payload);
     return;
   }
 
@@ -286,13 +417,15 @@ function renderTrainingZone(payload) {
   mount.innerHTML = `
     ${renderTrainingLogFormHtml()}
     ${renderMissedBanner(sessions)}
-    ${TRAINING_DRILLS.map(d => renderDrillSection(sessions, d)).join('')}
+    ${TRAINING_DRILLS.map((d, i) => renderDrillSection(sessions, d, i)).join('')}
     <p class="local-note">Sessions are saved in this browser. Editing a past
       entry recalculates its progress and PRs immediately.</p>
+    ${renderTrainingSyncSectionHtml()}
   `;
 
   wireTrainingLogForm(payload);
   wireTrainingRowEdit(payload);
+  wireTrainingSyncSection(payload);
 }
 
 function wireTrainingLogForm(payload) {
@@ -322,6 +455,7 @@ function wireTrainingLogForm(payload) {
     });
     saveCapturedSessions(captured);
     renderTrainingZone(payload);
+    triggerTrainingSync(payload);
   });
 }
 
@@ -371,4 +505,5 @@ function commitTrainingRowEdit(payload, btn) {
 
   editingTrainingRow = null;
   renderTrainingZone(payload);
+  triggerTrainingSync(payload);
 }

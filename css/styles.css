@@ -1,56 +1,79 @@
 /* ==========================================================================
-   Design tokens — imported from Claude Design "Trading Command Center" v1
-   (claude.ai/design/p/29e668ce-d473-4467-a610-9aea98ca4d96)
+   Design tokens -- "Jarvis Purple" v2, replacing the amber "Trading Command
+   Center v1" identity. One base accent (violet) for shared app chrome, plus
+   a hue-rotated variant per zone (trading/email/tasks/training) so each
+   area reads as visually distinct at a glance, not just by section heading.
    ========================================================================== */
 
 :root {
-  /* Surfaces */
-  --bg: oklch(15% 0.014 255);
-  --panel: oklch(20% 0.016 255);
-  --raised: oklch(27% 0.018 255);
-  --context-panel: oklch(23% 0.024 95);
-  --context-border: oklch(29% 0.026 95);
+  /* Surfaces -- deep navy/charcoal with a faint violet cast, not pure black. */
+  --bg: oklch(16% 0.02 292);
+  --panel: oklch(21% 0.024 292);
+  --raised: oklch(27% 0.026 292);
+  --context-panel: oklch(24% 0.03 295);
+  --context-border: oklch(30% 0.032 295);
 
   /* Text */
-  --text-hi: oklch(96% 0.006 90);
-  --text-mid: oklch(72% 0.01 90);
-  --text-low: oklch(50% 0.012 90);
-  --text-context-hi: oklch(90% 0.02 95);
-  --text-context-mid: oklch(65% 0.02 95);
-  --text-context-time: oklch(60% 0.03 95);
+  --text-hi: oklch(96% 0.006 290);
+  --text-mid: oklch(72% 0.012 290);
+  --text-low: oklch(50% 0.014 290);
+  --text-context-hi: oklch(90% 0.02 295);
+  --text-context-mid: oklch(65% 0.02 295);
+  --text-context-time: oklch(60% 0.03 295);
 
-  /* Accent */
-  --amber: oklch(78% 0.16 75);
-  --amber-a14: oklch(78% 0.16 75 / 0.14);
-  --amber-a50: oklch(78% 0.16 75 / 0.5);
-  --cyan: oklch(75% 0.11 200);
+  /* Accent -- base violet, used for shared app chrome (nav, focus ring,
+     links, generic buttons) that isn't tied to one zone. */
+  --accent: oklch(72% 0.19 300);
+  --accent-hover: oklch(78% 0.17 300);
+  --accent-a14: oklch(72% 0.19 300 / 0.14);
+  --accent-a50: oklch(72% 0.19 300 / 0.5);
 
-  /* Semantic */
+  /* Per-zone accents -- same lightness/chroma as --accent, hue rotated
+     within the purple family so the four zones read as one system. */
+  --zone-trading: oklch(72% 0.19 300);
+  --zone-trading-a14: oklch(72% 0.19 300 / 0.14);
+  --zone-trading-a50: oklch(72% 0.19 300 / 0.5);
+  --zone-email: oklch(74% 0.16 322);
+  --zone-email-a14: oklch(74% 0.16 322 / 0.14);
+  --zone-email-a50: oklch(74% 0.16 322 / 0.5);
+  --zone-tasks: oklch(75% 0.15 284);
+  --zone-tasks-a14: oklch(75% 0.15 284 / 0.14);
+  --zone-tasks-a50: oklch(75% 0.15 284 / 0.5);
+  --zone-training: oklch(76% 0.17 268);
+  --zone-training-a14: oklch(76% 0.17 268 / 0.14);
+  --zone-training-a50: oklch(76% 0.17 268 / 0.5);
+
+  /* Semantic -- unchanged: universal red/green convention, not part of the
+     accent system. --info is new: a neutral marker color for tiers that
+     need to stay visually distinct from every zone hue above (e.g. a CI
+     failure email shouldn't borrow the Training zone's identity color). */
   --gain: oklch(72% 0.17 145);
   --loss: oklch(65% 0.19 25);
   --loss-text: oklch(97% 0.01 25);
   --earnings-warn: oklch(70% 0.15 320);
+  --info: oklch(74% 0.14 250);
 
   /* Type */
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  /* Spacing (4px base) */
+  /* Spacing (4px base) -- bumped up across the board for a spacious,
+     breathing-room-first layout instead of the old dense terminal rows. */
   --sp-1: 4px;
-  --sp-2: 8px;
-  --sp-3: 12px;
-  --sp-4: 16px;
-  --sp-6: 24px;
-  --sp-8: 32px;
-  --row-h-compact: 52px;
-  --row-h-roomy: 64px;
-  --screen-pad: 16px;
-  --section-gap: 20px;
+  --sp-2: 10px;
+  --sp-3: 14px;
+  --sp-4: 20px;
+  --sp-6: 28px;
+  --sp-8: 36px;
+  --row-h-compact: 60px;
+  --row-h-roomy: 72px;
+  --screen-pad: 20px;
+  --section-gap: 28px;
 
-  /* Radius */
-  --r-sm: 5px;
-  --r-md: 6px;
-  --r-lg: 8px;
+  /* Radius -- softer than the old 5/6/8 terminal-sharp corners. */
+  --r-sm: 8px;
+  --r-md: 10px;
+  --r-lg: 14px;
 
   --tabbar-h: 60px;
   --topnav-h: 56px;
@@ -71,10 +94,10 @@ body {
   padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
 }
 
-::selection { background: var(--amber-a50); }
+::selection { background: var(--accent-a50); }
 
-a { color: var(--cyan); text-decoration: none; }
-a:hover { color: oklch(82% 0.11 200); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
 
 button {
   font-family: inherit;
@@ -82,7 +105,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: var(--r-sm);
 }
@@ -98,6 +121,37 @@ button {
   gap: var(--section-gap);
 }
 
+/* ---- Motion system ------------------------------------------------------
+   One shared "enter" keyframe used by every freshly-rendered row/card.
+   today.js/tasks.js/training.js/scan.js all replace innerHTML wholesale on
+   each render, so fresh DOM nodes pick this animation up automatically --
+   no JS toggling required. A per-row --i custom property (set inline by
+   the render loops) staggers the cascade. Medium motion only: entrances +
+   interactive feedback, no idle/ambient loops anywhere. ---------------- */
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stock-row,
+.context-panel,
+.task-card,
+.bubble,
+.drill-section,
+.priority-item {
+  animation: enter .32s ease both;
+  animation-delay: calc(var(--i, 0) * 25ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* ---- Top bar ---------------------------------------------------------- */
 
 .topbar {
@@ -105,6 +159,7 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-3);
+  flex-wrap: wrap;
 }
 
 .topbar-title {
@@ -134,7 +189,7 @@ button {
   font-weight: 600;
   transition: border-color .15s ease, transform .15s ease;
 }
-.refresh-btn:hover { border-color: var(--amber-a50); }
+.refresh-btn:hover { border-color: var(--accent-a50); }
 .refresh-btn:active { transform: scale(0.97); }
 .refresh-btn.is-loading svg { animation: spin 0.8s linear infinite; }
 .refresh-btn:disabled { opacity: 0.6; cursor: default; }
@@ -150,6 +205,55 @@ button {
 }
 .refresh-indicator.is-success { color: var(--gain); }
 .refresh-indicator.is-error { color: var(--loss); }
+
+/* ---- Global search (shared across every page via nav.js) --------------- */
+
+.global-search-row { display: flex; }
+
+.global-search {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-md);
+  padding: 0 var(--sp-3);
+  flex: 1;
+  min-width: 0;
+  transition: border-color .15s ease;
+}
+.global-search:focus-within { border-color: var(--accent-a50); }
+.global-search svg { flex-shrink: 0; color: var(--text-low); }
+.global-search input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-hi);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  padding: 9px 0;
+}
+.global-search input::placeholder { color: var(--text-low); }
+.global-search input:focus { outline: none; }
+.global-search-clear {
+  background: none;
+  border: none;
+  color: var(--text-low);
+  cursor: pointer;
+  padding: 6px;
+  flex-shrink: 0;
+  display: flex;
+  border-radius: var(--r-sm);
+}
+.global-search-clear:hover { color: var(--text-hi); }
+.global-search-clear:active { transform: scale(0.9); }
+
+.search-scope-note {
+  font-size: 11px;
+  color: var(--text-low);
+  margin: calc(-1 * var(--sp-1)) 0 0;
+}
 
 /* ---- Section headers --------------------------------------------------- */
 
@@ -216,7 +320,7 @@ button {
   display: flex;
   align-items: center;
   gap: var(--sp-3);
-  padding: 10px var(--sp-3);
+  padding: 12px var(--sp-3);
   border-top: 1px solid var(--bg);
   min-height: var(--row-h-compact);
   cursor: pointer;
@@ -225,10 +329,12 @@ button {
   width: 100%;
   text-align: left;
   color: inherit;
+  transition: background .15s ease, transform .1s ease;
 }
 .stock-row:first-child { border-top: none; }
-.stock-row:hover { background: oklch(23% 0.018 255); }
-.stock-row.is-confluence { border-left-color: var(--amber); }
+.stock-row:hover { background: oklch(25% 0.024 292); }
+.stock-row:active { transform: scale(0.995); background: oklch(25% 0.024 292); }
+.stock-row.is-confluence { border-left-color: var(--zone-trading); }
 
 .stock-rank {
   width: 18px;
@@ -280,7 +386,7 @@ button {
 .recurring-chip {
   display: inline-flex;
   align-items: center;
-  color: var(--cyan);
+  color: var(--zone-trading);
 }
 
 .score-badge {
@@ -296,16 +402,48 @@ button {
   color: var(--text-hi);
 }
 .score-badge.is-confluence {
-  background: var(--amber-a14);
-  border: 1px solid var(--amber-a50);
-  color: var(--amber);
+  background: var(--zone-trading-a14);
+  border: 1px solid var(--zone-trading-a50);
+  color: var(--zone-trading);
 }
 
-/* ---- Row detail expansion ----------------------------------------------- */
+.regime-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--zone-trading-a14);
+  border: 1px solid var(--zone-trading-a50);
+  border-radius: var(--r-sm);
+  padding: 3px 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--zone-trading);
+  margin-bottom: var(--sp-3);
+}
+/* Same fix as .zone[hidden] above -- a class-level display beats the UA
+   stylesheet's [hidden]{display:none} at equal specificity, by source order. */
+.regime-tag[hidden] { display: none; }
+
+/* ---- Row detail panel ---------------------------------------------------
+   Tapping a Top 10 card expands this in place (no page navigation). Uses
+   the 0fr/1fr grid-rows trick so the expand/collapse animates smoothly
+   without a hardcoded max-height guess; wireStockCardExpansion (in
+   components.js) toggles the `.is-open` class, nothing else. ------------ */
+
+.stock-detail-mount {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .28s ease;
+}
+.stock-detail-mount.is-open { grid-template-rows: 1fr; }
+.stock-detail-mount > .stock-detail-panel { overflow: hidden; min-height: 0; }
+
+.stock-detail-panel {
+  background: oklch(19% 0.022 292);
+  border-top: 1px solid var(--bg);
+}
 
 .stock-detail {
-  background: oklch(18% 0.015 255);
-  border-top: 1px solid var(--bg);
   padding: var(--sp-3) var(--sp-4) var(--sp-4);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -326,6 +464,45 @@ button {
   color: var(--text-hi);
 }
 
+/* Personal note on a Top 10 stock -- public/plaintext tier (same as
+   scan.json/training.json), pure localStorage, no server round trip. */
+.stock-notes {
+  padding: 0 var(--sp-4) var(--sp-4);
+  border-top: 1px solid var(--raised);
+  margin-top: var(--sp-1);
+  padding-top: var(--sp-3);
+}
+.stock-notes-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-low);
+  margin-bottom: var(--sp-2);
+}
+.stock-notes textarea {
+  width: 100%;
+  min-height: 60px;
+  resize: vertical;
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-md);
+  color: var(--text-hi);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.4;
+  padding: var(--sp-2) var(--sp-3);
+}
+.stock-notes textarea::placeholder { color: var(--text-low); }
+.stock-notes textarea:focus { outline: none; border-color: var(--zone-trading-a50); }
+.stock-notes-saved {
+  font-size: 11px;
+  color: var(--gain);
+  margin-top: 4px;
+  height: 14px;
+}
+
 /* ---- Context panels (email / calendar, Zone B/C) ------------------------ */
 
 .context-panel {
@@ -336,8 +513,29 @@ button {
   display: flex;
   gap: var(--sp-3);
   align-items: flex-start;
+  position: relative;
 }
-.context-panel + .context-panel { margin-top: var(--sp-2); }
+.context-panel + .context-panel,
+.swipeable + .swipeable { margin-top: var(--sp-2); }
+
+/* Read state is a local-only annotation (swipe or tap) -- there is no
+   write-back path to Gmail from this static viewer. */
+.context-panel.is-read { opacity: .55; }
+.context-panel.is-read .context-subject { font-weight: 400; }
+
+.context-mark-read {
+  background: none;
+  border: none;
+  color: var(--text-low);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
+  display: flex;
+  align-self: flex-start;
+}
+.context-mark-read:hover { color: var(--zone-email); background: var(--zone-email-a14); }
+.context-mark-read:active { transform: scale(0.9); }
 
 .priority-dot {
   width: 6px;
@@ -348,7 +546,7 @@ button {
 }
 .priority-dot.broker_actionable { background: var(--loss); }
 .priority-dot.broker_informational { background: var(--earnings-warn); }
-.priority-dot.personal_important { background: var(--cyan); }
+.priority-dot.personal_important { background: var(--zone-email); }
 
 .context-body { flex: 1; min-width: 0; }
 .context-row-top {
@@ -393,11 +591,36 @@ button {
 .calendar-time {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--cyan);
+  color: var(--zone-email);
   width: 52px;
   flex-shrink: 0;
 }
 .calendar-title { font-size: 13px; color: var(--text-context-hi); }
+
+/* ---- Swipe gestures (pwa/js/gestures.js) --------------------------------
+   A swipeable row is wrapped so the visible content can translateX during
+   the drag while a colored reveal sits behind it as feedback. Visual only
+   -- no haptics. Desktop/non-touch users get an equivalent tap affordance
+   next to the swipeable content (see .context-mark-read above and the
+   bubble's existing .bubble-toggle checkbox). ---------------------------- */
+
+.swipeable { position: relative; overflow: hidden; touch-action: pan-y; display: block; }
+.swipeable[data-swipe-role="email"] { border-radius: var(--r-lg); }
+.swipeable[data-swipe-role="task"] { display: inline-flex; vertical-align: top; border-radius: 16px; }
+.swipeable-surface { position: relative; background: inherit; width: 100%; }
+.swipe-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--sp-4);
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.swipe-reveal.is-complete { background: var(--zone-tasks-a14); color: var(--zone-tasks); }
+.swipe-reveal.is-read { background: var(--zone-email-a14); color: var(--zone-email); }
 
 /* ---- Empty / loading / error states -------------------------------------- */
 
@@ -445,9 +668,9 @@ button {
   font-weight: 600;
 }
 .filter-toggle[aria-pressed="true"] {
-  border-color: var(--amber-a50);
-  color: var(--amber);
-  background: var(--amber-a14);
+  border-color: var(--zone-trading-a50);
+  color: var(--zone-trading);
+  background: var(--zone-trading-a14);
 }
 
 .tabs {
@@ -464,7 +687,7 @@ button {
   padding: var(--sp-2) var(--sp-1);
   border-bottom: 2px solid transparent;
 }
-.tab-btn[aria-selected="true"] { color: var(--text-hi); border-bottom-color: var(--amber); }
+.tab-btn[aria-selected="true"] { color: var(--text-hi); border-bottom-color: var(--zone-trading); }
 
 .table-scroll { overflow-x: auto; border-radius: var(--r-lg); }
 
@@ -488,15 +711,18 @@ table.scan-table th {
   cursor: pointer;
   user-select: none;
 }
-table.scan-table th[aria-sort="ascending"], table.scan-table th[aria-sort="descending"] { color: var(--amber); }
+table.scan-table th[aria-sort="ascending"], table.scan-table th[aria-sort="descending"] { color: var(--zone-trading); }
 table.scan-table td {
   padding: var(--sp-2);
   border-top: 1px solid var(--bg);
   font-family: var(--font-mono);
   white-space: nowrap;
 }
-table.scan-table tbody tr:hover { background: oklch(23% 0.018 255); cursor: pointer; }
-table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0 0 var(--amber); }
+table.scan-table tbody tr { transition: background .15s ease; }
+table.scan-table tbody tr:hover { background: oklch(25% 0.024 292); cursor: pointer; }
+table.scan-table tbody tr:active { background: oklch(25% 0.024 292); }
+table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0 0 var(--zone-trading); }
+table.scan-table .detail-row td { animation: enter .28s ease both; }
 
 .sort-arrow { display: inline-block; margin-left: 3px; font-size: 9px; }
 
@@ -526,7 +752,7 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   font-size: 11px;
   font-weight: 600;
 }
-.tabbar-item[aria-current="page"] { color: var(--amber); }
+.tabbar-item[aria-current="page"] { color: var(--accent); }
 .tabbar-item svg { display: block; }
 
 .topnav {
@@ -550,7 +776,7 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
     font-size: 12px;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--amber);
+    color: var(--accent);
   }
   .topnav-link {
     font-size: 13px;
@@ -566,9 +792,7 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 }
 
 /* ==========================================================================
-   Jarvis additions — priority strip, setup tags, task bubbles, exit theses.
-   Built from the existing tokens above (no new colours, fonts, or radii)
-   so the new zones read as the same product as the trading/email zones.
+   Jarvis additions -- priority strip, setup tags, task bubbles, exit theses.
    ========================================================================== */
 
 /* ---- Silence budget: the 3 cross-domain priorities ---------------------- */
@@ -582,11 +806,11 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   padding: var(--sp-3);
   background: var(--context-panel);
   border: 1px solid var(--context-border);
-  border-left: 3px solid var(--amber);
+  border-left: 3px solid var(--accent);
   border-radius: var(--r-md);
 }
 
-/* Domain is carried by a small label, not by colour alone — colour-blind
+/* Domain is carried by a small label, not by colour alone -- colour-blind
    users and greyscale screenshots must still convey which feed it came from. */
 .priority-domain {
   font-family: var(--font-mono);
@@ -600,9 +824,9 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   flex-shrink: 0;
   margin-top: 1px;
 }
-.priority-item[data-domain="trading"] { border-left-color: var(--amber); }
-.priority-item[data-domain="email"]   { border-left-color: var(--cyan); }
-.priority-item[data-domain="task"]    { border-left-color: var(--gain); }
+.priority-item[data-domain="trading"] { border-left-color: var(--zone-trading); }
+.priority-item[data-domain="email"]   { border-left-color: var(--zone-email); }
+.priority-item[data-domain="task"]    { border-left-color: var(--zone-tasks); }
 
 .priority-body { flex: 1; min-width: 0; }
 .priority-title {
@@ -619,7 +843,7 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 }
 .priority-action {
   font-size: 11px;
-  color: var(--amber);
+  color: var(--accent);
   margin-top: var(--sp-1);
 }
 .priority-quiet {
@@ -633,7 +857,7 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 
 /* Distance from SMA150, shown on every card per spec. */
 .stock-sma-dist { font-size: 11px; color: var(--text-mid); flex-shrink: 0; }
-.stock-sma-dist.in-band { color: var(--amber); }
+.stock-sma-dist.in-band { color: var(--zone-trading); }
 
 /* A held position's exit thesis, surfaced on the card. */
 .exit-thesis {
@@ -675,12 +899,12 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 .task-quickadd input::placeholder { color: var(--text-low); }
 .task-quickadd input:focus {
   outline: none;
-  border-color: var(--amber-a50);
+  border-color: var(--zone-tasks-a50);
 }
 .task-quickadd button {
-  background: var(--amber-a14);
-  border: 1px solid var(--amber-a50);
-  color: var(--amber);
+  background: var(--zone-tasks-a14);
+  border: 1px solid var(--zone-tasks-a50);
+  color: var(--zone-tasks);
   border-radius: var(--r-md);
   padding: 0 var(--sp-4);
   font-size: 13px;
@@ -718,14 +942,14 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.task-title:hover { color: var(--amber); }
+.task-title:hover { color: var(--zone-tasks); }
 .task-progress { font-family: var(--font-mono); font-size: 11px; color: var(--text-low); flex-shrink: 0; }
 
 .task-title-input {
   flex: 1;
   min-width: 0;
   background: var(--panel);
-  border: 1px solid var(--amber-a50);
+  border: 1px solid var(--zone-tasks-a50);
   border-radius: var(--r-md);
   color: var(--text-hi);
   font-family: var(--font-sans);
@@ -784,8 +1008,8 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
    on a phone without turning the checklist into a full-width list. */
 /* A bubble packs the checkbox, editable label, expand caret, and delete
    icon into one pill so they read as one control while staying separately
-   tappable. */
-.bubble-wrap { display: inline-flex; flex-direction: column; align-items: flex-start; }
+   tappable. It's also the swipe-to-complete target on touch (gestures.js). */
+.bubble-wrap { display: inline-flex; flex-direction: column; align-items: flex-start; max-width: 100%; }
 
 .bubble {
   display: inline-flex;
@@ -795,13 +1019,14 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   background: var(--raised);
   border: 1px solid var(--raised);
   overflow: hidden;
+  transition: border-color .15s ease;
 }
-.bubble:hover { border-color: var(--amber-a50); }
+.bubble:hover { border-color: var(--zone-tasks-a50); }
 .bubble.is-done {
   background: oklch(72% 0.17 145 / 0.14);
   border-color: oklch(72% 0.17 145 / 0.45);
 }
-.bubble.is-editing { border-color: var(--amber-a50); }
+.bubble.is-editing { border-color: var(--zone-tasks-a50); }
 
 .bubble-toggle,
 .bubble-text,
@@ -835,14 +1060,14 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 .bubble-check { flex-shrink: 0; font-size: 11px; width: 12px; }
 .bubble-caret { font-size: 9px; color: var(--text-low); }
 .bubble-substep-count { font-size: 10px; color: var(--text-low); }
-.bubble-expand[aria-expanded="true"] .bubble-caret { color: var(--amber); }
+.bubble-expand[aria-expanded="true"] .bubble-caret { color: var(--zone-tasks); }
 
 .bubble-label-input {
   flex: 1;
   min-width: 90px;
   background: var(--panel);
   border: none;
-  border-left: 1px solid var(--amber-a50);
+  border-left: 1px solid var(--zone-tasks-a50);
   color: var(--text-hi);
   font-family: var(--font-sans);
   font-size: 12px;
@@ -866,7 +1091,7 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   padding: var(--sp-2) var(--sp-3);
   background: var(--panel);
   border: 1px solid var(--raised);
-  border-left: 2px solid var(--amber-a50);
+  border-left: 2px solid var(--zone-tasks-a50);
   border-radius: var(--r-md);
   min-width: 240px;
 }
@@ -911,11 +1136,11 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   padding: 5px 8px;
 }
 .substep-add input::placeholder { color: var(--text-low); }
-.substep-add input:focus { outline: none; border-color: var(--amber-a50); }
+.substep-add input:focus { outline: none; border-color: var(--zone-tasks-a50); }
 .substep-add button {
-  background: var(--amber-a14);
-  border: 1px solid var(--amber-a50);
-  color: var(--amber);
+  background: var(--zone-tasks-a14);
+  border: 1px solid var(--zone-tasks-a50);
+  color: var(--zone-tasks);
   border-radius: var(--r-sm);
   padding: 0 10px;
   font-size: 13px;
@@ -944,7 +1169,7 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   padding: 4px 10px;
   cursor: pointer;
 }
-.done-badge:hover { border-color: var(--amber-a50); color: var(--text-hi); }
+.done-badge:hover { border-color: var(--zone-tasks-a50); color: var(--text-hi); }
 
 .archive-panel {
   margin-top: var(--sp-2);
@@ -980,13 +1205,13 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 }
 
 /* New email priority tiers (security alerts, CI failures, social digest).
-   Same dot vocabulary as the existing tiers — colour carries urgency, and
+   Same dot vocabulary as the existing tiers -- colour carries urgency, and
    the sender line always states what it is, so colour is never the only cue. */
 .priority-dot.security_alert { background: var(--loss); box-shadow: 0 0 0 3px oklch(65% 0.19 25 / 0.18); }
-.priority-dot.ci_failure { background: var(--amber); }
+.priority-dot.ci_failure { background: var(--info); }
 .priority-dot.digest { background: var(--text-low); }
 
-/* The digest is a summary of muted senders, not an item to act on — it sits
+/* The digest is a summary of muted senders, not an item to act on -- it sits
    visually quieter than everything above it. */
 .context-panel:has(.priority-dot.digest) { opacity: 0.72; }
 
@@ -994,15 +1219,18 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
    different from an empty state so the two aren't confused. */
 .zone-withheld {
   display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: var(--sp-3);
+  flex-direction: row;
+  align-items: baseline;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
   border: 1px dashed var(--raised);
   border-radius: var(--r-md);
   background: transparent;
 }
 .zone-withheld-title { font-size: 12px; color: var(--text-mid); font-weight: 600; }
-.zone-withheld-body { font-size: 11px; color: var(--text-low); line-height: 1.5; }
+.zone-withheld-lock { font-size: 11px; opacity: 0.7; flex-shrink: 0; }
+.zone-withheld-body { font-size: 12px; color: var(--text-low); line-height: 1.45; }
+.zone-withheld-body b { color: var(--text-mid); font-weight: 600; }
 .zone-withheld code {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -1010,18 +1238,6 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   padding: 1px 4px;
   border-radius: var(--r-sm);
 }
-
-/* Compact single-line withheld marker (replaces the two-line block, which
-   repeated four times on the public page). */
-.zone-withheld {
-  flex-direction: row;
-  align-items: baseline;
-  gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-3);
-}
-.zone-withheld-lock { font-size: 11px; opacity: 0.7; flex-shrink: 0; }
-.zone-withheld-body { font-size: 12px; color: var(--text-low); line-height: 1.45; }
-.zone-withheld-body b { color: var(--text-mid); font-weight: 600; }
 
 /* The "how to see the rest" hint, shown once per page instead of per zone. */
 .public-scope-note {
@@ -1041,18 +1257,19 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 }
 
 /* Unlock banner for the 3 password-encrypted zones (email/tasks/calendar).
-   Amber border (not the dashed muted style of .zone-withheld) since this one
-   is actionable -- there's something to actually do here, not just a fact
-   to note. */
+   Solid accent border (not the dashed muted style of .zone-withheld) since
+   this one is actionable -- there's something to actually do here, not just
+   a fact to note. Covers all 3 personal zones at once, so it uses the base
+   --accent rather than any single zone's hue. */
 .unlock-form {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--sp-2);
   padding: var(--sp-3);
-  border: 1px solid var(--amber-a50);
+  border: 1px solid var(--accent-a50);
   border-radius: var(--r-md);
-  background: var(--amber-a14);
+  background: var(--accent-a14);
 }
 .unlock-label { font-size: 12px; color: var(--text-mid); flex: 1 1 200px; }
 .unlock-form input[type="password"] {
@@ -1066,11 +1283,11 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   font-size: 13px;
   padding: 8px var(--sp-3);
 }
-.unlock-form input[type="password"]:focus { outline: none; border-color: var(--amber-a50); }
+.unlock-form input[type="password"]:focus { outline: none; border-color: var(--accent-a50); }
 .unlock-form button {
-  background: var(--amber-a14);
-  border: 1px solid var(--amber-a50);
-  color: var(--amber);
+  background: var(--accent-a14);
+  border: 1px solid var(--accent-a50);
+  color: var(--accent);
   border-radius: var(--r-md);
   padding: 8px var(--sp-4);
   font-size: 13px;
@@ -1088,6 +1305,89 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 }
 .unlock-error { font-size: 11px; color: var(--loss); flex-basis: 100%; }
 
+/* ---- Push notifications banner ------------------------------------------
+   Mirrors the existing unlock-form's visual language (actionable, base
+   accent). Only shown when the Push API is supported and not yet
+   subscribed/denied -- see pwa/js/push.js. --------------------------------- */
+.push-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  border: 1px solid var(--accent-a50);
+  border-radius: var(--r-md);
+  background: var(--accent-a14);
+  margin-bottom: var(--sp-2);
+}
+.push-banner-label { font-size: 12px; color: var(--text-mid); flex: 1 1 220px; }
+.push-banner button {
+  background: var(--accent-a14);
+  border: 1px solid var(--accent-a50);
+  color: var(--accent);
+  border-radius: var(--r-md);
+  padding: 8px var(--sp-4);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.push-banner button:active { transform: scale(0.97); }
+.push-banner-dismiss {
+  background: none;
+  border: none;
+  color: var(--text-low);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--r-sm);
+}
+.push-banner-dismiss:hover { color: var(--text-hi); }
+
+/* Training zone's cross-device sync setup -- collapsed by default (it's
+   optional, most renders show the one-line "Synced via..." status instead
+   via .local-note), reusing .unlock-form's field styling so it doesn't need
+   its own input treatment. */
+.training-sync-setup { margin-top: var(--sp-2); }
+.training-sync-setup summary { cursor: pointer; list-style: none; }
+.training-sync-setup summary::-webkit-details-marker { display: none; }
+.training-sync-setup .unlock-form { margin-top: var(--sp-2); }
+.training-sync-setup .unlock-form input {
+  flex: 1 1 160px;
+  min-width: 0;
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-md);
+  color: var(--text-hi);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  padding: 8px var(--sp-3);
+}
+.push-subscription-box { flex-basis: 100%; margin-top: var(--sp-2); }
+.push-subscription-box textarea {
+  width: 100%;
+  min-height: 70px;
+  background: var(--panel);
+  border: 1px solid var(--raised);
+  border-radius: var(--r-sm);
+  color: var(--text-mid);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: var(--sp-2);
+  resize: vertical;
+}
+.push-subscription-hint {
+  font-size: 11px;
+  color: var(--text-low);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.push-subscription-hint code {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: var(--raised);
+  padding: 1px 4px;
+  border-radius: var(--r-sm);
+}
+
 /* Add-a-sub-task control on every task card. Sits below the bubble row and
    is deliberately quieter than the top-level quick-add: capturing a task is
    the primary action, breaking one down is secondary. */
@@ -1104,11 +1404,11 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   padding: 6px 11px;
 }
 .bubble-add input::placeholder { color: var(--text-low); }
-.bubble-add input:focus { outline: none; border-color: var(--amber-a50); }
+.bubble-add input:focus { outline: none; border-color: var(--zone-tasks-a50); }
 .bubble-add button {
-  background: var(--amber-a14);
-  border: 1px solid var(--amber-a50);
-  color: var(--amber);
+  background: var(--zone-tasks-a14);
+  border: 1px solid var(--zone-tasks-a50);
+  color: var(--zone-tasks);
   border-radius: 16px;
   min-width: 34px;
   font-size: 14px;
@@ -1147,7 +1447,7 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   padding: 6px 8px;
 }
 .training-set-input::placeholder { color: var(--text-low); }
-.training-set-input:focus { outline: none; border-color: var(--amber-a50); }
+.training-set-input:focus { outline: none; border-color: var(--zone-training-a50); }
 /* No visible stepper -- native up/down arrows read as clutter on a dense
    5-drill x 3-set form and invite mis-taps on mobile. */
 .training-set-input::-webkit-outer-spin-button,
@@ -1164,9 +1464,9 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
 }
 .training-log-form button[type="submit"] {
   align-self: flex-start;
-  background: var(--amber-a14);
-  border: 1px solid var(--amber-a50);
-  color: var(--amber);
+  background: var(--zone-training-a14);
+  border: 1px solid var(--zone-training-a50);
+  color: var(--zone-training);
   border-radius: var(--r-md);
   padding: 8px 16px;
   font-size: 13px;
@@ -1183,8 +1483,8 @@ table.scan-table tbody tr.is-confluence td:first-child { box-shadow: inset 2px 0
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  background: var(--amber-a14);
-  border: 1px solid var(--amber-a50);
+  background: var(--zone-training-a14);
+  border: 1px solid var(--zone-training-a50);
   border-radius: var(--r-md);
   padding: var(--sp-2) var(--sp-3);
   font-size: 12px;
@@ -1241,12 +1541,12 @@ table.drill-table td {
   padding: 4px 2px;
   text-align: left;
 }
-.drill-row-edit:hover, .drill-row-edit:focus-visible { color: var(--amber); }
+.drill-row-edit:hover, .drill-row-edit:focus-visible { color: var(--zone-training); }
 
 .drill-set-edit-input {
   width: 48px;
   background: var(--bg);
-  border: 1px solid var(--amber-a50);
+  border: 1px solid var(--zone-training-a50);
   border-radius: var(--r-sm);
   color: var(--text-hi);
   font-family: var(--font-mono);
@@ -1256,9 +1556,9 @@ table.drill-table td {
 .drill-set-edit-input:focus { outline: none; }
 
 .drill-row-save {
-  background: var(--amber-a14);
-  border: 1px solid var(--amber-a50);
-  color: var(--amber);
+  background: var(--zone-training-a14);
+  border: 1px solid var(--zone-training-a50);
+  color: var(--zone-training);
   border-radius: var(--r-sm);
   padding: 4px 10px;
   font-size: 11px;
