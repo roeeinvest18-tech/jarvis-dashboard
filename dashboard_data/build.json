@@ -12,6 +12,7 @@
     "trade_notes.json"
   ],
   "published": [
+    "breakout_alerts.json",
     "cci_oversold.json",
     "scan.json",
     "tasks.json",
