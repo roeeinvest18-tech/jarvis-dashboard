@@ -1,12 +1,12 @@
 // Page 2 — Full Scan Results: sortable/filterable table of every scanned
-// ticker, plus a separate CCI Oversold Watchlist tab. Trading-only page.
+// ticker, plus a separate Breakout Alerts tab. Trading-only page.
 
 renderNav('scan');
 renderTopbar('app-header', 'Full Scan Results');
 
 const state = {
   scan: null,
-  cciOversold: null,
+  breakoutAlerts: null,
   activeTab: 'scan',
   search: getGlobalSearch(),
   minScore: 0,
@@ -102,47 +102,68 @@ function wireTableExpansion(mount) {
   });
 }
 
-function renderOversoldTable() {
-  const mount = document.getElementById('oversold-table-body');
-  const co = state.cciOversold;
-  const list = co ? co.watchlist || [] : [];
-  const empty = document.getElementById('oversold-empty');
-  const wrap = document.getElementById('oversold-table-wrap');
-  const modeNote = document.getElementById('oversold-mode-note');
-  const regimeTag = document.getElementById('oversold-regime-tag');
+// Sector and earnings-days aren't in breakout_alerts.json itself (that file
+// only carries what breakout_alert.py computes for the Telegram alert), but
+// scan.json's per-ticker rows already carry sector_etf/earnings_days from
+// the same nightly fetch_extra_info() call the Full Scan tab uses -- so we
+// join against it here instead of adding a second fetch/duplicate lookup to
+// the breakout scanner itself.
+function buildScanLookup(scan) {
+  const map = {};
+  for (const r of (scan && scan.stocks) || []) map[r.ticker] = r;
+  return map;
+}
 
-  modeNote.hidden = !(co && co.mode === 'fallback' && list.length > 0);
-  if (!modeNote.hidden) {
-    modeNote.textContent = 'No reclaims today — showing the stocks closest to reclaiming the -100 line.';
-  }
-  regimeTag.hidden = !(co && co.market_regime === 'DEFENSIVE');
-
-  if (list.length === 0) {
-    empty.hidden = false;
-    wrap.hidden = true;
-    return;
-  }
-  empty.hidden = true;
-  wrap.hidden = false;
-  mount.innerHTML = list.map(r => `
+function renderBreakoutAlertRow(r, scanLookup) {
+  const extra = scanLookup[r.ticker];
+  const distSma150 = r.sma150 ? ((r.price - r.sma150) / r.sma150) * 100 : null;
+  const earningsDays = extra ? extra.earnings_days : undefined;
+  const earningsText = earningsDays !== null && earningsDays !== undefined
+    ? (earningsDays <= 14 ? `${ICONS.earningsSoon()} ${earningsDays}d` : `${earningsDays}d`)
+    : '—';
+  return `
     <tr>
-      <td class="mono">${r.is_fallback ? '—' : (r.reclaim_bars_ago === 0 ? 'today' : `${r.reclaim_bars_ago}d ago`)}</td>
+      <td class="mono">${fmtRelative(r.last_touch_at)}</td>
       <td class="mono">${escapeHtml(r.ticker)}</td>
       <td class="mono">${fmtPrice(r.price)}</td>
-      <td class="mono ${r.change_pct >= 0 ? 'gain' : 'loss'}">${fmtChange(r.change_pct)}</td>
-      <td class="mono">${Math.round(r.cci)}${r.is_fallback ? ' ↗' : ''}</td>
-      <td class="mono">${r.sma150_pct !== null ? fmtPct(r.sma150_pct) : '—'}</td>
-      <td class="mono">${escapeHtml(r.sector_etf || '—')}</td>
-      <td>${r.earnings_days !== null && r.earnings_days !== undefined && r.earnings_days <= 14 ? ICONS.earningsSoon() : ''}</td>
+      <td class="mono">${distSma150 !== null ? fmtPct(distSma150) : '—'}</td>
+      <td class="mono">${escapeHtml((extra && extra.sector_etf) || '—')}</td>
+      <td>${earningsText}</td>
+      <td class="mono">${Math.round(r.cci)}</td>
+      <td class="mono">${fmtCompactNumber(r.today_volume)}${r.volume_ratio ? ` (x${r.volume_ratio.toFixed(1)})` : ''}</td>
     </tr>
-  `).join('');
+  `;
+}
+
+function renderBreakoutAlertsTable() {
+  const { active, archived } = splitBreakoutAlerts(state.breakoutAlerts);
+  const scanLookup = buildScanLookup(state.scan);
+
+  const empty = document.getElementById('breakouts-empty');
+  const wrap = document.getElementById('breakouts-table-wrap');
+  const body = document.getElementById('breakouts-table-body');
+  if (active.length === 0) {
+    empty.hidden = false;
+    wrap.hidden = true;
+  } else {
+    empty.hidden = true;
+    wrap.hidden = false;
+    body.innerHTML = active.map(r => renderBreakoutAlertRow(r, scanLookup)).join('');
+  }
+
+  const archiveDetails = document.getElementById('breakouts-archive');
+  const archiveCount = document.getElementById('breakouts-archive-count');
+  const archiveBody = document.getElementById('breakouts-archive-body');
+  archiveDetails.hidden = archived.length === 0;
+  archiveCount.textContent = archived.length;
+  archiveBody.innerHTML = archived.map(r => renderBreakoutAlertRow(r, scanLookup)).join('');
 }
 
 function switchTab(tab) {
   state.activeTab = tab;
   document.querySelectorAll('.tab-btn').forEach(btn => btn.setAttribute('aria-selected', String(btn.dataset.tab === tab)));
   document.getElementById('panel-scan').hidden = tab !== 'scan';
-  document.getElementById('panel-oversold').hidden = tab !== 'oversold';
+  document.getElementById('panel-breakouts').hidden = tab !== 'breakouts';
 }
 
 function wireControls() {
@@ -196,16 +217,16 @@ function wireControls() {
 }
 
 async function loadAndRender() {
-  const { scan, cciOversold } = await DASHBOARD.fetchAll();
+  const { scan, breakoutAlerts } = await DASHBOARD.fetchAll();
   state.scan = scan;
-  state.cciOversold = cciOversold;
+  state.breakoutAlerts = breakoutAlerts;
   if (scan && scan.stocks) populateSectorOptions(scan.stocks);
   renderScanTable();
-  renderOversoldTable();
+  renderBreakoutAlertsTable();
   updateLastUpdated(scan ? scan.generated_at : null);
 }
 
 wireControls();
-if (window.location.hash === '#oversold') switchTab('oversold');
+if (window.location.hash === '#breakouts') switchTab('breakouts');
 wireRefreshButton(loadAndRender);
 loadAndRender();

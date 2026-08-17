@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Full Scan Results — Jarvis</title>
-<meta name="description" content="Every scanned ticker, sortable and filterable, plus the CCI oversold watchlist.">
+<meta name="description" content="Every scanned ticker, sortable and filterable, plus SMA150 breakout alerts.">
 <meta name="theme-color" content="#17151d">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
@@ -21,7 +21,7 @@
 
   <div class="tabs" role="tablist">
     <button class="tab-btn" data-tab="scan" role="tab" aria-selected="true">All Scanned</button>
-    <button class="tab-btn" data-tab="oversold" role="tab" aria-selected="false" id="oversold-tab-btn">CCI Oversold Watchlist</button>
+    <button class="tab-btn" data-tab="breakouts" role="tab" aria-selected="false" id="breakouts-tab-btn">Breakout Alerts</button>
   </div>
 
   <section id="panel-scan" role="tabpanel">
@@ -62,28 +62,46 @@
     </div>
   </section>
 
-  <section id="panel-oversold" role="tabpanel" hidden>
-    <p class="mono" style="font-size:12px;color:var(--text-mid);">Stocks reclaiming CCI(20)'s -100 oversold line. Potential reversal candidates — not buy signals.</p>
-    <p id="oversold-mode-note" class="mono" style="font-size:12px;color:var(--text-mid);" hidden></p>
-    <span id="oversold-regime-tag" class="regime-tag" hidden>⚠️ Defensive regime — lower reliability</span>
-    <div id="oversold-empty" class="empty-state" hidden>Nothing has reclaimed -100, and nothing is close.</div>
-    <div id="oversold-table-wrap" class="table-scroll" hidden>
+  <section id="panel-breakouts" role="tabpanel" hidden>
+    <p class="mono" style="font-size:12px;color:var(--text-mid);">Stocks that touched SMA150, mirroring the Telegram breakout alerts. Stays here for 48h from the most recent touch (a new touch resets the clock), then moves to the archive.</p>
+    <div id="breakouts-empty" class="empty-state" hidden>No SMA150 touches in the last 48 hours.</div>
+    <div id="breakouts-table-wrap" class="table-scroll" hidden>
       <table class="scan-table">
         <thead>
           <tr>
-            <th>Reclaimed</th>
+            <th>Touched</th>
             <th>Ticker</th>
             <th>Price</th>
-            <th>Change</th>
-            <th>CCI</th>
-            <th>SMA150</th>
+            <th>Dist. SMA150</th>
             <th>Sector</th>
             <th>Earnings</th>
+            <th>CCI</th>
+            <th>Vol</th>
           </tr>
         </thead>
-        <tbody id="oversold-table-body"></tbody>
+        <tbody id="breakouts-table-body"></tbody>
       </table>
     </div>
+    <details class="breakout-archive" id="breakouts-archive" hidden>
+      <summary>Archived (<span id="breakouts-archive-count">0</span>) — view</summary>
+      <div class="table-scroll">
+        <table class="scan-table">
+          <thead>
+            <tr>
+              <th>Touched</th>
+              <th>Ticker</th>
+              <th>Price</th>
+              <th>Dist. SMA150</th>
+              <th>Sector</th>
+              <th>Earnings</th>
+              <th>CCI</th>
+              <th>Vol</th>
+            </tr>
+          </thead>
+          <tbody id="breakouts-archive-body"></tbody>
+        </table>
+      </div>
+    </details>
   </section>
 </main>
 

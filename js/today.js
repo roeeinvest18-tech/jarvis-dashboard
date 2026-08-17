@@ -24,19 +24,19 @@
 renderNav('today');
 renderTopbar('app-header', 'Today');
 
-function renderMarketHeader(scan, cciOversold) {
+function renderMarketHeader(scan, breakoutAlerts) {
   const mount = document.getElementById('market-header');
   if (!mount) return;
   if (!scan) { mount.innerHTML = ''; return; }
   const m = scan.market || {};
-  const oversoldCount = cciOversold ? (cciOversold.watchlist || []).length : null;
+  const activeBreakouts = breakoutAlerts ? splitBreakoutAlerts(breakoutAlerts).active.length : null;
   mount.innerHTML = `
     <span class="regime-pill" data-regime="${escapeHtml(m.regime || 'NEUTRAL')}">${escapeHtml(m.regime || 'NEUTRAL')}</span>
     <div class="stat-strip">
       <span>Scanned <b>${scan.scanned_count ?? '—'}</b>/${scan.total_tickers ?? '—'}</span>
       <span>Signals <b>${scan.signal_count ?? '—'}</b></span>
       ${scan.reclaim_count !== undefined ? `<span>Reclaims <b>${scan.reclaim_count}</b></span>` : ''}
-      ${oversoldCount !== null ? `<span>Oversold <a href="scan.html#oversold"><b>${oversoldCount}</b></a></span>` : ''}
+      ${activeBreakouts !== null ? `<span>Breakouts <a href="scan.html#breakouts"><b>${activeBreakouts}</b></a></span>` : ''}
     </div>
   `;
 }
@@ -219,7 +219,7 @@ let lastFetched = null;
 async function loadAndRender() {
   const d = await DASHBOARD.fetchAll();
   lastFetched = d;
-  renderMarketHeader(d.scan, d.cciOversold);
+  renderMarketHeader(d.scan, d.breakoutAlerts);
   renderUnlockBanner();
   renderPriorityStrip(d.priority);
   renderZoneTrading(d.scan, d.tradeNotes);

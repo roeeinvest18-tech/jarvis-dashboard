@@ -407,22 +407,19 @@ button {
   color: var(--zone-trading);
 }
 
-.regime-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: var(--zone-trading-a14);
-  border: 1px solid var(--zone-trading-a50);
-  border-radius: var(--r-sm);
-  padding: 3px 8px;
+/* Breakout Alerts zone: expired touches (past the 48h window) collapse into
+   this rather than disappearing -- same "state, not vanish" instinct as the
+   zone withheld/empty states above, just for a single archived row. */
+.breakout-archive { margin-top: var(--sp-3); }
+.breakout-archive summary {
+  cursor: pointer;
+  list-style: none;
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--zone-trading);
-  margin-bottom: var(--sp-3);
+  color: var(--text-mid);
+  margin-bottom: var(--sp-2);
 }
-/* Same fix as .zone[hidden] above -- a class-level display beats the UA
-   stylesheet's [hidden]{display:none} at equal specificity, by source order. */
-.regime-tag[hidden] { display: none; }
+.breakout-archive summary::-webkit-details-marker { display: none; }
 
 /* ---- Row detail panel ---------------------------------------------------
    Tapping a Top 10 card expands this in place (no page navigation). Uses

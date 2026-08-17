@@ -1,6 +1,7 @@
 {
   "variant": "public",
   "allowlist": [
+    "breakout_alerts.json",
     "cci_oversold.json",
     "scan.json",
     "tasks.json",

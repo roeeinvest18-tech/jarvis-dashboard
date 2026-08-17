@@ -40,7 +40,7 @@ async function decryptEnvelope(envelope, password) {
 const DASHBOARD = {
   FILES: {
     scan: 'dashboard_data/scan.json',
-    cciOversold: 'dashboard_data/cci_oversold.json',
+    breakoutAlerts: 'dashboard_data/breakout_alerts.json',
     emails: 'dashboard_data/emails.json',
     calendar: 'dashboard_data/calendar.json',
     build: 'dashboard_data/build.json',
@@ -104,7 +104,7 @@ const DASHBOARD = {
   },
 
   async fetchAll() {
-    const keys = ['scan', 'cciOversold', 'emails', 'calendar', 'tasks', 'priority',
+    const keys = ['scan', 'breakoutAlerts', 'emails', 'calendar', 'tasks', 'priority',
                   'tradeNotes', 'training', 'build'];
     this.missing.clear();
     this.networkFailed.clear();
@@ -163,6 +163,33 @@ const DASHBOARD = {
     return (b.withheld || []).includes(file);
   },
 };
+
+// Splits the published breakout-touch list into "still within the 48h
+// window" (active) and "window expired" (archived) -- computed fresh
+// against the viewer's own wall clock on every call, never trusted from the
+// server. breakout_alerts.json is only rewritten when a new SMA150 touch
+// fires (see breakout_alert.py), so a stock can sit hours past its real
+// deadline before the next publish; deriving expiry client-side instead of
+// trusting a precomputed flag means the split is always correct regardless
+// of how stale the last publish is. Shared by today.js (header count) and
+// scan.js (the zone itself).
+function splitBreakoutAlerts(payload) {
+  const windowMs = ((payload && payload.window_hours) || 48) * 3600 * 1000;
+  const alerts = (payload && payload.alerts) || [];
+  const now = Date.now();
+  const active = [];
+  const archived = [];
+  for (const r of alerts) {
+    const expiresAt = new Date(r.last_touch_at).getTime() + windowMs;
+    const item = { ...r, expiresAt };
+    (now < expiresAt ? active : archived).push(item);
+  }
+  // Soonest-to-expire first for the active list (the actionable ordering);
+  // most-recently-expired first for the archive (most relevant history up top).
+  active.sort((a, b) => a.expiresAt - b.expiresAt);
+  archived.sort((a, b) => b.expiresAt - a.expiresAt);
+  return { active, archived };
+}
 
 // ---- Formatting helpers ---------------------------------------------------
 
