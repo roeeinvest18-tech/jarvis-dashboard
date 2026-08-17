@@ -9,7 +9,7 @@
 // PUSH_SUBSCRIPTION GitHub secret (VAPID_PRIVATE_KEY is the other secret,
 // generated once and never shipped to the client). Public keys are meant
 // to be shared, so the public half is just a constant here.
-const VAPID_PUBLIC_KEY = 'BCA9omTyh3puuRQ-3wP1J7gewncKmk6tPEr9vWhxtgtl7eBj4LQcnFLOOaGoJgeimLlPQ5yOpyAbVJ_2hXXpMQQ';
+const VAPID_PUBLIC_KEY = 'BIE4HA2AoTPLgW63by4wtJjyCCR1CIKjZ3p7EGow5NB5EC8Zw9PH7G544QgC6vO2FcAZpyRZyyaAPUg9BOyATCg';
 
 const PUSH_DISMISSED_KEY = 'jarvis:push:dismissed';
 
