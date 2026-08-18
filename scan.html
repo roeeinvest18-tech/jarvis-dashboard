@@ -67,16 +67,16 @@
     <div id="breakouts-empty" class="empty-state" hidden>No SMA150 touches in the last 48 hours.</div>
     <div id="breakouts-table-wrap" class="table-scroll" hidden>
       <table class="scan-table">
-        <thead>
+        <thead id="breakouts-table-head">
           <tr>
-            <th>Touched</th>
-            <th>Ticker</th>
-            <th>Price</th>
-            <th>Dist. SMA150</th>
-            <th>Sector</th>
-            <th>Earnings</th>
-            <th>CCI</th>
-            <th>Vol</th>
+            <th data-sort-key="touched">Touched</th>
+            <th data-sort-key="ticker">Ticker</th>
+            <th data-sort-key="price">Price</th>
+            <th data-sort-key="dist_sma150">Dist. SMA150</th>
+            <th data-sort-key="sector">Sector</th>
+            <th data-sort-key="earnings">Earnings</th>
+            <th data-sort-key="cci">CCI</th>
+            <th data-sort-key="volume">Vol</th>
           </tr>
         </thead>
         <tbody id="breakouts-table-body"></tbody>

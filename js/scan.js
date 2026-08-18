@@ -16,6 +16,28 @@ const state = {
   earningsOnly: false,
   sortKey: 'score',
   sortDir: 'desc',
+  // No sort applied until the user clicks a Breakout Alerts header -- the
+  // table keeps its natural soonest-to-expire order (see splitBreakoutAlerts)
+  // until then.
+  breakoutSortKey: null,
+  breakoutSortDir: null,
+};
+
+// First-click sort direction per Breakout Alerts column (per spec: dates
+// oldest-first, text A-Z, price low-to-high, everything else "strongest"
+// value first). Earnings isn't covered by an explicit rule in the spec --
+// treated like the existing Full Scan earnings badge (soonest/most urgent
+// first) rather than as a generic "numeric strength" column, since a large
+// days-to-earnings number isn't a "stronger" signal.
+const BREAKOUT_SORT_DEFAULTS = {
+  touched: 'asc',
+  ticker: 'asc',
+  price: 'asc',
+  dist_sma150: 'desc',
+  sector: 'asc',
+  earnings: 'asc',
+  cci: 'desc',
+  volume: 'desc',
 };
 
 const COLUMNS = [
@@ -114,10 +136,56 @@ function buildScanLookup(scan) {
   return map;
 }
 
+function computeBreakoutDistSma150(r) {
+  return r.sma150 ? ((r.price - r.sma150) / r.sma150) * 100 : null;
+}
+
+function getBreakoutEarningsDays(r, scanLookup) {
+  const extra = scanLookup[r.ticker];
+  return extra && extra.earnings_days !== undefined && extra.earnings_days !== null
+    ? extra.earnings_days
+    : null;
+}
+
+// Raw (unformatted) value for a given column, used for sorting -- kept in
+// sync with renderBreakoutAlertRow's display logic via the two helpers above
+// rather than duplicating the SMA150/earnings computations.
+function getBreakoutSortValue(r, key, scanLookup) {
+  const extra = scanLookup[r.ticker];
+  switch (key) {
+    case 'touched': return r.last_touch_at ? new Date(r.last_touch_at).getTime() : null;
+    case 'ticker': return r.ticker || '';
+    case 'price': return r.price;
+    case 'dist_sma150': return computeBreakoutDistSma150(r);
+    case 'sector': return (extra && extra.sector_etf) || '';
+    case 'earnings': return getBreakoutEarningsDays(r, scanLookup);
+    case 'cci': return r.cci;
+    case 'volume': return r.today_volume;
+    default: return null;
+  }
+}
+
+// Mirrors applySort()'s null-handling idiom (Full Scan table above): missing
+// values become +/-Infinity depending on direction, which always pushes them
+// to the end of the list regardless of ascending vs descending.
+function applyBreakoutSort(rows, scanLookup) {
+  const { breakoutSortKey: key, breakoutSortDir: dir } = state;
+  if (!key) return rows;
+  const mul = dir === 'asc' ? 1 : -1;
+  return [...rows].sort((a, b) => {
+    let av = getBreakoutSortValue(a, key, scanLookup);
+    let bv = getBreakoutSortValue(b, key, scanLookup);
+    if (av === null || av === undefined) av = dir === 'asc' ? Infinity : -Infinity;
+    if (bv === null || bv === undefined) bv = dir === 'asc' ? Infinity : -Infinity;
+    if (typeof av === 'string') return av.localeCompare(bv) * mul;
+    return (av - bv) * mul;
+  });
+}
+
 function renderBreakoutAlertRow(r, scanLookup) {
   const extra = scanLookup[r.ticker];
-  const distSma150 = r.sma150 ? ((r.price - r.sma150) / r.sma150) * 100 : null;
-  const earningsDays = extra ? extra.earnings_days : undefined;
+  const distSma150 = computeBreakoutDistSma150(r);
+  const earningsDays = getBreakoutEarningsDays(r, scanLookup);
   const earningsText = earningsDays !== null && earningsDays !== undefined
     ? (earningsDays <= 14 ? `${ICONS.earningsSoon()} ${earningsDays}d` : `${earningsDays}d`)
     : '—';
@@ -138,6 +206,7 @@ function renderBreakoutAlertRow(r, scanLookup) {
 function renderBreakoutAlertsTable() {
   const { active, archived } = splitBreakoutAlerts(state.breakoutAlerts);
   const scanLookup = buildScanLookup(state.scan);
+  const sortedActive = applyBreakoutSort(active, scanLookup);
 
   const empty = document.getElementById('breakouts-empty');
   const wrap = document.getElementById('breakouts-table-wrap');
@@ -148,7 +217,7 @@ function renderBreakoutAlertsTable() {
   } else {
     empty.hidden = true;
     wrap.hidden = false;
-    body.innerHTML = active.map(r => renderBreakoutAlertRow(r, scanLookup)).join('');
+    body.innerHTML = sortedActive.map(r => renderBreakoutAlertRow(r, scanLookup)).join('');
   }
 
   const archiveDetails = document.getElementById('breakouts-archive');
@@ -208,6 +277,26 @@ function wireControls() {
       document.querySelectorAll('#scan-table-head th').forEach(h => h.removeAttribute('aria-sort'));
       th.setAttribute('aria-sort', state.sortDir === 'asc' ? 'ascending' : 'descending');
       renderScanTable();
+    });
+  });
+
+  document.querySelectorAll('#breakouts-table-head th[data-sort-key]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.sortKey;
+      if (state.breakoutSortKey === key) {
+        state.breakoutSortDir = state.breakoutSortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.breakoutSortKey = key;
+        state.breakoutSortDir = BREAKOUT_SORT_DEFAULTS[key];
+      }
+      document.querySelectorAll('#breakouts-table-head th').forEach(h => {
+        h.removeAttribute('aria-sort');
+        const arrow = h.querySelector('.sort-arrow');
+        if (arrow) arrow.remove();
+      });
+      th.setAttribute('aria-sort', state.breakoutSortDir === 'asc' ? 'ascending' : 'descending');
+      th.insertAdjacentHTML('beforeend', `<span class="sort-arrow">${state.breakoutSortDir === 'asc' ? '▲' : '▼'}</span>`);
+      renderBreakoutAlertsTable();
     });
   });
 
