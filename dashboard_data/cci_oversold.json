@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-08-18T22:22:31.062408+03:00",
-  "date": "2026-08-18",
+  "generated_at": "2026-08-19T22:20:34.872461+03:00",
+  "date": "2026-08-19",
   "total_tickers": 576,
   "failed_count": 576,
-  "market_regime": "DEFENSIVE",
+  "market_regime": "RISK-ON",
   "mode": "fallback",
   "watchlist": []
 }
