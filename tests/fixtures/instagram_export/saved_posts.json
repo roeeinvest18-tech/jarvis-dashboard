@@ -1,0 +1,50 @@
+{
+  "saved_saved_media": [
+    {
+      "title": "cooking.channel",
+      "string_map_data": {
+        "Saved on": {
+          "href": "https://www.instagram.com/reel/CxAbC123_de/",
+          "timestamp": 1694900000
+        }
+      }
+    },
+    {
+      "title": "××ª××× ××",
+      "string_map_data": {
+        "Saved on": {
+          "href": "https://www.instagram.com/p/DzQwErTy99/",
+          "timestamp": 1694990000
+        }
+      }
+    },
+    {
+      "title": "duplicate.account",
+      "string_map_data": {
+        "Saved on": {
+          "href": "https://www.instagram.com/reel/CxAbC123_de/?igsh=abc",
+          "timestamp": 1695000000
+        }
+      }
+    },
+    {
+      "title": "some.profile",
+      "string_map_data": {
+        "Saved on": {
+          "href": "https://www.instagram.com/some.profile/",
+          "timestamp": 1695100000
+        }
+      }
+    },
+    {
+      "title": "tv.channel",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/tv/AbCdEfGh01/",
+          "value": "tv.channel",
+          "timestamp": 1695200000
+        }
+      ]
+    }
+  ]
+}

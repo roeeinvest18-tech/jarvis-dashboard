@@ -1,0 +1,14 @@
+# Category taxonomy for the second brain.
+#
+# Empty on purpose: the first analysis pass invents its own categories, then
+#   python -m second_brain taxonomy propose
+# drafts a list into config/categories.proposed.yaml for you to edit, and
+#   python -m second_brain taxonomy approve
+# copies it here. From then on every analysis picks from this list only.
+#
+# Edit freely - rename, merge, delete or add - then run
+#   python -m second_brain reclassify
+# to re-file every analysed video.
+
+version: ""
+categories: []

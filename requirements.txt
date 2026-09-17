@@ -1,0 +1,7 @@
+anthropic>=1.0.0
+yt-dlp>=2025.1.15
+faster-whisper>=1.1.0
+sentence-transformers>=3.3.0
+sqlite-vec>=0.1.6
+PyYAML>=6.0.1
+python-dotenv>=1.0.1
