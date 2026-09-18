@@ -70,6 +70,21 @@ const ICONS = {
       <line x1="13.5" y1="13.5" x2="17.5" y2="17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
 
+  // Personal OS: a rising trace over a baseline -- behaviour tracked over
+  // time, distinct from navToday's calendar (one day) and navScan's lens.
+  navOs: (size = 20) => `
+    <svg width="${size}" height="${size}" viewBox="0 0 20 20" aria-hidden="true">
+      <polyline points="3,14 7,10 10,12 17,5" fill="none" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="3" y1="17" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+
+  check: (size = 14) => `
+    <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
+      <path d="M2.5 7.5L5.5 10.5L11.5 3.5" stroke="currentColor" stroke-width="2"
+            fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+
   trash: (size = 13) => `
     <svg width="${size}" height="${size}" viewBox="0 0 14 14" aria-hidden="true">
       <path d="M2.5 3.5H11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>

@@ -7,11 +7,14 @@
 // rewrite need a fresh cache name or an already-installed PWA would keep
 // serving the old amber shell until CACHE_NAME changes by hand (bit us
 // before, see project memory).
-const CACHE_NAME = 'jarvis-shell-v3';
+// v4: Personal OS -- a new page (os.html) and three new scripts, which need a
+// fresh cache name for the same reason v3 did.
+const CACHE_NAME = 'jarvis-shell-v4';
 const SHELL_ASSETS = [
   './',
   'index.html',
   'scan.html',
+  'os.html',
   'manifest.json',
   'css/styles.css',
   'js/app.js',
@@ -23,6 +26,9 @@ const SHELL_ASSETS = [
   'js/today.js',
   'js/tasks.js',
   'js/training.js',
+  'js/daily.js',
+  'js/daily-today.js',
+  'js/os.js',
   'js/scan.js',
   'js/push.js',
   'icons/icon-192.png',

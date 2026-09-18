@@ -57,9 +57,13 @@ function renderGlobalSearch() {
   }
 }
 
-function renderNav(activePage) {
+// `options.search` controls the ticker/sector search bar. It defaults to true
+// so the two existing callers are unchanged; the Personal OS page passes false
+// because a ticker filter has nothing to act on there.
+function renderNav(activePage, options = {}) {
   const pages = [
     { id: 'today', href: 'index.html', label: 'Today', icon: ICONS.navToday() },
+    { id: 'os', href: 'os.html', label: 'Personal OS', icon: ICONS.navOs() },
     { id: 'scan', href: 'scan.html', label: 'Full Scan', icon: ICONS.navScan() },
   ];
 
@@ -82,6 +86,17 @@ function renderNav(activePage) {
     topnavMount.className = 'topnav';
   }
 
+  if (options.search === false) {
+    // push.js mounts its banner into the search row, so a page without the
+    // search bar still needs that mount point to exist.
+    if (!document.getElementById('push-banner-mount')) {
+      const pushMount = document.createElement('div');
+      pushMount.id = 'push-banner-mount';
+      const header = document.getElementById('app-header');
+      if (header) header.after(pushMount);
+    }
+    return;
+  }
   renderGlobalSearch();
 }
 

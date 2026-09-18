@@ -21,6 +21,15 @@
 
   <div class="market-header" id="market-header"></div>
 
+  <!-- Personal OS — the daily routine check-in. Sits at the top because the
+       start of the day is what it's for, while the trading zones below are a
+       read-whenever surface. Entirely client-side plus an optional
+       authenticated sync; see js/daily.js. -->
+  <section class="zone" id="zone-daily" aria-labelledby="zone-daily-label" hidden>
+    <h2 class="section-label" id="zone-daily-label">Today's routine</h2>
+    <div id="daily-body"></div>
+  </section>
+
   <!-- Silence budget: at most 3 items, ranked across all domains. Sits above
        the zones because its whole job is to answer "what actually needs me"
        before the full lists get a chance to compete for attention. -->
@@ -72,6 +81,8 @@
 <script src="js/components.js"></script>
 <script src="js/tasks.js"></script>
 <script src="js/training.js"></script>
+<script src="js/daily.js"></script>
+<script src="js/daily-today.js"></script>
 <script src="js/today.js"></script>
 <script src="js/push.js"></script>
 <script src="js/app.js"></script>

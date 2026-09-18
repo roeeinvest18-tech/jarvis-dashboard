@@ -216,7 +216,25 @@ function renderUnlockBanner() {
 
 let lastFetched = null;
 
+// History's "Edit this day" link arrives as ?date=YYYY-MM-DD. Validated
+// strictly rather than trusted: a malformed value falls back to today instead
+// of opening a record under a nonsense key.
+function dailyDateFromQuery() {
+  try {
+    const value = new URLSearchParams(window.location.search).get('date');
+    return /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? value : null;
+  } catch (e) {
+    return null;
+  }
+}
+
 async function loadAndRender() {
+  // Rendered before the fetch, not after: the routine check-in is pure local
+  // state and must not wait on a network round trip for the trading feeds.
+  dailyActiveDate = dailyDateFromQuery();
+  renderDailyZone();
+  dailyTriggerSync();
+
   const d = await DASHBOARD.fetchAll();
   lastFetched = d;
   renderMarketHeader(d.scan, d.breakoutAlerts);
