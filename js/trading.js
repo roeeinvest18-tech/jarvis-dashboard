@@ -20,10 +20,99 @@ function tradingBadge(setupTag) {
 
 // Only a top-tier score earns the accent; the rest step down through ink.
 // A ranked list is only useful if its head is separable from its middle.
+//
+// Thresholds are set against the Top 10 model's real distribution, not a
+// round number: on a live scan of 146 eligible stocks the scores ran
+// 7..88 with a median of 56, so the old >=90 cut would never have fired and
+// the accent would have been dead code. >=80 picks out roughly the top
+// handful, which is what "notable" should mean.
 function tradingScoreClass(score) {
-  if (score >= 90) return 'is-high';
-  if (score >= 80) return 'is-mid';
+  if (score >= 80) return 'is-high';
+  if (score >= 65) return 'is-mid';
   return 'is-low';
+}
+
+// --- Top 10 model -----------------------------------------------------------
+//
+// scoring.py owns this model; scout.py writes top10_score into each record.
+// The mirror below exists for one reason: a scan.json published before the
+// model existed carries neither the score nor the ranking, and falling back to
+// the old composite would show the OLD list under a new heading, which is
+// worse than a blank. Recomputing from cci / volume_ratio / pct_SMA150 -- all
+// of which the feed already carries -- shows the real list immediately and
+// stops mattering the moment the next scan republishes.
+//
+// The two implementations are held in step by a test that runs the same grid
+// of inputs through both (test_top10_parity.js), so this cannot drift quietly.
+const TOP10_GATE_HIGH_PCT = 10.0;
+const TOP10_CCI_ZERO_AT = 150.0;
+const TOP10_CCI_FULL_AT = -250.0;
+const TOP10_VOL_FULL_AT = 5.0;
+const TOP10_W_CCI = 0.67;
+const TOP10_W_VOLUME = 0.33;
+
+function top10Eligible(pctSma150) {
+  return typeof pctSma150 === 'number' && pctSma150 > 0 && pctSma150 <= TOP10_GATE_HIGH_PCT;
+}
+
+function top10CciComponent(cci) {
+  if (typeof cci !== 'number') return 0;
+  const span = TOP10_CCI_ZERO_AT - TOP10_CCI_FULL_AT;
+  return Math.max(0, Math.min(1, (TOP10_CCI_ZERO_AT - cci) / span));
+}
+
+function top10VolumeComponent(ratio) {
+  if (typeof ratio !== 'number' || ratio <= 1) return 0;
+  return Math.max(0, Math.min(1, Math.log(ratio) / Math.log(TOP10_VOL_FULL_AT)));
+}
+
+// null when gated out, mirroring the Python None: "never shows" and "shows
+// with nothing to recommend it" are different answers.
+function computeTop10Score(cci, volumeRatio, pctSma150) {
+  if (!top10Eligible(pctSma150)) return null;
+  return Math.round(100 * (
+    TOP10_W_CCI * top10CciComponent(cci)
+    + TOP10_W_VOLUME * top10VolumeComponent(volumeRatio)));
+}
+
+function tradingTop10Score(record) {
+  if (typeof record.top10_score === 'number') return record.top10_score;
+  return computeTop10Score(record.cci, record.volume_ratio, record.pct_SMA150);
+}
+
+// --- TradingView links ------------------------------------------------------
+//
+// A bare ticker often fails to resolve on TradingView, so the exchange prefix
+// matters. scout.py resolves it per stock (yfinance's own code, mapped); this
+// falls back to a bare symbol when it is missing rather than guessing a
+// prefix, because a wrong exchange silently opens a different instrument.
+//
+// Until the next nightly scan runs, no record carries an exchange yet, so
+// every link uses the bare form. That resolves for most US listings and
+// self-corrects the first time the scan republishes.
+
+function tradingViewUrl(ticker, exchange) {
+  const symbol = exchange ? `${exchange}:${ticker}` : ticker;
+  return `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(symbol)}`;
+}
+
+// Breakout alerts carry no exchange of their own, so they borrow it from the
+// scan by ticker -- one lookup table rather than a second published field.
+function tradingExchangeFor(ticker) {
+  const scan = tradingState.scan;
+  if (!scan || !scan.stocks) return null;
+  if (!tradingState._exchangeByTicker) {
+    tradingState._exchangeByTicker = Object.fromEntries(
+      scan.stocks.map(s => [s.ticker, s.exchange || null]));
+  }
+  return tradingState._exchangeByTicker[ticker] || null;
+}
+
+// Shared by every tappable row. target=_blank keeps Jarvis open behind it,
+// and on mobile hands off to the TradingView app when installed.
+function tradingLinkAttrs(ticker, exchange) {
+  return `href="${escapeHtml(tradingViewUrl(ticker, exchange))}" target="_blank" `
+    + `rel="noopener noreferrer" aria-label="Open ${escapeHtml(ticker)} chart on TradingView"`;
 }
 
 const tradingState = {
@@ -122,12 +211,20 @@ function renderTradingTop10() {
     return;
   }
 
+  // Prefer the scan's own ranking, but only once it was produced by the
+  // current model. A scan.json from before it carries the previous ordering,
+  // which would show the old list under the new rules; recomputing here is
+  // the honest reading of the same data until the next scan republishes.
   const byTicker = Object.fromEntries(scan.stocks.map(s => [s.ticker, s]));
-  // Prefer the server's ranking (it puts zone reclaims first); fall back to
-  // score order only for an older scan.json with no top10 key.
-  const ordered = (scan.top10 && scan.top10.length)
+  const scanHasModel = scan.stocks.some(s => typeof s.top10_score === 'number');
+  const ordered = (scanHasModel && scan.top10 && scan.top10.length)
     ? scan.top10.map(t => byTicker[t]).filter(Boolean)
-    : [...scan.stocks].sort((a, b) => b.score - a.score).slice(0, 10);
+    : scan.stocks
+        .map(s => ({ s, v: tradingTop10Score(s) }))
+        .filter(x => typeof x.v === 'number')
+        .sort((a, b) => b.v - a.v || (a.s.cci ?? 0) - (b.s.cci ?? 0))
+        .slice(0, 10)
+        .map(x => x.s);
 
   const shown = ordered.filter(r => tradingMatchesSearch(r, tradingState.search));
 
@@ -145,8 +242,9 @@ function renderTradingTop10() {
       // the whole point of ranking it.
       const fade = rank >= 6
         ? ` style="opacity:${[0.55, 0.42, 0.3, 0.22, 0.15][rank - 6] ?? 0.15}"` : '';
+      const score = tradingTop10Score(r);
       return `
-        <article class="setup-card"${fade}>
+        <a class="setup-card is-link" ${tradingLinkAttrs(r.ticker, r.exchange)}${fade}>
           <span class="setup-rank mono">${rank}</span>
           <div class="setup-main">
             <div class="setup-row">
@@ -159,8 +257,8 @@ function renderTradingTop10() {
               <span class="setup-vol">Vol ${fmtCompactNumber(r.today_volume)}</span>
             </div>
           </div>
-          <span class="setup-score mono ${tradingScoreClass(r.score)}">${Math.round(r.score)}</span>
-        </article>`;
+          <span class="setup-score mono ${tradingScoreClass(score)}">${Math.round(score)}</span>
+        </a>`;
     }).join('')}</div>`
     : `<div class="empty-state">No ranked setups match "${escapeHtml(tradingState.search)}".</div>`}`;
 }
@@ -212,7 +310,7 @@ function renderTradingBreakouts() {
       const hours = Math.floor(Math.abs(remaining) / 3600000);
       const mins = Math.floor((Math.abs(remaining) % 3600000) / 60000);
       return `
-        <article class="setup-card">
+        <a class="setup-card is-link" ${tradingLinkAttrs(r.ticker, tradingExchangeFor(r.ticker))}>
           <div class="setup-main">
             <div class="setup-row">
               <span class="setup-ticker">${escapeHtml(r.ticker)}</span>
@@ -233,7 +331,7 @@ function renderTradingBreakouts() {
               · touched ${escapeHtml(fmtRelative(r.last_touch_at))}
             </div>
           </div>
-        </article>`;
+        </a>`;
     }).join('')}</div>`
     : `<div class="empty-state">${tradingState.breakoutFilter === 'archive'
         ? 'Nothing in the archive yet.'
@@ -303,8 +401,9 @@ function renderTradingFullScan() {
           ${rows.map(r => {
             const badge = tradingBadge(r.setup_tag);
             return `
-              <tr>
-                <td class="col-ticker">${escapeHtml(r.ticker)}</td>
+              <tr class="is-link" data-tv-ticker="${escapeHtml(r.ticker)}"
+                  data-tv-exchange="${escapeHtml(r.exchange || '')}">
+                <td class="col-ticker"><a ${tradingLinkAttrs(r.ticker, r.exchange)}>${escapeHtml(r.ticker)}</a></td>
                 <td class="col-setup"><span class="setup-badge is-tiny ${badge.cls}">${badge.label}</span></td>
                 <td class="col-num mono">${fmtPrice(r.price)}</td>
                 <td class="col-num mono ${r.change_pct >= 0 ? 'is-up' : 'is-down'}">${fmtChange(r.change_pct)}</td>
@@ -315,6 +414,17 @@ function renderTradingFullScan() {
         </tbody>
       </table>
     </div>`;
+
+  // Whole-row tap target for the table. The ticker cell is already a real
+  // anchor (so keyboard and screen readers get a proper link); this just
+  // widens the target to the rest of the row for a thumb.
+  mount.querySelectorAll('tr[data-tv-ticker]').forEach(tr => {
+    tr.addEventListener('click', ev => {
+      if (ev.target.closest('a')) return;   // the anchor handles its own click
+      window.open(tradingViewUrl(tr.dataset.tvTicker, tr.dataset.tvExchange || null),
+        '_blank', 'noopener');
+    });
+  });
 
   mount.querySelectorAll('[data-sort]').forEach(th => {
     th.addEventListener('click', () => {

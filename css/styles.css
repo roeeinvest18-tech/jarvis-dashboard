@@ -3738,3 +3738,33 @@ table.drill-table td {
   font-family: var(--font-serif);
   font-size: var(--fs-body);
 }
+
+/* ==========================================================================
+   Tappable rows — open the ticker's TradingView chart
+   ========================================================================== */
+
+/* The row IS the link, so it carries no link colour of its own: the content
+   keeps the ink hierarchy it already had, and the affordance is the pressed
+   state rather than a blue underline. */
+.setup-card.is-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background var(--t-tap);
+}
+.setup-card.is-link:hover { background: var(--raise); }
+.setup-card.is-link:active {
+  background: var(--raise);
+  transform: scale(0.99);
+  transition: transform var(--t-tap), background var(--t-tap);
+}
+.setup-card.is-link:focus-visible { outline: 1px solid var(--mark); outline-offset: -1px; }
+
+table.scan-grid tr.is-link { cursor: pointer; }
+table.scan-grid tr.is-link:active td { background: var(--raise); }
+.col-ticker a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+.col-ticker a:focus-visible { outline: 1px solid var(--mark); outline-offset: 1px; }

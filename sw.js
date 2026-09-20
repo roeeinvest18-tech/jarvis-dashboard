@@ -10,9 +10,10 @@
 // v5: two-area restructure -- new pages (trading.html), a new shell and
 // per-area controllers.
 // v6: "Ink" design system -- new palette, new fonts and a de-carded
-// component set. No new files, but every cached stylesheet and script is
-// stale, so the name has to move or an installed PWA keeps the old look.
-const CACHE_NAME = 'jarvis-shell-v6';
+// component set.
+// v7: TradingView chart links and the new Top 10 model -- trading.js and the
+// stylesheet both changed, so the cached copies are stale.
+const CACHE_NAME = 'jarvis-shell-v7';
 const SHELL_ASSETS = [
   './',
   'index.html',
