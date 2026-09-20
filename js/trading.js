@@ -18,8 +18,8 @@ function tradingBadge(setupTag) {
   return TRADING_BADGES[setupTag] || { label: 'SIGNAL', cls: 'is-signal' };
 }
 
-// 90+ green, 80-89 gold, below that muted — a ranked list is only useful if
-// the top of it is visually separable from the middle.
+// Only a top-tier score earns the accent; the rest step down through ink.
+// A ranked list is only useful if its head is separable from its middle.
 function tradingScoreClass(score) {
   if (score >= 90) return 'is-high';
   if (score >= 80) return 'is-mid';
@@ -140,15 +140,17 @@ function renderTradingTop10() {
       const rank = ordered.indexOf(r) + 1;
       const badge = tradingBadge(r.setup_tag);
       const change = r.change_pct;
-      // Ranks 7-10 fade progressively: the list stays complete but its head
-      // is unmistakable, which is the point of a ranked list.
-      const fade = rank >= 7 ? ` style="opacity:${[0.5, 0.35, 0.2, 0.1][rank - 7]}"` : '';
+      // Ranks 6+ step down in opacity so the list reads as continuing past
+      // its head rather than stopping. The head stays fully legible, which is
+      // the whole point of ranking it.
+      const fade = rank >= 6
+        ? ` style="opacity:${[0.55, 0.42, 0.3, 0.22, 0.15][rank - 6] ?? 0.15}"` : '';
       return `
         <article class="setup-card"${fade}>
           <span class="setup-rank mono">${rank}</span>
           <div class="setup-main">
             <div class="setup-row">
-              <span class="setup-ticker mono">${escapeHtml(r.ticker)}</span>
+              <span class="setup-ticker">${escapeHtml(r.ticker)}</span>
               <span class="setup-badge ${badge.cls}">${badge.label}</span>
             </div>
             <div class="setup-row setup-meta">
@@ -213,7 +215,7 @@ function renderTradingBreakouts() {
         <article class="setup-card">
           <div class="setup-main">
             <div class="setup-row">
-              <span class="setup-ticker mono">${escapeHtml(r.ticker)}</span>
+              <span class="setup-ticker">${escapeHtml(r.ticker)}</span>
               <span class="setup-badge is-breakout">SMA150</span>
               ${r.touch_count > 1 ? `<span class="setup-touches mono">${r.touch_count}× touch</span>` : ''}
             </div>
@@ -302,7 +304,7 @@ function renderTradingFullScan() {
             const badge = tradingBadge(r.setup_tag);
             return `
               <tr>
-                <td class="col-ticker mono">${escapeHtml(r.ticker)}</td>
+                <td class="col-ticker">${escapeHtml(r.ticker)}</td>
                 <td class="col-setup"><span class="setup-badge is-tiny ${badge.cls}">${badge.label}</span></td>
                 <td class="col-num mono">${fmtPrice(r.price)}</td>
                 <td class="col-num mono ${r.change_pct >= 0 ? 'is-up' : 'is-down'}">${fmtChange(r.change_pct)}</td>

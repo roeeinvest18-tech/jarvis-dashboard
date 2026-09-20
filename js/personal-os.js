@@ -34,8 +34,7 @@ function osRenderTraining() {
   // change, exactly as specified, with its data model untouched.
   if (!document.getElementById('training-list')) {
     mount.innerHTML = `
-      <section class="zone" id="zone-training" aria-labelledby="training-label">
-        <h2 class="sec-label" id="training-label">Training</h2>
+      <section class="zone" id="zone-training" aria-label="Training">
         <div id="training-list"></div>
       </section>`;
   }

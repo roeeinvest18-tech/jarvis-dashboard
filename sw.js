@@ -8,10 +8,11 @@
 // serving the old amber shell until CACHE_NAME changes by hand (bit us
 // before, see project memory).
 // v5: two-area restructure -- new pages (trading.html), a new shell and
-// per-area controllers. A new cache name is required or an installed PWA
-// keeps serving the previous shell, which is exactly the stale-app symptom
-// this bump exists to avoid.
-const CACHE_NAME = 'jarvis-shell-v5';
+// per-area controllers.
+// v6: "Ink" design system -- new palette, new fonts and a de-carded
+// component set. No new files, but every cached stylesheet and script is
+// stale, so the name has to move or an installed PWA keeps the old look.
+const CACHE_NAME = 'jarvis-shell-v6';
 const SHELL_ASSETS = [
   './',
   'index.html',

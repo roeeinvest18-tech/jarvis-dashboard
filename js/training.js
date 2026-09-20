@@ -261,8 +261,7 @@ function renderMissedBanner(sessions) {
   const more = missed.length - shown.length;
   const label = shown.map(d => `${weekdayName(d).slice(0, 3)} ${d.slice(5)}`).join(', ');
   return `<div class="training-missed">
-    <span class="training-missed-icon" aria-hidden="true">⚠️</span>
-    <span>Missed: ${escapeHtml(label)}${more > 0 ? ` (+${more} earlier)` : ''}</span>
+    <span>Not logged: ${escapeHtml(label)}${more > 0 ? ` (+${more} earlier)` : ''}</span>
   </div>`;
 }
 
@@ -353,9 +352,15 @@ function renderDrillRow(session, drill, prSetKeys) {
   const total = sets.reduce((a, b) => a + b, 0);
   const cell = i => {
     const v = sets[i];
-    if (v === undefined) return `<td class="mono">—</td>`;
+    // The third set is genuinely optional, so an empty one says so in words
+    // rather than showing a dash that reads as a gap left unfilled.
+    if (v === undefined) {
+      return i === 2
+        ? `<td class="set-optional">optional</td>`
+        : `<td class="mono">—</td>`;
+    }
     const isPR = prSetKeys.has(`${session.id}:${i}`);
-    return `<td class="mono">${v}${isPR ? ' <span class="drill-pr-flag" title="Personal record">🏆</span>' : ''}</td>`;
+    return `<td class="mono">${v}${isPR ? ' <span class="drill-pr-flag" title="Personal best">PB</span>' : ''}</td>`;
   };
 
   return `<tr class="drill-row">
@@ -374,7 +379,7 @@ function renderDrillSection(sessions, drill, index = 0) {
   const summaryLine = summary
     ? `<span class="drill-total mono">${summary.total} reps</span>
        ${summary.delta !== null ? `<span class="drill-delta ${summary.delta > 0 ? 'is-up' : summary.delta < 0 ? 'is-down' : 'is-flat'} mono">${summary.delta > 0 ? '+' : ''}${summary.delta} vs last session</span>` : ''}
-       ${summary.hasPR ? `<span class="drill-pr-flag" title="Personal record">🏆</span>` : ''}`
+       ${summary.hasPR ? `<span class="drill-pr-flag" title="Personal best">PERSONAL BEST</span>` : ''}`
     : `<span class="drill-total mono">—</span>`;
 
   const sparkline = summary ? renderSparkline(summary.history, drill.id) : '';
@@ -414,7 +419,7 @@ function renderTrainingLogFormHtml() {
           <span class="training-log-drill">${escapeHtml(d.label)}</span>
           <input type="number" min="0" inputmode="numeric" class="training-set-input" placeholder="Set 1" data-drill="${d.id}">
           <input type="number" min="0" inputmode="numeric" class="training-set-input" placeholder="Set 2" data-drill="${d.id}">
-          <input type="number" min="0" inputmode="numeric" class="training-set-input" placeholder="Set 3" data-drill="${d.id}">
+          <input type="number" min="0" inputmode="numeric" class="training-set-input" placeholder="optional" data-drill="${d.id}">
         </div>`).join('')}
       <button type="submit">Log session</button>
     </form>`;
