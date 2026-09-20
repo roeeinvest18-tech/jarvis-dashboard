@@ -483,6 +483,77 @@ const DAILY = {
     return attempt;
   },
 
+  // --- backup -------------------------------------------------------------
+  //
+  // Everything here lives in exactly two places: this browser's localStorage,
+  // and (only if sync is configured) a single JSON file on the Railway
+  // container's disk. If that disk is not a mounted volume it is wiped on
+  // every redeploy, and clearing site data wipes the other copy. Two fragile
+  // copies is not a backup, so this is the third one the user controls.
+  //
+  // The export is the same shape the sync endpoint speaks, so a restore is a
+  // merge through the ordinary path rather than a special case.
+
+  exportAll() {
+    return {
+      kind: 'jarvis-personal-os-backup',
+      version: 1,
+      exported_at: new Date().toISOString(),
+      days: this.days(),
+      topics: this.topics(),
+      recalls: this.recalls(),
+      experiments: this.experiments(),
+      settings: this.settings(),
+      deleted: this.deleted(),
+    };
+  },
+
+  // Merges rather than replaces: restoring an old backup must not delete days
+  // recorded since it was taken. Per-day the newer updated_at wins, matching
+  // daily_store.merge_and_save so a restore behaves the same locally as it
+  // would through the server.
+  importAll(payload) {
+    if (!payload || payload.kind !== 'jarvis-personal-os-backup') {
+      throw new Error('not a Jarvis backup file');
+    }
+    const newer = (incoming, existing) => {
+      const a = (incoming && incoming.updated_at) || '';
+      const b = (existing && existing.updated_at) || '';
+      return a > b;
+    };
+
+    const days = this.days();
+    let restoredDays = 0;
+    Object.entries(payload.days || {}).forEach(([date, record]) => {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || typeof record !== 'object') return;
+      if (!days[date] || newer(record, days[date])) {
+        days[date] = record;
+        restoredDays += 1;
+      }
+    });
+    this.saveJson(DAILY_KEYS.days, days);
+
+    const mergeById = (key, incoming) => {
+      const byId = Object.fromEntries((this.loadJson(key, []) || []).map(e => [e.id, e]));
+      let added = 0;
+      (incoming || []).forEach(e => {
+        if (!e || typeof e.id !== 'string') return;
+        if (!byId[e.id] || newer(e, byId[e.id])) { byId[e.id] = e; added += 1; }
+      });
+      this.saveJson(key, Object.values(byId));
+      return added;
+    };
+    const restoredTopics = mergeById(DAILY_KEYS.topics, payload.topics);
+    const restoredRecalls = mergeById(DAILY_KEYS.recalls, payload.recalls);
+    mergeById(DAILY_KEYS.experiments, payload.experiments);
+
+    if (payload.settings) this.saveSettings(payload.settings);
+    if (Array.isArray(payload.deleted)) {
+      this.saveJson(DAILY_KEYS.deleted, [...new Set([...this.deleted(), ...payload.deleted])]);
+    }
+    return { days: restoredDays, topics: restoredTopics, recalls: restoredRecalls };
+  },
+
   // --- sync ---------------------------------------------------------------
 
   syncConfig() {

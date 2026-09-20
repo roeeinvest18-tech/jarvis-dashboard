@@ -3768,3 +3768,6 @@ table.scan-grid tr.is-link:active td { background: var(--raise); }
   display: block;
 }
 .col-ticker a:focus-visible { outline: 1px solid var(--mark); outline-offset: 1px; }
+
+.os-import { display: inline-flex; }
+.os-import .os-btn { display: inline-flex; align-items: center; cursor: pointer; }

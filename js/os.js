@@ -355,7 +355,7 @@ function osSettingsHtml() {
   return `
     <div class="os-block">
       <details class="os-settings">
-        <summary class="os-note">Settings — targets and cross-device sync</summary>
+        <summary class="os-note">Settings — targets, sync and backup</summary>
         <div class="os-settings-body">
           <form id="os-targets-form" class="os-settings-form">
             <label>Protein target (g)
@@ -370,6 +370,19 @@ function osSettingsHtml() {
             recorded keep the target that was in force when you reported them.</p>
           <h4 class="os-subhead">Cross-device sync</h4>
           ${syncBody}
+
+          <h4 class="os-subhead">Backup</h4>
+          <p class="os-note">Your Personal OS data lives in this browser, and on the sync
+            server only if sync is on. Neither is a backup you control. Download a copy
+            you keep.</p>
+          <div class="os-settings-form">
+            <button type="button" class="os-btn" id="os-export">Download a backup</button>
+            <label class="os-import">
+              <span class="os-btn">Restore from a file</span>
+              <input type="file" id="os-import" accept="application/json,.json" hidden>
+            </label>
+          </div>
+          <p class="os-note" id="os-backup-status"></p>
         </div>
       </details>
     </div>`;
@@ -403,6 +416,51 @@ function wireOsSettings() {
       DAILY.saveSyncConfig(url, tokenValue);
       renderOsInsights();
       osTriggerSync();
+    });
+  }
+
+  const exportBtn = document.getElementById('os-export');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(DAILY.exportAll(), null, 2)],
+        { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `jarvis-personal-os-${dailyTodayIso()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      // Revoked on the next tick rather than immediately: Safari cancels the
+      // download if the object URL disappears while it is still starting.
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      const status = document.getElementById('os-backup-status');
+      if (status) status.textContent = `Saved ${Object.keys(DAILY.days()).length} days.`;
+    });
+  }
+
+  const importInput = document.getElementById('os-import');
+  if (importInput) {
+    importInput.addEventListener('change', () => {
+      const file = importInput.files && importInput.files[0];
+      if (!file) return;
+      const status = document.getElementById('os-backup-status');
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const result = DAILY.importAll(JSON.parse(reader.result));
+          if (status) {
+            status.textContent = `Restored ${result.days} day(s), ${result.topics} topic(s), `
+              + `${result.recalls} recall(s). Anything newer than the backup was kept.`;
+          }
+          renderOsInsights();
+          osTriggerSync();
+        } catch (e) {
+          if (status) status.textContent = `Could not read that file: ${e.message}`;
+        }
+      };
+      reader.readAsText(file);
+      importInput.value = '';   // so re-picking the same file fires again
     });
   }
 

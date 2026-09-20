@@ -13,7 +13,9 @@
 // component set.
 // v7: TradingView chart links and the new Top 10 model -- trading.js and the
 // stylesheet both changed, so the cached copies are stale.
-const CACHE_NAME = 'jarvis-shell-v7';
+// v8: user-controlled backup/restore -- daily.js gained exportAll/importAll
+// and os.js the Settings block that drives them.
+const CACHE_NAME = 'jarvis-shell-v8';
 const SHELL_ASSETS = [
   './',
   'index.html',
