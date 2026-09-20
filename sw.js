@@ -7,29 +7,31 @@
 // rewrite need a fresh cache name or an already-installed PWA would keep
 // serving the old amber shell until CACHE_NAME changes by hand (bit us
 // before, see project memory).
-// v4: Personal OS -- a new page (os.html) and three new scripts, which need a
-// fresh cache name for the same reason v3 did.
-const CACHE_NAME = 'jarvis-shell-v4';
+// v5: two-area restructure -- new pages (trading.html), a new shell and
+// per-area controllers. A new cache name is required or an installed PWA
+// keeps serving the previous shell, which is exactly the stale-app symptom
+// this bump exists to avoid.
+const CACHE_NAME = 'jarvis-shell-v5';
 const SHELL_ASSETS = [
   './',
   'index.html',
-  'scan.html',
+  'trading.html',
   'os.html',
+  'scan.html',
   'manifest.json',
   'css/styles.css',
   'js/app.js',
   'js/data.js',
-  'js/nav.js',
+  'js/shell.js',
   'js/gestures.js',
   'js/icons.js',
   'js/components.js',
-  'js/today.js',
-  'js/tasks.js',
-  'js/training.js',
   'js/daily.js',
   'js/daily-today.js',
   'js/os.js',
-  'js/scan.js',
+  'js/personal-os.js',
+  'js/training.js',
+  'js/trading.js',
   'js/push.js',
   'icons/icon-192.png',
   'icons/icon-512.png',

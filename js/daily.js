@@ -218,6 +218,10 @@ function dailyEmptyRecord(date) {
     screen_time: { total_min: null, social_min: null, youtube_min: null },
     tradingview_opens: null,
     priorities: [],
+    // Parallel to `priorities`, index for index. Kept as a separate array
+    // rather than turning each priority into an object so that a record
+    // written before this existed still reads back correctly.
+    priorities_done: [],
     win_of_day: '',
     friction: '',
     minimum_day: false,
@@ -237,6 +241,8 @@ function dailyNormalizeRecord(record, date) {
   merged.supplements = { ...(record && record.supplements) || {} };
   merged.screen_time = { ...base.screen_time, ...((record && record.screen_time) || {}) };
   merged.priorities = Array.isArray(merged.priorities) ? merged.priorities.slice(0, 3) : [];
+  merged.priorities_done = Array.isArray(merged.priorities_done)
+    ? merged.priorities_done.slice(0, 3) : [];
   return merged;
 }
 
@@ -428,14 +434,35 @@ const DAILY = {
   // records the answer and leaves `evaluation` null; an external evaluator
   // (ChatGPT today, an API later) fills it in through saveRecallEvaluation
   // without ever touching what was actually written.
-  saveRecallAttempt(topicId, responseText) {
+  // `outcome` is how the recall felt, and it moves the topic along the
+  // configurable interval ladder — deliberately NOT an SM-2 style algorithm
+  // with ease factors. The ladder is data (DAILY_RECALL_INTERVALS_DAYS), and
+  // an outcome only says which rung to land on next, so the schedule can be
+  // retuned by editing one array.
+  saveRecallAttempt(topicId, responseText, outcome = 'good') {
     const now = new Date().toISOString();
+    const previous = this.recallsFor(topicId);
+    // The rung the topic is scheduled at right now: 0 for a topic never
+    // recalled, otherwise wherever the last attempt left it. Attempts written
+    // before rungs existed are read positionally, so upgrading never resets a
+    // topic's schedule.
+    const currentRung = previous.length
+      ? (typeof previous[previous.length - 1].rung === 'number'
+        ? previous[previous.length - 1].rung
+        : previous.length - 1)
+      : 0;
+    const delta = outcome === 'again' ? 0 : outcome === 'easy' ? 2 : 1;
+    const rung = Math.max(0, Math.min(
+      DAILY_RECALL_INTERVALS_DAYS.length - 1, currentRung + delta));
+
     const attempt = {
       id: this.newId('recall'),
       topic_id: topicId,
       prompted_at: now,
       responded_at: now,
       response_text: responseText || '',
+      outcome,
+      rung,
       evaluation: null,
       created_at: now,
       updated_at: now,
@@ -721,7 +748,13 @@ function dailyDueRecalls(todayIso) {
   const today = todayIso || dailyTodayIso();
   return DAILY.topics().map(topic => {
     const attempts = DAILY.recallsFor(topic.id);
-    const rung = Math.min(attempts.length, DAILY_RECALL_INTERVALS_DAYS.length - 1);
+    const last = attempts.length ? attempts[attempts.length - 1] : null;
+    // The rung the last attempt landed on drives the next interval. Falling
+    // back to the attempt count keeps pre-rung records scheduling as before.
+    const rung = last
+      ? Math.min(typeof last.rung === 'number' ? last.rung : attempts.length - 1,
+        DAILY_RECALL_INTERVALS_DAYS.length - 1)
+      : 0;
     const intervalDays = DAILY_RECALL_INTERVALS_DAYS[rung];
     const anchorDate = attempts.length
       ? (attempts[attempts.length - 1].prompted_at || '').slice(0, 10)

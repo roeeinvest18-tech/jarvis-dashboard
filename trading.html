@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Personal OS — Jarvis</title>
-<meta name="description" content="Your daily routine, training, insights, learning recall and history.">
+<title>Trading — Jarvis</title>
+<meta name="description" content="Ranked setups, SMA150 breakout alerts and the full nightly scan.">
 <meta name="theme-color" content="#0e0c18">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
@@ -23,11 +23,15 @@
   </header>
 
   <div class="shell-body">
-    <section data-shell-panel="today" id="panel-today"></section>
-    <section data-shell-panel="training" id="panel-training" hidden></section>
-    <section data-shell-panel="insights" id="panel-insights" hidden></section>
-    <section data-shell-panel="memory" id="panel-memory" hidden></section>
-    <section data-shell-panel="history" id="panel-history" hidden></section>
+    <!-- The market status bar and the ticker/sector search live here now,
+         not on Today: they are trading instruments and had no business
+         sitting above the morning routine. -->
+    <div id="market-bar"></div>
+    <div id="trading-search"></div>
+
+    <section data-shell-panel="top10" id="panel-top10"></section>
+    <section data-shell-panel="breakouts" id="panel-breakouts" hidden></section>
+    <section data-shell-panel="fullscan" id="panel-fullscan" hidden></section>
   </div>
 </main>
 
@@ -35,11 +39,7 @@
 <script src="js/data.js"></script>
 <script src="js/shell.js"></script>
 <script src="js/components.js"></script>
-<script src="js/daily.js"></script>
-<script src="js/training.js"></script>
-<script src="js/daily-today.js"></script>
-<script src="js/os.js"></script>
-<script src="js/personal-os.js"></script>
+<script src="js/trading.js"></script>
 <script src="js/push.js"></script>
 <script src="js/app.js"></script>
 </body>
