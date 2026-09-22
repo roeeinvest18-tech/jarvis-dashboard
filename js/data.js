@@ -41,6 +41,7 @@ const DASHBOARD = {
   FILES: {
     scan: 'dashboard_data/scan.json',
     breakoutAlerts: 'dashboard_data/breakout_alerts.json',
+    scorecard: 'dashboard_data/scorecard.json',
     emails: 'dashboard_data/emails.json',
     calendar: 'dashboard_data/calendar.json',
     build: 'dashboard_data/build.json',

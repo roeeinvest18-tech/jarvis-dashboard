@@ -28,6 +28,8 @@
     <section data-shell-panel="insights" id="panel-insights" hidden></section>
     <section data-shell-panel="memory" id="panel-memory" hidden></section>
     <section data-shell-panel="history" id="panel-history" hidden></section>
+
+    <div id="health-strip"></div>
   </div>
 </main>
 
@@ -35,6 +37,8 @@
 <script src="js/data.js"></script>
 <script src="js/shell.js"></script>
 <script src="js/components.js"></script>
+<script src="js/market-calendar.js"></script>
+<script src="js/health.js"></script>
 <script src="js/daily.js"></script>
 <script src="js/training.js"></script>
 <script src="js/daily-today.js"></script>
@@ -42,5 +46,10 @@
 <script src="js/personal-os.js"></script>
 <script src="js/push.js"></script>
 <script src="js/app.js"></script>
+<script>
+  // System health at the foot of Personal OS too: the backups it reports
+  // protect this area's data.
+  DASHBOARD.fetchOne('scan').then(scan => renderHealthStrip(document.getElementById('health-strip'), scan));
+</script>
 </body>
 </html>

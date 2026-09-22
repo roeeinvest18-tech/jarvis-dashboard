@@ -69,9 +69,13 @@ function clearTrainingSyncConfig() {
 
 // Pushes whatever's captured/edited locally, and pulls back the server's
 // merged view (which may include sessions another device already pushed) --
-// same shape as training_store.merge_and_save's return. Silent on any
-// failure (offline, wrong token, server asleep): the caller just keeps
-// showing local data and tries again next render.
+// same shape as training_store.merge_and_save's return. Local data is never
+// blocked by a failure (offline, wrong token, server asleep): the caller
+// keeps showing local data and tries again next render. Failures ARE
+// recorded in trainingSyncLastError though, so the UI can say so instead of
+// silently claiming "Synced across devices" when every request has actually
+// been rejected (e.g. a missing/mismatched server-side token).
+let trainingSyncLastError = null;
 async function syncTrainingWithServer() {
   const { url, token } = trainingSyncConfig();
   if (!url || !token) return null;
@@ -85,15 +89,22 @@ async function syncTrainingWithServer() {
         deleted: loadTrainingJson(TRAINING_DELETED_KEY, []),
       }),
     });
-    if (!resp.ok) return null;
+    if (!resp.ok) {
+      trainingSyncLastError = (resp.status === 401 || resp.status === 403)
+        ? 'Sync token rejected by server'
+        : `Sync failed (HTTP ${resp.status})`;
+      return null;
+    }
     const state = await resp.json();
     // The server response is now the merged source of truth for the synced
     // set, so it replaces (not appends to) the local cache -- otherwise an
     // already-synced local entry would get re-POSTed and re-merged forever.
     saveCapturedSessions(state.sessions || []);
     saveTrainingJson(TRAINING_EDITS_KEY, state.edits || {});
+    trainingSyncLastError = null;
     return state;
   } catch (e) {
+    trainingSyncLastError = 'Sync unreachable (offline or server asleep)';
     return null;
   }
 }
@@ -435,6 +446,10 @@ function renderTrainingSyncSectionHtml() {
   if (url && token) {
     let host = url;
     try { host = new URL(url).host; } catch (e) { /* keep raw string if unparseable */ }
+    if (trainingSyncLastError) {
+      return `<p class="local-note">${escapeHtml(trainingSyncLastError)} via ${escapeHtml(host)} — showing local data only.
+        <button type="button" id="training-sync-forget" class="push-banner-dismiss">Turn off sync</button></p>`;
+    }
     return `<p class="local-note">Synced across devices via ${escapeHtml(host)}.
       <button type="button" id="training-sync-forget" class="push-banner-dismiss">Turn off sync</button></p>`;
   }
@@ -485,7 +500,10 @@ function triggerTrainingSync(payload) {
   trainingSyncInFlight = true;
   syncTrainingWithServer().then(state => {
     trainingSyncInFlight = false;
-    if (state) renderTrainingZone(payload);
+    // Re-render on failure too (not just `if (state)`) so a rejected token
+    // or an unreachable server shows up as a status line instead of the
+    // stale "Synced across devices" claim sticking around silently.
+    renderTrainingZone(payload);
   });
 }
 

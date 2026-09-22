@@ -18,6 +18,36 @@ function osDateFromQuery() {
   }
 }
 
+// Home-screen shortcuts (manifest.json) arrive as ?action=... . Consumed
+// once per page load, so switching tabs and back doesn't reopen anything.
+let osPendingAction = (() => {
+  try {
+    const a = new URLSearchParams(window.location.search).get('action');
+    return a === 'close-day' || a === 'log-training' ? a : null;
+  } catch (e) {
+    return null;
+  }
+})();
+
+function osRunPendingAction(tab) {
+  if (osPendingAction === 'close-day' && tab === 'today') {
+    osPendingAction = null;
+    const record = DAILY.getDay(dailyCurrentDate());
+    if (!record.closed) {
+      dailyClosingStep = 0;
+      renderDailyCloseFlow();
+    }
+  } else if (osPendingAction === 'log-training' && tab === 'training') {
+    osPendingAction = null;
+    const form = document.getElementById('training-log-form');
+    if (form) {
+      form.scrollIntoView({ block: 'start' });
+      const first = form.querySelector('input:not([type="date"])');
+      if (first) first.focus({ preventScroll: true });
+    }
+  }
+}
+
 // Training keeps its own data feed (dashboard_data/training.json), fetched
 // once and handed to the existing renderer untouched. Cached so switching
 // tabs doesn't refetch.
@@ -44,6 +74,9 @@ function osRenderTraining() {
     DASHBOARD.fetchOne('training').then(payload => {
       osTrainingPayload = payload;
       renderTrainingZone(payload);
+      // The shortcut acts on the settled render; the first, feed-less one
+      // is replaced by this and would lose focus.
+      osRunPendingAction('training');
       triggerTrainingSync(payload);
     });
     // Render immediately from locally captured sessions so the screen is
@@ -71,9 +104,15 @@ const osShell = mountShell({
       dailyActiveDate = osDateFromQuery();
       renderDailyToday();
       dailyTriggerSync();
+      osRunPendingAction(tab);
       return;
     }
-    if (tab === 'training') { osRenderTraining(); return; }
+    if (tab === 'training') {
+      const settled = osTrainingFetched;   // feed already in hand: act now
+      osRenderTraining();
+      if (settled) osRunPendingAction(tab);
+      return;
+    }
     osActiveTab = tab;
     renderOsActiveTab();
     osTriggerSync();

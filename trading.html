@@ -26,12 +26,17 @@
     <!-- The market status bar and the ticker/sector search live here now,
          not on Today: they are trading instruments and had no business
          sitting above the morning routine. -->
+    <div id="market-window"></div>
     <div id="market-bar"></div>
+    <div id="market-why"></div>
     <div id="trading-search"></div>
 
     <section data-shell-panel="top10" id="panel-top10"></section>
     <section data-shell-panel="breakouts" id="panel-breakouts" hidden></section>
     <section data-shell-panel="fullscan" id="panel-fullscan" hidden></section>
+    <section data-shell-panel="scorecard" id="panel-scorecard" hidden></section>
+
+    <div id="health-strip"></div>
   </div>
 </main>
 
@@ -39,6 +44,9 @@
 <script src="js/data.js"></script>
 <script src="js/shell.js"></script>
 <script src="js/components.js"></script>
+<script src="js/market-calendar.js"></script>
+<script src="js/health.js"></script>
+<script src="js/trading-logic.js"></script>
 <script src="js/trading.js"></script>
 <script src="js/push.js"></script>
 <script src="js/app.js"></script>

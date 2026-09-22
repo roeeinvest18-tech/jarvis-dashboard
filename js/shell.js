@@ -43,6 +43,7 @@ const SHELL_AREAS = [
       { id: 'top10', label: 'Top 10' },
       { id: 'breakouts', label: 'Breakouts' },
       { id: 'fullscan', label: 'Full Scan' },
+      { id: 'scorecard', label: 'Scorecard' },
     ],
   },
 ];
@@ -110,6 +111,7 @@ const SHELL_ICONS = {
   top10: () => shellNavIcon('<path d="M3 12.5h10M4.5 12.5V8M8 12.5V4M11.5 12.5V6.5"/>'),
   breakouts: () => shellNavIcon('<path d="M2 11l4-4 3 3 5-6"/><path d="M10.5 4H14v3.5"/>'),
   fullscan: () => shellNavIcon('<circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/>'),
+  scorecard: () => shellNavIcon('<path d="M3 3.5h10M3 8h10M3 12.5h10"/><path d="M6 3.5v9"/>'),
   settings: (size = 15) => `
     <svg width="${size}" height="${size}" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <circle cx="8" cy="8" r="2.2" stroke="currentColor" stroke-width="1.4"/>
@@ -175,7 +177,7 @@ function renderShellSidebar(activeAreaId, activeTabId, onTabChange) {
             <a class="shell-side-link accent-${area.accent} ${active ? 'is-active' : ''}"
                href="${href}" ${isHere ? `data-shell-tab="${tab.id}"` : ''}
                ${active ? 'aria-current="page"' : ''}>
-              ${(SHELL_ICONS[tab.id] || shellNavIcon(''))()}
+              ${(SHELL_ICONS[tab.id] || (() => shellNavIcon('')))()}
               <span>${tab.label}</span>
             </a>`;
         }).join('')}

@@ -15,7 +15,7 @@
 // stylesheet both changed, so the cached copies are stale.
 // v8: user-controlled backup/restore -- daily.js gained exportAll/importAll
 // and os.js the Settings block that drives them.
-const CACHE_NAME = 'jarvis-shell-v8';
+const CACHE_NAME = 'jarvis-shell-v12';
 const SHELL_ASSETS = [
   './',
   'index.html',
@@ -35,6 +35,9 @@ const SHELL_ASSETS = [
   'js/os.js',
   'js/personal-os.js',
   'js/training.js',
+  'js/market-calendar.js',
+  'js/health.js',
+  'js/trading-logic.js',
   'js/trading.js',
   'js/push.js',
   'icons/icon-192.png',
@@ -83,7 +86,9 @@ self.addEventListener('fetch', (event) => {
         }
         return response;
       })
-      .catch(() => caches.match(event.request))
+      // ignoreSearch for page loads: a home-screen shortcut opens
+      // index.html?action=..., which must still work offline.
+      .catch(() => caches.match(event.request, { ignoreSearch: event.request.mode === 'navigate' }))
   );
 });
 

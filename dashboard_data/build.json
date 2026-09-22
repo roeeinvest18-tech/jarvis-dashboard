@@ -4,6 +4,7 @@
     "breakout_alerts.json",
     "cci_oversold.json",
     "scan.json",
+    "scorecard.json",
     "tasks.json",
     "training.json"
   ],
@@ -15,6 +16,7 @@
     "breakout_alerts.json",
     "cci_oversold.json",
     "scan.json",
+    "scorecard.json",
     "tasks.json",
     "training.json"
   ]

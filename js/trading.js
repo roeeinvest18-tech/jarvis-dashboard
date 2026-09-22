@@ -32,52 +32,16 @@ function tradingScoreClass(score) {
   return 'is-low';
 }
 
-// --- Top 10 model -----------------------------------------------------------
+// --- Top 10 score ----------------------------------------------------------
 //
-// scoring.py owns this model; scout.py writes top10_score into each record.
-// The mirror below exists for one reason: a scan.json published before the
-// model existed carries neither the score nor the ranking, and falling back to
-// the old composite would show the OLD list under a new heading, which is
-// worse than a blank. Recomputing from cci / volume_ratio / pct_SMA150 -- all
-// of which the feed already carries -- shows the real list immediately and
-// stops mattering the moment the next scan republishes.
-//
-// The two implementations are held in step by a test that runs the same grid
-// of inputs through both (test_top10_parity.js), so this cannot drift quietly.
-const TOP10_GATE_HIGH_PCT = 10.0;
-const TOP10_CCI_ZERO_AT = 150.0;
-const TOP10_CCI_FULL_AT = -250.0;
-const TOP10_VOL_FULL_AT = 5.0;
-const TOP10_W_CCI = 0.67;
-const TOP10_W_VOLUME = 0.33;
-
-function top10Eligible(pctSma150) {
-  return typeof pctSma150 === 'number' && pctSma150 > 0 && pctSma150 <= TOP10_GATE_HIGH_PCT;
-}
-
-function top10CciComponent(cci) {
-  if (typeof cci !== 'number') return 0;
-  const span = TOP10_CCI_ZERO_AT - TOP10_CCI_FULL_AT;
-  return Math.max(0, Math.min(1, (TOP10_CCI_ZERO_AT - cci) / span));
-}
-
-function top10VolumeComponent(ratio) {
-  if (typeof ratio !== 'number' || ratio <= 1) return 0;
-  return Math.max(0, Math.min(1, Math.log(ratio) / Math.log(TOP10_VOL_FULL_AT)));
-}
-
-// null when gated out, mirroring the Python None: "never shows" and "shows
-// with nothing to recommend it" are different answers.
-function computeTop10Score(cci, volumeRatio, pctSma150) {
-  if (!top10Eligible(pctSma150)) return null;
-  return Math.round(100 * (
-    TOP10_W_CCI * top10CciComponent(cci)
-    + TOP10_W_VOLUME * top10VolumeComponent(volumeRatio)));
-}
-
+// scoring.py owns the model and scout.py writes top10_score (and the ranked
+// scan.top10 list) into the feed. This page only renders that answer. It used
+// to carry a JS copy of the model as a fallback for scans published before
+// the model existed, but that copy put the strategy's weights and gates into
+// the public repo; the rules now live only in the private repo.
+// A scan without scores shows an honest "not scored yet" state instead.
 function tradingTop10Score(record) {
-  if (typeof record.top10_score === 'number') return record.top10_score;
-  return computeTop10Score(record.cci, record.volume_ratio, record.pct_SMA150);
+  return typeof record.top10_score === 'number' ? record.top10_score : null;
 }
 
 // --- TradingView links ------------------------------------------------------
@@ -211,40 +175,44 @@ function renderTradingTop10() {
     return;
   }
 
-  // Prefer the scan's own ranking, but only once it was produced by the
-  // current model. A scan.json from before it carries the previous ordering,
-  // which would show the old list under the new rules; recomputing here is
-  // the honest reading of the same data until the next scan republishes.
+  // The scan's own ranking, and only once it was produced by the current
+  // model: a scan.json from before it carries the previous ordering, which
+  // would show the old list under the new rules.
   const byTicker = Object.fromEntries(scan.stocks.map(s => [s.ticker, s]));
   const scanHasModel = scan.stocks.some(s => typeof s.top10_score === 'number');
-  const ordered = (scanHasModel && scan.top10 && scan.top10.length)
+  if (!scanHasModel) {
+    mount.innerHTML = `<div class="empty-state">This scan predates the current Top 10 scores. The next nightly scan ranks it.</div>`;
+    return;
+  }
+  // scout.py ranks; ties and order are its call, not re-derived here.
+  const ordered = (scan.top10 && scan.top10.length)
     ? scan.top10.map(t => byTicker[t]).filter(Boolean)
     : scan.stocks
-        .map(s => ({ s, v: tradingTop10Score(s) }))
-        .filter(x => typeof x.v === 'number')
-        .sort((a, b) => b.v - a.v || (a.s.cci ?? 0) - (b.s.cci ?? 0))
-        .slice(0, 10)
-        .map(x => x.s);
+        .filter(s => typeof s.top10_score === 'number')
+        .sort((a, b) => b.top10_score - a.top10_score)
+        .slice(0, 10);
 
   const shown = ordered.filter(r => tradingMatchesSearch(r, tradingState.search));
+  const peers = correlationPeers(ordered);
+  const hasFlags = ordered.some(r => Array.isArray(r.rule_flags));
 
   mount.innerHTML = `
     <div class="sec-label-row">
       <h2 class="sec-label sec-label-gold">Today's ranked setups</h2>
-      <span class="sec-note">as of open</span>
+      <span class="sec-note">scan ${escapeHtml(healthFmtWhen(scan.generated_at))}</span>
     </div>
     ${shown.length ? `<div class="setup-list">${shown.map(r => {
       const rank = ordered.indexOf(r) + 1;
       const badge = tradingBadge(r.setup_tag);
       const change = r.change_pct;
-      // Ranks 6+ step down in opacity so the list reads as continuing past
-      // its head rather than stopping. The head stays fully legible, which is
-      // the whole point of ranking it.
-      const fade = rank >= 6
-        ? ` style="opacity:${[0.55, 0.42, 0.3, 0.22, 0.15][rank - 6] ?? 0.15}"` : '';
+      // Ranks 6+ step down in weight and ink so the list reads as continuing
+      // past its head. This used to be an opacity fade down to 15%, which
+      // put tickers and prices near 1.2:1 contrast -- unreadable, and below
+      // the 4.5:1 floor the design now enforces (test_contrast_e2e.js).
+      const tail = rank >= 6 ? ' is-tail' : '';
       const score = tradingTop10Score(r);
       return `
-        <a class="setup-card is-link" ${tradingLinkAttrs(r.ticker, r.exchange)}${fade}>
+        <a class="setup-card is-link${tail}" ${tradingLinkAttrs(r.ticker, r.exchange)}>
           <span class="setup-rank mono">${rank}</span>
           <div class="setup-main">
             <div class="setup-row">
@@ -256,11 +224,204 @@ function renderTradingTop10() {
               <span class="mono setup-change ${change >= 0 ? 'is-up' : 'is-down'}">${fmtChange(change)}</span>
               <span class="setup-vol">Vol ${fmtCompactNumber(r.today_volume)}</span>
             </div>
+            ${tradingFlagsHtml(r, peers[r.ticker])}
           </div>
           <span class="setup-score mono ${tradingScoreClass(score)}">${Math.round(score)}</span>
         </a>`;
     }).join('')}</div>`
-    : `<div class="empty-state">No ranked setups match "${escapeHtml(tradingState.search)}".</div>`}`;
+    : `<div class="empty-state">No ranked setups match "${escapeHtml(tradingState.search)}".</div>`}
+    ${hasFlags ? '' : `<p class="trading-note">Float, short-float and earnings checks appear from the next nightly scan.</p>`}
+    ${tradingSizingHtml()}`;
+  wireTradingSizing();
+}
+
+// --- Rule flags + correlation (quiet mono marks under each card) ----------
+//
+// Verdicts come from the scan (thresholds stay private in the scan's config).
+// Missing data reads "unknown" -- never silently as a pass.
+const TRADING_FLAG_TEXT = {
+  'float:low': 'low float', 'float:unknown': 'float unknown',
+  'short:high': 'high short float', 'short:unknown': 'short float unknown',
+  'earnings:unknown': 'earnings date unknown',
+};
+
+function tradingFlagsHtml(r, peer) {
+  const marks = (r.rule_flags || []).map(f => (f.kind === 'earnings' && f.state === 'soon'
+    ? `earnings ${f.days}d` : TRADING_FLAG_TEXT[`${f.kind}:${f.state}`])).filter(Boolean);
+  if (peer) {
+    marks.push(`same ${peer.basis} as ${peer.peers.join(', ')}`);
+  }
+  if (!marks.length) return '';
+  return `<div class="setup-flags mono">${marks.map(m => `<span>${escapeHtml(m)}</span>`).join('')}</div>`;
+}
+
+// --- Position sizing (fully client-side) ----------------------------------
+//
+// The three limits and the portfolio value live in THIS device's
+// localStorage only: never synced, never published. Nothing is prefilled --
+// the app ships no one's risk rules.
+const SIZING_KEY = 'jarvis:sizing';
+
+function sizingLoad() {
+  try { return JSON.parse(localStorage.getItem(SIZING_KEY) || '{}') || {}; } catch (e) { return {}; }
+}
+function sizingSave(v) {
+  try { localStorage.setItem(SIZING_KEY, JSON.stringify(v)); } catch (e) { /* private mode: still computes */ }
+}
+
+let tradingSizingOpen = false;
+function tradingSizingHtml() {
+  const v = sizingLoad();
+  const field = (id, label, val, step) => `
+    <label class="sizing-field"><span>${label}</span>
+      <input type="number" inputmode="decimal" step="${step}" min="0" data-sizing="${id}" value="${val ?? ''}"></label>`;
+  return `
+    <details class="sizing-tool"${tradingSizingOpen ? ' open' : ''}>
+      <summary><span class="sec-label">Position size</span><span class="sec-note">stays on this device</span></summary>
+      <div class="sizing-grid">
+        ${field('entry', 'Entry', v.entry, '0.01')}
+        ${field('stop', 'Stop', v.stop, '0.01')}
+        ${field('portfolio', 'Portfolio $', v.portfolio, '1')}
+      </div>
+      <p class="sizing-hint">Your limits</p>
+      <div class="sizing-grid">
+        ${field('maxRisk', 'Max risk $', v.maxRisk, '1')}
+        ${field('maxPosition', 'Max position $', v.maxPosition, '1')}
+        ${field('maxPct', 'Max % of portfolio', v.maxPct, '0.1')}
+      </div>
+      <div class="sizing-result" id="sizing-result" aria-live="polite"></div>
+    </details>`;
+}
+
+function renderSizingResult() {
+  const out = document.getElementById('sizing-result');
+  if (!out) return;
+  const r = sizingCompute(sizingLoad());
+  if (r.error) { out.innerHTML = `<p class="sizing-hint">${escapeHtml(r.error)}</p>`; return; }
+  out.innerHTML = `
+    <div class="sizing-shares"><span class="mono">${r.shares}</span> shares</div>
+    <p class="sizing-line">Limited by <b>${escapeHtml(r.bindingLabel)}</b>.</p>
+    <p class="sizing-line mono">risk $${r.riskUsd.toFixed(0)} · position $${r.positionUsd.toFixed(0)} · ${r.pctOfPortfolio.toFixed(1)}% of portfolio</p>`;
+}
+
+function wireTradingSizing() {
+  const tool = document.querySelector('.sizing-tool');
+  if (!tool) return;
+  tool.addEventListener('toggle', () => { tradingSizingOpen = tool.open; });
+  tool.querySelectorAll('[data-sizing]').forEach(input => {
+    input.addEventListener('input', () => {
+      const v = sizingLoad();
+      const n = parseFloat(input.value);
+      v[input.dataset.sizing] = Number.isFinite(n) ? n : undefined;
+      sizingSave(v);
+      renderSizingResult();
+    });
+  });
+  renderSizingResult();
+}
+
+// --- Trading window (a mood, not a lock) ----------------------------------
+function renderMarketWindow(now = new Date()) {
+  const mount = document.getElementById('market-window');
+  if (!mount) return;
+  const s = mcNextSession(now);
+  const open = s && s.open <= now && now < s.close;
+  const t = d => mcFmtIL(d, { hour: '2-digit', minute: '2-digit' });
+  let text;
+  if (open) {
+    text = `Session open · closes ${t(s.close)}${s.early ? ' (early close)' : ''}`;
+  } else if (s) {
+    const todayIl = mcParts(now, MC_IL).ymd;
+    const openIl = mcParts(s.open, MC_IL).ymd;
+    const day = openIl === todayIl ? 'today' : mcFmtIL(s.open, { weekday: 'short' });
+    const holiday = mcHolidayName(mcParts(now, MC_ET).ymd);
+    text = `${holiday ? `US market closed for ${holiday} · ` : ''}Session opens ${day} ${t(s.open)}`;
+  } else {
+    text = 'Market calendar unavailable';
+  }
+  document.body.classList.toggle('is-market-closed', !open);
+  mount.className = 'market-window mono';
+  mount.textContent = text;
+}
+
+// --- Breadth + why the regime label says what it says ---------------------
+function renderMarketWhy() {
+  const mount = document.getElementById('market-why');
+  const scan = tradingState.scan;
+  if (!mount || !scan) return;
+  const b = breadthAboveSma150(scan);
+  const regime = (scan.market && scan.market.regime) || null;
+  const inputs = scan.market && scan.market.regime_inputs;
+  const breadth = b ? `${Math.round(100 * b.above / b.total)}% of the watchlist is above its SMA150 (${b.above} of ${b.total}).` : '';
+  let why;
+  if (inputs && inputs.ratios) {
+    const arrow = t => (t === 'rising' ? 'rising' : t === 'falling' ? 'falling' : 'unknown');
+    why = `
+      <p>The label compares three risk-appetite ratios with ${inputs.lookback_days} trading days ago:</p>
+      <ul class="why-list">${inputs.ratios.map(r => `<li><span>${escapeHtml(r.meaning)}</span><span class="mono">${arrow(r.trend)}</span></li>`).join('')}</ul>
+      <p>Two or more rising reads RISK-ON, two or more falling reads DEFENSIVE, anything else NEUTRAL.</p>`;
+  } else {
+    why = '<p>The inputs behind this label are published from the next nightly scan.</p>';
+  }
+  const open = mount.querySelector('details') && mount.querySelector('details').open;
+  mount.className = 'market-why';
+  mount.innerHTML = `
+    <details${open ? ' open' : ''}>
+      <summary>Why ${escapeHtml(regime || 'this label')}${breadth ? ' · breadth' : ''}</summary>
+      ${breadth ? `<p>${escapeHtml(breadth)}</p>` : ''}
+      ${why}
+    </details>`;
+}
+
+// --- Signal scorecard -----------------------------------------------------
+const SCORECARD_MODELS = {
+  'lowcci-v1': 'Low-CCI model · live picks',
+  'lowcci-v1-reconstructed': 'Low-CCI model · reconstructed for earlier nights',
+  'reclaim-v1': 'Reclaim model · as published',
+};
+
+function scorecardCell(c) {
+  if (!c || !c.n) return '<td class="mono sc-empty">no outcomes yet</td>';
+  if (c.avg_return_pct === undefined) return `<td class="mono sc-empty">n=${c.n} · not enough samples yet</td>`;
+  const sign = v => (v > 0 ? '+' : '') + v.toFixed(2) + '%';
+  return `<td class="mono"><span class="sc-main">${sign(c.avg_excess_vs_spy_pct)}</span> vs SPY<br>
+    <span class="sc-sub">avg ${sign(c.avg_return_pct)} · beat SPY ${c.beat_spy_pct}% · n=${c.n}</span></td>`;
+}
+
+function renderTradingScorecard() {
+  const mount = document.getElementById('panel-scorecard');
+  if (!mount) return;
+  const sc = tradingState.scorecard;
+  if (!sc || !sc.rows || !sc.rows.length) {
+    mount.innerHTML = '<div class="empty-state">The scorecard appears after the next nightly scan.</div>';
+    return;
+  }
+  const hz = sc.horizons_trading_days || [5, 10, 20];
+  const versions = [...new Set(sc.rows.map(r => r.model_version))]
+    .sort((a, b) => Object.keys(SCORECARD_MODELS).indexOf(a) - Object.keys(SCORECARD_MODELS).indexOf(b));
+  const liveFrom = (sc.rows.find(r => r.model_version === 'lowcci-v1' && r.group === 'all ranks') || {}).first_session;
+  mount.innerHTML = `
+    <p class="sc-caution">Low-CCI figures${liveFrom ? ` before ${escapeHtml(liveFrom)}` : ''} are reconstructed from each
+      night's published data, not live picks, and the period is too short to draw conclusions.</p>
+    <p class="trading-note">How each night's Top 10 did afterwards: average forward return compared with SPY over the
+      same window, ${escapeHtml(sc.period.first_session || '')} to ${escapeHtml(sc.period.last_session || '')}.
+      Observed averages over this period, not predictions; a figure appears only once a group has
+      ${sc.min_sample} completed picks. ${escapeHtml(sc.method || '')}</p>
+    ${versions.map(v => `
+      <section class="sc-block">
+        <h2 class="sec-label">${escapeHtml(SCORECARD_MODELS[v] || v)}</h2>
+        ${(() => {
+          const all = sc.rows.find(r => r.model_version === v && r.group === 'all ranks');
+          return all ? `<p class="sc-range mono">${all.picks} picks · ${all.sessions} nights · ${escapeHtml(all.first_session || '?')} to ${escapeHtml(all.last_session || '?')}</p>` : '';
+        })()}
+        <table class="sc-table">
+          <thead><tr><th></th>${hz.map(h => `<th class="mono">${h} days</th>`).join('')}</tr></thead>
+          <tbody>${sc.rows.filter(r => r.model_version === v).map(r => `
+            <tr><th scope="row">${escapeHtml(r.group)}<br><span class="sc-sub mono">${r.picks} picks · ${r.sessions} nights</span></th>
+              ${hz.map(h => scorecardCell(r.horizons[String(h)])).join('')}</tr>`).join('')}
+          </tbody>
+        </table>
+      </section>`).join('')}`;
 }
 
 // --- Breakouts ------------------------------------------------------------
@@ -443,28 +604,36 @@ function renderTradingFullScan() {
 
 // --- page -----------------------------------------------------------------
 
-const TRADING_TITLES = { breakouts: 'Breakouts', fullscan: 'Full Scan' };
+const TRADING_TITLES = { breakouts: 'Breakouts', fullscan: 'Full Scan', scorecard: 'Scorecard' };
 
 const tradingShell = mountShell({
   areaId: 'trading',
   titleFor: tab => (TRADING_TITLES[tab] ? `<h1 class="shell-title">${TRADING_TITLES[tab]}</h1>` : ''),
   render(tab) {
+    renderMarketWindow();
     renderMarketBar(tab);
+    renderMarketWhy();
     renderTradingSearch();
     if (tab === 'top10') renderTradingTop10();
     else if (tab === 'breakouts') renderTradingBreakouts();
+    else if (tab === 'scorecard') renderTradingScorecard();
     else renderTradingFullScan();
   },
 });
 
 async function tradingLoad() {
-  const [scan, breakouts] = await Promise.all([
+  const [scan, breakouts, scorecard] = await Promise.all([
     DASHBOARD.fetchOne('scan'),
     DASHBOARD.fetchOne('breakoutAlerts'),
+    DASHBOARD.fetchOne('scorecard'),
   ]);
   tradingState.scan = scan;
   tradingState.breakouts = breakouts;
+  tradingState.scorecard = scorecard;
   if (tradingShell) tradingShell.repaint();
+  renderHealthStrip(document.getElementById('health-strip'), scan);
 }
 
 tradingLoad();
+// The open/closed line follows the clock without a reload.
+setInterval(() => renderMarketWindow(), 60 * 1000);

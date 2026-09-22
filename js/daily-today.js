@@ -39,18 +39,12 @@ function dailyGreeting() {
   return 'Good evening';
 }
 
-// The Hebrew calendar date, from Intl rather than a bundled conversion
-// table: it is already in every browser this runs on, so a hand-rolled
-// converter would be a dependency and a source of drift for no gain.
-function dailyHebrewDate(iso) {
-  try {
-    return new Intl.DateTimeFormat('en-u-ca-hebrew', {
-      day: 'numeric', month: 'long', year: 'numeric',
-    }).format(new Date(`${iso}T12:00:00`));
-  } catch (e) {
-    return new Date(`${iso}T12:00:00`)
-      .toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
-  }
+// The day's date in English. The interface is English throughout (owner's
+// decision, 2026-09-22); this line used to show a Hebrew-calendar date, the
+// one line on the screen in a different calendar.
+function dailyDisplayDate(iso) {
+  return new Date(`${iso}T12:00:00`)
+    .toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 // Consecutive days, counting back from today, on which at least one habit was
@@ -194,7 +188,7 @@ function renderDailyToday() {
     <div class="today-head">
       <h1 class="today-greeting">${isToday ? escapeHtml(dailyGreeting()) : 'Reviewing'}</h1>
       <div class="today-sub">
-        <span class="today-hebrew">${escapeHtml(dailyHebrewDate(date))}</span>
+        <span class="today-date">${escapeHtml(dailyDisplayDate(date))}</span>
         <span class="today-badge is-${badge.kind}">${escapeHtml(badge.text)}</span>
       </div>
     </div>
