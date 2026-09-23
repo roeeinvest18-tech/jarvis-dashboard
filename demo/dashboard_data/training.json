@@ -1,0 +1,485 @@
+{
+  "demo": true,
+  "generated_at": "2026-09-22T22:15:00+03:00",
+  "schedule": [
+    "Sun",
+    "Tue",
+    "Thu"
+  ],
+  "drills": [
+    {
+      "id": "pull_ups",
+      "label": "Pull Ups"
+    },
+    {
+      "id": "push_ups",
+      "label": "Push Ups"
+    },
+    {
+      "id": "shoulders",
+      "label": "Shoulders"
+    },
+    {
+      "id": "chin_ups",
+      "label": "Chin Ups"
+    },
+    {
+      "id": "triceps_extension",
+      "label": "Triceps Extension"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "demo-2026-08-13",
+      "date": "2026-08-13",
+      "weekday": "Thursday",
+      "logged_at": "2026-08-13T18:30:00Z",
+      "drills": {
+        "triceps_extension": [
+          13,
+          11,
+          7
+        ],
+        "push_ups": [
+          14,
+          11
+        ],
+        "pull_ups": [
+          9,
+          7,
+          9
+        ],
+        "shoulders": [
+          7,
+          12
+        ],
+        "chin_ups": [
+          9,
+          6,
+          12
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-08-16",
+      "date": "2026-08-16",
+      "weekday": "Sunday",
+      "logged_at": "2026-08-16T18:30:00Z",
+      "drills": {
+        "shoulders": [
+          13,
+          12
+        ],
+        "pull_ups": [
+          6,
+          5,
+          8
+        ],
+        "push_ups": [
+          7,
+          9,
+          7
+        ],
+        "triceps_extension": [
+          14,
+          5,
+          6
+        ],
+        "chin_ups": [
+          10,
+          13,
+          13
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-08-18",
+      "date": "2026-08-18",
+      "weekday": "Tuesday",
+      "logged_at": "2026-08-18T18:30:00Z",
+      "drills": {
+        "triceps_extension": [
+          7,
+          8,
+          8
+        ],
+        "pull_ups": [
+          14,
+          10,
+          7
+        ],
+        "push_ups": [
+          12,
+          6,
+          9
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-08-20",
+      "date": "2026-08-20",
+      "weekday": "Thursday",
+      "logged_at": "2026-08-20T18:30:00Z",
+      "drills": {
+        "chin_ups": [
+          7,
+          9
+        ],
+        "push_ups": [
+          12,
+          11,
+          5
+        ],
+        "shoulders": [
+          5,
+          6,
+          5
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-08-23",
+      "date": "2026-08-23",
+      "weekday": "Sunday",
+      "logged_at": "2026-08-23T18:30:00Z",
+      "drills": {
+        "push_ups": [
+          12,
+          14,
+          9
+        ],
+        "chin_ups": [
+          9,
+          14
+        ],
+        "shoulders": [
+          7,
+          10,
+          8
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-08-25",
+      "date": "2026-08-25",
+      "weekday": "Tuesday",
+      "logged_at": "2026-08-25T18:30:00Z",
+      "drills": {
+        "shoulders": [
+          9,
+          12
+        ],
+        "chin_ups": [
+          12,
+          11,
+          10
+        ],
+        "push_ups": [
+          7,
+          12,
+          10
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-08-27",
+      "date": "2026-08-27",
+      "weekday": "Thursday",
+      "logged_at": "2026-08-27T18:30:00Z",
+      "drills": {
+        "chin_ups": [
+          6,
+          10,
+          12
+        ],
+        "shoulders": [
+          14,
+          11,
+          10
+        ],
+        "push_ups": [
+          10,
+          8
+        ],
+        "triceps_extension": [
+          6,
+          10,
+          14
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-08-30",
+      "date": "2026-08-30",
+      "weekday": "Sunday",
+      "logged_at": "2026-08-30T18:30:00Z",
+      "drills": {
+        "triceps_extension": [
+          9,
+          5
+        ],
+        "shoulders": [
+          7,
+          11,
+          7
+        ],
+        "pull_ups": [
+          13,
+          6,
+          10
+        ],
+        "chin_ups": [
+          6,
+          5,
+          14
+        ],
+        "push_ups": [
+          8,
+          13
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-09-01",
+      "date": "2026-09-01",
+      "weekday": "Tuesday",
+      "logged_at": "2026-09-01T18:30:00Z",
+      "drills": {
+        "push_ups": [
+          5,
+          6,
+          9
+        ],
+        "chin_ups": [
+          12,
+          5
+        ],
+        "pull_ups": [
+          5,
+          10,
+          9
+        ],
+        "shoulders": [
+          12,
+          14
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-09-03",
+      "date": "2026-09-03",
+      "weekday": "Thursday",
+      "logged_at": "2026-09-03T18:30:00Z",
+      "drills": {
+        "shoulders": [
+          8,
+          10
+        ],
+        "chin_ups": [
+          12,
+          11,
+          13
+        ],
+        "pull_ups": [
+          11,
+          12,
+          12
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-09-06",
+      "date": "2026-09-06",
+      "weekday": "Sunday",
+      "logged_at": "2026-09-06T18:30:00Z",
+      "drills": {
+        "push_ups": [
+          5,
+          5
+        ],
+        "pull_ups": [
+          14,
+          9,
+          14
+        ],
+        "chin_ups": [
+          10,
+          6
+        ],
+        "shoulders": [
+          14,
+          14
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-09-08",
+      "date": "2026-09-08",
+      "weekday": "Tuesday",
+      "logged_at": "2026-09-08T18:30:00Z",
+      "drills": {
+        "triceps_extension": [
+          7,
+          5
+        ],
+        "push_ups": [
+          10,
+          6
+        ],
+        "chin_ups": [
+          12,
+          10,
+          6
+        ],
+        "pull_ups": [
+          9,
+          6,
+          11
+        ],
+        "shoulders": [
+          12,
+          7
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-09-10",
+      "date": "2026-09-10",
+      "weekday": "Thursday",
+      "logged_at": "2026-09-10T18:30:00Z",
+      "drills": {
+        "triceps_extension": [
+          13,
+          11,
+          9
+        ],
+        "shoulders": [
+          8,
+          14,
+          9
+        ],
+        "push_ups": [
+          11,
+          8,
+          5
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-09-13",
+      "date": "2026-09-13",
+      "weekday": "Sunday",
+      "logged_at": "2026-09-13T18:30:00Z",
+      "drills": {
+        "push_ups": [
+          10,
+          11,
+          10
+        ],
+        "triceps_extension": [
+          11,
+          14,
+          7
+        ],
+        "shoulders": [
+          10,
+          6
+        ],
+        "pull_ups": [
+          14,
+          8,
+          11
+        ],
+        "chin_ups": [
+          12,
+          14,
+          13
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-09-15",
+      "date": "2026-09-15",
+      "weekday": "Tuesday",
+      "logged_at": "2026-09-15T18:30:00Z",
+      "drills": {
+        "chin_ups": [
+          13,
+          9,
+          12
+        ],
+        "pull_ups": [
+          5,
+          9,
+          14
+        ],
+        "shoulders": [
+          12,
+          5,
+          14
+        ],
+        "push_ups": [
+          11,
+          6,
+          9
+        ],
+        "triceps_extension": [
+          13,
+          6
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-09-17",
+      "date": "2026-09-17",
+      "weekday": "Thursday",
+      "logged_at": "2026-09-17T18:30:00Z",
+      "drills": {
+        "shoulders": [
+          14,
+          11
+        ],
+        "push_ups": [
+          7,
+          13
+        ],
+        "chin_ups": [
+          6,
+          10
+        ],
+        "pull_ups": [
+          6,
+          7,
+          10
+        ],
+        "triceps_extension": [
+          14,
+          10
+        ]
+      }
+    },
+    {
+      "id": "demo-2026-09-20",
+      "date": "2026-09-20",
+      "weekday": "Sunday",
+      "logged_at": "2026-09-20T18:30:00Z",
+      "drills": {
+        "push_ups": [
+          14,
+          11,
+          12
+        ],
+        "pull_ups": [
+          11,
+          7,
+          9
+        ],
+        "shoulders": [
+          5,
+          12,
+          6
+        ]
+      }
+    }
+  ]
+}

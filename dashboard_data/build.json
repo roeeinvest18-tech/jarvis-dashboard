@@ -2,22 +2,18 @@
   "variant": "public",
   "allowlist": [
     "breakout_alerts.json",
-    "cci_oversold.json",
     "scan.json",
-    "scorecard.json",
-    "tasks.json",
-    "training.json"
+    "scorecard.json"
   ],
   "withheld": [
+    "cci_oversold.json",
     "priority.json",
+    "tasks.json",
     "trade_notes.json"
   ],
   "published": [
     "breakout_alerts.json",
-    "cci_oversold.json",
     "scan.json",
-    "scorecard.json",
-    "tasks.json",
-    "training.json"
+    "scorecard.json"
   ]
 }

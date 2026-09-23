@@ -1,0 +1,17 @@
+{
+  "variant": "demo",
+  "demo": true,
+  "allowlist": [
+    "scan.json",
+    "breakout_alerts.json",
+    "scorecard.json",
+    "training.json"
+  ],
+  "withheld": [],
+  "published": [
+    "scan.json",
+    "breakout_alerts.json",
+    "scorecard.json",
+    "training.json"
+  ]
+}

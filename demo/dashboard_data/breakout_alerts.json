@@ -1,0 +1,67 @@
+{
+  "demo": true,
+  "generated_at": "2026-09-22T22:15:00+03:00",
+  "window_hours": 48,
+  "touches": [
+    {
+      "ticker": "ACME",
+      "last_touch_at": "2026-09-20T13:15:00+03:00",
+      "first_touch_at": "2026-09-17T13:15:00+03:00",
+      "touch_count": 3,
+      "price": 45.18,
+      "sma150": 93.89,
+      "cci": 123.1,
+      "volume_ratio": 2.27
+    },
+    {
+      "ticker": "BOLT",
+      "last_touch_at": "2026-09-20T23:15:00+03:00",
+      "first_touch_at": "2026-09-18T23:15:00+03:00",
+      "touch_count": 3,
+      "price": 52.2,
+      "sma150": 56.29,
+      "cci": 54.4,
+      "volume_ratio": 1.84
+    },
+    {
+      "ticker": "CRUX",
+      "last_touch_at": "2026-09-20T14:15:00+03:00",
+      "first_touch_at": "2026-09-15T14:15:00+03:00",
+      "touch_count": 4,
+      "price": 78.75,
+      "sma150": 118.98,
+      "cci": 92.7,
+      "volume_ratio": 2.57
+    },
+    {
+      "ticker": "DYNE",
+      "last_touch_at": "2026-09-21T11:15:00+03:00",
+      "first_touch_at": "2026-09-19T11:15:00+03:00",
+      "touch_count": 4,
+      "price": 64.45,
+      "sma150": 126.42,
+      "cci": -72.3,
+      "volume_ratio": 1.93
+    },
+    {
+      "ticker": "EMBR",
+      "last_touch_at": "2026-09-20T00:15:00+03:00",
+      "first_touch_at": "2026-09-14T00:15:00+03:00",
+      "touch_count": 2,
+      "price": 98.38,
+      "sma150": 105.14,
+      "cci": 69.1,
+      "volume_ratio": 1.73
+    },
+    {
+      "ticker": "FLUX",
+      "last_touch_at": "2026-09-22T20:15:00+03:00",
+      "first_touch_at": "2026-09-19T20:15:00+03:00",
+      "touch_count": 2,
+      "price": 48.13,
+      "sma150": 55.86,
+      "cci": -30.9,
+      "volume_ratio": 1.85
+    }
+  ]
+}
