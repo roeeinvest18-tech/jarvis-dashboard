@@ -15,7 +15,9 @@
 // stylesheet both changed, so the cached copies are stale.
 // v8: user-controlled backup/restore -- daily.js gained exportAll/importAll
 // and os.js the Settings block that drives them.
-const CACHE_NAME = 'jarvis-shell-v15';
+// v16: Training rebuilt on program/log/analysis -- program.js, workout.js and
+// workout-ui.js are new shell files and the stylesheet changed with them.
+const CACHE_NAME = 'jarvis-shell-v16';
 const SHELL_ASSETS = [
   './',
   'index.html',
@@ -36,6 +38,9 @@ const SHELL_ASSETS = [
   'js/personal-os.js',
   'js/training-hints.js',
   'js/training.js',
+  'js/program.js',
+  'js/workout.js',
+  'js/workout-ui.js',
   'js/market-calendar.js',
   'js/health.js',
   'js/trading-logic.js',

@@ -2168,7 +2168,10 @@ table.drill-table td {
 
 .os-window-tabs { display: flex; gap: var(--sp-2); }
 .os-window-btn {
-  min-height: 36px;
+  /* 44px, not 36: these are the Training view tabs and the Insights window
+     tabs, both primary mobile controls. The old 36px was under the touch
+     target rule the rest of the app already follows. */
+  min-height: 44px;
   padding: 0 var(--sp-3);
   border-radius: var(--r-sm);
   background: var(--panel);
@@ -3892,3 +3895,130 @@ body.is-market-closed .regime { color: var(--ink2); }
   font-family: var(--font-mono); font-size: var(--fs-tag); letter-spacing: .08em;
   text-transform: uppercase; text-align: center; padding: var(--sp-2) var(--sp-4);
 }
+
+/* ---- Training: program / log / analysis ------------------------------
+   Ink rules: hairlines instead of cards, serif for prose and mono for the
+   numbers you compare, --mark only where something is complete or notable.
+   Section 5 of the rebuild spec makes "visually quiet" a requirement, so a
+   prescribed exercise is one line until it is opened. */
+
+.wk-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: var(--sp-4); padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--rule);
+}
+.wk-title {
+  font-family: var(--font-serif); font-size: var(--fs-heading);
+  font-weight: 600; color: var(--ink); margin: 0;
+}
+.wk-why {
+  font-family: var(--font-serif); font-size: var(--fs-body);
+  color: var(--ink2); line-height: 1.6; margin: 0;
+}
+.wk-note { font-size: var(--fs-secondary); color: var(--ink2); margin: 0; line-height: 1.55; }
+.wk-num { font-family: var(--font-mono); font-size: var(--fs-num); color: var(--ink2); }
+
+/* A prompt, never an automatic change: phase transitions and program start. */
+.wk-prompt {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-3);
+  padding: var(--sp-4) 0; border-bottom: 1px solid var(--rule);
+}
+.wk-prompt p {
+  font-family: var(--font-serif); font-size: var(--fs-body);
+  color: var(--ink2); margin: 0; line-height: 1.6;
+}
+.wk-prompt strong { color: var(--ink); font-weight: 600; }
+
+.wk-form { display: flex; flex-direction: column; }
+.wk-section { display: flex; flex-direction: column; gap: var(--sp-3); padding-top: var(--sp-5); }
+
+/* One exercise. The summary row is the quiet state. */
+.wk-exercise { border-bottom: 1px solid var(--rule-soft); }
+.wk-exercise[open] { border-bottom-color: var(--rule); }
+.wk-exercise-head {
+  display: flex; align-items: center; gap: var(--sp-3);
+  min-height: 48px; padding: var(--sp-3) 0; cursor: pointer; list-style: none;
+}
+.wk-exercise-head::-webkit-details-marker { display: none; }
+.wk-name {
+  flex: 1; font-family: var(--font-serif); font-size: var(--fs-item);
+  color: var(--ink); font-weight: 600;
+}
+.wk-prescription { font-family: var(--font-mono); font-size: var(--fs-tag); color: var(--ink2); }
+/* Sets logged: complete, so this is the accent's job. */
+.wk-done {
+  font-family: var(--font-mono); font-size: var(--fs-tag); color: var(--mark);
+  min-width: 18px; text-align: right;
+}
+.wk-exercise-body {
+  display: flex; flex-direction: column; gap: var(--sp-4);
+  padding: 0 0 var(--sp-5);
+}
+
+.wk-sets { display: flex; flex-direction: column; gap: var(--sp-2); }
+.wk-set {
+  display: flex; align-items: flex-end; gap: var(--sp-2); flex-wrap: wrap;
+  padding-top: var(--sp-2); border-top: 1px solid var(--rule-soft);
+}
+.wk-set:first-child { border-top: none; }
+.wk-set-no {
+  font-family: var(--font-mono); font-size: var(--fs-tag); color: var(--ink2);
+  min-width: 20px; padding-bottom: 12px;
+}
+
+.wk-field { display: flex; flex-direction: column; gap: 2px; flex: 1 1 62px; min-width: 62px; }
+.wk-field > span {
+  font-family: var(--font-mono); font-size: var(--fs-tag);
+  color: var(--ink2); letter-spacing: .04em;
+}
+.wk-field input, .wk-field select {
+  min-height: 44px; padding: 0 var(--sp-2); width: 100%;
+  background: var(--raise); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: var(--r-sm);
+  font-family: var(--font-mono); font-size: var(--fs-num);
+}
+.wk-field input:focus, .wk-field select:focus { outline: none; border-color: var(--mark); }
+.wk-date { flex: 0 0 auto; min-width: 128px; }
+
+/* A suggestion. Never phrased as a failure, and never applied on its own. */
+.wk-suggestion {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-2);
+  padding: var(--sp-3) 0 var(--sp-3) var(--sp-4);
+  border-left: 2px solid var(--rule);
+}
+.wk-suggestion[data-wk-flag="PROGRESSION_AVAILABLE"],
+.wk-suggestion[data-wk-flag="TEMPO_ADVANCE"],
+.wk-suggestion[data-wk-flag="ADDED_WEIGHT_NEXT"],
+.wk-suggestion[data-wk-flag="VARIATION_ADVANCE"] { border-left-color: var(--mark); }
+.wk-suggestion p {
+  font-family: var(--font-serif); font-size: var(--fs-body);
+  color: var(--ink2); margin: 0; line-height: 1.6;
+}
+.wk-flag {
+  font-family: var(--font-mono); font-size: var(--fs-tag);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--ink2);
+}
+
+/* The science, behind a tap. Never inline by default. */
+.wk-science { border-top: 1px solid var(--rule-soft); }
+.wk-science > summary {
+  font-family: var(--font-mono); font-size: var(--fs-tag); color: var(--ink2);
+  letter-spacing: .04em; cursor: pointer; min-height: 44px;
+  display: flex; align-items: center;
+}
+.wk-science > p {
+  font-family: var(--font-serif); font-size: var(--fs-body); color: var(--ink2);
+  line-height: 1.65; margin: 0 0 var(--sp-4);
+}
+.wk-warmup { border-top: none; border-bottom: 1px solid var(--rule-soft); }
+
+.wk-recovery { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+.wk-actions { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; padding-top: var(--sp-4); }
+
+.wk-review-note {
+  font-family: var(--font-serif); font-size: var(--fs-body); color: var(--ink2);
+  line-height: 1.6; margin: 0; padding-left: var(--sp-4);
+  border-left: 2px solid var(--rule);
+}
+.wk-arrow { font-family: var(--font-mono); font-size: var(--fs-num); color: var(--ink2); }
+.wk-arrow[data-wk-arrow="up"] { color: var(--mark); }

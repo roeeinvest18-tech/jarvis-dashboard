@@ -39,52 +39,54 @@ function osRunPendingAction(tab) {
     }
   } else if (osPendingAction === 'log-training' && tab === 'training') {
     osPendingAction = null;
-    const form = document.getElementById('training-log-form');
+    const form = document.getElementById('wk-log-form');
     if (form) {
       form.scrollIntoView({ block: 'start' });
-      const first = form.querySelector('input:not([type="date"])');
-      if (first) first.focus({ preventScroll: true });
+      // Open the first exercise and land on its first set field, so the
+      // shortcut arrives ready to type rather than on a closed row.
+      const first = form.querySelector('.wk-exercise');
+      if (first) first.open = true;
+      const field = form.querySelector('[data-wk-key]');
+      if (field) field.focus({ preventScroll: true });
     }
   }
 }
 
-// Training keeps its own data feed (dashboard_data/training.json), fetched
-// once and handed to the existing renderer untouched. Cached so switching
-// tabs doesn't refetch.
+// Training now renders from the rebuilt model (program.js + workout.js +
+// workout-ui.js). dashboard_data/training.json is still fetched, but only as a
+// migration source: it is where sessions logged on another device under the old
+// flat model ended up, and they have to be pulled into the new shape before the
+// screen can show them. Nothing writes it.
 let osTrainingPayload = null;
 let osTrainingFetched = false;
+let osTrainingMigrated = false;
 
 function osRenderTraining() {
   const mount = document.getElementById('panel-training');
   if (!mount) return;
 
-  // The existing training zone renders into #zone-training / #training-list
-  // (see training.js). Rather than rewriting that renderer for new markup,
-  // the panel provides the mount points it already expects — a placement
-  // change, exactly as specified, with its data model untouched.
-  if (!document.getElementById('training-list')) {
-    mount.innerHTML = `
-      <section class="zone" id="zone-training" aria-label="Training">
-        <div id="training-list"></div>
-      </section>`;
-  }
-
   if (!osTrainingFetched) {
     osTrainingFetched = true;
     DASHBOARD.fetchOne('training').then(payload => {
       osTrainingPayload = payload;
-      renderTrainingZone(payload);
-      // The shortcut acts on the settled render; the first, feed-less one
-      // is replaced by this and would lose focus.
+      // The old log may exist only in the published feed, so the migration
+      // runs again once it lands. migrateLegacyTraining is idempotent.
+      workoutMigrateOnce(payload);
+      renderWorkoutZone();
       osRunPendingAction('training');
-      triggerTrainingSync(payload);
+      // The old log may also still live only on the sync server, which is now
+      // the reliable source since training.json left the public tier.
+      workoutMigrateFromServer()
+        .then(() => WORKOUT.syncWithServer())
+        .then(state => { if (state) renderWorkoutZone(); });
     });
-    // Render immediately from locally captured sessions so the screen is
-    // never blank while the feed is in flight.
-    renderTrainingZone(null);
+    // Render immediately from local data so the screen is never blank while
+    // the feed is in flight.
+    if (!osTrainingMigrated) { osTrainingMigrated = true; workoutMigrateOnce(null); }
+    renderWorkoutZone();
     return;
   }
-  renderTrainingZone(osTrainingPayload);
+  renderWorkoutZone();
 }
 
 const OS_TAB_TITLES = {
