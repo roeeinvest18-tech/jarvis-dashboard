@@ -17,7 +17,10 @@
 // and os.js the Settings block that drives them.
 // v16: Training rebuilt on program/log/analysis -- program.js, workout.js and
 // workout-ui.js are new shell files and the stylesheet changed with them.
-const CACHE_NAME = 'jarvis-shell-v16';
+// v17: Training screen restyled -- workout-ui.js and the stylesheet changed
+// again to fix unstyled inputs (a missing appearance:none on <select> and
+// fields that grew to fill the row) and to make the row layout compact.
+const CACHE_NAME = 'jarvis-shell-v17';
 const SHELL_ASSETS = [
   './',
   'index.html',

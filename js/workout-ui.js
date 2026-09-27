@@ -48,54 +48,108 @@ function workoutSetsLabel(row) {
 }
 
 // --- the log screen -------------------------------------------------------
+//
+// One compact row per exercise -- name, then every input in a single
+// wrapping strip of small fixed-width cells, styled exactly like the app's
+// existing "several numbers side by side" convention (.training-set-input:
+// a bordered box, transparent background, mono digits) rather than a full
+// labelled form control per field. Weight and RIR are asked once per
+// exercise, not once per set: real sessions rarely change either mid-block,
+// and cells that grow to fill a row are what produced the unstyled-looking
+// giant inputs this replaces. The underlying log still stores weight/RIR on
+// every Set object (workout.js's shape is unchanged) -- this UI just writes
+// the one value the owner enters into each set it builds.
 
-function workoutSetInputsHtml(type, index, set, row) {
-  const v = (k, fallback = '') => {
-    const raw = set ? set[k] : null;
-    return raw === null || raw === undefined ? fallback : String(raw);
-  };
-  const n = (k, label, attrs = '') => `
-    <label class="wk-field">
-      <span>${label}</span>
-      <input type="number" inputmode="decimal" ${attrs}
-        data-wk-set="${index}" data-wk-key="${k}" value="${escapeHtml(v(k))}">
-    </label>`;
-
-  if (type === 'external_load') {
-    return `${n('weight', 'kg', 'step="0.5" min="0"')}${n('reps', 'reps', 'min="0"')}${n('rir', 'RIR', 'min="0" max="10"')}`;
-  }
-  if (type === 'tempo_then_load') {
-    const stage = v('tempo_stage') || 'normal';
-    return `${n('reps', 'reps', 'min="0"')}${n('rir', 'RIR', 'min="0" max="10"')}
-      <label class="wk-field">
-        <span>tempo</span>
-        <select data-wk-set="${index}" data-wk-key="tempo_stage">
-          <option value="normal"${stage === 'normal' ? ' selected' : ''}>normal</option>
-          <option value="slow_eccentric"${stage === 'slow_eccentric' ? ' selected' : ''}>slow ecc.</option>
-        </select>
-      </label>
-      ${n('added_weight', '+kg', 'step="0.5" min="0"')}`;
-  }
-  if (type === 'hold_duration') {
-    const ex = programExercise(row.exercise_id);
-    const current = v('variation') || WORKOUT.holdVariation(row.exercise_id);
-    return `
-      <label class="wk-field">
-        <span>variation</span>
-        <select data-wk-set="${index}" data-wk-key="variation">
-          ${ex.variations.map(o => `<option value="${o}"${o === current ? ' selected' : ''}>${workoutPrettyVariation(o)}</option>`).join('')}
-        </select>
-      </label>
-      ${n('duration_seconds', 'sec', 'min="0"')}`;
-  }
-  return `${n('distance', 'dist')}${n('duration', 'time', 'step="0.01"')}${n('rep_count', 'reps', 'min="0"')}${n('rest_between_reps', 'rest s', 'min="0"')}
-    <label class="wk-field">
-      <span>surface</span>
-      <input type="text" data-wk-set="${index}" data-wk-key="surface" value="${escapeHtml(v('surface'))}">
-    </label>`;
+// A single small cell: a mono label above a fixed-width input. Used for
+// anything counted per set (reps, a hold attempt's duration, a sprint's
+// distance) via data-wk-set/data-wk-key, or once per exercise (weight, RIR,
+// added weight) via data-wk-exkey.
+function workoutCellHtml(label, value, attrs, keyAttr) {
+  return `<label class="wk-cell">
+    <span>${escapeHtml(label)}</span>
+    <input type="number" inputmode="decimal" ${attrs} ${keyAttr} value="${escapeHtml(value)}">
+  </label>`;
 }
 
-// One prescribed exercise, as a quiet row that opens into its inputs.
+function workoutSetCellHtml(index, key, label, value, attrs = '') {
+  return workoutCellHtml(label, value, attrs, `data-wk-set="${index}" data-wk-key="${key}"`);
+}
+
+function workoutExkeyCellHtml(key, label, value, attrs = '') {
+  return workoutCellHtml(label, value, attrs, `data-wk-exkey="${key}"`);
+}
+
+// A row of pill toggles (the same .pill the Insights period selector uses)
+// plus the hidden input workoutCollectForm reads, so picking one is a single
+// tap rather than a native <select> the rest of the app never uses.
+function workoutPillGroupHtml(key, options, current) {
+  return `<div class="wk-pill-group">
+    <input type="hidden" data-wk-exkey="${key}" value="${escapeHtml(current)}">
+    ${options.map(([value, label]) => `<button type="button" class="pill${value === current ? ' is-active' : ''}"
+      data-wk-toggle="${key}" data-wk-value="${value}">${escapeHtml(label)}</button>`).join('')}
+  </div>`;
+}
+
+// The exercise-level controls: weight for external_load, added weight and a
+// tempo toggle for tempo_then_load, a variation toggle for hold_duration.
+// Nothing here for time_or_distance -- distance/duration/reps are already
+// asked per set below, and there is no weight or RIR to a sprint.
+function workoutControlCellsHtml(type, exerciseId, entry) {
+  const v = k => {
+    const set = entry && entry.sets && entry.sets[0];
+    const raw = set ? set[k] : null;
+    return raw === null || raw === undefined ? '' : String(raw);
+  };
+  if (type === 'external_load') {
+    return workoutExkeyCellHtml('weight', 'kg', v('weight'), 'step="0.5" min="0"')
+      + workoutExkeyCellHtml('rir', 'RIR', v('rir'), 'min="0" max="10"');
+  }
+  if (type === 'tempo_then_load') {
+    return workoutPillGroupHtml('tempo_stage',
+      [['normal', 'normal'], ['slow_eccentric', 'slow ecc.']], v('tempo_stage') || 'normal')
+      + workoutExkeyCellHtml('added_weight', '+kg', v('added_weight'), 'step="0.5" min="0"')
+      + workoutExkeyCellHtml('rir', 'RIR', v('rir'), 'min="0" max="10"');
+  }
+  if (type === 'hold_duration') {
+    const ex = programExercise(exerciseId);
+    const current = v('variation') || WORKOUT.holdVariation(exerciseId);
+    return workoutPillGroupHtml('variation',
+      ex.variations.map(o => [o, workoutPrettyVariation(o)]), current);
+  }
+  return '';
+}
+
+// The per-set cells: what varies set to set. Reps for loaded work, one
+// duration per hold attempt, the sprint/Cooper protocol's own few fields.
+function workoutSetCellsHtml(type, exerciseId, row, sets) {
+  if (type === 'external_load' || type === 'tempo_then_load') {
+    return sets.map((set, i) => {
+      const reps = set && set.reps !== null && set.reps !== undefined ? String(set.reps) : '';
+      return workoutSetCellHtml(i, 'reps', `Set ${i + 1}`, reps, 'min="0"');
+    }).join('');
+  }
+  if (type === 'hold_duration') {
+    return sets.map((set, i) => {
+      const dur = set && set.duration_seconds !== null && set.duration_seconds !== undefined
+        ? String(set.duration_seconds) : '';
+      return workoutSetCellHtml(i, 'duration_seconds', `#${i + 1}`, dur, 'min="0"');
+    }).join('');
+  }
+  // time_or_distance: one row, a handful of named fields rather than an
+  // indexed set -- the model already treats a whole sprint/Cooper entry as
+  // a single logged set (see WORKOUT.saveSession's per-exercise cap).
+  const set = sets[0] || null;
+  const v = k => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
+  return workoutSetCellHtml(0, 'distance', 'dist', v('distance'))
+    + workoutSetCellHtml(0, 'duration', 'time', v('duration'), 'step="0.01"')
+    + workoutSetCellHtml(0, 'rep_count', 'reps', v('rep_count'), 'min="0"')
+    + workoutSetCellHtml(0, 'rest_between_reps', 'rest s', v('rest_between_reps'), 'min="0"');
+}
+
+// One prescribed exercise, as a single compact row. Only the full scientific
+// rationale hides behind a tap -- the name, the one-line why, and every input
+// are visible without opening anything, per the spec's "one-line why, full
+// rationale behind a tap", not "the whole exercise behind a tap".
 function workoutExerciseHtml(row, loggedEntry) {
   const ex = programExercise(row.exercise_id);
   if (!ex) return '';
@@ -103,12 +157,12 @@ function workoutExerciseHtml(row, loggedEntry) {
   const progression = WORKOUT.progressionFor(row.exercise_id);
   const logged = loggedEntry ? WORKOUT.filledSets(loggedEntry).length : 0;
 
-  // How many input rows to offer. Holds and runs get their prescribed attempt
+  // How many set cells to offer. Holds and runs get their prescribed attempt
   // count; loaded work gets the phase's set count, and the last is routinely
   // left blank, which costs nothing.
   let slots;
   if (type === 'hold_duration') slots = Math.max(row.attempts ? row.attempts[1] : 6, logged);
-  else if (type === 'time_or_distance') slots = Math.max(1, logged);
+  else if (type === 'time_or_distance') slots = 1;
   else slots = Math.max(typeof row.sets === 'number' ? row.sets : 3, logged);
 
   const sets = Array.from({ length: slots }, (_, i) => (loggedEntry && loggedEntry.sets[i]) || null);
@@ -122,33 +176,28 @@ function workoutExerciseHtml(row, loggedEntry) {
     : '';
 
   return `
-  <details class="wk-exercise" data-wk-exercise="${row.exercise_id}"${logged ? ' open' : ''}>
-    <summary class="wk-exercise-head">
+  <div class="wk-row" data-wk-exercise="${row.exercise_id}">
+    <div class="wk-row-top">
       <span class="wk-name">${escapeHtml(ex.name)}</span>
       <span class="wk-prescription">${escapeHtml(workoutSetsLabel(row))}${
         row.rir_target ? ` &middot; RIR ${row.rir_target.join('-')}` : ''}</span>
       ${logged ? `<span class="wk-done" aria-label="${logged} sets logged">${logged}</span>` : ''}
-    </summary>
-    <div class="wk-exercise-body">
-      <p class="wk-why">${escapeHtml(ex.why)}</p>
-      ${row.note ? `<p class="wk-note">${escapeHtml(row.note)}</p>` : ''}
-      ${row.rest ? `<p class="wk-note">Rest ${escapeHtml(row.rest)}</p>` : ''}
-      ${row.protocol === 'sprint' ? `<p class="wk-note">${escapeHtml(SPRINT_PROTOCOL.note)}</p>` : ''}
-      ${row.protocol === 'cooper' ? `<p class="wk-note">${escapeHtml(COOPER_PROTOCOL.note)}</p>` : ''}
-      ${flagHtml}
-      <div class="wk-sets">
-        ${sets.map((set, i) => `
-          <div class="wk-set">
-            <span class="wk-set-no">${type === 'hold_duration' ? `#${i + 1}` : i + 1}</span>
-            ${workoutSetInputsHtml(type, i, set, row)}
-          </div>`).join('')}
-      </div>
-      <details class="wk-science">
-        <summary>Why this exercise</summary>
-        <p>${escapeHtml(ex.rationale)}</p>
-      </details>
     </div>
-  </details>`;
+    <p class="wk-why">${escapeHtml(ex.why)}</p>
+    ${row.note ? `<p class="wk-note">${escapeHtml(row.note)}</p>` : ''}
+    ${row.rest ? `<p class="wk-note">Rest ${escapeHtml(row.rest)}</p>` : ''}
+    ${row.protocol === 'sprint' ? `<p class="wk-note">${escapeHtml(SPRINT_PROTOCOL.note)}</p>` : ''}
+    ${row.protocol === 'cooper' ? `<p class="wk-note">${escapeHtml(COOPER_PROTOCOL.note)}</p>` : ''}
+    ${flagHtml}
+    <div class="wk-cols">
+      ${workoutSetCellsHtml(type, row.exercise_id, row, sets)}
+      ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry)}
+    </div>
+    <details class="wk-science">
+      <summary>Why this exercise</summary>
+      <p>${escapeHtml(ex.rationale)}</p>
+    </details>
+  </div>`;
 }
 
 function workoutAcceptButtonHtml(progression) {
@@ -419,6 +468,16 @@ function workoutCollectForm() {
     const exerciseId = block.getAttribute('data-wk-exercise');
     const ex = programExercise(exerciseId);
     if (!ex) return;
+    const type = ex.progression_type;
+
+    // Weight, RIR, tempo stage and hold variation are asked once per
+    // exercise (see workoutControlCellsHtml) rather than once per set, so
+    // the same value is written onto every set this exercise produces.
+    const exVal = key => {
+      const el = block.querySelector(`[data-wk-exkey="${key}"]`);
+      return el ? el.value : undefined;
+    };
+
     const byIndex = {};
     block.querySelectorAll('[data-wk-set]').forEach(input => {
       const i = Number(input.getAttribute('data-wk-set'));
@@ -428,7 +487,23 @@ function workoutCollectForm() {
     });
     const sets = Object.keys(byIndex).sort((a, b) => a - b).map(i => {
       const raw = byIndex[i];
-      if (ex.progression_type === 'hold_duration') raw.attempt_number = Number(i) + 1;
+      // A set with no reps entered is a set the owner skipped, and must stay
+      // that way: WORKOUT.setIsFilled treats a present weight as enough to
+      // count a set as filled, so writing the shared weight/RIR onto a blank
+      // slot would turn "left the 3rd set blank" back into a filled set --
+      // exactly the bug the model's null-not-zero rule exists to prevent.
+      const hasReps = raw.reps !== undefined && raw.reps !== null && raw.reps !== '';
+      if (type === 'external_load' && hasReps) {
+        raw.weight = exVal('weight');
+        raw.rir = exVal('rir');
+      } else if (type === 'tempo_then_load' && hasReps) {
+        raw.tempo_stage = exVal('tempo_stage');
+        raw.added_weight = exVal('added_weight');
+        raw.rir = exVal('rir');
+      } else if (type === 'hold_duration') {
+        raw.variation = exVal('variation');
+        raw.attempt_number = Number(i) + 1;
+      }
       if (exerciseId === 'cooper_test') raw.is_test = true;
       return raw;
     });
@@ -473,6 +548,20 @@ function wireWorkoutZone() {
     btn.addEventListener('click', () => {
       WORKOUT.confirmPhase(btn.getAttribute('data-wk-confirm-phase'));
       renderWorkoutZone();
+    });
+  });
+
+  // Tempo stage and hold variation are pill toggles, not a native <select>:
+  // one tap updates the hidden input workoutCollectForm reads, with no
+  // re-render, so nothing else the owner typed in this exercise is disturbed.
+  mount.querySelectorAll('[data-wk-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest('.wk-pill-group');
+      if (!group) return;
+      const key = btn.getAttribute('data-wk-toggle');
+      const hidden = group.querySelector(`[data-wk-exkey="${key}"]`);
+      if (hidden) hidden.value = btn.getAttribute('data-wk-value');
+      group.querySelectorAll('.pill').forEach(p => p.classList.toggle('is-active', p === btn));
     });
   });
 
