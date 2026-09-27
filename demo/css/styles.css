@@ -3252,6 +3252,15 @@ table.scan-grid td {
 .col-vol { color: var(--ink2); }
 .col-score { width: 38px; }
 
+/* Full Scan filters. Same disclosure/grid/field recipe as .sizing-tool
+   (Trading's other collapsible tool panel), sized and spaced for sitting
+   right under the section heading rather than after a whole card list. */
+.scan-filters { border-top: 1px solid var(--rule); margin-bottom: var(--sp-3); }
+.scan-filters summary { display: flex; justify-content: space-between; align-items: baseline; padding: var(--sp-3) 0; cursor: pointer; min-height: 44px; list-style: none; }
+.scan-filters summary::-webkit-details-marker { display: none; }
+.scan-filters .pill-row { gap: var(--sp-3) var(--sp-4); padding-bottom: var(--sp-2); }
+.scan-filters-actions { padding-bottom: var(--sp-3); }
+
 /* ==========================================================================
    Personal OS — Insights / Memory / History
    ========================================================================== */

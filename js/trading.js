@@ -102,6 +102,10 @@ const tradingState = {
   breakoutFilter: 'all',
   sortKey: 'score',
   sortDir: 'desc',
+  // Full Scan filters. Plain in-memory state, same as search and sort above
+  // it: persists across sub-tab switches for the life of this page load,
+  // resets to these defaults on a fresh one -- no separate mechanism needed.
+  scanFilters: { sma150Min: null, sma150Max: null, volMin: null, sectors: [] },
 };
 
 function tradingMatchesSearch(r, term) {
@@ -695,6 +699,127 @@ function renderTradingBreakouts() {
 
 // --- Full Scan ------------------------------------------------------------
 
+// The standard 11 SPDR Select Sector ETFs -- a fixed, public classification,
+// not derived data. Anything the scan carries outside this list (shouldn't
+// happen, but a stray code must never vanish from the filter) falls back to
+// showing its own code as the label.
+const TRADING_SECTOR_NAMES = {
+  XLC: 'Communication Services', XLY: 'Consumer Discretionary', XLP: 'Consumer Staples',
+  XLE: 'Energy', XLF: 'Financials', XLV: 'Health Care', XLI: 'Industrials',
+  XLB: 'Materials', XLRE: 'Real Estate', XLK: 'Technology', XLU: 'Utilities',
+};
+function tradingSectorLabel(code) { return TRADING_SECTOR_NAMES[code] || code; }
+
+// Persisted across repaints the same way tradingSizingOpen is: a plain
+// module variable a 'toggle' listener writes to, so switching sub-tabs and
+// back leaves the panel exactly as the owner left it.
+let tradingScanFiltersOpen = false;
+
+function tradingScanActiveFilterCount() {
+  const f = tradingState.scanFilters;
+  return ['sma150Min', 'sma150Max', 'volMin'].filter(k => f[k] !== null).length
+    + (f.sectors.length ? 1 : 0);
+}
+function tradingScanFiltersActive() { return tradingScanActiveFilterCount() > 0; }
+
+function tradingClearScanFilters() {
+  tradingState.scanFilters = { sma150Min: null, sma150Max: null, volMin: null, sectors: [] };
+  // Reset the panel's own fields in place rather than re-rendering it: once
+  // #scan-filters exists, renderTradingFullScan's own guard leaves it alone
+  // (the same guard that keeps a keystroke from rebuilding itself), so a
+  // full re-render here would silently leave the stale values on screen.
+  const panel = document.getElementById('scan-filters');
+  if (panel) {
+    panel.querySelectorAll('[data-scan-filter]').forEach(input => { input.value = ''; });
+    panel.querySelectorAll('[data-scan-sector]').forEach(btn => btn.classList.remove('is-active'));
+  }
+  renderTradingScanTable();
+  refreshScanFiltersIndicator();
+}
+
+// A stock missing a field a filter checks is excluded, not guessed past --
+// showing it would present an unverified match as a real one.
+function tradingMatchesScanFilters(r) {
+  const f = tradingState.scanFilters;
+  if (f.sma150Min !== null && !(typeof r.pct_SMA150 === 'number' && r.pct_SMA150 >= f.sma150Min)) return false;
+  if (f.sma150Max !== null && !(typeof r.pct_SMA150 === 'number' && r.pct_SMA150 <= f.sma150Max)) return false;
+  if (f.volMin !== null && !(typeof r.volume_ratio === 'number' && r.volume_ratio >= f.volMin)) return false;
+  if (f.sectors.length && !f.sectors.includes(r.sector_etf)) return false;
+  return true;
+}
+
+function tradingScanFiltersHtml(scan) {
+  const f = tradingState.scanFilters;
+  const sectors = [...new Set(scan.stocks.map(s => s.sector_etf).filter(Boolean))]
+    .sort((a, b) => tradingSectorLabel(a).localeCompare(tradingSectorLabel(b)));
+  const field = (id, label, val, step, extraAttrs = '') => `
+    <label class="sizing-field"><span>${label}</span>
+      <input type="number" inputmode="decimal" step="${step}" ${extraAttrs}
+        data-scan-filter="${id}" value="${val ?? ''}"></label>`;
+  const count = tradingScanActiveFilterCount();
+  return `
+    <details class="scan-filters" id="scan-filters"${tradingScanFiltersOpen ? ' open' : ''}>
+      <summary>
+        <span class="sec-label">Filters</span>
+        <span class="sec-note mono" id="scan-filters-count">${count ? `${count} active` : 'none active'}</span>
+      </summary>
+      <p class="sizing-hint">SMA150 distance %, signed -- e.g. 0 to 10 for the eligibility gate</p>
+      <div class="sizing-grid">
+        ${field('sma150Min', 'Min %', f.sma150Min, '0.1', 'placeholder="e.g. 0"')}
+        ${field('sma150Max', 'Max %', f.sma150Max, '0.1', 'placeholder="e.g. 10"')}
+        ${field('volMin', 'Min rel. vol ×', f.volMin, '0.1', 'min="0" placeholder="e.g. 1.5"')}
+      </div>
+      <p class="sizing-hint">Sector</p>
+      <div class="pill-row" role="group" aria-label="Sector">
+        ${sectors.map(code => `<button type="button" class="pill${f.sectors.includes(code) ? ' is-active' : ''}"
+          data-scan-sector="${escapeHtml(code)}">${escapeHtml(tradingSectorLabel(code))}</button>`).join('')}
+      </div>
+      <div class="scan-filters-actions">
+        <button type="button" class="linkbtn" id="scan-filters-clear" ${count ? '' : 'hidden'}>Clear filters</button>
+      </div>
+    </details>`;
+}
+
+// Refreshes only the summary's active-count and the Clear button's
+// visibility -- never rebuilds the panel itself, which might be mid-edit.
+function refreshScanFiltersIndicator() {
+  const count = tradingScanActiveFilterCount();
+  const note = document.getElementById('scan-filters-count');
+  if (note) note.textContent = count ? `${count} active` : 'none active';
+  const clearBtn = document.getElementById('scan-filters-clear');
+  if (clearBtn) clearBtn.hidden = !count;
+}
+
+function wireTradingScanFilters() {
+  const panel = document.getElementById('scan-filters');
+  if (!panel) return;
+  panel.addEventListener('toggle', () => { tradingScanFiltersOpen = panel.open; });
+
+  panel.querySelectorAll('[data-scan-filter]').forEach(input => {
+    input.addEventListener('input', () => {
+      const n = parseFloat(input.value);
+      tradingState.scanFilters[input.dataset.scanFilter] = Number.isFinite(n) ? n : null;
+      renderTradingScanTable();
+      refreshScanFiltersIndicator();
+    });
+  });
+
+  panel.querySelectorAll('[data-scan-sector]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const code = btn.dataset.scanSector;
+      const sectors = tradingState.scanFilters.sectors;
+      const i = sectors.indexOf(code);
+      if (i === -1) sectors.push(code); else sectors.splice(i, 1);
+      btn.classList.toggle('is-active');
+      renderTradingScanTable();
+      refreshScanFiltersIndicator();
+    });
+  });
+
+  const clearBtn = document.getElementById('scan-filters-clear');
+  if (clearBtn) clearBtn.addEventListener('click', tradingClearScanFilters);
+}
+
 const TRADING_COLUMNS = [
   { key: 'ticker', label: 'Ticker', cls: 'col-ticker' },
   { key: 'pct_SMA150', label: 'SMA150', cls: 'col-num col-sma' },
@@ -714,8 +839,34 @@ function renderTradingFullScan() {
     return;
   }
 
+  // The filter panel is built once and left alone after that -- the same
+  // reason renderTradingSearch never rebuilds its own <input>: typing into a
+  // filter field, or any other repaint this screen gets, must never destroy
+  // the node the keystroke landed in.
+  if (!document.getElementById('scan-filters')) {
+    mount.innerHTML = `
+      <div class="sec-label-row">
+        <h2 class="sec-label sec-label-gold">All scanned</h2>
+        <span class="sec-note mono" id="scan-count"></span>
+      </div>
+      ${tradingScanFiltersHtml(scan)}
+      <div id="scan-table-wrap"></div>`;
+    wireTradingScanFilters();
+  }
+
+  renderTradingScanTable();
+}
+
+// Everything that changes on a sort, search or filter update, and nothing
+// else -- so none of those ever touch the filter panel's own controls.
+function renderTradingScanTable() {
+  const wrap = document.getElementById('scan-table-wrap');
+  const scan = tradingState.scan;
+  if (!wrap || !scan) return;
+
   const rows = scan.stocks
     .filter(r => tradingMatchesSearch(r, tradingState.search))
+    .filter(tradingMatchesScanFilters)
     .sort((a, b) => {
       const { sortKey, sortDir } = tradingState;
       const av = a[sortKey];
@@ -728,11 +879,26 @@ function renderTradingFullScan() {
       return sortDir === 'asc' ? cmp : -cmp;
     });
 
-  mount.innerHTML = `
-    <div class="sec-label-row">
-      <h2 class="sec-label sec-label-gold">All scanned</h2>
-      <span class="sec-note mono">${rows.length} of ${scan.stocks.length}</span>
-    </div>
+  const countEl = document.getElementById('scan-count');
+  if (countEl) countEl.textContent = `${rows.length} of ${scan.stocks.length}`;
+
+  if (!rows.length) {
+    const filtered = tradingScanFiltersActive();
+    const searched = !!tradingState.search;
+    const why = searched && filtered
+      ? `No stocks match "${escapeHtml(tradingState.search)}" and the current filters.`
+      : searched
+        ? `No stocks match "${escapeHtml(tradingState.search)}".`
+        : 'No stocks match the current filters.';
+    wrap.innerHTML = `<div class="empty-state">${why}${
+      filtered ? '<div><button type="button" class="linkbtn" id="scan-filters-clear-empty">Clear filters</button></div>' : ''}
+    </div>`;
+    const clearBtn = document.getElementById('scan-filters-clear-empty');
+    if (clearBtn) clearBtn.addEventListener('click', tradingClearScanFilters);
+    return;
+  }
+
+  wrap.innerHTML = `
     <div class="scan-wrap">
       <table class="scan-grid">
         <thead>
@@ -765,7 +931,7 @@ function renderTradingFullScan() {
   // Whole-row tap target for the table. The ticker cell is already a real
   // anchor (so keyboard and screen readers get a proper link); this just
   // widens the target to the rest of the row for a thumb.
-  mount.querySelectorAll('tr[data-tv-ticker]').forEach(tr => {
+  wrap.querySelectorAll('tr[data-tv-ticker]').forEach(tr => {
     tr.addEventListener('click', ev => {
       if (ev.target.closest('a')) return;   // the anchor handles its own click
       window.open(tradingViewUrl(tr.dataset.tvTicker, tr.dataset.tvExchange || null),
@@ -773,7 +939,7 @@ function renderTradingFullScan() {
     });
   });
 
-  mount.querySelectorAll('[data-sort]').forEach(th => {
+  wrap.querySelectorAll('[data-sort]').forEach(th => {
     th.addEventListener('click', () => {
       const key = th.dataset.sort;
       if (tradingState.sortKey === key) {
@@ -783,7 +949,7 @@ function renderTradingFullScan() {
         // Text reads naturally A-Z; numbers are most useful strongest-first.
         tradingState.sortDir = key === 'ticker' ? 'asc' : 'desc';
       }
-      renderTradingFullScan();
+      renderTradingScanTable();   // the filter panel stays put -- only the table changed
     });
   });
 }

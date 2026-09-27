@@ -25,7 +25,9 @@
 // typable, the Trading tables show SMA150 distance instead of the setup tag,
 // and a holiday/Shabbat toggle excludes a day from every stat. daily.js,
 // daily-today.js, trading.js, workout.js and the stylesheet all changed.
-const CACHE_NAME = 'jarvis-shell-v18';
+// v19: Full Scan filtering -- SMA150 range, relative volume and sector,
+// combinable, client-side. trading.js and the stylesheet changed.
+const CACHE_NAME = 'jarvis-shell-v19';
 const SHELL_ASSETS = [
   './',
   'index.html',
