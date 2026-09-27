@@ -2627,6 +2627,7 @@ a { color: var(--ink); }
    ========================================================================== */
 
 .today-head { display: flex; flex-direction: column; gap: var(--sp-2); }
+.today-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-3); }
 .today-greeting {
   font-family: var(--font-serif);
   font-size: var(--fs-display);
@@ -2636,6 +2637,23 @@ a { color: var(--ink); }
   margin: 0;
   line-height: 1.2;
 }
+/* Off, it is a plain outline like any other quiet control; on, it borrows
+   the same "notable state" recipe as a completed set or a RECLAIM tag --
+   ochre text and border -- rather than a new one. */
+.holiday-toggle {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  margin-top: 2px;
+  border-radius: var(--r-sm);
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--ink2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  letter-spacing: .04em;
+}
+.holiday-toggle.is-on { color: var(--mark); border-color: var(--mark); }
 .today-sub { display: flex; align-items: baseline; gap: var(--sp-4); flex-wrap: wrap; }
 .today-date { font-family: var(--font-mono); font-size: var(--fs-secondary); color: var(--ink2); }
 
@@ -2822,13 +2840,26 @@ a { color: var(--ink); }
 }
 .today-tv-label { font-size: var(--fs-body); color: var(--ink2); }
 .today-tv-controls { display: flex; align-items: center; gap: var(--sp-3); }
+/* Now a typable <input>, not a static <span> -- an underline on focus is
+   the only hint it's editable, same recipe as .bignum-input, and every
+   native control affordance (box, spin buttons) is stripped since the
+   steppers either side already do that job. */
 .today-tv-count {
   min-width: 32px;
   text-align: center;
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
   font-family: var(--font-mono);
   font-size: var(--fs-num);
   color: var(--ink);
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
+.today-tv-count:focus { outline: none; border-bottom-color: var(--ink2); }
+.today-tv-count::-webkit-outer-spin-button,
+.today-tv-count::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .stepper {
   width: 44px;
   height: 44px;
@@ -3144,10 +3175,12 @@ a { color: var(--ink); }
   padding: 1px 4px;
   white-space: nowrap;
 }
-.setup-badge.is-tiny { font-size: 8.5px; padding: 0 3px; }
 .setup-meta { gap: var(--sp-5); }
 .setup-price { font-family: var(--font-mono); font-size: var(--fs-num); color: var(--ink2); }
 .setup-change { font-family: var(--font-mono); font-size: var(--fs-secondary); }
+/* Distance from SMA150 -- neutral, deliberately: --up/--down mean today's
+   price direction only, not a technical level. */
+.setup-sma150 { font-size: var(--fs-tag); color: var(--ink2); white-space: nowrap; }
 .setup-change.is-up, .is-up { color: var(--up); }
 .setup-change.is-down, .is-down { color: var(--down); }
 .setup-vol, .setup-touches { font-family: var(--font-mono); font-size: var(--fs-tag); color: var(--ink2); }
@@ -3214,7 +3247,7 @@ table.scan-grid td {
   font-weight: 500;
   color: var(--ink);
 }
-.col-setup { width: 78px; }
+.col-sma { width: 64px; }
 .col-num { text-align: right; }
 .col-vol { color: var(--ink2); }
 .col-score { width: 38px; }
@@ -3548,12 +3581,10 @@ table.scan-grid td {
   color: var(--ink2);
 }
 
-/* Setup tags. RECLAIM is on the accent list -- it marks the structurally
-   notable setup, the one with a level underneath it. Everything else is a
-   plain classification and stays in ink. */
-.setup-badge.is-reclaim { color: var(--mark); border-color: var(--mark); }
+/* The RECLAIM/BREAKOUT/SIGNAL classification no longer has its own column
+   (see tradingSma150Html in trading.js) -- .setup-badge itself stays, for
+   the Breakouts screen's plain "SMA150" label. */
 .setup-badge.is-breakout { color: var(--ink2); border-color: var(--rule); }
-.setup-badge.is-signal { color: var(--ink2); border-color: var(--rule); }
 
 /* ==========================================================================
    Training — de-carded.

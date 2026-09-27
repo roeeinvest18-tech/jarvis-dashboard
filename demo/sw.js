@@ -20,7 +20,12 @@
 // v17: Training screen restyled -- workout-ui.js and the stylesheet changed
 // again to fix unstyled inputs (a missing appearance:none on <select> and
 // fields that grew to fill the row) and to make the row layout compact.
-const CACHE_NAME = 'jarvis-shell-v17';
+// v18: four fixes across Today and Trading -- the sleep sheet no longer
+// rebuilds its <input>s on every time change, the TV-opens count is directly
+// typable, the Trading tables show SMA150 distance instead of the setup tag,
+// and a holiday/Shabbat toggle excludes a day from every stat. daily.js,
+// daily-today.js, trading.js, workout.js and the stylesheet all changed.
+const CACHE_NAME = 'jarvis-shell-v18';
 const SHELL_ASSETS = [
   './',
   'index.html',

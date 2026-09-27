@@ -9,13 +9,28 @@
 // through DASHBOARD, and reuses splitBreakoutAlerts from data.js so the 48h
 // window is computed in exactly one place. No feed, field or backend changed.
 
-const TRADING_BADGES = {
-  'Zone Reclaim':   { label: 'RECLAIM',  cls: 'is-reclaim' },
-  'Fresh Breakout': { label: 'BREAKOUT', cls: 'is-breakout' },
-};
+// The RECLAIM/BREAKOUT/SIGNAL classification (scout.py's setup_tag) still
+// feeds scoring server-side -- this file just stopped displaying it as a
+// column, in favour of the SMA150 distance the classification is largely
+// derived from. See tradingSma150Html below.
 
-function tradingBadge(setupTag) {
-  return TRADING_BADGES[setupTag] || { label: 'SIGNAL', cls: 'is-signal' };
+// Signed distance from SMA150, e.g. "+2.7%" above or "-1.3%" below.
+// fmtPct (data.js) already does exactly this formatting -- it backs the same
+// figure on the account/priority cards -- so this only picks the field.
+// Neutral colour, deliberately: --up/--down are reserved for today's price
+// change, not a technical level, and the existing SMA-distance display
+// elsewhere in the app (components.js's smaDistanceHtml) is neutral too.
+function tradingSma150Value(pct) {
+  return pct === null || pct === undefined ? '—' : fmtPct(pct);
+}
+
+// The card layouts (Top 10) have no column header to say what this figure
+// is, so it carries its own "SMA150" label, the same "+2.7% SMA150"
+// convention components.js's smaDistanceHtml already uses. The Full Scan
+// table has an actual "SMA150" header instead (see TRADING_COLUMNS), so its
+// cells use the bare value.
+function tradingSma150Html(r) {
+  return `<span class="mono setup-sma150">${tradingSma150Value(r.pct_SMA150)} SMA150</span>`;
 }
 
 // Only a top-tier score earns the accent; the rest step down through ink.
@@ -207,7 +222,6 @@ function renderTradingTop10() {
     </div>
     ${shown.length ? `<div class="setup-list">${shown.map(r => {
       const rank = ordered.indexOf(r) + 1;
-      const badge = tradingBadge(r.setup_tag);
       const change = r.change_pct;
       // Ranks 6+ step down in weight and ink so the list reads as continuing
       // past its head. This used to be an opacity fade down to 15%, which
@@ -221,7 +235,7 @@ function renderTradingTop10() {
           <div class="setup-main">
             <div class="setup-row">
               <span class="setup-ticker">${escapeHtml(r.ticker)}</span>
-              <span class="setup-badge ${badge.cls}">${badge.label}</span>
+              ${tradingSma150Html(r)}
             </div>
             <div class="setup-row setup-meta">
               <span class="mono setup-price">${fmtPrice(r.price)}</span>
@@ -683,7 +697,7 @@ function renderTradingBreakouts() {
 
 const TRADING_COLUMNS = [
   { key: 'ticker', label: 'Ticker', cls: 'col-ticker' },
-  { key: 'setup_tag', label: 'Setup', cls: 'col-setup' },
+  { key: 'pct_SMA150', label: 'SMA150', cls: 'col-num col-sma' },
   { key: 'price', label: 'Price', cls: 'col-num' },
   { key: 'change_pct', label: 'Chg', cls: 'col-num' },
   { key: 'today_volume', label: 'Vol', cls: 'col-num col-vol' },
@@ -733,12 +747,11 @@ function renderTradingFullScan() {
         </thead>
         <tbody>
           ${rows.map(r => {
-            const badge = tradingBadge(r.setup_tag);
             return `
               <tr class="is-link" data-tv-ticker="${escapeHtml(r.ticker)}"
                   data-tv-exchange="${escapeHtml(r.exchange || '')}">
                 <td class="col-ticker"><a ${tradingLinkAttrs(r.ticker, r.exchange)}>${escapeHtml(r.ticker)}</a></td>
-                <td class="col-setup"><span class="setup-badge is-tiny ${badge.cls}">${badge.label}</span></td>
+                <td class="col-num col-sma mono">${tradingSma150Value(r.pct_SMA150)}</td>
                 <td class="col-num mono">${fmtPrice(r.price)}</td>
                 <td class="col-num mono ${r.change_pct >= 0 ? 'is-up' : 'is-down'}">${fmtChange(r.change_pct)}</td>
                 <td class="col-num col-vol mono">${fmtCompactNumber(r.today_volume)}</td>
@@ -768,7 +781,7 @@ function renderTradingFullScan() {
       } else {
         tradingState.sortKey = key;
         // Text reads naturally A-Z; numbers are most useful strongest-first.
-        tradingState.sortDir = (key === 'ticker' || key === 'setup_tag') ? 'asc' : 'desc';
+        tradingState.sortDir = key === 'ticker' ? 'asc' : 'desc';
       }
       renderTradingFullScan();
     });

@@ -57,6 +57,12 @@ function dailyStreakDays(endIso) {
   for (let i = 0; i < 400; i++) {
     const date = dailyShiftIso(end, -i);
     const record = all[date];
+    // A holiday/Shabbat is skipped, not treated as a break: the day before
+    // it stays connected to the day after it. This is the one place that
+    // can't just filter the day out of the list (dailyWindow's approach) --
+    // a skipped date has to not count as a break in a walk that otherwise
+    // reads consecutiveness from the calendar itself.
+    if (record && record.is_holiday) continue;
     if (!record) break;
     const normalized = dailyNormalizeRecord(record, date);
     const any = DAILY_CORE_HABITS.concat(DAILY_EXTRA_HABITS).some(h => !!normalized[h.id]);
@@ -186,7 +192,13 @@ function renderDailyToday() {
 
   mount.innerHTML = `
     <div class="today-head">
-      <h1 class="today-greeting">${isToday ? escapeHtml(dailyGreeting()) : 'Reviewing'}</h1>
+      <div class="today-head-row">
+        <h1 class="today-greeting">${isToday ? escapeHtml(dailyGreeting()) : 'Reviewing'}</h1>
+        <button type="button" class="holiday-toggle ${record.is_holiday ? 'is-on' : ''}"
+                data-daily-holiday aria-pressed="${record.is_holiday ? 'true' : 'false'}">
+          ${record.is_holiday ? 'Holiday: on' : 'Holiday'}
+        </button>
+      </div>
       <div class="today-sub">
         <span class="today-date">${escapeHtml(dailyDisplayDate(date))}</span>
         <span class="today-badge is-${badge.kind}">${escapeHtml(badge.text)}</span>
@@ -247,7 +259,9 @@ function renderDailyToday() {
       <span class="today-tv-label">TradingView opens</span>
       <div class="today-tv-controls">
         <button type="button" class="stepper" data-daily-tv="-1" aria-label="One fewer TradingView open">−</button>
-        <span class="today-tv-count mono">${record.tradingview_opens === null ? '—' : record.tradingview_opens}</span>
+        <input type="number" min="0" inputmode="numeric" class="today-tv-count mono"
+               data-daily-number="tradingview_opens" aria-label="TradingView opens"
+               value="${record.tradingview_opens === null ? '' : record.tradingview_opens}">
         <button type="button" class="stepper" data-daily-tv="1" aria-label="One more TradingView open">+</button>
       </div>
     </div>
@@ -314,6 +328,15 @@ function wireDailyToday() {
     });
   });
 
+  // The count is also directly typable, not just stepped -- commits on
+  // change (blur/Enter/native stepper), same as every other numeric field
+  // here, so a re-render never fights a value mid-keystroke.
+  mount.querySelectorAll('[data-daily-number]').forEach(input => {
+    input.addEventListener('change', () => {
+      dailyPatch({ [input.dataset.dailyNumber]: dailyClampCount(input.value) });
+    });
+  });
+
   mount.querySelectorAll('[data-daily-prio-done]').forEach(btn => {
     btn.addEventListener('click', () => {
       const idx = Number(btn.dataset.dailyPrioDone);
@@ -342,6 +365,15 @@ function wireDailyToday() {
   if (minimumBtn) {
     minimumBtn.addEventListener('click', () => {
       dailyPatch({ minimum_day: !DAILY.getDay(dailyCurrentDate()).minimum_day });
+    });
+  }
+
+  // A simple toggle: tap to mark, tap again to unmark -- the day's other
+  // data is untouched either way, only whether the analytics count it.
+  const holidayBtn = mount.querySelector('[data-daily-holiday]');
+  if (holidayBtn) {
+    holidayBtn.addEventListener('click', () => {
+      dailyPatch({ is_holiday: !DAILY.getDay(dailyCurrentDate()).is_holiday });
     });
   }
 
@@ -404,6 +436,17 @@ function dailyCaptureTopic(name) {
 }
 
 // --- sleep modal ----------------------------------------------------------
+//
+// Closes only on data-sleep-close (the X or Done) -- never on its own, never
+// on an outside tap (this sheet has no such handler at all), never on a
+// timer. renderDailySleepModal() used to rebuild the whole sheet's markup on
+// every call, which recreated the <input type="time"> the browser's own
+// picker was still attached to and dismissed it after one field -- and that
+// call came from more places than the time-input handler itself, since
+// renderDailyToday() re-invokes this on its own tail whenever the sheet is
+// open. So the fix lives in renderDailySleepModal(): once the sheet exists,
+// every re-entry updates only the derived bits (updateDailySleepComputed,
+// updateDailySleepScale) and never touches the <input> nodes again.
 
 function renderDailySleepModal() {
   let overlay = document.getElementById('daily-sleep-overlay');
@@ -411,14 +454,26 @@ function renderDailySleepModal() {
     if (overlay) overlay.remove();
     return;
   }
-  if (!overlay) {
-    overlay = document.createElement('div');
-    overlay.id = 'daily-sleep-overlay';
-    overlay.className = 'sheet-overlay';
-    document.body.appendChild(overlay);
-  }
 
   const record = DAILY.getDay(dailyCurrentDate());
+
+  // Already open: refresh only the derived bits, never the <input> nodes.
+  // This is the path that matters, not just the time-input handler below --
+  // renderDailyToday() calls this function again on its own tail whenever
+  // the sheet is open, which every other Today action (not only a time
+  // change) can trigger. Without this early return, any of those would have
+  // rebuilt the sheet just the same and reintroduced the bug.
+  if (overlay) {
+    updateDailySleepComputed();
+    updateDailySleepScale(record.sleep_quality);
+    return;
+  }
+
+  overlay = document.createElement('div');
+  overlay.id = 'daily-sleep-overlay';
+  overlay.className = 'sheet-overlay';
+  document.body.appendChild(overlay);
+
   const mins = dailySleepDurationMinutes(record.sleep_start, record.wake_time);
 
   overlay.innerHTML = `
@@ -450,7 +505,12 @@ function renderDailySleepModal() {
   overlay.querySelectorAll('[data-daily-time]').forEach(input => {
     input.addEventListener('change', () => {
       DAILY.saveDay(dailyCurrentDate(), { [input.dataset.dailyTime]: input.value || null });
-      renderDailySleepModal();
+      // Only the derived duration text updates here -- a full
+      // renderDailySleepModal() would recreate this <input> node mid-pick,
+      // which is what dismissed the browser's own time picker after the
+      // first field and read as "the sheet closes on its own". The sheet's
+      // open/closed state is untouched; only data-sleep-close changes that.
+      updateDailySleepComputed();
       renderDailyToday();
       dailyTriggerSync();
     });
@@ -471,6 +531,37 @@ function renderDailySleepModal() {
       renderDailySleepModal();
       renderDailyToday();
     });
+  });
+}
+
+// Refreshes just the derived "Duration ..." line after a time changes,
+// instead of the full sheet -- see renderDailySleepModal's time-input
+// handler for why a full re-render there was the actual bug.
+function updateDailySleepComputed() {
+  const overlay = document.getElementById('daily-sleep-overlay');
+  if (!overlay) return;
+  const computed = overlay.querySelector('.computed');
+  if (!computed) return;
+  const record = DAILY.getDay(dailyCurrentDate());
+  const mins = dailySleepDurationMinutes(record.sleep_start, record.wake_time);
+  computed.innerHTML = `
+    ${mins === null ? 'Duration —' : `Duration ${dailyFormatDuration(mins)}`}
+    ${dailySleepLooksImplausible(mins) ? ' · that looks unusual, worth a second look' : ''}`;
+}
+
+// Refreshes the sleep-quality scale's selected state and "X/10" readout in
+// place -- no risk to a native picker either way (a scale tap isn't one),
+// but matching updateDailySleepComputed keeps every re-entry into an already
+// open sheet equally cheap and equally safe.
+function updateDailySleepScale(value) {
+  const overlay = document.getElementById('daily-sleep-overlay');
+  if (!overlay) return;
+  const valueEl = overlay.querySelector('.scale-value');
+  if (valueEl) valueEl.textContent = value === null ? '—' : `${value}/10`;
+  overlay.querySelectorAll('[data-daily-scale]').forEach(btn => {
+    const selected = Number(btn.dataset.value) === value;
+    btn.classList.toggle('is-selected', selected);
+    btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
   });
 }
 

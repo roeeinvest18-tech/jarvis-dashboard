@@ -225,6 +225,12 @@ function dailyEmptyRecord(date) {
     win_of_day: '',
     friction: '',
     minimum_day: false,
+    // A day marked holiday/Shabbat is excluded from every stat, the same way
+    // a day with no record at all already is (see windowDays and
+    // dailyStreakDays): not a failure, not counted against anything. A
+    // simple on/off toggle, not a type -- Shabbat and any other holiday are
+    // the one thing as far as the analytics are concerned.
+    is_holiday: false,
     closed: false,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
@@ -374,7 +380,12 @@ const DAILY = {
   windowDays(count, endIso) {
     const end = endIso || dailyTodayIso();
     const start = dailyShiftIso(end, -(count - 1));
-    return this.orderedDays().filter(r => r.date >= start && r.date <= end);
+    // A holiday/Shabbat is excluded here, the single choke point every
+    // analytic below walks -- consistency, sleep stats, group compare, the
+    // weekly review -- so marking a day opts it out of all of them at once,
+    // the same "not counted against anything" treatment a day with no
+    // record at all already gets.
+    return this.orderedDays().filter(r => r.date >= start && r.date <= end && !r.is_holiday);
   },
 
   // --- topics & recalls ---------------------------------------------------

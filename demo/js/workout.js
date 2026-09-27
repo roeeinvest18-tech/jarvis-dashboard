@@ -718,6 +718,28 @@ const WORKOUT = {
   // Section 6: real logged data only. No generated advice, one conditional
   // plain-language note, and nothing that editorialises past it.
 
+  // How many of the week's five training days are actually asked of the
+  // owner -- WEEK_TEMPLATE.length, minus any that Personal OS has marked a
+  // holiday/Shabbat. A holiday must not read as a missed session, so it
+  // comes out of the denominator rather than staying uncompleted in it.
+  // Reads DAILY defensively: under plain Node (test_workout_logic.js loads
+  // only program.js/workout.js) DAILY does not exist, and nothing is marked
+  // a holiday, so the count is simply unaffected.
+  scheduledSessionsInWeek(weekStartIso) {
+    const start = Date.parse(`${weekStartIso}T00:00:00Z`);
+    const hasDaily = typeof DAILY !== 'undefined' && DAILY && typeof DAILY.days === 'function';
+    const days = hasDaily ? DAILY.days() : {};
+    let scheduled = 0;
+    for (let i = 0; i < 7; i++) {
+      const iso = new Date(start + i * 86400000).toISOString().slice(0, 10);
+      const weekday = new Date(start + i * 86400000).getUTCDay();
+      if (!programIsTrainingDay(weekday)) continue;
+      if (days[iso] && days[iso].is_holiday) continue;
+      scheduled += 1;
+    }
+    return scheduled;
+  },
+
   weeklyReview(weekStartIso = this.weekStartIso(workoutTodayIso())) {
     const start = Date.parse(`${weekStartIso}T00:00:00Z`);
     const inWeek = d => {
@@ -725,7 +747,7 @@ const WORKOUT = {
       return t >= start && t < start + 7 * 86400000;
     };
     const sessions = this.sessions().filter(s => inWeek(s.date));
-    const scheduled = WEEK_TEMPLATE.length;
+    const scheduled = this.scheduledSessionsInWeek(weekStartIso);
 
     // Trend arrows come from the engine's own numbers, not a second judgement.
     const trends = programTrackedExerciseIds().map(id => {
