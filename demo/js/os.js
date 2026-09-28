@@ -11,6 +11,11 @@
 // decides which of these three to call. It draws into #panel-insights,
 // #panel-memory and #panel-history, which the shell shows and hides.
 
+const OS_S = STRINGS.insights;
+const MEM_S = STRINGS.memory;
+const HIST_S = STRINGS.history;
+const SET_S = STRINGS.settings;
+
 let osActiveTab = 'insights';
 // Which History day is expanded, and which topic's recall composer is open.
 let osOpenDay = null;
@@ -19,15 +24,19 @@ let osRevealedTopicId = null;
 let osOpenEvaluationRecallId = null;
 
 function osPct(value) {
-  return value === null || value === undefined ? '—' : `${value}%`;
+  return value === null || value === undefined ? STRINGS.common.none : `${value}%`;
 }
 
 function osNum(value) {
-  return value === null || value === undefined ? '—' : String(value);
+  return value === null || value === undefined ? STRINGS.common.none : String(value);
 }
 
+// Pinned to en-GB like every other date in the app. It used to pass
+// `undefined`, which means "the device's locale" -- on a Hebrew phone that
+// rendered these day labels in Hebrew, the only non-English text left on an
+// otherwise English screen (owner's decision, 2026-09-24).
 function osDateLabel(iso) {
-  return new Date(`${iso}T12:00:00`).toLocaleDateString(undefined,
+  return new Date(`${iso}T12:00:00`).toLocaleDateString('en-GB',
     { weekday: 'short', day: 'numeric', month: 'short' });
 }
 
@@ -41,7 +50,7 @@ function osEmpty(message) {
 // --- Insights -------------------------------------------------------------
 
 function osConsistencyTableHtml(records, windowLabel) {
-  if (!records.length) return osEmpty(`No days checked in over the last ${windowLabel}.`);
+  if (!records.length) return osEmpty(OS_S.consistency.emptyWindow(windowLabel));
   const rows = dailyConsistencyTable(records).map(r => `
     <tr>
       <td>${escapeHtml(r.label)}</td>
@@ -52,7 +61,7 @@ function osConsistencyTableHtml(records, windowLabel) {
   return `
     <div class="table-scroll">
       <table class="os-table">
-        <thead><tr><th>Habit</th><th>Done</th><th>Rate</th><th></th></tr></thead>
+        <thead><tr><th>${OS_S.consistency.headings.habit}</th><th>${OS_S.consistency.headings.done}</th><th>${OS_S.consistency.headings.rate}</th><th></th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>`;
@@ -60,17 +69,17 @@ function osConsistencyTableHtml(records, windowLabel) {
 
 function osSleepPanelHtml(records) {
   const s = dailySleepStats(records);
-  if (!s) return osEmpty('No sleep entries yet. Add one from Close the Day.');
+  if (!s) return osEmpty(OS_S.sleep.empty);
   return `
     <div class="os-stat-grid">
-      <div class="os-stat"><span class="os-stat-value mono">${dailyFormatDuration(s.avgDurationMin)}</span><span class="os-stat-label">Avg duration</span></div>
-      <div class="os-stat"><span class="os-stat-value mono">${osNum(s.avgQuality)}</span><span class="os-stat-label">Avg quality</span></div>
-      <div class="os-stat"><span class="os-stat-value mono">${escapeHtml(s.avgBedtime)}</span><span class="os-stat-label">Avg bedtime</span></div>
-      <div class="os-stat"><span class="os-stat-value mono">${escapeHtml(s.avgWakeTime)}</span><span class="os-stat-label">Avg wake</span></div>
-      <div class="os-stat"><span class="os-stat-value mono">±${osNum(s.bedtimeSpreadMin)}m</span><span class="os-stat-label">Bedtime spread</span></div>
-      <div class="os-stat"><span class="os-stat-value mono">±${osNum(s.wakeSpreadMin)}m</span><span class="os-stat-label">Wake spread</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">${dailyFormatDuration(s.avgDurationMin)}</span><span class="os-stat-label">${OS_S.sleep.avgDuration}</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">${osNum(s.avgQuality)}</span><span class="os-stat-label">${OS_S.sleep.avgQuality}</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">${escapeHtml(s.avgBedtime)}</span><span class="os-stat-label">${OS_S.sleep.avgBedtime}</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">${escapeHtml(s.avgWakeTime)}</span><span class="os-stat-label">${OS_S.sleep.avgWake}</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">±${osNum(s.bedtimeSpreadMin)}m</span><span class="os-stat-label">${OS_S.sleep.bedtimeSpread}</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">±${osNum(s.wakeSpreadMin)}m</span><span class="os-stat-label">${OS_S.sleep.wakeSpread}</span></div>
     </div>
-    <p class="os-note">Based on ${s.n} night${s.n === 1 ? '' : 's'} with sleep recorded.</p>`;
+    <p class="os-note">${OS_S.sleep.basedOn(s.n)}</p>`;
 }
 
 function osMindPanelHtml(records) {
@@ -87,13 +96,13 @@ function osMindPanelHtml(records) {
 
 function osTradingViewPanelHtml(records) {
   const tv = dailyTradingViewStats(records);
-  if (!tv) return osEmpty('No TradingView opens recorded yet.');
+  if (!tv) return osEmpty(OS_S.tradingView.empty);
   return `
     <div class="os-stat-grid">
-      <div class="os-stat"><span class="os-stat-value mono">${osNum(tv.avg)}</span><span class="os-stat-label">Avg / day</span></div>
-      <div class="os-stat"><span class="os-stat-value mono">${tv.max}</span><span class="os-stat-label">Highest · ${escapeHtml(osDateLabel(tv.maxDate))}</span></div>
-      <div class="os-stat"><span class="os-stat-value mono">${tv.min}</span><span class="os-stat-label">Lowest · ${escapeHtml(osDateLabel(tv.minDate))}</span></div>
-      <div class="os-stat"><span class="os-stat-value mono">${tv.total}</span><span class="os-stat-label">Total · ${tv.n}d</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">${osNum(tv.avg)}</span><span class="os-stat-label">${OS_S.tradingView.avgPerDay}</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">${tv.max}</span><span class="os-stat-label">${escapeHtml(OS_S.tradingView.highest(osDateLabel(tv.maxDate)))}</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">${tv.min}</span><span class="os-stat-label">${escapeHtml(OS_S.tradingView.lowest(osDateLabel(tv.minDate)))}</span></div>
+      <div class="os-stat"><span class="os-stat-value mono">${tv.total}</span><span class="os-stat-label">${OS_S.tradingView.total(tv.n)}</span></div>
     </div>`;
 }
 
@@ -108,20 +117,17 @@ function osObservationsHtml(records) {
   const observations = dailyBehaviouralObservations(records)
     .concat(dailyTradeDayObservations(records, trades));
   if (!observations.length) {
-    return osEmpty('Not enough data yet. Comparisons appear once both sides of a '
-      + `split have at least ${DAILY_MIN_GROUP_N} days behind them.`);
+    return osEmpty(OS_S.observations.empty(DAILY_MIN_GROUP_N));
   }
   return observations.map(o => `
     <div class="os-observation">
-      <span class="os-observation-tag">observed association</span>
+      <span class="os-observation-tag">${OS_S.observations.tag}</span>
       <p class="os-observation-text">${escapeHtml(o.text)}</p>
-      <p class="os-observation-evidence mono">
-        ${escapeHtml(o.evidence.metric)}: group A n=${o.evidence.a.n} mean=${osNum(o.evidence.a.mean)} ·
-        group B n=${o.evidence.b.n} mean=${osNum(o.evidence.b.mean)}
-      </p>
+      <p class="os-observation-evidence mono">${escapeHtml(OS_S.observations.evidence(
+        o.evidence.metric, o.evidence.a.n, osNum(o.evidence.a.mean),
+        o.evidence.b.n, osNum(o.evidence.b.mean)))}</p>
     </div>`).join('')
-    + `<p class="os-note">These are differences between groups of days, not evidence that one
-        caused the other.</p>`;
+    + `<p class="os-note">${OS_S.observations.caveat}</p>`;
 }
 
 // --- experiments (item 23) ------------------------------------------------
@@ -130,9 +136,9 @@ function osObservationsHtml(records) {
 // the period, and afterwards what happened. Results are read against the
 // same analytics rules as everything else: nothing is called an effect.
 const OS_EXPERIMENT_SEED = {
-  name: 'No TradingView before the morning routine',
-  hypothesis: 'Leaving the chart until after the routine protects focus.',
-  metric: 'focus (and TradingView opens)',
+  name: OS_S.experiments.seedName,
+  hypothesis: OS_S.experiments.seedHypothesis,
+  metric: OS_S.experiments.seedMetric,
   baseline: '',
   status: 'running',
 };
@@ -146,20 +152,20 @@ function osExperimentFieldsHtml(exp) {
              placeholder="${escapeHtml(placeholder || '')}"></label>`;
   return `
     <form class="os-exp-form" data-os-exp-form="${escapeHtml(exp.id || '')}">
-      ${f('name', 'Name', exp.name, 'What are you trying?')}
-      ${f('hypothesis', 'Hypothesis', exp.hypothesis, 'What do you expect to change?')}
-      ${f('metric', 'Metric', exp.metric, 'focus, sleep, TradingView opens…')}
-      ${f('baseline', 'Baseline', exp.baseline, 'Where it stands now')}
+      ${f('name', OS_S.experiments.name, exp.name, OS_S.experiments.namePlaceholder)}
+      ${f('hypothesis', OS_S.experiments.hypothesis, exp.hypothesis, OS_S.experiments.hypothesisPlaceholder)}
+      ${f('metric', OS_S.experiments.metric, exp.metric, OS_S.experiments.metricPlaceholder)}
+      ${f('baseline', OS_S.experiments.baseline, exp.baseline, OS_S.experiments.baselinePlaceholder)}
       <div class="os-exp-dates">
-        <label class="os-field"><span>From</span>
+        <label class="os-field"><span>${OS_S.experiments.from}</span>
           <input type="date" data-os-exp-field="started_on" value="${escapeHtml(exp.started_on || '')}"></label>
-        <label class="os-field"><span>Until</span>
+        <label class="os-field"><span>${OS_S.experiments.until}</span>
           <input type="date" data-os-exp-field="ends_on" value="${escapeHtml(exp.ends_on || '')}"></label>
       </div>
-      ${f('result', 'Result', exp.result, 'What actually happened')}
+      ${f('result', OS_S.experiments.resultField, exp.result, OS_S.experiments.resultPlaceholder)}
       <div class="os-exp-actions">
-        <button type="submit" class="os-btn os-btn-primary">Save</button>
-        ${exp.id ? `<button type="button" class="os-btn os-btn-quiet" data-os-exp-delete="${escapeHtml(exp.id)}">Remove</button>` : ''}
+        <button type="submit" class="os-btn os-btn-primary">${STRINGS.common.save}</button>
+        ${exp.id ? `<button type="button" class="os-btn os-btn-quiet" data-os-exp-delete="${escapeHtml(exp.id)}">${STRINGS.common.remove}</button>` : ''}
       </div>
     </form>`;
 }
@@ -170,27 +176,26 @@ function osExperimentsHtml() {
     ? osExperimentFieldsHtml(e)
     : `<article class="os-exp">
          <div class="os-exp-head">
-           <h4 class="os-exp-name">${escapeHtml(e.name || 'Untitled experiment')}</h4>
-           <span class="mono os-muted">${escapeHtml(e.started_on || '')}${e.ends_on ? ` → ${escapeHtml(e.ends_on)}` : ''}</span>
+           <h4 class="os-exp-name">${escapeHtml(e.name || OS_S.experiments.untitled)}</h4>
+           <span class="mono os-muted">${escapeHtml(e.started_on ? osDateLabel(e.started_on) : '')}${e.ends_on ? ` → ${escapeHtml(osDateLabel(e.ends_on))}` : ''}</span>
          </div>
          ${e.hypothesis ? `<p class="os-note">${escapeHtml(e.hypothesis)}</p>` : ''}
-         <p class="os-exp-meta mono">metric: ${escapeHtml(e.metric || '—')} · baseline: ${escapeHtml(e.baseline || '—')}</p>
-         ${e.result ? `<p class="os-note">Result: ${escapeHtml(e.result)}</p>`
-           : '<p class="os-note os-muted">No result recorded yet.</p>'}
-         <button type="button" class="os-btn os-btn-quiet" data-os-exp-edit="${escapeHtml(e.id)}">Edit</button>
+         <p class="os-exp-meta mono">${escapeHtml(OS_S.experiments.meta(
+           e.metric || STRINGS.common.none, e.baseline || STRINGS.common.none))}</p>
+         ${e.result ? `<p class="os-note">${escapeHtml(OS_S.experiments.result(e.result))}</p>`
+           : `<p class="os-note os-muted">${OS_S.experiments.noResult}</p>`}
+         <button type="button" class="os-btn os-btn-quiet" data-os-exp-edit="${escapeHtml(e.id)}">${STRINGS.common.edit}</button>
        </article>`)).join('');
 
   const adding = osEditingExperimentId === 'new';
   return `
-    ${rows || '<p class="os-note">No experiments yet. One at a time works best.</p>'}
+    ${rows || `<p class="os-note">${OS_S.experiments.empty}</p>`}
     ${adding ? osExperimentFieldsHtml({ ...OS_EXPERIMENT_SEED, id: '' }) : `
       <div class="os-exp-actions">
-        <button type="button" class="os-btn os-btn-quiet" id="os-exp-new">New experiment</button>
-        ${all.length ? '' : '<button type="button" class="os-btn os-btn-primary" id="os-exp-seed">Start the TradingView one</button>'}
+        <button type="button" class="os-btn os-btn-quiet" id="os-exp-new">${OS_S.experiments.add}</button>
+        ${all.length ? '' : `<button type="button" class="os-btn os-btn-primary" id="os-exp-seed">${OS_S.experiments.seed}</button>`}
       </div>`}
-    <p class="os-note os-muted">Results follow the same rule as everything else here: a comparison
-      appears only once both sides have at least ${DAILY_MIN_GROUP_N} reported days, and it is an
-      observed association, never a proven effect.</p>`;
+    <p class="os-note os-muted">${OS_S.experiments.caveat(DAILY_MIN_GROUP_N)}</p>`;
 }
 
 function wireOsExperiments() {
@@ -242,13 +247,13 @@ function osFetchAccountRecord() {
 
 function osWeeklyReviewHtml() {
   const wr = dailyWeeklyReview();
-  if (!wr.reportedDays) return osEmpty('No days checked in this week yet.');
+  if (!wr.reportedDays) return osEmpty(OS_S.week.empty);
 
   const movement = (list, kind) => list.length
     ? `<ul class="os-list">${list.map(e => `
         <li><span>${escapeHtml(e.label)}</span>
         <span class="mono os-delta-${kind}">${e.before}% → ${e.now}%</span></li>`).join('')}</ul>`
-    : `<p class="os-note">Nothing ${kind === 'up' ? 'improved' : 'declined'} measurably against last week.</p>`;
+    : `<p class="os-note">${kind === 'up' ? OS_S.week.nothingImproved : OS_S.week.nothingDeclined}</p>`;
 
   const mindRows = DAILY_MIND_METRICS.map(m => {
     const v = wr.mind[m.id];
@@ -258,24 +263,23 @@ function osWeeklyReviewHtml() {
   const frictions = wr.frictions.length
     ? `<ul class="os-list">${wr.frictions.map(f => `
         <li><span>${escapeHtml(f.text)}</span><span class="mono os-muted">${escapeHtml(osDateLabel(f.date))}</span></li>`).join('')}</ul>`
-    : `<p class="os-note">No friction recorded this week.</p>`;
+    : `<p class="os-note">${OS_S.week.noFriction}</p>`;
 
   const wins = wr.wins.length
     ? `<ul class="os-list">${wr.wins.map(w => `
         <li><span>${escapeHtml(w.text)}</span><span class="mono os-muted">${escapeHtml(osDateLabel(w.date))}</span></li>`).join('')}</ul>`
-    : `<p class="os-note">No wins recorded this week.</p>`;
+    : `<p class="os-note">${OS_S.week.noWins}</p>`;
 
   return `
-    <p class="os-note">${wr.reportedDays} day${wr.reportedDays === 1 ? '' : 's'} checked in this week,
-      ${wr.previousReportedDays} the week before. Percentages compare only days actually reported.</p>
-    <h4 class="os-subhead">What improved</h4>${movement(wr.improved, 'up')}
-    <h4 class="os-subhead">What declined</h4>${movement(wr.declined, 'down')}
-    <h4 class="os-subhead">Mind, week over week</h4><ul class="os-list">${mindRows}</ul>
-    <h4 class="os-subhead">Training</h4>
-    <ul class="os-list"><li><span>Sessions logged</span>
+    <p class="os-note">${escapeHtml(OS_S.week.reported(wr.reportedDays, wr.previousReportedDays))}</p>
+    <h4 class="os-subhead">${OS_S.week.improved}</h4>${movement(wr.improved, 'up')}
+    <h4 class="os-subhead">${OS_S.week.declined}</h4>${movement(wr.declined, 'down')}
+    <h4 class="os-subhead">${OS_S.week.mind}</h4><ul class="os-list">${mindRows}</ul>
+    <h4 class="os-subhead">${OS_S.week.training}</h4>
+    <ul class="os-list"><li><span>${OS_S.week.sessionsLogged}</span>
       <span class="mono">${wr.previousTrainingSessions} → ${wr.trainingSessions}</span></li></ul>
-    <h4 class="os-subhead">Wins</h4>${wins}
-    <h4 class="os-subhead">Friction</h4>${frictions}`;
+    <h4 class="os-subhead">${OS_S.week.wins}</h4>${wins}
+    <h4 class="os-subhead">${OS_S.week.friction}</h4>${frictions}`;
 }
 
 // Active period for Insights. One selection drives every panel on the
@@ -283,11 +287,7 @@ function osWeeklyReviewHtml() {
 // per-panel windows made two numbers on one screen describe different spans.
 let osPeriodDays = 7;
 
-const OS_PERIODS = [
-  { days: 7, label: '7 days' },
-  { days: 30, label: '30 days' },
-  { days: 90, label: '90 days' },
-];
+const OS_PERIODS = [7, 30, 90].map(days => ({ days, label: OS_S.periods[days] }));
 
 // Below this many reported days there is nothing honest to chart, so the
 // panel shows what WILL appear instead of a chart of almost nothing.
@@ -318,14 +318,14 @@ function osGhostBars(labels) {
     <div class="ghost-bar-row">
       <span class="ghost-bar-label">${escapeHtml(l)}</span>
       <span class="os-bar"><span class="os-bar-fill" style="width:0"></span></span>
-      <span class="ghost-bar-value mono">—</span>
+      <span class="ghost-bar-value mono">${STRINGS.common.none}</span>
     </div>`).join('');
 }
 
 function osGhostTiles(labels) {
   return `<div class="stat-grid">${labels.map(l => `
     <div class="stat-tile">
-      <span class="stat-value mono">—</span>
+      <span class="stat-value mono">${STRINGS.common.none}</span>
       <span class="stat-label">${escapeHtml(l)}</span>
     </div>`).join('')}</div>`;
 }
@@ -360,26 +360,25 @@ function renderOsInsights() {
     ? osConsistencyBarsHtml(records)
     : osGhostState({
         heading: records.length <= 1
-          ? `Day ${Math.max(records.length, 1)} of building your pattern`
-          : `${records.length} days in`,
-        subtext: 'Each habit gets a completion bar once there are a few days to compare. '
-          + 'Percentages count only the days you actually reported.',
-        ghost: osGhostBars(['Tefillin', 'Spiritual learning', 'HTB']),
-        nudge: 'Check back after your first Close the Day',
+          ? OS_S.consistency.ghostDay(Math.max(records.length, 1))
+          : OS_S.consistency.ghostDays(records.length),
+        subtext: OS_S.consistency.ghostSub,
+        ghost: osGhostBars([STRINGS.daily.habits.tefillin, STRINGS.daily.habits.spiritual_learning,
+          STRINGS.daily.habits.htb_completed]),
+        nudge: OS_S.consistency.ghostNudge,
       });
 
   const sleepPanel = sleep
     ? osStatTiles([
-        { value: dailyFormatDuration(sleep.avgDurationMin), label: 'Avg hours' },
-        { value: sleep.avgQuality === null ? '—' : sleep.avgQuality, label: 'Best night' },
-        { value: `±${osNum(sleep.bedtimeSpreadMin)}m`, label: 'Consistency' },
+        { value: dailyFormatDuration(sleep.avgDurationMin), label: OS_S.sleep.avgDuration },
+        { value: sleep.avgQuality === null ? STRINGS.common.none : sleep.avgQuality, label: OS_S.sleep.avgQuality },
+        { value: `±${osNum(sleep.bedtimeSpreadMin)}m`, label: OS_S.sleep.consistency },
       ])
     : osGhostState({
-        heading: 'No nights logged yet',
-        subtext: 'Log a bedtime and wake time and your average duration, quality and '
-          + 'bedtime consistency appear here.',
-        ghost: osGhostTiles(['Avg hours', 'Best night', 'Consistency']),
-        nudge: 'Tap "Log last night\u2019s sleep" on Today',
+        heading: OS_S.sleep.ghostHeading,
+        subtext: OS_S.sleep.ghostSub,
+        ghost: osGhostTiles([OS_S.sleep.avgDuration, OS_S.sleep.avgQuality, OS_S.sleep.consistency]),
+        nudge: OS_S.sleep.ghostNudge,
       });
 
   const mindTiles = DAILY_MIND_METRICS.map(m => ({
@@ -390,11 +389,10 @@ function renderOsInsights() {
   const mindPanel = hasMind
     ? osStatTiles(mindTiles)
     : osGhostState({
-        heading: 'Nothing rated yet',
-        subtext: 'Mood, energy and focus are asked once, at the end of the day, and '
-          + 'averaged here.',
-        ghost: osGhostTiles(['Mood', 'Energy', 'Focus']),
-        nudge: 'Rate them in Close the Day',
+        heading: OS_S.mind.ghostHeading,
+        subtext: OS_S.mind.ghostSub,
+        ghost: osGhostTiles(DAILY_MIND_METRICS.map(m => m.label)),
+        nudge: OS_S.mind.ghostNudge,
       });
 
   mount.innerHTML = `
@@ -405,43 +403,43 @@ function renderOsInsights() {
     </div>
 
     <section class="os-block">
-      <h2 class="sec-label">Consistency</h2>
+      <h2 class="sec-label">${OS_S.sections.consistency}</h2>
       ${consistency}
     </section>
 
     <section class="os-block">
-      <h2 class="sec-label">Sleep</h2>
+      <h2 class="sec-label">${OS_S.sections.sleep}</h2>
       ${sleepPanel}
     </section>
 
     <section class="os-block">
-      <h2 class="sec-label">Mind &amp; energy</h2>
+      <h2 class="sec-label">${OS_S.sections.mind}</h2>
       ${mindPanel}
     </section>
 
     ${tv ? `
       <section class="os-block">
-        <h2 class="sec-label">Market checking</h2>
+        <h2 class="sec-label">${OS_S.sections.marketChecking}</h2>
         ${osStatTiles([
-          { value: osNum(tv.avg), label: 'Avg / day' },
-          { value: tv.max, label: `Highest · ${osDateLabel(tv.maxDate)}` },
-          { value: tv.min, label: `Lowest · ${osDateLabel(tv.minDate)}` },
+          { value: osNum(tv.avg), label: OS_S.tradingView.avgPerDay },
+          { value: tv.max, label: OS_S.tradingView.highest(osDateLabel(tv.maxDate)) },
+          { value: tv.min, label: OS_S.tradingView.lowest(osDateLabel(tv.minDate)) },
         ])}
       </section>` : ''}
 
     ${enough ? `
       <section class="os-block">
-        <h2 class="sec-label">Observations</h2>
+        <h2 class="sec-label">${OS_S.sections.observations}</h2>
         ${osObservationsHtml(DAILY.windowDays(90))}
       </section>
 
       <section class="os-block">
-        <h2 class="sec-label">This week</h2>
+        <h2 class="sec-label">${OS_S.sections.thisWeek}</h2>
         ${osWeeklyReviewHtml()}
       </section>` : ''}
 
     <section class="os-block">
-      <h2 class="sec-label">Experiments</h2>
+      <h2 class="sec-label">${OS_S.sections.experiments}</h2>
       ${osExperimentsHtml()}
     </section>
 
@@ -472,43 +470,41 @@ function osSettingsHtml() {
   try { if (url) host = new URL(url).host; } catch (e) { /* keep the raw string */ }
 
   const syncBody = (url && token)
-    ? `<p class="os-note">Syncing across devices via ${escapeHtml(host)}.
-        <button type="button" class="os-btn os-btn-quiet" id="os-sync-forget">Turn off sync</button></p>`
-    : `<p class="os-note">Optional. Without it everything still works on this device —
-        sync only adds the ability to check in on the phone and read it on the desktop.</p>
+    ? `<p class="os-note">${escapeHtml(SET_S.syncOn(host))}
+        <button type="button" class="os-btn os-btn-quiet" id="os-sync-forget">${SET_S.syncForget}</button></p>`
+    : `<p class="os-note">${SET_S.syncOff}</p>
        <form id="os-sync-form" class="os-settings-form" autocomplete="off">
-         <input type="url" id="os-sync-url" placeholder="https://your-app.up.railway.app" required>
-         <input type="password" id="os-sync-token" placeholder="Sync token" required autocomplete="off">
-         <button type="submit" class="os-btn os-btn-primary">Save</button>
+         <input type="url" id="os-sync-url" placeholder="${SET_S.serverUrl}" required
+                aria-label="${SET_S.serverUrl}">
+         <input type="password" id="os-sync-token" placeholder="${SET_S.serverToken}" required
+                autocomplete="off" aria-label="${SET_S.serverToken}">
+         <button type="submit" class="os-btn os-btn-primary">${STRINGS.common.save}</button>
        </form>`;
 
   return `
     <div class="os-block">
       <details class="os-settings">
-        <summary class="os-note">Settings — targets, sync and backup</summary>
+        <summary class="os-note">${SET_S.summary}</summary>
         <div class="os-settings-body">
           <form id="os-targets-form" class="os-settings-form">
-            <label>Protein target (g)
+            <label>${SET_S.proteinTarget}
               <input type="number" min="0" id="os-protein" value="${escapeHtml(String(s.protein_target_g))}">
             </label>
-            <label>Water target (L)
+            <label>${SET_S.waterTarget}
               <input type="number" min="0" step="0.1" id="os-water" value="${escapeHtml(String(s.water_target_l))}">
             </label>
-            <button type="submit" class="os-btn os-btn-primary">Save targets</button>
+            <button type="submit" class="os-btn os-btn-primary">${SET_S.saveTargets}</button>
           </form>
-          <p class="os-note">Changing a target relabels the toggle from now on. Days already
-            recorded keep the target that was in force when you reported them.</p>
-          <h4 class="os-subhead">Cross-device sync</h4>
+          <p class="os-note">${SET_S.targetsNote}</p>
+          <h4 class="os-subhead">${SET_S.syncHeading}</h4>
           ${syncBody}
 
-          <h4 class="os-subhead">Backup</h4>
-          <p class="os-note">Your Personal OS data lives in this browser, and on the sync
-            server only if sync is on. Neither is a backup you control. Download a copy
-            you keep.</p>
+          <h4 class="os-subhead">${SET_S.backupHeading}</h4>
+          <p class="os-note">${SET_S.backupNote}</p>
           <div class="os-settings-form">
-            <button type="button" class="os-btn" id="os-export">Download a backup</button>
+            <button type="button" class="os-btn" id="os-export">${SET_S.download}</button>
             <label class="os-import">
-              <span class="os-btn">Restore from a file</span>
+              <span class="os-btn">${SET_S.restore}</span>
               <input type="file" id="os-import" accept="application/json,.json" hidden>
             </label>
           </div>
@@ -565,7 +561,7 @@ function wireOsSettings() {
       // download if the object URL disappears while it is still starting.
       setTimeout(() => URL.revokeObjectURL(url), 1000);
       const status = document.getElementById('os-backup-status');
-      if (status) status.textContent = `Saved ${Object.keys(DAILY.days()).length} days.`;
+      if (status) status.textContent = SET_S.downloaded(Object.keys(DAILY.days()).length);
     });
   }
 
@@ -579,14 +575,11 @@ function wireOsSettings() {
       reader.onload = () => {
         try {
           const result = DAILY.importAll(JSON.parse(reader.result));
-          if (status) {
-            status.textContent = `Restored ${result.days} day(s), ${result.topics} topic(s), `
-              + `${result.recalls} recall(s). Anything newer than the backup was kept.`;
-          }
+          if (status) status.textContent = SET_S.restored(result.days, result.topics, result.recalls);
           renderOsInsights();
           osTriggerSync();
         } catch (e) {
-          if (status) status.textContent = `Could not read that file: ${e.message}`;
+          if (status) status.textContent = SET_S.restoreFailed;
         }
       };
       reader.readAsText(file);
@@ -615,11 +608,9 @@ function osCategoryOf(topic) {
 // Rating buttons map onto the configurable interval ladder in daily.js, NOT
 // onto an SM-2 style algorithm. Each one just says which rung to land on
 // next, so retuning the schedule means editing one array.
-const OS_RATINGS = [
-  { id: 'again', label: 'Again', hint: 'same interval' },
-  { id: 'good', label: 'Good', hint: 'next interval' },
-  { id: 'easy', label: 'Easy', hint: 'skip ahead' },
-];
+const OS_RATINGS = ['again', 'good', 'easy'].map(id => ({
+  id, label: MEM_S.ratings[id].label, hint: MEM_S.ratings[id].hint,
+}));
 
 function osRecallPromptHtml(entry) {
   const t = entry.topic;
@@ -632,22 +623,22 @@ function osRecallPromptHtml(entry) {
     <article class="recall-card ${entry.due ? 'is-due' : ''}">
       <div class="recall-meta">
         <span class="recall-when mono">
-          ${entry.due ? 'Due now' : `Next ${escapeHtml(entry.dueDate)}`}
-          · every ${entry.intervalDays}d
+          ${entry.due ? MEM_S.dueLabel : escapeHtml(MEM_S.nextLabel(osDateLabel(entry.dueDate)))}
+          · ${MEM_S.interval(entry.intervalDays)}
         </span>
         <span class="recall-cat">${escapeHtml(osCategoryOf(t))}</span>
       </div>
       <h3 class="recall-topic">${escapeHtml(t.topic)}</h3>
-      <p class="recall-question">Explain how <b>${escapeHtml(t.topic)}</b> works, without looking at your notes.</p>
+      <p class="recall-question">${MEM_S.questionHtml(escapeHtml(t.topic))}</p>
       <p class="recall-sub mono">
-        learned ${escapeHtml(t.first_learned_date || '—')}${since !== null ? ` · ${since}d ago` : ''}
-        · studied ${t.study_count}× · ${entry.attempts.length} recall${entry.attempts.length === 1 ? '' : 's'}
+        ${escapeHtml(MEM_S.learned(t.first_learned_date ? osDateLabel(t.first_learned_date) : STRINGS.common.none, since))}
+        · ${escapeHtml(MEM_S.studied(t.study_count, entry.attempts.length))}
       </p>
 
       ${open ? `
         <form class="recall-form" data-os-recall-form="${escapeHtml(t.id)}">
-          <textarea class="textarea" rows="5" placeholder="Explain it in your own words…"
-                    aria-label="Your explanation of ${escapeHtml(t.topic)}"></textarea>
+          <textarea class="textarea" rows="5" placeholder="${MEM_S.answerPlaceholder}"
+                    aria-label="${escapeHtml(MEM_S.answerLabel(t.topic))}"></textarea>
           <div class="rating-row">
             ${OS_RATINGS.map(r => `
               <button type="submit" class="rating-btn" data-os-rating="${r.id}">
@@ -658,11 +649,11 @@ function osRecallPromptHtml(entry) {
         </form>`
         : !revealed ? `
           <button type="button" class="reveal-btn" data-os-reveal="${escapeHtml(t.id)}">
-            Tap to reveal answer area
+            ${MEM_S.reveal}
           </button>`
         : `<div class="recall-actions">
-            <button type="button" class="btn-primary" data-os-recall="${escapeHtml(t.id)}">Write a recall</button>
-            <button type="button" class="btn-quiet" data-os-delete-topic="${escapeHtml(t.id)}">Remove</button>
+            <button type="button" class="btn-primary" data-os-recall="${escapeHtml(t.id)}">${MEM_S.write}</button>
+            <button type="button" class="btn-quiet" data-os-delete-topic="${escapeHtml(t.id)}">${MEM_S.removeTopic}</button>
           </div>`}
 
       ${osAttemptsHtml(entry.attempts)}
@@ -676,59 +667,48 @@ function osAttemptsHtml(attempts) {
     return `
       <div class="os-attempt">
         <div class="os-attempt-head">
-          <span class="mono os-muted">${escapeHtml((a.prompted_at || '').slice(0, 10))}</span>
+          <span class="mono os-muted">${escapeHtml(a.prompted_at ? osDateLabel(a.prompted_at.slice(0, 10)) : STRINGS.common.none)}</span>
           ${evaluated
-            ? `<span class="os-score mono">${a.evaluation.score}/10</span>`
-            : `<span class="os-score-none mono">not evaluated</span>`}
+            ? `<span class="os-score mono">${MEM_S.attempts.score(a.evaluation.score)}</span>`
+            : `<span class="os-score-none mono">${MEM_S.attempts.notEvaluated}</span>`}
         </div>
         <p class="os-attempt-body">${escapeHtml(a.response_text || '')}</p>
         ${evaluated && Array.isArray(a.evaluation.weak_points) && a.evaluation.weak_points.length
-          ? `<p class="os-attempt-weak">Weak points: ${escapeHtml(a.evaluation.weak_points.join(', '))}</p>` : ''}
+          ? `<p class="os-attempt-weak">${escapeHtml(MEM_S.attempts.weakPoints(a.evaluation.weak_points.join(', ')))}</p>` : ''}
         ${osOpenEvaluationRecallId === a.id ? `
           <button type="button" class="os-btn os-btn-quiet" data-os-copy-eval="${escapeHtml(a.id)}">
-            Copy for evaluation</button>
+            ${MEM_S.attempts.copy}</button>
           <form class="os-eval-form" data-os-eval-form="${escapeHtml(a.id)}">
-            <p class="os-note">Paste your explanation into an evaluator you trust, then record what it
-              said. Your answer above is never altered.</p>
+            <p class="os-note">${MEM_S.attempts.evalNote}</p>
             <div class="os-eval-row">
-              <label>Score <input type="number" min="0" max="10" step="0.1" class="os-eval-score" required></label>
-              <label>Weak points <input type="text" class="os-eval-weak" placeholder="TGT/TGS relationship"></label>
+              <label>${MEM_S.attempts.scoreField} <input type="number" min="0" max="10" step="0.1" class="os-eval-score" required></label>
+              <label>${MEM_S.attempts.weakField} <input type="text" class="os-eval-weak" placeholder="${MEM_S.attempts.weakPlaceholder}"></label>
             </div>
-            <button type="submit" class="os-btn os-btn-primary">Save evaluation</button>
+            <button type="submit" class="os-btn os-btn-primary">${MEM_S.attempts.saveEval}</button>
           </form>`
           : `<button type="button" class="os-btn os-btn-quiet" data-os-eval="${escapeHtml(a.id)}">
-              ${evaluated ? 'Update evaluation' : 'Add evaluation'}</button>`}
+              ${evaluated ? MEM_S.attempts.updateEval : MEM_S.attempts.addEval}</button>`}
       </div>`;
   }).join('');
-  return `<details class="os-attempts"><summary>Recall history (${attempts.length})</summary>${rows}</details>`;
+  return `<details class="os-attempts"><summary>${MEM_S.attempts.history(attempts.length)}</summary>${rows}</details>`;
 }
 
 // Item 28: hand the question and the owner's own answer to an outside
 // evaluator, then paste the verdict back. response_text is never modified,
 // and nothing is sent anywhere by this app.
 function osEvaluationPrompt(topic, attempt) {
-  return [
-    'Please grade this recall attempt.',
-    '',
-    `Topic: ${topic}`,
-    'Question: Explain how it works, without looking at notes.',
-    '',
-    'My answer:',
-    (attempt.response_text || '').trim(),
-    '',
-    'Give a score out of 10 and list the weak points, briefly.',
-  ].join('\n');
+  return MEM_S.evaluationPrompt(topic, (attempt.response_text || '').trim());
 }
 
 function wireOsCopyEvaluation() {
   document.querySelectorAll('[data-os-copy-eval]').forEach(btn => btn.addEventListener('click', async () => {
     const attempt = DAILY.recalls().find(r => r.id === btn.dataset.osCopyEval);
     if (!attempt) return;
-    const topic = (DAILY.topics().find(t => t.id === attempt.topic_id) || {}).topic || 'this topic';
+    const topic = (DAILY.topics().find(t => t.id === attempt.topic_id) || {}).topic || MEM_S.unnamedTopic;
     const text = osEvaluationPrompt(topic, attempt);
     try {
       await navigator.clipboard.writeText(text);
-      btn.textContent = 'Copied';
+      btn.textContent = MEM_S.attempts.copied;
     } catch (e) {
       // Clipboard blocked (http, permissions): show it to copy by hand.
       btn.insertAdjacentHTML('afterend', `<textarea class="textarea os-eval-copy" rows="8" readonly>${escapeHtml(text)}</textarea>`);
@@ -743,21 +723,21 @@ function osRetentionHtml() {
   const body = rows.map(r => `
     <tr>
       <td>${escapeHtml(r.topic.topic)}</td>
-      <td class="mono">${escapeHtml(r.topic.first_learned_date || '—')}</td>
+      <td class="mono">${escapeHtml(r.topic.first_learned_date ? osDateLabel(r.topic.first_learned_date) : STRINGS.common.none)}</td>
       <td class="mono">${r.attemptCount}</td>
-      <td class="mono">${r.latestScore === null ? '—' : r.latestScore}</td>
-      <td>${r.weakPoints.length ? escapeHtml(r.weakPoints.join(', ')) : '—'}</td>
+      <td class="mono">${r.latestScore === null ? STRINGS.common.none : r.latestScore}</td>
+      <td>${r.weakPoints.length ? escapeHtml(r.weakPoints.join(', ')) : STRINGS.common.none}</td>
     </tr>`).join('');
   return `
     <div class="os-block">
-      <h3 class="os-head">Retention</h3>
+      <h3 class="os-head">${MEM_S.retention.heading}</h3>
       <div class="table-scroll">
         <table class="os-table">
-          <thead><tr><th>Topic</th><th>Learned</th><th>Recalls</th><th>Score</th><th>Weak areas</th></tr></thead>
+          <thead><tr><th>${MEM_S.retention.topic}</th><th>${MEM_S.retention.learned}</th><th>${MEM_S.retention.recalls}</th><th>${MEM_S.retention.score}</th><th>${MEM_S.retention.weakAreas}</th></tr></thead>
           <tbody>${body}</tbody>
         </table>
       </div>
-      <p class="os-note">A score appears only once a recall attempt has actually been evaluated.</p>
+      <p class="os-note">${MEM_S.retention.note}</p>
     </div>`;
 }
 
@@ -768,12 +748,11 @@ function renderOsMemory() {
 
   if (!entries.length) {
     mount.innerHTML = osGhostState({
-      heading: 'No topics yet',
-      subtext: 'Record what you studied on Today and it lands here, with a recall '
-        + 'prompt scheduled a couple of days later.',
+      heading: MEM_S.ghostHeading,
+      subtext: MEM_S.ghostSub,
       ghost: `<div class="ghost-topic-row"><span></span><span class="ghost-pill"></span></div>
               <div class="ghost-topic-row"><span></span><span class="ghost-pill"></span></div>`,
-      nudge: 'Tick HTB on Today and name the topic',
+      nudge: MEM_S.ghostNudge,
     });
     return;
   }
@@ -785,27 +764,27 @@ function renderOsMemory() {
     ${due.length ? `
       <div class="due-banner">
         <div class="due-banner-text">
-          <span class="due-count mono">${due.length} review${due.length === 1 ? '' : 's'} due</span>
-          <span class="due-sub">Start to clear the queue</span>
+          <span class="due-count mono">${MEM_S.dueCount(due.length)}</span>
+          <span class="due-sub">${MEM_S.dueSub}</span>
         </div>
-        <button type="button" class="btn-primary" data-os-start-review>Review</button>
+        <button type="button" class="btn-primary" data-os-start-review>${MEM_S.review}</button>
       </div>` : `
       <div class="due-banner is-clear">
         <div class="due-banner-text">
-          <span class="due-count mono">Queue clear</span>
-          <span class="due-sub">Next review ${escapeHtml(upcoming[0].dueDate)}</span>
+          <span class="due-count mono">${MEM_S.queueClear}</span>
+          <span class="due-sub">${escapeHtml(MEM_S.nextReview(osDateLabel(upcoming[0].dueDate)))}</span>
         </div>
       </div>`}
 
     ${due.length ? `
       <section class="os-block">
-        <h2 class="sec-label">Due now</h2>
+        <h2 class="sec-label">${MEM_S.dueNow}</h2>
         ${due.map(osRecallPromptHtml).join('')}
       </section>` : ''}
 
     ${upcoming.length ? `
       <section class="os-block">
-        <h2 class="sec-label">Scheduled</h2>
+        <h2 class="sec-label">${MEM_S.scheduled}</h2>
         ${upcoming.map(osRecallPromptHtml).join('')}
       </section>` : ''}
 
@@ -920,11 +899,11 @@ function osDayDetailHtml(record) {
     const v = record[m.id];
     return `<div class="pip-row">
       <span class="pip-label">${escapeHtml(m.label)}</span>
-      <span class="pips" aria-label="${escapeHtml(m.label)} ${v === null ? 'not rated' : v + ' of 10'}">
+      <span class="pips" aria-label="${escapeHtml(HIST_S.pipLabel(m.label, v))}">
         ${[...Array(10)].map((_, i) =>
           `<span class="pip ${v !== null && i < v ? 'is-on' : ''}"></span>`).join('')}
       </span>
-      <span class="pip-value mono">${v === null ? '—' : v}</span>
+      <span class="pip-value mono">${v === null ? STRINGS.common.none : v}</span>
     </div>`;
   }).join('');
 
@@ -934,29 +913,30 @@ function osDayDetailHtml(record) {
   return `
     <div class="os-day-detail">
       <div class="os-kv-grid">
-        ${line('Sleep', mins === null ? null : `${record.sleep_start} → ${record.wake_time} · ${dailyFormatDuration(mins)}`)}
-        ${line('Sleep quality', record.sleep_quality)}
-        ${line('Mood', record.mood)}
-        ${line('Energy', record.energy)}
-        ${line('Focus', record.focus)}
-        ${line('TradingView opens', record.tradingview_opens)}
-        ${line('Screen time (min)', record.screen_time.total_min)}
-        ${line('HTB topic', record.htb_topic)}
-        ${line('Spiritual learning', record.spiritual_learning_note)}
+        ${line(HIST_S.fields.sleep, mins === null ? null
+          : HIST_S.sleepValue(record.sleep_start, record.wake_time, dailyFormatDuration(mins)))}
+        ${line(HIST_S.fields.sleepQuality, record.sleep_quality)}
+        ${line(HIST_S.fields.mood, record.mood)}
+        ${line(HIST_S.fields.energy, record.energy)}
+        ${line(HIST_S.fields.focus, record.focus)}
+        ${line(HIST_S.fields.tradingViewOpens, record.tradingview_opens)}
+        ${line(HIST_S.fields.screenTime, record.screen_time.total_min)}
+        ${line(HIST_S.fields.htbTopic, record.htb_topic)}
+        ${line(HIST_S.fields.spiritualLearning, record.spiritual_learning_note)}
       </div>
       <div class="pip-list">${pips}</div>
       <div class="day-habits">${habits}${supplements}</div>
       ${record.priorities.length ? `
         <div class="os-kv-block">
-          <span class="os-kv-head">Priorities</span>
+          <span class="os-kv-head">${HIST_S.priorities}</span>
           <ol class="os-priorities">${record.priorities.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ol>
         </div>` : ''}
-      ${record.win_of_day ? `<div class="os-kv-block"><span class="os-kv-head">Win</span>
+      ${record.win_of_day ? `<div class="os-kv-block"><span class="os-kv-head">${HIST_S.win}</span>
         <p class="os-reflection">${escapeHtml(record.win_of_day)}</p></div>` : ''}
-      ${record.friction ? `<div class="os-kv-block"><span class="os-kv-head">Friction</span>
+      ${record.friction ? `<div class="os-kv-block"><span class="os-kv-head">${HIST_S.friction}</span>
         <p class="os-reflection">${escapeHtml(record.friction)}</p></div>` : ''}
       <a class="btn-primary os-edit-link" href="index.html?date=${encodeURIComponent(record.date)}#today">
-        Edit this day on Today</a>
+        ${HIST_S.editDay}</a>
     </div>`;
 }
 
@@ -974,10 +954,10 @@ function renderOsHistory() {
   const stored = DAILY.days();
   if (!Object.keys(stored).length) {
     mount.innerHTML = osGhostState({
-      heading: 'No days recorded yet',
-      subtext: 'Once you close a day it appears here, and every past day stays editable.',
+      heading: HIST_S.ghostHeading,
+      subtext: HIST_S.ghostSub,
       ghost: `<div class="ghost-topic-row"><span></span><span class="ghost-pill"></span></div>`,
-      nudge: 'Close your first day on Today',
+      nudge: HIST_S.ghostNudge,
     });
     return;
   }
@@ -1013,7 +993,7 @@ function renderOsHistory() {
   const record = dailyNormalizeRecord(stored[osOpenDay], osOpenDay);
 
   mount.innerHTML = `
-    <div class="date-strip" role="group" aria-label="Pick a day">${strip}</div>
+    <div class="date-strip" role="group" aria-label="${HIST_S.pickDay}">${strip}</div>
     ${osDayDetailHtml(record)}`;
 
   mount.querySelectorAll('[data-os-day]').forEach(btn => {

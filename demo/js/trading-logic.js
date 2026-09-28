@@ -11,20 +11,22 @@
 //   maxRisk           $ lost if the stop is hit
 //   maxPosition       $ position size
 //   maxPct            % of portfolio in one position
+const SIZING_S = (typeof STRINGS !== 'undefined' ? STRINGS : require('./strings.js').STRINGS).trading.sizing;
+
 function sizingCompute({ entry, stop, portfolio, maxRisk, maxPosition, maxPct }) {
   const num = v => (typeof v === 'number' && Number.isFinite(v) ? v : NaN);
   entry = num(entry); stop = num(stop); portfolio = num(portfolio);
   maxRisk = num(maxRisk); maxPosition = num(maxPosition); maxPct = num(maxPct);
-  if (!(entry > 0) || !(stop > 0)) return { error: 'Enter an entry and a stop price.' };
-  if (stop >= entry) return { error: 'The stop has to be below the entry for a long position.' };
-  if (!(maxRisk > 0) || !(maxPosition > 0) || !(maxPct > 0)) return { error: 'Set your three limits first.' };
-  if (!(portfolio > 0)) return { error: 'Enter your portfolio value.' };
+  if (!(entry > 0) || !(stop > 0)) return { error: SIZING_S.errors.noEntry };
+  if (stop >= entry) return { error: SIZING_S.errors.stopAboveEntry };
+  if (!(maxRisk > 0) || !(maxPosition > 0) || !(maxPct > 0)) return { error: SIZING_S.errors.noLimits };
+  if (!(portfolio > 0)) return { error: SIZING_S.errors.noPortfolio };
 
   const riskPerShare = entry - stop;
   const caps = [
-    { id: 'risk', label: `max risk $${maxRisk}`, shares: Math.floor(maxRisk / riskPerShare + 1e-9) },
-    { id: 'position', label: `max position $${maxPosition}`, shares: Math.floor(maxPosition / entry + 1e-9) },
-    { id: 'portfolio', label: `${maxPct}% of portfolio`, shares: Math.floor((portfolio * maxPct / 100) / entry + 1e-9) },
+    { id: 'risk', label: SIZING_S.bindingRisk(maxRisk), shares: Math.floor(maxRisk / riskPerShare + 1e-9) },
+    { id: 'position', label: SIZING_S.bindingPosition(maxPosition), shares: Math.floor(maxPosition / entry + 1e-9) },
+    { id: 'portfolio', label: SIZING_S.bindingPortfolio(maxPct), shares: Math.floor((portfolio * maxPct / 100) / entry + 1e-9) },
   ];
   const binding = caps.reduce((a, b) => (b.shares < a.shares ? b : a));
   const shares = Math.max(0, binding.shares);

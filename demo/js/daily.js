@@ -52,33 +52,36 @@ const DAILY_FALLBACK_SYNC_TOKEN_KEY = 'jarvis:training:syncToken';
 
 // The five actions that constitute a Minimum Day. A hard day should still be
 // winnable, so the tier ladder below is anchored on these and nothing else.
+const DAILY_S = (typeof STRINGS !== 'undefined' ? STRINGS : require('./strings.js').STRINGS).daily;
+const DAILY_HABIT_LABELS = DAILY_S.habits;
+
 const DAILY_CORE_HABITS = [
-  { id: 'tefillin', label: 'Tefillin' },
-  { id: 'spiritual_learning', label: 'Spiritual learning' },
-  { id: 'htb_completed', label: 'HTB' },
-  { id: 'four_minute_routine', label: '4-minute routine' },
-  { id: 'meditation', label: 'Meditation' },
+  { id: 'tefillin', label: DAILY_HABIT_LABELS.tefillin },
+  { id: 'spiritual_learning', label: DAILY_HABIT_LABELS.spiritual_learning },
+  { id: 'htb_completed', label: DAILY_HABIT_LABELS.htb_completed },
+  { id: 'four_minute_routine', label: DAILY_HABIT_LABELS.four_minute_routine },
+  { id: 'meditation', label: DAILY_HABIT_LABELS.meditation },
 ];
 
 // Tracked, but never required for a Minimum Day.
 const DAILY_EXTRA_HABITS = [
-  { id: 'mobility_posture', label: 'Mobility / posture' },
-  { id: 'workout_completed', label: 'Workout' },
-  { id: 'protein_target_met', label: 'Protein target' },
-  { id: 'water_target_met', label: 'Water target' },
-  { id: 'career_output', label: 'Career output' },
+  { id: 'mobility_posture', label: DAILY_HABIT_LABELS.mobility_posture },
+  { id: 'workout_completed', label: DAILY_HABIT_LABELS.workout_completed },
+  { id: 'protein_target_met', label: DAILY_HABIT_LABELS.protein_target_met },
+  { id: 'water_target_met', label: DAILY_HABIT_LABELS.water_target_met },
+  { id: 'career_output', label: DAILY_HABIT_LABELS.career_output },
 ];
 
 const DAILY_MIND_METRICS = [
-  { id: 'mood', label: 'Mood' },
-  { id: 'energy', label: 'Energy' },
-  { id: 'focus', label: 'Focus' },
+  { id: 'mood', label: DAILY_S.mind.mood },
+  { id: 'energy', label: DAILY_S.mind.energy },
+  { id: 'focus', label: DAILY_S.mind.focus },
 ];
 
 const DAILY_DEFAULT_SETTINGS = {
   protein_target_g: 150,
   water_target_l: 2.5,
-  supplements: [{ id: 'creatine', label: 'Creatine' }],
+  supplements: [{ id: 'creatine', label: DAILY_HABIT_LABELS.creatine }],
 };
 
 // Delayed-recall ladder. Expressed as data, not as a hardcoded SM-2
@@ -297,11 +300,11 @@ function dailyDayTier(record) {
   const extras = dailyExtraDoneCount(record);
   const learned = !!(record.htb_topic || '').trim() || !!(record.spiritual_learning_note || '').trim();
   if (core < DAILY_CORE_HABITS.length) {
-    return { id: 'building', label: 'Building', core, extras };
+    return { id: 'building', label: DAILY_S.tiers.building, core, extras };
   }
-  if (extras >= 4 && learned) return { id: 'great', label: 'Great', core, extras };
-  if (extras >= 2) return { id: 'standard', label: 'Standard', core, extras };
-  return { id: 'minimum', label: 'Minimum', core, extras };
+  if (extras >= 4 && learned) return { id: 'great', label: DAILY_S.tiers.great, core, extras };
+  if (extras >= 2) return { id: 'standard', label: DAILY_S.tiers.standard, core, extras };
+  return { id: 'minimum', label: DAILY_S.tiers.minimum, core, extras };
 }
 
 // --- store ----------------------------------------------------------------

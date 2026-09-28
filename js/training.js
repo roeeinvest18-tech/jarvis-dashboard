@@ -8,13 +8,10 @@
 // fetching it the same way as every other zone means a future export
 // script could seed real history later without a frontend change).
 
-const TRAINING_DRILLS = [
-  { id: 'pull_ups', label: 'Pull ups' },
-  { id: 'push_ups', label: 'Push ups' },
-  { id: 'shoulders', label: 'Shoulders' },
-  { id: 'chin_ups', label: 'Chin ups' },
-  { id: 'triceps_extension', label: 'Triceps extension' },
-];
+const TRAIN_S = STRINGS.training;
+
+const TRAINING_DRILLS = Object.keys(TRAIN_S.drills)
+  .map(id => ({ id, label: TRAIN_S.drills[id] }));
 
 // Sun/Tue/Thu, matching JS Date#getDay() (0 = Sunday).
 const TRAINING_SCHEDULE_DAYS = [0, 2, 4];
@@ -90,9 +87,12 @@ async function syncTrainingWithServer() {
       }),
     });
     if (!resp.ok) {
+      // A status code is not something the owner can act on; the two cases
+      // that differ in what to DO are "your token was refused" and
+      // "the server did not answer".
       trainingSyncLastError = (resp.status === 401 || resp.status === 403)
-        ? 'Sync token rejected by server'
-        : `Sync failed (HTTP ${resp.status})`;
+        ? TRAIN_S.sync.rejected
+        : TRAIN_S.sync.failed;
       return null;
     }
     const state = await resp.json();
@@ -138,7 +138,7 @@ function saveTrainingJson(key, value) {
 function loadCapturedSessions() { return loadTrainingJson(TRAINING_CAPTURED_KEY, []); }
 function saveCapturedSessions(list) { saveTrainingJson(TRAINING_CAPTURED_KEY, list); }
 
-const WEEKDAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const WEEKDAY_NAMES = TRAIN_S.weekdays;
 
 function weekdayName(dateStr) {
   return WEEKDAY_NAMES[new Date(`${dateStr}T00:00:00`).getDay()];
@@ -272,7 +272,7 @@ function renderMissedBanner(sessions) {
   const more = missed.length - shown.length;
   const label = shown.map(d => `${weekdayName(d).slice(0, 3)} ${d.slice(5)}`).join(', ');
   return `<div class="training-missed">
-    <span>Not logged: ${escapeHtml(label)}${more > 0 ? ` (+${more} earlier)` : ''}</span>
+    <span>${escapeHtml(TRAIN_S.notLogged(label, more))}</span>
   </div>`;
 }
 
@@ -280,7 +280,7 @@ function sessionSummaryLabel(session) {
   const parts = TRAINING_DRILLS
     .filter(d => sessionHasDrill(session, d.id))
     .map(d => `${d.label} ${drillTotal(session, d.id)}`);
-  return parts.length ? parts.join(' · ') : 'No drills recorded';
+  return parts.length ? parts.join(' · ') : TRAIN_S.noDrills;
 }
 
 // A whole logged session (all drills for that day), distinct from the
@@ -294,21 +294,21 @@ function renderSessionLogList(sessions) {
     const dateLabel = `${weekdayName(s.date)}, ${s.date}`;
     if (confirmingDeleteSessionId === s.id) {
       return `<div class="training-session-row is-confirming">
-        <span class="task-confirm-text">Delete the ${escapeHtml(dateLabel)} session? This removes all drills logged that day, everywhere it's synced.</span>
-        <button type="button" class="task-confirm-yes" data-session-delete-yes="${escapeHtml(s.id)}">Delete</button>
-        <button type="button" class="task-confirm-no" data-session-delete-no="${escapeHtml(s.id)}">Cancel</button>
+        <span class="task-confirm-text">${escapeHtml(TRAIN_S.deleteConfirm(dateLabel))}</span>
+        <button type="button" class="task-confirm-yes" data-session-delete-yes="${escapeHtml(s.id)}">${STRINGS.common.delete}</button>
+        <button type="button" class="task-confirm-no" data-session-delete-no="${escapeHtml(s.id)}">${STRINGS.common.cancel}</button>
       </div>`;
     }
     return `<div class="training-session-row">
       <span class="training-session-date mono">${escapeHtml(dateLabel)}</span>
       <span class="training-session-summary">${escapeHtml(sessionSummaryLabel(s))}</span>
-      <button type="button" class="task-delete" aria-label="Delete session logged ${escapeHtml(dateLabel)}"
+      <button type="button" class="task-delete" aria-label="${escapeHtml(TRAIN_S.deleteLabel(dateLabel))}"
               data-session-delete="${escapeHtml(s.id)}">${ICONS.trash()}</button>
     </div>`;
   }).join('');
   return `
     <details class="training-session-list"${open ? ' open' : ''}>
-      <summary class="local-note">Logged sessions (${sessions.length}) — view / delete</summary>
+      <summary class="local-note">${TRAIN_S.sessionList(sessions.length)}</summary>
       <div class="training-session-rows">${rows}</div>
     </details>`;
 }
@@ -354,9 +354,9 @@ function renderDrillRow(session, drill, prSetKeys) {
     return `<tr class="drill-row is-editing">
       <td class="mono">${escapeHtml(dateLabel)}</td>
       ${cell(0)}${cell(1)}${cell(2)}
-      <td class="mono">—</td>
+      <td class="mono">${STRINGS.common.none}</td>
       <td><button type="button" class="drill-row-save"
-            data-session-save="${escapeHtml(session.id)}" data-drill="${escapeHtml(drill.id)}">Save</button></td>
+            data-session-save="${escapeHtml(session.id)}" data-drill="${escapeHtml(drill.id)}">${STRINGS.common.save}</button></td>
     </tr>`;
   }
 
@@ -367,16 +367,17 @@ function renderDrillRow(session, drill, prSetKeys) {
     // rather than showing a dash that reads as a gap left unfilled.
     if (v === undefined) {
       return i === 2
-        ? `<td class="set-optional">optional</td>`
-        : `<td class="mono">—</td>`;
+        ? `<td class="set-optional">${TRAIN_S.thirdSetPlaceholder}</td>`
+        : `<td class="mono">${STRINGS.common.none}</td>`;
     }
     const isPR = prSetKeys.has(`${session.id}:${i}`);
-    return `<td class="mono">${v}${isPR ? ' <span class="drill-pr-flag" title="Personal best">PB</span>' : ''}</td>`;
+    return `<td class="mono">${v}${isPR
+      ? ` <span class="drill-pr-flag" title="${TRAIN_S.personalBest}">${TRAIN_S.personalBestShort}</span>` : ''}</td>`;
   };
 
   return `<tr class="drill-row">
     <td><button type="button" class="drill-row-edit mono"
-          aria-label="Edit ${escapeHtml(dateLabel)} ${escapeHtml(drill.label)}"
+          aria-label="${escapeHtml(TRAIN_S.editRow(dateLabel, drill.label))}"
           data-session-edit="${escapeHtml(session.id)}" data-drill="${escapeHtml(drill.id)}">${escapeHtml(dateLabel)}</button></td>
     ${cell(0)}${cell(1)}${cell(2)}
     <td class="mono">${total}</td>
@@ -388,16 +389,16 @@ function renderDrillSection(sessions, drill, index = 0) {
   const summary = drillSummary(sessions, drill.id);
 
   const summaryLine = summary
-    ? `<span class="drill-total mono">${summary.total} reps</span>
-       ${summary.delta !== null ? `<span class="drill-delta ${summary.delta > 0 ? 'is-up' : summary.delta < 0 ? 'is-down' : 'is-flat'} mono">${summary.delta > 0 ? '+' : ''}${summary.delta} vs last session</span>` : ''}
-       ${summary.hasPR ? `<span class="drill-pr-flag" title="Personal best">PERSONAL BEST</span>` : ''}`
-    : `<span class="drill-total mono">—</span>`;
+    ? `<span class="drill-total mono">${TRAIN_S.reps(summary.total)}</span>
+       ${summary.delta !== null ? `<span class="drill-delta ${summary.delta > 0 ? 'is-up' : summary.delta < 0 ? 'is-down' : 'is-flat'} mono">${escapeHtml(TRAIN_S.delta(summary.delta))}</span>` : ''}
+       ${summary.hasPR ? `<span class="drill-pr-flag" title="${TRAIN_S.personalBest}">${TRAIN_S.personalBest}</span>` : ''}`
+    : `<span class="drill-total mono">${STRINGS.common.none}</span>`;
 
   const sparkline = summary ? renderSparkline(summary.history, drill.id) : '';
 
   const rows = summary
     ? [...summary.history].reverse().map(s => renderDrillRow(s, drill, summary.prSetKeys)).join('')
-    : `<tr><td colspan="6" class="substep-empty">Not logged yet.</td></tr>`;
+    : `<tr><td colspan="6" class="substep-empty">${TRAIN_S.notLoggedYet}</td></tr>`;
 
   return `
     <div class="drill-section" style="--i:${index}">
@@ -408,7 +409,7 @@ function renderDrillSection(sessions, drill, index = 0) {
       ${sparkline}
       <div class="table-scroll">
         <table class="drill-table">
-          <thead><tr><th>Session</th><th>Set 1</th><th>Set 2</th><th>Set 3</th><th>Total</th><th></th></tr></thead>
+          <thead><tr><th>${TRAIN_S.columns.session}</th><th>${TRAIN_S.columns.set(1)}</th><th>${TRAIN_S.columns.set(2)}</th><th>${TRAIN_S.columns.set(3)}</th><th>${TRAIN_S.columns.total}</th><th></th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -420,19 +421,22 @@ function renderTrainingLogFormHtml() {
   return `
     <form class="training-log-form" id="training-log-form" autocomplete="off">
       <div class="training-log-head">
-        <span>Log a session</span>
+        <span>${TRAIN_S.logHeading}</span>
         <input type="date" id="training-log-date" class="training-log-date"
-               value="${escapeHtml(date)}" max="${escapeHtml(date)}" aria-label="Session date">
+               value="${escapeHtml(date)}" max="${escapeHtml(date)}" aria-label="${TRAIN_S.logDate}">
         <span class="training-log-weekday mono" id="training-log-weekday">${escapeHtml(weekdayName(date))}</span>
       </div>
       ${TRAINING_DRILLS.map(d => `
         <div class="training-log-row">
           <span class="training-log-drill">${escapeHtml(d.label)}</span>
-          <input type="number" min="0" inputmode="numeric" class="training-set-input" placeholder="Set 1" data-drill="${d.id}">
-          <input type="number" min="0" inputmode="numeric" class="training-set-input" placeholder="Set 2" data-drill="${d.id}">
-          <input type="number" min="0" inputmode="numeric" class="training-set-input" placeholder="optional" data-drill="${d.id}">
+          <input type="number" min="0" inputmode="numeric" class="training-set-input"
+                 placeholder="${TRAIN_S.setPlaceholder(1)}" aria-label="${escapeHtml(d.label)} ${TRAIN_S.setPlaceholder(1)}" data-drill="${d.id}">
+          <input type="number" min="0" inputmode="numeric" class="training-set-input"
+                 placeholder="${TRAIN_S.setPlaceholder(2)}" aria-label="${escapeHtml(d.label)} ${TRAIN_S.setPlaceholder(2)}" data-drill="${d.id}">
+          <input type="number" min="0" inputmode="numeric" class="training-set-input"
+                 placeholder="${TRAIN_S.thirdSetPlaceholder}" aria-label="${escapeHtml(d.label)} ${TRAIN_S.setPlaceholder(3)}" data-drill="${d.id}">
         </div>`).join('')}
-      <button type="submit">Log session</button>
+      <button type="submit">${TRAIN_S.logSubmit}</button>
     </form>`;
 }
 
@@ -447,19 +451,21 @@ function renderTrainingSyncSectionHtml() {
     let host = url;
     try { host = new URL(url).host; } catch (e) { /* keep raw string if unparseable */ }
     if (trainingSyncLastError) {
-      return `<p class="local-note">${escapeHtml(trainingSyncLastError)} via ${escapeHtml(host)} — showing local data only.
-        <button type="button" id="training-sync-forget" class="push-banner-dismiss">Turn off sync</button></p>`;
+      return `<p class="local-note">${escapeHtml(TRAIN_S.sync.problem(trainingSyncLastError, host))}
+        <button type="button" id="training-sync-forget" class="push-banner-dismiss">${TRAIN_S.sync.forget}</button></p>`;
     }
-    return `<p class="local-note">Synced across devices via ${escapeHtml(host)}.
-      <button type="button" id="training-sync-forget" class="push-banner-dismiss">Turn off sync</button></p>`;
+    return `<p class="local-note">${escapeHtml(TRAIN_S.sync.on(host))}
+      <button type="button" id="training-sync-forget" class="push-banner-dismiss">${TRAIN_S.sync.forget}</button></p>`;
   }
   return `
     <details class="training-sync-setup">
-      <summary class="local-note">Sync across devices (optional) — set up</summary>
+      <summary class="local-note">${TRAIN_S.sync.setupSummary}</summary>
       <form id="training-sync-form" class="unlock-form" autocomplete="off">
-        <input type="url" id="training-sync-url" placeholder="https://your-app.up.railway.app" required>
-        <input type="password" id="training-sync-token" placeholder="Sync token" required autocomplete="off">
-        <button type="submit">Save</button>
+        <input type="url" id="training-sync-url" placeholder="${TRAIN_S.sync.serverUrl}" required
+               aria-label="${TRAIN_S.sync.serverUrl}">
+        <input type="password" id="training-sync-token" placeholder="${TRAIN_S.sync.serverToken}" required
+               autocomplete="off" aria-label="${TRAIN_S.sync.serverToken}">
+        <button type="submit">${STRINGS.common.save}</button>
       </form>
     </details>`;
 }
@@ -507,8 +513,8 @@ function triggerTrainingSync(payload) {
   });
 }
 
-// A logged session IS the Workout habit for that day -- no double entry.
-// Deliberately one-way: unticking Workout on Today leaves the session log
+// A logged session IS the "Training session" habit for that day -- no double
+// entry. Deliberately one-way: unticking it on Today leaves the session log
 // alone, because the session did happen.
 function markWorkoutDone(date) {
   if (typeof DAILY === 'undefined' || !DAILY || typeof DAILY.saveDay !== 'function') return;
@@ -532,7 +538,7 @@ function renderTrainingHintsHtml(sessions) {
     <li class="training-hint">
       <span>${escapeHtml(h.text)}</span>
       <button type="button" class="hint-dismiss" data-hint-dismiss="${escapeHtml(h.id)}"
-              aria-label="Dismiss this note">&times;</button>
+              aria-label="${TRAIN_S.dismissHint}">&times;</button>
     </li>`).join('')}</ul>`;
 }
 
@@ -554,7 +560,7 @@ function renderTrainingZone(payload) {
 
   if (!payload && loadCapturedSessions().length === 0) {
     section.hidden = false;
-    mount.innerHTML = `${renderTrainingLogFormHtml()}${renderEmptyZone('No sessions logged yet — log one above.')}${renderTrainingSyncSectionHtml()}`;
+    mount.innerHTML = `${renderTrainingLogFormHtml()}${renderEmptyZone(TRAIN_S.empty)}${renderTrainingSyncSectionHtml()}`;
     wireTrainingLogForm(payload);
     wireTrainingSyncSection(payload);
     return;
@@ -569,8 +575,7 @@ function renderTrainingZone(payload) {
     ${renderMissedBanner(sessions)}
     ${renderSessionLogList(sessions)}
     ${TRAINING_DRILLS.map((d, i) => renderDrillSection(sessions, d, i)).join('')}
-    <p class="local-note">Sessions are saved in this browser. Editing a past
-      entry recalculates its progress and PRs immediately.</p>
+    <p class="local-note">${TRAIN_S.savedNote}</p>
     ${renderTrainingSyncSectionHtml()}
   `;
 

@@ -27,7 +27,9 @@
 // daily-today.js, trading.js, workout.js and the stylesheet all changed.
 // v19: Full Scan filtering -- SMA150 range, relative volume and sector,
 // combinable, client-side. trading.js and the stylesheet changed.
-const CACHE_NAME = 'jarvis-shell-v19';
+// v20: the copy pass -- every user-facing string moved into js/strings.js,
+// so an installed PWA without it would render a shell with no labels.
+const CACHE_NAME = 'jarvis-shell-v20';
 const SHELL_ASSETS = [
   './',
   'index.html',
@@ -37,6 +39,7 @@ const SHELL_ASSETS = [
   'manifest.json',
   'css/styles.css',
   'js/app.js',
+  'js/strings.js',
   'js/data.js',
   'js/shell.js',
   'js/gestures.js',

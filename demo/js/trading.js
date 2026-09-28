@@ -9,6 +9,9 @@
 // through DASHBOARD, and reuses splitBreakoutAlerts from data.js so the 48h
 // window is computed in exactly one place. No feed, field or backend changed.
 
+const TRADE_S = STRINGS.trading;
+const ACCT_S = STRINGS.account.editor;
+
 // The RECLAIM/BREAKOUT/SIGNAL classification (scout.py's setup_tag) still
 // feeds scoring server-side -- this file just stopped displaying it as a
 // column, in favour of the SMA150 distance the classification is largely
@@ -167,10 +170,10 @@ function renderTradingSearch() {
   mount.className = 'trading-search';
   mount.innerHTML = `
     ${ICONS.search()}
-    <input type="text" id="trading-search-input" placeholder="Search ticker or sector…"
-           aria-label="Search ticker or sector" value="${escapeHtml(tradingState.search)}">
+    <input type="text" id="trading-search-input" placeholder="${TRADE_S.search}…"
+           aria-label="${TRADE_S.search}" value="${escapeHtml(tradingState.search)}">
     <button type="button" class="trading-search-clear" id="trading-search-clear"
-            aria-label="Clear search" ${tradingState.search ? '' : 'hidden'}>&times;</button>`;
+            aria-label="${TRADE_S.clearSearch}" ${tradingState.search ? '' : 'hidden'}>&times;</button>`;
 
   const input = document.getElementById('trading-search-input');
   const clear = document.getElementById('trading-search-clear');
@@ -191,7 +194,7 @@ function renderTradingTop10() {
   const scan = tradingState.scan;
 
   if (!scan || !scan.stocks || !scan.stocks.length) {
-    mount.innerHTML = `<div class="empty-state">No scan data yet. The nightly scan fills this in.</div>`;
+    mount.innerHTML = `<div class="empty-state">${TRADE_S.top10.noScan}</div>`;
     return;
   }
 
@@ -201,7 +204,7 @@ function renderTradingTop10() {
   const byTicker = Object.fromEntries(scan.stocks.map(s => [s.ticker, s]));
   const scanHasModel = scan.stocks.some(s => typeof s.top10_score === 'number');
   if (!scanHasModel) {
-    mount.innerHTML = `<div class="empty-state">This scan predates the current Top 10 scores. The next nightly scan ranks it.</div>`;
+    mount.innerHTML = `<div class="empty-state">${TRADE_S.top10.staleModel}</div>`;
     return;
   }
   // scout.py ranks; ties and order are its call, not re-derived here.
@@ -221,8 +224,8 @@ function renderTradingTop10() {
 
   mount.innerHTML = `
     <div class="sec-label-row">
-      <h2 class="sec-label sec-label-gold">Today's ranked setups</h2>
-      <span class="sec-note">scan ${escapeHtml(healthFmtWhen(scan.generated_at))}</span>
+      <h2 class="sec-label sec-label-gold">${TRADE_S.top10.heading}</h2>
+      <span class="sec-note">${escapeHtml(TRADE_S.top10.scanned(healthFmtWhen(scan.generated_at)))}</span>
     </div>
     ${shown.length ? `<div class="setup-list">${shown.map(r => {
       const rank = ordered.indexOf(r) + 1;
@@ -244,15 +247,16 @@ function renderTradingTop10() {
             <div class="setup-row setup-meta">
               <span class="mono setup-price">${fmtPrice(r.price)}</span>
               <span class="mono setup-change ${change >= 0 ? 'is-up' : 'is-down'}">${fmtChange(change)}</span>
-              <span class="setup-vol">Vol ${fmtCompactNumber(r.today_volume)}</span>
+              <span class="setup-vol">${TRADE_S.top10.volume(fmtCompactNumber(r.today_volume))}</span>
             </div>
             ${tradingFlagsHtml(r, peers[r.ticker], held[r.ticker])}
           </div>
           <span class="setup-score mono ${tradingScoreClass(score)}">${Math.round(score)}</span>
         </a>`;
     }).join('')}</div>`
-    : `<div class="empty-state">No ranked setups match "${escapeHtml(tradingState.search)}".</div>`}
-    ${hasFlags ? '' : `<p class="trading-note">Float, short-float and earnings checks appear from the next nightly scan.</p>`}
+    : `<div class="empty-state">${escapeHtml(TRADE_S.top10.noMatch(tradingState.search))}</div>`}
+    <p class="trading-note">${TRADE_S.tagLegend}</p>
+    ${hasFlags ? '' : `<p class="trading-note">${TRADE_S.top10.flagsPending}</p>`}
     ${tradingSizingHtml()}`;
   wireTradingSizing();
 }
@@ -261,20 +265,16 @@ function renderTradingTop10() {
 //
 // Verdicts come from the scan (thresholds stay private in the scan's config).
 // Missing data reads "unknown" -- never silently as a pass.
-const TRADING_FLAG_TEXT = {
-  'float:low': 'low float', 'float:unknown': 'float unknown',
-  'short:high': 'high short float', 'short:unknown': 'short float unknown',
-  'earnings:unknown': 'earnings date unknown',
-};
+const TRADING_FLAG_TEXT = TRADE_S.top10.flags;
 
 function tradingFlagsHtml(r, peer, heldSector) {
   const marks = (r.rule_flags || []).map(f => (f.kind === 'earnings' && f.state === 'soon'
-    ? `earnings ${f.days}d` : TRADING_FLAG_TEXT[`${f.kind}:${f.state}`])).filter(Boolean);
+    ? TRADE_S.top10.earningsSoon(f.days) : TRADING_FLAG_TEXT[`${f.kind}:${f.state}`])).filter(Boolean);
   if (peer) {
-    marks.push(`same ${peer.basis} as ${peer.peers.join(', ')}`);
+    marks.push(TRADE_S.top10.peer(peer.basis, peer.peers.join(', ')));
   }
   if (heldSector) {
-    marks.push(`you already hold ${heldSector}`);
+    marks.push(TRADE_S.top10.heldSector(heldSector));
   }
   if (!marks.length) return '';
   return `<div class="setup-flags mono">${marks.map(m => `<span>${escapeHtml(m)}</span>`).join('')}</div>`;
@@ -302,17 +302,17 @@ function tradingSizingHtml() {
       <input type="number" inputmode="decimal" step="${step}" min="0" data-sizing="${id}" value="${val ?? ''}"></label>`;
   return `
     <details class="sizing-tool"${tradingSizingOpen ? ' open' : ''}>
-      <summary><span class="sec-label">Position size</span><span class="sec-note">stays on this device</span></summary>
+      <summary><span class="sec-label">${TRADE_S.sizing.title}</span><span class="sec-note">${TRADE_S.sizing.note}</span></summary>
       <div class="sizing-grid">
-        ${field('entry', 'Entry', v.entry, '0.01')}
-        ${field('stop', 'Stop', v.stop, '0.01')}
-        ${field('portfolio', 'Portfolio $', v.portfolio, '1')}
+        ${field('entry', TRADE_S.sizing.entry, v.entry, '0.01')}
+        ${field('stop', TRADE_S.sizing.stop, v.stop, '0.01')}
+        ${field('portfolio', TRADE_S.sizing.portfolio, v.portfolio, '1')}
       </div>
-      <p class="sizing-hint">Your limits</p>
+      <p class="sizing-hint">${TRADE_S.sizing.limits}</p>
       <div class="sizing-grid">
-        ${field('maxRisk', 'Max risk $', v.maxRisk, '1')}
-        ${field('maxPosition', 'Max position $', v.maxPosition, '1')}
-        ${field('maxPct', 'Max % of portfolio', v.maxPct, '0.1')}
+        ${field('maxRisk', TRADE_S.sizing.maxRisk, v.maxRisk, '1')}
+        ${field('maxPosition', TRADE_S.sizing.maxPosition, v.maxPosition, '1')}
+        ${field('maxPct', TRADE_S.sizing.maxPct, v.maxPct, '0.1')}
       </div>
       <div class="sizing-result" id="sizing-result" aria-live="polite"></div>
     </details>`;
@@ -324,9 +324,10 @@ function renderSizingResult() {
   const r = sizingCompute(sizingLoad());
   if (r.error) { out.innerHTML = `<p class="sizing-hint">${escapeHtml(r.error)}</p>`; return; }
   out.innerHTML = `
-    <div class="sizing-shares"><span class="mono">${r.shares}</span> shares</div>
-    <p class="sizing-line">Limited by <b>${escapeHtml(r.bindingLabel)}</b>.</p>
-    <p class="sizing-line mono">risk $${r.riskUsd.toFixed(0)} · position $${r.positionUsd.toFixed(0)} · ${r.pctOfPortfolio.toFixed(1)}% of portfolio</p>`;
+    <div class="sizing-shares">${TRADE_S.sizing.shares(`<span class="mono">${r.shares}</span>`)}</div>
+    <p class="sizing-line">${TRADE_S.sizing.limitedBy(`<b>${escapeHtml(r.bindingLabel)}</b>`)}</p>
+    <p class="sizing-line mono">${escapeHtml(TRADE_S.sizing.breakdown(
+      r.riskUsd.toFixed(0), r.positionUsd.toFixed(0), r.pctOfPortfolio.toFixed(1)))}</p>`;
 }
 
 function wireTradingSizing() {
@@ -390,33 +391,33 @@ function accountEditorHtml(record) {
   const rows = manual.positions.map((p, i) => `
     <div class="acct-row">
       <input type="text" data-acct-pos="${i}" data-field="ticker" value="${escapeHtml(p.ticker || '')}"
-             placeholder="Ticker" aria-label="Position ticker" maxlength="10">
+             placeholder="${ACCT_S.ticker}" aria-label="${ACCT_S.tickerLabel}" maxlength="10">
       <input type="text" data-acct-pos="${i}" data-field="sector" value="${escapeHtml(p.sector || '')}"
-             placeholder="Sector ETF" aria-label="Sector ETF" maxlength="10">
-      <button type="button" class="acct-remove" data-acct-remove-pos="${i}" aria-label="Remove position">&times;</button>
+             placeholder="${ACCT_S.sectorEtf}" aria-label="${ACCT_S.sectorEtf}" maxlength="10">
+      <button type="button" class="acct-remove" data-acct-remove-pos="${i}" aria-label="${ACCT_S.removePosition}">&times;</button>
     </div>`).join('');
   const trades = manual.closed_trades.map((t, i) => `
     <div class="acct-row">
       <input type="date" data-acct-trade="${i}" data-field="closed_at" value="${escapeHtml(t.closed_at || '')}"
-             aria-label="Closed date">
-      <select data-acct-trade="${i}" data-field="result" aria-label="Result">
+             aria-label="${ACCT_S.closedDate}">
+      <select data-acct-trade="${i}" data-field="result" aria-label="${ACCT_S.result}">
         ${['win', 'loss', 'breakeven'].map(r => `<option value="${r}"${t.result === r ? ' selected' : ''}>${r}</option>`).join('')}
       </select>
       <label class="acct-stop"><input type="checkbox" data-acct-trade="${i}" data-field="stopped_out"
-             ${t.stopped_out ? 'checked' : ''}> stop</label>
-      <button type="button" class="acct-remove" data-acct-remove-trade="${i}" aria-label="Remove trade">&times;</button>
+             ${t.stopped_out ? 'checked' : ''}> ${ACCT_S.stop}</label>
+      <button type="button" class="acct-remove" data-acct-remove-trade="${i}" aria-label="${ACCT_S.removeTrade}">&times;</button>
     </div>`).join('');
   return `
     <details class="acct-editor"${accountEditorOpen ? ' open' : ''}>
-      <summary><span class="sec-note">Positions and closed trades (private)</span></summary>
-      <p class="sizing-hint">Tickers and outcomes only — no sizes or prices. Stays on your sync server.</p>
-      <div class="acct-list">${rows || '<p class="sizing-hint">No open positions recorded.</p>'}</div>
-      <button type="button" class="btn-quiet" id="acct-add-pos">Add position</button>
-      <p class="sizing-hint">Closed trades</p>
-      <div class="acct-list">${trades || '<p class="sizing-hint">None recorded.</p>'}</div>
-      <button type="button" class="btn-quiet" id="acct-add-trade">Add closed trade</button>
+      <summary><span class="sec-note">${ACCT_S.title}</span></summary>
+      <p class="sizing-hint">${ACCT_S.note}</p>
+      <div class="acct-list">${rows || `<p class="sizing-hint">${ACCT_S.noPositions}</p>`}</div>
+      <button type="button" class="btn-quiet" id="acct-add-pos">${ACCT_S.addPosition}</button>
+      <p class="sizing-hint">${ACCT_S.closedTrades}</p>
+      <div class="acct-list">${trades || `<p class="sizing-hint">${ACCT_S.noTrades}</p>`}</div>
+      <button type="button" class="btn-quiet" id="acct-add-trade">${ACCT_S.addTrade}</button>
       <div class="acct-save-row">
-        <button type="button" class="btn-primary" id="acct-save">Save</button>
+        <button type="button" class="btn-primary" id="acct-save">${STRINGS.common.save}</button>
         <span class="sizing-hint" id="acct-save-note"></span>
       </div>
     </details>`;
@@ -429,25 +430,22 @@ function renderAccountCard() {
   mount.className = 'acct-card';
 
   if (status === 'no-sync') {
-    mount.innerHTML = `<div class="sec-label-row"><h2 class="sec-label">Can I trade today</h2></div>
-      ${renderWithheldZone('Account rules')}`;
+    mount.innerHTML = `<div class="sec-label-row"><h2 class="sec-label">${STRINGS.account.title}</h2></div>
+      ${renderWithheldZone(TRADE_S.accountCard.withheldLabel)}`;
     return;
   }
   const now = new Date();
   const win = accountEntryWindow(now, record && record.entry_cutoff_israel, ACCOUNT_CALENDAR);
   const lines = accountCardLines(record, win, now);
-  const note = {
-    'not-deployed': 'Waiting for the sync server to update.',
-    rejected: 'The sync server rejected this device’s token.',
-    unreachable: 'Sync server unreachable.',
-    error: 'The sync server returned an error.',
-    loading: 'Checking…',
-  }[status];
+  // The same four sentences the health strip uses, so one condition is
+   // never described two ways on one screen.
+  const note = { ...STRINGS.health.remote, loading: TRADE_S.accountCard.checking }[status];
 
   mount.innerHTML = `
     <div class="sec-label-row">
-      <h2 class="sec-label">Can I trade today</h2>
-      <span class="sec-note">${record ? escapeHtml(record.source === 'ibkr' ? 'from IBKR' : 'entered by you') : ''}</span>
+      <h2 class="sec-label">${STRINGS.account.title}</h2>
+      <span class="sec-note">${record ? escapeHtml(record.source === 'ibkr'
+        ? TRADE_S.accountCard.sourceIbkr : TRADE_S.accountCard.sourceManual) : ''}</span>
     </div>
     ${lines ? `<ul class="acct-lines">${lines.map(l => `
       <li class="acct-line">
@@ -455,7 +453,7 @@ function renderAccountCard() {
         <span class="acct-value mono">${escapeHtml(l.value)}</span>
         ${l.note ? `<span class="acct-note mono">${escapeHtml(l.note)}</span>` : ''}
       </li>`).join('')}</ul>`
-    : `<p class="sizing-hint">${escapeHtml(note || 'No account data yet — add your positions below, or connect IBKR.')}</p>`}
+    : `<p class="sizing-hint">${escapeHtml(note || STRINGS.account.empty)}</p>`}
     ${status === 'ok' || record ? accountEditorHtml(record) : ''}`;
   wireAccountEditor(record);
 }
@@ -499,14 +497,14 @@ function wireAccountEditor(record) {
       positions: manual.positions.filter(p => p.ticker),
       closed_trades: manual.closed_trades.filter(t => t.closed_at && t.result),
     };
-    if (note) note.textContent = 'Saving…';
+    if (note) note.textContent = TRADE_S.accountCard.saving;
     const saved = await accountSaveManual(clean);
     if (saved) {
       tradingState.account = { status: 'ok', record: saved };
       renderAccountCard();
       if (tradingShell) tradingShell.repaint();
     } else if (note) {
-      note.textContent = 'Could not save — check the sync settings.';
+      note.textContent = TRADE_S.accountCard.saveFailed;
     }
   });
 }
@@ -520,15 +518,16 @@ function renderMarketWindow(now = new Date()) {
   const t = d => mcFmtIL(d, { hour: '2-digit', minute: '2-digit' });
   let text;
   if (open) {
-    text = `Session open · closes ${t(s.close)}${s.early ? ' (early close)' : ''}`;
+    text = s.early ? TRADE_S.marketWindow.openEarly(t(s.close)) : TRADE_S.marketWindow.open(t(s.close));
   } else if (s) {
     const todayIl = mcParts(now, MC_IL).ymd;
     const openIl = mcParts(s.open, MC_IL).ymd;
-    const day = openIl === todayIl ? 'today' : mcFmtIL(s.open, { weekday: 'short' });
+    const day = openIl === todayIl ? TRADE_S.marketWindow.today : mcFmtIL(s.open, { weekday: 'short' });
     const holiday = mcHolidayName(mcParts(now, MC_ET).ymd);
-    text = `${holiday ? `US market closed for ${holiday} · ` : ''}Session opens ${day} ${t(s.open)}`;
+    text = (holiday ? TRADE_S.marketWindow.holiday(holiday) : '')
+      + TRADE_S.marketWindow.opens(day, t(s.open));
   } else {
-    text = 'Market calendar unavailable';
+    text = TRADE_S.marketWindow.unavailable;
   }
   document.body.classList.toggle('is-market-closed', !open);
   mount.className = 'market-window mono';
@@ -543,16 +542,16 @@ function renderMarketWhy() {
   const b = breadthAboveSma150(scan);
   const regime = (scan.market && scan.market.regime) || null;
   const inputs = scan.market && scan.market.regime_inputs;
-  const breadth = b ? `${Math.round(100 * b.above / b.total)}% of the watchlist is above its SMA150 (${b.above} of ${b.total}).` : '';
+  const breadth = b ? TRADE_S.why.breadth(Math.round(100 * b.above / b.total), b.above, b.total) : '';
   let why;
   if (inputs && inputs.ratios) {
-    const arrow = t => (t === 'rising' ? 'rising' : t === 'falling' ? 'falling' : 'unknown');
+    const arrow = t => TRADE_S.why.trends[t] || TRADE_S.why.trends.unknown;
     why = `
-      <p>The label compares three risk-appetite ratios with ${inputs.lookback_days} trading days ago:</p>
+      <p>${TRADE_S.why.intro(inputs.lookback_days)}</p>
       <ul class="why-list">${inputs.ratios.map(r => `<li><span>${escapeHtml(r.meaning)}</span><span class="mono">${arrow(r.trend)}</span></li>`).join('')}</ul>
-      <p>Two or more rising reads RISK-ON, two or more falling reads DEFENSIVE, anything else NEUTRAL.</p>`;
+      <p>${TRADE_S.why.rule}</p>`;
   } else {
-    why = '<p>The inputs behind this label are published from the next nightly scan.</p>';
+    why = `<p>${TRADE_S.why.pending}</p>`;
   }
   const open = mount.querySelector('details') && mount.querySelector('details').open;
   mount.className = 'market-why';
@@ -565,18 +564,15 @@ function renderMarketWhy() {
 }
 
 // --- Signal scorecard -----------------------------------------------------
-const SCORECARD_MODELS = {
-  'lowcci-v1': 'Low-CCI model · live picks',
-  'lowcci-v1-reconstructed': 'Low-CCI model · reconstructed for earlier nights',
-  'reclaim-v1': 'Reclaim model · as published',
-};
+const SCORECARD_MODELS = TRADE_S.scorecard.models;
 
 function scorecardCell(c) {
-  if (!c || !c.n) return '<td class="mono sc-empty">no outcomes yet</td>';
-  if (c.avg_return_pct === undefined) return `<td class="mono sc-empty">n=${c.n} · not enough samples yet</td>`;
+  const S = TRADE_S.scorecard;
+  if (!c || !c.n) return `<td class="mono sc-empty">${S.noOutcomes}</td>`;
+  if (c.avg_return_pct === undefined) return `<td class="mono sc-empty">${S.belowSample(c.n)}</td>`;
   const sign = v => (v > 0 ? '+' : '') + v.toFixed(2) + '%';
-  return `<td class="mono"><span class="sc-main">${sign(c.avg_excess_vs_spy_pct)}</span> vs SPY<br>
-    <span class="sc-sub">avg ${sign(c.avg_return_pct)} · beat SPY ${c.beat_spy_pct}% · n=${c.n}</span></td>`;
+  return `<td class="mono"><span class="sc-main">${sign(c.avg_excess_vs_spy_pct)}</span> ${S.vsSpy}<br>
+    <span class="sc-sub">${escapeHtml(S.detail(sign(c.avg_return_pct), c.beat_spy_pct, c.n))}</span></td>`;
 }
 
 function renderTradingScorecard() {
@@ -584,31 +580,31 @@ function renderTradingScorecard() {
   if (!mount) return;
   const sc = tradingState.scorecard;
   if (!sc || !sc.rows || !sc.rows.length) {
-    mount.innerHTML = '<div class="empty-state">The scorecard appears after the next nightly scan.</div>';
+    mount.innerHTML = `<div class="empty-state">${TRADE_S.scorecard.empty}</div>`;
     return;
   }
   const hz = sc.horizons_trading_days || [5, 10, 20];
   const versions = [...new Set(sc.rows.map(r => r.model_version))]
     .sort((a, b) => Object.keys(SCORECARD_MODELS).indexOf(a) - Object.keys(SCORECARD_MODELS).indexOf(b));
   const liveFrom = (sc.rows.find(r => r.model_version === 'lowcci-v1' && r.group === 'all ranks') || {}).first_session;
+  const S = TRADE_S.scorecard;
   mount.innerHTML = `
-    <p class="sc-caution">Low-CCI figures${liveFrom ? ` before ${escapeHtml(liveFrom)}` : ''} are reconstructed from each
-      night's published data, not live picks, and the period is too short to draw conclusions.</p>
-    <p class="trading-note">How each night's Top 10 did afterwards: average forward return compared with SPY over the
-      same window, ${escapeHtml(sc.period.first_session || '')} to ${escapeHtml(sc.period.last_session || '')}.
-      Observed averages over this period, not predictions; a figure appears only once a group has
-      ${sc.min_sample} completed picks. ${escapeHtml(sc.method || '')}</p>
+    <p class="sc-caution">${escapeHtml(S.caution(liveFrom ? fmtDate(liveFrom) : ''))}</p>
+    <p class="trading-note">${escapeHtml(S.method(
+      fmtDate(sc.period.first_session), fmtDate(sc.period.last_session),
+      sc.min_sample, sc.method || ''))}</p>
     ${versions.map(v => `
       <section class="sc-block">
         <h2 class="sec-label">${escapeHtml(SCORECARD_MODELS[v] || v)}</h2>
         ${(() => {
           const all = sc.rows.find(r => r.model_version === v && r.group === 'all ranks');
-          return all ? `<p class="sc-range mono">${all.picks} picks · ${all.sessions} nights · ${escapeHtml(all.first_session || '?')} to ${escapeHtml(all.last_session || '?')}</p>` : '';
+          return all ? `<p class="sc-range mono">${escapeHtml(S.range(all.picks, all.sessions,
+            fmtDate(all.first_session), fmtDate(all.last_session)))}</p>` : '';
         })()}
         <table class="sc-table">
-          <thead><tr><th></th>${hz.map(h => `<th class="mono">${h} days</th>`).join('')}</tr></thead>
+          <thead><tr><th></th>${hz.map(h => `<th class="mono">${S.horizon(h)}</th>`).join('')}</tr></thead>
           <tbody>${sc.rows.filter(r => r.model_version === v).map(r => `
-            <tr><th scope="row">${escapeHtml(r.group)}<br><span class="sc-sub mono">${r.picks} picks · ${r.sessions} nights</span></th>
+            <tr><th scope="row">${escapeHtml(r.group)}<br><span class="sc-sub mono">${escapeHtml(S.groupRange(r.picks, r.sessions))}</span></th>
               ${hz.map(h => scorecardCell(r.horizons[String(h)])).join('')}</tr>`).join('')}
           </tbody>
         </table>
@@ -617,12 +613,8 @@ function renderTradingScorecard() {
 
 // --- Breakouts ------------------------------------------------------------
 
-const TRADING_BREAKOUT_FILTERS = [
-  { id: 'all', label: 'All' },
-  { id: 'today', label: 'Today' },
-  { id: 'week', label: 'This Week' },
-  { id: 'archive', label: 'Archive' },
-];
+const TRADING_BREAKOUT_FILTERS = ['all', 'today', 'week', 'archive']
+  .map(id => ({ id, label: TRADE_S.breakouts.filters[id] }));
 
 function renderTradingBreakouts() {
   const mount = document.getElementById('panel-breakouts');
@@ -630,7 +622,7 @@ function renderTradingBreakouts() {
   const payload = tradingState.breakouts;
 
   if (!payload) {
-    mount.innerHTML = `<div class="empty-state">No breakout data published yet.</div>`;
+    mount.innerHTML = `<div class="empty-state">${TRADE_S.breakouts.empty}</div>`;
     return;
   }
 
@@ -666,28 +658,28 @@ function renderTradingBreakouts() {
           <div class="setup-main">
             <div class="setup-row">
               <span class="setup-ticker">${escapeHtml(r.ticker)}</span>
-              <span class="setup-badge is-breakout">SMA150</span>
-              ${r.touch_count > 1 ? `<span class="setup-touches mono">${r.touch_count}× touch</span>` : ''}
+              <span class="setup-badge is-breakout">${TRADE_S.breakouts.level}</span>
+              ${r.touch_count > 1 ? `<span class="setup-touches mono">${TRADE_S.breakouts.touches(r.touch_count)}</span>` : ''}
             </div>
             <div class="setup-row setup-meta">
               <span class="mono setup-price">${fmtPrice(r.price)}</span>
               <span class="mono setup-change ${r.change_pct >= 0 ? 'is-up' : 'is-down'}">${fmtChange(r.change_pct)}</span>
-              <span class="setup-vol">Vol ${fmtCompactNumber(r.today_volume)}</span>
+              <span class="setup-vol">${TRADE_S.top10.volume(fmtCompactNumber(r.today_volume))}</span>
             </div>
             <div class="timer-track" role="img"
-                 aria-label="${expired ? 'Window expired' : `${hours}h ${mins}m remaining`}">
+                 aria-label="${expired ? TRADE_S.breakouts.expiredLabel : TRADE_S.breakouts.remaining(hours, mins)}">
               <span class="timer-fill ${expired ? 'is-expired' : ''}" style="width:${pct}%"></span>
             </div>
             <div class="timer-label mono">
-              ${expired ? `expired ${hours}h ago` : `${hours}h ${String(mins).padStart(2, '0')}m left`}
-              · touched ${escapeHtml(fmtRelative(r.last_touch_at))}
+              ${expired ? TRADE_S.breakouts.expired(hours) : TRADE_S.breakouts.left(hours, String(mins).padStart(2, '0'))}
+              · ${escapeHtml(TRADE_S.breakouts.touched(fmtRelative(r.last_touch_at)))}
             </div>
           </div>
         </a>`;
     }).join('')}</div>`
     : `<div class="empty-state">${tradingState.breakoutFilter === 'archive'
-        ? 'Nothing in the archive yet.'
-        : 'No SMA150 touches in this window.'}</div>`}`;
+        ? TRADE_S.breakouts.emptyArchive
+        : TRADE_S.breakouts.emptyWindow}</div>`}`;
 
   mount.querySelectorAll('[data-breakout-filter]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -775,7 +767,7 @@ function tradingScanFiltersHtml(scan) {
           data-scan-sector="${escapeHtml(code)}">${escapeHtml(tradingSectorLabel(code))}</button>`).join('')}
       </div>
       <div class="scan-filters-actions">
-        <button type="button" class="linkbtn" id="scan-filters-clear" ${count ? '' : 'hidden'}>Clear filters</button>
+        <button type="button" class="linkbtn" id="scan-filters-clear" ${count ? '' : 'hidden'}>${TRADE_S.fullScan.clearFilters}</button>
       </div>
     </details>`;
 }
@@ -821,13 +813,13 @@ function wireTradingScanFilters() {
 }
 
 const TRADING_COLUMNS = [
-  { key: 'ticker', label: 'Ticker', cls: 'col-ticker' },
-  { key: 'pct_SMA150', label: 'SMA150', cls: 'col-num col-sma' },
-  { key: 'price', label: 'Price', cls: 'col-num' },
-  { key: 'change_pct', label: 'Chg', cls: 'col-num' },
-  { key: 'today_volume', label: 'Vol', cls: 'col-num col-vol' },
-  { key: 'score', label: 'Score', cls: 'col-num col-score' },
-];
+  { key: 'ticker', cls: 'col-ticker' },
+  { key: 'pct_SMA150', cls: 'col-num col-sma' },
+  { key: 'price', cls: 'col-num' },
+  { key: 'change_pct', cls: 'col-num' },
+  { key: 'today_volume', cls: 'col-num col-vol' },
+  { key: 'score', cls: 'col-num col-score' },
+].map(c => ({ ...c, label: TRADE_S.fullScan.columns[c.key] }));
 
 function renderTradingFullScan() {
   const mount = document.getElementById('panel-fullscan');
@@ -835,7 +827,7 @@ function renderTradingFullScan() {
   const scan = tradingState.scan;
 
   if (!scan || !scan.stocks || !scan.stocks.length) {
-    mount.innerHTML = `<div class="empty-state">No scan data yet.</div>`;
+    mount.innerHTML = `<div class="empty-state">${TRADE_S.fullScan.empty}</div>`;
     return;
   }
 
@@ -846,7 +838,7 @@ function renderTradingFullScan() {
   if (!document.getElementById('scan-filters')) {
     mount.innerHTML = `
       <div class="sec-label-row">
-        <h2 class="sec-label sec-label-gold">All scanned</h2>
+        <h2 class="sec-label sec-label-gold">${TRADE_S.fullScan.heading}</h2>
         <span class="sec-note mono" id="scan-count"></span>
       </div>
       ${tradingScanFiltersHtml(scan)}
@@ -880,18 +872,19 @@ function renderTradingScanTable() {
     });
 
   const countEl = document.getElementById('scan-count');
-  if (countEl) countEl.textContent = `${rows.length} of ${scan.stocks.length}`;
+  if (countEl) countEl.textContent = TRADE_S.fullScan.count(rows.length, scan.stocks.length);
 
   if (!rows.length) {
     const filtered = tradingScanFiltersActive();
     const searched = !!tradingState.search;
+    const q = escapeHtml(tradingState.search);
     const why = searched && filtered
-      ? `No stocks match "${escapeHtml(tradingState.search)}" and the current filters.`
+      ? TRADE_S.fullScan.noMatchSearchAndFilters(q)
       : searched
-        ? `No stocks match "${escapeHtml(tradingState.search)}".`
-        : 'No stocks match the current filters.';
+        ? TRADE_S.fullScan.noMatchSearch(q)
+        : TRADE_S.fullScan.noMatchFilters;
     wrap.innerHTML = `<div class="empty-state">${why}${
-      filtered ? '<div><button type="button" class="linkbtn" id="scan-filters-clear-empty">Clear filters</button></div>' : ''}
+      filtered ? `<div><button type="button" class="linkbtn" id="scan-filters-clear-empty">${TRADE_S.fullScan.clearFilters}</button></div>` : ''}
     </div>`;
     const clearBtn = document.getElementById('scan-filters-clear-empty');
     if (clearBtn) clearBtn.addEventListener('click', tradingClearScanFilters);
@@ -907,7 +900,7 @@ function renderTradingScanTable() {
               <th class="${c.cls} ${tradingState.sortKey === c.key ? 'is-sorted' : ''}"
                   data-sort="${c.key}" scope="col">
                 ${c.label}${tradingState.sortKey === c.key
-                  ? `<span class="sort-arrow">${tradingState.sortDir === 'asc' ? '▲' : '▼'}</span>` : ''}
+                  ? `<span class="sort-arrow">${tradingState.sortDir === 'asc' ? TRADE_S.fullScan.sortAsc : TRADE_S.fullScan.sortDesc}</span>` : ''}
               </th>`).join('')}
           </tr>
         </thead>

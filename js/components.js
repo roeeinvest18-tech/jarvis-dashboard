@@ -2,6 +2,8 @@
 // scan.html (full table). Pure functions over already-computed fields --
 // nothing here recomputes score/confluence/signals, it only formats them.
 
+const CARD_S = STRINGS.stockCard;
+
 function glyphsForStock(r) {
   const glyphs = [];
   if (r.cci_rising) glyphs.push(ICONS.momentumUp());
@@ -20,7 +22,7 @@ function scoreBadgeHtml(r) {
 }
 
 function recurringChipHtml(isRecurring) {
-  return isRecurring ? `<span class="recurring-chip" title="Flagged multiple days this week">${ICONS.recurring()}</span>` : '';
+  return isRecurring ? `<span class="recurring-chip" title="${CARD_S.recurring}">${ICONS.recurring()}</span>` : '';
 }
 
 // ---- Zone A / card-style stock row ----------------------------------------
@@ -46,18 +48,21 @@ function renderStockCard(r, rank, recurringSet) {
 }
 
 function renderStockDetail(r) {
+  const D = CARD_S.detail;
+  const none = STRINGS.common.none;
+  const na = STRINGS.common.notApplicable;
   const rows = [
-    ['SMA150', r.pct_SMA150 !== null && r.pct_SMA150 !== undefined ? `${fmtPct(r.pct_SMA150)} from` : '—'],
-    ['SMA200', r.pct_SMA200 !== null && r.pct_SMA200 !== undefined ? `${fmtPct(r.pct_SMA200)} from` : '—'],
-    ['CCI(20)', r.cci !== null && r.cci !== undefined ? Math.round(r.cci) : '—'],
-    ['Volume ratio', `${r.volume_ratio.toFixed(2)}x avg`],
-    ['Short interest', r.short_pct !== null && r.short_pct !== undefined ? `${r.short_pct.toFixed(1)}%` : 'n/a'],
-    ['Reddit mentions', `${r.reddit_mentions || 0}${r.reddit_bullish_mentions ? ` (${r.reddit_bullish_mentions} bullish)` : ''}`],
-    ['Sector', `${r.sector_etf || 'n/a'}${r.sector_strong ? ' — strong' : ''}`],
-    ['Base length', `${r.base_length_days || 0}d`],
-    ['Failed breakouts (90d)', r.failed_attempts_90d ?? 0],
-    ['Earnings', r.earnings_days !== null && r.earnings_days !== undefined ? `in ${r.earnings_days}d` : 'n/a'],
-    ['Signals', (r.signals_present || []).join(', ') || 'none'],
+    [D.sma150, r.pct_SMA150 !== null && r.pct_SMA150 !== undefined ? CARD_S.fromSma(fmtPct(r.pct_SMA150)) : none],
+    [D.sma200, r.pct_SMA200 !== null && r.pct_SMA200 !== undefined ? CARD_S.fromSma(fmtPct(r.pct_SMA200)) : none],
+    [D.cci, r.cci !== null && r.cci !== undefined ? Math.round(r.cci) : none],
+    [D.volumeRatio, CARD_S.timesAverage(r.volume_ratio.toFixed(2))],
+    [D.shortInterest, r.short_pct !== null && r.short_pct !== undefined ? `${r.short_pct.toFixed(1)}%` : na],
+    [D.redditMentions, `${r.reddit_mentions || 0}${r.reddit_bullish_mentions ? CARD_S.bullish(r.reddit_bullish_mentions) : ''}`],
+    [D.sector, `${r.sector_etf || na}${r.sector_strong ? CARD_S.strongSector : ''}`],
+    [D.baseLength, CARD_S.days(r.base_length_days || 0)],
+    [D.failedBreakouts, r.failed_attempts_90d ?? 0],
+    [D.earnings, r.earnings_days !== null && r.earnings_days !== undefined ? CARD_S.earningsIn(r.earnings_days) : na],
+    [D.signals, (r.signals_present || []).join(', ') || CARD_S.noSignals],
   ];
   return `<dl class="stock-detail">
     ${rows.map(([k, v]) => `<div><dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd></div>`).join('')}
@@ -107,9 +112,9 @@ function stockNotesHtml(ticker) {
   const note = loadStockNotes()[ticker];
   return `
     <div class="stock-notes">
-      <span class="stock-notes-label">Your note</span>
-      <textarea data-notes-ticker="${escapeHtml(ticker)}" placeholder="e.g. watching for pullback to 38…"
-                aria-label="Personal note on ${escapeHtml(ticker)}">${escapeHtml(note ? note.text : '')}</textarea>
+      <span class="stock-notes-label">${CARD_S.noteLabel}</span>
+      <textarea data-notes-ticker="${escapeHtml(ticker)}" placeholder="${CARD_S.notePlaceholder}"
+                aria-label="${escapeHtml(CARD_S.noteFor(ticker))}">${escapeHtml(note ? note.text : '')}</textarea>
       <div class="stock-notes-saved" data-notes-saved="${escapeHtml(ticker)}"></div>
     </div>`;
 }
@@ -123,103 +128,21 @@ function wireStockNotes(container) {
       saveStockNote(ticker, textarea.value.trim());
       const flash = container.querySelector(`[data-notes-saved="${CSS.escape(ticker)}"]`);
       if (flash) {
-        flash.textContent = 'Saved';
-        setTimeout(() => { if (flash.textContent === 'Saved') flash.textContent = ''; }, 2000);
+        flash.textContent = STRINGS.common.saved;
+        setTimeout(() => { if (flash.textContent === STRINGS.common.saved) flash.textContent = ''; }, 2000);
       }
     });
   });
 }
 
-// ---- Context panels: email + calendar --------------------------------------
-
-// Read state is a local-only annotation -- this static viewer has no
-// write-back path to Gmail (no credentials, no backend), same hard
-// constraint as everything else here. Swipe or tap just remembers "I've
-// seen this" in this browser; it never touches the actual mailbox.
-const EMAIL_READ_KEY = 'jarvis:email:read';
-
-// emails.json items may not carry a stable id -- fall back to a composite
-// key so read-state still survives a reload even without one.
-function emailReadKey(item) {
-  return item.id || `${item.sender || ''}|${item.subject || ''}|${item.received || ''}`;
-}
-
-function loadReadEmails() {
-  try { return new Set(JSON.parse(localStorage.getItem(EMAIL_READ_KEY) || '[]')); } catch (e) { return new Set(); }
-}
-
-function setEmailRead(key, isRead) {
-  const set = loadReadEmails();
-  if (isRead) set.add(key); else set.delete(key);
-  try { localStorage.setItem(EMAIL_READ_KEY, JSON.stringify([...set])); } catch (e) { /* non-fatal */ }
-}
-
-function renderEmailRow(item, index) {
-  const key = emailReadKey(item);
-  const isRead = loadReadEmails().has(key);
-  const label = isRead ? 'Mark unread' : 'Mark read';
-  return `
-    <div class="swipeable" data-swipe-role="email" data-email-key="${escapeHtml(key)}">
-      <div class="swipe-reveal is-read">${ICONS.mailRead()}&nbsp;Mark read</div>
-      <div class="context-panel swipeable-surface ${isRead ? 'is-read' : ''}" style="--i:${index}" data-email-surface="${escapeHtml(key)}">
-        <span class="priority-dot ${item.priority}"></span>
-        <div class="context-body">
-          <div class="context-row-top">
-            <span class="context-sender">${escapeHtml(item.sender)}</span>
-            <span class="context-time">${fmtTime(item.received)}</span>
-          </div>
-          <div class="context-subject">${escapeHtml(item.subject)}</div>
-          ${item.preview ? `<div class="context-preview">${escapeHtml(item.preview)}</div>` : ''}
-          ${item.deadline ? `<div class="context-deadline">Deadline: ${escapeHtml(item.deadline)}</div>` : ''}
-        </div>
-        <button type="button" class="context-mark-read" data-email-toggle="${escapeHtml(key)}"
-                aria-label="${label}" title="${label}">${ICONS.mailRead()}</button>
-      </div>
-    </div>
-  `;
-}
-
-// Tap affordance (desktop/non-touch) + swipe (touch, via gestures.js) both
-// land here so they stay in sync through one code path.
-function wireEmailRows(container) {
-  container.querySelectorAll('[data-email-toggle]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const key = btn.dataset.emailToggle;
-      const surface = container.querySelector(`[data-email-surface="${CSS.escape(key)}"]`);
-      if (!surface) return;
-      const nowRead = !surface.classList.contains('is-read');
-      setEmailRead(key, nowRead);
-      surface.classList.toggle('is-read', nowRead);
-      const label = nowRead ? 'Mark unread' : 'Mark read';
-      btn.setAttribute('aria-label', label);
-      btn.title = label;
-    });
-  });
-
-  if (typeof wireSwipe !== 'function') return; // gestures.js not loaded on this page
-  container.querySelectorAll('.swipeable[data-swipe-role="email"]').forEach(el => {
-    const key = el.dataset.emailKey;
-    const surface = el.querySelector('.swipeable-surface');
-    wireSwipe(el, {
-      revealClass: 'is-read',
-      onSwipe: () => {
-        setEmailRead(key, true);
-        surface.classList.add('is-read');
-        const btn = surface.querySelector('.context-mark-read');
-        if (btn) { btn.setAttribute('aria-label', 'Mark unread'); btn.title = 'Mark unread'; }
-      },
-    });
-  });
-}
-
-function renderCalendarRow(event, index) {
-  return `
-    <div class="context-panel" style="--i:${index}">
-      <span class="calendar-time mono">${event.all_day ? 'All day' : (event.time || '')}</span>
-      <span class="calendar-title">${escapeHtml(event.title)}</span>
-    </div>
-  `;
-}
+// ---- Context panels: email + calendar (removed) ----------------------------
+//
+// The Email and Calendar zones were taken out of the app. Their renderers
+// stayed behind here with no caller, so their copy -- "Mark read",
+// "Deadline:", "All day" -- kept shipping to the public site describing
+// features that no longer exist. Removed with the copy pass, 2026-09-24.
+// Nothing on either page called renderEmailRow, wireEmailRows,
+// renderCalendarRow or renderPriorityItem.
 
 // ---- Full Scan table row ----------------------------------------------------
 
@@ -232,30 +155,16 @@ function renderTableRow(r, recurringSet, index) {
       <td class="mono">${escapeHtml(r.ticker)}</td>
       <td class="mono">${fmtPrice(r.price)}</td>
       <td class="mono ${changeCls}">${fmtChange(r.change_pct)}</td>
-      <td class="mono">${r.cci !== null && r.cci !== undefined ? Math.round(r.cci) : '—'}</td>
+      <td class="mono">${r.cci !== null && r.cci !== undefined ? Math.round(r.cci) : STRINGS.common.none}</td>
       <td class="mono">${r.volume_ratio.toFixed(2)}x</td>
-      <td class="mono">${r.pct_SMA150 !== null && r.pct_SMA150 !== undefined ? fmtPct(r.pct_SMA150) : '—'}</td>
-      <td class="mono">${escapeHtml(r.sector_etf || '—')}</td>
+      <td class="mono">${r.pct_SMA150 !== null && r.pct_SMA150 !== undefined ? fmtPct(r.pct_SMA150) : STRINGS.common.none}</td>
+      <td class="mono">${escapeHtml(r.sector_etf || STRINGS.common.none)}</td>
       <td>${glyphsForStock(r)}${recurringChipHtml(isRecurring)}</td>
     </tr>
     <tr class="detail-row" data-detail-index="${index}" hidden>
       <td colspan="9">${renderStockDetail(r)}</td>
     </tr>
   `;
-}
-
-// ---- Jarvis: silence-budget priority strip ---------------------------------
-
-function renderPriorityItem(item) {
-  return `
-    <div class="priority-item" data-domain="${escapeHtml(item.domain)}">
-      <span class="priority-domain">${escapeHtml(item.domain)}</span>
-      <div class="priority-body">
-        <div class="priority-title">${escapeHtml(item.title)}</div>
-        ${item.detail ? `<div class="priority-detail">${escapeHtml(item.detail)}</div>` : ''}
-        ${item.action ? `<div class="priority-action">${escapeHtml(item.action)}</div>` : ''}
-      </div>
-    </div>`;
 }
 
 // ---- Jarvis: SMA distance on the stock card --------------------------------
@@ -268,7 +177,7 @@ function smaDistanceHtml(r) {
   // in_reclaim_band is computed server-side; highlighting it here is the
   // visual cue for "this is actually actionable right now".
   const cls = r.in_reclaim_band ? 'stock-sma-dist in-band' : 'stock-sma-dist';
-  return `<span class="${cls} mono" title="Distance from SMA150">${fmtPct(pct)} SMA150</span>`;
+  return `<span class="${cls} mono" title="${CARD_S.smaDistance}">${fmtPct(pct)} ${CARD_S.detail.sma150}</span>`;
 }
 
 // Card used by the Jarvis Today page: adds the spec's required
@@ -282,8 +191,8 @@ function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
   const thesis = note && note.thesis
     ? `<div class="exit-thesis ${note.moved_against ? 'is-against' : ''}">
          <span class="exit-thesis-label">${note.moved_against
-           ? `Your exit thesis — ${fmtPct(note.unrealized_pct)} against you`
-           : 'Your exit thesis'}</span>
+           ? CARD_S.exitThesisAgainst(fmtPct(note.unrealized_pct))
+           : CARD_S.exitThesis}</span>
          ${escapeHtml(note.thesis)}
        </div>`
     : '';
@@ -292,10 +201,10 @@ function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
     <button type="button" class="stock-row ${r.confluence ? 'is-confluence' : ''}" data-ticker="${escapeHtml(r.ticker)}" aria-expanded="false" style="--i:${rank - 1}">
       <span class="stock-rank mono">${rank}</span>
       <span class="stock-ticker">${escapeHtml(r.ticker)}</span>
-      <span class="stock-marketcap mono" title="Market cap">${fmtCompactNumber(r.market_cap)}</span>
+      <span class="stock-marketcap mono" title="${CARD_S.marketCap}">${fmtCompactNumber(r.market_cap)}</span>
       <span class="stock-change mono ${changeCls}">${fmtChange(r.change_pct)}</span>
       ${smaDistanceHtml(r)}
-      <span class="stock-avgvol mono" title="10-day average volume">${fmtCompactNumber(r.avg_volume_10d)}</span>
+      <span class="stock-avgvol mono" title="${CARD_S.avgVolume}">${fmtCompactNumber(r.avg_volume_10d)}</span>
       <span class="stock-spacer"></span>
       <span class="stock-badges">
         ${recurringChipHtml(isRecurring)}
@@ -319,42 +228,18 @@ function renderJarvisStockCard(r, rank, recurringSet, noteByTicker) {
 function renderWithheldZone(label) {
   // One compact line. This renders once per withheld zone, so the full
   // two-line explanation repeated four times turned the public page into a
-  // wall of identical apologies -- the "how to see it" hint now appears once
-  // in the page footer instead.
+  // wall of identical apologies.
   return `<div class="zone-withheld">
     <span class="zone-withheld-lock" aria-hidden="true">🔒</span>
-    <span class="zone-withheld-body"><b>${escapeHtml(label)}</b> — local only, not published here.</span>
+    <span class="zone-withheld-body">${escapeHtml(STRINGS.privacy.localOnly(label))}</span>
   </div>`;
 }
 
-// A zone whose ciphertext shipped but hasn't been unlocked yet. Distinct
-// from renderWithheldZone: the data is right there on the page, just
-// unreadable without the password entered in the unlock banner above.
-function renderLockedZone(label) {
-  return `<div class="zone-withheld zone-locked">
-    <span class="zone-withheld-lock" aria-hidden="true">🔒</span>
-    <span class="zone-withheld-body"><b>${escapeHtml(label)}</b> — locked. Enter your password above to view.</span>
-  </div>`;
-}
-
-// Footer shown once on a public build, explaining the page's scope.
-// withheldCount: zones that never ship here (priorities, trade notes) --
-// run the local build to see them. lockedCount: zones that DID ship, just
-// encrypted (email/tasks/calendar) -- the unlock banner above handles those,
-// so they get a different sentence rather than "stay on your machine".
-function renderPublicScopeNote(withheldCount, lockedCount) {
-  const parts = [];
-  if (lockedCount) {
-    parts.push(`${lockedCount} zone${lockedCount === 1 ? '' : 's'} above ${lockedCount === 1 ? 'is' : 'are'}
-      password-locked — enter your password once to unlock them on this device.`);
-  }
-  if (withheldCount) {
-    parts.push(`${withheldCount} zone${withheldCount === 1 ? '' : 's'} (priorities, trade notes)
-      stay on your machine — run <code>python build_pwa.py --serve</code> to see them.`);
-  }
-  if (!parts.length) return '';
-  return `<p class="public-scope-note">${parts.join(' ')}</p>`;
-}
+// The password-locked zone and the public-scope footer that explained it
+// were removed with the copy pass (2026-09-24). Since Phase 7 no encrypted
+// zone ships at all, so "enter your password above to view" and "N zones are
+// password-locked" described an unlock banner the app no longer has. Neither
+// function had a caller on either page.
 
 // A zone whose data loaded but is empty. Different fact, different message:
 // this one really is "nothing today".

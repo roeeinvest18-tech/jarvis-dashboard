@@ -228,26 +228,43 @@ function fmtCompactNumber(v) {
   return String(Math.round(v));
 }
 
+// en-GB with a 24-hour clock, matching mcFmtIL and every other time in the
+// app. It used to pass `[]` (the device's locale), which chose the format
+// from the phone rather than from the design.
 function fmtTime(isoOrHHMM) {
   if (!isoOrHHMM) return '';
   if (/^\d{2}:\d{2}$/.test(isoOrHHMM)) return isoOrHHMM;
   try {
-    return new Date(isoOrHHMM).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return new Date(isoOrHHMM).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
   } catch (e) {
     return '';
   }
 }
 
+// A calendar date, one format for the whole app: "24 Jul 2026". The year is
+// always shown -- these appear in ranges that can span one, and a range with
+// no year is ambiguous in January.
+function fmtDate(iso) {
+  if (!iso) return STRINGS.common.none;
+  const d = new Date(`${String(iso).slice(0, 10)}T12:00:00`);
+  if (Number.isNaN(d.getTime())) return STRINGS.common.none;
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+// Relative time is only useful while it is still easy to hold in your head.
+// Past two days it says the date instead: "14d ago" made the owner do
+// arithmetic to answer "which day was that".
+const RELATIVE_CUTOFF_HOURS = 48;
+
 function fmtRelative(isoTimestamp) {
-  if (!isoTimestamp) return 'never';
+  if (!isoTimestamp) return STRINGS.common.never;
   const diffMs = Date.now() - new Date(isoTimestamp).getTime();
   const mins = Math.round(diffMs / 60000);
-  if (mins < 1) return 'just now';
+  if (mins < 1) return STRINGS.common.justNow;
   if (mins < 60) return `${mins}m ago`;
   const hrs = Math.round(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
-  const days = Math.round(hrs / 24);
-  return `${days}d ago`;
+  if (hrs < RELATIVE_CUTOFF_HOURS) return `${hrs}h ago`;
+  return `on ${fmtDate(isoTimestamp)}`;
 }
 
 function escapeHtml(str) {

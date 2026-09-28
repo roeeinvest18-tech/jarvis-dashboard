@@ -71,11 +71,8 @@ function renderPushSubscriptionBox(mount, subscription) {
   const json = JSON.stringify(subscription);
   mount.innerHTML = `
     <div class="push-subscription-box">
-      <textarea readonly aria-label="Push subscription JSON">${escapeHtml(json)}</textarea>
-      <p class="push-subscription-hint">Subscribed, but couldn't register automatically. Copy the value
-        above into a new <code>PUSH_SUBSCRIPTION</code> secret on the private repo (Settings → Secrets →
-        Actions) so scheduled scans can send to it -- or set up sync below instead so this (and every
-        other) device registers itself.</p>
+      <textarea readonly aria-label="${STRINGS.push.subscriptionLabel}">${escapeHtml(json)}</textarea>
+      <p class="push-subscription-hint">${escapeHtml(STRINGS.push.manualHint)}</p>
       ${renderPushSyncSetupHtml()}
     </div>`;
   wirePushSyncSetup(mount, subscription);
@@ -85,8 +82,7 @@ function renderPushSyncedNoticeHtml(mount) {
   const { url } = pushSyncConfig();
   let host = url;
   try { host = new URL(url).host; } catch (e) { /* keep raw string if unparseable */ }
-  mount.innerHTML = `<p class="push-subscription-hint">Subscribed and registered via ${escapeHtml(host)} --
-    this device will get alerts alongside any other device you've enabled push on.</p>`;
+  mount.innerHTML = `<p class="push-subscription-hint">${escapeHtml(STRINGS.push.registered(host))}</p>`;
 }
 
 // Same "optional, set up inline, not a global settings page" pattern as
@@ -95,11 +91,13 @@ function renderPushSyncedNoticeHtml(mount) {
 function renderPushSyncSetupHtml() {
   return `
     <details class="training-sync-setup">
-      <summary class="local-note">Register automatically on future devices (optional) — set up</summary>
+      <summary class="local-note">${STRINGS.push.setupSummary}</summary>
       <form id="push-sync-form" class="unlock-form" autocomplete="off">
-        <input type="url" id="push-sync-url" placeholder="https://your-app.up.railway.app" required>
-        <input type="password" id="push-sync-token" placeholder="Push sync token" required autocomplete="off">
-        <button type="submit">Save &amp; register this device</button>
+        <input type="url" id="push-sync-url" placeholder="${STRINGS.push.serverUrl}" required
+               aria-label="${STRINGS.push.serverUrl}">
+        <input type="password" id="push-sync-token" placeholder="${STRINGS.push.serverToken}" required
+               autocomplete="off" aria-label="${STRINGS.push.serverToken}">
+        <button type="submit">${STRINGS.push.saveAndRegister}</button>
       </form>
     </details>`;
 }
@@ -159,25 +157,26 @@ async function renderPushBanner() {
 
   mount.innerHTML = `
     <div class="push-banner" id="push-banner">
-      <span class="push-banner-label">${ICONS.bell()} Get breakout alerts as push notifications, same as the Telegram bot sends.</span>
-      <button type="button" id="push-enable-btn">Enable push notifications</button>
-      <button type="button" class="push-banner-dismiss" id="push-dismiss-btn" aria-label="Dismiss">&times;</button>
+      <span class="push-banner-label">${ICONS.bell()} ${STRINGS.push.bannerLabel}</span>
+      <button type="button" id="push-enable-btn">${STRINGS.push.enable}</button>
+      <button type="button" class="push-banner-dismiss" id="push-dismiss-btn"
+              aria-label="${STRINGS.common.dismiss}">&times;</button>
     </div>`;
 
   document.getElementById('push-enable-btn').addEventListener('click', async (e) => {
     const btn = e.currentTarget;
     btn.disabled = true;
-    btn.textContent = 'Enabling…';
+    btn.textContent = STRINGS.push.enabling;
     try {
       await subscribeToPush(document.getElementById('push-banner'));
     } catch (err) {
       btn.disabled = false;
-      btn.textContent = 'Enable push notifications';
+      btn.textContent = STRINGS.push.enable;
       const banner = document.getElementById('push-banner');
       const errNote = document.createElement('p');
       errNote.className = 'push-subscription-hint';
       errNote.style.color = 'var(--loss)';
-      errNote.textContent = 'Could not enable push notifications (permission denied or unsupported).';
+      errNote.textContent = STRINGS.push.enableFailed;
       banner.appendChild(errNote);
     }
   });

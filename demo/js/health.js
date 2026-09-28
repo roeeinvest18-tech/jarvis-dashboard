@@ -13,36 +13,17 @@
 // Everything shown is a name, a state and a time. No error text, paths or
 // tokens are ever sent here, by construction on the server side.
 
-const HEALTH_LABELS = {
-  scan: 'Nightly scan',
-  cci_oversold: 'CCI watchlist',
-  breakout_check: 'Breakout checks',
-  ibkr: 'IBKR account data',
-  reddit: 'Reddit sentiment',
-  gmail: 'Gmail triage',
-  push: 'Push notifications',
-  weekly_briefing: 'Weekly briefing',
-  tax_loss_report: 'Tax-loss report',
-  alert_performance: 'Alert performance report',
-  backup_training: 'Backup · training',
-  backup_daily: 'Backup · daily',
-  backup_push_subscriptions: 'Backup · push devices',
-};
+// Copy lives in strings.js (a global in the browser, required directly by
+// the Node suites that exercise this module's row logic).
+const HEALTH_S = (typeof STRINGS !== 'undefined' ? STRINGS : require('./strings.js').STRINGS).health;
 
-// Plain words for the short codes the workflows send.
-const HEALTH_CODES = {
-  not_configured: 'not set up',
-  token_rejected: 'token rejected',
-  server_reset_suspected: 'server looks reset — restore from backup',
-  flex_unavailable: 'Flex not responding',
-  no_data: 'no data returned',
-  fetch_failed: 'fetch failed',
-  step_failed: 'run step failed',
-  unreachable: 'server unreachable',
-  no_devices: 'no devices subscribed',
-  send_failed: 'push service rejected every send',
-  bad_fallback: 'fallback subscription unreadable',
-};
+const HEALTH_LABELS = HEALTH_S.labels;
+const HEALTH_NONE = (typeof STRINGS !== 'undefined' ? STRINGS : require('./strings.js').STRINGS).common.none;
+
+// Plain words for the short codes the workflows send. Each one now says what
+// to do where there is something to do -- these lines are the only
+// explanation the owner ever gets for a source that stopped reporting.
+const HEALTH_CODES = HEALTH_S.codes;
 
 // How often each source is expected to succeed, for the "behind" call.
 // Anything not listed shows its state and last success without a judgement.
@@ -57,9 +38,9 @@ const HEALTH_SCAN_HOUR_IL = 22;      // the nightly scan's slot, Israel time
 const HEALTH_SCAN_GRACE_HOURS = 6;   // GitHub often starts it hours late
 
 function healthFmtWhen(iso) {
-  if (!iso) return '—';
+  if (!iso) return HEALTH_NONE;
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '—';
+  if (Number.isNaN(d.getTime())) return HEALTH_NONE;
   return mcFmtIL(d, { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 }
 
@@ -87,7 +68,7 @@ function healthExpectedScanSession(now) {
 
 function healthScanRow(scan, now) {
   if (!scan || !scan.generated_at) {
-    return { label: HEALTH_LABELS.scan, state: 'unknown', note: 'no scan data yet', when: null };
+    return { label: HEALTH_LABELS.scan, state: 'unknown', note: HEALTH_S.states.noScanYet, when: null };
   }
   const have = healthScanSession(scan.generated_at);
   const want = healthExpectedScanSession(now);
@@ -95,7 +76,7 @@ function healthScanRow(scan, now) {
   return {
     label: HEALTH_LABELS.scan,
     state: current ? 'current' : 'behind',
-    note: current ? 'current' : `behind — expected the ${want} session`,
+    note: current ? HEALTH_S.states.current : HEALTH_S.states.behindSession(want),
     when: scan.generated_at,
   };
 }
@@ -119,16 +100,22 @@ function healthBreakoutBehind(lastOk, now) {
 function healthRecordRow(r, now) {
   const label = HEALTH_LABELS[r.name] || r.name;
   if (r.state === 'skipped') {
-    return { label, state: 'skipped', note: HEALTH_CODES[r.code] || 'skipped', when: r.last_ok_at };
+    return { label, state: 'skipped', note: HEALTH_CODES[r.code] || HEALTH_CODES.skipped, when: r.last_ok_at };
   }
   if (r.state === 'failing') {
-    return { label, state: 'attention', note: `needs attention — ${HEALTH_CODES[r.code] || 'failing'}`, when: r.last_ok_at };
+    return {
+      label, state: 'attention', when: r.last_ok_at,
+      note: HEALTH_S.states.needsAttention(HEALTH_CODES[r.code] || HEALTH_CODES.failing),
+    };
   }
   let behind = false;
   const maxAge = HEALTH_MAX_AGE_HOURS[r.name];
   if (maxAge) behind = !r.last_ok_at || (now - new Date(r.last_ok_at)) > maxAge * 3600e3;
   if (r.name === 'breakout_check') behind = healthBreakoutBehind(r.last_ok_at, now);
-  return { label, state: behind ? 'behind' : 'current', note: behind ? 'behind' : 'working', when: r.last_ok_at };
+  return {
+    label, state: behind ? 'behind' : 'current', when: r.last_ok_at,
+    note: behind ? HEALTH_S.states.behind : HEALTH_S.states.working,
+  };
 }
 
 function healthSyncConfig() {
@@ -162,12 +149,12 @@ function healthAuthRow(summary) {
   if (!summary) return null;
   const quiet = summary.today === 0 && summary.last_7_days === 0;
   return {
-    label: 'Refused sign-ins',
+    label: HEALTH_S.labels.authFailures,
     state: summary.spike ? 'attention' : quiet ? 'current' : 'behind',
     note: quiet
-      ? 'none in the last 7 days'
-      : `${summary.today} today · ${summary.last_7_days} in 7 days`
-        + (summary.spike ? ' — well above the recent norm' : ''),
+      ? HEALTH_S.auth.quiet
+      : HEALTH_S.auth.counts(summary.today, summary.last_7_days)
+        + (summary.spike ? HEALTH_S.auth.spike : ''),
     when: (summary.recent && summary.recent.length) ? summary.recent[summary.recent.length - 1].at : null,
   };
 }
@@ -195,12 +182,7 @@ function healthRowHtml(row) {
     </li>`;
 }
 
-const HEALTH_REMOTE_NOTES = {
-  'not-deployed': 'Integration details appear once the sync server is updated.',
-  rejected: 'The sync server rejected this device’s token.',
-  unreachable: 'Sync server unreachable — showing the public part only.',
-  error: 'The sync server returned an error.',
-};
+const HEALTH_REMOTE_NOTES = HEALTH_S.remote;
 
 // Renders into `mount`. The summary line stays one line; the rows sit in a
 // <details> so the strip never pushes the page's real content down.
@@ -216,12 +198,12 @@ async function renderHealthStrip(mount, scan, now = new Date()) {
     }
     const attention = rows.filter(r => r.state === 'attention' || r.state === 'behind').length;
     const summary = attention
-      ? `${attention} item${attention === 1 ? '' : 's'} need${attention === 1 ? 's' : ''} attention`
-      : (scanRow.state === 'current' ? 'data current' : scanRow.note);
+      ? HEALTH_S.summary.needAttention(attention)
+      : (scanRow.state === 'current' ? HEALTH_S.summary.allCurrent : scanRow.note);
     const open = mount.querySelector('details') && mount.querySelector('details').open;
     let tail = '';
     if (remote.status === 'no-sync') {
-      tail = renderWithheldZone('Integrations');
+      tail = renderWithheldZone(HEALTH_S.withheldLabel);
     } else if (HEALTH_REMOTE_NOTES[remote.status]) {
       tail = `<p class="health-note">${HEALTH_REMOTE_NOTES[remote.status]}</p>`;
     }
@@ -229,9 +211,9 @@ async function renderHealthStrip(mount, scan, now = new Date()) {
     mount.innerHTML = `
       <details${open ? ' open' : ''}>
         <summary>
-          <span class="health-title">System</span>
+          <span class="health-title">${HEALTH_S.title}</span>
           <span class="health-summary">${escapeHtml(summary)}</span>
-          <span class="health-when mono">scan ${escapeHtml(healthFmtWhen(scanRow.when))}</span>
+          <span class="health-when mono">${escapeHtml(HEALTH_S.summary.lastScan(healthFmtWhen(scanRow.when)))}</span>
         </summary>
         <ul class="health-rows">${rows.map(healthRowHtml).join('')}</ul>
         ${tail}

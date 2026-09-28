@@ -17,16 +17,11 @@ let dailyActiveDate = null;
 let dailyClosingStep = null;
 let dailySleepModalOpen = false;
 
-const DAILY_CLOSE_STEPS = [
-  { id: 'mind', label: 'Mind' },
-  { id: 'sleep', label: 'Sleep' },
-  { id: 'routine', label: 'Routine' },
-  { id: 'nutrition', label: 'Nutrition' },
-  { id: 'learning', label: 'Learning' },
-  { id: 'trading', label: 'Trading' },
-  { id: 'career', label: 'Career' },
-  { id: 'reflection', label: 'Reflection' },
-];
+const TODAY_S = STRINGS.today;
+const CLOSE_S = STRINGS.close;
+const SLEEP_S = STRINGS.sleep;
+
+const DAILY_CLOSE_STEPS = Object.keys(CLOSE_S.steps).map(id => ({ id, label: CLOSE_S.steps[id] }));
 
 function dailyCurrentDate() {
   return dailyActiveDate || dailyTodayIso();
@@ -34,9 +29,9 @@ function dailyCurrentDate() {
 
 function dailyGreeting() {
   const h = new Date().getHours();
-  if (h < 12) return 'Good morning';
-  if (h < 18) return 'Good afternoon';
-  return 'Good evening';
+  if (h < 12) return TODAY_S.greetingMorning;
+  if (h < 18) return TODAY_S.greetingAfternoon;
+  return TODAY_S.greetingEvening;
 }
 
 // The day's date in English. The interface is English throughout (owner's
@@ -78,10 +73,10 @@ function dailyStatusBadge(endIso) {
   const week = DAILY.windowDays(7, end);
   const anyRecent = week.some(r =>
     DAILY_CORE_HABITS.concat(DAILY_EXTRA_HABITS).some(h => !!r[h.id]));
-  if (!anyRecent) return { text: 'BUILDING', kind: 'building' };
+  if (!anyRecent) return { text: TODAY_S.building, kind: 'building' };
   const streak = dailyStreakDays(end);
-  if (streak <= 0) return { text: 'BUILDING', kind: 'building' };
-  return { text: `${streak} DAY${streak === 1 ? '' : 'S'}`, kind: 'streak' };
+  if (streak <= 0) return { text: TODAY_S.building, kind: 'building' };
+  return { text: TODAY_S.streak(streak), kind: 'streak' };
 }
 
 function dailyIsTrainingDay(iso) {
@@ -131,8 +126,8 @@ function dailyHabitCardHtml(id, label, checked, attr = 'data-daily-toggle') {
 }
 
 function dailyExtraLabel(habit, settings) {
-  if (habit.id === 'protein_target_met') return `Protein ${settings.protein_target_g}g`;
-  if (habit.id === 'water_target_met') return `Water ${settings.water_target_l}L`;
+  if (habit.id === 'protein_target_met') return STRINGS.daily.proteinTarget(settings.protein_target_g);
+  if (habit.id === 'water_target_met') return STRINGS.daily.waterTarget(settings.water_target_l);
   return habit.label;
 }
 
@@ -142,7 +137,7 @@ function dailySleepCardHtml(record) {
     return `
       <button type="button" class="sleep-prompt" data-daily-sleep-modal>
         <span class="sleep-prompt-icon" aria-hidden="true">${DAILY_MOON_SVG}</span>
-        <span class="sleep-prompt-text">Log last night's sleep</span>
+        <span class="sleep-prompt-text">${TODAY_S.sleepPrompt}</span>
       </button>`;
   }
   return `
@@ -153,7 +148,7 @@ function dailySleepCardHtml(record) {
         <span class="sleep-logged-meta">
           <span class="mono">${dailyFormatDuration(mins)}</span>
           ${record.sleep_quality !== null
-            ? `<span class="mono">Quality ${record.sleep_quality}/10</span>` : ''}
+            ? `<span class="mono">${TODAY_S.sleepQuality(record.sleep_quality)}</span>` : ''}
         </span>
       </span>
     </button>`;
@@ -169,12 +164,12 @@ function dailyPrioritiesHtml(record) {
         <span class="prio-text">${escapeHtml(text)}</span>
       </button>
       <button type="button" class="prio-remove" data-daily-prio-remove="${i}"
-              aria-label="Remove priority ${i + 1}">&times;</button>
+              aria-label="${TODAY_S.priorityRemove(i + 1)}">&times;</button>
     </div>`).join('');
 
   const canAdd = list.length < 3;
   return `${cards}${canAdd ? `
-    <button type="button" class="prio-add" data-daily-prio-add>+ Add priority</button>` : ''}`;
+    <button type="button" class="prio-add" data-daily-prio-add>+ ${TODAY_S.priorityAdd}</button>` : ''}`;
 }
 
 // --- the screen -----------------------------------------------------------
@@ -193,10 +188,10 @@ function renderDailyToday() {
   mount.innerHTML = `
     <div class="today-head">
       <div class="today-head-row">
-        <h1 class="today-greeting">${isToday ? escapeHtml(dailyGreeting()) : 'Reviewing'}</h1>
+        <h1 class="today-greeting">${escapeHtml(isToday ? dailyGreeting() : TODAY_S.greetingPastDay)}</h1>
         <button type="button" class="holiday-toggle ${record.is_holiday ? 'is-on' : ''}"
                 data-daily-holiday aria-pressed="${record.is_holiday ? 'true' : 'false'}">
-          ${record.is_holiday ? 'Holiday: on' : 'Holiday'}
+          ${escapeHtml(record.is_holiday ? TODAY_S.holidayOn : TODAY_S.holiday)}
         </button>
       </div>
       <div class="today-sub">
@@ -206,14 +201,14 @@ function renderDailyToday() {
     </div>
 
     ${!isToday ? `<div class="today-editing">
-      Editing a past day.
-      <button type="button" class="linkbtn" data-daily-back-today>Back to today</button>
+      ${TODAY_S.editingPastDay}
+      <button type="button" class="linkbtn" data-daily-back-today>${TODAY_S.backToToday}</button>
     </div>` : ''}
 
     ${dailySleepCardHtml(record)}
 
     <section class="today-group">
-      <h2 class="sec-label">Morning core</h2>
+      <h2 class="sec-label">${TODAY_S.sections.morningCore}</h2>
       <div class="habit-grid">
         ${DAILY_CORE_HABITS.map(h => dailyHabitCardHtml(h.id, h.label, !!record[h.id])).join('')}
       </div>
@@ -221,26 +216,26 @@ function renderDailyToday() {
 
     ${record.spiritual_learning ? `
       <div class="followup">
-        <label class="followup-label" for="daily-spiritual-note">What did you learn?</label>
+        <label class="followup-label" for="daily-spiritual-note">${TODAY_S.spiritualPrompt}</label>
         <input type="text" id="daily-spiritual-note" class="text-input"
                data-daily-text="spiritual_learning_note" maxlength="140"
-               placeholder="Mesillat Yesharim — Chapter 4"
+               placeholder="${TODAY_S.spiritualPlaceholder}"
                value="${escapeHtml(record.spiritual_learning_note || '')}">
       </div>` : ''}
 
     ${record.htb_completed ? `
       <div class="followup">
-        <label class="followup-label" for="daily-htb-topic">What did you study?</label>
+        <label class="followup-label" for="daily-htb-topic">${TODAY_S.htbPrompt}</label>
         <input type="text" id="daily-htb-topic" class="text-input"
-               data-daily-text="htb_topic" maxlength="140" placeholder="Kerberos"
+               data-daily-text="htb_topic" maxlength="140" placeholder="${TODAY_S.htbPlaceholder}"
                value="${escapeHtml(record.htb_topic || '')}">
       </div>` : ''}
 
     ${record.minimum_day ? '' : `
     <section class="today-group">
       <div class="sec-label-row">
-        <h2 class="sec-label">Also today</h2>
-        ${trainingDay ? `<span class="sec-note">training day</span>` : ''}
+        <h2 class="sec-label">${TODAY_S.sections.alsoToday}</h2>
+        ${trainingDay ? `<span class="sec-note">${TODAY_S.sections.trainingDay}</span>` : ''}
       </div>
       <div class="habit-grid">
         ${DAILY_EXTRA_HABITS.map(h =>
@@ -251,32 +246,32 @@ function renderDailyToday() {
     </section>`}
 
     <section class="today-group">
-      <h2 class="sec-label">Today's priorities</h2>
+      <h2 class="sec-label">${TODAY_S.sections.priorities}</h2>
       <div class="prio-list">${dailyPrioritiesHtml(record)}</div>
     </section>
 
     <div class="today-tv">
-      <span class="today-tv-label">TradingView opens</span>
+      <span class="today-tv-label">${TODAY_S.tradingViewLabel}</span>
       <div class="today-tv-controls">
-        <button type="button" class="stepper" data-daily-tv="-1" aria-label="One fewer TradingView open">−</button>
+        <button type="button" class="stepper" data-daily-tv="-1" aria-label="${TODAY_S.tradingViewFewer}">−</button>
         <input type="number" min="0" inputmode="numeric" class="today-tv-count mono"
-               data-daily-number="tradingview_opens" aria-label="TradingView opens"
+               data-daily-number="tradingview_opens" aria-label="${TODAY_S.tradingViewLabel}"
                value="${record.tradingview_opens === null ? '' : record.tradingview_opens}">
-        <button type="button" class="stepper" data-daily-tv="1" aria-label="One more TradingView open">+</button>
+        <button type="button" class="stepper" data-daily-tv="1" aria-label="${TODAY_S.tradingViewMore}">+</button>
       </div>
     </div>
 
     <div class="today-minimum-row">
       <button type="button" class="minimum-btn ${record.minimum_day ? 'is-on' : ''}"
               data-daily-minimum aria-pressed="${record.minimum_day ? 'true' : 'false'}">
-        ${record.minimum_day ? 'Minimum day: on' : 'Minimum day'}
+        ${record.minimum_day ? TODAY_S.minimumDayOn : TODAY_S.minimumDay}
       </button>
     </div>
-    ${record.minimum_day ? `<p class="today-minimum-note">Core five only. Everything else is still tracked, just out of the way.</p>` : ''}
+    ${record.minimum_day ? `<p class="today-minimum-note">${TODAY_S.minimumDayNote}</p>` : ''}
 
     <div class="close-day-bar">
       <button type="button" class="close-day-btn" data-daily-close-day>
-        ${record.closed ? 'Reopen the day' : 'Close the Day'}
+        ${record.closed ? TODAY_S.reopenDay : TODAY_S.closeDay}
       </button>
     </div>
   `;
@@ -410,7 +405,7 @@ function dailyOpenPriorityInput(ghostBtn) {
   const wrap = document.createElement('div');
   wrap.className = 'prio-new';
   wrap.innerHTML = `<input type="text" class="text-input" maxlength="80"
-    placeholder="What matters today?" aria-label="New priority">`;
+    placeholder="${TODAY_S.priorityPlaceholder}" aria-label="${TODAY_S.priorityNew}">`;
   ghostBtn.replaceWith(wrap);
   const input = wrap.querySelector('input');
   input.focus();
@@ -477,28 +472,28 @@ function renderDailySleepModal() {
   const mins = dailySleepDurationMinutes(record.sleep_start, record.wake_time);
 
   overlay.innerHTML = `
-    <div class="sheet" role="dialog" aria-modal="true" aria-label="Log sleep">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="${SLEEP_S.dialogLabel}">
       <div class="sheet-head">
-        <span class="sheet-kicker">Sleep</span>
-        <button type="button" class="sheet-x" data-sleep-close aria-label="Close">&times;</button>
+        <span class="sheet-kicker">${SLEEP_S.title}</span>
+        <button type="button" class="sheet-x" data-sleep-close aria-label="${STRINGS.common.close}">&times;</button>
       </div>
       <div class="sheet-body">
-        <p class="sheet-hint">Duration is worked out for you.</p>
+        <p class="sheet-hint">${SLEEP_S.hint}</p>
         <div class="time-row">
-          <label class="time-field"><span>Asleep</span>
+          <label class="time-field"><span>${SLEEP_S.asleep}</span>
             <input type="time" data-daily-time="sleep_start" value="${escapeHtml(record.sleep_start || '')}"></label>
-          <label class="time-field"><span>Awake</span>
+          <label class="time-field"><span>${SLEEP_S.awake}</span>
             <input type="time" data-daily-time="wake_time" value="${escapeHtml(record.wake_time || '')}"></label>
         </div>
         <div class="computed mono">
-          ${mins === null ? 'Duration —' : `Duration ${dailyFormatDuration(mins)}`}
-          ${dailySleepLooksImplausible(mins) ? ' · that looks unusual, worth a second look' : ''}
+          ${mins === null ? SLEEP_S.durationUnknown : SLEEP_S.duration(dailyFormatDuration(mins))}
+          ${dailySleepLooksImplausible(mins) ? SLEEP_S.implausible : ''}
         </div>
-        ${dailyScaleHtml('sleep_quality', 'Sleep quality', record.sleep_quality)}
+        ${dailyScaleHtml('sleep_quality', STRINGS.daily.mind.sleepQuality, record.sleep_quality)}
       </div>
       <div class="sheet-foot">
         <span></span>
-        <button type="button" class="btn-primary" data-sleep-close>Done</button>
+        <button type="button" class="btn-primary" data-sleep-close>${STRINGS.common.done}</button>
       </div>
     </div>`;
 
@@ -570,13 +565,13 @@ function dailyScaleHtml(id, label, value) {
     <div class="scale">
       <div class="scale-head">
         <span>${escapeHtml(label)}</span>
-        <span class="scale-value mono">${value === null ? '—' : value + '/10'}</span>
+        <span class="scale-value mono">${value === null ? STRINGS.common.none : CLOSE_S.scaleValue(value)}</span>
       </div>
-      <div class="scale-row" role="group" aria-label="${escapeHtml(label)} 1 to 10">
+      <div class="scale-row" role="group" aria-label="${escapeHtml(CLOSE_S.scaleGroup(label))}">
         ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => `
           <button type="button" class="scale-dot ${value === n ? 'is-selected' : ''}"
                   data-daily-scale="${escapeHtml(id)}" data-value="${n}"
-                  aria-label="${escapeHtml(label)} ${n} of 10"
+                  aria-label="${escapeHtml(CLOSE_S.scalePoint(label, n))}"
                   aria-pressed="${value === n ? 'true' : 'false'}">${n}</button>`).join('')}
       </div>
     </div>`;
@@ -588,30 +583,30 @@ function dailyCloseStepBodyHtml(step, record, settings) {
   switch (step.id) {
     case 'mind':
       return `
-        <p class="sheet-hint">How the day actually felt.</p>
+        <p class="sheet-hint">${CLOSE_S.hints.mind}</p>
         ${DAILY_MIND_METRICS.map(m => dailyScaleHtml(m.id, m.label, record[m.id])).join('')}
-        ${dailyHabitCardHtml('meditation', 'Meditation', !!record.meditation)}`;
+        ${dailyHabitCardHtml('meditation', STRINGS.daily.habits.meditation, !!record.meditation)}`;
 
     case 'sleep': {
       const mins = dailySleepDurationMinutes(record.sleep_start, record.wake_time);
       return `
-        <p class="sheet-hint">Last night. Duration is worked out for you.</p>
+        <p class="sheet-hint">${SLEEP_S.hintLastNight}</p>
         <div class="time-row">
-          <label class="time-field"><span>Asleep</span>
+          <label class="time-field"><span>${SLEEP_S.asleep}</span>
             <input type="time" data-daily-time="sleep_start" value="${escapeHtml(record.sleep_start || '')}"></label>
-          <label class="time-field"><span>Awake</span>
+          <label class="time-field"><span>${SLEEP_S.awake}</span>
             <input type="time" data-daily-time="wake_time" value="${escapeHtml(record.wake_time || '')}"></label>
         </div>
         <div class="computed mono" id="daily-sleep-computed">
-          ${mins === null ? 'Duration —' : `Duration ${dailyFormatDuration(mins)}`}
-          ${dailySleepLooksImplausible(mins) ? ' · that looks unusual, worth a second look' : ''}
+          ${mins === null ? SLEEP_S.durationUnknown : SLEEP_S.duration(dailyFormatDuration(mins))}
+          ${dailySleepLooksImplausible(mins) ? SLEEP_S.implausible : ''}
         </div>
-        ${dailyScaleHtml('sleep_quality', 'Sleep quality', record.sleep_quality)}`;
+        ${dailyScaleHtml('sleep_quality', STRINGS.daily.mind.sleepQuality, record.sleep_quality)}`;
     }
 
     case 'routine':
       return `
-        <p class="sheet-hint">Anything you finished but haven't ticked.</p>
+        <p class="sheet-hint">${CLOSE_S.hints.routine}</p>
         <div class="habit-grid">
           ${DAILY_CORE_HABITS.map(h => dailyHabitCardHtml(h.id, h.label, !!record[h.id])).join('')}
           ${DAILY_EXTRA_HABITS.filter(h => h.id !== 'career_output')
@@ -620,68 +615,68 @@ function dailyCloseStepBodyHtml(step, record, settings) {
 
     case 'nutrition':
       return `
-        <p class="sheet-hint">Targets only — no food diary.</p>
+        <p class="sheet-hint">${CLOSE_S.hints.nutrition}</p>
         <div class="habit-grid">
-          ${dailyHabitCardHtml('protein_target_met', `Protein ${settings.protein_target_g}g`, !!record.protein_target_met)}
-          ${dailyHabitCardHtml('water_target_met', `Water ${settings.water_target_l}L`, !!record.water_target_met)}
+          ${dailyHabitCardHtml('protein_target_met', STRINGS.daily.proteinTarget(settings.protein_target_g), !!record.protein_target_met)}
+          ${dailyHabitCardHtml('water_target_met', STRINGS.daily.waterTarget(settings.water_target_l), !!record.water_target_met)}
           ${(settings.supplements || []).map(s =>
             dailyHabitCardHtml(s.id, s.label, !!record.supplements[s.id], 'data-daily-supplement')).join('')}
         </div>`;
 
     case 'learning':
       return `
-        <p class="sheet-hint">No duration needed — just what you covered.</p>
+        <p class="sheet-hint">${CLOSE_S.hints.learning}</p>
         <div class="habit-grid">
-          ${dailyHabitCardHtml('htb_completed', 'HTB completed', !!record.htb_completed)}
-          ${dailyHabitCardHtml('spiritual_learning', 'Spiritual learning', !!record.spiritual_learning)}
+          ${dailyHabitCardHtml('htb_completed', STRINGS.daily.habits.htb_completed, !!record.htb_completed)}
+          ${dailyHabitCardHtml('spiritual_learning', STRINGS.daily.habits.spiritual_learning, !!record.spiritual_learning)}
         </div>
         ${record.htb_completed ? `
           <input type="text" class="text-input" data-daily-text="htb_topic"
-                 maxlength="140" placeholder="Kerberos"
+                 maxlength="140" placeholder="${TODAY_S.htbPlaceholder}"
                  value="${escapeHtml(record.htb_topic || '')}">` : ''}
         ${record.spiritual_learning ? `
           <input type="text" class="text-input" data-daily-text="spiritual_learning_note"
-                 maxlength="140" placeholder="Mesillat Yesharim — Chapter 4"
+                 maxlength="140" placeholder="${TODAY_S.spiritualPlaceholder}"
                  value="${escapeHtml(record.spiritual_learning_note || '')}">` : ''}`;
 
     case 'trading':
       return `
-        <p class="sheet-hint">How many times you opened TradingView today.</p>
+        <p class="sheet-hint">${CLOSE_S.hints.trading}</p>
         <div class="bignum-row">
-          <button type="button" class="bignum-btn" data-daily-tv="-1" aria-label="One fewer">−</button>
+          <button type="button" class="bignum-btn" data-daily-tv="-1" aria-label="${CLOSE_S.tradingViewFewer}">−</button>
           <input type="number" min="0" inputmode="numeric" class="bignum-input mono"
-                 data-daily-number="tradingview_opens" aria-label="TradingView opens"
+                 data-daily-number="tradingview_opens" aria-label="${TODAY_S.tradingViewLabel}"
                  value="${record.tradingview_opens === null ? '' : record.tradingview_opens}">
-          <button type="button" class="bignum-btn" data-daily-tv="1" aria-label="One more">+</button>
+          <button type="button" class="bignum-btn" data-daily-tv="1" aria-label="${CLOSE_S.tradingViewMore}">+</button>
         </div>
-        <p class="sheet-hint">Screen time, if you have it to hand (Settings → Screen Time).</p>
+        <p class="sheet-hint">${CLOSE_S.hints.screenTime}</p>
         <div class="time-row">
-          <label class="time-field"><span>Total (min)</span>
+          <label class="time-field"><span>${CLOSE_S.screenTotal}</span>
             <input type="number" min="0" inputmode="numeric" class="mono" data-daily-screen="total_min"
                    value="${record.screen_time.total_min === null ? '' : record.screen_time.total_min}"></label>
-          <label class="time-field"><span>Social (min)</span>
+          <label class="time-field"><span>${CLOSE_S.screenSocial}</span>
             <input type="number" min="0" inputmode="numeric" class="mono" data-daily-screen="social_min"
                    value="${record.screen_time.social_min === null ? '' : record.screen_time.social_min}"></label>
-          <label class="time-field"><span>YouTube (min)</span>
+          <label class="time-field"><span>${CLOSE_S.screenYouTube}</span>
             <input type="number" min="0" inputmode="numeric" class="mono" data-daily-screen="youtube_min"
                    value="${record.screen_time.youtube_min === null ? '' : record.screen_time.youtube_min}"></label>
         </div>`;
 
     case 'career':
       return `
-        <p class="sheet-hint">Only when it was on the plan — skipping is not a miss.</p>
-        ${dailyHabitCardHtml('career_output', 'Career output today', !!record.career_output)}
-        <p class="sheet-hint">Applied, messaged a recruiter, prepped, improved the CV or a project.</p>`;
+        <p class="sheet-hint">${CLOSE_S.hints.career}</p>
+        ${dailyHabitCardHtml('career_output', STRINGS.daily.habits.career_output, !!record.career_output)}
+        <p class="sheet-hint">${CLOSE_S.hints.careerExamples}</p>`;
 
     case 'reflection':
       return `
-        <label class="followup-label" for="daily-win">Win of the day</label>
+        <label class="followup-label" for="daily-win">${CLOSE_S.winLabel}</label>
         <input type="text" id="daily-win" class="text-input" data-daily-text="win_of_day"
-               maxlength="200" placeholder="One thing that went well"
+               maxlength="200" placeholder="${CLOSE_S.winPlaceholder}"
                value="${escapeHtml(record.win_of_day || '')}">
-        <label class="followup-label" for="daily-friction">Friction</label>
+        <label class="followup-label" for="daily-friction">${CLOSE_S.frictionLabel}</label>
         <input type="text" id="daily-friction" class="text-input" data-daily-text="friction"
-               maxlength="200" placeholder="What got in the way"
+               maxlength="200" placeholder="${CLOSE_S.frictionPlaceholder}"
                value="${escapeHtml(record.friction || '')}">`;
 
     default:
@@ -708,10 +703,10 @@ function renderDailyCloseFlow() {
   const isLast = dailyClosingStep === DAILY_CLOSE_STEPS.length - 1;
 
   overlay.innerHTML = `
-    <div class="sheet" role="dialog" aria-modal="true" aria-label="Close the day — ${escapeHtml(step.label)}">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="${escapeHtml(CLOSE_S.dialogLabel(step.label))}">
       <div class="sheet-head">
-        <span class="sheet-kicker">Close the Day</span>
-        <button type="button" class="sheet-x" data-daily-step-cancel aria-label="Close">&times;</button>
+        <span class="sheet-kicker">${CLOSE_S.title}</span>
+        <button type="button" class="sheet-x" data-daily-step-cancel aria-label="${STRINGS.common.close}">&times;</button>
       </div>
       <div class="steps-rail" aria-hidden="true">
         ${DAILY_CLOSE_STEPS.map((s, i) => `
@@ -723,11 +718,11 @@ function renderDailyCloseFlow() {
       </div>
       <div class="sheet-foot">
         ${dailyClosingStep > 0
-          ? `<button type="button" class="btn-ghost" data-daily-step-back>Back</button>`
+          ? `<button type="button" class="btn-ghost" data-daily-step-back>${STRINGS.common.back}</button>`
           : `<span></span>`}
-        <span class="step-count mono">${dailyClosingStep + 1} / ${DAILY_CLOSE_STEPS.length}</span>
+        <span class="step-count mono">${CLOSE_S.progress(dailyClosingStep + 1, DAILY_CLOSE_STEPS.length)}</span>
         <button type="button" class="btn-primary" data-daily-step-next>
-          ${isLast ? 'Complete day' : 'Next'}
+          ${isLast ? CLOSE_S.complete : CLOSE_S.next}
         </button>
       </div>
     </div>`;

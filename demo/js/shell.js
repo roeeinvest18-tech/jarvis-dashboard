@@ -18,32 +18,36 @@
 // active sub-tab underline, the active nav item, and a checked control. It is
 // never used decoratively, so colour always answers "which area am I in".
 
+// Labels come from strings.js. The eyebrow used to carry its own ALL-CAPS
+// copy ('PERSONAL OS') on top of the .shell-eyebrow rule that already
+// uppercases it, so the same label existed twice in two cases; a screen
+// reader read the shouted one. One label now, uppercased by CSS.
+const SHELL_TABS = STRINGS.shell.tabs;
+
 const SHELL_AREAS = [
   {
     id: 'os',
-    label: 'Personal OS',
-    eyebrow: 'PERSONAL OS',
+    label: STRINGS.shell.areas.os,
     href: 'index.html',
     accent: 'purple',
     tabs: [
-      { id: 'today', label: 'Today' },
-      { id: 'training', label: 'Training' },
-      { id: 'insights', label: 'Insights' },
-      { id: 'memory', label: 'Memory' },
-      { id: 'history', label: 'History' },
+      { id: 'today', label: SHELL_TABS.today },
+      { id: 'training', label: SHELL_TABS.training },
+      { id: 'insights', label: SHELL_TABS.insights },
+      { id: 'memory', label: SHELL_TABS.memory },
+      { id: 'history', label: SHELL_TABS.history },
     ],
   },
   {
     id: 'trading',
-    label: 'Trading',
-    eyebrow: 'TRADING',
+    label: STRINGS.shell.areas.trading,
     href: 'trading.html',
     accent: 'gold',
     tabs: [
-      { id: 'top10', label: 'Top 10' },
-      { id: 'breakouts', label: 'Breakouts' },
-      { id: 'fullscan', label: 'Full Scan' },
-      { id: 'scorecard', label: 'Scorecard' },
+      { id: 'top10', label: SHELL_TABS.top10 },
+      { id: 'breakouts', label: SHELL_TABS.breakouts },
+      { id: 'fullscan', label: SHELL_TABS.fullscan },
+      { id: 'scorecard', label: SHELL_TABS.scorecard },
     ],
   },
 ];
@@ -164,11 +168,11 @@ function renderShellSidebar(activeAreaId, activeTabId, onTabChange) {
   sidebar.innerHTML = `
     <div class="shell-logo">
       <span class="shell-logo-mark">${SHELL_ICONS.logo()}</span>
-      <span class="shell-logo-text">JARVIS</span>
+      <span class="shell-logo-text">${STRINGS.common.brand}</span>
     </div>
     ${SHELL_AREAS.map(area => `
       <div class="shell-side-section">
-        <div class="shell-eyebrow accent-${area.accent}">${area.label.toUpperCase()}</div>
+        <div class="shell-eyebrow accent-${area.accent}">${area.label}</div>
         ${area.tabs.map(tab => {
           const isHere = area.id === activeAreaId;
           const active = isHere && tab.id === activeTabId;
@@ -183,8 +187,8 @@ function renderShellSidebar(activeAreaId, activeTabId, onTabChange) {
         }).join('')}
       </div>`).join('')}
     <div class="shell-side-foot">
-      <span class="shell-avatar" aria-hidden="true">R</span>
-      <span class="shell-side-name">Roee</span>
+      <span class="shell-avatar" aria-hidden="true">${STRINGS.shell.ownerInitial}</span>
+      <span class="shell-side-name">${STRINGS.shell.ownerName}</span>
       <span class="shell-side-settings" aria-hidden="true">${SHELL_ICONS.settings()}</span>
     </div>`;
 
@@ -240,7 +244,7 @@ function mountShell({ areaId, titleFor, render }) {
     const eyebrow = document.getElementById('shell-eyebrow');
     if (eyebrow) {
       eyebrow.className = `shell-eyebrow accent-${area.accent}`;
-      eyebrow.textContent = area.eyebrow;
+      eyebrow.textContent = area.label;
     }
     renderShellSubTabs(subtabMount, area, activeTab, setTab);
     if (titleMount && typeof titleFor === 'function') {
