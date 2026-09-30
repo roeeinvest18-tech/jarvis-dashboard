@@ -35,7 +35,12 @@
 // wouldn't know how to render.
 // v22: Training gained a plates load unit, supersets and a quick add-exercise
 // form -- program.js, workout.js, workout-ui.js and the stylesheet all changed.
-const CACHE_NAME = 'jarvis-shell-v22';
+// v23: Today regrouped into Morning / Afternoon / Evening with target times
+// and completion times -- schedule-config.js is new, and daily.js,
+// daily-today.js, os.js, strings.js and the stylesheet changed.
+// v24: Today gained a date bar for opening and editing a past day; the
+// stylesheet and daily-today.js both changed.
+const CACHE_NAME = 'jarvis-shell-v24';
 const SHELL_ASSETS = [
   './',
   'index.html',
@@ -51,6 +56,7 @@ const SHELL_ASSETS = [
   'js/gestures.js',
   'js/icons.js',
   'js/components.js',
+  'js/schedule-config.js',
   'js/daily.js',
   'js/daily-today.js',
   'js/os.js',

@@ -27,6 +27,34 @@ function dailyCurrentDate() {
   return dailyActiveDate || dailyTodayIso();
 }
 
+// Which day the screen is on. null means "follow the clock", so leaving the
+// app open past midnight lands on the new day rather than pinning yesterday.
+//
+// A future date is never accepted: the store would happily key a record
+// under one, and a day that has not happened has nothing to report. Anything
+// at or after today collapses back to null.
+function dailySetActiveDate(iso) {
+  const today = dailyTodayIso();
+  dailyActiveDate = (!iso || iso >= today) ? null : iso;
+  return dailyCurrentDate();
+}
+
+// Exposed for the shell: switching to another tab and back keeps the day you
+// were editing, but a fresh page load starts on today (dailyActiveDate is
+// null until something sets it).
+function dailyStepActiveDate(deltaDays) {
+  return dailySetActiveDate(dailyShiftIso(dailyCurrentDate(), deltaDays));
+}
+
+// "Today", "Yesterday", or the full date -- the two nearest days are named
+// because that is how they are thought about.
+function dailyRelativeDayLabel(iso) {
+  const today = dailyTodayIso();
+  if (iso === today) return TODAY_S.dateNav.isToday;
+  if (iso === dailyShiftIso(today, -1)) return TODAY_S.dateNav.yesterday;
+  return dailyDisplayDate(iso);
+}
+
 function dailyGreeting() {
   const h = new Date().getHours();
   if (h < 12) return TODAY_S.greetingMorning;
@@ -60,7 +88,7 @@ function dailyStreakDays(endIso) {
     if (record && record.is_holiday) continue;
     if (!record) break;
     const normalized = dailyNormalizeRecord(record, date);
-    const any = DAILY_CORE_HABITS.concat(DAILY_EXTRA_HABITS).some(h => !!normalized[h.id]);
+    const any = DAILY_ALL_HABITS.some(h => !!normalized[h.id]);
     if (!any) break;
     streak += 1;
   }
@@ -71,8 +99,7 @@ function dailyStreakDays(endIso) {
 function dailyStatusBadge(endIso) {
   const end = endIso || dailyTodayIso();
   const week = DAILY.windowDays(7, end);
-  const anyRecent = week.some(r =>
-    DAILY_CORE_HABITS.concat(DAILY_EXTRA_HABITS).some(h => !!r[h.id]));
+  const anyRecent = week.some(r => DAILY_ALL_HABITS.some(h => !!r[h.id]));
   if (!anyRecent) return { text: TODAY_S.building, kind: 'building' };
   const streak = dailyStreakDays(end);
   if (streak <= 0) return { text: TODAY_S.building, kind: 'building' };
@@ -103,6 +130,7 @@ function dailyTriggerSync() {
 function dailyPatch(patch) {
   DAILY.saveDay(dailyCurrentDate(), patch);
   renderDailyToday();
+  dailyFlashSaved();
   dailyTriggerSync();
 }
 
@@ -116,19 +144,117 @@ const DAILY_MOON_SVG = `<svg width="17" height="17" viewBox="0 0 18 18" fill="no
   <path d="M15.2 11.1A6.8 6.8 0 0 1 6.9 2.8a6.9 6.9 0 1 0 8.3 8.3z" stroke="currentColor"
         stroke-width="1.5" stroke-linejoin="round"/></svg>`;
 
-function dailyHabitCardHtml(id, label, checked, attr = 'data-daily-toggle') {
+// `meta` is the quiet target-time text on the right of a scheduled row. It is
+// the same whether or not the row is ticked, and whenever it was ticked: the
+// screen never shows how a completion related to its deadline.
+function dailyHabitCardHtml(id, label, checked, attr = 'data-daily-toggle', meta = '') {
   return `
     <button type="button" class="habit ${checked ? 'is-done' : ''}"
             ${attr}="${escapeHtml(id)}" aria-pressed="${checked ? 'true' : 'false'}">
       <span class="habit-box" aria-hidden="true">${checked ? DAILY_CHECK_SVG : ''}</span>
       <span class="habit-label">${escapeHtml(label)}</span>
+      ${meta ? `<span class="habit-time mono">${escapeHtml(meta)}</span>` : ''}
     </button>`;
+}
+
+// --- the schedule groups ----------------------------------------------------
+// Morning / Afternoon / Evening come from DAILY_SCHEDULE (schedule-config.js).
+// The data underneath is unchanged: a day is still one flat record of habit
+// ticks, and the groups are how those ticks are laid out, so no history needed
+// reshaping to appear in them.
+
+function dailyScheduleTimeText(item) {
+  if (Array.isArray(item.window) && item.window.length === 2) {
+    return TODAY_S.schedule.window(item.window[0], item.window[1]);
+  }
+  if (typeof item.deadline === 'string') return TODAY_S.schedule.by(item.deadline);
+  return '';
+}
+
+function dailyScheduleNoteHtml(item) {
+  const note = TODAY_S.schedule.notes[item.id];
+  if (!note) return '';
+  const time = Array.isArray(item.window) && item.window.length === 2
+    ? TODAY_S.schedule.window(item.window[0], item.window[1]) : (item.at || '');
+  return `<div class="sched-note">${escapeHtml(note(time))}</div>`;
+}
+
+function dailyScheduleGroupHtml(group, record, settings, trainingDay) {
+  const coreIds = DAILY_CORE_HABITS.map(h => h.id);
+  // A Minimum Day is the core five and nothing else, exactly as before: the
+  // other items, the reference lines and the supplements step out of the way.
+  const visible = group.items.filter(item =>
+    !record.minimum_day || (item.kind === 'check' && coreIds.includes(item.id)));
+  const rows = visible.map(item => {
+    if (item.kind === 'note') return dailyScheduleNoteHtml(item);
+    if (item.kind === 'supplements') {
+      return (settings.supplements || []).map(sp =>
+        dailyHabitCardHtml(sp.id, sp.label, !!record.supplements[sp.id], 'data-daily-supplement')).join('');
+    }
+    const habit = DAILY_ALL_HABITS.find(h => h.id === item.id);
+    if (!habit) return '';
+    return dailyHabitCardHtml(habit.id, dailyExtraLabel(habit, settings), !!record[habit.id],
+      'data-daily-toggle', dailyScheduleTimeText(item));
+  }).join('');
+  if (!rows.trim()) return '';
+  return `
+    <section class="today-group" data-today-group="${escapeHtml(group.id)}">
+      <div class="sec-label-row">
+        <h2 class="sec-label">${TODAY_S.sections[group.id]}</h2>
+        ${group.id === 'afternoon' && trainingDay && !record.minimum_day
+          ? `<span class="sec-note">${TODAY_S.sections.trainingDay}</span>` : ''}
+      </div>
+      <div class="habit-grid">${rows}</div>
+    </section>`;
+}
+
+function dailyFollowupsHtml(record) {
+  return `${record.spiritual_learning ? `
+      <div class="followup">
+        <label class="followup-label" for="daily-spiritual-note">${TODAY_S.spiritualPrompt}</label>
+        <input type="text" id="daily-spiritual-note" class="text-input"
+               data-daily-text="spiritual_learning_note" maxlength="140"
+               placeholder="${TODAY_S.spiritualPlaceholder}"
+               value="${escapeHtml(record.spiritual_learning_note || '')}">
+      </div>` : ''}
+
+    ${record.htb_completed ? `
+      <div class="followup">
+        <label class="followup-label" for="daily-htb-topic">${TODAY_S.htbPrompt}</label>
+        <input type="text" id="daily-htb-topic" class="text-input"
+               data-daily-text="htb_topic" maxlength="140" placeholder="${TODAY_S.htbPlaceholder}"
+               value="${escapeHtml(record.htb_topic || '')}">
+      </div>` : ''}`;
 }
 
 function dailyExtraLabel(habit, settings) {
   if (habit.id === 'protein_target_met') return STRINGS.daily.proteinTarget(settings.protein_target_g);
   if (habit.id === 'water_target_met') return STRINGS.daily.waterTarget(settings.water_target_l);
   return habit.label;
+}
+
+// Previous / next / today, always visible so the screen is never a dead end
+// on a past day. The next button is genuinely disabled on today rather than
+// hidden: a control that vanishes is harder to understand than one that is
+// visibly unavailable, and the title says why.
+function dailyDateNavHtml(date) {
+  const today = dailyTodayIso();
+  const atToday = date === today;
+  const N = TODAY_S.dateNav;
+  return `
+    <nav class="day-nav" aria-label="${N.label}">
+      <button type="button" class="day-nav-btn" data-daily-day-step="-1"
+              aria-label="${N.previous}">&#8249;</button>
+      <span class="day-nav-current">
+        <span class="day-nav-label">${escapeHtml(dailyRelativeDayLabel(date))}</span>
+        <span class="day-nav-state ${DAILY.hasDay(date) ? 'is-saved' : 'is-empty'}">${
+          DAILY.hasDay(date) ? N.entrySaved : N.noEntry}</span>
+      </span>
+      <button type="button" class="day-nav-btn" data-daily-day-step="1"
+              aria-label="${N.next}" ${atToday ? `disabled title="${N.noFuture}"` : ''}>&#8250;</button>
+      <button type="button" class="day-nav-today ${atToday ? 'is-current' : ''}"
+              data-daily-day-today ${atToday ? 'disabled' : ''}>${N.today}</button>
+    </nav>`;
 }
 
 function dailySleepCardHtml(record) {
@@ -200,50 +326,19 @@ function renderDailyToday() {
       </div>
     </div>
 
+    ${dailyDateNavHtml(date)}
+
     ${!isToday ? `<div class="today-editing">
       ${TODAY_S.editingPastDay}
       <button type="button" class="linkbtn" data-daily-back-today>${TODAY_S.backToToday}</button>
     </div>` : ''}
 
+    ${DAILY.hasDay(date) ? '' : `<p class="today-noentry">${TODAY_S.dateNav.noEntryHint}</p>`}
+
     ${dailySleepCardHtml(record)}
 
-    <section class="today-group">
-      <h2 class="sec-label">${TODAY_S.sections.morningCore}</h2>
-      <div class="habit-grid">
-        ${DAILY_CORE_HABITS.map(h => dailyHabitCardHtml(h.id, h.label, !!record[h.id])).join('')}
-      </div>
-    </section>
-
-    ${record.spiritual_learning ? `
-      <div class="followup">
-        <label class="followup-label" for="daily-spiritual-note">${TODAY_S.spiritualPrompt}</label>
-        <input type="text" id="daily-spiritual-note" class="text-input"
-               data-daily-text="spiritual_learning_note" maxlength="140"
-               placeholder="${TODAY_S.spiritualPlaceholder}"
-               value="${escapeHtml(record.spiritual_learning_note || '')}">
-      </div>` : ''}
-
-    ${record.htb_completed ? `
-      <div class="followup">
-        <label class="followup-label" for="daily-htb-topic">${TODAY_S.htbPrompt}</label>
-        <input type="text" id="daily-htb-topic" class="text-input"
-               data-daily-text="htb_topic" maxlength="140" placeholder="${TODAY_S.htbPlaceholder}"
-               value="${escapeHtml(record.htb_topic || '')}">
-      </div>` : ''}
-
-    ${record.minimum_day ? '' : `
-    <section class="today-group">
-      <div class="sec-label-row">
-        <h2 class="sec-label">${TODAY_S.sections.alsoToday}</h2>
-        ${trainingDay ? `<span class="sec-note">${TODAY_S.sections.trainingDay}</span>` : ''}
-      </div>
-      <div class="habit-grid">
-        ${DAILY_EXTRA_HABITS.map(h =>
-          dailyHabitCardHtml(h.id, dailyExtraLabel(h, settings), !!record[h.id])).join('')}
-        ${(settings.supplements || []).map(s =>
-          dailyHabitCardHtml(s.id, s.label, !!record.supplements[s.id], 'data-daily-supplement')).join('')}
-      </div>
-    </section>`}
+    ${DAILY_SCHEDULE.map(group => dailyScheduleGroupHtml(group, record, settings, trainingDay)
+      + (group.id === 'morning' ? dailyFollowupsHtml(record) : '')).join('')}
 
     <section class="today-group">
       <h2 class="sec-label">${TODAY_S.sections.priorities}</h2>
@@ -288,7 +383,11 @@ function wireDailyToday() {
   mount.querySelectorAll('[data-daily-toggle]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.dailyToggle;
-      dailyPatch({ [id]: !DAILY.getDay(dailyCurrentDate())[id] });
+      const date = dailyCurrentDate();
+      const record = DAILY.getDay(date);
+      // Today is the one place a tick is stamped with its time: the tap is
+      // the act. Past days and Close the Day are recording after the fact.
+      dailyPatch(dailyHabitPatch(record, id, !record[id], { stamp: true, date }));
     });
   });
 
@@ -393,10 +492,42 @@ function wireDailyToday() {
   const back = mount.querySelector('[data-daily-back-today]');
   if (back) {
     back.addEventListener('click', () => {
-      dailyActiveDate = null;
+      dailySetActiveDate(null);
       renderDailyToday();
     });
   }
+
+  mount.querySelectorAll('[data-daily-day-step]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      dailyStepActiveDate(Number(btn.dataset.dailyDayStep));
+      renderDailyToday();
+    });
+  });
+
+  const todayBtn = mount.querySelector('[data-daily-day-today]');
+  if (todayBtn) {
+    todayBtn.addEventListener('click', () => {
+      dailySetActiveDate(null);
+      renderDailyToday();
+    });
+  }
+}
+
+// A write to a day you are not living through has no other feedback -- the
+// habit fills in, but nothing says it reached this date's record rather than
+// today's. The date bar says so for a moment.
+function dailyFlashSaved() {
+  const state = document.querySelector('.day-nav-state');
+  if (!state) return;
+  const previous = state.textContent;
+  state.textContent = TODAY_S.dateNav.saved;
+  state.classList.add('is-flash');
+  setTimeout(() => {
+    if (state.isConnected && state.textContent === TODAY_S.dateNav.saved) {
+      state.textContent = previous;
+      state.classList.remove('is-flash');
+    }
+  }, 1400);
 }
 
 // Swaps the ghost card for a live input in place, rather than opening a
@@ -611,6 +742,7 @@ function dailyCloseStepBodyHtml(step, record, settings) {
           ${DAILY_CORE_HABITS.map(h => dailyHabitCardHtml(h.id, h.label, !!record[h.id])).join('')}
           ${DAILY_EXTRA_HABITS.filter(h => h.id !== 'career_output')
             .map(h => dailyHabitCardHtml(h.id, dailyExtraLabel(h, settings), !!record[h.id])).join('')}
+          ${DAILY_ROUTINE_HABITS.map(h => dailyHabitCardHtml(h.id, h.label, !!record[h.id])).join('')}
         </div>`;
 
     case 'nutrition':
@@ -744,7 +876,8 @@ function wireDailyCloseFlow() {
   overlay.querySelectorAll('[data-daily-toggle]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.dailyToggle;
-      patchLocal({ [id]: !DAILY.getDay(dailyCurrentDate())[id] });
+      const record = DAILY.getDay(dailyCurrentDate());
+      patchLocal(dailyHabitPatch(record, id, !record[id], { stamp: false, date: dailyCurrentDate() }));
     });
   });
 

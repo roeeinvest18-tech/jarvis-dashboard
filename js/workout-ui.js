@@ -1014,7 +1014,11 @@ function wireWorkoutZone() {
 function workoutMarkWorkoutDone(date) {
   if (typeof DAILY === 'undefined' || !DAILY || typeof DAILY.saveDay !== 'function') return;
   try {
-    DAILY.saveDay(date, { workout_completed: true });
+    // Logging the session is the moment the training habit is done, so it is
+    // timed like a tick on Today (only when the session is for today; see
+    // dailyHabitPatch). One-way as before: nothing here ever unticks it.
+    DAILY.saveDay(date, dailyHabitPatch(DAILY.getDay(date), 'workout_completed', true,
+      { stamp: true, date }));
     if (typeof dailyTriggerSync === 'function') dailyTriggerSync();
     if (typeof renderDailyToday === 'function' && date === workoutTodayIso()) renderDailyToday();
   } catch (e) { /* the training log must never fail because of this */ }

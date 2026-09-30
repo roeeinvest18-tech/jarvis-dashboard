@@ -339,6 +339,42 @@ function osConsistencyBarsHtml(records) {
     </div>`).join('')}</div>`;
 }
 
+// Timing against each item's target time, from the completion times Today
+// records. This is the only place "out of norm" is shown. Items with no timed
+// day in the period are left out of the table, and with none at all the panel
+// says what fills it instead of listing rows of zeros.
+function osDeadlinesHtml(records) {
+  const D = OS_S.deadlines;
+  const rows = dailyDeviationTable(records).filter(r => r.timed > 0);
+  if (!rows.length) {
+    return osGhostState({
+      heading: D.ghostHeading,
+      subtext: D.ghostSub,
+      ghost: osGhostBars(dailyDeadlineItems().slice(0, 3).map(i => i.label)),
+      nudge: D.ghostNudge,
+    });
+  }
+  const body = rows.map(r => `
+    <tr>
+      <td>${escapeHtml(r.label)}</td>
+      <td class="mono">${escapeHtml(r.deadline)}</td>
+      <td class="mono">${r.inNorm}</td>
+      <td class="mono">${r.outOfNorm}</td>
+    </tr>
+    <tr class="os-row-note">
+      <td colspan="4">${escapeHtml(r.sufficient
+        ? D.share(r.share, r.timed) : D.needMore(r.timed, DAILY_MIN_GROUP_N))}</td>
+    </tr>`).join('');
+  return `
+    <div class="table-scroll">
+      <table class="os-table">
+        <thead><tr><th>${D.headings.item}</th><th>${D.headings.target}</th><th>${D.headings.inNorm}</th><th>${D.headings.outOfNorm}</th></tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>
+    <p class="os-note">${D.explain(DAILY_OUT_OF_NORM_AFTER_MIN / 60)}</p>`;
+}
+
 function osStatTiles(tiles) {
   return `<div class="stat-grid">${tiles.map(t => `
     <div class="stat-tile">
@@ -405,6 +441,11 @@ function renderOsInsights() {
     <section class="os-block">
       <h2 class="sec-label">${OS_S.sections.consistency}</h2>
       ${consistency}
+    </section>
+
+    <section class="os-block">
+      <h2 class="sec-label">${OS_S.sections.deadlines}</h2>
+      ${osDeadlinesHtml(records)}
     </section>
 
     <section class="os-block">

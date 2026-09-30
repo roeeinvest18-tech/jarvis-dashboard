@@ -348,7 +348,7 @@ const STRINGS = {
     habits: {
       tefillin: 'Tefillin',
       spiritual_learning: 'Spiritual learning',
-      htb_completed: 'HTB',
+      htb_completed: 'Learning block complete',
       four_minute_routine: '4-minute routine',
       meditation: 'Meditation',
       mobility_posture: 'Mobility / posture',
@@ -359,6 +359,11 @@ const STRINGS = {
       water_target_met: 'Water target',
       career_output: 'Career output',
       creatine: 'Creatine',
+      getting_ready: 'Getting ready',
+      breakfast: 'Breakfast',
+      dinner: 'Dinner',
+      wind_down_no_screens: 'Wind-down, no screens',
+      in_bed: 'In bed',
     },
     proteinTarget: (grams) => `Protein ${grams}g`,
     waterTarget: (litres) => `Water ${litres}L`,
@@ -383,14 +388,45 @@ const STRINGS = {
     greetingPastDay: 'Reviewing',
     editingPastDay: 'Editing a past day.',
     backToToday: 'Back to today',
+    // Moving between days on the Today screen itself.
+    dateNav: {
+      label: 'Pick the day to track',
+      previous: 'Previous day',
+      next: 'Next day',
+      today: 'Today',
+      // Only past days can be opened: a day that has not happened has
+      // nothing to report, and the store would file a real record under it.
+      noFuture: 'Today is the last day you can open.',
+      isToday: 'Today',
+      yesterday: 'Yesterday',
+      // Whether this date already has a record, said plainly.
+      entrySaved: 'Entry saved',
+      noEntry: 'No entry yet',
+      noEntryHint: 'Nothing recorded for this day yet. Tick a habit, log sleep or close '
+        + 'the day and an entry is created for this date.',
+      saved: 'Saved',
+    },
     // A streak of zero is not a failure, so it is never reported as one.
     building: 'Building',
     streak: (days) => `${days} day${days === 1 ? '' : 's'}`,
     sections: {
-      morningCore: 'Morning core',
-      alsoToday: 'Also today',
+      morning: 'Morning',
+      afternoon: 'Afternoon',
+      evening: 'Evening',
       trainingDay: 'training day',
       priorities: 'Today’s priorities',
+    },
+    // Reference lines on the schedule: a block or a marker, no checkbox. The
+    // clock times in them are read from schedule-config.js at render time.
+    schedule: {
+      by: (time) => `by ${time}`,
+      window: (from, to) => `${from} to ${to}`,
+      notes: {
+        wake_window: (time) => `Wake window ${time}`,
+        learning_block: () => 'Learning block, 4 hours',
+        lunch: () => 'Free time and lunch',
+        wind_down_dim: (time) => `Wind-down starts ${time}, screens dimmed`,
+      },
     },
     sleepPrompt: 'Log last night’s sleep',
     sleepQuality: (score) => `Quality ${score}/10`,
@@ -591,12 +627,28 @@ const STRINGS = {
     periods: { 7: '7 days', 30: '30 days', 90: '90 days' },
     sections: {
       consistency: 'Consistency',
+      deadlines: 'Timing',
       sleep: 'Sleep',
       mind: 'Mind & energy',
       marketChecking: 'Market checking',
       observations: 'Observations',
       thisWeek: 'This week',
       experiments: 'Experiments',
+    },
+    // Timing against each item's target time. Insights only: Today looks the
+    // same for an item ticked at 09:00 and one ticked at 14:00.
+    deadlines: {
+      headings: { item: 'Item', target: 'Target', inNorm: 'In norm', outOfNorm: 'Out of norm' },
+      explain: (hours) => `Out of norm means ticked more than ${hours} hours after the target time. `
+        + 'Earlier than the target counts as in norm. Holiday days are left out.',
+      share: (pct, n) => `${pct}% in norm over ${n} timed days`,
+      needMore: (n, min) => `${n} of ${min} timed days so far. A rate appears after ${min}.`,
+      noTimes: 'No timed days yet',
+      ghostHeading: 'Timing starts from the first item you tick on Today',
+      ghostSub: 'Each item with a target time gets a count of days ticked in norm and out of norm. '
+        + 'Days ticked before this existed, from a past day, or inside Close the Day carry no time '
+        + 'and are left out, so this fills in as you tick items on the day itself.',
+      ghostNudge: 'Tick an item on Today to start the record',
     },
     consistency: {
       headings: { habit: 'Habit', done: 'Done', rate: 'Rate' },

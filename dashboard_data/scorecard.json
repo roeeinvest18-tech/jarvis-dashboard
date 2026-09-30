@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T21:22:38+00:00",
+  "generated_at": "2026-09-30T22:51:09+00:00",
   "min_sample": 20,
   "horizons_trading_days": [
     5,
@@ -8,20 +8,20 @@
   ],
   "period": {
     "first_session": "2026-07-24",
-    "last_session": "2026-09-29"
+    "last_session": "2026-09-30"
   },
   "method": "Entry at the pick session's close for the stock and SPY alike; no dividends, costs or slippage. A stock picked on several nights counts once per night, so samples overlap and are not independent.",
   "rows": [
     {
       "model_version": "lowcci-v1",
       "group": "all ranks",
-      "picks": 60,
-      "sessions": 6,
+      "picks": 70,
+      "sessions": 7,
       "first_session": "2026-09-22",
-      "last_session": "2026-09-29",
+      "last_session": "2026-09-30",
       "horizons": {
         "5": {
-          "n": 0
+          "n": 14
         },
         "10": {
           "n": 0
@@ -34,13 +34,13 @@
     {
       "model_version": "lowcci-v1",
       "group": "rank 1-3",
-      "picks": 18,
-      "sessions": 6,
+      "picks": 21,
+      "sessions": 7,
       "first_session": "2026-09-22",
-      "last_session": "2026-09-29",
+      "last_session": "2026-09-30",
       "horizons": {
         "5": {
-          "n": 0
+          "n": 5
         },
         "10": {
           "n": 0
@@ -53,13 +53,13 @@
     {
       "model_version": "lowcci-v1",
       "group": "rank 4-6",
-      "picks": 18,
-      "sessions": 6,
+      "picks": 21,
+      "sessions": 7,
       "first_session": "2026-09-22",
-      "last_session": "2026-09-29",
+      "last_session": "2026-09-30",
       "horizons": {
         "5": {
-          "n": 0
+          "n": 5
         },
         "10": {
           "n": 0
@@ -72,13 +72,13 @@
     {
       "model_version": "lowcci-v1",
       "group": "rank 7-10",
-      "picks": 24,
-      "sessions": 6,
+      "picks": 28,
+      "sessions": 7,
       "first_session": "2026-09-22",
-      "last_session": "2026-09-29",
+      "last_session": "2026-09-30",
       "horizons": {
         "5": {
-          "n": 0
+          "n": 4
         },
         "10": {
           "n": 0
@@ -103,16 +103,16 @@
           "beat_spy_pct": 41.1
         },
         "10": {
-          "n": 335,
-          "avg_return_pct": 0.29,
-          "avg_excess_vs_spy_pct": -0.32,
-          "beat_spy_pct": 40.3
+          "n": 341,
+          "avg_return_pct": 0.18,
+          "avg_excess_vs_spy_pct": -0.44,
+          "beat_spy_pct": 39.6
         },
         "20": {
-          "n": 235,
-          "avg_return_pct": -0.62,
-          "avg_excess_vs_spy_pct": -1.08,
-          "beat_spy_pct": 37.4
+          "n": 245,
+          "avg_return_pct": -0.94,
+          "avg_excess_vs_spy_pct": -1.38,
+          "beat_spy_pct": 37.1
         }
       }
     },
@@ -131,15 +131,15 @@
           "beat_spy_pct": 40.4
         },
         "10": {
-          "n": 102,
-          "avg_return_pct": 0.33,
-          "avg_excess_vs_spy_pct": -0.34,
-          "beat_spy_pct": 40.2
+          "n": 104,
+          "avg_return_pct": 0.26,
+          "avg_excess_vs_spy_pct": -0.42,
+          "beat_spy_pct": 39.4
         },
         "20": {
-          "n": 72,
-          "avg_return_pct": -0.16,
-          "avg_excess_vs_spy_pct": -0.68,
+          "n": 75,
+          "avg_return_pct": -0.56,
+          "avg_excess_vs_spy_pct": -1.06,
           "beat_spy_pct": 34.7
         }
       }
@@ -159,16 +159,16 @@
           "beat_spy_pct": 45.1
         },
         "10": {
-          "n": 101,
-          "avg_return_pct": 1.41,
-          "avg_excess_vs_spy_pct": 0.78,
-          "beat_spy_pct": 47.5
+          "n": 103,
+          "avg_return_pct": 1.3,
+          "avg_excess_vs_spy_pct": 0.66,
+          "beat_spy_pct": 46.6
         },
         "20": {
-          "n": 71,
-          "avg_return_pct": -0.61,
-          "avg_excess_vs_spy_pct": -1.1,
-          "beat_spy_pct": 39.4
+          "n": 75,
+          "avg_return_pct": -0.95,
+          "avg_excess_vs_spy_pct": -1.4,
+          "beat_spy_pct": 38.7
         }
       }
     },
@@ -187,16 +187,16 @@
           "beat_spy_pct": 38.5
         },
         "10": {
-          "n": 132,
-          "avg_return_pct": -0.6,
-          "avg_excess_vs_spy_pct": -1.15,
-          "beat_spy_pct": 34.8
+          "n": 134,
+          "avg_return_pct": -0.74,
+          "avg_excess_vs_spy_pct": -1.3,
+          "beat_spy_pct": 34.3
         },
         "20": {
-          "n": 92,
-          "avg_return_pct": -0.98,
-          "avg_excess_vs_spy_pct": -1.37,
-          "beat_spy_pct": 38.0
+          "n": 95,
+          "avg_return_pct": -1.25,
+          "avg_excess_vs_spy_pct": -1.62,
+          "beat_spy_pct": 37.9
         }
       }
     },
@@ -215,16 +215,16 @@
           "beat_spy_pct": 41.7
         },
         "10": {
-          "n": 339,
-          "avg_return_pct": -0.73,
-          "avg_excess_vs_spy_pct": -1.39,
-          "beat_spy_pct": 44.2
+          "n": 347,
+          "avg_return_pct": -0.69,
+          "avg_excess_vs_spy_pct": -1.35,
+          "beat_spy_pct": 44.1
         },
         "20": {
-          "n": 239,
-          "avg_return_pct": -4.2,
-          "avg_excess_vs_spy_pct": -4.71,
-          "beat_spy_pct": 33.1
+          "n": 244,
+          "avg_return_pct": -4.27,
+          "avg_excess_vs_spy_pct": -4.76,
+          "beat_spy_pct": 32.8
         }
       }
     },
@@ -243,10 +243,10 @@
           "beat_spy_pct": 45.1
         },
         "10": {
-          "n": 101,
-          "avg_return_pct": -0.81,
-          "avg_excess_vs_spy_pct": -1.43,
-          "beat_spy_pct": 40.6
+          "n": 105,
+          "avg_return_pct": -0.58,
+          "avg_excess_vs_spy_pct": -1.22,
+          "beat_spy_pct": 41.0
         },
         "20": {
           "n": 71,
@@ -271,16 +271,16 @@
           "beat_spy_pct": 43.0
         },
         "10": {
-          "n": 102,
-          "avg_return_pct": -0.4,
-          "avg_excess_vs_spy_pct": -1.07,
-          "beat_spy_pct": 48.0
+          "n": 106,
+          "avg_return_pct": -0.49,
+          "avg_excess_vs_spy_pct": -1.18,
+          "beat_spy_pct": 47.2
         },
         "20": {
-          "n": 72,
-          "avg_return_pct": -1.65,
-          "avg_excess_vs_spy_pct": -2.18,
-          "beat_spy_pct": 37.5
+          "n": 75,
+          "avg_return_pct": -1.78,
+          "avg_excess_vs_spy_pct": -2.29,
+          "beat_spy_pct": 37.3
         }
       }
     },
@@ -305,10 +305,10 @@
           "beat_spy_pct": 44.1
         },
         "20": {
-          "n": 96,
-          "avg_return_pct": -5.59,
-          "avg_excess_vs_spy_pct": -6.12,
-          "beat_spy_pct": 34.4
+          "n": 98,
+          "avg_return_pct": -5.71,
+          "avg_excess_vs_spy_pct": -6.22,
+          "beat_spy_pct": 33.7
         }
       }
     }

@@ -55,6 +55,14 @@ const DAILY_FALLBACK_SYNC_TOKEN_KEY = 'jarvis:training:syncToken';
 const DAILY_S = (typeof STRINGS !== 'undefined' ? STRINGS : require('./strings.js').STRINGS).daily;
 const DAILY_HABIT_LABELS = DAILY_S.habits;
 
+// The Today schedule (groups, deadlines, the out-of-norm rule). Static data in
+// its own file so a time can be changed without touching this logic; under Node
+// it is required, in the browser it is already a global (index.html loads it
+// first).
+const DAILY_SCHED = (typeof DAILY_SCHEDULE !== 'undefined')
+  ? { DAILY_SCHEDULE, DAILY_OUT_OF_NORM_AFTER_MIN, dailyItemDeadline }
+  : require('./schedule-config.js');
+
 const DAILY_CORE_HABITS = [
   { id: 'tefillin', label: DAILY_HABIT_LABELS.tefillin },
   { id: 'spiritual_learning', label: DAILY_HABIT_LABELS.spiritual_learning },
@@ -71,6 +79,26 @@ const DAILY_EXTRA_HABITS = [
   { id: 'water_target_met', label: DAILY_HABIT_LABELS.water_target_met },
   { id: 'career_output', label: DAILY_HABIT_LABELS.career_output },
 ];
+
+// Added with the Morning / Afternoon / Evening restructure. Tracked and timed,
+// but deliberately not part of the tier ladder: dailyExtraDoneCount and
+// dailyDayTier count only the lists above, so adding these cannot turn a
+// Standard day into a Great one or change what a Minimum Day is.
+const DAILY_ROUTINE_HABITS = [
+  { id: 'getting_ready', label: DAILY_HABIT_LABELS.getting_ready },
+  { id: 'breakfast', label: DAILY_HABIT_LABELS.breakfast },
+  { id: 'dinner', label: DAILY_HABIT_LABELS.dinner },
+  { id: 'wind_down_no_screens', label: DAILY_HABIT_LABELS.wind_down_no_screens },
+  { id: 'in_bed', label: DAILY_HABIT_LABELS.in_bed },
+];
+
+const DAILY_ALL_HABITS = DAILY_CORE_HABITS.concat(DAILY_EXTRA_HABITS, DAILY_ROUTINE_HABITS);
+
+// A record written before the restructure has no value at all for a routine
+// habit, which reads back as "not ticked". That is not the same fact as "was
+// offered and not ticked", so consistency counts a routine habit only over
+// days stamped with this schedule version or later.
+const DAILY_SCHEDULE_VERSION = 2;
 
 const DAILY_MIND_METRICS = [
   { id: 'mood', label: DAILY_S.mind.mood },
@@ -234,11 +262,18 @@ function dailyEmptyRecord(date) {
     // simple on/off toggle, not a type -- Shabbat and any other holiday are
     // the one thing as far as the analytics are concerned.
     is_holiday: false,
+    // When each item was ticked on Today, as an ISO instant, keyed by habit
+    // id. Only written for a tick made on the day itself (see
+    // dailyHabitPatch); an absent entry means "no honest time", never zero.
+    completed_at: {},
+    // Which Today layout wrote the day. A day that never had the field is
+    // version 1 (normalize below), so this is never stamped onto old history.
+    schedule_v: DAILY_SCHEDULE_VERSION,
     closed: false,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   };
-  DAILY_CORE_HABITS.concat(DAILY_EXTRA_HABITS).forEach(h => { record[h.id] = false; });
+  DAILY_ALL_HABITS.forEach(h => { record[h.id] = false; });
   return record;
 }
 
@@ -248,6 +283,10 @@ function dailyNormalizeRecord(record, date) {
   const base = dailyEmptyRecord(date || (record && record.date) || dailyTodayIso());
   const merged = { ...base, ...(record || {}) };
   merged.supplements = { ...(record && record.supplements) || {} };
+  merged.completed_at = { ...((record && record.completed_at) || {}) };
+  // The base above would stamp the CURRENT version onto a stored record that
+  // predates it. A stored record without the field is a version-1 day.
+  merged.schedule_v = record ? (record.schedule_v || 1) : DAILY_SCHEDULE_VERSION;
   merged.screen_time = { ...base.screen_time, ...((record && record.screen_time) || {}) };
   merged.priorities = Array.isArray(merged.priorities) ? merged.priorities.slice(0, 3) : [];
   merged.priorities_done = Array.isArray(merged.priorities_done)
@@ -305,6 +344,103 @@ function dailyDayTier(record) {
   if (extras >= 4 && learned) return { id: 'great', label: DAILY_S.tiers.great, core, extras };
   if (extras >= 2) return { id: 'standard', label: DAILY_S.tiers.standard, core, extras };
   return { id: 'minimum', label: DAILY_S.tiers.minimum, core, extras };
+}
+
+// --- completion times and deadlines -----------------------------------------
+// The time an item was ticked is recorded as the tap happens; whether that was
+// "in norm" is worked out on read from the schedule config, never stored, so a
+// changed deadline re-reads history. Nothing here is shown on Today.
+
+// The patch for ticking or unticking one habit, with its completion time.
+// `stamp` is true only for a tick made on Today itself, because a time is only
+// true if the tap was the act:
+//   - ticking a past day, or ticking inside Close the Day at night, is
+//     recording something that already happened, and stamping "now" would file
+//     a 09:00 meditation as a 22:30 one;
+//   - so those ticks carry no time and are left out of the deadline figures
+//     instead of being counted as late.
+// An item already done keeps its first time if it is ticked again (the training
+// log re-ticks Workout whenever its session is edited).
+function dailyHabitPatch(record, id, done, { stamp = false, date = null, nowIso = null } = {}) {
+  const at = { ...((record && record.completed_at) || {}) };
+  const day = date || (record && record.date);
+  if (!done) {
+    delete at[id];
+  } else if (stamp && day === dailyTodayIso()) {
+    if (!(record && record[id] && at[id])) at[id] = nowIso || new Date().toISOString();
+  } else {
+    delete at[id];
+  }
+  return { [id]: !!done, completed_at: at };
+}
+
+function dailyScheduleChecks() {
+  const out = [];
+  DAILY_SCHED.DAILY_SCHEDULE.forEach(group => group.items.forEach(item => {
+    if (item.kind === 'check') out.push({ ...item, group: group.id });
+  }));
+  return out;
+}
+
+// Items with a time asked of them, in on-screen order, with their labels.
+function dailyDeadlineItems() {
+  return dailyScheduleChecks()
+    .map(item => {
+      const deadline = DAILY_SCHED.dailyItemDeadline(item);
+      const habit = DAILY_ALL_HABITS.find(h => h.id === item.id);
+      return deadline && habit ? { id: item.id, label: habit.label, deadline, window: item.window || null } : null;
+    })
+    .filter(Boolean);
+}
+
+// Minutes between an item's deadline on `date` and the moment it was ticked
+// (positive = after). null when there is no honest time to compare.
+function dailyMinutesPastDeadline(record, id) {
+  const item = dailyDeadlineItems().find(i => i.id === id);
+  const stamp = record && record.completed_at && record.completed_at[id];
+  if (!item || !stamp || !record[id]) return null;
+  const tickedAt = new Date(stamp).getTime();
+  const m = /^(\d{2}):(\d{2})$/.exec(item.deadline);
+  if (!m || !Number.isFinite(tickedAt)) return null;
+  const due = new Date(`${record.date}T${m[1]}:${m[2]}:00`).getTime();
+  if (!Number.isFinite(due)) return null;
+  return Math.round((tickedAt - due) / 60000);
+}
+
+// 'untimed' (no time to judge), 'in_norm', or 'out_of_norm' (more than the
+// configured margin after the deadline). Early is in norm.
+function dailyDeviationStatus(record, id) {
+  const past = dailyMinutesPastDeadline(record, id);
+  if (past === null) return 'untimed';
+  return past > DAILY_SCHED.DAILY_OUT_OF_NORM_AFTER_MIN ? 'out_of_norm' : 'in_norm';
+}
+
+// Per item over the given records (windowDays already leaves out holiday /
+// Shabbat days, so they never reach here). `share` is withheld until the item
+// has DAILY_MIN_GROUP_N timed days behind it, the same floor every other
+// comparison in Insights uses; below it the counts are shown and no rate is.
+function dailyDeviationTable(records) {
+  return dailyDeadlineItems().map(item => {
+    let inNorm = 0;
+    let outOfNorm = 0;
+    records.forEach(r => {
+      const status = dailyDeviationStatus(r, item.id);
+      if (status === 'in_norm') inNorm += 1;
+      else if (status === 'out_of_norm') outOfNorm += 1;
+    });
+    const timed = inNorm + outOfNorm;
+    return {
+      id: item.id,
+      label: item.label,
+      deadline: item.deadline,
+      window: item.window,
+      timed,
+      inNorm,
+      outOfNorm,
+      sufficient: timed >= DAILY_MIN_GROUP_N,
+      share: timed >= DAILY_MIN_GROUP_N ? Math.round((inNorm / timed) * 100) : null,
+    };
+  });
 }
 
 // --- store ----------------------------------------------------------------
@@ -677,18 +813,25 @@ const DAILY = {
 // the calendar window. A week away with no check-ins should read as "no data",
 // not as a week of failures.
 function dailyConsistency(records, habitId) {
-  const reported = records.length;
+  // A routine habit did not exist on a version-1 day, so that day is not a
+  // day it was "reported not done" on; it is left out of the denominator.
+  const pool = DAILY_ROUTINE_HABITS.some(h => h.id === habitId)
+    ? records.filter(r => (r.schedule_v || 1) >= DAILY_SCHEDULE_VERSION)
+    : records;
+  const reported = pool.length;
   if (!reported) return { done: 0, reported: 0, pct: null };
-  const done = records.filter(r => !!r[habitId]).length;
+  const done = pool.filter(r => !!r[habitId]).length;
   return { done, reported, pct: Math.round((done / reported) * 100) };
 }
 
 function dailyConsistencyTable(records) {
-  return DAILY_CORE_HABITS.concat(DAILY_EXTRA_HABITS).map(h => ({
+  // A routine habit with no day behind it yet is left out rather than shown
+  // as an empty row of dashes; it appears once there is something to count.
+  return DAILY_ALL_HABITS.map(h => ({
     id: h.id,
     label: h.label,
     ...dailyConsistency(records, h.id),
-  }));
+  })).filter(r => r.reported > 0 || !DAILY_ROUTINE_HABITS.some(h => h.id === r.id));
 }
 
 function dailySleepStats(records) {
@@ -850,7 +993,7 @@ function dailyWeeklyReview(endIso) {
   const improved = [];
   const declined = [];
   const steady = [];
-  DAILY_CORE_HABITS.concat(DAILY_EXTRA_HABITS).forEach(h => {
+  DAILY_ALL_HABITS.forEach(h => {
     const now = dailyConsistency(thisWeek, h.id);
     const before = dailyConsistency(prevWeek, h.id);
     if (now.pct === null || before.pct === null) return;
@@ -953,7 +1096,8 @@ function dailyRetentionTable() {
 // plain <script>, so everything above is already a global and this is skipped.
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
-    DAILY, DAILY_KEYS, DAILY_CORE_HABITS, DAILY_EXTRA_HABITS, DAILY_MIND_METRICS,
+    DAILY, DAILY_KEYS, DAILY_CORE_HABITS, DAILY_EXTRA_HABITS, DAILY_ROUTINE_HABITS,
+    DAILY_ALL_HABITS, DAILY_SCHEDULE_VERSION, DAILY_MIND_METRICS,
     DAILY_DEFAULT_SETTINGS, DAILY_RECALL_INTERVALS_DAYS, DAILY_MIN_GROUP_N,
     dailyToIso, dailyTodayIso, dailyShiftIso, dailyDaysBetween, dailyWeekdayIndex,
     dailyParseClock, dailySleepDurationMinutes, dailyFormatDuration,
@@ -961,6 +1105,8 @@ if (typeof module !== 'undefined' && module.exports) {
     dailyMean, dailyStdDev, dailyRound,
     dailyEmptyRecord, dailyNormalizeRecord, dailyIsBlank, dailyClampScore, dailyClampCount,
     dailyCoreDoneCount, dailyExtraDoneCount, dailyDayTier,
+    dailyHabitPatch, dailyScheduleChecks, dailyDeadlineItems, dailyMinutesPastDeadline,
+    dailyDeviationStatus, dailyDeviationTable,
     dailyConsistency, dailyConsistencyTable, dailySleepStats, dailyGroupCompare,
     dailyTradingViewStats, dailyBehaviouralObservations, dailyWeeklyReview,
     dailyDueRecalls, dailyRetentionTable,

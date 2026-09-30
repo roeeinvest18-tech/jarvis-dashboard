@@ -57,6 +57,10 @@ function osRunPendingAction(tab) {
 // migration source: it is where sessions logged on another device under the old
 // flat model ended up, and they have to be pulled into the new shape before the
 // screen can show them. Nothing writes it.
+
+// Whether Today has been rendered yet in this page load; see render().
+let osTodayVisited = false;
+
 let osTrainingPayload = null;
 let osTrainingFetched = false;
 let osTrainingMigrated = false;
@@ -103,7 +107,15 @@ const osShell = mountShell({
   titleFor: tab => (OS_TAB_TITLES[tab] ? `<h1 class="shell-title">${OS_TAB_TITLES[tab]}</h1>` : ''),
   render(tab) {
     if (tab === 'today') {
-      dailyActiveDate = osDateFromQuery();
+      // ?date= is read once, on the first visit to Today in this page load
+      // (History's "edit this day" links into it). After that the screen's
+      // own date navigation owns the selection, so switching to Training and
+      // back returns to the day you were editing rather than snapping to
+      // today.
+      if (!osTodayVisited) {
+        osTodayVisited = true;
+        dailySetActiveDate(osDateFromQuery());
+      }
       renderDailyToday();
       dailyTriggerSync();
       osRunPendingAction(tab);

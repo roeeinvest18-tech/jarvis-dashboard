@@ -2668,6 +2668,70 @@ a { color: var(--ink); }
 }
 .today-badge.is-streak { color: var(--ink2); }
 
+/* Moving between days. A rule above and below rather than a card, and no
+   accent: which day you are on is information, not an achievement. */
+.day-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.day-nav-current {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.25;
+}
+.day-nav-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-secondary);
+  color: var(--ink);
+}
+.day-nav-state {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink2);
+}
+/* An absent entry is not a failure, so it reads in the same muted ink as a
+   saved one. The momentary "Saved" steps up to full-strength ink rather than
+   the accent: --mark means complete or notable (a finished habit, a personal
+   best, a RECLAIM tag), and a write confirmation is neither. */
+.day-nav-state.is-flash { color: var(--ink); }
+.day-nav-btn,
+.day-nav-today {
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-badge);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 var(--sp-3);
+}
+.day-nav-btn { font-size: var(--fs-body); }
+.day-nav-today { font-size: var(--fs-tag); letter-spacing: .07em; text-transform: uppercase; }
+/* Disabled is carried by the missing border and the disabled attribute, not
+   by fading the text: --ink3 is decoration-only and never the colour of
+   something with visible text (test_contrast_e2e.js enforces that). */
+.day-nav-btn:disabled,
+.day-nav-today:disabled {
+  color: var(--ink2);
+  border-color: transparent;
+  cursor: default;
+}
+
+/* Why this day looks blank, and what would fill it. */
+.today-noentry {
+  font-size: var(--fs-secondary);
+  color: var(--ink2);
+  margin: var(--sp-3) 0 0;
+}
+
 .today-editing {
   font-size: var(--fs-secondary);
   color: var(--ink2);
@@ -2756,6 +2820,29 @@ a { color: var(--ink); }
   text-decoration-thickness: 1px;
 }
 .habit-label { line-height: 1.35; min-width: 0; }
+/* The target time on a scheduled row: quiet, and identical whether the row is
+   ticked or not and however the tick related to it. */
+.habit-time {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: var(--fs-tag);
+  color: var(--ink2);
+}
+/* A reference line on the schedule (a block or a marker): no box, no tap. */
+.sched-note {
+  padding: var(--sp-3) 0;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--rule-soft);
+  font-family: var(--font-serif);
+  font-size: var(--fs-secondary);
+  font-style: italic;
+  color: var(--ink2);
+}
+.habit-grid .sched-note:last-child { border-bottom: none; }
+.os-row-note td { font-size: var(--fs-tag); color: var(--ink2); padding-top: 0; }
+table.os-table tr:has(+ .os-row-note) td { border-bottom: none; }
 
 /* --- inputs --- */
 
