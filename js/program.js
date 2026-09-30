@@ -350,6 +350,75 @@ const EXERCISES = [
       + 'triceps have already been loaded by the chest press.',
   },
   {
+    id: 'short_foot',
+    name: 'Short Foot',
+    category: 'legs',
+    movement_pattern: 'foot_intrinsic',
+    primary_muscles: ['foot_intrinsics'],
+    equipment: 'bodyweight',
+    progression_type: 'hold_duration',
+    variations: ['seated', 'two_leg_standing', 'one_leg_standing'],
+    why: "Strengthens the foot's intrinsic muscles; meta-analyses show consistent "
+      + 'improvement in arch support and dynamic balance, though evidence for '
+      + 'muscle hypertrophy itself is weak -- this is a stability/function '
+      + 'exercise, not a size exercise.',
+    rationale: 'Same variation ladder and hold-duration progression as the '
+      + 'other skill holds, just for the arch rather than the trunk or '
+      + 'shoulders. Logged as several short holds per session (roughly 2-3 '
+      + 'sets of ~10), not one long hold, which is why the attempt count is '
+      + 'high -- see BMR 2024 and Huang et al. 2022.',
+  },
+  {
+    id: 'mtp_flexion',
+    name: 'MTP Flexion',
+    category: 'legs',
+    movement_pattern: 'foot_intrinsic',
+    primary_muscles: ['foot_intrinsics'],
+    equipment: 'bodyweight',
+    progression_type: 'hold_duration',
+    variations: ['seated', 'two_leg_standing', 'one_leg_standing'],
+    why: "Strengthens the foot's intrinsic muscles; meta-analyses show consistent "
+      + 'improvement in arch support and dynamic balance, though evidence for '
+      + 'muscle hypertrophy itself is weak -- this is a stability/function '
+      + 'exercise, not a size exercise.',
+    rationale: 'The same foot-intrinsic case as Short Foot, at the toe joint '
+      + 'rather than the arch. Alternated with Short Foot across Day 3 and '
+      + 'Day 5 rather than doing both every session -- see BMR 2024 and Huang '
+      + 'et al. 2022.',
+  },
+  {
+    id: 'pogo_jumps',
+    name: 'Pogo Jumps',
+    category: 'legs',
+    movement_pattern: 'plyometric',
+    primary_muscles: ['calves', 'achilles'],
+    equipment: 'bodyweight',
+    progression_type: 'hold_duration',
+    // Reuses hold_duration's progression machinery (sum a quantity per
+    // attempt, compare session-over-session, suggest the next variation past
+    // a threshold) for a rep count instead of a duration -- see workout.js's
+    // holdMetricValue(). hold_metric tells the UI/copy layer which unit the
+    // stored number actually is, so it is never mislabelled as seconds.
+    hold_metric: 'reps',
+    // A subjective note or a Garmin-supplied ground-contact-time reading,
+    // per attempt. Optional; most hold_duration exercises don't use it.
+    logs_quality_note: true,
+    // Soft floor, not a hard block: workout-ui.js shows a plain warning below
+    // this threshold and lets the session be logged anyway.
+    min_gap_hours: 48,
+    variations: ['double_leg', 'single_leg'],
+    why: 'Builds elastic energy storage capacity in tendons (Schleip et al.) '
+      + '-- evidence here is more preliminary than the strength-training '
+      + 'research elsewhere in this program; do every 48h at most.',
+    rationale: 'Schleip et al.\'s fascia/tendon elastic-recoil case for '
+      + 'plyometrics rests on animal studies plus limited human tendon-'
+      + 'stiffness measures, so it is presented with less confidence than the '
+      + 'resistance-training citations elsewhere in this program. Reps and a '
+      + 'quality note (ground contact time, if a device supplies it) are '
+      + 'tracked in place of a hold duration since a pogo jump is not a hold. '
+      + 'Only on Day 5, to respect the 48h gap against the existing schedule.',
+  },
+  {
     id: 'single_leg_rdl',
     name: 'Single-leg RDL',
     category: 'legs',
@@ -433,7 +502,69 @@ const EXERCISES = [
 
 const EXERCISE_BY_ID = Object.fromEntries(EXERCISES.map(e => [e.id, e]));
 
-function programExercise(id) { return EXERCISE_BY_ID[id] || null; }
+// --- Load unit --------------------------------------------------------------
+//
+// load_unit says what the number in an external_load exercise's weight field
+// means. "kg" is a real weight. "plates" is a plate count, for the multi-gym,
+// where the real per-plate weight is unknown -- the plate count is then the
+// real unit of progression. An exercise with no load_unit is kg: that is what
+// every exercise and every logged set meant before this field existed, so
+// nothing already stored changes meaning.
+
+const LOAD_UNITS = ['kg', 'plates'];
+
+// What "add the smallest increment" means on plates. Flat +1 for now; a
+// multi-gym's pin spacing may make that wrong for some exercises, which is
+// why it is one named constant rather than a literal in the suggestion text.
+const PLATE_INCREMENT = 1;
+
+// --- Exercises added from the app --------------------------------------------
+//
+// The static EXERCISES list above is the program. Exercises the owner adds
+// (workout.js's addCustomExercise) and per-exercise setting overrides are
+// runtime data, so they are handed in through programSetRuntime() instead of
+// this file reading storage: program.js stays DOM-free and storage-free.
+
+const PROGRAM_RUNTIME = { custom: {}, overrides: {} };
+
+// The defaults a quick-added exercise gets. Only name, sets and plates are
+// asked for; everything else is a default the owner can change afterwards from
+// the exercise's own settings.
+const CUSTOM_EXERCISE_DEFAULTS = {
+  category: 'other',
+  progression_type: 'external_load',
+  load_unit: 'plates',
+  // The progression engine needs a top of range to know when to suggest more
+  // load, and quick-add does not ask for one.
+  rep_range: [8, 12],
+  rir_target: [1, 3],
+};
+
+function programSetRuntime({ custom, overrides } = {}) {
+  PROGRAM_RUNTIME.custom = {};
+  (Array.isArray(custom) ? custom : []).forEach(e => {
+    if (e && typeof e.id === 'string') PROGRAM_RUNTIME.custom[e.id] = e;
+  });
+  PROGRAM_RUNTIME.overrides = overrides && typeof overrides === 'object' ? { ...overrides } : {};
+}
+
+// The exercise as it is right now: the static or custom definition with any
+// owner override applied on top.
+function programExercise(id) {
+  const base = EXERCISE_BY_ID[id] || PROGRAM_RUNTIME.custom[id] || null;
+  if (!base) return null;
+  const override = PROGRAM_RUNTIME.overrides[id];
+  return override ? { ...base, ...override } : base;
+}
+
+function programLoadUnit(exerciseId) {
+  const ex = programExercise(exerciseId);
+  return ex && ex.load_unit === 'plates' ? 'plates' : 'kg';
+}
+
+function programCustomExerciseIds() { return Object.keys(PROGRAM_RUNTIME.custom); }
+
+function programIsBuiltIn(id) { return Object.prototype.hasOwnProperty.call(EXERCISE_BY_ID, id); }
 
 function programProgressionType(exerciseId) {
   const ex = programExercise(exerciseId);
@@ -506,6 +637,33 @@ function programPhaseForDate(startIso, dateIso) {
   return programPhaseForWeek(programWeekNumber(startIso, dateIso));
 }
 
+// --- Session types ----------------------------------------------------------
+//
+// A day's `session_type` decides one thing: whether it carries the ordering
+// rule below. It is not a difficulty label or a phase.
+
+const SESSION_TYPES = {
+  strength: { name: 'strength', why: null },
+  explosive: {
+    name: 'explosive',
+    why: 'Sprints come before strength work in this session: fresh neuromuscular '
+      + 'state matters more for sprint quality and injury risk than for the '
+      + 'strength work that follows (Lee et al., 2020, PLOS One).',
+  },
+};
+
+function programSessionType(day) {
+  const workout = typeof day === 'number' ? programWorkoutForDay(day) : day;
+  return workout && workout.session_type ? SESSION_TYPES[workout.session_type] || null : null;
+}
+
+// Supersets pair two exercises within one session, and only strength sessions
+// (Push, Pull, Upper) offer them. The Sprint + Legs days are explosive: their
+// order is fixed by the ordering rule and pairing has no place in it.
+function programSessionAllowsSuperset(sessionType) {
+  return sessionType === 'strength';
+}
+
 // --- The week template ----------------------------------------------------
 //
 // Five days, Sunday to Thursday. `weekday` is JS Date#getDay(): 0 = Sunday.
@@ -524,6 +682,7 @@ const WEEK_TEMPLATE = [
     day: 1,
     weekday: 0,
     focus: 'Push',
+    session_type: 'strength',
     estimated_duration_min: 60,
     warm_up: '5 min easy cardio, then shoulder circles, band external rotations '
       + 'and two light ramp-up sets of the first press.',
@@ -539,6 +698,7 @@ const WEEK_TEMPLATE = [
     day: 2,
     weekday: 1,
     focus: 'Pull',
+    session_type: 'strength',
     estimated_duration_min: 65,
     warm_up: '5 min easy cardio, then band pull-aparts, scapular hangs and one '
       + 'light set of pulldowns.',
@@ -555,21 +715,31 @@ const WEEK_TEMPLATE = [
     day: 3,
     weekday: 2,
     focus: 'Sprint + Legs A',
+    // Sprints (the explosive block) always come before the strength block:
+    // fresh neuromuscular state matters more for sprint quality and injury
+    // risk than for the strength work after it (Lee et al., 2020, PLOS One).
+    // Enforced structurally, not just by convention -- this is simply the
+    // exercises' order in this array, and neither the program view nor the
+    // logging UI offers any way to reorder them.
+    session_type: 'explosive',
     estimated_duration_min: 70,
     warm_up: '5 min easy jog, then leg swings, ankle bounces and two build-up '
       + 'runs before the first sprint.',
     exercises: [
+      { exercise_id: 'sprints', protocol: 'sprint', rest: '90-120s between reps' },
       { exercise_id: 'goblet_squat', sets: 3, rep_range: [12, 20], rir_target: [1, 2], rest: '90s', primary: true },
       { exercise_id: 'bulgarian_split_squat', sets: 3, rep_range: [8, 12], rir_target: [1, 2], rest: '90s', per_leg: true, primary: true },
       { exercise_id: 'glute_bridge', sets: 3, rep_range: [10, 15], rir_target: [1, 2], rest: '60s', note: 'Single-leg when possible.' },
       { exercise_id: 'calf_raise', sets: 4, rep_range: [15, 20], rir_target: [1, 2], rest: '45s' },
-      { exercise_id: 'sprints', protocol: 'sprint', rest: '90-120s between reps' },
+      // Low-fatigue, so it goes last rather than needing to precede anything.
+      { exercise_id: 'short_foot', attempts: [20, 30], rest: '30-45s', note: '2-3 sets of about 10 short holds, not one long hold.' },
     ],
   },
   {
     day: 4,
     weekday: 3,
     focus: 'Upper (second exposure)',
+    session_type: 'strength',
     estimated_duration_min: 65,
     warm_up: '5 min easy cardio, then band pull-aparts and one light set each of '
       + 'the first pull and the first press.',
@@ -587,15 +757,26 @@ const WEEK_TEMPLATE = [
     day: 5,
     weekday: 4,
     focus: 'Sprint + Legs B',
+    // See Day 3: sprints always come before the strength block, enforced by
+    // array order alone. Pogo Jumps sits after the strength block rather than
+    // with the sprints -- a deliberate placement, not an oversight -- and
+    // still respects the 48h gap this exercise needs against Day 3's session.
+    session_type: 'explosive',
     estimated_duration_min: 70,
     warm_up: '5 min easy jog, then leg swings, hip openers and two build-up runs '
       + 'before the first sprint.',
     exercises: [
+      { exercise_id: 'sprints', protocol: 'sprint', rest: '90-120s' },
       { exercise_id: 'single_leg_rdl', sets: 3, rep_range: [8, 12], rir_target: [1, 2], rest: '90s', per_leg: true, primary: true },
       { exercise_id: 'reverse_lunge', sets: 3, rep_range: [10, 12], rir_target: [1, 2], rest: '90s', per_leg: true, primary: true },
       { exercise_id: 'hip_thrust', sets: 3, rep_range: [12, 15], rir_target: [1, 2], rest: '60s' },
       { exercise_id: 'calf_raise_slow', sets: 4, rep_range: [15, 20], rir_target: [1, 2], rest: '45s' },
-      { exercise_id: 'sprints', protocol: 'sprint', rest: '90-120s' },
+      // attempts here means sets (2-3), each logging the jump count for that
+      // set (about 20-30) -- unlike Short Foot/MTP Flexion, where an attempt
+      // is one individual hold.
+      { exercise_id: 'pogo_jumps', attempts: [2, 3], rest: '60-90s', note: 'Each attempt below is one set of continuous jumps, logged as its rep count.' },
+      // Low-fatigue, so it goes last rather than needing to precede anything.
+      { exercise_id: 'mtp_flexion', attempts: [20, 30], rest: '30-45s', note: '2-3 sets of about 10 short holds, not one long hold.' },
       { exercise_id: 'cooper_test', protocol: 'cooper', is_test: true, cadence_weeks: [6, 8] },
     ],
   },
@@ -664,6 +845,8 @@ function programTrackedExerciseIds() {
   WEEK_TEMPLATE.forEach(w => w.exercises.forEach(row => {
     if (!seen.includes(row.exercise_id)) seen.push(row.exercise_id);
   }));
+  // Exercises the owner added are tracked like any other.
+  programCustomExerciseIds().forEach(id => { if (!seen.includes(id)) seen.push(id); });
   return seen;
 }
 
@@ -672,15 +855,25 @@ if (typeof module !== 'undefined' && module.exports) {
     PROGRESSION_TYPES,
     EXERCISES,
     PROGRAM_PHASES,
+    SESSION_TYPES,
     WEEK_TEMPLATE,
     SPRINT_PROTOCOL,
     COOPER_PROTOCOL,
+    LOAD_UNITS,
+    PLATE_INCREMENT,
+    CUSTOM_EXERCISE_DEFAULTS,
+    programSetRuntime,
+    programLoadUnit,
+    programCustomExerciseIds,
+    programIsBuiltIn,
+    programSessionAllowsSuperset,
     programExercise,
     programProgressionType,
     programDaysBetween,
     programWeekNumber,
     programPhaseForWeek,
     programPhaseForDate,
+    programSessionType,
     programWorkoutForWeekday,
     programWorkoutForDay,
     programIsTrainingDay,

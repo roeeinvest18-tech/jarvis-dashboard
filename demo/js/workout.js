@@ -14,6 +14,7 @@ const WORKOUT_KEYS = {
   sessions: 'jarvis:workout:sessions',
   deleted: 'jarvis:workout:deleted',
   settings: 'jarvis:workout:settings',
+  customExercises: 'jarvis:workout:customExercises',
   migrated: 'jarvis:workout:migratedFrom',
   syncUrl: 'jarvis:workout:syncUrl',
   syncToken: 'jarvis:workout:syncToken',
@@ -57,10 +58,22 @@ const WORKOUT_DEFAULT_SETTINGS = {
   // Sets per external_load / tempo_then_load exercise. The 3rd is often
   // skipped; empty sets are excluded from every average and check.
   max_sets: 3,
+  // Per-exercise edits to an exercise's own settings, keyed by exercise id:
+  // { load_unit, progression_type, rep_range }. The static program is never
+  // rewritten; program.js's programExercise() layers these on top.
+  exercise_overrides: {},
 };
 
 const WORKOUT_MAX_RIR_FOR_PROGRESSION = 2;
 const WORKOUT_SET_CAP = 3;
+// An exercise in an active superset pairing has to be taken closer to failure
+// before it is flagged: pairing adds fatigue the raw numbers do not show.
+const WORKOUT_MAX_RIR_FOR_SUPERSET_PROGRESSION = 1;
+// Sets logged as part of a superset count this much toward the weekly volume
+// stat only. The logged sets, reps and loads themselves are never scaled.
+const WORKOUT_SUPERSET_VOLUME_MULTIPLIER = 1.2;
+// A quick-added exercise can ask for more sets than the program's three.
+const WORKOUT_CUSTOM_SET_CAP = 6;
 
 // Progression flags. Every one of these is a suggestion surfaced to the owner.
 // Nothing in this file mutates the program or a setting on its own.
@@ -138,13 +151,127 @@ const WORKOUT = {
       ...stored,
       tempo_stages: { ...(stored.tempo_stages || {}) },
       hold_variations: { ...(stored.hold_variations || {}) },
+      exercise_overrides: { ...(stored.exercise_overrides || {}) },
     };
   },
 
   saveSettings(patch) {
     const next = { ...this.settings(), ...patch };
     this.saveJson(WORKOUT_KEYS.settings, next);
+    this.applyRegistry();
     return next;
+  },
+
+  // --- exercises added from the app, and per-exercise settings -------------
+
+  customExercises() {
+    const list = this.loadJson(WORKOUT_KEYS.customExercises, []);
+    return Array.isArray(list) ? list.filter(e => e && typeof e.id === 'string') : [];
+  },
+
+  // Hands program.js the runtime exercises. Also adopts any custom exercise a
+  // logged session carries a definition for but this device has never seen:
+  // sessions sync between devices and the exercise list does not, so a session
+  // logged on the phone has to be readable on the laptop.
+  applyRegistry() {
+    let custom = this.customExercises();
+    const known = new Set(custom.map(e => e.id));
+    const adopted = [];
+    Object.values(this.rawSessions()).forEach(s => {
+      ((s && s.entries) || []).forEach(entry => {
+        const def = entry && entry.exercise_def;
+        if (def && typeof def.id === 'string' && !known.has(def.id) && !programIsBuiltIn(def.id)) {
+          known.add(def.id);
+          adopted.push(def);
+        }
+      });
+    });
+    if (adopted.length) {
+      custom = [...custom, ...adopted];
+      this.saveJson(WORKOUT_KEYS.customExercises, custom);
+    }
+    const stored = this.loadJson(WORKOUT_KEYS.settings, {}) || {};
+    programSetRuntime({ custom, overrides: stored.exercise_overrides || {} });
+  },
+
+  // The quick "add exercise" flow: a name, a number of sets and a starting
+  // plate count, nothing else. The result is an ordinary Exercise -- it gets an
+  // id, is tracked by the progression engine and is offered in every session --
+  // with the defaults in program.js's CUSTOM_EXERCISE_DEFAULTS.
+  addCustomExercise({ name, sets, plates } = {}) {
+    const cleanName = String(name || '').replace(/\s+/g, ' ').trim().slice(0, 40);
+    if (!cleanName) throw new Error('an exercise needs a name');
+    const nSets = Math.round(workoutNum(sets) === null ? 3 : workoutNum(sets));
+    if (nSets < 1 || nSets > WORKOUT_CUSTOM_SET_CAP) {
+      throw new Error(`sets must be between 1 and ${WORKOUT_CUSTOM_SET_CAP}`);
+    }
+    const startPlates = workoutNum(plates);
+    if (startPlates !== null && startPlates < 0) throw new Error('plates cannot be negative');
+
+    const slug = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'exercise';
+    const taken = new Set([...EXERCISES.map(e => e.id), ...this.customExercises().map(e => e.id)]);
+    let id = `x-${slug}`;
+    while (taken.has(id)) id = `x-${slug}-${Math.random().toString(36).slice(2, 6)}`;
+
+    const d = CUSTOM_EXERCISE_DEFAULTS;
+    const exercise = {
+      id,
+      name: cleanName,
+      category: d.category,
+      movement_pattern: 'unspecified',
+      primary_muscles: [],
+      equipment: 'multi_gym',
+      progression_type: d.progression_type,
+      load_unit: d.load_unit,
+      variations: [],
+      rep_range: [...d.rep_range],
+      rir_target: [...d.rir_target],
+      default_sets: nSets,
+      start_load: startPlates,
+      custom: true,
+      why: 'Added by you.',
+      rationale: 'An exercise you added yourself, tracked like any other. Its '
+        + 'rep range is a default (8-12) you can change in its settings.',
+    };
+    this.saveJson(WORKOUT_KEYS.customExercises, [...this.customExercises(), exercise]);
+    this.applyRegistry();
+    return programExercise(id);
+  },
+
+  // Edit an exercise's own settings afterwards. Only load_unit is editable on
+  // the built-in program; a custom exercise can also change its progression
+  // type (the two shapes quick-add can produce) and its rep range.
+  setExerciseOverride(exerciseId, patch) {
+    const base = programExercise(exerciseId);
+    if (!base) throw new Error(`unknown exercise: ${exerciseId}`);
+    const current = this.settings().exercise_overrides[exerciseId] || {};
+    const next = { ...current };
+    if (patch.load_unit !== undefined) {
+      if (!LOAD_UNITS.includes(patch.load_unit)) throw new Error(`unknown load unit: ${patch.load_unit}`);
+      next.load_unit = patch.load_unit;
+    }
+    if (base.custom && patch.progression_type !== undefined) {
+      if (!['external_load', 'tempo_then_load'].includes(patch.progression_type)) {
+        throw new Error('a quick-added exercise is external_load or tempo_then_load');
+      }
+      next.progression_type = patch.progression_type;
+    }
+    if (base.custom && patch.rep_range !== undefined) {
+      const [low, high] = patch.rep_range.map(workoutNum);
+      if (low === null || high === null || low < 1 || high < low) throw new Error('rep range must be low <= high');
+      next.rep_range = [low, high];
+    }
+    const overrides = { ...this.settings().exercise_overrides, [exerciseId]: next };
+    this.saveSettings({ exercise_overrides: overrides });
+    return programExercise(exerciseId);
+  },
+
+  // What the number in an entry's weight field means. An entry with no
+  // load_unit predates the field and is kg -- never inferred from the
+  // exercise's current unit, so switching an exercise to plates later cannot
+  // relabel what was already logged.
+  entryLoadUnit(entry) {
+    return entry && entry.load_unit === 'plates' ? 'plates' : 'kg';
   },
 
   deletedIds() { return this.loadJson(WORKOUT_KEYS.deleted, []) || []; },
@@ -218,6 +345,21 @@ const WORKOUT = {
   // session never shifts when the phase does.
   prescriptionFor(exerciseId, day) {
     const phase = this.activePhase();
+    const added = programExercise(exerciseId);
+    // A quick-added exercise is on no template day, so its "prescription" is
+    // the defaults it was created with.
+    if (added && added.custom) {
+      return {
+        sets: added.default_sets || 3,
+        rep_range: added.rep_range ? [...added.rep_range] : null,
+        rir_target: added.rir_target ? [...added.rir_target] : null,
+        rest: null,
+        attempts: null,
+        amrap: false,
+        per_leg: false,
+        phase: phase ? phase.name : null,
+      };
+    }
     const workout = programPrescription(day, phase);
     if (!workout) return null;
     const row = workout.exercises.find(r => r.exercise_id === exerciseId);
@@ -292,10 +434,21 @@ const WORKOUT = {
       return {
         variation: typeof r.variation === 'string' ? r.variation : null,
         duration_seconds: workoutNum(r.duration_seconds),
+        // Reps: an alternate quantity for an exercise whose attempts are
+        // counted rather than timed (Pogo Jumps -- see program.js's
+        // hold_metric). Null for every other hold_duration exercise, which
+        // keeps using duration_seconds exactly as before.
+        reps: workoutNum(r.reps),
+        // A subjective note or a device-supplied reading (e.g. ground contact
+        // time), per attempt. Free text because "subjective" cannot be
+        // constrained to a number.
+        quality_note: typeof r.quality_note === 'string' && r.quality_note.trim()
+          ? r.quality_note.trim() : null,
         attempt_number: workoutNum(r.attempt_number),
       };
     }
     if (progressionType === 'time_or_distance') {
+      const restMode = r.rest_mode === 'hr_autoregulated' ? 'hr_autoregulated' : 'fixed';
       return {
         distance: workoutNum(r.distance),
         duration: workoutNum(r.duration),
@@ -303,6 +456,15 @@ const WORKOUT = {
         rep_count: workoutNum(r.rep_count),
         surface: typeof r.surface === 'string' && r.surface.trim() ? r.surface.trim() : null,
         is_test: r.is_test === true,
+        // Fixed rest (a timer) or HR-autoregulated (next rep starts once HR
+        // drops under a threshold). A per-session choice, not a global
+        // setting, so it lives on the set like every other sprint field.
+        rest_mode: restMode,
+        hr_threshold_pct: restMode === 'hr_autoregulated'
+          ? workoutClamp(workoutNum(r.hr_threshold_pct), 1, 100) : null,
+        // Manual entry when no device supplies live HR. Null under fixed
+        // rest -- there is nothing to autoregulate against.
+        recovery_hr_bpm: restMode === 'hr_autoregulated' ? workoutNum(r.recovery_hr_bpm) : null,
       };
     }
     throw new Error(`unknown progression type: ${progressionType}`);
@@ -314,11 +476,20 @@ const WORKOUT = {
     if (!set) return false;
     if (progressionType === 'external_load') return set.reps !== null || set.weight !== null;
     if (progressionType === 'tempo_then_load') return set.reps !== null;
-    if (progressionType === 'hold_duration') return set.duration_seconds !== null;
+    if (progressionType === 'hold_duration') return set.duration_seconds !== null || set.reps !== null;
     if (progressionType === 'time_or_distance') {
       return set.distance !== null || set.duration !== null || set.rep_count !== null;
     }
     return false;
+  },
+
+  // The quantity a hold_duration set actually measures: seconds for a real
+  // hold, reps for an exercise like Pogo Jumps that counts attempts instead
+  // (see program.js's hold_metric). One accessor so holdProgression/holdTrend
+  // don't need to know which exercise they're summing.
+  holdMetricValue(set) {
+    if (!set) return null;
+    return set.duration_seconds !== null ? set.duration_seconds : set.reps;
   },
 
   filledSets(entry) {
@@ -342,19 +513,41 @@ const WORKOUT = {
     const weekday = workoutWeekdayIndex(date);
     const template = programWorkoutForWeekday(weekday);
 
+    const existingEntries = (existing && existing.entries) || [];
+    const sessionType = template ? (template.session_type || null) : (input.session_type || null);
     const entries = (Array.isArray(input.entries) ? input.entries : []).map(raw => {
       const exerciseId = raw && raw.exercise_id;
       const ex = programExercise(exerciseId);
       if (!ex) return null;
       const type = ex.progression_type;
       const cap = (type === 'hold_duration' || type === 'time_or_distance')
-        ? Infinity : WORKOUT_SET_CAP;
+        ? Infinity : (ex.custom ? WORKOUT_CUSTOM_SET_CAP : WORKOUT_SET_CAP);
       const sets = (Array.isArray(raw.sets) ? raw.sets : [])
         .slice(0, cap === Infinity ? undefined : cap)
         .map(s => this.normalizeSet(type, s));
+      // A quick-added exercise is offered on every day; one that was not
+      // touched is not a logged exercise, so it is not stored.
+      if (ex.custom && !sets.some(s => this.setIsFilled(type, s))) return null;
+
+      // load_unit is stamped on the entry, so a later switch of the
+      // exercise's unit never relabels what was logged under the old one. An
+      // edit of an already-saved entry keeps the unit it was saved with.
+      const prior = existingEntries.find(e => e.exercise_id === exerciseId);
+      const requestedUnit = raw.load_unit !== undefined ? raw.load_unit
+        : (prior ? this.entryLoadUnit(prior) : programLoadUnit(exerciseId));
+      const loadUnit = LOAD_UNITS.includes(requestedUnit) ? requestedUnit : 'kg';
+      const groupId = typeof raw.superset_group_id === 'string' && raw.superset_group_id
+        ? raw.superset_group_id : null;
+      const custom = ex.custom ? this.customExercises().find(e => e.id === exerciseId) : null;
+
       return {
         exercise_id: exerciseId,
         progression_type: type,
+        ...(type === 'external_load' ? { load_unit: loadUnit } : {}),
+        ...(groupId ? { superset_group_id: groupId } : {}),
+        // Carried so another device that has never seen this exercise can
+        // still read the session (see applyRegistry).
+        ...(custom ? { exercise_def: custom } : {}),
         // Preserved from the caller if given (a migration supplies its own),
         // otherwise snapshotted from the program as it stands right now.
         prescribed: raw.prescribed !== undefined
@@ -368,6 +561,21 @@ const WORKOUT = {
       };
     }).filter(Boolean);
 
+    // A superset is exactly two exercises sharing a group id, in a strength
+    // session. Anything else (a lone id, three sharing one, any id at all on a
+    // Sprint + Legs day) is dropped here rather than stored, so the UI cannot
+    // be the only thing enforcing it.
+    const groupSizes = {};
+    entries.forEach(e => {
+      if (e.superset_group_id) groupSizes[e.superset_group_id] = (groupSizes[e.superset_group_id] || 0) + 1;
+    });
+    entries.forEach(e => {
+      if (e.superset_group_id
+        && (!programSessionAllowsSuperset(sessionType) || groupSizes[e.superset_group_id] !== 2)) {
+        delete e.superset_group_id;
+      }
+    });
+
     const record = {
       id,
       date,
@@ -375,11 +583,19 @@ const WORKOUT = {
       weekday_name: workoutWeekdayName(date),
       day: template ? template.day : null,
       focus: template ? template.focus : (input.focus || null),
+      session_type: sessionType,
       phase: input.phase !== undefined ? input.phase
         : (existing ? existing.phase : (this.activePhase() ? this.activePhase().name : null)),
       week: input.week !== undefined ? input.week : this.weekNumberFor(date),
       entries,
       recovery: this.normalizeRecovery(input.recovery),
+      // Manually toggled, never inferred. Excludes this session from the
+      // progression engine's deload signal (see externalLoadProgression/
+      // tempoProgression) without hiding it from Insights/consistency, which
+      // still see a completed training day either way.
+      comeback_session: input.comeback_session !== undefined
+        ? !!input.comeback_session
+        : !!(existing && existing.comeback_session),
       created_at: existing ? existing.created_at : now,
       updated_at: now,
       ...(input.migrated ? { migrated: true } : {}),
@@ -437,6 +653,22 @@ const WORKOUT = {
       .filter(Boolean);
   },
 
+  // Hours since the most recent PRIOR session (strictly before dateIso) that
+  // logged a filled set of this exercise, or null if never logged before
+  // that date. Day-granular like the rest of the model -- sessions carry a
+  // date, not a time of day -- so this is (days * 24), not sub-day
+  // precision. Used for a soft minimum-gap warning (see program.js's
+  // min_gap_hours), never a hard block.
+  hoursSinceLastLogged(exerciseId, dateIso) {
+    const before = this.historyFor(exerciseId).filter(h => h.session.date < dateIso);
+    if (!before.length) return null;
+    const last = before[before.length - 1];
+    const a = Date.parse(`${last.session.date}T00:00:00Z`);
+    const b = Date.parse(`${dateIso}T00:00:00Z`);
+    if (Number.isNaN(a) || Number.isNaN(b)) return null;
+    return Math.round((b - a) / 3600000);
+  },
+
   // Average RIR across filled sets, or null when no set recorded one. Null is
   // load-bearing: a migrated session has no RIR, and must therefore never
   // satisfy an RIR condition rather than satisfying it by accident at 0.
@@ -449,7 +681,7 @@ const WORKOUT = {
   // Did this session meet "every filled set at the top of the rep range, with
   // average RIR <= 2"? Returns null when it cannot be told -- an AMRAP set has
   // no top of range, and a session with no RIR has no average.
-  metTopOfRange(sets, prescribed) {
+  metTopOfRange(sets, prescribed, maxRir = WORKOUT_MAX_RIR_FOR_PROGRESSION) {
     if (!prescribed || !prescribed.rep_range) return null;
     const [low, high] = prescribed.rep_range;
     if (high === null || high === undefined || prescribed.amrap) return null;
@@ -458,7 +690,7 @@ const WORKOUT = {
     if (reps.length !== sets.length) return null;
     const avgRir = this.averageRir(sets);
     if (avgRir === null) return null;
-    return reps.every(r => r >= high) && avgRir <= WORKOUT_MAX_RIR_FOR_PROGRESSION
+    return reps.every(r => r >= high) && avgRir <= maxRir
       ? true : false;
   },
 
@@ -490,8 +722,17 @@ const WORKOUT = {
 
   externalLoadProgression(exerciseId, history) {
     const last = history[history.length - 1];
-    const base = { exercise_id: exerciseId, flag: null, history: history.length, last_date: last.session.date };
-    const met = this.metTopOfRange(last.sets, last.entry.prescribed);
+    const inSuperset = !!last.entry.superset_group_id;
+    const unit = this.entryLoadUnit(last.entry);
+    const base = {
+      exercise_id: exerciseId, flag: null, history: history.length, last_date: last.session.date,
+      load_unit: unit, superset: inSuperset,
+    };
+    // In a superset the bar is stricter: average RIR 1 or lower rather than 2,
+    // because pairing adds fatigue the raw numbers do not show.
+    const maxRir = inSuperset
+      ? WORKOUT_MAX_RIR_FOR_SUPERSET_PROGRESSION : WORKOUT_MAX_RIR_FOR_PROGRESSION;
+    const met = this.metTopOfRange(last.sets, last.entry.prescribed, maxRir);
     // The two rules are separate conditions, and this one wins: a session at
     // the top of the range that was nonetheless taken to RIR 0, or that had a
     // set fall under the bottom, is not a session to add load to.
@@ -501,14 +742,18 @@ const WORKOUT = {
       return {
         ...base,
         flag: WORKOUT_FLAGS.progressionAvailable,
-        suggestion: 'Add the smallest increment the equipment allows, about 2.5 to 5%, '
+        suggestion: (unit === 'plates'
+          ? `Add ${PLATE_INCREMENT === 1 ? '1 plate' : `${PLATE_INCREMENT} plates`}, `
+          : 'Add the smallest increment the equipment allows, about 2.5 to 5%, ')
           + 'and start back at the bottom of the rep range next session.',
       };
     }
 
     // Two consecutive too-hard sessions is the deload condition. One is not.
-    const tooHard = history.slice(-2).map(h => this.sessionWasTooHard(h.sets, h.entry.prescribed));
-    if (tooHard.length === 2 && tooHard.every(Boolean)) {
+    // A comeback session is invisible to this streak -- see
+    // deloadStreakIsTooHard -- so it can never itself trigger the flag or
+    // count as one of the two.
+    if (this.deloadStreakIsTooHard(history)) {
       return {
         ...base,
         flag: WORKOUT_FLAGS.deloadSuggested,
@@ -516,7 +761,22 @@ const WORKOUT = {
           + 'Consider dropping the load for a session.',
       };
     }
+    // In a superset, say why the normal bar being met was not enough.
+    if (inSuperset && met === false
+      && this.metTopOfRange(last.sets, last.entry.prescribed) === true && !lastWasTooHard) {
+      return { ...base, reason: 'superset_needs_rir_1' };
+    }
     return { ...base, reason: met === null ? 'not_enough_detail_logged' : 'in_range' };
+  },
+
+  // Two consecutive too-hard sessions, skipping any comeback_session
+  // entirely: it counts neither toward nor against the streak, so an
+  // intentionally reduced session can never itself trigger a deload
+  // suggestion, and doesn't break a streak spanning around it either.
+  deloadStreakIsTooHard(history) {
+    const counted = history.filter(h => !h.session.comeback_session);
+    const tooHard = counted.slice(-2).map(h => this.sessionWasTooHard(h.sets, h.entry.prescribed));
+    return tooHard.length === 2 && tooHard.every(Boolean);
   },
 
   tempoProgression(exerciseId, history) {
@@ -545,8 +805,7 @@ const WORKOUT = {
           + 'next step, a vest or a loaded backpack.',
       };
     }
-    const tooHard = history.slice(-2).map(h => this.sessionWasTooHard(h.sets, h.entry.prescribed));
-    if (tooHard.length === 2 && tooHard.every(Boolean)) {
+    if (this.deloadStreakIsTooHard(history)) {
       return {
         ...base,
         flag: WORKOUT_FLAGS.deloadSuggested,
@@ -562,25 +821,30 @@ const WORKOUT = {
 
   holdProgression(exerciseId, history) {
     const ex = programExercise(exerciseId);
+    // "seconds" for a real hold, "reps" for an exercise like Pogo Jumps that
+    // counts attempts instead. Only the copy differs -- the summation below
+    // reads whichever field holdMetricValue finds, in either case.
+    const metric = ex.hold_metric === 'reps' ? 'reps' : 'seconds';
     const threshold = this.settings().hold_variation_threshold_s;
     const last = history[history.length - 1];
     const variation = last.sets.map(s => s.variation).find(v => v) || this.holdVariation(exerciseId);
 
+    const valueFor = s => (s.variation === variation ? this.holdMetricValue(s) : null);
     const sumFor = h => h.sets
-      .filter(s => s.variation === variation && s.duration_seconds !== null)
-      .reduce((a, s) => a + s.duration_seconds, 0);
+      .map(valueFor).filter(v => v !== null)
+      .reduce((a, v) => a + v, 0);
 
     const lastSum = sumFor(last);
     // The comparison is against the previous session *at the same variation*:
     // moving up the ladder resets the numbers, and comparing across variations
     // would read that as a collapse.
     const prior = history.slice(0, -1).reverse()
-      .find(h => h.sets.some(s => s.variation === variation && s.duration_seconds !== null));
+      .find(h => h.sets.some(s => valueFor(s) !== null));
     const priorSum = prior ? sumFor(prior) : null;
 
     const longest = last.sets
-      .filter(s => s.variation === variation && s.duration_seconds !== null)
-      .reduce((m, s) => Math.max(m, s.duration_seconds), 0);
+      .map(valueFor).filter(v => v !== null)
+      .reduce((m, v) => Math.max(m, v), 0);
 
     const base = {
       exercise_id: exerciseId, flag: null, history: history.length,
@@ -594,12 +858,17 @@ const WORKOUT = {
 
     const nextVariation = ex.variations[ex.variations.indexOf(variation) + 1] || null;
     if (longest > threshold && nextVariation) {
+      const longestLabel = metric === 'reps' ? `${longest} reps` : `${longest}s`;
+      const thresholdLabel = metric === 'reps' ? `${threshold}-rep` : `${threshold}s`;
       return {
         ...base,
         flag: WORKOUT_FLAGS.variationAdvance,
         next_variation: nextVariation,
-        suggestion: `Longest hold was ${longest}s, past the ${threshold}s mark. `
-          + `Moving to ${nextVariation.replace(/_/g, ' ')} is the next step when you want it.`,
+        suggestion: metric === 'reps'
+          ? `Longest set was ${longestLabel}, past the ${thresholdLabel} mark. `
+            + `Moving to ${nextVariation.replace(/_/g, ' ')} is the next step when you want it.`
+          : `Longest hold was ${longestLabel}, past the ${thresholdLabel} mark. `
+            + `Moving to ${nextVariation.replace(/_/g, ' ')} is the next step when you want it.`,
       };
     }
     return base;
@@ -638,6 +907,8 @@ const WORKOUT = {
         date: h.session.date,
         best_reps: reps.length ? Math.max(...reps) : null,
         top_weight: weights.length ? Math.max(...weights) : null,
+        // What top_weight is counted in for this session: kg, or plates.
+        load_unit: this.entryLoadUnit(h.entry),
         total_reps: reps.reduce((a, b) => a + b, 0),
         sets: h.sets.length,
       };
@@ -646,16 +917,25 @@ const WORKOUT = {
 
   // Weekly total sets per category, only counting filled sets. Keyed by the
   // ISO date of the week's Sunday, since the training week runs Sun-Thu.
-  weeklyVolumeByCategory() {
+  //
+  // Sets logged as part of a superset count 1.2x here, to reflect the added
+  // difficulty. That is a property of this aggregate only: the sets, reps and
+  // loads in the log are never scaled. weighted:false gives the plain count.
+  weeklyVolumeByCategory({ weighted = true } = {}) {
     const out = {};
     this.sessions().forEach(s => {
       const key = this.weekStartIso(s.date);
-      out[key] = out[key] || { push: 0, pull: 0, legs: 0, skill: 0, conditioning: 0 };
+      out[key] = out[key] || { push: 0, pull: 0, legs: 0, skill: 0, conditioning: 0, other: 0 };
       (s.entries || []).forEach(entry => {
         const cat = programCategoryOf(entry.exercise_id);
         if (!cat || out[key][cat] === undefined) return;
-        out[key][cat] += this.filledSets(entry).length;
+        const factor = weighted && entry.superset_group_id ? WORKOUT_SUPERSET_VOLUME_MULTIPLIER : 1;
+        out[key][cat] += this.filledSets(entry).length * factor;
       });
+    });
+    // One decimal is plenty, and it keeps 3 * 1.2 from printing as 3.5999999.
+    Object.values(out).forEach(week => {
+      Object.keys(week).forEach(cat => { week[cat] = Math.round(week[cat] * 10) / 10; });
     });
     return out;
   },
@@ -699,10 +979,11 @@ const WORKOUT = {
     this.historyFor(exerciseId).forEach(h => {
       const byVariation = {};
       h.sets.forEach(s => {
-        if (!s.variation || s.duration_seconds === null) return;
+        const value = this.holdMetricValue(s);
+        if (!s.variation || value === null) return;
         byVariation[s.variation] = byVariation[s.variation] || { total: 0, longest: 0, attempts: 0 };
-        byVariation[s.variation].total += s.duration_seconds;
-        byVariation[s.variation].longest = Math.max(byVariation[s.variation].longest, s.duration_seconds);
+        byVariation[s.variation].total += value;
+        byVariation[s.variation].longest = Math.max(byVariation[s.variation].longest, value);
         byVariation[s.variation].attempts += 1;
       });
       Object.entries(byVariation).forEach(([variation, agg]) => {
@@ -890,6 +1171,7 @@ const WORKOUT = {
       sessions: this.rawSessions(),
       deleted: this.deletedIds(),
       settings: this.settings(),
+      custom_exercises: this.customExercises(),
     };
   },
 
@@ -911,7 +1193,13 @@ const WORKOUT = {
     if (Array.isArray(payload.deleted)) {
       this.saveJson(WORKOUT_KEYS.deleted, [...new Set([...this.deletedIds(), ...payload.deleted])]);
     }
+    if (Array.isArray(payload.custom_exercises)) {
+      const have = new Set(this.customExercises().map(e => e.id));
+      const added = payload.custom_exercises.filter(e => e && typeof e.id === 'string' && !have.has(e.id));
+      if (added.length) this.saveJson(WORKOUT_KEYS.customExercises, [...this.customExercises(), ...added]);
+    }
     if (payload.settings) this.saveSettings(payload.settings);
+    this.applyRegistry();
     return { sessions: restored };
   },
 
@@ -973,11 +1261,17 @@ const WORKOUT = {
         if (Array.isArray(state.deleted) && state.deleted.length) {
           this.saveJson(WORKOUT_KEYS.deleted, [...new Set([...this.deletedIds(), ...state.deleted])]);
         }
+        // A synced session may use an exercise added on another device.
+        if (changed) this.applyRegistry();
         return state;
       })
       .catch(() => null);
   },
 };
+
+// Hand program.js the exercises added from the app, and any per-exercise
+// overrides, before anything reads the program.
+try { WORKOUT.applyRegistry(); } catch (e) { /* storage unavailable: static program only */ }
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
@@ -987,6 +1281,9 @@ if (typeof module !== 'undefined' && module.exports) {
     WORKOUT_LEGACY_KEYS,
     WORKOUT_LEGACY_DRILL_MAP,
     WORKOUT_DEFAULT_SETTINGS,
+    WORKOUT_SUPERSET_VOLUME_MULTIPLIER,
+    WORKOUT_MAX_RIR_FOR_SUPERSET_PROGRESSION,
+    WORKOUT_CUSTOM_SET_CAP,
     workoutNum,
     workoutTodayIso,
     workoutWeekdayIndex,

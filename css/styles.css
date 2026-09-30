@@ -4062,6 +4062,28 @@ body.is-market-closed .regime { color: var(--ink2); }
   letter-spacing: .06em; text-transform: uppercase; color: var(--ink2);
 }
 
+/* Supersets. Two exercises logged as two rows, joined by a shared left rule
+   (the same device .wk-suggestion uses for a related note) rather than a card
+   or a colour: --mark means complete or notable, and pairing is neither. The
+   first row of a pair drops its bottom rule so the two read as one group. */
+.wk-row[data-wk-superset] { border-left: 2px solid var(--ink2); padding-left: var(--sp-4); }
+.wk-row[data-wk-superset]:has(+ .wk-row[data-wk-superset]) { border-bottom-color: transparent; padding-bottom: var(--sp-2); }
+.wk-superset-tag {
+  font-family: var(--font-mono); font-size: var(--fs-tag);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--ink2);
+}
+.wk-superset-tag[hidden] { display: none; }
+.wk-superset-control { display: flex; }
+.wk-link-btn { min-height: 44px; padding-left: 0; text-align: left; }
+.wk-row.is-link-pending { border-left: 2px solid var(--ink2); padding-left: var(--sp-4); }
+
+/* Exercise settings and the quick add form: disclosures and underline fields,
+   the same vocabulary as the rest of the screen. */
+.wk-settings-body { display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-2) 0; }
+.wk-setting { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sp-3); }
+.wk-add-form { display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-2) 0; }
+.wk-add-name { flex: 0 0 auto; width: 100%; }
+
 /* The science, behind a tap. Never inline by default, and never the
    browser's own disclosure triangle -- ::-webkit-details-marker is hidden
    the same way .wk-exercise-head and .sizing-tool summary already do. */

@@ -29,7 +29,13 @@
 // combinable, client-side. trading.js and the stylesheet changed.
 // v20: the copy pass -- every user-facing string moved into js/strings.js,
 // so an installed PWA without it would render a shell with no labels.
-const CACHE_NAME = 'jarvis-shell-v20';
+// v21: leg training upgrade -- explosive/strength session ordering, foot &
+// fascia exercises, sprint HR-autoregulated rest, and comeback sessions.
+// program.js and workout.js gained new fields the old cached workout-ui.js
+// wouldn't know how to render.
+// v22: Training gained a plates load unit, supersets and a quick add-exercise
+// form -- program.js, workout.js, workout-ui.js and the stylesheet all changed.
+const CACHE_NAME = 'jarvis-shell-v22';
 const SHELL_ASSETS = [
   './',
   'index.html',

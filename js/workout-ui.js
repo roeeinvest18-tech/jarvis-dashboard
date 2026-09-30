@@ -12,6 +12,7 @@ let workoutView = 'log';
 let workoutDate = null;         // null means "today"
 let workoutEditingId = null;    // a session being edited, rather than logged fresh
 let workoutConfirmDelete = null;
+let workoutLinkPending = null;   // the exercise awaiting its superset partner
 
 function workoutCurrentDate() { return workoutDate || workoutTodayIso(); }
 
@@ -25,10 +26,66 @@ function workoutPrettyDate(iso) {
 
 function workoutPrettyVariation(v) { return String(v || '').replace(/_/g, ' '); }
 
+// --- load unit, supersets and added exercises: small shared helpers ---------
+
+// The unit a row is logged in: the unit its saved entry was stored with, else
+// whatever the exercise is set to now. A saved entry always wins, so opening an
+// old session after switching an exercise to plates still reads it as kg.
+function workoutRowLoadUnit(exerciseId, loggedEntry) {
+  return loggedEntry ? WORKOUT.entryLoadUnit(loggedEntry) : programLoadUnit(exerciseId);
+}
+
+function workoutWeightCellLabel(unit) { return unit === 'plates' ? 'Plates' : 'kg'; }
+function workoutWeightCellAttrs(unit) { return unit === 'plates' ? 'step="1" min="0"' : 'step="0.5" min="0"'; }
+
+// "4 plates" / "60kg", for the progress lines.
+function workoutFormatLoad(value, unit) {
+  return unit === 'plates' ? `${value} plate${Number(value) === 1 ? '' : 's'}` : `${value}kg`;
+}
+
+// 7.2 stays 7.2, 6.0 prints 6.
+function workoutFormatVolume(n) { return Number.isInteger(n) ? String(n) : n.toFixed(1); }
+
+// A quick-added exercise as a log row. It is on no template day, so the row is
+// built from the defaults it was created with.
+function workoutRowForAddedExercise(ex) {
+  return {
+    exercise_id: ex.id, added: true,
+    sets: ex.default_sets || 3,
+    rep_range: ex.rep_range ? [...ex.rep_range] : null,
+    rir_target: ex.rir_target ? [...ex.rir_target] : null,
+  };
+}
+
+// Put the two members of a superset next to each other, whichever order they
+// were listed in. Everything else keeps its order.
+function workoutOrderRows(rows, entryFor) {
+  const groupOf = row => { const e = entryFor(row.exercise_id); return e && e.superset_group_id || null; };
+  const placed = new Set();
+  const out = [];
+  rows.forEach(row => {
+    if (placed.has(row.exercise_id)) return;
+    placed.add(row.exercise_id);
+    out.push(row);
+    const group = groupOf(row);
+    if (!group) return;
+    const partner = rows.find(r => r !== row && !placed.has(r.exercise_id) && groupOf(r) === group);
+    if (partner) { placed.add(partner.exercise_id); out.push(partner); }
+  });
+  return out;
+}
+
 function workoutFormatSeconds(total) {
   if (total === null || total === undefined) return '';
   if (total < 60) return `${total}s`;
   return `${Math.floor(total / 60)}m ${total % 60}s`;
+}
+
+// Same total, labelled by whatever unit the exercise actually measures (see
+// program.js's hold_metric) -- seconds for a real hold, reps for Pogo Jumps.
+function workoutFormatHoldMetric(ex, total) {
+  if (total === null || total === undefined) return '';
+  return ex.hold_metric === 'reps' ? `${total} reps` : workoutFormatSeconds(total);
 }
 
 function workoutRepRangeLabel(row) {
@@ -75,6 +132,17 @@ function workoutSetCellHtml(index, key, label, value, attrs = '') {
   return workoutCellHtml(label, value, attrs, `data-wk-set="${index}" data-wk-key="${key}"`);
 }
 
+// A text (not numeric) per-set cell -- used only for a hold_duration
+// exercise's optional quality_note (program.js's logs_quality_note), which
+// is "subjective or a device reading" and so cannot be constrained to a
+// number.
+function workoutSetTextCellHtml(index, key, label, value) {
+  return `<label class="wk-cell">
+    <span>${escapeHtml(label)}</span>
+    <input type="text" data-wk-set="${index}" data-wk-key="${key}" value="${escapeHtml(value)}">
+  </label>`;
+}
+
 function workoutExkeyCellHtml(key, label, value, attrs = '') {
   return workoutCellHtml(label, value, attrs, `data-wk-exkey="${key}"`);
 }
@@ -91,9 +159,9 @@ function workoutPillGroupHtml(key, options, current) {
 }
 
 // The exercise-level controls: weight for external_load, added weight and a
-// tempo toggle for tempo_then_load, a variation toggle for hold_duration.
-// Nothing here for time_or_distance -- distance/duration/reps are already
-// asked per set below, and there is no weight or RIR to a sprint.
+// tempo toggle for tempo_then_load, a variation toggle for hold_duration, a
+// rest-mode toggle for Sprints specifically (the only time_or_distance
+// exercise reps are ever paced between).
 function workoutControlCellsHtml(type, exerciseId, entry) {
   const v = k => {
     const set = entry && entry.sets && entry.sets[0];
@@ -101,7 +169,12 @@ function workoutControlCellsHtml(type, exerciseId, entry) {
     return raw === null || raw === undefined ? '' : String(raw);
   };
   if (type === 'external_load') {
-    return workoutExkeyCellHtml('weight', 'kg', v('weight'), 'step="0.5" min="0"')
+    // The weight cell is the load: kg for a real weight, or a plate count on
+    // the multi-gym. Same cell, same compact style; only its label changes.
+    // (A pre-filled starting value for an added exercise is not a logged
+    // entry: it has no exercise_id, so it never pins a unit.)
+    const unit = workoutRowLoadUnit(exerciseId, entry && entry.exercise_id ? entry : null);
+    return workoutExkeyCellHtml('weight', workoutWeightCellLabel(unit), v('weight'), workoutWeightCellAttrs(unit))
       + workoutExkeyCellHtml('rir', 'RIR', v('rir'), 'min="0" max="10"');
   }
   if (type === 'tempo_then_load') {
@@ -116,6 +189,16 @@ function workoutControlCellsHtml(type, exerciseId, entry) {
     return workoutPillGroupHtml('variation',
       ex.variations.map(o => [o, workoutPrettyVariation(o)]), current);
   }
+  if (type === 'time_or_distance' && exerciseId === 'sprints') {
+    // A per-session choice, not a global setting: fixed rest (a timer) or the
+    // next rep starting once heart rate drops under a threshold. Cooper Test
+    // has no reps to pace between, so it never shows this.
+    const mode = v('rest_mode') || 'fixed';
+    return workoutPillGroupHtml('rest_mode',
+      [['fixed', 'fixed rest'], ['hr_autoregulated', 'HR-based']], mode)
+      + workoutExkeyCellHtml('hr_threshold_pct', 'HR% max', v('hr_threshold_pct') || '60', 'min="1" max="100"')
+      + workoutExkeyCellHtml('recovery_hr_bpm', 'HR bpm', v('recovery_hr_bpm'), 'min="0"');
+  }
   return '';
 }
 
@@ -129,10 +212,17 @@ function workoutSetCellsHtml(type, exerciseId, row, sets) {
     }).join('');
   }
   if (type === 'hold_duration') {
+    const ex = programExercise(exerciseId);
+    // Pogo Jumps counts reps instead of timing a hold (program.js's
+    // hold_metric) -- same cell, bound to a different field.
+    const metricKey = ex.hold_metric === 'reps' ? 'reps' : 'duration_seconds';
     return sets.map((set, i) => {
-      const dur = set && set.duration_seconds !== null && set.duration_seconds !== undefined
-        ? String(set.duration_seconds) : '';
-      return workoutSetCellHtml(i, 'duration_seconds', `#${i + 1}`, dur, 'min="0"');
+      const val = set && set[metricKey] !== null && set[metricKey] !== undefined
+        ? String(set[metricKey]) : '';
+      const cell = workoutSetCellHtml(i, metricKey, `#${i + 1}`, val, 'min="0"');
+      if (!ex.logs_quality_note) return cell;
+      const note = set && set.quality_note ? String(set.quality_note) : '';
+      return cell + workoutSetTextCellHtml(i, 'quality_note', 'note', note);
     }).join('');
   }
   // time_or_distance: one row, a handful of named fields rather than an
@@ -150,12 +240,30 @@ function workoutSetCellsHtml(type, exerciseId, row, sets) {
 // rationale hides behind a tap -- the name, the one-line why, and every input
 // are visible without opening anything, per the spec's "one-line why, full
 // rationale behind a tap", not "the whole exercise behind a tap".
-function workoutExerciseHtml(row, loggedEntry) {
+function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
   const ex = programExercise(row.exercise_id);
   if (!ex) return '';
   const type = ex.progression_type;
+  const groupId = loggedEntry && loggedEntry.superset_group_id ? loggedEntry.superset_group_id : '';
+  const unit = type === 'external_load' ? workoutRowLoadUnit(row.exercise_id, loggedEntry) : null;
+  // An added exercise that has not been logged yet starts from the plate
+  // count it was added with. Not a logged entry, so it never pins a unit.
+  const prefill = !loggedEntry && ex.custom && ex.start_load !== null && ex.start_load !== undefined
+    ? { sets: [{ weight: ex.start_load }] } : null;
   const progression = WORKOUT.progressionFor(row.exercise_id);
   const logged = loggedEntry ? WORKOUT.filledSets(loggedEntry).length : 0;
+
+  // A soft floor, not a hard block: still lets the session be logged, just
+  // says so first. Only checked against a PRIOR session -- editing today's
+  // own already-saved entry must never warn against itself.
+  let gapWarningHtml = '';
+  if (ex.min_gap_hours && date) {
+    const hours = WORKOUT.hoursSinceLastLogged(row.exercise_id, date);
+    if (hours !== null && hours < ex.min_gap_hours) {
+      gapWarningHtml = `<p class="wk-note" data-wk-gap-warning>Last ${escapeHtml(ex.name.toLowerCase())} `
+        + `session was ${hours}h ago; research suggests ${ex.min_gap_hours}h between sessions.</p>`;
+    }
+  }
 
   // How many set cells to offer. Holds and runs get their prescribed attempt
   // count; loaded work gets the phase's set count, and the last is routinely
@@ -173,31 +281,83 @@ function workoutExerciseHtml(row, loggedEntry) {
          <p>${escapeHtml(progression.suggestion || '')}</p>
          ${workoutAcceptButtonHtml(progression)}
        </div>`
-    : '';
+    : ((progression && progression.reason === 'superset_needs_rir_1')
+      ? `<p class="wk-note" data-wk-superset-note>Last time this was in a superset, so progression waits for an average RIR of 1 or lower.</p>`
+      : '');
 
   return `
-  <div class="wk-row" data-wk-exercise="${row.exercise_id}">
+  <div class="wk-row" data-wk-exercise="${row.exercise_id}"${unit ? ` data-wk-load-unit="${unit}"` : ''}
+    data-wk-logged="${loggedEntry ? '1' : '0'}"${groupId ? ' data-wk-superset' : ''}>
     <div class="wk-row-top">
       <span class="wk-name">${escapeHtml(ex.name)}</span>
+      ${ctx.supersetAllowed ? `<span class="wk-superset-tag" data-wk-superset-tag${groupId ? '' : ' hidden'}>superset</span>` : ''}
       <span class="wk-prescription">${escapeHtml(workoutSetsLabel(row))}${
         row.rir_target ? ` &middot; RIR ${row.rir_target.join('-')}` : ''}</span>
       ${logged ? `<span class="wk-done" aria-label="${logged} sets logged">${logged}</span>` : ''}
     </div>
     <p class="wk-why">${escapeHtml(ex.why)}</p>
+    ${gapWarningHtml}
     ${row.note ? `<p class="wk-note">${escapeHtml(row.note)}</p>` : ''}
     ${row.rest ? `<p class="wk-note">Rest ${escapeHtml(row.rest)}</p>` : ''}
     ${row.protocol === 'sprint' ? `<p class="wk-note">${escapeHtml(SPRINT_PROTOCOL.note)}</p>` : ''}
+    ${row.protocol === 'sprint' ? '<p class="wk-note">HR-based rest: enter heart rate from a synced device or by hand; the next rep starts once it drops under the threshold. Fixed rest ignores these two fields.</p>' : ''}
     ${row.protocol === 'cooper' ? `<p class="wk-note">${escapeHtml(COOPER_PROTOCOL.note)}</p>` : ''}
     ${flagHtml}
     <div class="wk-cols">
       ${workoutSetCellsHtml(type, row.exercise_id, row, sets)}
-      ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry)}
+      ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry || prefill)}
     </div>
+    ${ctx.supersetAllowed ? workoutSupersetControlHtml(row.exercise_id, groupId) : ''}
+    ${workoutExerciseSettingsHtml(ex, unit)}
     <details class="wk-science">
       <summary>Why this exercise</summary>
       <p>${escapeHtml(ex.rationale)}</p>
     </details>
   </div>`;
+}
+
+// "Link with" picker, next to the exercise rather than on a screen of its own.
+// The hidden input holds the shared group id (empty when unpaired); the button
+// is wired in wireWorkoutZone and works on the DOM in place, so nothing already
+// typed into the form is lost when two exercises are linked.
+function workoutSupersetControlHtml(exerciseId, groupId) {
+  return `<div class="wk-superset-control">
+    <input type="hidden" data-wk-exkey="superset" value="${escapeHtml(groupId)}">
+    <button type="button" class="os-btn os-btn-quiet wk-link-btn" data-wk-link="${exerciseId}"></button>
+  </div>`;
+}
+
+// The exercise's own settings. Its load unit on any loaded exercise; for one
+// the owner added, also its type and rep range. Saved straight away, separate
+// from logging a session.
+function workoutExerciseSettingsHtml(ex, unit) {
+  if (ex.progression_type !== 'external_load' && !ex.custom) return '';
+  const pills = (setting, options, current) => `<div class="wk-pill-group" data-wk-setting-group="${setting}">
+    ${options.map(([value, label]) => `<button type="button" class="pill${value === current ? ' is-active' : ''}"
+      data-wk-setting="${setting}" data-wk-ex="${ex.id}" data-wk-value="${value}">${escapeHtml(label)}</button>`).join('')}
+  </div>`;
+  const rep = ex.rep_range || [8, 12];
+  return `<details class="wk-science wk-settings">
+    <summary>Exercise settings</summary>
+    <div class="wk-settings-body">
+      ${ex.progression_type === 'external_load' ? `<div class="wk-setting">
+        <span class="os-note">Load is counted in</span>
+        ${pills('load_unit', [['kg', 'kg'], ['plates', 'plates']], programLoadUnit(ex.id))}
+      </div>` : ''}
+      ${ex.custom ? `<div class="wk-setting">
+        <span class="os-note">Progresses by</span>
+        ${pills('progression_type', [['external_load', 'load'], ['tempo_then_load', 'bodyweight']], ex.progression_type)}
+      </div>
+      <div class="wk-setting">
+        <span class="os-note">Rep range</span>
+        <label class="wk-cell"><span>low</span><input type="number" inputmode="numeric" min="1"
+          data-wk-rep-bound="0" data-wk-ex="${ex.id}" value="${rep[0]}"></label>
+        <label class="wk-cell"><span>high</span><input type="number" inputmode="numeric" min="1"
+          data-wk-rep-bound="1" data-wk-ex="${ex.id}" value="${rep[1]}"></label>
+      </div>` : ''}
+      <p class="os-note">Applies from the next session you log. Sessions already saved keep the unit they were logged in.</p>
+    </div>
+  </details>`;
 }
 
 function workoutAcceptButtonHtml(progression) {
@@ -282,6 +442,16 @@ function workoutLogHtml() {
 
   const prescription = programPrescription(template, phase);
   const entryFor = id => (existing ? (existing.entries || []).find(e => e.exercise_id === id) : null);
+  const sessionType = programSessionType(template);
+  // Only strength sessions (Push, Pull, Upper) offer supersets. The Sprint +
+  // Legs days are explosive: fixed order, no pairing.
+  const supersetAllowed = programSessionAllowsSuperset(template.session_type);
+  // The prescribed exercises, then any the owner has added. Both are ordinary
+  // rows; a superset pair is shown side by side whichever list its two are in.
+  const rows = workoutOrderRows([
+    ...prescription.exercises,
+    ...programCustomExerciseIds().map(id => workoutRowForAddedExercise(programExercise(id))),
+  ], entryFor);
 
   return `<div class="os-block">
     ${header}
@@ -290,15 +460,45 @@ function workoutLogHtml() {
       <summary>Warm-up &middot; about ${template.estimated_duration_min} min</summary>
       <p>${escapeHtml(template.warm_up)}</p>
     </details>
+    ${sessionType && sessionType.why ? `<p class="wk-why">${escapeHtml(sessionType.why)}</p>` : ''}
     <form id="wk-log-form" class="wk-form">
-      ${prescription.exercises.map(row => workoutExerciseHtml(row, entryFor(row.exercise_id))).join('')}
+      ${rows.map(row => workoutExerciseHtml(row, entryFor(row.exercise_id), date, { supersetAllowed })).join('')}
       ${workoutRecoveryHtml(existing ? existing.recovery : null)}
+      <section class="wk-section wk-comeback">
+        <span class="os-note">Reduced intensity today?</span>
+        ${workoutPillGroupHtml('comeback',
+          [['no', 'normal session'], ['yes', 'comeback session']],
+          existing && existing.comeback_session ? 'yes' : 'no')}
+      </section>
       <div class="wk-actions">
         <button type="submit" class="os-btn os-btn-primary">${existing ? 'Save changes' : 'Save session'}</button>
         <span class="os-note" id="wk-log-status"></span>
       </div>
     </form>
+    ${workoutAddExerciseHtml()}
   </div>`;
+}
+
+// The quick "add exercise" form: a name, how many sets, and the starting plate
+// count. That is the whole input. It is deliberately outside the session form
+// so adding an exercise never submits (or disturbs) a half-filled log.
+function workoutAddExerciseHtml() {
+  return `<details class="wk-science wk-add" id="wk-add">
+    <summary>Add an exercise</summary>
+    <form id="wk-add-form" class="wk-add-form">
+      <label class="wk-field wk-add-name"><span>name</span>
+        <input type="text" id="wk-add-name" maxlength="40" autocomplete="off" required></label>
+      <div class="wk-cols">
+        <label class="wk-cell"><span>Sets</span>
+          <input type="number" inputmode="numeric" min="1" max="${WORKOUT_CUSTOM_SET_CAP}" id="wk-add-sets" value="3"></label>
+        <label class="wk-cell"><span>Plates</span>
+          <input type="number" inputmode="numeric" min="0" step="1" id="wk-add-plates"></label>
+        <button type="submit" class="os-btn">Add</button>
+      </div>
+      <p class="os-note">Tracked like any other exercise, in plates, progressing by load. Change either afterwards in its settings.</p>
+      <p class="os-note" id="wk-add-status"></p>
+    </form>
+  </details>`;
 }
 
 // --- weekly review --------------------------------------------------------
@@ -377,7 +577,7 @@ function workoutProgressHtml() {
           const loaded = x.ex.progression_type === 'external_load'
             && x.series.some(p => p.top_weight !== null);
           const line = loaded
-            ? workoutSeriesLine(x.series.slice(-6).map(p => (p.top_weight === null ? null : `${p.top_weight}kg`)))
+            ? workoutSeriesLine(x.series.slice(-6).map(p => (p.top_weight === null ? null : workoutFormatLoad(p.top_weight, p.load_unit))))
             : workoutSeriesLine(x.series.slice(-6).map(p => p.best_reps));
           return `<li><span>${escapeHtml(x.ex.name)}</span><span class="wk-num">${escapeHtml(line)}</span></li>`;
         }).join('')}
@@ -387,9 +587,9 @@ function workoutProgressHtml() {
       ${holds.map(x => Object.entries(x.trend).map(([variation, points]) => `
         <ul class="os-list"><li>
           <span>${escapeHtml(x.ex.name)} &middot; ${escapeHtml(workoutPrettyVariation(variation))}</span>
-          <span class="wk-num">${escapeHtml(workoutSeriesLine(points.slice(-6).map(p => workoutFormatSeconds(p.total))))}</span>
+          <span class="wk-num">${escapeHtml(workoutSeriesLine(points.slice(-6).map(p => workoutFormatHoldMetric(x.ex, p.total))))}</span>
         </li></ul>`).join('')).join('')}
-      <p class="os-note">Total hold time per session, at that variation.</p>` : ''}
+      <p class="os-note">Total per session, at that variation (seconds for a hold, reps for a rep-counted exercise like Pogo Jumps).</p>` : ''}
     ${sprint.length ? `
       <h3 class="os-subhead">Sprint</h3>
       <ul class="os-list"><li><span>Best time</span>
@@ -400,14 +600,30 @@ function workoutProgressHtml() {
         ${weeks.map(w => {
           const v = volume[w];
           return `<li><span>${escapeHtml(workoutPrettyDate(w))}</span>
-            <span class="wk-num">push ${v.push} &middot; pull ${v.pull} &middot; legs ${v.legs}</span></li>`;
+            <span class="wk-num">push ${workoutFormatVolume(v.push)} &middot; pull ${workoutFormatVolume(v.pull)} &middot; legs ${workoutFormatVolume(v.legs)}${
+              v.other ? ` &middot; other ${workoutFormatVolume(v.other)}` : ''}</span></li>`;
         }).join('')}
       </ul>
-      <p class="os-note">Sets actually logged, by category.</p>` : ''}
+      <p class="os-note">Sets actually logged, by category.${
+        WORKOUT.sessions().some(s => (s.entries || []).some(e => e.superset_group_id))
+          ? ` Sets done as part of a superset count ${WORKOUT_SUPERSET_VOLUME_MULTIPLIER}x here to reflect the added difficulty; the log itself is unchanged.`
+          : ''}</p>` : ''}
   </div>`;
 }
 
 // --- history --------------------------------------------------------------
+
+// "Superset: Chest Press + Incline Fly." for each pair the session logged.
+function workoutSupersetSummaryHtml(session) {
+  const groups = {};
+  (session.entries || []).forEach(e => {
+    if (e.superset_group_id) (groups[e.superset_group_id] = groups[e.superset_group_id] || []).push(e);
+  });
+  return Object.values(groups).map(pair => {
+    const names = pair.map(e => (programExercise(e.exercise_id) || {}).name || e.exercise_id);
+    return `<p class="os-note">Superset: ${escapeHtml(names.join(' + '))}.</p>`;
+  }).join('');
+}
 
 function workoutHistoryHtml() {
   const sessions = WORKOUT.sessions().slice().reverse();
@@ -426,6 +642,8 @@ function workoutHistoryHtml() {
             <span class="wk-num">${(s.entries || []).length} ex &middot; ${sets} sets</span>
           </div>
           ${s.migrated ? '<p class="os-note">Logged before the rebuild. Reps only, no load or RIR recorded.</p>' : ''}
+          ${s.comeback_session ? '<p class="os-note">Comeback session.</p>' : ''}
+          ${workoutSupersetSummaryHtml(s)}
           <div class="wk-actions">
             <button type="button" class="os-btn os-btn-quiet" data-wk-edit="${s.id}">Edit</button>
             ${workoutConfirmDelete === s.id
@@ -503,17 +721,147 @@ function workoutCollectForm() {
       } else if (type === 'hold_duration') {
         raw.variation = exVal('variation');
         raw.attempt_number = Number(i) + 1;
+      } else if (type === 'time_or_distance' && exerciseId === 'sprints') {
+        raw.rest_mode = exVal('rest_mode');
+        raw.hr_threshold_pct = exVal('hr_threshold_pct');
+        raw.recovery_hr_bpm = exVal('recovery_hr_bpm');
       }
       if (exerciseId === 'cooper_test') raw.is_test = true;
       return raw;
     });
-    entries.push({ exercise_id: exerciseId, sets });
+    // The unit the row is shown in (a saved entry keeps its own) and, on a
+    // strength day, the group id shared with its superset partner.
+    const loadUnit = block.getAttribute('data-wk-load-unit');
+    const group = exVal('superset');
+    entries.push({
+      exercise_id: exerciseId,
+      sets,
+      ...(loadUnit ? { load_unit: loadUnit } : {}),
+      ...(group ? { superset_group_id: group } : {}),
+    });
   });
   const recovery = {};
   form.querySelectorAll('[data-wk-recovery]').forEach(input => {
     recovery[input.getAttribute('data-wk-recovery')] = input.value;
   });
-  return { entries, recovery };
+  const comebackInput = form.querySelector('[data-wk-exkey="comeback"]');
+  const comebackSession = !!(comebackInput && comebackInput.value === 'yes');
+  return { entries, recovery, comebackSession };
+}
+
+// --- superset linking -------------------------------------------------------
+//
+// Works on the DOM in place. Re-rendering the zone would rebuild every input
+// and throw away whatever has been typed into the session so far.
+
+function workoutRefreshLinks(form) {
+  const rows = Array.from(form.querySelectorAll('[data-wk-exercise]'));
+  const idOf = row => row.getAttribute('data-wk-exercise');
+  const groupOf = row => { const i = row.querySelector('[data-wk-exkey="superset"]'); return i ? i.value : ''; };
+  const nameOf = id => (programExercise(id) || {}).name || id;
+  rows.forEach(row => {
+    const btn = row.querySelector('[data-wk-link]');
+    if (!btn) return;
+    const id = idOf(row);
+    const group = groupOf(row);
+    let label = 'Link with →';
+    if (group) {
+      const partner = rows.find(r => r !== row && groupOf(r) === group);
+      label = `Superset with ${partner ? nameOf(idOf(partner)) : 'its partner'} · unlink`;
+    } else if (workoutLinkPending === id) {
+      label = 'Pick the partner, or tap to cancel';
+    } else if (workoutLinkPending) {
+      label = `Link with ${nameOf(workoutLinkPending)}`;
+    }
+    btn.textContent = label;
+    row.toggleAttribute('data-wk-superset', !!group);
+    const tag = row.querySelector('[data-wk-superset-tag]');
+    if (tag) tag.hidden = !group;
+    row.classList.toggle('is-link-pending', workoutLinkPending === id);
+  });
+}
+
+function workoutHandleLinkClick(form, exerciseId) {
+  const rowOf = id => form.querySelector(`[data-wk-exercise="${id}"]`);
+  const groupInput = row => row.querySelector('[data-wk-exkey="superset"]');
+  const row = rowOf(exerciseId);
+  if (!row || !groupInput(row)) return;
+  const input = groupInput(row);
+  if (input.value) {
+    const group = input.value;
+    form.querySelectorAll('[data-wk-exkey="superset"]').forEach(i => { if (i.value === group) i.value = ''; });
+    workoutLinkPending = null;
+  } else if (workoutLinkPending === exerciseId) {
+    workoutLinkPending = null;
+  } else if (workoutLinkPending) {
+    const first = rowOf(workoutLinkPending);
+    const group = `ss-${Date.now().toString(36)}`;
+    if (first && groupInput(first)) {
+      groupInput(first).value = group;
+      input.value = group;
+      first.after(row);          // the two rows sit together
+    }
+    workoutLinkPending = null;
+  } else {
+    workoutLinkPending = exerciseId;
+  }
+  workoutRefreshLinks(form);
+}
+
+// Saves one of an exercise's own settings straight away. A load-unit change
+// patches the row in place; a type change reshapes the row's inputs, so that
+// one redraws the screen.
+function workoutHandleSettingClick(form, btn) {
+  const id = btn.getAttribute('data-wk-ex');
+  const setting = btn.getAttribute('data-wk-setting');
+  const value = btn.getAttribute('data-wk-value');
+  try {
+    WORKOUT.setExerciseOverride(id, { [setting]: value });
+  } catch (e) {
+    return;
+  }
+  if (setting === 'progression_type') { renderWorkoutZone(); return; }
+  const group = btn.closest('[data-wk-setting-group]');
+  if (group) group.querySelectorAll('.pill').forEach(p => p.classList.toggle('is-active', p === btn));
+  const row = form.querySelector(`[data-wk-exercise="${id}"]`);
+  // A row with a saved entry keeps that entry's unit; the change applies to
+  // the next session, so its label stays.
+  if (row && row.getAttribute('data-wk-logged') === '0') {
+    row.setAttribute('data-wk-load-unit', value);
+    const input = row.querySelector('[data-wk-exkey="weight"]');
+    if (input) {
+      input.step = value === 'plates' ? '1' : '0.5';
+      const label = input.parentElement && input.parentElement.querySelector('span');
+      if (label) label.textContent = workoutWeightCellLabel(value);
+    }
+  }
+}
+
+function workoutHandleAddExercise(form) {
+  const status = document.getElementById('wk-add-status');
+  const say = text => { if (status) status.textContent = text; };
+  const nameEl = document.getElementById('wk-add-name');
+  const setsEl = document.getElementById('wk-add-sets');
+  const platesEl = document.getElementById('wk-add-plates');
+  let ex;
+  try {
+    ex = WORKOUT.addCustomExercise({ name: nameEl.value, sets: setsEl.value, plates: platesEl.value });
+  } catch (e) {
+    say(e.message);
+    return;
+  }
+  // Appended to the session form in place, so a half-filled log survives.
+  const logForm = document.getElementById('wk-log-form');
+  const date = workoutCurrentDate();
+  const template = programWorkoutForWeekday(workoutWeekdayIndex(date));
+  const supersetAllowed = !!template && programSessionAllowsSuperset(template.session_type);
+  const html = workoutExerciseHtml(workoutRowForAddedExercise(ex), null, date, { supersetAllowed });
+  const anchor = logForm && logForm.querySelector('.wk-section');
+  if (logForm && anchor) anchor.insertAdjacentHTML('beforebegin', html);
+  if (logForm) workoutRefreshLinks(logForm);
+  nameEl.value = '';
+  platesEl.value = '';
+  say(`Added ${ex.name}.`);
 }
 
 function wireWorkoutZone() {
@@ -577,6 +925,28 @@ function wireWorkoutZone() {
 
   const form = document.getElementById('wk-log-form');
   if (form) {
+    workoutLinkPending = null;
+    workoutRefreshLinks(form);
+    // Delegated, so a row added after this render behaves like the rest.
+    form.addEventListener('click', ev => {
+      const link = ev.target.closest('[data-wk-link]');
+      if (link) { workoutHandleLinkClick(form, link.getAttribute('data-wk-link')); return; }
+      const setting = ev.target.closest('[data-wk-setting]');
+      if (setting) workoutHandleSettingClick(form, setting);
+    });
+    form.addEventListener('change', ev => {
+      const bound = ev.target.closest('[data-wk-rep-bound]');
+      if (!bound) return;
+      const id = bound.getAttribute('data-wk-ex');
+      const pair = Array.from(form.querySelectorAll(`[data-wk-rep-bound][data-wk-ex="${id}"]`))
+        .sort((a, b) => Number(a.getAttribute('data-wk-rep-bound')) - Number(b.getAttribute('data-wk-rep-bound')));
+      try {
+        WORKOUT.setExerciseOverride(id, { rep_range: pair.map(i => i.value) });
+      } catch (e) {
+        const current = programExercise(id).rep_range || [8, 12];
+        pair.forEach((i, n) => { i.value = current[n]; });
+      }
+    });
     form.addEventListener('submit', ev => {
       ev.preventDefault();
       const collected = workoutCollectForm();
@@ -589,6 +959,7 @@ function wireWorkoutZone() {
         date: existing ? existing.date : date,
         entries: collected.entries,
         recovery: collected.recovery,
+        comeback_session: collected.comebackSession,
       });
       workoutEditingId = null;
       // A logged session IS the Workout habit for that day -- no double entry.
@@ -601,6 +972,11 @@ function wireWorkoutZone() {
       if (status) status.textContent = 'Saved.';
       WORKOUT.syncWithServer();
     });
+  }
+
+  const addForm = document.getElementById('wk-add-form');
+  if (addForm) {
+    addForm.addEventListener('submit', ev => { ev.preventDefault(); workoutHandleAddExercise(addForm); });
   }
 
   mount.querySelectorAll('[data-wk-edit]').forEach(btn => {
