@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T23:12:20+00:00",
+  "generated_at": "2026-10-02T22:54:52+00:00",
   "min_sample": 20,
   "horizons_trading_days": [
     5,
@@ -8,17 +8,17 @@
   ],
   "period": {
     "first_session": "2026-07-24",
-    "last_session": "2026-10-01"
+    "last_session": "2026-10-02"
   },
   "method": "Entry at the pick session's close for the stock and SPY alike; no dividends, costs or slippage. A stock picked on several nights counts once per night, so samples overlap and are not independent.",
   "rows": [
     {
       "model_version": "lowcci-v1",
       "group": "all ranks",
-      "picks": 80,
-      "sessions": 8,
+      "picks": 90,
+      "sessions": 9,
       "first_session": "2026-09-22",
-      "last_session": "2026-10-01",
+      "last_session": "2026-10-02",
       "horizons": {
         "5": {
           "n": 14
@@ -34,10 +34,10 @@
     {
       "model_version": "lowcci-v1",
       "group": "rank 1-3",
-      "picks": 24,
-      "sessions": 8,
+      "picks": 27,
+      "sessions": 9,
       "first_session": "2026-09-22",
-      "last_session": "2026-10-01",
+      "last_session": "2026-10-02",
       "horizons": {
         "5": {
           "n": 5
@@ -53,10 +53,10 @@
     {
       "model_version": "lowcci-v1",
       "group": "rank 4-6",
-      "picks": 24,
-      "sessions": 8,
+      "picks": 27,
+      "sessions": 9,
       "first_session": "2026-09-22",
-      "last_session": "2026-10-01",
+      "last_session": "2026-10-02",
       "horizons": {
         "5": {
           "n": 5
@@ -72,10 +72,10 @@
     {
       "model_version": "lowcci-v1",
       "group": "rank 7-10",
-      "picks": 32,
-      "sessions": 8,
+      "picks": 36,
+      "sessions": 9,
       "first_session": "2026-09-22",
-      "last_session": "2026-10-01",
+      "last_session": "2026-10-02",
       "horizons": {
         "5": {
           "n": 4
