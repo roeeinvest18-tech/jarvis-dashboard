@@ -40,7 +40,11 @@
 // daily-today.js, os.js, strings.js and the stylesheet changed.
 // v24: Today gained a date bar for opening and editing a past day; the
 // stylesheet and daily-today.js both changed.
-const CACHE_NAME = 'jarvis-shell-v24';
+// v25: Training screen text contrast, round 2 -- functional labels moved to
+// --ink at 12px / 13px, weight 500; styles.css and workout-ui.js changed.
+// v26: UI pass phase A -- a 12px type floor for content text, 11px index
+// marks, and 16px fields so iOS does not zoom on focus; styles.css changed.
+const CACHE_NAME = 'jarvis-shell-v27';
 const SHELL_ASSETS = [
   './',
   'index.html',

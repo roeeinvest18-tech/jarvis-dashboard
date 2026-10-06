@@ -162,7 +162,20 @@ function workoutPillGroupHtml(key, options, current) {
 // tempo toggle for tempo_then_load, a variation toggle for hold_duration, a
 // rest-mode toggle for Sprints specifically (the only time_or_distance
 // exercise reps are ever paced between).
-function workoutControlCellsHtml(type, exerciseId, entry) {
+// Weight and RIR are asked once per exercise. A saved entry whose filled sets
+// carry different values (a synced or migrated session) must not be flattened
+// into one value by the next save, so for that entry they are shown, and
+// collected, per set instead. Returns the keys that go per set, else [].
+function workoutPerSetKeys(type, entry) {
+  const keys = type === 'external_load' ? ['weight', 'rir']
+    : type === 'tempo_then_load' ? ['added_weight', 'rir'] : [];
+  if (!keys.length || !entry || !entry.sets) return [];
+  const filled = WORKOUT.filledSets(entry);
+  const differs = keys.some(k => new Set(filled.map(s => String(s[k] === null || s[k] === undefined ? '' : s[k]))).size > 1);
+  return differs ? keys : [];
+}
+
+function workoutControlCellsHtml(type, exerciseId, entry, perSet = []) {
   const v = k => {
     const set = entry && entry.sets && entry.sets[0];
     const raw = set ? set[k] : null;
@@ -174,14 +187,15 @@ function workoutControlCellsHtml(type, exerciseId, entry) {
     // (A pre-filled starting value for an added exercise is not a logged
     // entry: it has no exercise_id, so it never pins a unit.)
     const unit = workoutRowLoadUnit(exerciseId, entry && entry.exercise_id ? entry : null);
+    if (perSet.length) return '';
     return workoutExkeyCellHtml('weight', workoutWeightCellLabel(unit), v('weight'), workoutWeightCellAttrs(unit))
       + workoutExkeyCellHtml('rir', 'RIR', v('rir'), 'min="0" max="10"');
   }
   if (type === 'tempo_then_load') {
     return workoutPillGroupHtml('tempo_stage',
       [['normal', 'normal'], ['slow_eccentric', 'slow ecc.']], v('tempo_stage') || 'normal')
-      + workoutExkeyCellHtml('added_weight', '+kg', v('added_weight'), 'step="0.5" min="0"')
-      + workoutExkeyCellHtml('rir', 'RIR', v('rir'), 'min="0" max="10"');
+      + (perSet.length ? '' : workoutExkeyCellHtml('added_weight', '+kg', v('added_weight'), 'step="0.5" min="0"')
+        + workoutExkeyCellHtml('rir', 'RIR', v('rir'), 'min="0" max="10"'));
   }
   if (type === 'hold_duration') {
     const ex = programExercise(exerciseId);
@@ -204,11 +218,22 @@ function workoutControlCellsHtml(type, exerciseId, entry) {
 
 // The per-set cells: what varies set to set. Reps for loaded work, one
 // duration per hold attempt, the sprint/Cooper protocol's own few fields.
-function workoutSetCellsHtml(type, exerciseId, row, sets) {
+function workoutSetCellsHtml(type, exerciseId, row, sets, perSet = [], unit = null) {
   if (type === 'external_load' || type === 'tempo_then_load') {
+    const val = (set, k) => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
     return sets.map((set, i) => {
-      const reps = set && set.reps !== null && set.reps !== undefined ? String(set.reps) : '';
-      return workoutSetCellHtml(i, 'reps', `Set ${i + 1}`, reps, 'min="0"');
+      const reps = val(set, 'reps');
+      let html = workoutSetCellHtml(i, 'reps', `Set ${i + 1}`, reps, 'min="0"');
+      if (perSet.length && reps !== '') {
+        if (type === 'external_load') {
+          html += workoutSetCellHtml(i, 'weight', `${workoutWeightCellLabel(unit)} ${i + 1}`,
+            val(set, 'weight'), workoutWeightCellAttrs(unit));
+        } else {
+          html += workoutSetCellHtml(i, 'added_weight', `+kg ${i + 1}`, val(set, 'added_weight'), 'step="0.5" min="0"');
+        }
+        html += workoutSetCellHtml(i, 'rir', `RIR ${i + 1}`, val(set, 'rir'), 'min="0" max="10"');
+      }
+      return html;
     }).join('');
   }
   if (type === 'hold_duration') {
@@ -274,6 +299,7 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
   else slots = Math.max(typeof row.sets === 'number' ? row.sets : 3, logged);
 
   const sets = Array.from({ length: slots }, (_, i) => (loggedEntry && loggedEntry.sets[i]) || null);
+  const perSet = workoutPerSetKeys(type, loggedEntry);
 
   const flagHtml = (progression && progression.flag && progression.flag !== WORKOUT_FLAGS.trendOnly)
     ? `<div class="wk-suggestion" data-wk-flag="${progression.flag}">
@@ -288,31 +314,36 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
   return `
   <div class="wk-row" data-wk-exercise="${row.exercise_id}"${unit ? ` data-wk-load-unit="${unit}"` : ''}
     data-wk-logged="${loggedEntry ? '1' : '0'}"${groupId ? ' data-wk-superset' : ''}>
+    <div class="wk-row-meta">
+      ${ctx.total ? `<span class="wk-index">${ctx.index} / ${ctx.total}</span>` : ''}
+      ${ctx.supersetAllowed ? `<span class="wk-superset-tag" data-wk-superset-tag${groupId ? '' : ' hidden'}>superset</span>` : ''}
+      ${logged ? `<span class="wk-done" aria-label="${logged} sets logged">${logged}</span>` : ''}
+    </div>
     <div class="wk-row-top">
       <span class="wk-name">${escapeHtml(ex.name)}</span>
-      ${ctx.supersetAllowed ? `<span class="wk-superset-tag" data-wk-superset-tag${groupId ? '' : ' hidden'}>superset</span>` : ''}
       <span class="wk-prescription">${escapeHtml(workoutSetsLabel(row))}${
         row.rir_target ? ` &middot; RIR ${row.rir_target.join('-')}` : ''}</span>
-      ${logged ? `<span class="wk-done" aria-label="${logged} sets logged">${logged}</span>` : ''}
     </div>
     <p class="wk-why">${escapeHtml(ex.why)}</p>
     ${gapWarningHtml}
     ${row.note ? `<p class="wk-note">${escapeHtml(row.note)}</p>` : ''}
-    ${row.rest ? `<p class="wk-note">Rest ${escapeHtml(row.rest)}</p>` : ''}
+    ${row.rest ? `<p class="wk-note wk-rest">Rest ${escapeHtml(row.rest)}</p>` : ''}
     ${row.protocol === 'sprint' ? `<p class="wk-note">${escapeHtml(SPRINT_PROTOCOL.note)}</p>` : ''}
     ${row.protocol === 'sprint' ? '<p class="wk-note">HR-based rest: enter heart rate from a synced device or by hand; the next rep starts once it drops under the threshold. Fixed rest ignores these two fields.</p>' : ''}
     ${row.protocol === 'cooper' ? `<p class="wk-note">${escapeHtml(COOPER_PROTOCOL.note)}</p>` : ''}
     ${flagHtml}
     <div class="wk-cols">
-      ${workoutSetCellsHtml(type, row.exercise_id, row, sets)}
-      ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry || prefill)}
+      ${workoutSetCellsHtml(type, row.exercise_id, row, sets, perSet, unit)}
+      ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry || prefill, perSet)}
     </div>
-    ${ctx.supersetAllowed ? workoutSupersetControlHtml(row.exercise_id, groupId) : ''}
-    ${workoutExerciseSettingsHtml(ex, unit)}
-    <details class="wk-science">
-      <summary>Why this exercise</summary>
-      <p>${escapeHtml(ex.rationale)}</p>
-    </details>
+    <div class="wk-more">
+      ${ctx.supersetAllowed ? workoutSupersetControlHtml(row.exercise_id, groupId) : ''}
+      ${workoutExerciseSettingsHtml(ex, unit)}
+      <details class="wk-science">
+        <summary>Why this exercise</summary>
+        <p>${escapeHtml(ex.rationale)}</p>
+      </details>
+    </div>
   </div>`;
 }
 
@@ -423,7 +454,7 @@ function workoutLogHtml() {
     <div class="wk-head">
       <div>
         <h2 class="wk-title">${template ? escapeHtml(template.focus) : 'Rest day'}</h2>
-        <p class="os-note">${escapeHtml(workoutPrettyDate(date))}${
+        <p class="os-note wk-meta">${escapeHtml(workoutPrettyDate(date))}${
           phase ? ` &middot; ${escapeHtml(phase.name)}` : ''}${week ? ` &middot; week ${week}` : ''}</p>
       </div>
       <label class="wk-field wk-date">
@@ -462,7 +493,8 @@ function workoutLogHtml() {
     </details>
     ${sessionType && sessionType.why ? `<p class="wk-why">${escapeHtml(sessionType.why)}</p>` : ''}
     <form id="wk-log-form" class="wk-form">
-      ${rows.map(row => workoutExerciseHtml(row, entryFor(row.exercise_id), date, { supersetAllowed })).join('')}
+      ${rows.map((row, i) => workoutExerciseHtml(row, entryFor(row.exercise_id), date,
+        { supersetAllowed, index: i + 1, total: rows.length })).join('')}
       ${workoutRecoveryHtml(existing ? existing.recovery : null)}
       <section class="wk-section wk-comeback">
         <span class="os-note">Reduced intensity today?</span>
@@ -711,13 +743,16 @@ function workoutCollectForm() {
       // slot would turn "left the 3rd set blank" back into a filled set --
       // exactly the bug the model's null-not-zero rule exists to prevent.
       const hasReps = raw.reps !== undefined && raw.reps !== null && raw.reps !== '';
+      // A key the screen asked per set (workoutPerSetKeys) is already in
+      // `raw` from its own cell; only the once-per-exercise ones are copied.
+      const own = (k, value) => { if (raw[k] === undefined) raw[k] = value; };
       if (type === 'external_load' && hasReps) {
-        raw.weight = exVal('weight');
-        raw.rir = exVal('rir');
+        own('weight', exVal('weight'));
+        own('rir', exVal('rir'));
       } else if (type === 'tempo_then_load' && hasReps) {
         raw.tempo_stage = exVal('tempo_stage');
-        raw.added_weight = exVal('added_weight');
-        raw.rir = exVal('rir');
+        own('added_weight', exVal('added_weight'));
+        own('rir', exVal('rir'));
       } else if (type === 'hold_duration') {
         raw.variation = exVal('variation');
         raw.attempt_number = Number(i) + 1;

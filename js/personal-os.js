@@ -104,7 +104,7 @@ const osShell = mountShell({
   areaId: 'os',
   // Today draws its own greeting as the screen title, so the shell's title
   // slot stays empty there rather than repeating it.
-  titleFor: tab => (OS_TAB_TITLES[tab] ? `<h1 class="shell-title">${OS_TAB_TITLES[tab]}</h1>` : ''),
+  titleFor: tab => (OS_TAB_TITLES[tab] ? shellTitleHtml(OS_TAB_TITLES[tab], tab) : ''),
   render(tab) {
     if (tab === 'today') {
       // ?date= is read once, on the first visit to Today in this page load

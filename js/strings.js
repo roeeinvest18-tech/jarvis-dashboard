@@ -71,6 +71,17 @@ const STRINGS = {
     },
     ownerInitial: 'R',
     ownerName: 'Roee',
+    // One line under each page title: what the screen is for.
+    subtitles: {
+      training: 'Log today\'s session, review the week and follow your progress.',
+      insights: 'What your routine, sleep and training show over time.',
+      memory: 'Recall what you have learned, a little each day.',
+      history: 'Every past day, ready to open and correct.',
+      top10: 'The strongest setups from the nightly scan.',
+      breakouts: 'Setups that broke out in the last 48 hours.',
+      fullscan: 'Every ticker the nightly scan covered.',
+      scorecard: 'How past signals performed against the market.',
+    },
   },
 
   // ---- system health strip ------------------------------------------------
@@ -223,6 +234,9 @@ const STRINGS = {
       staleModel: 'This scan predates the current Top 10 scores. The next nightly scan ranks it.',
       noMatch: (term) => `No ranked setups match “${term}”.`,
       volume: (value) => `Vol ${value}`,
+      columns: { rank: '#', ticker: 'Ticker', sma150: 'SMA150', price: 'Price', change: 'Chg', volume: 'Vol', score: 'Score' },
+      viewAll: 'View all scanned tickers →',
+      shownOf: (n, total) => `${n} of ${total}`,
       flagsPending: 'Float, short-float and earnings checks appear from the next nightly scan.',
       // Missing data reads "unknown" -- never silently as a pass.
       flags: {
@@ -270,7 +284,7 @@ const STRINGS = {
       today: 'today',
     },
     why: {
-      summary: (regime, withBreadth) => `Why ${regime}${withBreadth ? ' · breadth' : ''}`,
+      summary: (regime) => `Why ${regime}? →`,
       thisLabel: 'this label',
       breadth: (pct, above, total) => `${pct}% of the watchlist is above its SMA150 (${above} of ${total}).`,
       intro: (days) => `The label compares three risk-appetite ratios with ${days} trading days ago:`,

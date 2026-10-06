@@ -227,7 +227,13 @@ function renderTradingTop10() {
       <h2 class="sec-label sec-label-gold">${TRADE_S.top10.heading}</h2>
       <span class="sec-note">${escapeHtml(TRADE_S.top10.scanned(healthFmtWhen(scan.generated_at)))}</span>
     </div>
-    ${shown.length ? `<div class="setup-list">${shown.map(r => {
+    ${shown.length ? `<div class="setup-table">
+      <div class="setup-head" aria-hidden="true">
+        ${['rank', 'ticker', 'sma150', 'price', 'change', 'volume', 'score'].map(k =>
+          `<span class="setup-col-${k}${k === 'score' ? ' is-sorted' : ''}">${TRADE_S.top10.columns[k]}${
+            k === 'score' ? `<span class="sort-arrow">${TRADE_S.fullScan.sortDesc}</span>` : ''}</span>`).join('')}
+      </div>
+      <div class="setup-list">${shown.map(r => {
       const rank = ordered.indexOf(r) + 1;
       const change = r.change_pct;
       // Ranks 6+ step down in weight and ink so the list reads as continuing
@@ -236,29 +242,32 @@ function renderTradingTop10() {
       // the 4.5:1 floor the design now enforces (test_contrast_e2e.js).
       const tail = rank >= 6 ? ' is-tail' : '';
       const score = tradingTop10Score(r);
+      // A table row: the column header says what each figure is, so the
+      // cells carry the bare value. The whole row is still one link.
       return `
         <a class="setup-card is-link${tail}" ${tradingLinkAttrs(r.ticker, r.exchange)}>
           <span class="setup-rank mono">${rank}</span>
-          <div class="setup-main">
-            <div class="setup-row">
-              <span class="setup-ticker">${escapeHtml(r.ticker)}</span>
-              ${tradingSma150Html(r)}
-            </div>
-            <div class="setup-row setup-meta">
-              <span class="mono setup-price">${fmtPrice(r.price)}</span>
-              <span class="mono setup-change ${change >= 0 ? 'is-up' : 'is-down'}">${fmtChange(change)}</span>
-              <span class="setup-vol">${TRADE_S.top10.volume(fmtCompactNumber(r.today_volume))}</span>
-            </div>
-            ${tradingFlagsHtml(r, peers[r.ticker], held[r.ticker])}
-          </div>
+          <span class="setup-ticker">${escapeHtml(r.ticker)}</span>
+          <span class="mono setup-sma150">${tradingSma150Value(r.pct_SMA150)}</span>
+          <span class="mono setup-price">${fmtPrice(r.price)}</span>
+          <span class="mono setup-change ${change >= 0 ? 'is-up' : 'is-down'}">${fmtChange(change)}</span>
+          <span class="mono setup-vol">${fmtCompactNumber(r.today_volume)}</span>
           <span class="setup-score mono ${tradingScoreClass(score)}">${Math.round(score)}</span>
+          ${tradingFlagsHtml(r, peers[r.ticker], held[r.ticker])}
         </a>`;
-    }).join('')}</div>`
+    }).join('')}</div>
+    </div>
+    <div class="setup-foot">
+      <button type="button" class="linkbtn setup-more" id="top10-all">${TRADE_S.top10.viewAll}</button>
+      <span class="sec-note mono">${escapeHtml(TRADE_S.top10.shownOf(scan.stocks.length, scan.total_tickers ?? scan.stocks.length))}</span>
+    </div>`
     : `<div class="empty-state">${escapeHtml(TRADE_S.top10.noMatch(tradingState.search))}</div>`}
     <p class="trading-note">${TRADE_S.tagLegend}</p>
     ${hasFlags ? '' : `<p class="trading-note">${TRADE_S.top10.flagsPending}</p>`}
     ${tradingSizingHtml()}`;
   wireTradingSizing();
+  const all = document.getElementById('top10-all');
+  if (all) all.addEventListener('click', () => { if (tradingShell) tradingShell.setTab('fullscan'); });
 }
 
 // --- Rule flags + correlation (quiet mono marks under each card) ----------
@@ -557,7 +566,7 @@ function renderMarketWhy() {
   mount.className = 'market-why';
   mount.innerHTML = `
     <details${open ? ' open' : ''}>
-      <summary>Why ${escapeHtml(regime || 'this label')}${breadth ? ' · breadth' : ''}</summary>
+      <summary>${escapeHtml(TRADE_S.why.summary(regime || TRADE_S.why.thisLabel))}</summary>
       ${breadth ? `<p>${escapeHtml(breadth)}</p>` : ''}
       ${why}
     </details>`;
@@ -949,11 +958,11 @@ function renderTradingScanTable() {
 
 // --- page -----------------------------------------------------------------
 
-const TRADING_TITLES = { breakouts: 'Breakouts', fullscan: 'Full Scan', scorecard: 'Scorecard' };
+const TRADING_TITLES = { top10: 'Trading', breakouts: 'Breakouts', fullscan: 'Full Scan', scorecard: 'Scorecard' };
 
 const tradingShell = mountShell({
   areaId: 'trading',
-  titleFor: tab => (TRADING_TITLES[tab] ? `<h1 class="shell-title">${TRADING_TITLES[tab]}</h1>` : ''),
+  titleFor: tab => (TRADING_TITLES[tab] ? shellTitleHtml(TRADING_TITLES[tab], tab) : ''),
   render(tab) {
     renderMarketWindow();
     renderMarketBar(tab);

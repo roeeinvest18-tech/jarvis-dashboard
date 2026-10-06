@@ -200,6 +200,12 @@ function renderShellSidebar(activeAreaId, activeTabId, onTabChange) {
   });
 }
 
+// Page title with its one-line subtitle (copy in strings.js).
+function shellTitleHtml(title, tabId) {
+  const sub = STRINGS.shell.subtitles[tabId];
+  return `<h1 class="shell-title">${title}</h1>${sub ? `<p class="shell-sub">${sub}</p>` : ''}`;
+}
+
 // --- sub-tab strip --------------------------------------------------------
 
 function renderShellSubTabs(mount, area, activeTabId, onTabChange) {

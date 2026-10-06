@@ -54,9 +54,15 @@
   --fs-item: 16.5px;
   --fs-body: 15.5px;
   --fs-secondary: 12.5px;
-  --fs-area: 10.5px;
+  --fs-area: 11px;   /* index marks: uppercase, tracked (was 10.5px) */
   --fs-num: 13px;
-  --fs-tag: 9.5px;
+  --fs-tag: 11px;    /* index marks: uppercase, tracked (was 9.5px) */
+  /* Content labels everywhere: the words and figures you read to use a screen
+     (set and field labels, rest and prescription lines, option names, stat
+     and sub-labels, target times). --fs-tag / --fs-area are for the uppercase
+     tracked index marks only (section labels, the eyebrow, column headers). */
+  --fs-label: 12px;
+  --fs-label-lg: 13px;
 
   /* Spacing */
   --sp-1: 4px;
@@ -4197,3 +4203,379 @@ body.is-market-closed .regime { color: var(--ink2); }
 }
 .wk-arrow { font-family: var(--font-mono); font-size: var(--fs-num); color: var(--ink2); }
 .wk-arrow[data-wk-arrow="up"] { color: var(--mark); }
+
+/* ---- Training: functional text is primary, not secondary --------------
+   Round 2 of the contrast pass. --ink3 was already off all text; what was
+   left was --ink2 at 9.5px and weight 400, which passes 4.5:1 on paper but
+   is dim and small on the dark ground for the words you need to read to log
+   a session. Those move to --ink, 12px (13px for the one-line notes) and
+   weight 500. Scoped to #panel-training so Today, Insights and Trading keep
+   their own scale; --ink2 stays for explanatory prose (.wk-why, the science
+   paragraph, <p class="os-note">), and --mark (sets logged, the arrows, the
+   active underline) is untouched. */
+#panel-training .wk-cell > span,
+#panel-training .wk-field > span,
+#panel-training .wk-prescription,
+#panel-training .wk-science > summary,
+#panel-training .wk-flag,
+#panel-training .wk-superset-tag,
+#panel-training .os-field,
+#panel-training .os-count,
+#panel-training .os-stat-label {
+  color: var(--ink);
+  font-size: var(--fs-label);
+  font-weight: 500;
+}
+#panel-training .wk-note,
+#panel-training .wk-meta,
+#panel-training span.os-note {
+  color: var(--ink);
+  font-size: var(--fs-label-lg);
+  font-weight: 500;
+}
+#panel-training .os-subhead { color: var(--ink); }
+/* Secondary buttons (Add, and the like) read as labels too. */
+#panel-training .os-btn:not(.os-btn-primary) { color: var(--ink); }
+/* Option names (variations, tempo, the session toggle) read in --ink whether
+   or not they are selected; the selected one is carried by the ochre
+   underline and a heavier weight, not by dimming the others. */
+#panel-training .pill { color: var(--ink); font-weight: 500; }
+#panel-training .pill.is-active { font-weight: 600; }
+
+/* ==========================================================================
+   UI pass, phase A: a type floor, and inputs that do not trigger iOS zoom.
+   Appended last on purpose: these win over the earlier generations of rules
+   by order. No colour changes, no layout changes.
+   ========================================================================== */
+
+/* 1. Content text is never under 12px. Before this, 9.5px mono carried the
+   target times, stat labels, SMA150 and volume figures, flags, scorecard
+   sub-lines, the health strip's timestamps and the history strip's letters.
+   The uppercase tracked index marks keep --fs-tag / --fs-area, now 11px. */
+.sec-note, .holiday-toggle, .habit-time, .os-row-note td, .step-count, .regime,
+.market-stat-label, .setup-sma150, .setup-vol, .setup-touches, .timer-label,
+.stat-label, .recall-sub, .os-attempts summary, .os-score-none, .os-attempt-weak,
+.os-eval-row label, .strip-letter, .os-observation-evidence, .os-count,
+.os-settings summary, .os-settings-form label, .drill-delta, .drill-pr-flag,
+.training-missed, .training-session-summary, .health-when, .market-window,
+.market-why summary, .setup-flags, .sizing-field, .sc-table thead th,
+.sc-sub, .sc-empty, .sc-range, .acct-note, .acct-stop, .os-exp-meta, .os-field,
+.wk-done {
+  font-size: var(--fs-label);
+}
+/* The mono labels you compare (times, figures, sub-lines) hold up better at
+   weight 500 on the dark ground; serif labels and buttons stay as they were. */
+.habit-time, .health-when, .sc-sub, .sc-range, .setup-sma150, .setup-vol,
+.setup-touches, .strip-letter, .step-count, .market-window, .sec-note, .timer-label {
+  font-weight: 500;
+}
+/* A label beside its value keeps weight 400, and the value reads in --ink, so
+   the pair still has a hierarchy now that both are 12px mono (they were 9.5px
+   dim against 12.5px dim). */
+.market-stat-value { color: var(--ink); font-weight: 500; }
+.sort-arrow { font-size: 11px; }
+
+/* 2. iOS Safari zooms the whole page when a field under 16px takes focus,
+   which shifts the layout in the middle of logging a set or a sleep time.
+   Every live field was 11 to 15.5px. 16px stops the zoom without touching the
+   viewport meta (maximum-scale would also stop people zooming on purpose). */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
+textarea, select {
+  font-size: 16px;
+}
+/* The TradingView counter's input had no width of its own, so it sized to the
+   font: 173px at 13px, which already pushed the row 16px into the right gutter,
+   and 214px at 16px, which pushed the page wider than the screen. Between two
+   44px steppers it needs room for a few digits and no more. */
+.today-tv-count { width: 56px; min-width: 0; flex: 0 0 56px; }
+
+/* ==========================================================================
+   Premium dark redesign.
+   Appended last on purpose: it wins over the earlier generations by order.
+   Built from the owner's approved reference (desktop Training and Trading).
+
+   What changes: a darker page ground with bordered panels one step lighter;
+   a compact top bar on desktop in place of the sidebar; a brighter warm gold
+   for the one filled primary action and for the two text links the reference
+   shows in gold; serif titles with a one-line subtitle; Training exercises as
+   bordered containers; Top 10 as a table.
+
+   What does not: --bg, --ink, --mark and the other pinned tokens, the type
+   floor, the 16px fields, the 44px touch targets, and the rule that green
+   and red mean price direction only. No gradient, glow, blur or animation.
+   ========================================================================== */
+
+:root {
+  --canvas: #0f0e0d;       /* the page ground; panels sit one step lighter on --bg */
+  --mark-hi: #d6a45e;      /* filled primary action and gold text links */
+  --on-mark: #1a1410;      /* text on a --mark-hi fill, 9:1 */
+  --field-line: #3b352d;   /* input and panel borders: structure, never text */
+  --panel-line: #2f2a24;
+  --r-panel: 6px;
+  --topnav-h: 56px;
+  --page-w: 1000px;
+}
+
+html, body { background: var(--canvas); }
+.shell-tabbar, .shell-sidebar { background: var(--canvas); }
+
+/* --- page title and subtitle ------------------------------------------ */
+.shell-title { padding-bottom: var(--sp-1); }
+.shell-sub {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  color: var(--ink2);
+  margin: 0;
+  padding-bottom: var(--sp-5);
+}
+
+/* --- panels ------------------------------------------------------------ */
+.wk-prompt, .acct-card, .market-panel, .wk-warmup {
+  border: 1px solid var(--panel-line);
+  border-radius: var(--r-panel);
+  background: var(--bg);
+}
+
+/* --- primary action: the one filled button ----------------------------- */
+.os-btn-primary {
+  background: var(--mark-hi);
+  color: var(--on-mark);
+  border: 1px solid var(--mark-hi);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  padding: 0 var(--sp-6);
+}
+.os-btn-primary:hover { filter: none; background: #e2b46f; border-color: #e2b46f; color: var(--on-mark); }
+.os-btn:not(.os-btn-primary) { border-color: var(--field-line); background: transparent; }
+.os-btn:not(.os-btn-primary):hover { border-color: var(--ink2); color: var(--ink); }
+.os-btn.os-btn-quiet { border-color: transparent; }
+
+/* --- view tabs (Training Today / Review / Progress / History, Insights) */
+.os-window-tabs { gap: var(--sp-3); flex-wrap: wrap; }
+.os-window-btn {
+  background: transparent;
+  border: 1px solid var(--panel-line);
+  border-radius: var(--r-sm);
+  color: var(--ink2);
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  padding: 0 var(--sp-5);
+}
+.os-window-btn.is-active {
+  background: var(--bg);
+  border-color: var(--field-line);
+  border-bottom: 2px solid var(--mark);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* --- desktop: compact top bar in place of the sidebar ------------------- */
+@media (min-width: 768px) {
+  body { padding-left: 0; padding-top: var(--topnav-h); }
+  .shell-main { max-width: var(--page-w); }
+
+  .shell-sidebar {
+    flex-direction: row;
+    align-items: stretch;
+    gap: var(--sp-6);
+    top: 0; left: 0; right: 0; bottom: auto;
+    width: auto;
+    height: var(--topnav-h);
+    padding: 0 32px;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    overflow: visible;
+  }
+  .shell-logo { padding: 0; margin-right: var(--sp-4); align-items: center; }
+  .shell-side-section { flex-direction: row; align-items: stretch; gap: var(--sp-5); }
+  .shell-side-section + .shell-side-section { padding-left: var(--sp-6); border-left: 1px solid var(--rule); }
+  .shell-side-section .shell-eyebrow { display: none; }
+  .shell-side-link {
+    padding: 0;
+    min-height: var(--topnav-h);
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    box-sizing: border-box;
+    font-size: var(--fs-item);
+    gap: 0;
+  }
+  .shell-side-link svg { display: none; }
+  .shell-side-link:hover { color: var(--ink); }
+  .shell-side-link.is-active { border-bottom-color: var(--mark); }
+  .shell-side-foot { margin: 0 0 0 auto; padding: 0; border-top: none; align-items: center; }
+  .shell-side-name { display: none; }
+  .shell-avatar { width: 30px; height: 30px; font-size: var(--fs-tag); color: var(--ink); border-color: var(--field-line); }
+
+  /* The bar already names every destination, so the sub-tab strip would
+     only repeat it. It stays for the phone, where the bottom bar has two. */
+  .shell-subtabs { display: none; }
+  .shell-header { padding: var(--sp-7) 32px 0; }
+  .shell-body { padding: var(--sp-6) 32px 0; }
+  .shell-title { font-size: 34px; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .shell-sidebar { padding: 0 20px; gap: var(--sp-4); }
+  .shell-side-section { gap: var(--sp-4); }
+  .shell-side-section + .shell-side-section { padding-left: var(--sp-4); }
+  .shell-side-link { font-size: var(--fs-body); }
+  .shell-header, .shell-body { padding-left: 20px; padding-right: 20px; }
+}
+
+/* --- Training: bordered exercise containers ----------------------------- */
+#panel-training .wk-head { border-bottom: none; align-items: center; padding-bottom: 0; }
+#panel-training .wk-title { font-size: var(--fs-heading); font-weight: 500; }
+#panel-training .wk-date { flex: 0 0 auto; min-width: 0; }
+#panel-training .wk-date > span { display: none; }
+#panel-training .wk-date input {
+  width: auto; min-height: 44px; padding: 0 var(--sp-4);
+  border: 1px solid var(--field-line); border-radius: var(--r-sm);
+  color: var(--ink);
+}
+
+#panel-training .wk-prompt { padding: var(--sp-5); gap: var(--sp-4); }
+#panel-training .wk-prompt .os-btn-primary { align-self: stretch; min-height: 48px; }
+
+#panel-training .wk-warmup { padding: 0 var(--sp-5); border-top: 1px solid var(--panel-line); }
+#panel-training .wk-warmup > summary { min-height: 48px; text-transform: uppercase; letter-spacing: .06em; }
+
+.wk-form { gap: var(--sp-4); }
+#panel-training .wk-row {
+  border: 1px solid var(--panel-line);
+  border-radius: var(--r-panel);
+  background: var(--bg);
+  padding: var(--sp-5);
+  gap: var(--sp-3);
+}
+#panel-training .wk-row-meta {
+  display: flex; align-items: center; gap: var(--sp-3);
+  font-family: var(--font-mono); font-size: var(--fs-label);
+  color: var(--ink2);
+}
+#panel-training .wk-row-meta .wk-done { margin-left: auto; }
+#panel-training .wk-row-top { align-items: baseline; gap: var(--sp-4); }
+#panel-training .wk-name { font-size: 19px; font-weight: 500; letter-spacing: -.01em; }
+#panel-training .wk-prescription { margin-left: auto; white-space: nowrap; font-size: var(--fs-label-lg); }
+#panel-training .wk-why { font-size: var(--fs-body); line-height: 1.5; }
+#panel-training .wk-rest { font-family: var(--font-mono); font-size: var(--fs-label-lg); font-weight: 500; }
+
+/* Set 1/2/3, load and RIR on one aligned row. */
+#panel-training .wk-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: var(--sp-2);
+  align-items: end;
+  padding-top: var(--sp-2);
+}
+#panel-training .wk-cols .wk-cell input { width: 100%; min-height: 48px; border-color: var(--field-line); background: var(--canvas); }
+#panel-training .wk-cols .wk-cell input:focus { border-color: var(--mark); }
+#panel-training .wk-cols .wk-pill-group { grid-column: 1 / -1; }
+#panel-training .wk-cols .os-btn { grid-column: 1 / -1; }
+
+/* Secondary: settings, links and the science, one quiet row each. */
+#panel-training .wk-more { display: flex; flex-direction: column; margin: var(--sp-2) calc(-1 * var(--sp-5)) calc(-1 * var(--sp-5)); }
+#panel-training .wk-more > * { border-top: 1px solid var(--rule-soft); padding: 0 var(--sp-5); }
+#panel-training .wk-more .wk-science > summary { justify-content: space-between; font-family: var(--font-serif); font-size: var(--fs-body); font-weight: 500; text-transform: none; letter-spacing: 0; }
+#panel-training .wk-more .wk-science > summary::after { content: "\203A"; color: var(--ink2); font-size: 18px; transition: transform var(--t-tab); }
+#panel-training .wk-more .wk-science[open] > summary::after { transform: rotate(90deg); }
+#panel-training .wk-more .wk-superset-control .wk-link-btn { width: 100%; justify-content: flex-start; padding: 0; font-family: var(--font-serif); font-size: var(--fs-body); font-weight: 400; }
+#panel-training .wk-more .wk-science { border-top: 1px solid var(--rule-soft); }
+
+/* A superset pair reads as one group: shared left rule, joined panels. */
+#panel-training .wk-row[data-wk-superset], #panel-training .wk-row.is-link-pending { border-left: 2px solid var(--ink2); }
+#panel-training .wk-row[data-wk-superset]:has(+ .wk-row[data-wk-superset]) {
+  border-bottom-color: var(--panel-line); margin-bottom: calc(-1 * var(--sp-4)); border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+}
+#panel-training .wk-row[data-wk-superset] + .wk-row[data-wk-superset] { border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; }
+
+#panel-training .wk-actions { padding-top: var(--sp-2); }
+#panel-training .wk-actions .os-btn-primary { flex: 1 1 100%; min-height: 52px; }
+#panel-training .wk-section { padding: var(--sp-5); border: 1px solid var(--panel-line); border-radius: var(--r-panel); background: var(--bg); }
+
+/* --- Trading: market status, bar, account card --------------------------- */
+.market-window { display: flex; align-items: center; gap: var(--sp-3); padding: 0; letter-spacing: .02em; }
+.market-window::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ink); flex-shrink: 0;
+}
+body.is-market-closed .market-window::before { background: transparent; border: 1px solid var(--ink2); box-sizing: border-box; }
+
+.market-panel { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 0 var(--sp-5); }
+.market-panel #market-bar { flex: 1 1 auto; }
+.market-bar { border-bottom: none; padding: var(--sp-4) 0; gap: var(--sp-5); align-items: center; }
+.regime { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-label-lg); font-weight: 600; }
+.regime::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.market-stats { gap: var(--sp-5); }
+.market-stat-label { font-size: var(--fs-label); }
+.market-stat-value { font-size: var(--fs-label-lg); }
+.market-panel #market-why { border-bottom: none; flex: 0 0 auto; }
+.market-panel #market-why:has(details[open]) { flex-basis: 100%; border-top: 1px solid var(--rule-soft); padding-bottom: var(--sp-3); }
+.market-why summary { color: var(--mark-hi); font-family: var(--font-serif); font-size: var(--fs-body); list-style: none; }
+.market-why summary::-webkit-details-marker { display: none; }
+
+.trading-search { border: 1px solid var(--panel-line); border-radius: var(--r-panel); padding: 0 var(--sp-4); background: var(--bg); }
+.trading-search svg { color: var(--ink2); }
+
+.acct-card { padding: var(--sp-5); margin-bottom: 0; }
+.acct-editor summary { color: var(--mark-hi); font-size: var(--fs-body); }
+
+/* --- Top 10 as a table ---------------------------------------------------- */
+.setup-table { border: 1px solid var(--panel-line); border-radius: var(--r-panel); background: var(--bg); overflow: hidden; }
+.setup-table .setup-head,
+.setup-table .setup-card {
+  display: grid;
+  grid-template-columns: 22px minmax(52px, 1.3fr) minmax(50px, 1fr) minmax(56px, 1fr) minmax(48px, .9fr) minmax(42px, .8fr) 52px;
+  column-gap: var(--sp-3);
+  align-items: center;
+  padding-left: var(--sp-4); padding-right: var(--sp-4);
+}
+.setup-table .setup-head {
+  min-height: 40px;
+  border-bottom: 1px solid var(--panel-line);
+  font-family: var(--font-mono); font-size: var(--fs-tag); letter-spacing: .07em; text-transform: uppercase;
+  color: var(--ink2);
+}
+.setup-table .setup-head .is-sorted { color: var(--mark-hi); }
+.setup-table .setup-head span:nth-child(n+3) { text-align: right; white-space: nowrap; }
+.setup-table .setup-head .sort-arrow { margin-left: 3px; }
+.setup-table .setup-card { min-height: 48px; padding-top: var(--sp-2); padding-bottom: var(--sp-2); border-bottom: 1px solid var(--rule-soft); }
+.setup-table .setup-card:last-child { border-bottom: none; }
+.setup-table .setup-card > span:nth-child(n+3) { text-align: right; }
+.setup-table .setup-rank { width: auto; font-size: var(--fs-label); }
+.setup-table .setup-ticker { font-size: var(--fs-item); }
+.setup-table .setup-sma150, .setup-table .setup-vol { font-size: var(--fs-label); font-weight: 400; }
+.setup-table .setup-price { font-size: var(--fs-label-lg); color: var(--ink); }
+.setup-table .setup-change { font-size: var(--fs-label-lg); }
+.setup-table .setup-card.is-tail .setup-price { color: var(--ink2); }
+.setup-table .setup-score { font-size: var(--fs-label-lg); font-weight: 500; }
+.setup-table .setup-score.is-high { font-weight: 600; }
+.setup-table .setup-flags { grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-4); padding: 0 0 var(--sp-1); }
+.setup-table .setup-card.is-link:hover { background: var(--raise); }
+.setup-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); }
+.setup-more { color: var(--mark-hi); font-family: var(--font-serif); font-size: var(--fs-body); min-height: 44px; text-align: left; padding: 0; }
+
+/* --- Full Scan: the same table treatment ---------------------------------- */
+.scan-wrap { border: 1px solid var(--panel-line); border-radius: var(--r-panel); background: var(--bg); }
+table.scan-grid th { padding-left: var(--sp-4); border-bottom-color: var(--panel-line); }
+table.scan-grid th.col-num { text-align: right; }
+table.scan-grid th.is-sorted { color: var(--mark-hi); }
+table.scan-grid td { padding-left: var(--sp-4); }
+table.scan-grid td.col-num { text-align: right; }
+table.scan-grid td.col-ticker { font-size: var(--fs-body); }
+table.scan-grid tr.is-link:hover td { background: var(--raise); }
+.market-panel:not(:has(.market-bar *)) { display: none; }
+
+/* Phone: the seven Top 10 columns have to fit 354px without scrolling, so
+   the columns and the gaps shrink; the figures stay 12px or more. */
+@media (max-width: 479px) {
+  .setup-table .setup-head,
+  .setup-table .setup-card {
+    grid-template-columns: 18px minmax(42px, 1.2fr) 50px 54px 46px 36px 44px;
+    column-gap: 4px;
+    padding-left: var(--sp-3); padding-right: var(--sp-3);
+  }
+  .setup-table .setup-head { letter-spacing: .02em; }
+  .setup-table .setup-price, .setup-table .setup-change { font-size: var(--fs-label); }
+}
+
+table.scan-grid td.col-ticker a { color: var(--ink); text-decoration: none; }
