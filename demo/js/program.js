@@ -38,6 +38,7 @@ const EXERCISES = [
     primary_muscles: ['chest', 'triceps', 'front_delts'],
     equipment: 'machine_or_barbell',
     progression_type: 'external_load',
+    load_unit: 'plates',
     variations: [],
     why: 'Horizontal pushing strength and chest/triceps development.',
     rationale: 'The horizontal press is the highest-leverage way to load the '
@@ -82,6 +83,7 @@ const EXERCISES = [
     primary_muscles: ['triceps'],
     equipment: 'cable',
     progression_type: 'external_load',
+    load_unit: 'plates',
     variations: [],
     why: 'Direct triceps work without the pressing fatigue.',
     rationale: 'Pressing already trains the triceps, but always as the weaker '
@@ -127,6 +129,7 @@ const EXERCISES = [
     primary_muscles: ['lats', 'biceps'],
     equipment: 'cable',
     progression_type: 'external_load',
+    load_unit: 'plates',
     variations: [],
     why: 'Vertical pulling volume at a load you can dial precisely.',
     rationale: 'Pull-ups cannot supply much volume at a useful rep range while '
@@ -142,6 +145,7 @@ const EXERCISES = [
     primary_muscles: ['mid_back', 'lats', 'biceps'],
     equipment: 'machine_or_cable',
     progression_type: 'external_load',
+    load_unit: 'plates',
     variations: [],
     why: 'Horizontal pulling to balance the pressing volume.',
     rationale: 'Vertical pulling alone leaves the mid-back under-trained '
@@ -171,6 +175,7 @@ const EXERCISES = [
     primary_muscles: ['rear_delts', 'rotator_cuff', 'mid_back'],
     equipment: 'cable',
     progression_type: 'external_load',
+    load_unit: 'plates',
     variations: [],
     why: 'Rear delts and external rotation, for shoulders that press a lot.',
     rationale: 'The small muscles at the back of the shoulder do not get '
@@ -303,6 +308,7 @@ const EXERCISES = [
     primary_muscles: ['mid_back', 'lats', 'biceps'],
     equipment: 'cable',
     progression_type: 'external_load',
+    load_unit: 'plates',
     variations: [],
     why: 'Second horizontal pull exposure of the week.',
     rationale: 'Mirrors the Day 2 seated row at a cable rather than a machine, '
@@ -317,6 +323,7 @@ const EXERCISES = [
     primary_muscles: ['side_delts'],
     equipment: 'cable',
     progression_type: 'external_load',
+    load_unit: 'plates',
     variations: [],
     why: 'Side delts, which pressing barely touches.',
     rationale: 'Pressing trains the front of the shoulder; the side head needs '
@@ -560,6 +567,27 @@ function programExercise(id) {
 function programLoadUnit(exerciseId) {
   const ex = programExercise(exerciseId);
   return ex && ex.load_unit === 'plates' ? 'plates' : 'kg';
+}
+
+// The structure a new exercise is created with, taken from the session it is
+// added to: the first loaded exercise of that day's template (a Push day gives
+// 3 x 8-12, RIR 1-3, 90-120s). A day with none falls back to the quick-add
+// defaults. Only the name is chosen by the owner; the unit is always plates.
+function programAddTemplate(day) {
+  const workout = typeof day === 'number' ? programWorkoutForDay(day) : day;
+  const row = workout && workout.exercises.find(r => {
+    const ex = EXERCISE_BY_ID[r.exercise_id];
+    return ex && ex.progression_type === 'external_load' && typeof r.sets === 'number'
+      && r.rep_range && r.rep_range[1] !== null;
+  });
+  const d = CUSTOM_EXERCISE_DEFAULTS;
+  return {
+    sets: row ? row.sets : 3,
+    rep_range: row ? [...row.rep_range] : [...d.rep_range],
+    rir_target: row && row.rir_target ? [...row.rir_target] : [...d.rir_target],
+    rest: row && row.rest ? row.rest : '90-120s',
+    load_unit: d.load_unit,
+  };
 }
 
 function programCustomExerciseIds() { return Object.keys(PROGRAM_RUNTIME.custom); }
@@ -864,6 +892,7 @@ if (typeof module !== 'undefined' && module.exports) {
     CUSTOM_EXERCISE_DEFAULTS,
     programSetRuntime,
     programLoadUnit,
+    programAddTemplate,
     programCustomExerciseIds,
     programIsBuiltIn,
     programSessionAllowsSuperset,

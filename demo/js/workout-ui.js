@@ -10,6 +10,7 @@
 const WORKOUT_VIEWS = ['log', 'review', 'progress', 'history'];
 let workoutView = 'log';
 let workoutDate = null;         // null means "today"
+let workoutTemplateDay = null;  // a day chosen in the title's selector; null = the scheduled one
 let workoutEditingId = null;    // a session being edited, rather than logged fresh
 let workoutConfirmDelete = null;
 let workoutLinkPending = null;   // the exercise awaiting its superset partner
@@ -54,6 +55,7 @@ function workoutRowForAddedExercise(ex) {
     sets: ex.default_sets || 3,
     rep_range: ex.rep_range ? [...ex.rep_range] : null,
     rir_target: ex.rir_target ? [...ex.rir_target] : null,
+    ...(ex.default_rest ? { rest: ex.default_rest } : {}),
   };
 }
 
@@ -244,7 +246,13 @@ function workoutSetCellsHtml(type, exerciseId, row, sets, perSet = [], unit = nu
     return sets.map((set, i) => {
       const val = set && set[metricKey] !== null && set[metricKey] !== undefined
         ? String(set[metricKey]) : '';
-      const cell = workoutSetCellHtml(i, metricKey, `#${i + 1}`, val, 'min="0"');
+      let cell = workoutSetCellHtml(i, metricKey, `#${i + 1}`, val, 'min="0"');
+      // A timed hold also takes a rep count per set; an exercise that already
+      // counts reps as its measure (Pogo Jumps) does not need a second one.
+      if (metricKey === 'duration_seconds') {
+        const held = set && set.hold_reps !== null && set.hold_reps !== undefined ? String(set.hold_reps) : '';
+        cell += workoutSetCellHtml(i, 'hold_reps', `#${i + 1} reps`, held, 'min="0"');
+      }
       if (!ex.logs_quality_note) return cell;
       const note = set && set.quality_note ? String(set.quality_note) : '';
       return cell + workoutSetTextCellHtml(i, 'quality_note', 'note', note);
@@ -440,22 +448,51 @@ function workoutPhasePromptHtml() {
   </div>`;
 }
 
+// Which session's program the log screen shows for a date. Normally the day
+// the date falls on; the title's selector can browse another day's program
+// for the same date, and a session already saved under another day reopens as
+// that day. `browsing` is true whenever what is shown is not the scheduled one.
+function workoutResolveTemplate(date, existing) {
+  const scheduled = programWorkoutForWeekday(workoutWeekdayIndex(date));
+  const day = workoutTemplateDay || (existing && existing.day) || null;
+  const chosen = day ? programWorkoutForDay(Number(day)) : null;
+  const template = chosen || scheduled;
+  return { scheduled, template, browsing: !!template && (!scheduled || template.day !== scheduled.day) };
+}
+
+function workoutExistingFor(date) {
+  return workoutEditingId ? WORKOUT.session(workoutEditingId) : (WORKOUT.sessionsOn(date)[0] || null);
+}
+
+// The title is a selector: every session type in the real program, with the
+// scheduled one marked so it is never unclear which day is today's.
+function workoutDaySelectHtml(scheduled, template) {
+  const S = STRINGS.workout;
+  const options = WEEK_TEMPLATE.map(w => `<option value="${w.day}"${template && template.day === w.day ? ' selected' : ''}>${
+    escapeHtml(scheduled && scheduled.day === w.day ? S.scheduledOption(w.focus) : w.focus)}</option>`).join('');
+  return `<span class="wk-daypick">
+    <select id="wk-day" class="wk-title wk-title-select" aria-label="${S.daySelect}">
+      ${template ? '' : `<option value="" selected>${S.restDayOption}</option>`}${options}
+    </select></span>`;
+}
+
 function workoutLogHtml() {
   const date = workoutCurrentDate();
-  const weekday = workoutWeekdayIndex(date);
-  const template = programWorkoutForWeekday(weekday);
   const phase = WORKOUT.activePhase();
   const week = WORKOUT.weekNumberFor(date);
-  const existing = workoutEditingId
-    ? WORKOUT.session(workoutEditingId)
-    : (WORKOUT.sessionsOn(date)[0] || null);
+  const existing = workoutExistingFor(date);
+  const { scheduled, template, browsing } = workoutResolveTemplate(date, existing);
 
   const header = `
     <div class="wk-head">
       <div>
-        <h2 class="wk-title">${template ? escapeHtml(template.focus) : 'Rest day'}</h2>
+        ${workoutDaySelectHtml(scheduled, template)}
         <p class="os-note wk-meta">${escapeHtml(workoutPrettyDate(date))}${
-          phase ? ` &middot; ${escapeHtml(phase.name)}` : ''}${week ? ` &middot; week ${week}` : ''}</p>
+          phase ? ` &middot; ${escapeHtml(phase.name)}` : ''}${week ? ` &middot; week ${week}` : ''}${
+          !browsing && scheduled ? ` &middot; ${STRINGS.workout.scheduledMeta}` : ''}</p>
+        ${browsing ? `<p class="os-note wk-browse" data-wk-browsing>${escapeHtml(STRINGS.workout.browsing(
+          template.focus, scheduled && scheduled.focus))}${scheduled
+          ? ` <button type="button" class="linkbtn" id="wk-day-reset">${escapeHtml(STRINGS.workout.backToScheduled(scheduled.focus))}</button>` : ''}</p>` : ''}
       </div>
       <label class="wk-field wk-date">
         <span>date</span>
@@ -507,27 +544,38 @@ function workoutLogHtml() {
         <span class="os-note" id="wk-log-status"></span>
       </div>
     </form>
-    ${workoutAddExerciseHtml()}
+    ${workoutAddExerciseHtml(template)}
   </div>`;
 }
 
-// The quick "add exercise" form: a name, how many sets, and the starting plate
-// count. That is the whole input. It is deliberately outside the session form
-// so adding an exercise never submits (or disturbs) a half-filled log.
-function workoutAddExerciseHtml() {
+// The add-exercise form is an exercise card in the same shape as the others in
+// this session, with only the name editable. Everything else is the structure
+// of the session it is added to (programAddTemplate) and is shown, not asked.
+// It sits outside the session form so adding never submits a half-filled log.
+function workoutAddExerciseHtml(template) {
+  const S = STRINGS.workout;
+  const t = programAddTemplate(template);
+  const reps = `${t.rep_range[0]}-${t.rep_range[1]}`;
+  const rir = `${t.rir_target[0]}-${t.rir_target[1]}`;
+  const fixed = (label, value) => `<label class="wk-cell"><span>${escapeHtml(label)}</span>
+    <input type="text" readonly tabindex="-1" value="${escapeHtml(String(value))}"></label>`;
   return `<details class="wk-science wk-add" id="wk-add">
-    <summary>Add an exercise</summary>
+    <summary>${S.addSummary}</summary>
     <form id="wk-add-form" class="wk-add-form">
-      <label class="wk-field wk-add-name"><span>name</span>
-        <input type="text" id="wk-add-name" maxlength="40" autocomplete="off" required></label>
-      <div class="wk-cols">
-        <label class="wk-cell"><span>Sets</span>
-          <input type="number" inputmode="numeric" min="1" max="${WORKOUT_CUSTOM_SET_CAP}" id="wk-add-sets" value="3"></label>
-        <label class="wk-cell"><span>Plates</span>
-          <input type="number" inputmode="numeric" min="0" step="1" id="wk-add-plates"></label>
-        <button type="submit" class="os-btn">Add</button>
+      <div class="wk-row wk-row-draft">
+        <div class="wk-row-meta"><span class="wk-index">${S.addNew}</span></div>
+        <div class="wk-row-top">
+          <input type="text" id="wk-add-name" class="wk-add-name-input" maxlength="40" autocomplete="off"
+            required aria-label="${S.addName}" placeholder="${S.addName}">
+          <span class="wk-prescription">${t.sets}x${reps} &middot; RIR ${rir}</span>
+        </div>
+        <p class="wk-note wk-rest">Rest ${escapeHtml(t.rest)}</p>
+        <div class="wk-cols">
+          ${fixed(S.addSets, t.sets)}${fixed(S.addReps, reps)}${fixed(S.addRir, rir)}${fixed(S.addUnit, workoutWeightCellLabel(t.load_unit))}
+        </div>
+        <button type="submit" class="os-btn">${S.addSummary}</button>
       </div>
-      <p class="os-note">Tracked like any other exercise, in plates, progressing by load. Change either afterwards in its settings.</p>
+      <p class="os-note">${escapeHtml(S.addNote(template ? template.focus : 'session'))}</p>
       <p class="os-note" id="wk-add-status"></p>
     </form>
   </details>`;
@@ -876,26 +924,25 @@ function workoutHandleAddExercise(form) {
   const status = document.getElementById('wk-add-status');
   const say = text => { if (status) status.textContent = text; };
   const nameEl = document.getElementById('wk-add-name');
-  const setsEl = document.getElementById('wk-add-sets');
-  const platesEl = document.getElementById('wk-add-plates');
+  const date = workoutCurrentDate();
+  const { template } = workoutResolveTemplate(date, workoutExistingFor(date));
+  const t = programAddTemplate(template);
   let ex;
   try {
-    ex = WORKOUT.addCustomExercise({ name: nameEl.value, sets: setsEl.value, plates: platesEl.value });
+    ex = WORKOUT.addCustomExercise({ name: nameEl.value, sets: t.sets, rep_range: t.rep_range,
+      rir_target: t.rir_target, rest: t.rest });
   } catch (e) {
     say(e.message);
     return;
   }
   // Appended to the session form in place, so a half-filled log survives.
   const logForm = document.getElementById('wk-log-form');
-  const date = workoutCurrentDate();
-  const template = programWorkoutForWeekday(workoutWeekdayIndex(date));
   const supersetAllowed = !!template && programSessionAllowsSuperset(template.session_type);
   const html = workoutExerciseHtml(workoutRowForAddedExercise(ex), null, date, { supersetAllowed });
   const anchor = logForm && logForm.querySelector('.wk-section');
   if (logForm && anchor) anchor.insertAdjacentHTML('beforebegin', html);
   if (logForm) workoutRefreshLinks(logForm);
   nameEl.value = '';
-  platesEl.value = '';
   say(`Added ${ex.name}.`);
 }
 
@@ -917,8 +964,28 @@ function wireWorkoutZone() {
       if (/^\d{4}-\d{2}-\d{2}$/.test(dateInput.value)) {
         workoutDate = dateInput.value;
         workoutEditingId = null;
+        workoutTemplateDay = null;
         renderWorkoutZone();
       }
+    });
+  }
+
+  // The title's selector switches which session's program is shown for this
+  // date. It is a view and logging choice only: today's scheduled day, the
+  // date and the program phase are untouched.
+  const daySelect = document.getElementById('wk-day');
+  if (daySelect) {
+    daySelect.addEventListener('change', () => {
+      workoutTemplateDay = daySelect.value ? Number(daySelect.value) : null;
+      renderWorkoutZone();
+    });
+  }
+  const dayReset = document.getElementById('wk-day-reset');
+  if (dayReset) {
+    dayReset.addEventListener('click', () => {
+      const scheduled = programWorkoutForWeekday(workoutWeekdayIndex(workoutCurrentDate()));
+      workoutTemplateDay = scheduled ? scheduled.day : null;
+      renderWorkoutZone();
     });
   }
 
@@ -989,14 +1056,17 @@ function wireWorkoutZone() {
       const date = workoutCurrentDate();
       const existing = workoutEditingId
         ? WORKOUT.session(workoutEditingId) : (WORKOUT.sessionsOn(date)[0] || null);
+      const chosenDay = workoutResolveTemplate(date, existing).template;
       WORKOUT.saveSession({
         id: existing ? existing.id : undefined,
         date: existing ? existing.date : date,
+        ...(chosenDay ? { template_day: chosenDay.day } : {}),
         entries: collected.entries,
         recovery: collected.recovery,
         comeback_session: collected.comebackSession,
       });
       workoutEditingId = null;
+      workoutTemplateDay = null;
       // A logged session IS the Workout habit for that day -- no double entry.
       // Carried over from the old system unchanged, and still deliberately
       // one-way: unticking Workout on Today leaves the session alone, because
@@ -1020,6 +1090,7 @@ function wireWorkoutZone() {
       if (!session) return;
       workoutEditingId = session.id;
       workoutDate = session.date;
+      workoutTemplateDay = null;
       workoutView = 'log';
       renderWorkoutZone();
     });

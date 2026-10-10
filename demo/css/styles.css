@@ -4579,3 +4579,31 @@ table.scan-grid tr.is-link:hover td { background: var(--raise); }
 }
 
 table.scan-grid td.col-ticker a { color: var(--ink); text-decoration: none; }
+
+/* --- Training: the title is a session selector; the add card ------------- */
+.wk-daypick { position: relative; display: inline-flex; align-items: center; }
+.wk-title-select {
+  appearance: none; -webkit-appearance: none;
+  background: none; border: none; border-bottom: 1px solid var(--field-line); border-radius: 0;
+  color: var(--ink); font-family: var(--font-serif); font-size: var(--fs-heading); font-weight: 500;
+  min-height: 44px; padding: 0 var(--sp-6) 0 0; cursor: pointer; max-width: 100%;
+}
+.wk-title-select:focus-visible { outline: 1px solid var(--mark); outline-offset: 2px; }
+.wk-daypick::after {
+  content: "\25BE"; position: absolute; right: 2px; top: 50%; transform: translateY(-50%);
+  color: var(--ink2); pointer-events: none; font-size: var(--fs-label-lg);
+}
+.wk-browse { color: var(--ink); }
+.wk-browse .linkbtn { color: var(--mark-hi); font-family: var(--font-serif); font-size: inherit; padding: 0; min-height: 44px; }
+#panel-training .wk-head > div { display: flex; flex-direction: column; gap: var(--sp-1); min-width: 0; }
+
+#panel-training .wk-row-draft { border-style: dashed; margin-top: var(--sp-3); }
+#panel-training .wk-add-name-input {
+  flex: 1; min-width: 0; min-height: 44px; background: var(--canvas); color: var(--ink);
+  border: 1px solid var(--field-line); border-radius: var(--r-sm); padding: 0 var(--sp-4);
+  font-family: var(--font-serif); font-size: 19px;
+}
+#panel-training .wk-add-name-input:focus { outline: none; border-color: var(--mark); }
+#panel-training .wk-row-draft .wk-cell input[readonly] {
+  background: transparent; border-color: var(--panel-line); color: var(--ink2); cursor: default;
+}

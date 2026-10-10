@@ -44,7 +44,7 @@
 // --ink at 12px / 13px, weight 500; styles.css and workout-ui.js changed.
 // v26: UI pass phase A -- a 12px type floor for content text, 11px index
 // marks, and 16px fields so iOS does not zoom on focus; styles.css changed.
-const CACHE_NAME = 'jarvis-shell-v27';
+const CACHE_NAME = 'jarvis-shell-v29';
 const SHELL_ASSETS = [
   './',
   'index.html',

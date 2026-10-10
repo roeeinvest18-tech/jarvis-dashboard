@@ -636,6 +636,26 @@ const STRINGS = {
     },
   },
 
+  // ---- Training log: day switcher and add-exercise -------------------------
+  workout: {
+    daySelect: 'Session to log',
+    scheduledOption: (focus) => `${focus} · scheduled for this date`,
+    restDayOption: 'Rest day',
+    scheduledMeta: 'scheduled for this date',
+    browsing: (focus, scheduled) => (scheduled
+      ? `You are logging ${focus} on this date. The scheduled session is ${scheduled}.`
+      : `This date has no scheduled session. You are logging ${focus} on it.`),
+    backToScheduled: (scheduled) => `Back to ${scheduled}`,
+    addSummary: 'Add an exercise',
+    addName: 'Exercise name',
+    addNew: 'New',
+    addNote: (focus) => `Starts with the same structure as the other ${focus} exercises. Only the name is chosen now; change the rest afterwards in the exercise's settings.`,
+    addSets: 'Sets',
+    addReps: 'Reps',
+    addRir: 'RIR',
+    addUnit: 'Unit',
+  },
+
   // ---- Personal OS: Insights ----------------------------------------------
   insights: {
     periods: { 7: '7 days', 30: '30 days', 90: '90 days' },

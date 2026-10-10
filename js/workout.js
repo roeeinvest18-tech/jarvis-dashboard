@@ -194,11 +194,19 @@ const WORKOUT = {
     programSetRuntime({ custom, overrides: stored.exercise_overrides || {} });
   },
 
-  // The quick "add exercise" flow: a name, a number of sets and a starting
+  // A [low, high] pair from the template the exercise is added with, or the
+  // default when it is missing or malformed.
+  cleanRange(range, fallback) {
+    if (!Array.isArray(range) || range.length !== 2) return [...fallback];
+    const [low, high] = range.map(workoutNum);
+    return low !== null && high !== null && low >= 0 && high >= low ? [low, high] : [...fallback];
+  },
+
+  // The "add exercise" flow: a name, a number of sets and a starting
   // plate count, nothing else. The result is an ordinary Exercise -- it gets an
   // id, is tracked by the progression engine and is offered in every session --
   // with the defaults in program.js's CUSTOM_EXERCISE_DEFAULTS.
-  addCustomExercise({ name, sets, plates } = {}) {
+  addCustomExercise({ name, sets, plates, rep_range, rir_target, rest } = {}) {
     const cleanName = String(name || '').replace(/\s+/g, ' ').trim().slice(0, 40);
     if (!cleanName) throw new Error('an exercise needs a name');
     const nSets = Math.round(workoutNum(sets) === null ? 3 : workoutNum(sets));
@@ -224,9 +232,10 @@ const WORKOUT = {
       progression_type: d.progression_type,
       load_unit: d.load_unit,
       variations: [],
-      rep_range: [...d.rep_range],
-      rir_target: [...d.rir_target],
+      rep_range: this.cleanRange(rep_range, d.rep_range),
+      rir_target: this.cleanRange(rir_target, d.rir_target),
       default_sets: nSets,
+      default_rest: typeof rest === 'string' && rest.trim() ? rest.trim().slice(0, 20) : null,
       start_load: startPlates,
       custom: true,
       why: 'Added by you.',
@@ -439,6 +448,11 @@ const WORKOUT = {
         // hold_metric). Null for every other hold_duration exercise, which
         // keeps using duration_seconds exactly as before.
         reps: workoutNum(r.reps),
+        // How many reps this timed attempt (a "set") held. A separate field
+        // from `reps` on purpose: `reps` is the measured quantity for Pogo
+        // Jumps and feeds holdMetricValue, so a timed hold's rep count must
+        // never be read as seconds. Nothing in the progression engine uses it.
+        hold_reps: workoutNum(r.hold_reps),
         // A subjective note or a device-supplied reading (e.g. ground contact
         // time), per attempt. Free text because "subjective" cannot be
         // constrained to a number.
@@ -476,7 +490,10 @@ const WORKOUT = {
     if (!set) return false;
     if (progressionType === 'external_load') return set.reps !== null || set.weight !== null;
     if (progressionType === 'tempo_then_load') return set.reps !== null;
-    if (progressionType === 'hold_duration') return set.duration_seconds !== null || set.reps !== null;
+    if (progressionType === 'hold_duration') {
+      return set.duration_seconds !== null || set.reps !== null
+        || (set.hold_reps !== null && set.hold_reps !== undefined);
+    }
     if (progressionType === 'time_or_distance') {
       return set.distance !== null || set.duration !== null || set.rep_count !== null;
     }
@@ -511,7 +528,14 @@ const WORKOUT = {
     const now = new Date().toISOString();
 
     const weekday = workoutWeekdayIndex(date);
-    const template = programWorkoutForWeekday(weekday);
+    // A session is normally the day the date falls on. The log screen can also
+    // browse another day's program for this date (input.template_day); the
+    // session then records that day, so it is never mislabelled as the
+    // scheduled one. An already-saved session keeps the day it was saved with.
+    const templateDay = input.template_day !== undefined ? input.template_day
+      : (existing && existing.day ? existing.day : null);
+    const template = (templateDay && programWorkoutForDay(Number(templateDay)))
+      || programWorkoutForWeekday(weekday);
 
     const existingEntries = (existing && existing.entries) || [];
     const sessionType = template ? (template.session_type || null) : (input.session_type || null);
