@@ -4644,3 +4644,9 @@ input[type="time"]::-webkit-calendar-picker-indicator { opacity: .85; cursor: po
 .wk-day-option.is-selected { font-weight: 600; border-left-color: var(--mark); }
 .wk-day-option:hover, .wk-day-option.is-active { background: var(--raise); }
 .wk-cardio-pick, .wk-unit-ask { align-items: center; padding: var(--sp-3) 0; }
+
+/* --- Workout in progress ------------------------------------------------- */
+.wk-draft { color: var(--ink2); font-size: var(--fs-label-lg); }
+.wk-draft[hidden] { display: none; }
+.wk-draft .linkbtn { color: var(--mark-hi); font-family: var(--font-serif); font-size: inherit; padding: 0 var(--sp-2); min-height: 44px; }
+.wk-stale .wk-actions { padding-top: var(--sp-2); }

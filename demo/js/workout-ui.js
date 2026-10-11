@@ -10,6 +10,11 @@
 const WORKOUT_VIEWS = ['log', 'review', 'progress', 'history'];
 let workoutView = 'log';
 let workoutDate = null;         // null means "today"
+let workoutDraftCtx = null;      // { date, day, baseline } of the log form on screen, for autosave
+let workoutDraftTimer = null;
+let workoutDraftSkipFlush = false;
+let workoutDraftBooted = false;
+let workoutDraftConfirm = null;  // 'current' or a date: a discard waiting for its second tap
 let workoutTemplateDay = null;  // a day chosen in the title's selector; null = the scheduled one
 let workoutEditingId = null;    // a session being edited, rather than logged fresh
 let workoutConfirmDelete = null;
@@ -566,7 +571,9 @@ function workoutLogHtml() {
         <input type="date" id="wk-date" value="${date}">
       </label>
     </div>
-    ${workoutPhasePromptHtml()}`;
+    ${workoutPhasePromptHtml()}
+    <p class="os-note wk-draft" id="wk-draft-note" hidden></p>
+    ${workoutStaleDraftsHtml(date)}`;
 
   if (!template) {
     return `<div class="os-block">${header}
@@ -820,9 +827,222 @@ function workoutViewHtml() {
   return workoutLogHtml();
 }
 
+// --- the draft of a workout in progress --------------------------------------
+//
+// Every field of the log form is snapshotted (reps, load, RIR, duration, notes,
+// tempo and variation pills, superset links, recovery) and kept on this device
+// by WORKOUT.draftSave, debounced to 300 ms and flushed at once when the page
+// is hidden, because iOS does not reliably fire beforeunload for a PWA that is
+// closed or killed. Opening the screen puts the values back; Save session
+// commits the workout and clears the draft.
+
+function workoutSnapshotForm(form) {
+  const snap = { rows: {}, form: {} };
+  form.querySelectorAll('[data-wk-exercise]').forEach(block => {
+    const row = {};
+    block.querySelectorAll('[data-wk-set]').forEach(i => {
+      row[`s:${i.getAttribute('data-wk-set')}:${i.getAttribute('data-wk-key')}`] = i.value;
+    });
+    block.querySelectorAll('[data-wk-exkey]').forEach(i => { row[`x:${i.getAttribute('data-wk-exkey')}`] = i.value; });
+    snap.rows[block.getAttribute('data-wk-exercise')] = row;
+  });
+  form.querySelectorAll('[data-wk-recovery]').forEach(i => { snap.form[`r:${i.getAttribute('data-wk-recovery')}`] = i.value; });
+  const comeback = form.querySelector('.wk-comeback [data-wk-exkey="comeback"]');
+  if (comeback) snap.form['x:comeback'] = comeback.value;
+  return snap;
+}
+
+function workoutSetFieldValue(input, value) {
+  input.value = value;
+  const group = input.closest('.wk-pill-group');
+  if (group) group.querySelectorAll('.pill').forEach(p => p.classList.toggle('is-active', p.getAttribute('data-wk-value') === value));
+}
+
+function workoutApplySnapshot(form, snap) {
+  if (!snap || typeof snap !== 'object') return;
+  Object.entries(snap.rows || {}).forEach(([id, fields]) => {
+    const block = form.querySelector(`[data-wk-exercise="${id}"]`);
+    if (!block) return;
+    Object.entries(fields || {}).forEach(([key, value]) => {
+      const parts = key.split(':');
+      const input = parts[0] === 's'
+        ? block.querySelector(`[data-wk-set="${parts[1]}"][data-wk-key="${parts[2]}"]`)
+        : block.querySelector(`[data-wk-exkey="${parts[1]}"]`);
+      if (input) workoutSetFieldValue(input, String(value));
+    });
+  });
+  Object.entries(snap.form || {}).forEach(([key, value]) => {
+    const name = key.slice(2);
+    const input = key.startsWith('r:') ? form.querySelector(`[data-wk-recovery="${name}"]`)
+      : form.querySelector(`.wk-comeback [data-wk-exkey="${name}"]`);
+    if (input) workoutSetFieldValue(input, String(value));
+  });
+  // Superset partners sit together, as they do after linking by hand.
+  const groups = {};
+  form.querySelectorAll('[data-wk-exercise]').forEach(block => {
+    const g = block.querySelector('[data-wk-exkey="superset"]');
+    if (g && g.value) (groups[g.value] = groups[g.value] || []).push(block);
+  });
+  Object.values(groups).forEach(rows => { for (let i = 1; i < rows.length; i++) rows[i - 1].after(rows[i]); });
+  workoutRefreshLinks(form);
+}
+
+// Writes the form on screen to the draft, unless nothing differs from what was
+// there when the screen was drawn and no draft exists yet.
+function workoutSaveDraftNow() {
+  clearTimeout(workoutDraftTimer);
+  workoutDraftTimer = null;
+  const ctx = workoutDraftCtx;
+  const form = document.getElementById('wk-log-form');
+  if (!ctx || !form) return;
+  const snap = workoutSnapshotForm(form);
+  const changed = JSON.stringify(snap) !== ctx.baseline || !!WORKOUT.draftGet(ctx.date);
+  if (!changed) return;
+  if (WORKOUT.draftSave(ctx.date, ctx.day, snap)) {
+    workoutDraftRequestPersist();
+    workoutShowDraftNote();
+  }
+}
+
+function workoutScheduleDraftSave() {
+  clearTimeout(workoutDraftTimer);
+  workoutDraftTimer = setTimeout(workoutSaveDraftNow, 300);
+}
+
+let workoutPersistAsked = false;
+function workoutDraftRequestPersist() {
+  if (workoutPersistAsked) return;
+  workoutPersistAsked = true;
+  try {
+    if (navigator.storage && typeof navigator.storage.persist === 'function') {
+      Promise.resolve(navigator.storage.persist()).catch(() => {});
+    }
+  } catch (e) { /* not available: the draft is still saved */ }
+}
+
+// The quiet "workout in progress" line, with a two-tap discard.
+function workoutDraftNoteHtml() {
+  const S = STRINGS.workout.draft;
+  if (workoutDraftConfirm === 'current') {
+    return `${S.confirm} <button type="button" class="linkbtn" data-wk-draft-yes="current">${S.yes}</button>
+      <button type="button" class="linkbtn" data-wk-draft-keep="1">${S.keep}</button>`;
+  }
+  return `${S.inProgress} <button type="button" class="linkbtn" id="wk-draft-discard">${S.discard}</button>`;
+}
+
+function workoutShowDraftNote() {
+  const note = document.getElementById('wk-draft-note');
+  const ctx = workoutDraftCtx;
+  if (!note || !ctx) return;
+  const has = !!WORKOUT.draftGet(ctx.date);
+  note.hidden = !has;
+  if (has) { note.innerHTML = workoutDraftNoteHtml(); workoutWireDraftNote(); }
+}
+
+function workoutDiscardDraft(date) {
+  WORKOUT.draftClear(date);
+  workoutDraftConfirm = null;
+  workoutDraftSkipFlush = true;
+  renderWorkoutZone();
+}
+
+function workoutWireDraftNote() {
+  const note = document.getElementById('wk-draft-note');
+  if (!note) return;
+  const discard = note.querySelector('#wk-draft-discard');
+  if (discard) discard.addEventListener('click', () => { workoutDraftConfirm = 'current'; workoutShowDraftNote(); });
+  const keep = note.querySelector('[data-wk-draft-keep]');
+  if (keep) keep.addEventListener('click', () => { workoutDraftConfirm = null; workoutShowDraftNote(); });
+  const yes = note.querySelector('[data-wk-draft-yes]');
+  if (yes) yes.addEventListener('click', () => workoutDiscardDraft(workoutDraftCtx.date));
+}
+
+// Drafts from days before today are never merged into today. They are offered:
+// finish it for its own date, or discard it (two taps).
+function workoutStaleDraftsHtml(viewedDate) {
+  const S = STRINGS.workout.draft;
+  return WORKOUT.staleDrafts(workoutTodayIso()).filter(d => d !== viewedDate).map(d => {
+    const draft = WORKOUT.draftGet(d);
+    const day = draft && draft.day ? programWorkoutForDay(Number(draft.day)) : null;
+    const focus = day ? programResolveWorkout(day, d, WORKOUT.cardioOverrideFor(d)).focus : '';
+    const asking = workoutDraftConfirm === d;
+    return `<div class="wk-prompt wk-stale" data-wk-stale="${d}">
+      <p>${escapeHtml(S.stale(workoutPrettyDate(d), focus))}</p>
+      ${asking
+        ? `<p class="os-note">${S.confirm}</p>
+           <div class="wk-actions"><button type="button" class="os-btn" data-wk-stale-yes="${d}">${S.yes}</button>
+           <button type="button" class="os-btn os-btn-quiet" data-wk-stale-keep="1">${S.keep}</button></div>`
+        : `<div class="wk-actions"><button type="button" class="os-btn" data-wk-stale-open="${d}">${S.finishFor}</button>
+           <button type="button" class="os-btn os-btn-quiet" data-wk-stale-drop="${d}">${S.discardIt}</button></div>`}
+    </div>`;
+  }).join('');
+}
+
+function workoutWireStaleDrafts(mount) {
+  mount.querySelectorAll('[data-wk-stale-open]').forEach(btn => btn.addEventListener('click', () => {
+    const d = btn.getAttribute('data-wk-stale-open');
+    const draft = WORKOUT.draftGet(d);
+    workoutDate = d;
+    workoutEditingId = null;
+    workoutTemplateDay = draft && draft.day ? Number(draft.day) : null;
+    renderWorkoutZone();
+  }));
+  mount.querySelectorAll('[data-wk-stale-drop]').forEach(btn => btn.addEventListener('click', () => {
+    workoutDraftConfirm = btn.getAttribute('data-wk-stale-drop');
+    workoutDraftSkipFlush = false;
+    renderWorkoutZone();
+  }));
+  mount.querySelectorAll('[data-wk-stale-keep]').forEach(btn => btn.addEventListener('click', () => {
+    workoutDraftConfirm = null;
+    renderWorkoutZone();
+  }));
+  mount.querySelectorAll('[data-wk-stale-yes]').forEach(btn => btn.addEventListener('click', () => {
+    WORKOUT.draftClear(btn.getAttribute('data-wk-stale-yes'));
+    workoutDraftConfirm = null;
+    renderWorkoutZone();
+  }));
+}
+
+// Called once per drawing of the log form: restore what was typed, remember the
+// starting point, and start watching the form. A date that already has a saved
+// session is being edited, not drafted, so it is left alone.
+function workoutStartDraft(form) {
+  workoutDraftCtx = null;
+  const date = workoutCurrentDate();
+  if (workoutExistingFor(date)) return;
+  const { template } = workoutResolveTemplate(date, null);
+  if (!template) return;
+  const draft = WORKOUT.draftGet(date);
+  if (draft && draft.snaps && draft.snaps[String(template.day)]) {
+    workoutApplySnapshot(form, draft.snaps[String(template.day)]);
+  }
+  workoutDraftCtx = { date, day: template.day, baseline: JSON.stringify(workoutSnapshotForm(form)) };
+  if (draft && draft.snaps && draft.snaps[String(template.day)]) workoutDraftCtx.baseline = '';
+  ['input', 'change', 'click'].forEach(type => form.addEventListener(type, workoutScheduleDraftSave));
+  workoutShowDraftNote();
+}
+
+let workoutDraftListenersBound = false;
+function workoutBindDraftFlush() {
+  if (workoutDraftListenersBound) return;
+  workoutDraftListenersBound = true;
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') workoutSaveDraftNow(); });
+  window.addEventListener('pagehide', workoutSaveDraftNow);
+}
+
 function renderWorkoutZone() {
   const mount = document.getElementById('panel-training');
   if (!mount) return;
+  // What is typed is kept before anything redraws the form (a tab, a session
+  // switch, a date change), except right after a save or a discard.
+  if (!workoutDraftSkipFlush) workoutSaveDraftNow();
+  workoutDraftSkipFlush = false;
+  // On opening, today's unfinished workout comes back as the session it was.
+  if (!workoutDraftBooted) {
+    workoutDraftBooted = true;
+    const today = WORKOUT.draftGet(workoutTodayIso());
+    if (workoutDate === null && today && today.day) workoutTemplateDay = Number(today.day);
+  }
   mount.innerHTML = `
     <div class="os-window-tabs" role="tablist">
       ${WORKOUT_VIEWS.map(v => `<button type="button" class="os-window-btn${v === workoutView ? ' is-active' : ''}"
@@ -1039,7 +1259,8 @@ function wireWorkoutZone() {
       if (/^\d{4}-\d{2}-\d{2}$/.test(dateInput.value)) {
         workoutDate = dateInput.value;
         workoutEditingId = null;
-        workoutTemplateDay = null;
+        const dated = WORKOUT.draftGet(dateInput.value);
+        workoutTemplateDay = dated && dated.day ? Number(dated.day) : null;
         renderWorkoutZone();
       }
     });
@@ -1149,10 +1370,13 @@ function wireWorkoutZone() {
     });
   });
 
+  workoutBindDraftFlush();
+  workoutWireStaleDrafts(mount);
   const form = document.getElementById('wk-log-form');
   if (form) {
     workoutLinkPending = null;
     workoutRefreshLinks(form);
+    workoutStartDraft(form);
     // Delegated, so a row added after this render behaves like the rest.
     form.addEventListener('click', ev => {
       const link = ev.target.closest('[data-wk-link]');
@@ -1191,6 +1415,11 @@ function wireWorkoutZone() {
       });
       workoutEditingId = null;
       workoutTemplateDay = null;
+      // The workout is finished: the draft has done its job.
+      WORKOUT.draftClear(date);
+      workoutDraftCtx = null;
+      workoutDraftConfirm = null;
+      workoutDraftSkipFlush = true;
       // A logged session IS the Workout habit for that day -- no double entry.
       // Carried over from the old system unchanged, and still deliberately
       // one-way: unticking Workout on Today leaves the session alone, because

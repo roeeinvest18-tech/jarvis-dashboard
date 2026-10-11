@@ -566,6 +566,12 @@ const EXERCISES = [
     rationale: 'The one exercise that loads the rectus femoris through knee extension.',
   },
   {
+    id: 'hip_adduction', name: 'Hip adduction machine', category: 'legs', movement_pattern: 'hip_adduction',
+    primary_muscles: ['adductors'], equipment: 'machine', progression_type: 'external_load', load_unit: 'kg', unit_choice: true, variations: [],
+    why: 'Closing the legs inward: the adductors, which a squat only partly trains.',
+    rationale: 'A machine isolates the inner thigh at a load you can set, with little fatigue left over for the calves and the foot work that follow.',
+  },
+  {
     id: 'calf_raise_standing', name: 'Standing calf raise', category: 'legs', movement_pattern: 'ankle_plantarflexion',
     primary_muscles: ['calves'], equipment: 'machine_or_smith', progression_type: 'external_load', load_unit: 'kg', unit_choice: true, variations: [],
     why: 'Calves, with the knee straight.',
@@ -828,6 +834,7 @@ const WEEK_TEMPLATE = [
       { exercise_id: 'leg_press', sets: 3, rep_range: [10, 15], rir_target: [1, 2], rest: '120s' },
       { exercise_id: 'leg_curl', sets: 3, rep_range: [10, 15], rir_target: [1, 1], rest: '75s' },
       { exercise_id: 'leg_extension', sets: 2, rep_range: [12, 15], rir_target: [1, 1], rest: '60s' },
+      { exercise_id: 'hip_adduction', sets: 2, rep_range: [12, 15], rir_target: [1, 2], rest: '60s' },
       { exercise_id: 'calf_raise_standing', sets: 4, rep_range: [10, 15], rir_target: [1, 1], rest: '60s' },
       { exercise_id: 'tibialis_raise', sets: 2, rep_range: [15, 15], rest: '45s' },
       { exercise_id: 'short_foot', attempts: [2, 2], rest: '45s', note: '2 holds of 30 seconds.' },

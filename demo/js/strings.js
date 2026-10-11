@@ -639,6 +639,16 @@ const STRINGS = {
   // ---- Training log: day switcher and add-exercise -------------------------
   workout: {
     daySelect: 'Session to log',
+    draft: {
+      inProgress: 'Session in progress. Saved on this device.',
+      discard: 'Discard draft',
+      confirm: 'Discard this draft?',
+      yes: 'Yes, discard',
+      keep: 'Keep it',
+      stale: (date, focus) => `There is an unfinished session from ${date}${focus ? ` (${focus})` : ''}.`,
+      finishFor: 'Finish it for that date',
+      discardIt: 'Discard it',
+    },
     earlierSchedule: (focus) => `${focus} · earlier schedule`,
     unitAsk: 'Load is counted in. Asked once, then remembered.',
     cardioScheduled: 'This week’s cardio. Choose another for this day only.',

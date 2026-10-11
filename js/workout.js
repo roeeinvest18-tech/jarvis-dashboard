@@ -16,6 +16,9 @@ const WORKOUT_KEYS = {
   settings: 'jarvis:workout:settings',
   customExercises: 'jarvis:workout:customExercises',
   migrated: 'jarvis:workout:migratedFrom',
+  // An unfinished workout, on this device only. Never exported, synced or
+  // published: see draftSave().
+  draft: 'jarvis:workout:draft',
   syncUrl: 'jarvis:workout:syncUrl',
   syncToken: 'jarvis:workout:syncToken',
 };
@@ -162,6 +165,57 @@ const WORKOUT = {
     this.applyRegistry();
     return next;
   },
+
+  // --- the draft of a workout in progress ---------------------------------
+  //
+  // Until Save session is pressed the values typed into the log live only in
+  // the page, so closing the app lost them. The draft keeps them on this device:
+  // { [date]: { date, day, snaps: { [day]: snapshot }, updated } }. It is
+  // private-tier data in localStorage only: it is not part of exportAll(), not
+  // sent by syncWithServer(), and nothing in the build reads it. Every access is
+  // wrapped, so unavailable or full storage never breaks the screen.
+  drafts() {
+    const all = this.loadJson(WORKOUT_KEYS.draft, {});
+    return all && typeof all === 'object' && !Array.isArray(all) ? all : {};
+  },
+
+  draftGet(date) {
+    const d = this.drafts()[date];
+    return d && typeof d === 'object' && d.snaps ? d : null;
+  },
+
+  draftDates() { return Object.keys(this.drafts()).filter(d => this.draftGet(d)).sort(); },
+
+  // Returns true when the draft was written. `snap` belongs to `day`; a draft
+  // keeps one snapshot per session day so switching sessions and back does not
+  // lose what was typed under the first.
+  draftSave(date, day, snap) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date))) return false;
+    try {
+      const all = this.drafts();
+      const prior = all[date] && all[date].snaps ? all[date].snaps : {};
+      all[date] = { date, day: day === undefined ? null : day, snaps: { ...prior, [String(day)]: snap }, updated: new Date().toISOString() };
+      localStorage.setItem(WORKOUT_KEYS.draft, JSON.stringify(all));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+
+  draftClear(date) {
+    try {
+      const all = this.drafts();
+      delete all[date];
+      if (Object.keys(all).length) localStorage.setItem(WORKOUT_KEYS.draft, JSON.stringify(all));
+      else localStorage.removeItem(WORKOUT_KEYS.draft);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+
+  // Drafts from days before `todayIso`: never merged into today, only offered.
+  staleDrafts(todayIso) { return this.draftDates().filter(d => d < todayIso); },
 
   // --- Wednesday cardio: a one-off choice for a date ------------------------
 
