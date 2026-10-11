@@ -639,6 +639,10 @@ const STRINGS = {
   // ---- Training log: day switcher and add-exercise -------------------------
   workout: {
     daySelect: 'Session to log',
+    earlierSchedule: (focus) => `${focus} · earlier schedule`,
+    unitAsk: 'Load is counted in. Asked once, then remembered.',
+    cardioScheduled: 'This week’s cardio. Choose another for this day only.',
+    cardioOverridden: (scheduled) => `Chosen for this day. The rotation says ${scheduled}.`,
     scheduledOption: (focus) => `${focus} · scheduled for this date`,
     restDayOption: 'Rest day',
     scheduledMeta: 'scheduled for this date',
@@ -649,7 +653,7 @@ const STRINGS = {
     addSummary: 'Add an exercise',
     addName: 'Exercise name',
     addNew: 'New',
-    addNote: (focus) => `Starts with the same structure as the other ${focus} exercises. Only the name is chosen now; change the rest afterwards in the exercise's settings.`,
+    addNote: (focus) => `Starts with the same structure as the other ${focus} exercises. Choose the name and the number of sets; the rest is filled in. Change the unit, type and rep range afterwards in the exercise's settings.`,
     addSets: 'Sets',
     addReps: 'Reps',
     addRir: 'RIR',

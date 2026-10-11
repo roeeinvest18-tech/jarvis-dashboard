@@ -36,11 +36,12 @@ function workoutRowLoadUnit(exerciseId, loggedEntry) {
   return loggedEntry ? WORKOUT.entryLoadUnit(loggedEntry) : programLoadUnit(exerciseId);
 }
 
-function workoutWeightCellLabel(unit) { return unit === 'plates' ? 'Plates' : 'kg'; }
+function workoutWeightCellLabel(unit) { return unit === 'plates' ? 'Plates' : (unit === 'bodyweight' ? '+kg' : 'kg'); }
 function workoutWeightCellAttrs(unit) { return unit === 'plates' ? 'step="1" min="0"' : 'step="0.5" min="0"'; }
 
 // "4 plates" / "60kg", for the progress lines.
 function workoutFormatLoad(value, unit) {
+  if (unit === 'bodyweight') return `+${value}kg`;
   return unit === 'plates' ? `${value} plate${Number(value) === 1 ? '' : 's'}` : `${value}kg`;
 }
 
@@ -98,6 +99,8 @@ function workoutRepRangeLabel(row) {
 }
 
 function workoutSetsLabel(row) {
+  if (row.sprint_build) return `${row.attempts[0]}-${row.attempts[1]} sprints`;
+  if (row.attempts && row.attempts[0] === row.attempts[1]) return `${row.attempts[0]} holds`;
   if (row.attempts) return `${row.attempts[0]}-${row.attempts[1]} attempts`;
   if (row.protocol === 'sprint') return `${SPRINT_PROTOCOL.reps}x${SPRINT_PROTOCOL.work_seconds}s`;
   if (row.protocol === 'cooper') return `${COOPER_PROTOCOL.duration_min} min`;
@@ -177,7 +180,7 @@ function workoutPerSetKeys(type, entry) {
   return differs ? keys : [];
 }
 
-function workoutControlCellsHtml(type, exerciseId, entry, perSet = []) {
+function workoutControlCellsHtml(type, exerciseId, entry, perSet = [], row = null) {
   const v = k => {
     const set = entry && entry.sets && entry.sets[0];
     const raw = set ? set[k] : null;
@@ -205,7 +208,7 @@ function workoutControlCellsHtml(type, exerciseId, entry, perSet = []) {
     return workoutPillGroupHtml('variation',
       ex.variations.map(o => [o, workoutPrettyVariation(o)]), current);
   }
-  if (type === 'time_or_distance' && exerciseId === 'sprints') {
+  if (type === 'time_or_distance' && exerciseId === 'sprints' && !(row && row.sprint_build)) {
     // A per-session choice, not a global setting: fixed rest (a timer) or the
     // next rep starting once heart rate drops under a threshold. Cooper Test
     // has no reps to pace between, so it never shows this.
@@ -258,6 +261,23 @@ function workoutSetCellsHtml(type, exerciseId, row, sets, perSet = [], unit = nu
       return cell + workoutSetTextCellHtml(i, 'quality_note', 'note', note);
     }).join('');
   }
+  // Cardio rows of the current program: each sprint is its own set with a time
+  // and the rest taken after it; a run or a bike ride is one set of distance
+  // and time.
+  if (type === 'time_or_distance' && row && row.sprint_build) {
+    return sets.map((set, i) => {
+      const val = k => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
+      return workoutSetCellHtml(i, 'duration', `#${i + 1} time (s)`, val('duration'), 'step="0.1" min="0"')
+        + workoutSetCellHtml(i, 'rest_between_reps', `#${i + 1} rest (s)`, val('rest_between_reps'), 'min="0"');
+    }).join('');
+  }
+  if (type === 'time_or_distance' && row && row.measure) {
+    const set = sets[0] || null;
+    const val = k => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
+    const km = val('distance') || (row.measure === 'run' ? '2' : '');
+    return workoutSetCellHtml(0, 'distance', 'km', km, 'step="0.01" min="0"')
+      + workoutSetCellHtml(0, 'duration', 'time (min)', val('duration'), 'step="0.01" min="0"');
+  }
   // time_or_distance: one row, a handful of named fields rather than an
   // indexed set -- the model already treats a whole sprint/Cooper entry as
   // a single logged set (see WORKOUT.saveSession's per-exercise cap).
@@ -277,7 +297,7 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
   const ex = programExercise(row.exercise_id);
   if (!ex) return '';
   const type = ex.progression_type;
-  const groupId = loggedEntry && loggedEntry.superset_group_id ? loggedEntry.superset_group_id : '';
+  const groupId = loggedEntry ? (loggedEntry.superset_group_id || '') : (row.pair ? `pair-${row.pair}` : '');
   const unit = type === 'external_load' ? workoutRowLoadUnit(row.exercise_id, loggedEntry) : null;
   // An added exercise that has not been logged yet starts from the plate
   // count it was added with. Not a logged entry, so it never pins a unit.
@@ -303,7 +323,7 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
   // left blank, which costs nothing.
   let slots;
   if (type === 'hold_duration') slots = Math.max(row.attempts ? row.attempts[1] : 6, logged);
-  else if (type === 'time_or_distance') slots = 1;
+  else if (type === 'time_or_distance') slots = row.sprint_build ? Math.max(row.attempts[1], logged) : 1;
   else slots = Math.max(typeof row.sets === 'number' ? row.sets : 3, logged);
 
   const sets = Array.from({ length: slots }, (_, i) => (loggedEntry && loggedEntry.sets[i]) || null);
@@ -340,9 +360,10 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
     ${row.protocol === 'sprint' ? '<p class="wk-note">HR-based rest: enter heart rate from a synced device or by hand; the next rep starts once it drops under the threshold. Fixed rest ignores these two fields.</p>' : ''}
     ${row.protocol === 'cooper' ? `<p class="wk-note">${escapeHtml(COOPER_PROTOCOL.note)}</p>` : ''}
     ${flagHtml}
+    ${workoutUnitAskHtml(ex)}
     <div class="wk-cols">
       ${workoutSetCellsHtml(type, row.exercise_id, row, sets, perSet, unit)}
-      ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry || prefill, perSet)}
+      ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry || prefill, perSet, row)}
     </div>
     <div class="wk-more">
       ${ctx.supersetAllowed ? workoutSupersetControlHtml(row.exercise_id, groupId) : ''}
@@ -369,8 +390,23 @@ function workoutSupersetControlHtml(exerciseId, groupId) {
 // The exercise's own settings. Its load unit on any loaded exercise; for one
 // the owner added, also its type and rep range. Saved straight away, separate
 // from logging a session.
+// A gym machine whose unit is not known yet (leg press, standing calf raise) asks
+// once, at first logging. The answer is saved as the exercise's own setting, so
+// it is remembered and the question is not asked again.
+function workoutUnitAskHtml(ex) {
+  if (!ex.unit_choice || (WORKOUT.settings().exercise_overrides[ex.id] || {}).load_unit) return '';
+  return `<div class="wk-setting wk-unit-ask" data-wk-unit-ask>
+    <span class="os-note">${STRINGS.workout.unitAsk}</span>
+    <div class="wk-pill-group" data-wk-setting-group="load_unit">
+      ${['kg', 'plates'].map(u => `<button type="button" class="pill${programLoadUnit(ex.id) === u ? ' is-active' : ''}"
+        data-wk-setting="load_unit" data-wk-ex="${ex.id}" data-wk-value="${u}">${u}</button>`).join('')}
+    </div>
+  </div>`;
+}
+
 function workoutExerciseSettingsHtml(ex, unit) {
-  if (ex.progression_type !== 'external_load' && !ex.custom) return '';
+  const unitSettable = ex.progression_type === 'external_load' && programLoadUnit(ex.id) !== 'bodyweight';
+  if (!unitSettable && !ex.custom) return '';
   const pills = (setting, options, current) => `<div class="wk-pill-group" data-wk-setting-group="${setting}">
     ${options.map(([value, label]) => `<button type="button" class="pill${value === current ? ' is-active' : ''}"
       data-wk-setting="${setting}" data-wk-ex="${ex.id}" data-wk-value="${value}">${escapeHtml(label)}</button>`).join('')}
@@ -379,7 +415,7 @@ function workoutExerciseSettingsHtml(ex, unit) {
   return `<details class="wk-science wk-settings">
     <summary>Exercise settings</summary>
     <div class="wk-settings-body">
-      ${ex.progression_type === 'external_load' ? `<div class="wk-setting">
+      ${unitSettable ? `<div class="wk-setting">
         <span class="os-note">Load is counted in</span>
         ${pills('load_unit', [['kg', 'kg'], ['plates', 'plates']], programLoadUnit(ex.id))}
       </div>` : ''}
@@ -453,27 +489,58 @@ function workoutPhasePromptHtml() {
 // for the same date, and a session already saved under another day reopens as
 // that day. `browsing` is true whenever what is shown is not the scheduled one.
 function workoutResolveTemplate(date, existing) {
-  const scheduled = programWorkoutForWeekday(workoutWeekdayIndex(date));
+  const resolve = w => programResolveWorkout(w, date, WORKOUT.cardioOverrideFor(date));
+  const scheduled = resolve(programWorkoutForWeekday(workoutWeekdayIndex(date)));
   const day = workoutTemplateDay || (existing && existing.day) || null;
-  const chosen = day ? programWorkoutForDay(Number(day)) : null;
+  const chosen = day ? resolve(programWorkoutForDay(Number(day))) : null;
   const template = chosen || scheduled;
-  return { scheduled, template, browsing: !!template && (!scheduled || template.day !== scheduled.day) };
+  // A session saved under the earlier split reopens as that day, labelled so.
+  const legacy = !!template && !WEEK_TEMPLATE.some(w => w.day === template.day);
+  return { scheduled, template, legacy, browsing: !!template && (!scheduled || template.day !== scheduled.day) };
 }
 
 function workoutExistingFor(date) {
   return workoutEditingId ? WORKOUT.session(workoutEditingId) : (WORKOUT.sessionsOn(date)[0] || null);
 }
 
-// The title is a selector: every session type in the real program, with the
-// scheduled one marked so it is never unclear which day is today's.
-function workoutDaySelectHtml(scheduled, template) {
+// The title is a session selector: every session type in the program, with the
+// scheduled one marked so it is never unclear which day is today's. It is a
+// custom listbox rather than a native <select>: the native popup is drawn by
+// the browser, ignores the app's colours, and was white on white in the dark
+// theme. Keyboard: Enter or Space or arrows open it, arrows / Home / End move,
+// Enter or Space picks, Escape closes.
+function workoutDayListboxHtml(date, scheduled, template, legacy) {
   const S = STRINGS.workout;
-  const options = WEEK_TEMPLATE.map(w => `<option value="${w.day}"${template && template.day === w.day ? ' selected' : ''}>${
-    escapeHtml(scheduled && scheduled.day === w.day ? S.scheduledOption(w.focus) : w.focus)}</option>`).join('');
-  return `<span class="wk-daypick">
-    <select id="wk-day" class="wk-title wk-title-select" aria-label="${S.daySelect}">
-      ${template ? '' : `<option value="" selected>${S.restDayOption}</option>`}${options}
-    </select></span>`;
+  const items = WEEK_TEMPLATE.map(w => {
+    const resolved = programResolveWorkout(w, date, WORKOUT.cardioOverrideFor(date));
+    const label = scheduled && scheduled.day === w.day ? S.scheduledOption(resolved.focus) : resolved.focus;
+    return { value: String(w.day), label, short: resolved.focus, selected: !!template && template.day === w.day };
+  });
+  if (legacy) items.unshift({ value: String(template.day), label: S.earlierSchedule(template.focus), short: S.earlierSchedule(template.focus), selected: true });
+  if (!template) items.unshift({ value: '', label: S.restDayOption, short: S.restDayOption, selected: true });
+  const current = items.find(i => i.selected) || items[0];
+  return `<span class="wk-daypick" data-wk-daypick>
+    <button type="button" id="wk-day" class="wk-title wk-title-select" aria-haspopup="listbox" aria-expanded="false"
+      aria-controls="wk-day-list" aria-label="${S.daySelect}">${escapeHtml(current.short)}</button>
+    <ul id="wk-day-list" class="wk-day-list" role="listbox" aria-label="${S.daySelect}" tabindex="-1" hidden>
+      ${items.map(i => `<li role="option" class="wk-day-option${i.selected ? ' is-selected' : ''}" data-day="${i.value}"
+        aria-selected="${i.selected ? 'true' : 'false'}" tabindex="-1">${escapeHtml(i.label)}</li>`).join('')}
+    </ul>
+  </span>`;
+}
+
+// Wednesday's cardio type for this date, and a one-off choice of another.
+function workoutCardioPickHtml(template, date) {
+  if (!template || !template.cardio) return '';
+  const S = STRINGS.workout;
+  const names = { run: 'Run 2 km', sprints: 'Sprints', bike: 'Bike' };
+  return `<div class="wk-setting wk-cardio-pick">
+    <span class="os-note">${template.cardio_overridden ? S.cardioOverridden(names[template.cardio_scheduled]) : S.cardioScheduled}</span>
+    <div class="wk-pill-group">
+      ${['run', 'sprints', 'bike'].map(t => `<button type="button" class="pill${template.cardio_type === t ? ' is-active' : ''}"
+        data-wk-cardio="${t}" data-wk-date="${date}">${names[t]}</button>`).join('')}
+    </div>
+  </div>`;
 }
 
 function workoutLogHtml() {
@@ -481,12 +548,12 @@ function workoutLogHtml() {
   const phase = WORKOUT.activePhase();
   const week = WORKOUT.weekNumberFor(date);
   const existing = workoutExistingFor(date);
-  const { scheduled, template, browsing } = workoutResolveTemplate(date, existing);
+  const { scheduled, template, legacy, browsing } = workoutResolveTemplate(date, existing);
 
   const header = `
     <div class="wk-head">
       <div>
-        ${workoutDaySelectHtml(scheduled, template)}
+        ${workoutDayListboxHtml(date, scheduled, template, legacy)}
         <p class="os-note wk-meta">${escapeHtml(workoutPrettyDate(date))}${
           phase ? ` &middot; ${escapeHtml(phase.name)}` : ''}${week ? ` &middot; week ${week}` : ''}${
           !browsing && scheduled ? ` &middot; ${STRINGS.workout.scheduledMeta}` : ''}</p>
@@ -524,10 +591,11 @@ function workoutLogHtml() {
   return `<div class="os-block">
     ${header}
     ${existing ? `<p class="os-note">Editing the session already logged for this date.</p>` : ''}
-    <details class="wk-science wk-warmup">
+    ${workoutCardioPickHtml(template, date)}
+    ${template.warm_up ? `<details class="wk-science wk-warmup">
       <summary>Warm-up &middot; about ${template.estimated_duration_min} min</summary>
       <p>${escapeHtml(template.warm_up)}</p>
-    </details>
+    </details>` : ''}
     ${sessionType && sessionType.why ? `<p class="wk-why">${escapeHtml(sessionType.why)}</p>` : ''}
     <form id="wk-log-form" class="wk-form">
       ${rows.map((row, i) => workoutExerciseHtml(row, entryFor(row.exercise_id), date,
@@ -571,7 +639,9 @@ function workoutAddExerciseHtml(template) {
         </div>
         <p class="wk-note wk-rest">Rest ${escapeHtml(t.rest)}</p>
         <div class="wk-cols">
-          ${fixed(S.addSets, t.sets)}${fixed(S.addReps, reps)}${fixed(S.addRir, rir)}${fixed(S.addUnit, workoutWeightCellLabel(t.load_unit))}
+          <label class="wk-cell"><span>${S.addSets}</span>
+            <input type="number" inputmode="numeric" id="wk-add-sets" min="1" max="${WORKOUT_CUSTOM_SET_CAP}" value="${t.sets}"></label>
+          ${fixed(S.addReps, reps)}${fixed(S.addRir, rir)}${fixed(S.addUnit, workoutWeightCellLabel(t.load_unit))}
         </div>
         <button type="submit" class="os-btn">${S.addSummary}</button>
       </div>
@@ -626,7 +696,11 @@ function workoutSeriesLine(values) {
 }
 
 function workoutProgressHtml() {
-  const tracked = programTrackedExerciseIds();
+  // The current program, then anything else that was ever logged. An exercise
+  // that is no longer scheduled keeps its history here; the two removed skills
+  // (archived) are left out.
+  const tracked = [...programTrackedExerciseIds(), ...WORKOUT.loggedExerciseIds()]
+    .filter((id, i, all) => all.indexOf(id) === i && programExercise(id) && !programExercise(id).archived);
   const strength = tracked
     .map(id => ({ id, ex: programExercise(id), series: WORKOUT.strengthSeries(id) }))
     .filter(x => x.series.length > 0 && ['external_load', 'tempo_then_load'].includes(x.ex.progression_type));
@@ -663,7 +737,7 @@ function workoutProgressHtml() {
         }).join('')}
       </ul>` : ''}
     ${holds.length ? `
-      <h3 class="os-subhead">Skills</h3>
+      <h3 class="os-subhead">Holds</h3>
       ${holds.map(x => Object.entries(x.trend).map(([variation, points]) => `
         <ul class="os-list"><li>
           <span>${escapeHtml(x.ex.name)} &middot; ${escapeHtml(workoutPrettyVariation(variation))}</span>
@@ -927,9 +1001,10 @@ function workoutHandleAddExercise(form) {
   const date = workoutCurrentDate();
   const { template } = workoutResolveTemplate(date, workoutExistingFor(date));
   const t = programAddTemplate(template);
+  const setsEl = document.getElementById('wk-add-sets');
   let ex;
   try {
-    ex = WORKOUT.addCustomExercise({ name: nameEl.value, sets: t.sets, rep_range: t.rep_range,
+    ex = WORKOUT.addCustomExercise({ name: nameEl.value, sets: setsEl && setsEl.value !== '' ? setsEl.value : t.sets, rep_range: t.rep_range,
       rir_target: t.rir_target, rest: t.rest });
   } catch (e) {
     say(e.message);
@@ -973,13 +1048,62 @@ function wireWorkoutZone() {
   // The title's selector switches which session's program is shown for this
   // date. It is a view and logging choice only: today's scheduled day, the
   // date and the program phase are untouched.
-  const daySelect = document.getElementById('wk-day');
-  if (daySelect) {
-    daySelect.addEventListener('change', () => {
-      workoutTemplateDay = daySelect.value ? Number(daySelect.value) : null;
+  const dayBtn = document.getElementById('wk-day');
+  const dayList = document.getElementById('wk-day-list');
+  if (dayBtn && dayList) {
+    const options = () => Array.from(dayList.querySelectorAll('[role="option"]'));
+    let active = -1;
+    const setActive = n => {
+      const list = options();
+      if (!list.length) return;
+      active = (n + list.length) % list.length;
+      list.forEach((o, k) => o.classList.toggle('is-active', k === active));
+      list[active].scrollIntoView({ block: 'nearest' });
+    };
+    const open = () => {
+      dayList.hidden = false;
+      dayBtn.setAttribute('aria-expanded', 'true');
+      setActive(Math.max(0, options().findIndex(o => o.classList.contains('is-selected'))));
+      dayList.focus();
+    };
+    const close = refocus => {
+      dayList.hidden = true;
+      dayBtn.setAttribute('aria-expanded', 'false');
+      if (refocus) dayBtn.focus();
+    };
+    const pick = o => {
+      if (!o) return;
+      const day = o.getAttribute('data-day');
+      close(false);
+      if (o.classList.contains('is-selected')) return;
+      workoutTemplateDay = day ? Number(day) : null;
+      renderWorkoutZone();
+    };
+    dayBtn.addEventListener('click', () => (dayList.hidden ? open() : close(true)));
+    dayBtn.addEventListener('keydown', ev => {
+      if (['ArrowDown', 'ArrowUp'].includes(ev.key)) { ev.preventDefault(); if (dayList.hidden) open(); }
+    });
+    dayList.addEventListener('click', ev => pick(ev.target.closest('[role="option"]')));
+    dayList.addEventListener('keydown', ev => {
+      if (ev.key === 'ArrowDown') { ev.preventDefault(); setActive(active + 1); }
+      else if (ev.key === 'ArrowUp') { ev.preventDefault(); setActive(active - 1); }
+      else if (ev.key === 'Home') { ev.preventDefault(); setActive(0); }
+      else if (ev.key === 'End') { ev.preventDefault(); setActive(options().length - 1); }
+      else if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(options()[active]); }
+      else if (ev.key === 'Escape') { ev.preventDefault(); close(true); }
+      else if (ev.key === 'Tab') close(false);
+    });
+    // A tap anywhere else closes it.
+    document.addEventListener('click', ev => {
+      if (!dayList.hidden && !ev.target.closest('[data-wk-daypick]')) close(false);
+    }, { once: false });
+  }
+  mount.querySelectorAll('[data-wk-cardio]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      WORKOUT.setCardioOverride(btn.getAttribute('data-wk-date'), btn.getAttribute('data-wk-cardio'));
       renderWorkoutZone();
     });
-  }
+  });
   const dayReset = document.getElementById('wk-day-reset');
   if (dayReset) {
     dayReset.addEventListener('click', () => {
@@ -1081,6 +1205,13 @@ function wireWorkoutZone() {
 
   const addForm = document.getElementById('wk-add-form');
   if (addForm) {
+    const setsInput = document.getElementById('wk-add-sets');
+    const presc = addForm.querySelector('.wk-prescription');
+    if (setsInput && presc) {
+      setsInput.addEventListener('input', () => {
+        presc.innerHTML = presc.innerHTML.replace(/^\d*x/, `${setsInput.value || '?'}x`);
+      });
+    }
     addForm.addEventListener('submit', ev => { ev.preventDefault(); workoutHandleAddExercise(addForm); });
   }
 

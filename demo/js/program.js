@@ -32,7 +32,7 @@ const PROGRESSION_TYPES = ['external_load', 'tempo_then_load', 'hold_duration', 
 const EXERCISES = [
   {
     id: 'chest_press',
-    name: 'Chest Press',
+    name: 'Cable chest press',
     category: 'push',
     movement_pattern: 'horizontal_push',
     primary_muscles: ['chest', 'triceps', 'front_delts'],
@@ -93,6 +93,9 @@ const EXERCISES = [
   },
   {
     id: 'l_sit',
+    // Removed from the program (Oct 2026). Kept as an entity so sessions logged
+    // before then still read; never scheduled, offered or shown in analysis.
+    archived: true,
     name: 'L-sit',
     category: 'skill',
     movement_pattern: 'isometric_hold',
@@ -184,6 +187,9 @@ const EXERCISES = [
   },
   {
     id: 'handstand',
+    // Removed from the program (Oct 2026). Kept as an entity so sessions logged
+    // before then still read; never scheduled, offered or shown in analysis.
+    archived: true,
     name: 'Handstand',
     category: 'skill',
     movement_pattern: 'isometric_hold',
@@ -338,6 +344,7 @@ const EXERCISES = [
     primary_muscles: ['biceps'],
     equipment: 'dumbbell_or_cable',
     progression_type: 'external_load',
+    load_unit: 'plates',
     variations: [],
     why: 'Direct elbow flexion after the pulling is done.',
     rationale: 'Two sets, not three: the biceps have already worked in every '
@@ -484,6 +491,105 @@ const EXERCISES = [
       + 'you nothing new.',
   },
 
+  // --- Program v2 (Oct 2026): exercises added for the new week ---------------
+  // load_unit 'bodyweight' means the weight cell is *added* kg, blank until a
+  // vest or a loaded backpack is used. unit_choice marks a gym machine whose
+  // unit (kg or plates) is not known yet: it is asked once, at first logging,
+  // and remembered in the exercise's settings.
+  {
+    id: 'pike_push_up', name: 'Pike push-up', category: 'push', movement_pattern: 'vertical_push',
+    primary_muscles: ['shoulders', 'triceps'], equipment: 'bodyweight',
+    progression_type: 'external_load', load_unit: 'bodyweight', variations: [],
+    why: 'Overhead pressing for the shoulders, with nothing but bodyweight.',
+    rationale: 'Reps first. At the top of the range, raise the feet onto a chair, '
+      + 'which shifts more bodyweight onto the shoulders.',
+  },
+  {
+    id: 'cable_fly_high_low', name: 'Cable fly (high to low)', category: 'push', movement_pattern: 'horizontal_adduction',
+    primary_muscles: ['chest'], equipment: 'cable', progression_type: 'external_load', load_unit: 'plates', variations: [],
+    why: 'Chest through a long range, with tension all the way.',
+    rationale: 'A cable keeps the chest loaded through the whole arc where a dumbbell loses tension at the top.',
+  },
+  {
+    id: 'pull_up_grip', name: 'Pull-up, varied grip width', category: 'pull', movement_pattern: 'vertical_pull',
+    primary_muscles: ['lats', 'biceps', 'mid_back'], equipment: 'bar',
+    progression_type: 'external_load', load_unit: 'bodyweight', variations: [],
+    why: 'The primary vertical pull, with the grip width changed from set to set.',
+    rationale: 'Reps first, then added kg once the top of the range is reached on every set.',
+  },
+  {
+    id: 'incline_cable_press', name: 'Incline cable press', category: 'push', movement_pattern: 'incline_press',
+    primary_muscles: ['upper_chest', 'shoulders'], equipment: 'cable', progression_type: 'external_load', load_unit: 'plates', variations: [],
+    why: 'Press arms angled upward, a low-to-high path.',
+    rationale: 'The upper chest and front delt, paired with a pull so the pair costs no extra time.',
+  },
+  {
+    id: 'overhead_rope_extension', name: 'Overhead rope triceps extension', category: 'push', movement_pattern: 'elbow_extension',
+    primary_muscles: ['triceps'], equipment: 'cable', progression_type: 'external_load', load_unit: 'plates', variations: [],
+    why: 'The long head of the triceps, loaded in a stretch.',
+    rationale: 'Overhead, the long head is lengthened, which is where it grows best.',
+  },
+  {
+    id: 'rope_hammer_curl', name: 'Rope hammer curl', category: 'pull', movement_pattern: 'elbow_flexion',
+    primary_muscles: ['biceps', 'brachialis'], equipment: 'cable', progression_type: 'external_load', load_unit: 'plates', variations: [],
+    why: 'Biceps and the forearm flexors, with a neutral grip.',
+    rationale: 'Pairs with the overhead triceps extension: opposing muscles, back to back.',
+  },
+  {
+    id: 'squat', name: 'Squat', category: 'legs', movement_pattern: 'squat',
+    primary_muscles: ['quads', 'glutes'], equipment: 'barbell_or_machine', progression_type: 'external_load', load_unit: 'kg', variations: [],
+    why: 'The main leg lift: barbell, or a Smith or hack machine, whatever the gym has.',
+    rationale: 'The heaviest, most demanding lift of the week, so it is first and has the longest rest.',
+  },
+  {
+    id: 'romanian_deadlift', name: 'Romanian deadlift', category: 'legs', movement_pattern: 'hinge',
+    primary_muscles: ['hamstrings', 'glutes'], equipment: 'barbell', progression_type: 'external_load', load_unit: 'kg', variations: [],
+    why: 'The hip hinge for the hamstrings and glutes.',
+    rationale: 'Trains the back of the leg where a squat gives little tension.',
+  },
+  {
+    id: 'leg_press', name: 'Leg press', category: 'legs', movement_pattern: 'squat',
+    primary_muscles: ['quads', 'glutes'], equipment: 'machine', progression_type: 'external_load', load_unit: 'kg', unit_choice: true, variations: [],
+    why: 'High-rep quad and glute volume with little demand on the back.',
+    rationale: 'After the squat and RDL, extra leg volume that does not need the spine to be fresh.',
+  },
+  {
+    id: 'leg_curl', name: 'Leg curl machine', category: 'legs', movement_pattern: 'knee_flexion',
+    primary_muscles: ['hamstrings'], equipment: 'machine', progression_type: 'external_load', load_unit: 'plates', variations: [],
+    why: 'Direct hamstring work through knee flexion.',
+    rationale: 'The RDL trains the hamstrings at the hip; this trains them at the knee.',
+  },
+  {
+    id: 'leg_extension', name: 'Leg extension (optional)', category: 'legs', movement_pattern: 'knee_extension',
+    primary_muscles: ['quads'], equipment: 'machine', progression_type: 'external_load', load_unit: 'plates', variations: [],
+    why: 'Direct quad work. Optional: skip it when time is short.',
+    rationale: 'The one exercise that loads the rectus femoris through knee extension.',
+  },
+  {
+    id: 'calf_raise_standing', name: 'Standing calf raise', category: 'legs', movement_pattern: 'ankle_plantarflexion',
+    primary_muscles: ['calves'], equipment: 'machine_or_smith', progression_type: 'external_load', load_unit: 'kg', unit_choice: true, variations: [],
+    why: 'Calves, with the knee straight.',
+    rationale: 'Full range and a pause at the bottom matter more than the load.',
+  },
+  {
+    id: 'tibialis_raise', name: 'Tibialis raise', category: 'legs', movement_pattern: 'ankle_dorsiflexion',
+    primary_muscles: ['tibialis_anterior'], equipment: 'bodyweight', progression_type: 'external_load', load_unit: 'bodyweight', variations: [],
+    why: 'The muscle at the front of the shin, balancing the calf.',
+    rationale: 'Bodyweight against a wall. Reps, no RIR target.',
+  },
+  {
+    id: 'run_2k', name: 'Run 2 km', category: 'conditioning', movement_pattern: 'run',
+    primary_muscles: ['whole_body'], equipment: 'outdoors', progression_type: 'time_or_distance', variations: [],
+    why: 'A steady, controlled 2 km. The time is what you log.',
+    rationale: 'The goal is to improve the time a little each cycle. It is also the benchmark leading into a Cooper test in June 2027.',
+  },
+  {
+    id: 'bike_easy', name: 'Bike, easy pace', category: 'conditioning', movement_pattern: 'cycle',
+    primary_muscles: ['whole_body'], equipment: 'bike', progression_type: 'time_or_distance', variations: [],
+    why: 'Easy aerobic work: you can speak full sentences.',
+    rationale: 'Starts at 45 minutes and adds 5 to 10 minutes each cycle, up to about 90.',
+  },
+
   // Migrated from the old flat model. "Shoulders" was a single row with a rep
   // count and no indication of which movement it was -- the new program has
   // three candidate shoulder exercises and guessing between them would invent
@@ -518,7 +624,7 @@ const EXERCISE_BY_ID = Object.fromEntries(EXERCISES.map(e => [e.id, e]));
 // every exercise and every logged set meant before this field existed, so
 // nothing already stored changes meaning.
 
-const LOAD_UNITS = ['kg', 'plates'];
+const LOAD_UNITS = ['kg', 'plates', 'bodyweight'];
 
 // What "add the smallest increment" means on plates. Flat +1 for now; a
 // multi-gym's pin spacing may make that wrong for some exercises, which is
@@ -566,7 +672,7 @@ function programExercise(id) {
 
 function programLoadUnit(exerciseId) {
   const ex = programExercise(exerciseId);
-  return ex && ex.load_unit === 'plates' ? 'plates' : 'kg';
+  return ex && LOAD_UNITS.includes(ex.load_unit) ? ex.load_unit : 'kg';
 }
 
 // The structure a new exercise is created with, taken from the session it is
@@ -672,6 +778,7 @@ function programPhaseForDate(startIso, dateIso) {
 
 const SESSION_TYPES = {
   strength: { name: 'strength', why: null },
+  cardio: { name: 'cardio', why: null },
   explosive: {
     name: 'explosive',
     why: 'Sprints come before strength work in this session: fresh neuromuscular '
@@ -707,6 +814,101 @@ function programSessionAllowsSuperset(sessionType) {
 
 const WEEK_TEMPLATE = [
   {
+    day: 6,
+    weekday: 0,
+    focus: 'Legs',
+    session_type: 'strength',
+    location: 'gym',
+    estimated_duration_min: 60,
+    warm_up: '5 min easy cardio, then bodyweight squats, hip hinges and two light '
+      + 'ramp-up sets of the squat.',
+    exercises: [
+      { exercise_id: 'squat', sets: 4, sets_min: 3, rep_range: [5, 8], rir_target: [2, 2], rest: '150-180s', primary: true },
+      { exercise_id: 'romanian_deadlift', sets: 3, rep_range: [8, 10], rir_target: [2, 2], rest: '120s', primary: true },
+      { exercise_id: 'leg_press', sets: 3, rep_range: [10, 15], rir_target: [1, 2], rest: '120s' },
+      { exercise_id: 'leg_curl', sets: 3, rep_range: [10, 15], rir_target: [1, 1], rest: '75s' },
+      { exercise_id: 'leg_extension', sets: 2, rep_range: [12, 15], rir_target: [1, 1], rest: '60s' },
+      { exercise_id: 'calf_raise_standing', sets: 4, rep_range: [10, 15], rir_target: [1, 1], rest: '60s' },
+      { exercise_id: 'tibialis_raise', sets: 2, rep_range: [15, 15], rest: '45s' },
+      { exercise_id: 'short_foot', attempts: [2, 2], rest: '45s', note: '2 holds of 30 seconds.' },
+    ],
+  },
+  {
+    day: 7,
+    weekday: 1,
+    focus: 'Push',
+    session_type: 'strength',
+    location: 'home',
+    estimated_duration_min: 50,
+    warm_up: '5 min easy cardio, then shoulder circles, band external rotations '
+      + 'and two light ramp-up sets of the cable press.',
+    exercises: [
+      { exercise_id: 'chest_press', sets: 3, rep_range: [6, 10], rir_target: [2, 2], rest: '120s', primary: true },
+      { exercise_id: 'pike_push_up', sets: 3, rep_range: [5, 10], rir_target: [2, 2], rest: '120s', primary: true,
+        note: 'Reps first, then raise the feet on a chair.' },
+      { exercise_id: 'cable_lateral_raise', sets: 4, rep_range: [12, 20], rir_target: [1, 2], rest: '60s', note: 'Low pulley.' },
+      { exercise_id: 'cable_fly_high_low', sets: 3, rep_range: [10, 15], rir_target: [2, 2], rest: '75s' },
+      { exercise_id: 'rope_triceps_pushdown', sets: 3, rep_range: [10, 15], rir_target: [1, 2], rest: '75s', note: 'High pulley.' },
+    ],
+  },
+  {
+    day: 8,
+    weekday: 2,
+    focus: 'Pull',
+    session_type: 'strength',
+    location: 'home',
+    estimated_duration_min: 50,
+    warm_up: '5 min easy cardio, then band pull-aparts, scapular hangs and one '
+      + 'light set of the row.',
+    exercises: [
+      { exercise_id: 'pull_up_grip', sets: 4, sets_min: 3, rep_range: [5, 10], rir_target: [1, 2], rest: '120s', primary: true,
+        note: 'Vary the grip width.' },
+      { exercise_id: 'cable_row', sets: 3, rep_range: [8, 12], rir_target: [2, 2], rest: '90s', primary: true, note: 'Low pulley, straight bar.' },
+      { exercise_id: 'rope_face_pull', sets: 4, rep_range: [12, 20], rir_target: [1, 2], rest: '60s', note: 'High pulley.' },
+      { exercise_id: 'biceps_curl', sets: 3, rep_range: [8, 12], rir_target: [1, 2], rest: '75s', note: 'Straight bar, low pulley.' },
+    ],
+  },
+  {
+    // Wednesday is one cardio type a week, rotating on a 3-week cycle anchored
+    // to 2026-10-14 (see programCardioCycle). `exercises` is empty here: it is
+    // filled for a date by programResolveWorkout.
+    day: 9,
+    weekday: 3,
+    focus: 'Cardio',
+    session_type: 'cardio',
+    location: 'outdoors',
+    cardio: true,
+    estimated_duration_min: 45,
+    warm_up: '',
+    exercises: [],
+  },
+  {
+    day: 10,
+    weekday: 4,
+    focus: 'Upper',
+    session_type: 'strength',
+    location: 'home',
+    estimated_duration_min: 55,
+    warm_up: '5 min easy cardio, then band pull-aparts, shoulder circles and one '
+      + 'light set of the incline press.',
+    exercises: [
+      { exercise_id: 'incline_cable_press', pair: 'A', sets: 3, rep_range: [8, 12], rir_target: [2, 2], rest: 'No rest, straight to A2', primary: true },
+      { exercise_id: 'lat_pulldown', pair: 'A', sets: 3, rep_range: [10, 12], rir_target: [2, 2], rest: '90s after the pair', primary: true, note: 'High pulley, kneeling.' },
+      { exercise_id: 'cable_lateral_raise', pair: 'B', sets: 4, rep_range: [12, 20], rir_target: [1, 2], rest: 'No rest, straight to B2' },
+      { exercise_id: 'rope_face_pull', pair: 'B', sets: 3, rep_range: [12, 20], rir_target: [1, 2], rest: '90s after the pair' },
+      { exercise_id: 'overhead_rope_extension', pair: 'C', sets: 3, rep_range: [10, 15], rir_target: [1, 2], rest: 'No rest, straight to C2' },
+      { exercise_id: 'rope_hammer_curl', pair: 'C', sets: 3, rep_range: [10, 15], rir_target: [1, 2], rest: '90s after the pair' },
+    ],
+  },
+];
+
+// Before Oct 2026 the week was Push, Pull, Sprint + Legs A, Upper (second
+// exposure) and Sprint + Legs B, numbered days 1 to 5. That split is no longer
+// scheduled, but sessions logged under it carry those day numbers, so they
+// still reopen as what they were. The handstand and L-sit rows are left out:
+// those exercises are removed from the program.
+const LEGACY_WEEK_TEMPLATE = [
+  {
     day: 1,
     weekday: 0,
     focus: 'Push',
@@ -719,7 +921,6 @@ const WEEK_TEMPLATE = [
       { exercise_id: 'incline_fly', sets: 3, rep_range: [10, 15], rir_target: [1, 3], rest: '60-90s' },
       { exercise_id: 'push_ups', sets: 3, rep_range: [1, null], rir_target: [1, 2], rest: '90s', amrap: true, primary: true },
       { exercise_id: 'rope_triceps_pushdown', sets: 3, rep_range: [10, 15], rir_target: [1, 2], rest: '60s' },
-      { exercise_id: 'l_sit', attempts: [6, 8], rest: '60-90s' },
     ],
   },
   {
@@ -736,7 +937,6 @@ const WEEK_TEMPLATE = [
       { exercise_id: 'seated_row', sets: 3, rep_range: [8, 12], rir_target: [1, 3], rest: '90-120s' },
       { exercise_id: 'chin_ups', sets: 3, sets_min: 2, rep_range: [6, 10], rir_target: [1, 2], rest: '2 min' },
       { exercise_id: 'rope_face_pull', sets: 3, rep_range: [12, 15], rir_target: [2, 3], rest: '60s' },
-      { exercise_id: 'handstand', attempts: [8, 10], rest: '60-90s' },
     ],
   },
   {
@@ -778,7 +978,6 @@ const WEEK_TEMPLATE = [
       { exercise_id: 'cable_lateral_raise', sets: 3, rep_range: [10, 15], rir_target: [1, 2], rest: '60s' },
       { exercise_id: 'biceps_curl', sets: 2, rep_range: [10, 15], rir_target: [1, 2], rest: '45-60s' },
       { exercise_id: 'triceps_extension', sets: 2, rep_range: [10, 15], rir_target: [1, 2], rest: '45-60s' },
-      { exercise_id: 'l_sit', attempts: [6, 8], rest: '60-90s' },
     ],
   },
   {
@@ -810,6 +1009,70 @@ const WEEK_TEMPLATE = [
   },
 ];
 
+// --- Wednesday cardio: a 3-week rotation -----------------------------------
+//
+// Computed from the date, never stored per week. Cycle week 0 is the Wednesday
+// of CARDIO_ANCHOR; the type is the number of whole weeks since then, modulo 3.
+const CARDIO_ANCHOR = '2026-10-14';
+const CARDIO_CYCLE = ['run', 'sprints', 'bike'];
+const CARDIO_LABELS = { run: 'Run 2 km', sprints: 'Sprints', bike: 'Bike' };
+
+// The Wednesday of the Sunday-to-Saturday week a date falls in.
+function programWednesdayOf(dateIso) {
+  const t = Date.parse(`${dateIso}T00:00:00Z`);
+  if (Number.isNaN(t)) return null;
+  const wd = new Date(t).getUTCDay();
+  return new Date(t + (3 - wd) * 86400000).toISOString().slice(0, 10);
+}
+
+// { cycle_week, type, label, cycle_number } for the week a date is in.
+// cycle_number counts completed 3-week cycles, so the bike's duration can grow.
+function programCardioCycle(dateIso) {
+  const wed = programWednesdayOf(dateIso);
+  if (!wed) return null;
+  const weeks = Math.floor(programDaysBetween(CARDIO_ANCHOR, wed) / 7);
+  const cycleWeek = ((weeks % 3) + 3) % 3;
+  const type = CARDIO_CYCLE[cycleWeek];
+  return { cycle_week: cycleWeek, type, label: CARDIO_LABELS[type], cycle_number: Math.floor(weeks / 3) };
+}
+
+// Bike minutes: 45 to start, plus 5 each cycle, up to about 90.
+function programBikeMinutes(cycleNumber) {
+  return Math.min(90, 45 + 5 * Math.max(0, cycleNumber));
+}
+
+// The Wednesday session for a date: the rotation's type, unless one was chosen
+// by hand for that date (type is 'run' | 'sprints' | 'bike').
+function programCardioWorkout(dateIso, overrideType) {
+  const cycle = programCardioCycle(dateIso);
+  const type = CARDIO_CYCLE.includes(overrideType) ? overrideType : cycle.type;
+  const base = programWorkoutForDay(9);
+  const common = { ...base, cardio_type: type, cardio_overridden: type !== cycle.type, cardio_scheduled: cycle.type };
+  if (type === 'run') {
+    return { ...common, focus: 'Cardio - Run 2 km', estimated_duration_min: 30,
+      warm_up: '5 min walk or easy jog, then 2 km at a steady, controlled pace. Log the time.',
+      exercises: [{ exercise_id: 'run_2k', rest: '', note: 'The goal is to slowly improve the time each cycle.', measure: 'run' }] };
+  }
+  if (type === 'sprints') {
+    return { ...common, focus: 'Cardio - Sprints', estimated_duration_min: 40,
+      warm_up: '10 min easy, with a few short strides. Keep the first sprints at about 80% effort.',
+      exercises: [{ exercise_id: 'sprints', attempts: [4, 6], sprint_build: true, rest: '2-3 min walking',
+        note: 'About 20 seconds each, building to 8 of about 30 seconds.' }] };
+  }
+  return { ...common, focus: 'Cardio - Bike', estimated_duration_min: programBikeMinutes(cycle.cycle_number),
+    warm_up: '',
+    exercises: [{ exercise_id: 'bike_easy', rest: '', measure: 'bike',
+      note: `${programBikeMinutes(cycle.cycle_number)} minutes at an easy pace: you can speak full sentences.` }] };
+}
+
+// A template for a date: the Wednesday cardio day is resolved to that week's
+// type (or the override), every other day is returned as it is.
+function programResolveWorkout(workout, dateIso, overrideType) {
+  if (workout && workout.cardio && dateIso) return programCardioWorkout(dateIso, overrideType);
+  return workout;
+}
+
+
 // Weeks 1-2 of each phase. Progressing the rep count or duration is a manual
 // between-phase decision, which is why there is no arithmetic here to do it.
 const SPRINT_PROTOCOL = {
@@ -832,8 +1095,9 @@ function programWorkoutForWeekday(weekday) {
   return WEEK_TEMPLATE.find(w => w.weekday === weekday) || null;
 }
 
+// Current days first, then the pre-Oct-2026 split so old sessions still open.
 function programWorkoutForDay(day) {
-  return WEEK_TEMPLATE.find(w => w.day === day) || null;
+  return WEEK_TEMPLATE.find(w => w.day === day) || LEGACY_WEEK_TEMPLATE.find(w => w.day === day) || null;
 }
 
 function programIsTrainingDay(weekday) { return programWorkoutForWeekday(weekday) !== null; }
@@ -853,6 +1117,7 @@ function programPrescription(workoutOrDay, phase) {
     if (phase && phase.extra_set_on_primaries && row.primary && typeof row.sets === 'number') {
       next.sets = row.sets + 1;
     }
+    if (row.sprint_build && phase && phase.name !== 'Foundation') next.attempts = [6, 8];
     if (phase && phase.rir_override && row.rir_target) {
       next.rir_target = [...phase.rir_override];
     }
@@ -885,6 +1150,8 @@ if (typeof module !== 'undefined' && module.exports) {
     PROGRAM_PHASES,
     SESSION_TYPES,
     WEEK_TEMPLATE,
+    LEGACY_WEEK_TEMPLATE,
+    CARDIO_ANCHOR,
     SPRINT_PROTOCOL,
     COOPER_PROTOCOL,
     LOAD_UNITS,
@@ -905,6 +1172,10 @@ if (typeof module !== 'undefined' && module.exports) {
     programSessionType,
     programWorkoutForWeekday,
     programWorkoutForDay,
+    programCardioCycle,
+    programCardioWorkout,
+    programResolveWorkout,
+    programBikeMinutes,
     programIsTrainingDay,
     programPrescription,
     programCategoryOf,

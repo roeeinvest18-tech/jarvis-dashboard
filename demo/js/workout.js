@@ -152,6 +152,7 @@ const WORKOUT = {
       tempo_stages: { ...(stored.tempo_stages || {}) },
       hold_variations: { ...(stored.hold_variations || {}) },
       exercise_overrides: { ...(stored.exercise_overrides || {}) },
+      cardio_overrides: { ...(stored.cardio_overrides || {}) },
     };
   },
 
@@ -160,6 +161,26 @@ const WORKOUT = {
     this.saveJson(WORKOUT_KEYS.settings, next);
     this.applyRegistry();
     return next;
+  },
+
+  // --- Wednesday cardio: a one-off choice for a date ------------------------
+
+  // The type picked by hand for this date, or null when the 3-week rotation applies.
+  cardioOverrideFor(dateIso) {
+    const t = this.settings().cardio_overrides[dateIso];
+    return ['run', 'sprints', 'bike'].includes(t) ? t : null;
+  },
+
+  // Choose a cardio type for one date only (for example an easy bike when the
+  // legs are sore from Sunday). Passing the rotation's own type, or null, clears it.
+  setCardioOverride(dateIso, type) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(dateIso))) throw new Error('a cardio override needs a date');
+    const overrides = { ...this.settings().cardio_overrides };
+    const scheduled = programCardioCycle(dateIso).type;
+    if (!type || type === scheduled) delete overrides[dateIso];
+    else if (['run', 'sprints', 'bike'].includes(type)) overrides[dateIso] = type;
+    else throw new Error(`unknown cardio type: ${type}`);
+    this.saveSettings({ cardio_overrides: overrides });
   },
 
   // --- exercises added from the app, and per-exercise settings -------------
@@ -280,7 +301,7 @@ const WORKOUT = {
   // exercise's current unit, so switching an exercise to plates later cannot
   // relabel what was already logged.
   entryLoadUnit(entry) {
-    return entry && entry.load_unit === 'plates' ? 'plates' : 'kg';
+    return entry && LOAD_UNITS.includes(entry.load_unit) ? entry.load_unit : 'kg';
   },
 
   deletedIds() { return this.loadJson(WORKOUT_KEYS.deleted, []) || []; },
@@ -534,8 +555,8 @@ const WORKOUT = {
     // scheduled one. An already-saved session keeps the day it was saved with.
     const templateDay = input.template_day !== undefined ? input.template_day
       : (existing && existing.day ? existing.day : null);
-    const template = (templateDay && programWorkoutForDay(Number(templateDay)))
-      || programWorkoutForWeekday(weekday);
+    const template = programResolveWorkout((templateDay && programWorkoutForDay(Number(templateDay)))
+      || programWorkoutForWeekday(weekday), date, this.cardioOverrideFor(date));
 
     const existingEntries = (existing && existing.entries) || [];
     const sessionType = template ? (template.session_type || null) : (input.session_type || null);
@@ -665,6 +686,17 @@ const WORKOUT = {
   //
   // Reads the log, returns suggestions. Never writes.
 
+  // Every exercise that appears in a logged session, in first-seen order. The
+  // Progress view shows these as well as the current program's exercises, so
+  // history of an exercise that is no longer scheduled stays readable.
+  loggedExerciseIds() {
+    const seen = [];
+    this.sessions().forEach(s => (s.entries || []).forEach(e => {
+      if (e && e.exercise_id && !seen.includes(e.exercise_id) && this.filledSets(e).length) seen.push(e.exercise_id);
+    }));
+    return seen;
+  },
+
   // Every session that logged filled sets of this exercise, oldest first.
   historyFor(exerciseId) {
     return this.sessions()
@@ -768,7 +800,9 @@ const WORKOUT = {
         flag: WORKOUT_FLAGS.progressionAvailable,
         suggestion: (unit === 'plates'
           ? `Add ${PLATE_INCREMENT === 1 ? '1 plate' : `${PLATE_INCREMENT} plates`}, `
-          : 'Add the smallest increment the equipment allows, about 2.5 to 5%, ')
+          : (unit === 'bodyweight'
+            ? 'Add a little weight (a vest or a loaded backpack) or move to the harder variation, '
+            : 'Add the smallest increment the equipment allows, about 2.5 to 5%, '))
           + 'and start back at the bottom of the rep range next session.',
       };
     }

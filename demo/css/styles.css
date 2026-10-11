@@ -4607,3 +4607,40 @@ table.scan-grid td.col-ticker a { color: var(--ink); text-decoration: none; }
 #panel-training .wk-row-draft .wk-cell input[readonly] {
   background: transparent; border-color: var(--panel-line); color: var(--ink2); cursor: default;
 }
+
+/* --- Native controls in the dark theme ------------------------------------
+   The browser draws the popups and pickers of <select>, date and time fields
+   itself. Without color-scheme it draws them light: white lists with pale text.
+   color-scheme: dark makes the pickers, the calendar and clock icons and the
+   scrollbars dark everywhere, and the options get the design system's colours
+   explicitly for the browsers that honour them. The session selector is not
+   native at all (a listbox below), because iOS Safari ignores both. */
+:root { color-scheme: dark; }
+select, select option, select optgroup {
+  background-color: var(--bg);
+  color: var(--ink);
+}
+select option:checked { background-color: var(--raise); color: var(--ink); }
+input[type="date"], input[type="time"], input[type="number"] { color-scheme: dark; }
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator { opacity: .85; cursor: pointer; }
+
+/* --- Session listbox -------------------------------------------------------- */
+.wk-title-select { text-align: left; }
+.wk-day-list {
+  position: absolute; top: calc(100% + 4px); left: 0; z-index: 40;
+  min-width: 100%; width: max-content; max-width: min(92vw, 360px);
+  margin: 0; padding: var(--sp-1) 0; list-style: none;
+  background: var(--bg); border: 1px solid var(--field-line); border-radius: var(--r-panel);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .5);
+}
+.wk-day-list[hidden] { display: none; }
+.wk-day-list:focus-visible { outline: 1px solid var(--mark); outline-offset: 2px; }
+.wk-day-option {
+  min-height: 48px; display: flex; align-items: center; padding: 0 var(--sp-5);
+  color: var(--ink); font-family: var(--font-serif); font-size: var(--fs-body); font-weight: 400;
+  border-left: 2px solid transparent; cursor: pointer;
+}
+.wk-day-option.is-selected { font-weight: 600; border-left-color: var(--mark); }
+.wk-day-option:hover, .wk-day-option.is-active { background: var(--raise); }
+.wk-cardio-pick, .wk-unit-ask { align-items: center; padding: var(--sp-3) 0; }
