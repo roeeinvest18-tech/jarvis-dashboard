@@ -15,6 +15,9 @@ let workoutDraftTimer = null;
 let workoutDraftSkipFlush = false;
 let workoutDraftBooted = false;
 let workoutDraftConfirm = null;  // 'current' or a date: a discard waiting for its second tap
+let workoutSheet = null;         // { mode: 'add' | 'swap', id } while the exercise library is open
+let workoutEditNote = null;      // { text, undoRows } shown under the title after a change
+let workoutEditOpen = null;      // exercise id whose sets / reps / rest editor is open
 let workoutTemplateDay = null;  // a day chosen in the title's selector; null = the scheduled one
 let workoutEditingId = null;    // a session being edited, rather than logged fresh
 let workoutConfirmDelete = null;
@@ -298,6 +301,31 @@ function workoutSetCellsHtml(type, exerciseId, row, sets, perSet = [], unit = nu
 // rationale hides behind a tap -- the name, the one-line why, and every input
 // are visible without opening anything, per the spec's "one-line why, full
 // rationale behind a tap", not "the whole exercise behind a tap".
+function workoutRowActionsHtml(ex, ctx) {
+  const E = STRINGS.workout.edit;
+  const btn = (attr, icon, label, extra = '') => `<button type="button" class="wk-icon-btn" ${attr} aria-label="${escapeHtml(label)}"${extra}>${icon}</button>`;
+  return `<span class="wk-row-actions">
+    ${btn(`data-wk-move="up" data-wk-ex="${ex.id}"`, WORKOUT_ICONS.up, E.moveUp(ex.name), ctx.index === 1 ? ' disabled' : '')}
+    ${btn(`data-wk-move="down" data-wk-ex="${ex.id}"`, WORKOUT_ICONS.down, E.moveDown(ex.name), ctx.index === ctx.total ? ' disabled' : '')}
+    ${btn(`data-wk-swap="${ex.id}"`, WORKOUT_ICONS.swap, E.swap(ex.name))}
+    ${btn(`data-wk-remove="${ex.id}"`, WORKOUT_ICONS.trash, E.remove(ex.name))}
+  </span>`;
+}
+
+// Sets, reps and rest of one exercise, changed in place.
+function workoutRowEditorHtml(row) {
+  const E = STRINGS.workout.edit;
+  const cell = (field, label, value, attrs) => `<label class="wk-cell"><span>${escapeHtml(label)}</span>
+    <input type="number" inputmode="numeric" ${attrs} data-wk-row-field="${field}" data-wk-ex="${row.exercise_id}" value="${escapeHtml(String(value))}"></label>`;
+  return `<div class="wk-row-edit wk-cols">
+    ${row.sets !== undefined ? cell('sets', E.sets, row.sets, `min="1" max="${WORKOUT_CUSTOM_SET_CAP}"`) : ''}
+    ${row.rep_range ? cell('rep-low', E.repsFrom, row.rep_range[0], 'min="1"') + (row.rep_range[1] === null ? ''
+      : cell('rep-high', E.repsTo, row.rep_range[1], 'min="1"')) : ''}
+    <label class="wk-cell wk-cell-wide"><span>${E.rest}</span><input type="text" maxlength="24" data-wk-row-field="rest"
+      data-wk-ex="${row.exercise_id}" value="${escapeHtml(row.rest || '')}"></label>
+  </div>`;
+}
+
 function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
   const ex = programExercise(row.exercise_id);
   if (!ex) return '';
@@ -351,12 +379,18 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
       ${ctx.total ? `<span class="wk-index">${ctx.index} / ${ctx.total}</span>` : ''}
       ${ctx.supersetAllowed ? `<span class="wk-superset-tag" data-wk-superset-tag${groupId ? '' : ' hidden'}>superset</span>` : ''}
       ${logged ? `<span class="wk-done" aria-label="${logged} sets logged">${logged}</span>` : ''}
+      ${ctx.editable ? workoutRowActionsHtml(ex, ctx) : ''}
     </div>
     <div class="wk-row-top">
       <span class="wk-name">${escapeHtml(ex.name)}</span>
-      <span class="wk-prescription">${escapeHtml(workoutSetsLabel(row))}${
-        row.rir_target ? ` &middot; RIR ${row.rir_target.join('-')}` : ''}</span>
+      ${ctx.editable
+        ? `<button type="button" class="wk-prescription wk-presc-btn" data-wk-edit-row="${row.exercise_id}" aria-expanded="${workoutEditOpen === row.exercise_id}"
+             aria-label="${escapeHtml(STRINGS.workout.edit.editRow(ex.name))}">${escapeHtml(workoutSetsLabel(row))}${
+            row.rir_target ? ` &middot; RIR ${row.rir_target.join('-')}` : ''}</button>`
+        : `<span class="wk-prescription">${escapeHtml(workoutSetsLabel(row))}${
+            row.rir_target ? ` &middot; RIR ${row.rir_target.join('-')}` : ''}</span>`}
     </div>
+    ${ctx.editable && workoutEditOpen === row.exercise_id ? workoutRowEditorHtml(row) : ''}
     <p class="wk-why">${escapeHtml(ex.why)}</p>
     ${gapWarningHtml}
     ${row.note ? `<p class="wk-note">${escapeHtml(row.note)}</p>` : ''}
@@ -425,6 +459,15 @@ function workoutExerciseSettingsHtml(ex, unit) {
         ${pills('load_unit', [['kg', 'kg'], ['plates', 'plates']], programLoadUnit(ex.id))}
       </div>` : ''}
       ${ex.custom ? `<div class="wk-setting">
+        <label class="wk-cell"><span>Sets</span><input type="number" inputmode="numeric" min="1" max="${WORKOUT_CUSTOM_SET_CAP}"
+          data-wk-custom-field="default_sets" data-wk-ex="${ex.id}" value="${ex.default_sets || 3}"></label>
+        <label class="wk-cell"><span>${workoutWeightCellLabel(programLoadUnit(ex.id))}</span><input type="number" inputmode="decimal" min="0"
+          step="${programLoadUnit(ex.id) === 'plates' ? '1' : '0.5'}" data-wk-custom-field="start_load" data-wk-ex="${ex.id}"
+          value="${ex.start_load === null || ex.start_load === undefined ? '' : ex.start_load}"></label>
+        <label class="wk-cell wk-cell-wide"><span>Rest</span><input type="text" maxlength="20" data-wk-custom-field="default_rest"
+          data-wk-ex="${ex.id}" value="${escapeHtml(ex.default_rest || '')}"></label>
+      </div>
+      <div class="wk-setting">
         <span class="os-note">Progresses by</span>
         ${pills('progression_type', [['external_load', 'load'], ['tempo_then_load', 'bodyweight']], ex.progression_type)}
       </div>
@@ -548,6 +591,218 @@ function workoutCardioPickHtml(template, date) {
   </div>`;
 }
 
+// --- editing a session: remove, add from the library, move, replace, edit ---
+//
+// Rows are kept as an ordered list per date (or as the owner's own default for
+// a session type); the program is only the starting point. See workout.js's
+// editedRowsFor.
+
+const WORKOUT_ICONS = {
+  trash: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M9 7V4.5h6V7"/><path d="M6.5 7l.8 12.5h9.4L17.5 7"/><path d="M10 11v5M14 11v5"/></svg>',
+  up: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg>',
+  down: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10l6 6 6-6"/></svg>',
+  swap: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9h13l-3-3"/><path d="M19 15H6l3 3"/></svg>',
+};
+
+// The rows a session is made of before the phase is applied, and where they come
+// from: this date's own edit, the owner's default for the session type, or the
+// program. Without any edit the exercises the owner added earlier still appear,
+// as they always did, so nothing disappears from a session.
+function workoutRawRows(date, template) {
+  const dateRows = WORKOUT.editedRowsFor(date, template.day);
+  if (dateRows) return { rows: dateRows, state: 'today' };
+  const baseRows = WORKOUT.baseRowsFor(template.day);
+  if (baseRows) return { rows: baseRows, state: 'default' };
+  return {
+    rows: [...template.exercises, ...programCustomExerciseIds().filter(id => !programExercise(id).scoped).map(id => ({ exercise_id: id, added: true }))],
+    state: null,
+  };
+}
+
+function workoutSessionEditable(template, legacy) { return !!template && !template.cardio && !legacy; }
+
+// Applies `mutator` to a copy of the rows on screen and keeps the result for this
+// date. Returns false when the session cannot be edited.
+function workoutEditRows(mutator, note) {
+  const date = workoutCurrentDate();
+  const { template, legacy } = workoutResolveTemplate(date, workoutExistingFor(date));
+  if (!workoutSessionEditable(template, legacy)) return false;
+  const { rows } = workoutRawRows(date, template);
+  const before = JSON.parse(JSON.stringify(rows));
+  const next = mutator(JSON.parse(JSON.stringify(rows)));
+  if (!next) return false;
+  WORKOUT.saveEditedRows(date, template.day, next);
+  workoutEditNote = note ? { text: note, undoRows: before } : null;
+  renderWorkoutZone();
+  return true;
+}
+
+function workoutExerciseName(id) { const ex = programExercise(id); return ex ? ex.name : id; }
+
+function workoutRemoveExercise(id) {
+  workoutEditRows(rows => {
+    const removed = rows.find(r => r.exercise_id === id);
+    const rest = rows.filter(r => r.exercise_id !== id);
+    // A superset partner left alone is no longer paired.
+    if (removed && removed.pair) rest.forEach(r => { if (r.pair === removed.pair && !rest.some(o => o !== r && o.pair === r.pair)) delete r.pair; });
+    return rest;
+  }, STRINGS.workout.edit.removed(workoutExerciseName(id)));
+}
+
+function workoutMoveExercise(id, delta) {
+  workoutEditRows(rows => {
+    const i = rows.findIndex(r => r.exercise_id === id);
+    const j = i + delta;
+    if (i < 0 || j < 0 || j >= rows.length) return null;
+    [rows[i], rows[j]] = [rows[j], rows[i]];
+    return rows;
+  });
+}
+
+function workoutAddExerciseRow(id) {
+  const date = workoutCurrentDate();
+  const { template } = workoutResolveTemplate(date, workoutExistingFor(date));
+  const row = programRowFor(id, template);
+  workoutSheet = null;
+  if (!row) { renderWorkoutZone(); return; }
+  workoutEditRows(rows => (rows.some(r => r.exercise_id === id) ? null : [...rows, row]),
+    STRINGS.workout.edit.added(workoutExerciseName(id)));
+}
+
+function workoutSwapExercise(oldId, newId) {
+  const date = workoutCurrentDate();
+  const { template } = workoutResolveTemplate(date, workoutExistingFor(date));
+  workoutSheet = null;
+  workoutEditRows(rows => {
+    const i = rows.findIndex(r => r.exercise_id === oldId);
+    if (i < 0 || rows.some(r => r.exercise_id === newId)) return null;
+    const fresh = programRowFor(newId, template);
+    const old = rows[i];
+    // The new exercise takes the place and the prescription of the old one.
+    rows[i] = (fresh && fresh.sets !== undefined && old.sets !== undefined)
+      ? { ...fresh, sets: old.sets, rep_range: old.rep_range || fresh.rep_range, rir_target: old.rir_target || fresh.rir_target,
+          rest: old.rest || fresh.rest, ...(old.pair ? { pair: old.pair } : {}), ...(old.primary ? { primary: true } : {}) }
+      : fresh;
+    return rows;
+  }, STRINGS.workout.edit.swapped(workoutExerciseName(oldId), workoutExerciseName(newId)));
+}
+
+function workoutChangeRow(id, field, value) {
+  workoutEditOpen = id;
+  workoutEditRows(rows => {
+    const row = rows.find(r => r.exercise_id === id);
+    if (!row) return null;
+    const n = Math.round(Number(value));
+    if (field === 'sets') {
+      if (!(n >= 1 && n <= WORKOUT_CUSTOM_SET_CAP)) return null;
+      row.sets = n;
+      delete row.primary;          // the phase's extra set is the program's, not an edit
+    } else if (field === 'rep-low' || field === 'rep-high') {
+      const [lo, hi] = row.rep_range || [8, 12];
+      const next = field === 'rep-low' ? [n, hi] : [lo, n];
+      if (!(next[0] >= 1 && (next[1] === null || next[1] >= next[0]))) return null;
+      row.rep_range = next;
+    } else if (field === 'rest') {
+      row.rest = String(value).trim().slice(0, 24);
+    }
+    return rows;
+  });
+}
+
+// The note under the title: this date is edited, or the default differs from the program.
+function workoutEditedNoteHtml(state, template) {
+  const E = STRINGS.workout.edit;
+  const status = workoutEditNote
+    ? `<p class="os-note wk-edit-status" id="wk-edit-status" role="status">${escapeHtml(workoutEditNote.text)}${
+        workoutEditNote.undoRows ? ` <button type="button" class="linkbtn" id="wk-edit-undo">${E.undo}</button>` : ''}</p>`
+    : '<p class="os-note wk-edit-status" id="wk-edit-status" role="status" hidden></p>';
+  if (state === 'today') {
+    return `${status}<p class="os-note wk-edited" data-wk-edited="today">${E.editedToday}
+      <button type="button" class="linkbtn" id="wk-edit-reset">${E.undoToday}</button>
+      <button type="button" class="linkbtn" id="wk-edit-default">${E.makeDefault}</button></p>`;
+  }
+  if (state === 'default') {
+    return `${status}<p class="os-note wk-edited" data-wk-edited="default">${escapeHtml(E.ownDefault(template.focus))}
+      <button type="button" class="linkbtn" id="wk-edit-base">${E.backToProgram}</button></p>`;
+  }
+  return status;
+}
+
+function workoutCopyHtml() {
+  const E = STRINGS.workout.edit;
+  return `<details class="wk-science wk-copy">
+    <summary>${E.copySummary}</summary>
+    <div class="wk-setting">
+      <label class="wk-field"><span>${E.copyDate}</span><input type="date" id="wk-copy-date"></label>
+      <button type="button" class="os-btn" id="wk-copy-go">${E.copyGo}</button>
+    </div>
+  </details>`;
+}
+
+// The exercise library as a bottom sheet: search, a category filter, one tap to add or replace.
+const WORKOUT_LIBRARY_CATEGORIES = ['push', 'pull', 'legs', 'other'];
+function workoutLibraryCategory(ex) { return WORKOUT_LIBRARY_CATEGORIES.includes(ex.category) ? ex.category : 'other'; }
+
+function workoutSheetHtml(template, rows) {
+  if (!workoutSheet || !template) return '';
+  const E = STRINGS.workout.edit;
+  const inSession = new Set(rows.map(r => r.exercise_id));
+  const swapping = workoutSheet.mode === 'swap' ? programExercise(workoutSheet.id) : null;
+  const startCategory = swapping ? workoutLibraryCategory(swapping)
+    : ({ Push: 'push', Pull: 'pull', Legs: 'legs' }[template.focus] || 'all');
+  const library = programLibrary();
+  return `<div class="wk-sheet-backdrop" id="wk-sheet-backdrop"></div>
+  <div class="wk-sheet" id="wk-sheet" role="dialog" aria-modal="true" aria-label="${escapeHtml(swapping ? E.swapTitle(swapping.name) : E.sheetTitle)}">
+    <div class="wk-sheet-head">
+      <h3 class="wk-sheet-title">${escapeHtml(swapping ? E.swapTitle(swapping.name) : E.sheetTitle)}</h3>
+      <button type="button" class="wk-icon-btn" id="wk-sheet-close" aria-label="${E.close}">&times;</button>
+    </div>
+    <input type="search" id="wk-lib-search" class="wk-lib-search" placeholder="${E.search}" aria-label="${E.search}" autocomplete="off">
+    <div class="wk-pill-group wk-lib-chips" role="group">
+      ${['all', ...WORKOUT_LIBRARY_CATEGORIES].map(c => `<button type="button" class="pill${c === startCategory ? ' is-active' : ''}"
+        data-wk-lib-cat="${c}">${c === 'all' ? E.all : E.categories[c]}</button>`).join('')}
+    </div>
+    <ul class="wk-lib-list" id="wk-lib-list">
+      ${library.map(ex => {
+        const taken = inSession.has(ex.id) && !(swapping && swapping.id === ex.id);
+        const unit = ex.progression_type === 'external_load' ? ` &middot; ${escapeHtml(workoutWeightCellLabel(programLoadUnit(ex.id)).toLowerCase())}` : '';
+        return `<li><button type="button" class="wk-lib-item" data-wk-lib="${ex.id}" data-wk-lib-name="${escapeHtml(ex.name.toLowerCase())}"
+          data-wk-lib-cat-of="${workoutLibraryCategory(ex)}"${taken || (swapping && swapping.id === ex.id) ? ' disabled' : ''}>
+          <span class="wk-lib-name">${escapeHtml(ex.name)}</span>
+          <span class="wk-lib-meta">${escapeHtml(String(ex.equipment || '').replace(/_/g, ' '))}${unit}${inSession.has(ex.id) ? ` &middot; ${E.inSession}` : ''}</span>
+        </button></li>`;
+      }).join('')}
+    </ul>
+    <p class="os-note wk-lib-empty" id="wk-lib-empty" hidden>${E.noMatch}</p>
+    ${workoutSheet.mode === 'add' ? workoutAddExerciseHtml(template) : ''}
+  </div>`;
+}
+
+function workoutFilterLibrary() {
+  const q = ((document.getElementById('wk-lib-search') || {}).value || '').trim().toLowerCase();
+  const chip = document.querySelector('[data-wk-lib-cat].is-active');
+  const cat = chip ? chip.getAttribute('data-wk-lib-cat') : 'all';
+  let shown = 0;
+  document.querySelectorAll('#wk-lib-list li').forEach(li => {
+    const b = li.querySelector('[data-wk-lib]');
+    const ok = (cat === 'all' || b.getAttribute('data-wk-lib-cat-of') === cat) && (!q || b.getAttribute('data-wk-lib-name').includes(q));
+    li.hidden = !ok;
+    if (ok) shown += 1;
+  });
+  const empty = document.getElementById('wk-lib-empty');
+  if (empty) empty.hidden = shown > 0;
+}
+
+function workoutOpenSheet(sheet) {
+  workoutSheet = sheet;
+  renderWorkoutZone();
+}
+
+function workoutCloseSheet() {
+  workoutSheet = null;
+  renderWorkoutZone();
+}
+
 function workoutLogHtml() {
   const date = workoutCurrentDate();
   const phase = WORKOUT.activePhase();
@@ -582,7 +837,13 @@ function workoutLogHtml() {
     </div>`;
   }
 
-  const prescription = programPrescription(template, phase);
+  const editable = workoutSessionEditable(template, legacy);
+  const raw = editable ? workoutRawRows(date, template) : { rows: template.exercises, state: null };
+  // A row of an exercise the owner created follows that exercise's own settings
+  // (sets, rep range, rest) unless the row says otherwise.
+  const sessionRows = raw.rows.map(r => (r.added && programExercise(r.exercise_id)
+    ? { ...workoutRowForAddedExercise(programExercise(r.exercise_id)), ...r } : r));
+  const prescription = programPrescription({ ...template, exercises: sessionRows }, phase);
   const entryFor = id => (existing ? (existing.entries || []).find(e => e.exercise_id === id) : null);
   const sessionType = programSessionType(template);
   // Only strength sessions (Push, Pull, Upper) offer supersets. The Sprint +
@@ -590,14 +851,12 @@ function workoutLogHtml() {
   const supersetAllowed = programSessionAllowsSuperset(template.session_type);
   // The prescribed exercises, then any the owner has added. Both are ordinary
   // rows; a superset pair is shown side by side whichever list its two are in.
-  const rows = workoutOrderRows([
-    ...prescription.exercises,
-    ...programCustomExerciseIds().map(id => workoutRowForAddedExercise(programExercise(id))),
-  ], entryFor);
+  const rows = workoutOrderRows(prescription.exercises, entryFor);
 
   return `<div class="os-block">
     ${header}
     ${existing ? `<p class="os-note">Editing the session already logged for this date.</p>` : ''}
+    ${editable ? workoutEditedNoteHtml(raw.state, template) : ''}
     ${workoutCardioPickHtml(template, date)}
     ${template.warm_up ? `<details class="wk-science wk-warmup">
       <summary>Warm-up &middot; about ${template.estimated_duration_min} min</summary>
@@ -606,7 +865,8 @@ function workoutLogHtml() {
     ${sessionType && sessionType.why ? `<p class="wk-why">${escapeHtml(sessionType.why)}</p>` : ''}
     <form id="wk-log-form" class="wk-form">
       ${rows.map((row, i) => workoutExerciseHtml(row, entryFor(row.exercise_id), date,
-        { supersetAllowed, index: i + 1, total: rows.length })).join('')}
+        { supersetAllowed, index: i + 1, total: rows.length, editable })).join('')}
+      ${editable ? `<button type="button" class="wk-add-bar" id="wk-open-sheet"><span aria-hidden="true">+</span> ${STRINGS.workout.edit.addBar}</button>` : ''}
       ${workoutRecoveryHtml(existing ? existing.recovery : null)}
       <section class="wk-section wk-comeback">
         <span class="os-note">Reduced intensity today?</span>
@@ -619,7 +879,8 @@ function workoutLogHtml() {
         <span class="os-note" id="wk-log-status"></span>
       </div>
     </form>
-    ${workoutAddExerciseHtml(template)}
+    ${editable ? workoutCopyHtml() : ''}
+    ${editable ? workoutSheetHtml(template, rows) : ''}
   </div>`;
 }
 
@@ -630,25 +891,35 @@ function workoutLogHtml() {
 function workoutAddExerciseHtml(template) {
   const S = STRINGS.workout;
   const t = programAddTemplate(template);
-  const reps = `${t.rep_range[0]}-${t.rep_range[1]}`;
-  const rir = `${t.rir_target[0]}-${t.rir_target[1]}`;
-  const fixed = (label, value) => `<label class="wk-cell"><span>${escapeHtml(label)}</span>
-    <input type="text" readonly tabindex="-1" value="${escapeHtml(String(value))}"></label>`;
+  const num = (id, label, value, attrs) => `<label class="wk-cell"><span>${escapeHtml(label)}</span>
+    <input type="number" inputmode="numeric" id="${id}" value="${escapeHtml(String(value))}" ${attrs}></label>`;
   return `<details class="wk-science wk-add" id="wk-add">
-    <summary>${S.addSummary}</summary>
+    <summary>${STRINGS.workout.edit.createNew}</summary>
     <form id="wk-add-form" class="wk-add-form">
       <div class="wk-row wk-row-draft">
         <div class="wk-row-meta"><span class="wk-index">${S.addNew}</span></div>
         <div class="wk-row-top">
           <input type="text" id="wk-add-name" class="wk-add-name-input" maxlength="40" autocomplete="off"
             required aria-label="${S.addName}" placeholder="${S.addName}">
-          <span class="wk-prescription">${t.sets}x${reps} &middot; RIR ${rir}</span>
+          <span class="wk-prescription" id="wk-add-presc"></span>
         </div>
-        <p class="wk-note wk-rest">Rest ${escapeHtml(t.rest)}</p>
         <div class="wk-cols">
-          <label class="wk-cell"><span>${S.addSets}</span>
-            <input type="number" inputmode="numeric" id="wk-add-sets" min="1" max="${WORKOUT_CUSTOM_SET_CAP}" value="${t.sets}"></label>
-          ${fixed(S.addReps, reps)}${fixed(S.addRir, rir)}${fixed(S.addUnit, workoutWeightCellLabel(t.load_unit))}
+          ${num('wk-add-sets', S.addSets, t.sets, `min="1" max="${WORKOUT_CUSTOM_SET_CAP}"`)}
+          ${num('wk-add-rep-low', S.addRepsFrom, t.rep_range[0], 'min="1"')}
+          ${num('wk-add-rep-high', S.addRepsTo, t.rep_range[1], 'min="1"')}
+          ${num('wk-add-rir-low', S.addRirFrom, t.rir_target[0], 'min="0" max="10"')}
+          ${num('wk-add-rir-high', S.addRirTo, t.rir_target[1], 'min="0" max="10"')}
+        </div>
+        <div class="wk-setting">
+          <span class="os-note">${S.addUnit}</span>
+          <div class="wk-pill-group" id="wk-add-unit" role="group" aria-label="${S.addUnit}">
+            ${['plates', 'kg'].map(u => `<button type="button" class="pill${t.load_unit === u ? ' is-active' : ''}"
+              data-wk-add-unit="${u}">${u}</button>`).join('')}
+          </div>
+          <label class="wk-cell"><span id="wk-add-start-label">${workoutWeightCellLabel(t.load_unit)}</span>
+            <input type="number" inputmode="decimal" id="wk-add-start" min="0" step="1" placeholder="${S.addStartHint}"></label>
+          <label class="wk-cell wk-cell-wide"><span>${S.addRest}</span>
+            <input type="text" id="wk-add-rest" maxlength="20" value="${escapeHtml(t.rest)}"></label>
         </div>
         <button type="submit" class="os-btn">${S.addSummary}</button>
       </div>
@@ -1220,25 +1491,112 @@ function workoutHandleAddExercise(form) {
   const nameEl = document.getElementById('wk-add-name');
   const date = workoutCurrentDate();
   const { template } = workoutResolveTemplate(date, workoutExistingFor(date));
-  const t = programAddTemplate(template);
-  const setsEl = document.getElementById('wk-add-sets');
+  const val = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+  const unitBtn = document.querySelector('#wk-add-unit .pill.is-active');
   let ex;
   try {
-    ex = WORKOUT.addCustomExercise({ name: nameEl.value, sets: setsEl && setsEl.value !== '' ? setsEl.value : t.sets, rep_range: t.rep_range,
-      rir_target: t.rir_target, rest: t.rest });
+    ex = WORKOUT.addCustomExercise({
+      name: nameEl.value,
+      sets: val('wk-add-sets'),
+      rep_range: [val('wk-add-rep-low'), val('wk-add-rep-high')],
+      rir_target: [val('wk-add-rir-low'), val('wk-add-rir-high')],
+      rest: val('wk-add-rest'),
+      load_unit: unitBtn ? unitBtn.getAttribute('data-wk-add-unit') : undefined,
+      plates: val('wk-add-start'),
+    });
   } catch (e) {
     say(e.message);
     return;
   }
-  // Appended to the session form in place, so a half-filled log survives.
-  const logForm = document.getElementById('wk-log-form');
-  const supersetAllowed = !!template && programSessionAllowsSuperset(template.session_type);
-  const html = workoutExerciseHtml(workoutRowForAddedExercise(ex), null, date, { supersetAllowed });
-  const anchor = logForm && logForm.querySelector('.wk-section');
-  if (logForm && anchor) anchor.insertAdjacentHTML('beforebegin', html);
-  if (logForm) workoutRefreshLinks(logForm);
-  nameEl.value = '';
-  say(`Added ${ex.name}.`);
+  // The new exercise joins this session's list; the log is redrawn with what was typed
+  // restored from the draft.
+  workoutSheet = null;
+  workoutEditRows(rows => [...rows, { exercise_id: ex.id, added: true }], STRINGS.workout.edit.added(ex.name));
+}
+
+function workoutWireEditing(mount) {
+  const E = STRINGS.workout.edit;
+  const ctx = () => {
+    const date = workoutCurrentDate();
+    const { template, legacy } = workoutResolveTemplate(date, workoutExistingFor(date));
+    return { date, template, editable: workoutSessionEditable(template, legacy) };
+  };
+  mount.querySelectorAll('[data-wk-remove]').forEach(b => b.addEventListener('click', () => workoutRemoveExercise(b.getAttribute('data-wk-remove'))));
+  mount.querySelectorAll('[data-wk-move]').forEach(b => b.addEventListener('click', () =>
+    workoutMoveExercise(b.getAttribute('data-wk-ex'), b.getAttribute('data-wk-move') === 'up' ? -1 : 1)));
+  mount.querySelectorAll('[data-wk-swap]').forEach(b => b.addEventListener('click', () => workoutOpenSheet({ mode: 'swap', id: b.getAttribute('data-wk-swap') })));
+  const open = document.getElementById('wk-open-sheet');
+  if (open) open.addEventListener('click', () => workoutOpenSheet({ mode: 'add' }));
+  mount.querySelectorAll('[data-wk-edit-row]').forEach(b => b.addEventListener('click', () => {
+    const id = b.getAttribute('data-wk-edit-row');
+    workoutEditOpen = workoutEditOpen === id ? null : id;
+    renderWorkoutZone();
+  }));
+  mount.querySelectorAll('[data-wk-row-field]').forEach(i => i.addEventListener('change', () =>
+    workoutChangeRow(i.getAttribute('data-wk-ex'), i.getAttribute('data-wk-row-field'), i.value)));
+
+  const undo = document.getElementById('wk-edit-undo');
+  if (undo) undo.addEventListener('click', () => {
+    const { date, template } = ctx();
+    const rows = workoutEditNote && workoutEditNote.undoRows;
+    workoutEditNote = null;
+    if (rows && template) WORKOUT.saveEditedRows(date, template.day, rows);
+    renderWorkoutZone();
+  });
+  const reset = document.getElementById('wk-edit-reset');
+  if (reset) reset.addEventListener('click', () => {
+    const { date, template } = ctx();
+    if (template) WORKOUT.clearEditedRows(date, template.day);
+    workoutEditNote = null;
+    renderWorkoutZone();
+  });
+  const makeDefault = document.getElementById('wk-edit-default');
+  if (makeDefault) makeDefault.addEventListener('click', () => {
+    const { date, template } = ctx();
+    if (!template) return;
+    WORKOUT.saveBaseRows(template.day, WORKOUT.editedRowsFor(date, template.day) || []);
+    WORKOUT.clearEditedRows(date, template.day);
+    workoutEditNote = null;
+    renderWorkoutZone();
+  });
+  const backToProgram = document.getElementById('wk-edit-base');
+  if (backToProgram) backToProgram.addEventListener('click', () => {
+    const { template } = ctx();
+    if (template) WORKOUT.clearBaseRows(template.day);
+    workoutEditNote = null;
+    renderWorkoutZone();
+  });
+  const copyGo = document.getElementById('wk-copy-go');
+  if (copyGo) copyGo.addEventListener('click', () => {
+    const { date, template } = ctx();
+    const target = (document.getElementById('wk-copy-date') || {}).value;
+    const note = text => { workoutEditNote = { text, undoRows: null }; renderWorkoutZone(); };
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(target || '')) { note(E.copyNeedsDate); return; }
+    WORKOUT.saveEditedRows(target, template.day, workoutRawRows(date, template).rows);
+    note(E.copied(workoutPrettyDate(target)));
+  });
+
+  // The library sheet.
+  const sheet = document.getElementById('wk-sheet');
+  if (sheet) {
+    const close = () => workoutCloseSheet();
+    document.getElementById('wk-sheet-close').addEventListener('click', close);
+    document.getElementById('wk-sheet-backdrop').addEventListener('click', close);
+    sheet.addEventListener('keydown', ev => { if (ev.key === 'Escape') { ev.preventDefault(); close(); } });
+    const search = document.getElementById('wk-lib-search');
+    search.addEventListener('input', workoutFilterLibrary);
+    sheet.querySelectorAll('[data-wk-lib-cat]').forEach(chip => chip.addEventListener('click', () => {
+      sheet.querySelectorAll('[data-wk-lib-cat]').forEach(c => c.classList.toggle('is-active', c === chip));
+      workoutFilterLibrary();
+    }));
+    sheet.querySelectorAll('[data-wk-lib]').forEach(b => b.addEventListener('click', () => {
+      if (workoutSheet && workoutSheet.mode === 'swap') workoutSwapExercise(workoutSheet.id, b.getAttribute('data-wk-lib'));
+      else workoutAddExerciseRow(b.getAttribute('data-wk-lib'));
+    }));
+    workoutFilterLibrary();
+    sheet.setAttribute('tabindex', '-1');
+    sheet.focus({ preventScroll: true });
+  }
 }
 
 function wireWorkoutZone() {
@@ -1252,6 +1610,8 @@ function wireWorkoutZone() {
       renderWorkoutZone();
     });
   });
+
+  workoutWireEditing(mount);
 
   const dateInput = document.getElementById('wk-date');
   if (dateInput) {
@@ -1385,6 +1745,14 @@ function wireWorkoutZone() {
       if (setting) workoutHandleSettingClick(form, setting);
     });
     form.addEventListener('change', ev => {
+      const field = ev.target.closest('[data-wk-custom-field]');
+      if (field) {
+        try {
+          WORKOUT.setExerciseOverride(field.getAttribute('data-wk-ex'), { [field.getAttribute('data-wk-custom-field')]: field.value });
+        } catch (e) { /* refused: the screen below redraws with the value that is kept */ }
+        renderWorkoutZone();
+        return;
+      }
       const bound = ev.target.closest('[data-wk-rep-bound]');
       if (!bound) return;
       const id = bound.getAttribute('data-wk-ex');
@@ -1434,13 +1802,24 @@ function wireWorkoutZone() {
 
   const addForm = document.getElementById('wk-add-form');
   if (addForm) {
-    const setsInput = document.getElementById('wk-add-sets');
-    const presc = addForm.querySelector('.wk-prescription');
-    if (setsInput && presc) {
-      setsInput.addEventListener('input', () => {
-        presc.innerHTML = presc.innerHTML.replace(/^\d*x/, `${setsInput.value || '?'}x`);
-      });
-    }
+    // The prescription line follows every field, and the unit pills relabel the
+    // starting-weight cell.
+    const presc = document.getElementById('wk-add-presc');
+    const field = id => { const el = document.getElementById(id); return el && el.value !== '' ? el.value : '?'; };
+    const refreshPresc = () => {
+      if (!presc) return;
+      presc.textContent = `${field('wk-add-sets')}x${field('wk-add-rep-low')}-${field('wk-add-rep-high')} \u00b7 RIR ${field('wk-add-rir-low')}-${field('wk-add-rir-high')}`;
+    };
+    addForm.addEventListener('input', refreshPresc);
+    refreshPresc();
+    addForm.querySelectorAll('[data-wk-add-unit]').forEach(btn => btn.addEventListener('click', () => {
+      const unit = btn.getAttribute('data-wk-add-unit');
+      addForm.querySelectorAll('[data-wk-add-unit]').forEach(b => b.classList.toggle('is-active', b === btn));
+      const label = document.getElementById('wk-add-start-label');
+      const start = document.getElementById('wk-add-start');
+      if (label) label.textContent = workoutWeightCellLabel(unit);
+      if (start) start.step = unit === 'plates' ? '1' : '0.5';
+    }));
     addForm.addEventListener('submit', ev => { ev.preventDefault(); workoutHandleAddExercise(addForm); });
   }
 

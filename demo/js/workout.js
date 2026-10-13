@@ -156,6 +156,8 @@ const WORKOUT = {
       hold_variations: { ...(stored.hold_variations || {}) },
       exercise_overrides: { ...(stored.exercise_overrides || {}) },
       cardio_overrides: { ...(stored.cardio_overrides || {}) },
+      session_edits: { ...(stored.session_edits || {}) },
+      base_edits: { ...(stored.base_edits || {}) },
     };
   },
 
@@ -216,6 +218,57 @@ const WORKOUT = {
 
   // Drafts from days before `todayIso`: never merged into today, only offered.
   staleDrafts(todayIso) { return this.draftDates().filter(d => d < todayIso); },
+
+  // --- editing a session's exercises -----------------------------------------
+  //
+  // The program is the base and is never rewritten. An edit is a complete,
+  // ordered list of rows (the same shape as a template row) kept either for one
+  // date (`session_edits`, key "date|day": the owner's default answer, "only
+  // today") or as the owner's own default for a session type (`base_edits`, by
+  // day). With neither, the program's rows apply. Removing, adding, moving,
+  // swapping and changing an exercise are all just a new list, so "back to the
+  // base" is deleting it.
+  editedRowsFor(date, day) {
+    const rows = this.settings().session_edits[`${date}|${day}`];
+    return Array.isArray(rows) ? rows : null;
+  },
+
+  baseRowsFor(day) {
+    const rows = this.settings().base_edits[String(day)];
+    return Array.isArray(rows) ? rows : null;
+  },
+
+  // Keeps only well-formed rows of exercises that exist, one row per exercise.
+  cleanRows(rows) {
+    const seen = new Set();
+    return (Array.isArray(rows) ? rows : []).filter(r => {
+      if (!r || typeof r.exercise_id !== 'string' || seen.has(r.exercise_id) || !programExercise(r.exercise_id)) return false;
+      seen.add(r.exercise_id);
+      return true;
+    }).map(r => JSON.parse(JSON.stringify(r)));
+  },
+
+  saveEditedRows(date, day, rows) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date))) throw new Error('an edit needs a date');
+    const all = { ...this.settings().session_edits, [`${date}|${day}`]: this.cleanRows(rows) };
+    this.saveSettings({ session_edits: all });
+  },
+
+  clearEditedRows(date, day) {
+    const all = { ...this.settings().session_edits };
+    delete all[`${date}|${day}`];
+    this.saveSettings({ session_edits: all });
+  },
+
+  saveBaseRows(day, rows) {
+    this.saveSettings({ base_edits: { ...this.settings().base_edits, [String(day)]: this.cleanRows(rows) } });
+  },
+
+  clearBaseRows(day) {
+    const all = { ...this.settings().base_edits };
+    delete all[String(day)];
+    this.saveSettings({ base_edits: all });
+  },
 
   // --- Wednesday cardio: a one-off choice for a date ------------------------
 
@@ -281,7 +334,7 @@ const WORKOUT = {
   // plate count, nothing else. The result is an ordinary Exercise -- it gets an
   // id, is tracked by the progression engine and is offered in every session --
   // with the defaults in program.js's CUSTOM_EXERCISE_DEFAULTS.
-  addCustomExercise({ name, sets, plates, rep_range, rir_target, rest } = {}) {
+  addCustomExercise({ name, sets, plates, rep_range, rir_target, rest, load_unit } = {}) {
     const cleanName = String(name || '').replace(/\s+/g, ' ').trim().slice(0, 40);
     if (!cleanName) throw new Error('an exercise needs a name');
     const nSets = Math.round(workoutNum(sets) === null ? 3 : workoutNum(sets));
@@ -305,7 +358,7 @@ const WORKOUT = {
       primary_muscles: [],
       equipment: 'multi_gym',
       progression_type: d.progression_type,
-      load_unit: d.load_unit,
+      load_unit: LOAD_UNITS.includes(load_unit) && load_unit !== 'bodyweight' ? load_unit : d.load_unit,
       variations: [],
       rep_range: this.cleanRange(rep_range, d.rep_range),
       rir_target: this.cleanRange(rir_target, d.rir_target),
@@ -313,6 +366,9 @@ const WORKOUT = {
       default_rest: typeof rest === 'string' && rest.trim() ? rest.trim().slice(0, 20) : null,
       start_load: startPlates,
       custom: true,
+      // Joins the session it was added to, not every session (earlier ones, made
+      // before this, still appear everywhere until a session is edited).
+      scoped: true,
       why: 'Added by you.',
       rationale: 'An exercise you added yourself, tracked like any other. Its '
         + 'rep range is a default (8-12) you can change in its settings.',
@@ -344,6 +400,25 @@ const WORKOUT = {
       const [low, high] = patch.rep_range.map(workoutNum);
       if (low === null || high === null || low < 1 || high < low) throw new Error('rep range must be low <= high');
       next.rep_range = [low, high];
+    }
+    // What an added exercise was created with can be changed afterwards: the
+    // number of sets, the rest, the starting weight and the RIR target.
+    if (base.custom && patch.default_sets !== undefined) {
+      const n = Math.round(workoutNum(patch.default_sets) === null ? NaN : workoutNum(patch.default_sets));
+      if (!(n >= 1 && n <= WORKOUT_CUSTOM_SET_CAP)) throw new Error(`sets must be between 1 and ${WORKOUT_CUSTOM_SET_CAP}`);
+      next.default_sets = n;
+    }
+    if (base.custom && patch.default_rest !== undefined) {
+      next.default_rest = typeof patch.default_rest === 'string' && patch.default_rest.trim()
+        ? patch.default_rest.trim().slice(0, 20) : null;
+    }
+    if (base.custom && patch.start_load !== undefined) {
+      const v = workoutNum(patch.start_load);
+      if (v !== null && v < 0) throw new Error('the starting weight cannot be negative');
+      next.start_load = v;
+    }
+    if (base.custom && patch.rir_target !== undefined) {
+      next.rir_target = this.cleanRange(patch.rir_target, base.rir_target || CUSTOM_EXERCISE_DEFAULTS.rir_target);
     }
     const overrides = { ...this.settings().exercise_overrides, [exerciseId]: next };
     this.saveSettings({ exercise_overrides: overrides });

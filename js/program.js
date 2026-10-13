@@ -702,6 +702,37 @@ function programAddTemplate(day) {
   };
 }
 
+// --- The exercise library -------------------------------------------------
+//
+// Everything an exercise can be added to a session from: the program's own
+// exercises plus the ones the owner created. Timed cardio is chosen on the
+// Wednesday card instead, the two removed skills (archived) and the pre-rebuild
+// "Shoulders" row (legacy) are never offered.
+function programLibrary() {
+  const builtIn = EXERCISES.filter(e => !e.archived && !e.legacy && e.progression_type !== 'time_or_distance');
+  return [...builtIn, ...programCustomExerciseIds().map(id => programExercise(id))]
+    .map(e => programExercise(e.id)).filter(Boolean);
+}
+
+// A session row for an exercise taken from the library, with the structure of the
+// session it is added to (sets, rep range, RIR and rest of its first loaded
+// exercise) unless the exercise brings its own.
+function programRowFor(exerciseId, template) {
+  const ex = programExercise(exerciseId);
+  if (!ex) return null;
+  const t = programAddTemplate(template);
+  if (ex.progression_type === 'hold_duration') {
+    return { exercise_id: exerciseId, attempts: [2, 3], rest: '45s' };
+  }
+  return {
+    exercise_id: exerciseId,
+    sets: ex.default_sets || t.sets,
+    rep_range: ex.rep_range ? [...ex.rep_range] : [...t.rep_range],
+    rir_target: ex.rir_target ? [...ex.rir_target] : [...t.rir_target],
+    rest: ex.default_rest || t.rest,
+  };
+}
+
 function programCustomExerciseIds() { return Object.keys(PROGRAM_RUNTIME.custom); }
 
 function programIsBuiltIn(id) { return Object.prototype.hasOwnProperty.call(EXERCISE_BY_ID, id); }
@@ -1167,6 +1198,8 @@ if (typeof module !== 'undefined' && module.exports) {
     programSetRuntime,
     programLoadUnit,
     programAddTemplate,
+    programLibrary,
+    programRowFor,
     programCustomExerciseIds,
     programIsBuiltIn,
     programSessionAllowsSuperset,
