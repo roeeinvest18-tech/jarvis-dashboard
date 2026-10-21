@@ -4713,3 +4713,32 @@ input[type="time"]::-webkit-calendar-picker-indicator { opacity: .85; cursor: po
 .wk-lib-name { font-family: var(--font-serif); font-size: var(--fs-body); font-weight: 500; }
 .wk-lib-meta { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--ink2); }
 .wk-sheet .wk-add { border-top: 1px solid var(--rule-soft); }
+
+/* --- Sprint cards: one card per sprint, prescription first ---------------- */
+.wk-sprints { display: flex; flex-direction: column; gap: var(--sp-3); }
+.wk-sprint-plan { margin: 0; font-family: var(--font-serif); font-size: var(--fs-body); color: var(--ink); font-weight: 500; }
+.wk-sprint-list { display: flex; flex-direction: column; gap: var(--sp-3); }
+.wk-sprint {
+  display: flex; flex-direction: column; gap: 2px; padding: var(--sp-4);
+  border: 1px solid var(--rule); border-radius: var(--r-panel); background: var(--bg);
+}
+.wk-sprint p { margin: 0; }
+.wk-sprint-head { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--ink2); letter-spacing: .04em; }
+.wk-sprint-dist { font-family: var(--font-serif); font-size: var(--fs-heading); color: var(--ink); font-weight: 600; }
+.wk-sprint-line { font-size: var(--fs-body); color: var(--ink); }
+.wk-sprint-last { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--ink2); }
+.wk-sprint-inputs { align-items: flex-end; padding-top: var(--sp-3); }
+.wk-sprint-restcell[hidden], .wk-sprint-restline[hidden] { display: none; }
+.wk-sprint-done {
+  min-height: 44px; min-width: 88px; padding: 0 var(--sp-4); margin-left: auto;
+  background: none; color: var(--ink); border: 1px solid var(--field-line); border-radius: var(--r-sm);
+  font-family: var(--font-serif); font-size: var(--fs-body); font-weight: 500; cursor: pointer;
+}
+.wk-sprint-done[aria-pressed="true"] { background: var(--mark-hi); border-color: var(--mark-hi); color: var(--on-mark); }
+.wk-sprint-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); align-items: end; }
+.wk-sprint .wk-cell { min-width: 0; width: 100%; }
+.wk-sprint .wk-cell input { width: 100%; }
+.wk-sprint-restcell { display: flex; }
+.wk-sprint-done { grid-column: 1 / -1; width: 100%; margin-left: 0; }
+.wk-sprint-tools { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+.wk-sprint-tools .os-btn { min-height: 44px; }

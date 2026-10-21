@@ -1079,6 +1079,82 @@ function programBikeMinutes(cycleNumber) {
   return Math.min(90, 45 + 5 * Math.max(0, cycleNumber));
 }
 
+// --- Sprint prescription ---------------------------------------------------
+//
+// Editable program data, not UI text. Distance, target time and rest per
+// phase; the sprint count steps up with the sprint sessions done in the phase.
+// The target time is a pace guide, never a pass/fail line.
+const SPRINT_PRESCRIPTION = {
+  Foundation: { counts: [4, 5, 6], distance_m: 100, target_time_s: 20, rest_s: [120, 180] },
+  Overload: { counts: [6, 7, 8], distance_m: 120, target_time_s: 24, rest_s: [120, 180] },
+  Peak: { counts: [8], distance_m: 150, target_time_s: 30, rest_s: [180, 180] },
+  deload: { factor: 0.6, min_count: 3 },
+};
+
+function programRestLabel(range) {
+  const [lo, hi] = range;
+  const m = n => (n % 60 === 0 ? `${n / 60}` : `${Math.round(n / 6) / 10}`);
+  return lo === hi ? `${m(lo)} min walking` : `${m(lo)}-${m(hi)} min walking`;
+}
+
+// Whole weeks from the cardio anchor to the Wednesday of a date's week.
+function programSprintWeeksFromAnchor(dateIso) {
+  const wed = programWednesdayOf(dateIso);
+  return wed ? Math.floor(programDaysBetween(CARDIO_ANCHOR, wed) / 7) : null;
+}
+
+// Sprint sessions so far, this one included: the first sprint Wednesday is
+// cycle week 1 (one week after the anchor). Never below 1, so a sprint session
+// moved onto another week by hand still counts as the first.
+function programSprintSessionNumber(dateIso) {
+  const w = programSprintWeeksFromAnchor(dateIso);
+  return w === null ? 1 : Math.max(1, Math.floor((w - 1) / 3) + 1);
+}
+
+// The plan for a sprint session on a date. opts: phaseName (default
+// Foundation), phaseStartDate (ISO date the phase began, to count sessions
+// within it), deload (about 40% fewer sprints, rounded down, minimum 3).
+// The PHASE decides distance and time; the session count only decides how many.
+function programSprintPlan(dateIso, opts = {}) {
+  const phaseName = SPRINT_PRESCRIPTION[opts.phaseName] && opts.phaseName !== 'deload' ? opts.phaseName : 'Foundation';
+  const cfg = SPRINT_PRESCRIPTION[phaseName];
+  const sessionNumber = programSprintSessionNumber(dateIso);
+  let inPhase = sessionNumber;
+  if (opts.phaseStartDate && phaseName !== 'Foundation') {
+    // Sprint Wednesdays that fell in weeks before the phase began.
+    const w = programSprintWeeksFromAnchor(opts.phaseStartDate);
+    const before = w === null || w < 2 ? 0 : Math.floor((w - 2) / 3) + 1;
+    inPhase = Math.max(1, sessionNumber - before);
+  }
+  let count = cfg.counts[Math.min(cfg.counts.length, inPhase) - 1];
+  if (opts.deload) {
+    count = Math.max(SPRINT_PRESCRIPTION.deload.min_count, Math.floor(count * SPRINT_PRESCRIPTION.deload.factor));
+  }
+  const [restMin, restMax] = cfg.rest_s;
+  return {
+    phase: phaseName, session_number: sessionNumber, deload: !!opts.deload, count,
+    distance_m: cfg.distance_m, target_time_s: cfg.target_time_s,
+    rest_min_s: restMin, rest_max_s: restMax, rest_label: programRestLabel(cfg.rest_s),
+  };
+}
+
+// The first date of a phase's first week, from the program start date.
+function programPhaseStartDate(startIso, phase) {
+  if (!startIso || !phase) return null;
+  const t = Date.parse(`${startIso}T00:00:00Z`);
+  if (Number.isNaN(t)) return null;
+  return new Date(t + (phase.start_week - 1) * 7 * 86400000).toISOString().slice(0, 10);
+}
+
+// Warm-up minutes of a session, from its own field, else the "N min" its
+// warm-up text opens with. null when there is nothing to say (no warm-up).
+function programWarmUpMin(template) {
+  if (!template || !template.warm_up) return null;
+  if (typeof template.warm_up_min === 'number') return template.warm_up_min;
+  const m = /^(\d+)\s*min/.exec(template.warm_up);
+  return m ? Number(m[1]) : null;
+}
+
 // The Wednesday session for a date: the rotation's type, unless one was chosen
 // by hand for that date (type is 'run' | 'sprints' | 'bike').
 function programCardioWorkout(dateIso, overrideType) {
@@ -1087,15 +1163,16 @@ function programCardioWorkout(dateIso, overrideType) {
   const base = programWorkoutForDay(9);
   const common = { ...base, cardio_type: type, cardio_overridden: type !== cycle.type, cardio_scheduled: cycle.type };
   if (type === 'run') {
-    return { ...common, focus: 'Cardio - Run 2 km', estimated_duration_min: 30,
+    return { ...common, focus: 'Cardio - Run 2 km', estimated_duration_min: 30, warm_up_min: 5,
       warm_up: '5 min walk or easy jog, then 2 km at a steady, controlled pace. Log the time.',
       exercises: [{ exercise_id: 'run_2k', rest: '', note: 'The goal is to slowly improve the time each cycle.', measure: 'run' }] };
   }
   if (type === 'sprints') {
-    return { ...common, focus: 'Cardio - Sprints', estimated_duration_min: 40,
-      warm_up: '10 min easy, with a few short strides. Keep the first sprints at about 80% effort.',
-      exercises: [{ exercise_id: 'sprints', attempts: [4, 6], sprint_build: true, rest: '2-3 min walking',
-        note: 'About 20 seconds each, building to 8 of about 30 seconds.' }] };
+    const plan = programSprintPlan(dateIso);
+    return { ...common, focus: 'Cardio - Sprints', estimated_duration_min: 40, warm_up_min: 10,
+      warm_up: '10 min easy jog or walk, then 3-4 short strides. Keep the first sprints at about 80% effort.',
+      exercises: [{ exercise_id: 'sprints', attempts: [plan.count, plan.count], sprint_build: true,
+        rest: plan.rest_label }] };
   }
   return { ...common, focus: 'Cardio - Bike', estimated_duration_min: programBikeMinutes(cycle.cycle_number),
     warm_up: '',
@@ -1155,7 +1232,6 @@ function programPrescription(workoutOrDay, phase) {
     if (phase && phase.extra_set_on_primaries && row.primary && typeof row.sets === 'number') {
       next.sets = row.sets + 1;
     }
-    if (row.sprint_build && phase && phase.name !== 'Foundation') next.attempts = [6, 8];
     if (phase && phase.rir_override && row.rir_target) {
       next.rir_target = [...phase.rir_override];
     }
@@ -1190,6 +1266,12 @@ if (typeof module !== 'undefined' && module.exports) {
     WEEK_TEMPLATE,
     LEGACY_WEEK_TEMPLATE,
     CARDIO_ANCHOR,
+    SPRINT_PRESCRIPTION,
+    programSprintPlan,
+    programRestLabel,
+    programSprintSessionNumber,
+    programPhaseStartDate,
+    programWarmUpMin,
     SPRINT_PROTOCOL,
     COOPER_PROTOCOL,
     LOAD_UNITS,

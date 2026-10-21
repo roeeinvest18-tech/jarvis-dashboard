@@ -107,7 +107,7 @@ function workoutRepRangeLabel(row) {
 }
 
 function workoutSetsLabel(row) {
-  if (row.sprint_build) return `${row.attempts[0]}-${row.attempts[1]} sprints`;
+  if (row.sprint_build) return `${row.attempts[0]} sprints`;
   if (row.attempts && row.attempts[0] === row.attempts[1]) return `${row.attempts[0]} holds`;
   if (row.attempts) return `${row.attempts[0]}-${row.attempts[1]} attempts`;
   if (row.protocol === 'sprint') return `${SPRINT_PROTOCOL.reps}x${SPRINT_PROTOCOL.work_seconds}s`;
@@ -269,16 +269,9 @@ function workoutSetCellsHtml(type, exerciseId, row, sets, perSet = [], unit = nu
       return cell + workoutSetTextCellHtml(i, 'quality_note', 'note', note);
     }).join('');
   }
-  // Cardio rows of the current program: each sprint is its own set with a time
-  // and the rest taken after it; a run or a bike ride is one set of distance
-  // and time.
-  if (type === 'time_or_distance' && row && row.sprint_build) {
-    return sets.map((set, i) => {
-      const val = k => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
-      return workoutSetCellHtml(i, 'duration', `#${i + 1} time (s)`, val('duration'), 'step="0.1" min="0"')
-        + workoutSetCellHtml(i, 'rest_between_reps', `#${i + 1} rest (s)`, val('rest_between_reps'), 'min="0"');
-    }).join('');
-  }
+  // A sprint row of the current program is drawn as one card per sprint
+  // (workoutSprintCardsHtml), not as cells here.
+  if (type === 'time_or_distance' && row && row.sprint_build) return '';
   if (type === 'time_or_distance' && row && row.measure) {
     const set = sets[0] || null;
     const val = k => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
@@ -295,6 +288,151 @@ function workoutSetCellsHtml(type, exerciseId, row, sets, perSet = [], unit = nu
     + workoutSetCellHtml(0, 'duration', 'time', v('duration'), 'step="0.01"')
     + workoutSetCellHtml(0, 'rep_count', 'reps', v('rep_count'), 'min="0"')
     + workoutSetCellHtml(0, 'rest_between_reps', 'rest s', v('rest_between_reps'), 'min="0"');
+}
+
+// --- sprint cards ----------------------------------------------------------
+//
+// One card per sprint: what to do first (distance, target, rest), then what
+// happened (time, rest taken, done). The numbers come from the plan
+// (programSprintPlan) at the time the card is made and are stored on the set,
+// so a later change to the prescription never rewrites a logged session.
+
+function workoutSprintCardHtml(i, n, set, plan, lastTimes) {
+  const S = STRINGS.workout.sprint;
+  const val = k => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
+  // A session logged before the cards existed has times but no targets: its
+  // cards show what was recorded and no prescription.
+  const legacy = !!set && val('target_distance_m') === '' && (val('duration') !== '' || val('rest_between_reps') !== '');
+  const dist = val('target_distance_m') || String(plan.distance_m);
+  const time = val('target_time_s') || String(plan.target_time_s);
+  const rMin = Number(val('target_rest_s_min') || plan.rest_min_s);
+  const rMax = Number(val('target_rest_s_max') || plan.rest_max_s);
+  const last = lastTimes && lastTimes[i] !== null && lastTimes[i] !== undefined ? lastTimes[i] : null;
+  const isLast = i === n - 1;
+  const done = val('done') === 'true';
+  const hid = (key, value) => `<input type="hidden" data-wk-set="${i}" data-wk-key="${key}" value="${escapeHtml(String(value))}">`;
+  return `<div class="wk-sprint" data-wk-sprint="${i}">
+    <p class="wk-sprint-head">${escapeHtml(S.head(i + 1, n))}</p>
+    ${legacy ? '' : `<p class="wk-sprint-dist">${escapeHtml(S.run(dist))}</p>
+    <p class="wk-sprint-line">${escapeHtml(S.target(time))}</p>
+    <p class="wk-sprint-line wk-sprint-restline"${isLast ? ' hidden' : ''}>${escapeHtml(S.rest(programRestLabel([rMin, rMax])))}</p>`}
+    ${last !== null ? `<p class="wk-sprint-last">${escapeHtml(S.lastTime(last))}</p>` : ''}
+    ${legacy ? '' : hid('target_distance_m', dist) + hid('target_time_s', time) + hid('target_rest_s_min', rMin) + hid('target_rest_s_max', rMax)}
+    ${hid('set_index', i + 1)}
+    <div class="wk-cols wk-sprint-inputs">
+      ${workoutSetCellHtml(i, 'duration', S.timeLabel, val('duration'), 'step="0.1" min="0"')}
+      <span class="wk-sprint-restcell"${isLast ? ' hidden' : ''}>${workoutSetCellHtml(i, 'rest_between_reps', S.restLabel, val('rest_between_reps'), 'step="1" min="0"')}</span>
+      ${hid('done', done ? '1' : '')}
+      <button type="button" class="wk-sprint-done" data-wk-sprint-done aria-pressed="${done}">${escapeHtml(S.done)}</button>
+    </div>
+  </div>`;
+}
+
+// Times of the same sprint number in the most recent earlier sprint session,
+// or [] when there is none.
+function workoutSprintLastTimes(date) {
+  const before = WORKOUT.historyFor('sprints').filter(h => h.session.date < date);
+  if (!before.length) return [];
+  const out = [];
+  (before[before.length - 1].entry.sets || []).forEach((st, pos) => {
+    if (!st || st.is_test || st.duration === null || st.duration === undefined) return;
+    out[(st.set_index || pos + 1) - 1] = st.duration;   // by sprint number, so a skipped sprint does not shift the rest
+  });
+  return Array.from(out, v => (v === undefined ? null : v));
+}
+
+function workoutSprintCardsHtml(row, loggedEntry, date) {
+  const S = STRINGS.workout.sprint;
+  const plan = row.sprint_plan || programSprintPlan(date);
+  const savedSets = loggedEntry && Array.isArray(loggedEntry.sets) ? loggedEntry.sets : [];
+  // A saved sprint sits at its own number, so a skipped one leaves a blank card.
+  const numbered = savedSets.some(st => st && st.set_index);
+  const setAt = i => (numbered ? savedSets.find(st => st && st.set_index === i + 1) : savedSets[i]) || null;
+  const savedCount = numbered ? Math.max(...savedSets.map(st => (st && st.set_index) || 0)) : savedSets.length;
+  const n = Math.max(1, savedCount || plan.count);
+  const lastTimes = workoutSprintLastTimes(date);
+  const cards = Array.from({ length: n }, (_, i) => workoutSprintCardHtml(i, n, setAt(i), plan, lastTimes)).join('');
+  return `<div class="wk-sprints" data-wk-sprints data-wk-plan="${escapeHtml(JSON.stringify(plan))}" data-wk-last="${escapeHtml(JSON.stringify(lastTimes))}">
+    <p class="wk-sprint-plan">${escapeHtml(S.plan(n, plan.distance_m, plan.target_time_s, plan.rest_label))}</p>
+    <div class="wk-sprint-list">${cards}</div>
+    <input type="hidden" data-wk-exkey="sprint_count" value="${n}">
+    <div class="wk-sprint-tools">
+      <button type="button" class="os-btn" data-wk-sprint-add>${escapeHtml(S.add)}</button>
+      <button type="button" class="os-btn" data-wk-sprint-remove>${escapeHtml(S.remove)}</button>
+    </div>
+  </div>`;
+}
+
+// Works on the DOM in place so nothing already typed is lost: numbers, the last
+// card's missing rest line, the count, the done buttons.
+function workoutSprintRefresh(wrap) {
+  const S = STRINGS.workout.sprint;
+  const cards = Array.from(wrap.querySelectorAll('.wk-sprint'));
+  cards.forEach((card, i) => {
+    const last = i === cards.length - 1;
+    const head = card.querySelector('.wk-sprint-head');
+    if (head) head.textContent = S.head(i + 1, cards.length);
+    const line = card.querySelector('.wk-sprint-restline');
+    if (line) line.hidden = last;
+    const cell = card.querySelector('.wk-sprint-restcell');
+    if (cell) cell.hidden = last;
+    const done = card.querySelector('[data-wk-key="done"]');
+    const btn = card.querySelector('[data-wk-sprint-done]');
+    const on = !!(done && done.value === '1');
+    if (btn) { btn.setAttribute('aria-pressed', String(on)); btn.textContent = S.done; }
+  });
+  const count = wrap.querySelector('[data-wk-exkey="sprint_count"]');
+  if (count) count.value = String(cards.length);
+  const head = wrap.querySelector('.wk-sprint-plan');
+  let plan = null;
+  try { plan = JSON.parse(wrap.getAttribute('data-wk-plan')); } catch (e) { /* keep the text */ }
+  if (head && plan) head.textContent = S.plan(cards.length, plan.distance_m, plan.target_time_s, plan.rest_label);
+  const rm = wrap.querySelector('[data-wk-sprint-remove]');
+  if (rm) rm.disabled = cards.length <= 1;
+}
+
+function workoutSprintSetCount(wrap, n) {
+  const list = wrap.querySelector('.wk-sprint-list');
+  if (!list) return;
+  let plan = null; let lastTimes = [];
+  try { plan = JSON.parse(wrap.getAttribute('data-wk-plan')); lastTimes = JSON.parse(wrap.getAttribute('data-wk-last')) || []; } catch (e) { /* defaults below */ }
+  if (!plan) return;
+  let cards = list.querySelectorAll('.wk-sprint');
+  while (cards.length > n && cards.length > 1) { cards[cards.length - 1].remove(); cards = list.querySelectorAll('.wk-sprint'); }
+  while (cards.length < n) {
+    list.insertAdjacentHTML('beforeend', workoutSprintCardHtml(cards.length, n, null, plan, lastTimes));
+    cards = list.querySelectorAll('.wk-sprint');
+  }
+  workoutSprintRefresh(wrap);
+}
+
+function workoutHandleSprintClick(form, ev) {
+  const wrap = ev.target.closest('[data-wk-sprints]');
+  if (!wrap) return false;
+  const count = () => wrap.querySelectorAll('.wk-sprint').length;
+  const changed = el => el.dispatchEvent(new Event('input', { bubbles: true }));
+  if (ev.target.closest('[data-wk-sprint-add]')) {
+    workoutSprintSetCount(wrap, count() + 1);
+    changed(wrap.querySelector('[data-wk-exkey="sprint_count"]'));
+    return true;
+  }
+  if (ev.target.closest('[data-wk-sprint-remove]')) {
+    workoutSprintSetCount(wrap, count() - 1);
+    changed(wrap.querySelector('[data-wk-exkey="sprint_count"]'));
+    return true;
+  }
+  const doneBtn = ev.target.closest('[data-wk-sprint-done]');
+  if (doneBtn) {
+    const card = doneBtn.closest('.wk-sprint');
+    const time = card.querySelector('[data-wk-key="duration"]');
+    const flag = card.querySelector('[data-wk-key="done"]');
+    if (flag.value !== '1' && (!time.value || time.value.trim() === '')) { time.focus(); return true; }
+    flag.value = flag.value === '1' ? '' : '1';
+    workoutSprintRefresh(wrap);
+    changed(flag);
+    return true;
+  }
+  return false;
 }
 
 // One prescribed exercise, as a single compact row. Only the full scientific
@@ -356,7 +494,7 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
   // left blank, which costs nothing.
   let slots;
   if (type === 'hold_duration') slots = Math.max(row.attempts ? row.attempts[1] : 6, logged);
-  else if (type === 'time_or_distance') slots = row.sprint_build ? Math.max(row.attempts[1], logged) : 1;
+  else if (type === 'time_or_distance') slots = row.sprint_build ? Math.max(row.attempts[0], logged) : 1;
   else slots = Math.max(typeof row.sets === 'number' ? row.sets : 3, logged);
 
   const sets = Array.from({ length: slots }, (_, i) => (loggedEntry && loggedEntry.sets[i]) || null);
@@ -394,16 +532,16 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
     <p class="wk-why">${escapeHtml(ex.why)}</p>
     ${gapWarningHtml}
     ${row.note ? `<p class="wk-note">${escapeHtml(row.note)}</p>` : ''}
-    ${row.rest ? `<p class="wk-note wk-rest">Rest ${escapeHtml(row.rest)}</p>` : ''}
+    ${row.rest && !row.sprint_build ? `<p class="wk-note wk-rest">Rest ${escapeHtml(row.rest)}</p>` : ''}
     ${row.protocol === 'sprint' ? `<p class="wk-note">${escapeHtml(SPRINT_PROTOCOL.note)}</p>` : ''}
     ${row.protocol === 'sprint' ? '<p class="wk-note">HR-based rest: enter heart rate from a synced device or by hand; the next rep starts once it drops under the threshold. Fixed rest ignores these two fields.</p>' : ''}
     ${row.protocol === 'cooper' ? `<p class="wk-note">${escapeHtml(COOPER_PROTOCOL.note)}</p>` : ''}
     ${flagHtml}
     ${workoutUnitAskHtml(ex)}
-    <div class="wk-cols">
+    ${row.sprint_build ? workoutSprintCardsHtml(row, loggedEntry, date) : `<div class="wk-cols">
       ${workoutSetCellsHtml(type, row.exercise_id, row, sets, perSet, unit)}
       ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry || prefill, perSet, row)}
-    </div>
+    </div>`}
     <div class="wk-more">
       ${ctx.supersetAllowed ? workoutSupersetControlHtml(row.exercise_id, groupId) : ''}
       ${workoutExerciseSettingsHtml(ex, unit)}
@@ -844,6 +982,14 @@ function workoutLogHtml() {
   const sessionRows = raw.rows.map(r => (r.added && programExercise(r.exercise_id)
     ? { ...workoutRowForAddedExercise(programExercise(r.exercise_id)), ...r } : r));
   const prescription = programPrescription({ ...template, exercises: sessionRows }, phase);
+  // The sprint count, distance and target come from the phase (program data),
+  // so the row is given its plan here, where the phase is known.
+  prescription.exercises = prescription.exercises.map(r => {
+    if (!r.sprint_build) return r;
+    const plan = programSprintPlan(date, { phaseName: phase ? phase.name : 'Foundation',
+      phaseStartDate: programPhaseStartDate(WORKOUT.settings().program_start, phase) });
+    return { ...r, sprint_plan: plan, attempts: [plan.count, plan.count], rest: plan.rest_label };
+  });
   const entryFor = id => (existing ? (existing.entries || []).find(e => e.exercise_id === id) : null);
   const sessionType = programSessionType(template);
   // Only strength sessions (Push, Pull, Upper) offer supersets. The Sprint +
@@ -859,7 +1005,7 @@ function workoutLogHtml() {
     ${editable ? workoutEditedNoteHtml(raw.state, template) : ''}
     ${workoutCardioPickHtml(template, date)}
     ${template.warm_up ? `<details class="wk-science wk-warmup">
-      <summary>Warm-up &middot; about ${template.estimated_duration_min} min</summary>
+      <summary>Warm-up${programWarmUpMin(template) ? ` &middot; about ${programWarmUpMin(template)} min` : ''}</summary>
       <p>${escapeHtml(template.warm_up)}</p>
     </details>` : ''}
     ${sessionType && sessionType.why ? `<p class="wk-why">${escapeHtml(sessionType.why)}</p>` : ''}
@@ -1134,6 +1280,8 @@ function workoutApplySnapshot(form, snap) {
   Object.entries(snap.rows || {}).forEach(([id, fields]) => {
     const block = form.querySelector(`[data-wk-exercise="${id}"]`);
     if (!block) return;
+    const sprintWrap = block.querySelector('[data-wk-sprints]');
+    if (sprintWrap && fields && Number(fields['x:sprint_count']) > 0) workoutSprintSetCount(sprintWrap, Number(fields['x:sprint_count']));
     Object.entries(fields || {}).forEach(([key, value]) => {
       const parts = key.split(':');
       const input = parts[0] === 's'
@@ -1148,6 +1296,7 @@ function workoutApplySnapshot(form, snap) {
       : form.querySelector(`.wk-comeback [data-wk-exkey="${name}"]`);
     if (input) workoutSetFieldValue(input, String(value));
   });
+  form.querySelectorAll('[data-wk-sprints]').forEach(workoutSprintRefresh);
   // Superset partners sit together, as they do after linking by hand.
   const groups = {};
   form.querySelectorAll('[data-wk-exercise]').forEach(block => {
@@ -1346,9 +1495,14 @@ function workoutCollectForm() {
       const i = Number(input.getAttribute('data-wk-set'));
       const key = input.getAttribute('data-wk-key');
       byIndex[i] = byIndex[i] || {};
+      // The last sprint has no rest after it: its (hidden) rest cell is not read.
+      if (key === 'rest_between_reps' && input.closest('.wk-sprint-restcell[hidden]')) return;
       byIndex[i][key] = input.value;
     });
-    const sets = Object.keys(byIndex).sort((a, b) => a - b).map(i => {
+    // A sprint card with no time and no rest was not run: it is not a set.
+    const isSprintCard = !!block.querySelector('.wk-sprint');
+    const sets = Object.keys(byIndex).sort((a, b) => a - b).filter(i => !isSprintCard
+      || ['duration', 'rest_between_reps'].some(k => byIndex[i][k] !== undefined && byIndex[i][k] !== '')).map(i => {
       const raw = byIndex[i];
       // A set with no reps entered is a set the owner skipped, and must stay
       // that way: WORKOUT.setIsFilled treats a present weight as enough to
@@ -1739,6 +1893,7 @@ function wireWorkoutZone() {
     workoutStartDraft(form);
     // Delegated, so a row added after this render behaves like the rest.
     form.addEventListener('click', ev => {
+      if (workoutHandleSprintClick(form, ev)) return;
       const link = ev.target.closest('[data-wk-link]');
       if (link) { workoutHandleLinkClick(form, link.getAttribute('data-wk-link')); return; }
       const setting = ev.target.closest('[data-wk-setting]');

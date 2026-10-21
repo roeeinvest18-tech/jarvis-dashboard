@@ -629,6 +629,17 @@ const WORKOUT = {
         // Manual entry when no device supplies live HR. Null under fixed
         // rest -- there is nothing to autoregulate against.
         recovery_hr_bpm: restMode === 'hr_autoregulated' ? workoutNum(r.recovery_hr_bpm) : null,
+        // Per-sprint card (Wednesday sprints): the prescription as it was when
+        // the session was made, and whether the sprint was ticked off. `duration`
+        // is the time run and `rest_between_reps` the rest taken, as before, so
+        // the sprint trend and every older session read unchanged. Null/false
+        // on anything logged without a card.
+        set_index: workoutNum(r.set_index),
+        target_distance_m: workoutNum(r.target_distance_m),
+        target_time_s: workoutNum(r.target_time_s),
+        target_rest_s_min: workoutNum(r.target_rest_s_min),
+        target_rest_s_max: workoutNum(r.target_rest_s_max),
+        done: r.done === true || r.done === '1' || r.done === 1,
       };
     }
     throw new Error(`unknown progression type: ${progressionType}`);
