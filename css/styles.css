@@ -25,29 +25,33 @@
    ========================================================================== */
 
 :root {
-  --bg: #151312;      /* warm charcoal, not pure black and not cold */
-  --raise: #1d1a18;   /* raised surface -- used sparingly, see below */
-  --rule: #2a2621;    /* section hairlines, full strength */
+  --bg: #0c1018;      /* deep midnight ink: blue-black, not pure black */
+  --raise: #131925;   /* raised surface: panels and cards sit on it */
+  --rule: #1c2433;    /* section hairlines, full strength */
   /* Item separators within a section sit lighter, so a section boundary
      reads as the stronger of the two. */
-  --rule-soft: rgba(42, 38, 33, 0.6);
+  --rule-soft: rgba(28, 36, 51, 0.7);
   /* --ink3 is ~2.6:1 on --bg: DECORATION ONLY (rules, icons beside a label,
      list markers, disabled controls). Never readable text -- secondary text,
      dates, placeholders and sublabels use --ink2 (~5.6:1). Enforced by
      test_contrast_e2e.js. */
-  --ink3: #5d574d;
-  --ink2: #938c7e;    /* secondary text, numeric values */
-  --ink: #ece5d8;     /* primary text -- warm off-white, never #fff */
-  --mark: #c08b2e;    /* ochre -- the single accent */
+  --ink3: #566178;
+  --ink2: #9ba5b8;    /* secondary text, numeric values (7.7:1) */
+  --ink: #ece9e1;     /* primary text -- moonlit ivory, never #fff */
+  --mark: #7fb0ff;    /* arc blue -- the single accent */
 
-  --up: #7d9b63;      /* price gain -- muted sage */
-  --down: #bc7161;    /* price loss -- muted clay; lifted from #b4614f, which
-                         was 4.2:1 on --bg and 3.9:1 on --raise */
+  --up: #5fd0a0;      /* price gain -- mint */
+  --down: #f2857b;    /* price loss -- coral */
 
   /* Type */
-  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-  --font-sans: var(--font-serif);   /* legacy rules asking for "sans" read */
+  /* Geist reads and compares: text, controls and figures (tabular numerals).
+     Instrument Serif is only for display: page titles, the greeting, exercise
+     names, big figures. The names --font-serif and --font-mono are kept so every
+     existing rule resolves; both now point at Geist. */
+  --font-display: 'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: var(--font-serif);
 
   --fs-display: 29px;
   --fs-heading: 21px;
@@ -120,9 +124,9 @@
   --gold-border: var(--rule);
   --pink: var(--ink3);
   --accent: var(--mark);
-  --accent-hover: #d6a04a;
-  --accent-a14: rgba(192, 139, 46, 0.14);
-  --accent-a50: rgba(192, 139, 46, 0.5);
+  --accent-hover: #9cc2ff;
+  --accent-a14: rgba(127, 176, 255, 0.14);
+  --accent-a50: rgba(127, 176, 255, 0.5);
   --zone-trading: var(--ink2);
   --zone-trading-a14: transparent;
   --zone-trading-a50: var(--rule);
@@ -1953,7 +1957,7 @@ table.drill-table td {
   position: fixed;
   inset: 0;
   z-index: 60;
-  background: rgba(8, 6, 16, 0.78);
+  background: rgba(4, 6, 12, 0.78);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -2500,7 +2504,7 @@ html, body {
 body { padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px)); }
 
 .mono, .mono * { font-family: var(--font-mono); }
-::selection { background: rgba(192, 139, 46, 0.28); }
+::selection { background: rgba(127, 176, 255, 0.28); }
 a { color: var(--ink); }
 :focus-visible { outline: 1px solid var(--mark); outline-offset: 2px; border-radius: var(--r-sm); }
 
@@ -3012,7 +3016,7 @@ table.os-table tr:has(+ .os-row-note) td { border-bottom: none; }
   position: fixed;
   inset: 0;
   z-index: 60;
-  background: rgba(10, 9, 8, 0.82);
+  background: rgba(4, 6, 12, 0.82);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -4024,7 +4028,7 @@ body.is-market-closed .regime { color: var(--ink2); }
    is the right answer, so a screenshot can't be mistaken for real data. */
 .demo-banner {
   position: sticky; top: 0; z-index: 50;
-  background: var(--mark); color: #151312;
+  background: var(--mark); color: var(--on-mark);
   font-family: var(--font-mono); font-size: var(--fs-tag); letter-spacing: .08em;
   text-transform: uppercase; text-align: center; padding: var(--sp-2) var(--sp-4);
 }
@@ -4306,11 +4310,11 @@ textarea, select {
    ========================================================================== */
 
 :root {
-  --canvas: #0f0e0d;       /* the page ground; panels sit one step lighter on --bg */
-  --mark-hi: #d6a45e;      /* filled primary action and gold text links */
-  --on-mark: #1a1410;      /* text on a --mark-hi fill, 9:1 */
-  --field-line: #3b352d;   /* input and panel borders: structure, never text */
-  --panel-line: #2f2a24;
+  --canvas: #070a10;       /* the page ground; panels sit one step lighter on --bg */
+  --mark-hi: #9cc2ff;      /* filled primary action, links and the focus ring */
+  --on-mark: #08101c;      /* text on a --mark-hi fill, 10.5:1 */
+  --field-line: #2b3548;   /* input and panel borders: structure, never text */
+  --panel-line: #222b3c;
   --r-panel: 6px;
   --topnav-h: 56px;
   --page-w: 1000px;
@@ -4345,7 +4349,7 @@ html, body { background: var(--canvas); }
   font-size: var(--fs-body);
   padding: 0 var(--sp-6);
 }
-.os-btn-primary:hover { filter: none; background: #e2b46f; border-color: #e2b46f; color: var(--on-mark); }
+.os-btn-primary:hover { filter: none; background: #b6d2ff; border-color: #b6d2ff; color: var(--on-mark); }
 .os-btn:not(.os-btn-primary) { border-color: var(--field-line); background: transparent; }
 .os-btn:not(.os-btn-primary):hover { border-color: var(--ink2); color: var(--ink); }
 .os-btn.os-btn-quiet { border-color: transparent; }
@@ -4780,11 +4784,11 @@ input[type="time"]::-webkit-calendar-picker-indicator { opacity: .85; cursor: po
 
 :root {
   /* Tonal steps on the same warm hue as --bg (hue ~30, saturation ~8%). */
-  --surface-hover: #221f1c;           /* one step above --raise: hovered rows */
-  --edge-hi: rgba(236, 229, 216, .05); /* 1px top light on a panel, not a glow */
+  --surface-hover: #19202e;           /* one step above --raise: hovered rows */
+  --edge-hi: rgba(236, 233, 225, .06); /* 1px top light on a panel */
   /* Borders of fields and toggles: 3.3:1 on --bg, 3.1:1 on --raise. Still
      structure only, never text. --field-line stays for quiet dividers. */
-  --control-line: #6e665a;
+  --control-line: #68748c;
 
   /* Motion: state changes only, never decoration. */
   --ease-out: cubic-bezier(.2, .7, .2, 1);
@@ -4877,3 +4881,116 @@ p, .shell-sub, .trading-note, .wk-why, .wk-note, .os-note, .empty-state { text-w
 .tl-item { gap: var(--sp-1); }
 .tl-item a { text-decoration-thickness: 1px; }
 .tl-howto { border-top: 1px solid var(--rule); padding-top: var(--sp-2); margin-top: var(--sp-7); }
+
+/* ==========================================================================
+   NOCTURNE (Nov 2026, second designer pass) -- a stronger dark identity.
+
+   Brief: keep it dark, raise it to what a top-tier web designer would ship,
+   and change fonts if that helps. Direction, from the design-system data
+   (Financial dashboard: dark base, data-dense, trust blue, no purple
+   gradients) and the "avoid the defaults" review: the old look was
+   near-black plus a warm accent plus tracked mono caps plus hairline boxes,
+   which is exactly the generic dark-dashboard kit. Replaced by:
+     - ground: deep midnight ink (blue-black) with one faint pool of cool
+       light at the top, so the page has atmosphere instead of flat black;
+     - text: moonlit ivory on cool slate, a warm/cool tension that reads as
+       paper under a lamp;
+     - one accent, arc blue, for everything interactive. Green and red keep
+       meaning price direction only (mint and coral now);
+     - type: Instrument Serif (display only: titles, greeting, names, big
+       figures) over Geist (everything you read, tap or compare, tabular
+       numerals). No monospace and no all-caps eyebrows doing the work;
+     - shape: surfaces rather than boxes. Panels are filled one step above the
+       ground with soft radius; lists stay flat and hairline separated, so
+       not everything is a card.
+   CSS only. No markup, text or logic changes.
+   ========================================================================== */
+
+:root {
+  --r-badge: 5px; --r-sm: 7px; --r-card: 12px; --r-lg: 14px; --r-pill: 999px; --r-panel: 14px;
+  --section-gap: 32px;
+  --screen-pad: 20px;
+  --fs-heading: 24px;
+  --fs-item: 15.5px;
+  --fs-body: 15px;
+  --fs-secondary: 13px;
+  --halo: radial-gradient(900px 520px at 14% -10%, rgba(127, 176, 255, .11), transparent 62%),
+          radial-gradient(760px 460px at 104% 6%, rgba(127, 176, 255, .05), transparent 60%);
+}
+
+/* --- ground and atmosphere ----------------------------------------------- */
+html { background: var(--canvas); }
+body { background: transparent; position: relative; font-family: var(--font-serif); line-height: 1.5; }
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--halo);
+}
+.shell-sidebar, .shell-tabbar {
+  background: rgba(7, 10, 16, .76);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  backdrop-filter: blur(16px) saturate(1.3);
+}
+
+/* --- display type ---------------------------------------------------------- */
+.shell-title, .today-greeting {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(40px, 6.2vw, 64px); line-height: 1; letter-spacing: -.022em;
+}
+.shell-sub { font-size: 16px; color: var(--ink2); padding-bottom: var(--sp-6); }
+.wk-title, .sheet-title, .wk-sheet-title, .wk-title-select, .wk-name,
+.sizing-shares, .wk-srow-dist, .os-stat-value {
+  font-family: var(--font-display); font-weight: 400; letter-spacing: -.005em;
+}
+.wk-name { font-size: 23px; line-height: 1.15; }
+.wk-title, .wk-title-select, .sheet-title, .wk-sheet-title { font-size: 28px; line-height: 1.1; }
+.wk-srow-dist { font-size: 24px; }
+.os-stat-value { font-size: 30px; }
+
+/* --- labels: quiet sans, not tracked mono --------------------------------- */
+.sec-label, .sec-label-gold, .shell-eyebrow {
+  font-family: var(--font-serif); font-weight: 500; font-size: 11.5px; letter-spacing: .14em; color: var(--ink2);
+}
+.shell-eyebrow { margin-bottom: var(--sp-3); }
+
+/* --- surfaces: panels filled one step up, soft radius ---------------------- */
+.wk-prompt, .acct-card, .market-panel, .wk-warmup, .wk-row, .sc-block {
+  background: var(--raise); border-color: var(--rule); border-radius: var(--r-panel);
+}
+.market-panel, .acct-card, .wk-prompt { padding-block: var(--sp-5); }
+.wk-row:hover { background: #161d2b; }
+.wk-sheet { background: var(--raise); border-color: var(--field-line); }
+.empty-state { border-color: var(--field-line); }
+
+/* --- controls -------------------------------------------------------------- */
+.wk-cell input, .wk-sin, .wk-field input, .wk-lib-search, #panel-training .wk-add-name-input,
+.trading-search, .global-search input { background: var(--bg); border-radius: var(--r-sm); }
+.os-btn { border-radius: var(--r-sm); font-weight: 600; letter-spacing: -.005em; }
+.os-btn-primary {
+  background: var(--mark-hi); border-color: var(--mark-hi); color: var(--on-mark);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 10px 28px -14px rgba(127, 176, 255, .7);
+}
+.os-btn-primary:hover { background: #b6d2ff; border-color: #b6d2ff; }
+.os-btn:active { transform: translateY(1px); }
+.pill.is-active, .wk-presc-btn { color: var(--ink); }
+.pill.is-active { border-bottom-color: var(--mark-hi); }
+.shell-side-link { font-size: 14.5px; font-weight: 500; letter-spacing: -.005em; }
+.shell-side-link.is-active { color: var(--ink); }
+
+/* --- tables and lists: flat, hairline, tabular ---------------------------- */
+.setup-table .setup-card { border-bottom-color: var(--rule); }
+.setup-ticker, .tl-table tbody th { font-weight: 600; letter-spacing: 0; }
+.sc-table thead th, table.scan-table th { font-weight: 500; letter-spacing: .08em; }
+
+/* --- the focus moment: the primary action glows slightly ------------------- */
+.wk-actions .os-btn-primary { min-height: 48px; font-size: 15px; }
+
+/* --- notes in the display italic; rounder, easier toggles ------------------- */
+.sched-note, .reveal-btn, .set-optional, .substep-empty, .task-needs-decompose {
+  font-family: var(--font-display); font-style: italic; font-size: 17px; letter-spacing: 0;
+}
+.habit-box { width: 20px; height: 20px; border: 1.5px solid var(--control-line); border-radius: 6px; }
+.habit-box svg { width: 14px; height: 14px; }
+
+/* Nocturne polish: exercise names read as headings, placeholder rows stay legible */
+.wk-name { letter-spacing: -0.005em; line-height: 1.15; }
+.ghost-state, .ghost-state * { opacity: 1; }
+.ghost-state .ghost-heading { color: var(--ink); }
