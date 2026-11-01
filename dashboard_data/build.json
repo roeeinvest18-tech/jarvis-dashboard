@@ -15,6 +15,7 @@
   "published": [
     "breakout_alerts.json",
     "scan.json",
-    "scorecard.json"
+    "scorecard.json",
+    "trader_results.json"
   ]
 }
