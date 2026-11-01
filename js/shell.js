@@ -48,6 +48,7 @@ const SHELL_AREAS = [
       { id: 'breakouts', label: SHELL_TABS.breakouts },
       { id: 'fullscan', label: SHELL_TABS.fullscan },
       { id: 'scorecard', label: SHELL_TABS.scorecard },
+      { id: 'tools', label: SHELL_TABS.tools },
     ],
   },
 ];
@@ -116,6 +117,7 @@ const SHELL_ICONS = {
   breakouts: () => shellNavIcon('<path d="M2 11l4-4 3 3 5-6"/><path d="M10.5 4H14v3.5"/>'),
   fullscan: () => shellNavIcon('<circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/>'),
   scorecard: () => shellNavIcon('<path d="M3 3.5h10M3 8h10M3 12.5h10"/><path d="M6 3.5v9"/>'),
+  tools: () => shellNavIcon('<path d="M9.5 3a3 3 0 0 0-3.6 3.9L2.5 10.3a1.2 1.2 0 0 0 1.7 1.7l3.4-3.4A3 3 0 0 0 11.5 5L9.8 6.7 8.5 5.4z"/>'),
   settings: (size = 15) => `
     <svg width="${size}" height="${size}" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <circle cx="8" cy="8" r="2.2" stroke="currentColor" stroke-width="1.4"/>

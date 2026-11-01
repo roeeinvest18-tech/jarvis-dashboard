@@ -99,6 +99,7 @@ function tradingLinkAttrs(ticker, exchange) {
 
 const tradingState = {
   scan: null,
+  traderResults: null,
   account: null,
   breakouts: null,
   search: '',
@@ -956,9 +957,102 @@ function renderTradingScanTable() {
   });
 }
 
+// --- Tools: results of the read-only data tools ------------------------------
+//
+// trader_results.json is written by trader_bridge.py (run from GitHub Actions,
+// by hand). Each tool keeps its last result. Everything here is text from
+// outside, so it is escaped, and a link is only followed if it is https.
+
+function toolsSafeUrl(u) { return typeof u === 'string' && /^https:\/\//.test(u) ? u : ''; }
+
+function toolsWhen(iso) {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? ''
+    : d.toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+function toolsStatusHtml(rec) {
+  const S = TRADE_S.tools;
+  const when = rec.ran_at ? toolsWhen(rec.ran_at) : '';
+  const lines = [];
+  if (when) lines.push(S.ranAt(when));
+  if (rec.ok === false) lines.push(rec.data ? S.stale : S.failed(rec.error || ''));
+  return lines.length ? `<p class="tl-status mono">${lines.map(escapeHtml).join(' &middot; ')}</p>` : '';
+}
+
+function toolsCardHtml(id, title, sub, rec, body) {
+  const S = TRADE_S.tools;
+  const has = rec && (rec.data || rec.ok === false);
+  return `<section class="tl-card" data-tool="${id}">
+    <h2 class="sec-label">${escapeHtml(title)}</h2>
+    <p class="trading-note">${escapeHtml(sub)}</p>
+    ${has ? toolsStatusHtml(rec) : ''}
+    ${rec && rec.data ? body(rec.data) : (has ? '' : `<div class="empty-state">${escapeHtml(S.empty)}</div>`)}
+  </section>`;
+}
+
+function toolsScannerBody(d) {
+  const S = TRADE_S.tools.scanner;
+  const hits = d.hits || [];
+  const summary = `<p class="trading-note">${escapeHtml(S.summary(d.scanned, d.universe, d.failed, d.as_of || ''))}</p>`;
+  if (!hits.length) return summary + `<div class="empty-state">${escapeHtml(S.none)}</div>`;
+  const shown = hits.slice(0, 25);
+  const rows = shown.map(h => `<tr>
+    <th scope="row" class="mono">${escapeHtml(h.symbol)}</th>
+    <td class="mono">${typeof h.price === 'number' ? h.price.toFixed(2) : ''}</td>
+    <td class="mono">${typeof h.rsi === 'number' ? h.rsi.toFixed(1) : ''}</td>
+    <td>${(h.setups || []).map(k => escapeHtml(S.setups[k] || k)).join(', ')}</td></tr>`).join('');
+  const more = (d.hit_count || hits.length) - shown.length;
+  return summary + `<table class="sc-table tl-table">
+    <thead><tr><th>${S.cols.symbol}</th><th class="mono">${S.cols.price}</th><th class="mono">${S.cols.rsi}</th><th>${S.cols.setups}</th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    ${more > 0 ? `<p class="trading-note">${escapeHtml(S.more(more))}</p>` : ''}`;
+}
+
+function toolsNewsBody(d) {
+  const S = TRADE_S.tools.news;
+  const moves = (d.moves || []).filter(m => m && m.moving).map(m =>
+    `<li class="mono">${escapeHtml(S.moving(m.ticker, m.pct))}</li>`).join('');
+  const items = (d.items || []).slice(0, 15).map(it => {
+    const url = toolsSafeUrl(it.link);
+    const title = escapeHtml(it.title || '');
+    return `<li class="tl-item${it.important ? ' is-important' : ''}">
+      <span class="mono tl-meta">${escapeHtml(toolsWhen(it.time))} &middot; ${escapeHtml((it.touches || [it.ticker]).join(', '))} &middot; ${escapeHtml(it.source || '')}${it.important ? ` &middot; ${escapeHtml(S.important)}` : ''}</span>
+      ${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${title}</a>` : title}
+      ${(it.tags || []).length ? `<span class="mono tl-tags">${escapeHtml(it.tags.join(', '))}</span>` : ''}</li>`;
+  }).join('');
+  const notes = (d.notes || []).length
+    ? `<details class="tl-notes"><summary>${S.notes}</summary><ul>${d.notes.map(n => `<li>${escapeHtml(n)}</li>`).join('')}</ul></details>` : '';
+  return `${moves ? `<ul class="tl-moves">${moves}</ul>` : ''}
+    ${items ? `<ul class="tl-list">${items}</ul>` : `<div class="empty-state">${escapeHtml(S.none)}</div>`}${notes}`;
+}
+
+function toolsPelosiBody(d) {
+  const S = TRADE_S.tools.pelosi;
+  const rows = (d.filings || []).map(f => {
+    const url = toolsSafeUrl(f.url);
+    return `<li class="tl-item"><span class="mono tl-meta">${escapeHtml(f.filed || '')} &middot; ${escapeHtml(f.type_name || f.type || '')} &middot; ${escapeHtml(f.district || '')}</span>
+      ${escapeHtml(f.name || '')}${url ? ` <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(S.open)}</a>` : ''}</li>`;
+  }).join('');
+  return rows ? `<ul class="tl-list">${rows}</ul>` : `<div class="empty-state">${escapeHtml(S.none)}</div>`;
+}
+
+function renderTradingTools() {
+  const mount = document.getElementById('panel-tools');
+  if (!mount) return;
+  const S = TRADE_S.tools;
+  const tools = ((tradingState.traderResults || {}).tools) || {};
+  mount.innerHTML = `
+    <p class="trading-note tl-note">${escapeHtml(S.note)}</p>
+    ${toolsCardHtml('scanner_daily', S.scanner.title, S.scanner.sub, tools.scanner_daily, toolsScannerBody)}
+    ${toolsCardHtml('news', S.news.title, S.news.sub, tools.news, toolsNewsBody)}
+    ${toolsCardHtml('pelosi', S.pelosi.title, S.pelosi.sub, tools.pelosi, toolsPelosiBody)}
+    <details class="tl-howto"><summary>${S.runHow}</summary><p class="trading-note">${escapeHtml(S.runSteps)}</p></details>`;
+}
+
 // --- page -----------------------------------------------------------------
 
-const TRADING_TITLES = { top10: 'Trading', breakouts: 'Breakouts', fullscan: 'Full Scan', scorecard: 'Scorecard' };
+const TRADING_TITLES = { top10: 'Trading', breakouts: 'Breakouts', fullscan: 'Full Scan', scorecard: 'Scorecard', tools: 'Tools' };
 
 const tradingShell = mountShell({
   areaId: 'trading',
@@ -971,19 +1065,22 @@ const tradingShell = mountShell({
     if (tab === 'top10') { renderTradingTop10(); renderAccountCard(); }
     else if (tab === 'breakouts') renderTradingBreakouts();
     else if (tab === 'scorecard') renderTradingScorecard();
+    else if (tab === 'tools') renderTradingTools();
     else renderTradingFullScan();
   },
 });
 
 async function tradingLoad() {
-  const [scan, breakouts, scorecard] = await Promise.all([
+  const [scan, breakouts, scorecard, traderResults] = await Promise.all([
     DASHBOARD.fetchOne('scan'),
     DASHBOARD.fetchOne('breakoutAlerts'),
     DASHBOARD.fetchOne('scorecard'),
+    DASHBOARD.fetchOne('traderResults'),
   ]);
   tradingState.scan = scan;
   tradingState.breakouts = breakouts;
   tradingState.scorecard = scorecard;
+  tradingState.traderResults = traderResults;
   if (tradingShell) tradingShell.repaint();
   renderHealthStrip(document.getElementById('health-strip'), scan);
   // Private tier: only a device holding the owner's sync token gets an answer.

@@ -4416,7 +4416,7 @@ html, body { background: var(--canvas); }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .shell-sidebar { padding: 0 20px; gap: var(--sp-4); }
-  .shell-side-section { gap: var(--sp-4); }
+  .shell-side-section { gap: var(--sp-3); }
   .shell-side-section + .shell-side-section { padding-left: var(--sp-4); }
   .shell-side-link { font-size: var(--fs-body); }
   .shell-header, .shell-body { padding-left: 20px; padding-right: 20px; }
@@ -4742,3 +4742,18 @@ input[type="time"]::-webkit-calendar-picker-indicator { opacity: .85; cursor: po
 .wk-sprint-done { grid-column: 1 / -1; width: 100%; margin-left: 0; }
 .wk-sprint-tools { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 .wk-sprint-tools .os-btn { min-height: 44px; }
+
+/* --- Trading > Tools: results of the read-only data tools ------------------- */
+.tl-note { color: var(--ink); font-weight: 500; }
+.tl-card { margin-top: var(--sp-6); }
+.tl-status { margin: 0 0 var(--sp-3); font-size: var(--fs-label); color: var(--ink2); }
+.tl-table td { vertical-align: middle; }
+.tl-list, .tl-moves { list-style: none; margin: var(--sp-3) 0 0; padding: 0; }
+.tl-moves li { font-size: var(--fs-secondary); color: var(--ink); padding: var(--sp-2) 0; }
+.tl-item { display: flex; flex-direction: column; gap: 2px; padding: var(--sp-3) 0; border-top: 1px solid var(--rule-soft); font-size: var(--fs-body); color: var(--ink); line-height: 1.4; }
+.tl-item.is-important { border-left: 2px solid var(--mark); padding-left: var(--sp-3); }
+.tl-item a { color: var(--mark-hi); text-decoration: underline; text-underline-offset: 2px; }
+.tl-meta, .tl-tags { font-size: var(--fs-label); color: var(--ink2); }
+.tl-notes, .tl-howto { margin-top: var(--sp-4); font-size: var(--fs-secondary); color: var(--ink); }
+.tl-notes summary, .tl-howto summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+.tl-notes ul { margin: 0; padding-left: var(--sp-5); color: var(--ink2); }
