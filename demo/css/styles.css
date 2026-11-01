@@ -4757,3 +4757,123 @@ input[type="time"]::-webkit-calendar-picker-indicator { opacity: .85; cursor: po
 .tl-notes, .tl-howto { margin-top: var(--sp-4); font-size: var(--fs-secondary); color: var(--ink); }
 .tl-notes summary, .tl-howto summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
 .tl-notes ul { margin: 0; padding-left: var(--sp-5); color: var(--ink2); }
+
+/* ==========================================================================
+   DESIGNER PASS (Nov 2026) -- refinement of the Ink identity, CSS only.
+
+   Direction: "Ink, finished". The palette, the two type families and the
+   pinned rules above do not change (warm charcoal, one ochre accent, serif to
+   read and mono to compare, green and red for price direction only). This
+   layer adds what was missing to make it feel finished:
+     - a small token set for tonal steps, control borders, edge light, motion
+       and a numeric type scale, so later rules use names instead of literals;
+     - control borders that reach 3:1 against the surface (the old field line
+       was 1.5:1, so empty fields almost disappeared);
+     - a 2px keyboard focus ring in the accent on every control;
+     - tabular figures everywhere numbers are compared, balanced headings and
+       no orphan words in notes;
+     - one quiet edge highlight on panels, calmer empty states, steady rhythm
+       in the Tools tab, and 120-180ms state transitions that the
+       reduced-motion rule above already switches off.
+   Nothing here moves, adds or removes markup, and no text changes.
+   ========================================================================== */
+
+:root {
+  /* Tonal steps on the same warm hue as --bg (hue ~30, saturation ~8%). */
+  --surface-hover: #221f1c;           /* one step above --raise: hovered rows */
+  --edge-hi: rgba(236, 229, 216, .05); /* 1px top light on a panel, not a glow */
+  /* Borders of fields and toggles: 3.3:1 on --bg, 3.1:1 on --raise. Still
+     structure only, never text. --field-line stays for quiet dividers. */
+  --control-line: #6e665a;
+
+  /* Motion: state changes only, never decoration. */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur-quick: 120ms;
+  --dur-base: 180ms;
+
+  /* Type scale for figures and long lines (the role tokens above stay). */
+  --measure: 68ch;                    /* reading width for notes and prose */
+  --lh-prose: 1.55;                   /* serif body wants more air than sans */
+  --lh-tight: 1.18;                   /* titles and big numbers */
+}
+
+/* --- rendering ------------------------------------------------------------ */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+::selection { background: var(--mark-hi); color: var(--on-mark); }
+* { scrollbar-width: thin; scrollbar-color: var(--field-line) transparent; }
+
+/* --- type: figures, headings, prose --------------------------------------- */
+.mono, table, th, td, input, .setup-card, .wk-srow, .wk-cell, .os-stat-value,
+.wk-prescription, .wk-index, .tl-meta, .tl-status, .sc-table {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+h1, h2, h3, .shell-title, .sec-label, .wk-sheet-title, .wk-name { text-wrap: balance; }
+p, .shell-sub, .trading-note, .wk-why, .wk-note, .os-note, .empty-state { text-wrap: pretty; }
+.trading-note, .wk-why, .shell-sub, .tl-note { max-width: var(--measure); }
+.wk-why, .shell-sub { line-height: var(--lh-prose); }
+.shell-title { line-height: var(--lh-tight); letter-spacing: -.012em; }
+
+/* --- focus: always visible, always the accent ------------------------------ */
+:focus-visible { outline: 2px solid var(--mark-hi); outline-offset: 2px; }
+.setup-card.is-link:focus-visible { outline: 2px solid var(--mark-hi); outline-offset: -2px; }
+.wk-title-select:focus-visible, .wk-day-list:focus-visible,
+.col-ticker a:focus-visible { outline: 2px solid var(--mark-hi); outline-offset: 2px; }
+.wk-cell input:focus-visible, .wk-sin:focus-visible, .wk-field input:focus-visible,
+.wk-lib-search:focus-visible, #panel-training .wk-add-name-input:focus-visible {
+  outline: 2px solid var(--mark-hi); outline-offset: 1px; border-color: var(--mark-hi);
+}
+
+/* --- controls: borders you can see ----------------------------------------- */
+.wk-cell input, .wk-sin, .wk-field input, .wk-lib-search,
+#panel-training .wk-add-name-input, .wk-srow-done, .wk-icon-btn {
+  border-color: var(--control-line);
+}
+.wk-cell input:hover, .wk-sin:hover, .wk-lib-search:hover { border-color: var(--ink2); }
+.wk-cell input::placeholder, .wk-sin::placeholder { color: var(--ink2); opacity: 1; }
+.wk-srow-done[aria-pressed="true"] { border-color: var(--mark-hi); }
+.os-btn:not(.os-btn-primary):not(.os-btn-quiet) { border-color: var(--field-line); }
+.os-btn:not(.os-btn-primary):hover { border-color: var(--control-line); }
+
+/* --- state transitions (switched off by the reduced-motion rule above) ----- */
+.os-btn, .pill, .wk-icon-btn, .wk-srow-done, .wk-srow, .setup-card, .wk-lib-item,
+.shell-side-link, .wk-presc-btn, .tl-item a, input, select {
+  transition: color var(--dur-quick) var(--ease-out), background-color var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out);
+}
+
+/* --- panels: one quiet edge light, nothing else ----------------------------- */
+.wk-prompt, .acct-card, .market-panel, .wk-warmup, .wk-row, .sc-block, .tl-card {
+  box-shadow: inset 0 1px 0 var(--edge-hi);
+}
+.wk-row:hover { background: var(--surface-hover); }
+.setup-card.is-link:hover, .wk-lib-item:hover:not(:disabled) { background: var(--surface-hover); }
+
+/* --- empty states: invitations, not grey slabs ------------------------------ */
+.empty-state {
+  line-height: var(--lh-prose);
+  padding: var(--sp-5);
+  border: 1px dashed var(--panel-line);
+  border-radius: var(--r-panel);
+  background: transparent;
+}
+
+/* --- Trading > Tools: steady rhythm and legible columns --------------------- */
+.tl-note { padding-left: var(--sp-4); border-left: 2px solid var(--mark); margin: var(--sp-5) 0 0; }
+.tl-card { margin-top: var(--sp-7); padding-top: var(--sp-5); border-top: 1px solid var(--rule); box-shadow: none; }
+.tl-card .sec-label { margin-bottom: var(--sp-2); }
+.tl-card .trading-note { margin: var(--sp-2) 0 var(--sp-4); }
+.tl-status { display: block; margin: 0 0 var(--sp-4); }
+.tl-table th, .tl-table td { padding: var(--sp-3) var(--sp-4) var(--sp-3) 0; }
+.tl-table th:last-child, .tl-table td:last-child { padding-right: 0; }
+.tl-table td:nth-child(2), .tl-table td:nth-child(3),
+.tl-table thead th:nth-child(2), .tl-table thead th:nth-child(3) { text-align: right; }
+.tl-table tbody th { font-weight: 600; letter-spacing: .01em; }
+.tl-item { gap: var(--sp-1); }
+.tl-item a { text-decoration-thickness: 1px; }
+.tl-howto { border-top: 1px solid var(--rule); padding-top: var(--sp-2); margin-top: var(--sp-7); }
