@@ -44,6 +44,15 @@ function workoutRowLoadUnit(exerciseId, loggedEntry) {
   return loggedEntry ? WORKOUT.entryLoadUnit(loggedEntry) : programLoadUnit(exerciseId);
 }
 
+// Tempo exercises count added weight: "+kg", or "+plates" on a stack.
+function workoutAddedLabel(unit) { return unit === 'plates' ? '+plates' : '+kg'; }
+// What the switch button offers next. A bodyweight exercise goes between "+kg"
+// and plates; any other between kg and plates.
+function workoutUnitSwitchText(type, unit, base) {
+  const name = u => (type === 'tempo_then_load' ? workoutAddedLabel(u) : workoutWeightCellLabel(u));
+  const home = base === 'bodyweight' ? 'bodyweight' : 'kg';
+  return unit === 'plates' ? `Plates &rarr; ${name(home)}` : `${name(unit)} &rarr; plates`;
+}
 function workoutWeightCellLabel(unit) { return unit === 'plates' ? 'Plates' : (unit === 'bodyweight' ? '+kg' : 'kg'); }
 function workoutWeightCellAttrs(unit) { return unit === 'plates' ? 'step="1" min="0"' : 'step="0.5" min="0"'; }
 
@@ -246,11 +255,12 @@ function workoutGridColumnHtml(i, wKey, wAttrs, wVal, reps, rirVal, showRir) {
   </div>`;
 }
 
-function workoutGridHtml(type, exerciseId, sets, perSet, entry, unit, canSwitchUnit) {
+function workoutGridHtml(type, exerciseId, sets, perSet, entry, unit) {
+  const base = (EXERCISE_BY_ID[exerciseId] || {}).load_unit === 'bodyweight' ? 'bodyweight' : 'kg';
   const val = (set, k) => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
   const wKey = type === 'external_load' ? 'weight' : 'added_weight';
-  const wAttrs = type === 'external_load' ? workoutWeightCellAttrs(unit) : 'step="0.5" min="0"';
-  const wLabel = type === 'external_load' ? workoutWeightCellLabel(unit) : '+kg';
+  const wAttrs = workoutWeightCellAttrs(unit);
+  const wLabel = type === 'external_load' ? workoutWeightCellLabel(unit) : workoutAddedLabel(unit);
   const showRir = perSet.includes('rir');
   // A set with no weight of its own shows the exercise's first typed weight.
   const first = (entry && entry.sets && entry.sets.find(st => st && val(st, wKey) !== '')) || null;
@@ -276,8 +286,8 @@ function workoutGridHtml(type, exerciseId, sets, perSet, entry, unit, canSwitchU
     <div class="wk-gtools">
       <button type="button" class="os-btn os-btn-quiet" data-wk-set-remove aria-label="Remove the last set">&minus; Set</button>
       <button type="button" class="os-btn os-btn-quiet" data-wk-set-add aria-label="Add a set">+ Set</button>
-      ${canSwitchUnit ? `<button type="button" class="os-btn os-btn-quiet" data-wk-unit-toggle="${exerciseId}"
-        aria-label="Switch between kilograms and plates">${unit === 'plates' ? 'Plates &rarr; kg' : 'kg &rarr; plates'}</button>` : ''}
+      <button type="button" class="os-btn os-btn-quiet" data-wk-unit-toggle="${exerciseId}" data-wk-base-unit="${base}"
+        aria-label="Switch between kilograms and plates">${workoutUnitSwitchText(type, unit, base)}</button>
       ${rir}
     </div>
     ${tempo}
@@ -524,7 +534,7 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
   if (!ex) return '';
   const type = ex.progression_type;
   const groupId = loggedEntry ? (loggedEntry.superset_group_id || '') : (row.pair ? `pair-${row.pair}` : '');
-  const unit = type === 'external_load' ? workoutRowLoadUnit(row.exercise_id, loggedEntry) : null;
+  const unit = (type === 'external_load' || type === 'tempo_then_load') ? workoutRowLoadUnit(row.exercise_id, loggedEntry) : null;
   // An added exercise that has not been logged yet starts from the plate
   // count it was added with. Not a logged entry, so it never pins a unit.
   const prefill = !loggedEntry && ex.custom && ex.start_load !== null && ex.start_load !== undefined
@@ -593,8 +603,7 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
     ${row.protocol === 'cooper' ? `<p class="wk-note">${escapeHtml(COOPER_PROTOCOL.note)}</p>` : ''}
     ${flagHtml}
     ${workoutUnitAskHtml(ex)}
-    ${(type === 'external_load' || type === 'tempo_then_load') ? workoutGridHtml(type, row.exercise_id, sets, perSet, loggedEntry || prefill, unit,
-        type === 'external_load' && !loggedEntry && programLoadUnit(row.exercise_id) !== 'bodyweight')
+    ${(type === 'external_load' || type === 'tempo_then_load') ? workoutGridHtml(type, row.exercise_id, sets, perSet, loggedEntry || prefill, unit)
     : row.sprint_build ? workoutSprintCardsHtml(row, loggedEntry, date) : `<div class="wk-cols">
       ${workoutSetCellsHtml(type, row.exercise_id, row, sets, perSet, unit)}
       ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry || prefill, perSet, row)}
@@ -1715,10 +1724,12 @@ function workoutApplyUnit(row, value) {
   const old = row.querySelector('[data-wk-exkey="weight"]');
   const label = old && old.parentElement && old.parentElement.querySelector('span');
   if (label) label.textContent = workoutWeightCellLabel(value);
+  const grid = row.querySelector('[data-wk-grid]');
+  const gtype = grid ? grid.getAttribute('data-wk-grid') : 'external_load';
   const gridLabel = row.querySelector('[data-wk-unit-label]');
-  if (gridLabel) gridLabel.textContent = workoutWeightCellLabel(value);
+  if (gridLabel) gridLabel.textContent = gtype === 'tempo_then_load' ? workoutAddedLabel(value) : workoutWeightCellLabel(value);
   const tog = row.querySelector('[data-wk-unit-toggle]');
-  if (tog) tog.innerHTML = value === 'plates' ? 'Plates &rarr; kg' : 'kg &rarr; plates';
+  if (tog) tog.innerHTML = workoutUnitSwitchText(gtype, value, tog.getAttribute('data-wk-base-unit'));
   row.querySelectorAll('[data-wk-setting="load_unit"]').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-wk-value') === value));
 }
 
@@ -1759,7 +1770,8 @@ function workoutHandleGridClick(form, ev) {
     cols[cols.length - 1].remove();
   } else if (tog) {
     const id = tog.getAttribute('data-wk-unit-toggle');
-    const next = block.getAttribute('data-wk-load-unit') === 'plates' ? 'kg' : 'plates';
+    const base = tog.getAttribute('data-wk-base-unit') === 'bodyweight' ? 'bodyweight' : 'kg';
+    const next = block.getAttribute('data-wk-load-unit') === 'plates' ? base : 'plates';
     try { WORKOUT.setExerciseOverride(id, { load_unit: next }); } catch (e) { return true; }
     workoutApplyUnit(block, next);
   }

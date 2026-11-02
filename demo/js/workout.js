@@ -728,7 +728,7 @@ const WORKOUT = {
       return {
         exercise_id: exerciseId,
         progression_type: type,
-        ...(type === 'external_load' ? { load_unit: loadUnit } : {}),
+        ...((type === 'external_load' || type === 'tempo_then_load') ? { load_unit: loadUnit } : {}),
         ...(groupId ? { superset_group_id: groupId } : {}),
         // Carried so another device that has never seen this exercise can
         // still read the session (see applyRegistry).
