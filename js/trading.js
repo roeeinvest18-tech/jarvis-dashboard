@@ -997,13 +997,14 @@ function toolsScannerBody(d) {
   const summary = `<p class="trading-note">${escapeHtml(S.summary(d.scanned, d.universe, d.failed, d.as_of || ''))}</p>`;
   if (!hits.length) return summary + `<div class="empty-state">${escapeHtml(S.none)}</div>`;
   const shown = hits.slice(0, 25);
-  const rows = shown.map(h => `<tr>
-    <th scope="row" class="mono">${escapeHtml(h.symbol)}</th>
+  const rows = shown.map(h => `<tr class="is-link" data-tv-ticker="${escapeHtml(h.symbol)}"
+      data-tv-exchange="${escapeHtml(tradingExchangeFor(h.symbol) || '')}">
+    <th scope="row" class="mono"><a class="tv-link" ${tradingLinkAttrs(h.symbol, tradingExchangeFor(h.symbol))}>${escapeHtml(h.symbol)}</a></th>
     <td class="mono">${typeof h.price === 'number' ? h.price.toFixed(2) : ''}</td>
     <td class="mono">${typeof h.rsi === 'number' ? h.rsi.toFixed(1) : ''}</td>
     <td>${(h.setups || []).map(k => escapeHtml(S.setups[k] || k)).join(', ')}</td></tr>`).join('');
   const more = (d.hit_count || hits.length) - shown.length;
-  return summary + `<table class="sc-table tl-table">
+  return summary + `<table class="sc-table tl-table" data-tv-table>
     <thead><tr><th>${S.cols.symbol}</th><th class="mono">${S.cols.price}</th><th class="mono">${S.cols.rsi}</th><th>${S.cols.setups}</th></tr></thead>
     <tbody>${rows}</tbody></table>
     ${more > 0 ? `<p class="trading-note">${escapeHtml(S.more(more))}</p>` : ''}`;
@@ -1048,6 +1049,14 @@ function renderTradingTools() {
     ${toolsCardHtml('news', S.news.title, S.news.sub, tools.news, toolsNewsBody)}
     ${toolsCardHtml('pelosi', S.pelosi.title, S.pelosi.sub, tools.pelosi, toolsPelosiBody)}
     <details class="tl-howto"><summary>${S.runHow}</summary><p class="trading-note">${escapeHtml(S.runSteps)}</p></details>`;
+  // Same whole-row tap target as the Full Scan table.
+  mount.querySelectorAll('tr[data-tv-ticker]').forEach(tr => {
+    tr.addEventListener('click', ev => {
+      if (ev.target.closest('a')) return;
+      window.open(tradingViewUrl(tr.dataset.tvTicker, tr.dataset.tvExchange || null),
+        '_blank', 'noopener');
+    });
+  });
 }
 
 // --- page -----------------------------------------------------------------

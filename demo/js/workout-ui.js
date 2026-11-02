@@ -229,6 +229,61 @@ function workoutControlCellsHtml(type, exerciseId, entry, perSet = [], row = nul
   return '';
 }
 
+// Loaded work is logged as a small grid: one column per set, a weight row
+// (kg, or plates) over a reps row. Add set / remove set and the kg-plates switch
+// sit underneath; RIR stays one box for the exercise unless a saved entry
+// carries different RIR per set.
+const WORKOUT_GRID_MAX_SETS = 10;
+
+function workoutGridColumnHtml(i, wKey, wAttrs, wVal, reps, rirVal, showRir) {
+  const cell = (key, value, attrs, label) => `<input type="number" inputmode="decimal" ${attrs}
+      data-wk-set="${i}" data-wk-key="${key}" value="${escapeHtml(value)}" aria-label="${escapeHtml(label)}">`;
+  return `<div class="wk-gcol" data-wk-gcol="${i}">
+    <span class="wk-ghead">Set ${i + 1}</span>
+    ${cell(wKey, wVal, wAttrs, `${wKey === 'weight' ? 'Weight' : 'Added weight'}, set ${i + 1}`)}
+    ${cell('reps', reps, 'min="0"', `Reps, set ${i + 1}`)}
+    ${showRir ? cell('rir', rirVal, 'min="0" max="10"', `RIR, set ${i + 1}`) : ''}
+  </div>`;
+}
+
+function workoutGridHtml(type, exerciseId, sets, perSet, entry, unit, canSwitchUnit) {
+  const val = (set, k) => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
+  const wKey = type === 'external_load' ? 'weight' : 'added_weight';
+  const wAttrs = type === 'external_load' ? workoutWeightCellAttrs(unit) : 'step="0.5" min="0"';
+  const wLabel = type === 'external_load' ? workoutWeightCellLabel(unit) : '+kg';
+  const showRir = perSet.includes('rir');
+  // A set with no weight of its own shows the exercise's first typed weight.
+  const first = (entry && entry.sets && entry.sets.find(st => st && val(st, wKey) !== '')) || null;
+  const fallback = first ? val(first, wKey) : '';
+  const cols = sets.map((set, i) =>
+    workoutGridColumnHtml(i, wKey, wAttrs, val(set, wKey) || fallback, val(set, 'reps'), val(set, 'rir'), showRir)).join('');
+  const rir = showRir ? '' : workoutExkeyCellHtml('rir', 'RIR', (() => {
+    const st = entry && entry.sets && entry.sets[0]; return st && st.rir !== null && st.rir !== undefined ? String(st.rir) : '';
+  })(), 'min="0" max="10"');
+  const tempo = type === 'tempo_then_load' ? workoutPillGroupHtml('tempo_stage',
+    [['normal', 'normal'], ['slow_eccentric', 'slow ecc.']],
+    ((entry && entry.sets && entry.sets[0] && entry.sets[0].tempo_stage) || 'normal')) : '';
+  return `<div class="wk-grid" data-wk-grid="${type}">
+    <div class="wk-gscroll">
+      <div class="wk-gcol wk-glabels" aria-hidden="true">
+        <span class="wk-ghead">&nbsp;</span>
+        <span class="wk-glabel" data-wk-unit-label>${wLabel}</span>
+        <span class="wk-glabel">Reps</span>
+        ${showRir ? '<span class="wk-glabel">RIR</span>' : ''}
+      </div>
+      ${cols}
+    </div>
+    <div class="wk-gtools">
+      <button type="button" class="os-btn os-btn-quiet" data-wk-set-remove aria-label="Remove the last set">&minus; Set</button>
+      <button type="button" class="os-btn os-btn-quiet" data-wk-set-add aria-label="Add a set">+ Set</button>
+      ${canSwitchUnit ? `<button type="button" class="os-btn os-btn-quiet" data-wk-unit-toggle="${exerciseId}"
+        aria-label="Switch between kilograms and plates">${unit === 'plates' ? 'Plates &rarr; kg' : 'kg &rarr; plates'}</button>` : ''}
+      ${rir}
+    </div>
+    ${tempo}
+  </div>`;
+}
+
 // The per-set cells: what varies set to set. Reps for loaded work, one
 // duration per hold attempt, the sprint/Cooper protocol's own few fields.
 function workoutSetCellsHtml(type, exerciseId, row, sets, perSet = [], unit = null) {
@@ -538,7 +593,9 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
     ${row.protocol === 'cooper' ? `<p class="wk-note">${escapeHtml(COOPER_PROTOCOL.note)}</p>` : ''}
     ${flagHtml}
     ${workoutUnitAskHtml(ex)}
-    ${row.sprint_build ? workoutSprintCardsHtml(row, loggedEntry, date) : `<div class="wk-cols">
+    ${(type === 'external_load' || type === 'tempo_then_load') ? workoutGridHtml(type, row.exercise_id, sets, perSet, loggedEntry || prefill, unit,
+        type === 'external_load' && !loggedEntry && programLoadUnit(row.exercise_id) !== 'bodyweight')
+    : row.sprint_build ? workoutSprintCardsHtml(row, loggedEntry, date) : `<div class="wk-cols">
       ${workoutSetCellsHtml(type, row.exercise_id, row, sets, perSet, unit)}
       ${workoutControlCellsHtml(type, row.exercise_id, loggedEntry || prefill, perSet, row)}
     </div>`}
@@ -1282,6 +1339,19 @@ function workoutApplySnapshot(form, snap) {
     if (!block) return;
     const sprintWrap = block.querySelector('[data-wk-sprints]');
     if (sprintWrap && fields && Number(fields['x:sprint_count']) > 0) workoutSprintSetCount(sprintWrap, Number(fields['x:sprint_count']));
+    // A draft may hold more sets than the screen drew, and a draft saved
+    // before the grid existed has one weight for the whole exercise.
+    const gridScroll = block.querySelector('.wk-gscroll');
+    if (gridScroll) {
+      const top = Math.max(-1, ...Object.keys(fields || {}).filter(k => k.startsWith('s:')).map(k => Number(k.split(':')[1])));
+      while (gridScroll.querySelectorAll('.wk-gcol[data-wk-gcol]').length < top + 1 && workoutGridAddColumn(gridScroll));
+      ['weight', 'added_weight'].forEach(k => {
+        const legacy = fields[`x:${k}`];
+        if (legacy !== undefined && !Object.keys(fields).some(f => f.startsWith('s:') && f.endsWith(`:${k}`))) {
+          gridScroll.querySelectorAll(`[data-wk-key="${k}"]`).forEach(inp => { inp.value = String(legacy); });
+        }
+      });
+    }
     Object.entries(fields || {}).forEach(([key, value]) => {
       const parts = key.split(':');
       const input = parts[0] === 's'
@@ -1513,6 +1583,9 @@ function workoutCollectForm() {
       // A key the screen asked per set (workoutPerSetKeys) is already in
       // `raw` from its own cell; only the once-per-exercise ones are copied.
       const own = (k, value) => { if (raw[k] === undefined) raw[k] = value; };
+      if (!hasReps && (type === 'external_load' || type === 'tempo_then_load')) {
+        delete raw.weight; delete raw.added_weight; delete raw.rir;
+      }
       if (type === 'external_load' && hasReps) {
         own('weight', exVal('weight'));
         own('rir', exVal('rir'));
@@ -1629,13 +1702,84 @@ function workoutHandleSettingClick(form, btn) {
   // A row with a saved entry keeps that entry's unit; the change applies to
   // the next session, so its label stays.
   if (row && row.getAttribute('data-wk-logged') === '0') {
-    row.setAttribute('data-wk-load-unit', value);
-    const input = row.querySelector('[data-wk-exkey="weight"]');
-    if (input) {
-      input.step = value === 'plates' ? '1' : '0.5';
-      const label = input.parentElement && input.parentElement.querySelector('span');
-      if (label) label.textContent = workoutWeightCellLabel(value);
-    }
+    workoutApplyUnit(row, value);
+  }
+}
+
+// Relabels a row's weight inputs, and the toggle, for kg or plates.
+function workoutApplyUnit(row, value) {
+  row.setAttribute('data-wk-load-unit', value);
+  row.querySelectorAll('[data-wk-exkey="weight"], [data-wk-key="weight"]').forEach(input => {
+    input.step = value === 'plates' ? '1' : '0.5';
+  });
+  const old = row.querySelector('[data-wk-exkey="weight"]');
+  const label = old && old.parentElement && old.parentElement.querySelector('span');
+  if (label) label.textContent = workoutWeightCellLabel(value);
+  const gridLabel = row.querySelector('[data-wk-unit-label]');
+  if (gridLabel) gridLabel.textContent = workoutWeightCellLabel(value);
+  const tog = row.querySelector('[data-wk-unit-toggle]');
+  if (tog) tog.innerHTML = value === 'plates' ? 'Plates &rarr; kg' : 'kg &rarr; plates';
+  row.querySelectorAll('[data-wk-setting="load_unit"]').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-wk-value') === value));
+}
+
+// Appends one set column, copying the last one's weight and clearing reps/RIR.
+function workoutGridAddColumn(scroll) {
+  const cols = scroll.querySelectorAll('.wk-gcol[data-wk-gcol]');
+  if (!cols.length || cols.length >= WORKOUT_GRID_MAX_SETS) return null;
+  const clone = cols[cols.length - 1].cloneNode(true);
+  const n = cols.length;
+  clone.setAttribute('data-wk-gcol', String(n));
+  clone.querySelector('.wk-ghead').textContent = `Set ${n + 1}`;
+  clone.querySelectorAll('input').forEach(inp => {
+    inp.setAttribute('data-wk-set', String(n));
+    inp.removeAttribute('data-wk-auto');
+    inp.setAttribute('aria-label', inp.getAttribute('aria-label').replace(/set \d+$/, `set ${n + 1}`));
+    const key = inp.getAttribute('data-wk-key');
+    if (key === 'reps' || key === 'rir') inp.value = '';
+  });
+  scroll.appendChild(clone);
+  return clone;
+}
+
+// The grid's own buttons: add or remove the last set, switch kg and plates.
+function workoutHandleGridClick(form, ev) {
+  const add = ev.target.closest('[data-wk-set-add]');
+  const rem = ev.target.closest('[data-wk-set-remove]');
+  const tog = ev.target.closest('[data-wk-unit-toggle]');
+  if (!add && !rem && !tog) return false;
+  const block = ev.target.closest('[data-wk-exercise]');
+  const scroll = block && block.querySelector('.wk-gscroll');
+  if (!block || !scroll) return true;
+  const cols = scroll.querySelectorAll('.wk-gcol[data-wk-gcol]');
+  if (add && cols.length < WORKOUT_GRID_MAX_SETS) {
+    const clone = workoutGridAddColumn(scroll);
+    const reps = clone && clone.querySelector('[data-wk-key="reps"]');
+    if (reps) reps.focus();
+  } else if (rem && cols.length > 1) {
+    cols[cols.length - 1].remove();
+  } else if (tog) {
+    const id = tog.getAttribute('data-wk-unit-toggle');
+    const next = block.getAttribute('data-wk-load-unit') === 'plates' ? 'kg' : 'plates';
+    try { WORKOUT.setExerciseOverride(id, { load_unit: next }); } catch (e) { return true; }
+    workoutApplyUnit(block, next);
+  }
+  return true;
+}
+
+// Typing the first set's weight fills later sets that are still empty or were
+// filled this way; a weight typed by hand into a later set is left alone.
+function workoutSyncGridWeight(ev) {
+  const input = ev.target;
+  if (!input || !input.matches || !input.matches('.wk-gcol [data-wk-key="weight"], .wk-gcol [data-wk-key="added_weight"]')) return;
+  const grid = input.closest('.wk-gscroll');
+  const key = input.getAttribute('data-wk-key');
+  if (input.getAttribute('data-wk-set') === '0') {
+    grid.querySelectorAll(`[data-wk-key="${key}"]`).forEach(inp => {
+      if (inp === input) return;
+      if (inp.value === '' || inp.getAttribute('data-wk-auto') === '1') { inp.value = input.value; inp.setAttribute('data-wk-auto', '1'); }
+    });
+  } else {
+    input.removeAttribute('data-wk-auto');
   }
 }
 
@@ -1892,8 +2036,10 @@ function wireWorkoutZone() {
     workoutRefreshLinks(form);
     workoutStartDraft(form);
     // Delegated, so a row added after this render behaves like the rest.
+    form.addEventListener('input', workoutSyncGridWeight);
     form.addEventListener('click', ev => {
       if (workoutHandleSprintClick(form, ev)) return;
+      if (workoutHandleGridClick(form, ev)) return;
       const link = ev.target.closest('[data-wk-link]');
       if (link) { workoutHandleLinkClick(form, link.getAttribute('data-wk-link')); return; }
       const setting = ev.target.closest('[data-wk-setting]');
