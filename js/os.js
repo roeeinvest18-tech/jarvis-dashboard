@@ -70,6 +70,9 @@ function osConsistencyTableHtml(records, windowLabel) {
 function osSleepPanelHtml(records) {
   const s = dailySleepStats(records);
   if (!s) return osEmpty(OS_S.sleep.empty);
+  const last7 = records.map(r => dailySleepDurationMinutes(r.sleep_start, r.wake_time)).filter(m => m !== null).slice(-7);
+  const debtMin = last7.length ? Math.round(last7.reduce((a, m) => a + (m - 450), 0)) : null;
+  const debtLabel = debtMin === null ? '—' : `${debtMin >= 0 ? '+' : '-'}${dailyFormatDuration(Math.abs(debtMin))}`;
   return `
     <div class="os-stat-grid">
       <div class="os-stat"><span class="os-stat-value mono">${dailyFormatDuration(s.avgDurationMin)}</span><span class="os-stat-label">${OS_S.sleep.avgDuration}</span></div>
@@ -78,6 +81,7 @@ function osSleepPanelHtml(records) {
       <div class="os-stat"><span class="os-stat-value mono">${escapeHtml(s.avgWakeTime)}</span><span class="os-stat-label">${OS_S.sleep.avgWake}</span></div>
       <div class="os-stat"><span class="os-stat-value mono">±${osNum(s.bedtimeSpreadMin)}m</span><span class="os-stat-label">${OS_S.sleep.bedtimeSpread}</span></div>
       <div class="os-stat"><span class="os-stat-value mono">±${osNum(s.wakeSpreadMin)}m</span><span class="os-stat-label">${OS_S.sleep.wakeSpread}</span></div>
+      ${debtMin !== null ? `<div class="os-stat"><span class="os-stat-value mono">${debtLabel}</span><span class="os-stat-label">7d sleep balance (vs 7h 30m)</span></div>` : ''}
     </div>
     <p class="os-note">${OS_S.sleep.basedOn(s.n)}</p>`;
 }

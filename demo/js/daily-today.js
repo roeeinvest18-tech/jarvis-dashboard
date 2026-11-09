@@ -254,6 +254,7 @@ function dailyDateNavHtml(date) {
               aria-label="${N.next}" ${atToday ? `disabled title="${N.noFuture}"` : ''}>&#8250;</button>
       <button type="button" class="day-nav-today ${atToday ? 'is-current' : ''}"
               data-daily-day-today ${atToday ? 'disabled' : ''}>${N.today}</button>
+      <a href="#history" class="day-nav-today" style="text-decoration:none; display:inline-flex; align-items:center;">${STRINGS.shell.tabs.history}</a>
     </nav>`;
 }
 

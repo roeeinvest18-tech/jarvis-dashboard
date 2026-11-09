@@ -597,7 +597,7 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
     <p class="wk-why">${escapeHtml(ex.why)}</p>
     ${gapWarningHtml}
     ${row.note ? `<p class="wk-note">${escapeHtml(row.note)}</p>` : ''}
-    ${row.rest && !row.sprint_build ? `<p class="wk-note wk-rest">Rest ${escapeHtml(row.rest)}</p>` : ''}
+    ${row.rest && !row.sprint_build ? `<p class="wk-note wk-rest" data-wk-rest="${escapeHtml(row.rest)}" style="cursor:pointer;" title="Tap to start or reset rest timer">Rest ${escapeHtml(row.rest)}<span class="wk-rest-live mono" data-wk-rest-live style="color:var(--mark); margin-left:8px;"></span></p>` : ''}
     ${row.protocol === 'sprint' ? `<p class="wk-note">${escapeHtml(SPRINT_PROTOCOL.note)}</p>` : ''}
     ${row.protocol === 'sprint' ? '<p class="wk-note">HR-based rest: enter heart rate from a synced device or by hand; the next rep starts once it drops under the threshold. Fixed rest ignores these two fields.</p>' : ''}
     ${row.protocol === 'cooper' ? `<p class="wk-note">${escapeHtml(COOPER_PROTOCOL.note)}</p>` : ''}
@@ -717,6 +717,16 @@ function workoutRecoveryHtml(recovery) {
 }
 
 function workoutPhasePromptHtml() {
+  let sleepNote = '';
+  if (typeof DAILY !== 'undefined' && typeof dailySleepDurationMinutes === 'function') {
+    const rec = DAILY.getDay(workoutCurrentDate());
+    const mins = rec ? dailySleepDurationMinutes(rec.sleep_start, rec.wake_time) : null;
+    const lowSleep = mins !== null && mins < 360;
+    const lowQual = rec && typeof rec.sleep_quality === 'number' && rec.sleep_quality <= 5;
+    if (lowSleep || lowQual) {
+      sleepNote = `<div class="wk-prompt" data-wk-sleep-autoreg><p>Short or low-quality sleep recorded for this date — consider keeping 2 to 3 reps in reserve today rather than pushing to failure.</p></div>`;
+    }
+  }
   const settings = WORKOUT.settings();
   if (!settings.program_start) {
     return `
@@ -726,7 +736,7 @@ function workoutPhasePromptHtml() {
     </div>`;
   }
   const pending = WORKOUT.pendingPhaseChange(workoutCurrentDate());
-  if (!pending) return '';
+  if (!pending) return sleepNote;
   return `
   <div class="wk-prompt">
     <p>Week ${pending.week} begins the <strong>${escapeHtml(pending.to)}</strong> phase.
@@ -1223,7 +1233,11 @@ function workoutProgressHtml() {
           const line = loaded
             ? workoutSeriesLine(x.series.slice(-6).map(p => (p.top_weight === null ? null : workoutFormatLoad(p.top_weight, p.load_unit))))
             : workoutSeriesLine(x.series.slice(-6).map(p => p.best_reps));
-          return `<li><span>${escapeHtml(x.ex.name)}</span><span class="wk-num">${escapeHtml(line)}</span></li>`;
+          const lastPt = x.series[x.series.length - 1];
+          const e1rm = (loaded && lastPt && lastPt.top_weight && lastPt.best_reps)
+            ? Math.round(lastPt.top_weight * (1 + lastPt.best_reps / 30) * 10) / 10 : null;
+          const e1rmTag = e1rm ? ` · 1RM ~${workoutFormatLoad(e1rm, lastPt.load_unit)}` : '';
+          return `<li><span>${escapeHtml(x.ex.name)}</span><span class="wk-num">${escapeHtml(line + e1rmTag)}</span></li>`;
         }).join('')}
       </ul>` : ''}
     ${holds.length ? `
@@ -1780,7 +1794,37 @@ function workoutHandleGridClick(form, ev) {
 
 // Typing the first set's weight fills later sets that are still empty or were
 // filled this way; a weight typed by hand into a later set is left alone.
+var workoutRestTimers = {};
+function workoutStartRestTimer(rowEl) {
+  if (!rowEl) return;
+  const restEl = rowEl.querySelector('[data-wk-rest]');
+  const liveEl = rowEl.querySelector('[data-wk-rest-live]');
+  if (!restEl || !liveEl) return;
+  const raw = restEl.getAttribute('data-wk-rest') || '';
+  const m = raw.match(/(\d+)/);
+  if (!m) return;
+  let secs = parseInt(m[1], 10);
+  if (raw.includes('m') && !raw.includes('s')) secs *= 60;
+  const exId = rowEl.getAttribute('data-wk-exercise') || 'default';
+  if (workoutRestTimers[exId]) clearInterval(workoutRestTimers[exId]);
+  const paint = () => {
+    if (secs <= 0) {
+      clearInterval(workoutRestTimers[exId]);
+      liveEl.textContent = '· Ready';
+      return;
+    }
+    const mm = String(Math.floor(secs / 60)).padStart(2, '0');
+    const ss = String(secs % 60).padStart(2, '0');
+    liveEl.textContent = `· ${mm}:${ss}`;
+    secs -= 1;
+  };
+  paint();
+  workoutRestTimers[exId] = setInterval(paint, 1000);
+}
 function workoutSyncGridWeight(ev) {
+  if (ev.target && ev.target.matches && ev.target.matches('[data-wk-key="reps"]') && Number(ev.target.value) > 0) {
+    workoutStartRestTimer(ev.target.closest('.wk-row'));
+  }
   const input = ev.target;
   if (!input || !input.matches || !input.matches('.wk-gcol [data-wk-key="weight"], .wk-gcol [data-wk-key="added_weight"]')) return;
   const grid = input.closest('.wk-gscroll');

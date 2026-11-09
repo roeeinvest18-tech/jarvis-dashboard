@@ -58,8 +58,35 @@ function tradingScoreClass(score) {
 // the model existed, but that copy put the strategy's weights and gates into
 // the public repo; the rules now live only in the private repo.
 // A scan without scores shows an honest "not scored yet" state instead.
-function tradingTop10Score(record) {
+function tradingTop10Score(record, stratKey) {
+  if (stratKey && record.strategy_scores && typeof record.strategy_scores[stratKey] === 'number') {
+    return record.strategy_scores[stratKey];
+  }
   return typeof record.top10_score === 'number' ? record.top10_score : null;
+}
+
+const TOP10_STRATEGY_KEYS = ['sma150', 'vcp', 'rs', 'mean_rev'];
+
+function tradingPlanHtml(r, stratKey) {
+  const plans = r.trade_plans || {};
+  const plan = (stratKey && plans[stratKey]) || plans.default;
+  if (!plan || typeof plan.entry !== 'number') return '';
+  const pStr = TRADE_S.top10.plan;
+  const stopBasis = pStr.stopBasis[plan.stop_basis] || pStr.stopBasis.sma150;
+  const targetBasis = pStr.targetBasis[plan.target_basis] || pStr.targetBasis.base;
+  const rrClass = plan.worthwhile ? 'is-worthwhile' : 'is-tight';
+  const rrVerdict = plan.worthwhile ? pStr.worthwhile : pStr.tight;
+  return `
+    <div class="setup-plan mono">
+      <span class="setup-plan-cell"><span class="setup-plan-k">${escapeHtml(pStr.entry)}</span> ${fmtPrice(plan.entry)}</span>
+      <span class="setup-plan-cell"><span class="setup-plan-k">${escapeHtml(pStr.stop)}</span> ${fmtPrice(plan.stop)} <span class="setup-plan-sub">(-${plan.stop_pct.toFixed(1)}% · ${escapeHtml(stopBasis)})</span></span>
+      <span class="setup-plan-cell"><span class="setup-plan-k">${escapeHtml(pStr.target)}</span> ${fmtPrice(plan.target)} <span class="setup-plan-sub">(+${plan.target_pct.toFixed(1)}% · ${escapeHtml(targetBasis)})</span></span>
+      <span class="setup-plan-badge ${rrClass}">${escapeHtml(pStr.rr(plan.rr_ratio.toFixed(1)))} · ${escapeHtml(rrVerdict)}</span>
+      <button type="button" class="setup-plan-size" data-plan-entry="${plan.entry}" data-plan-stop="${plan.stop}">${escapeHtml(pStr.sizeBtn)}</button>
+    </div>`;
+}
+
+function _tradingTop10ScoreUnused(record) { return typeof record.top10_score === 'number' ? record.top10_score : null;
 }
 
 // --- TradingView links ------------------------------------------------------
@@ -103,6 +130,7 @@ const tradingState = {
   account: null,
   breakouts: null,
   search: '',
+  top10Strategy: 'sma150',
   breakoutFilter: 'all',
   sortKey: 'score',
   sortDir: 'desc',
@@ -209,8 +237,13 @@ function renderTradingTop10() {
     return;
   }
   // scout.py ranks; ties and order are its call, not re-derived here.
-  const ordered = (scan.top10 && scan.top10.length)
-    ? scan.top10.map(t => byTicker[t]).filter(Boolean)
+  const stratKey = tradingState.top10Strategy || 'sma150';
+  const stratMeta = TRADE_S.top10.strategies[stratKey] || TRADE_S.top10.strategies.sma150;
+  const stratTickers = (scan.top10_strategies && Array.isArray(scan.top10_strategies[stratKey]) && scan.top10_strategies[stratKey].length)
+    ? scan.top10_strategies[stratKey]
+    : scan.top10;
+  const ordered = (stratTickers && stratTickers.length)
+    ? stratTickers.map(t => byTicker[t]).filter(Boolean)
     : scan.stocks
         .filter(s => typeof s.top10_score === 'number')
         .sort((a, b) => b.top10_score - a.top10_score)
@@ -228,6 +261,17 @@ function renderTradingTop10() {
       <h2 class="sec-label sec-label-gold">${TRADE_S.top10.heading}</h2>
       <span class="sec-note">${escapeHtml(TRADE_S.top10.scanned(healthFmtWhen(scan.generated_at)))}</span>
     </div>
+    <div class="os-window-tabs top10-strat-tabs" role="tablist">
+      ${TOP10_STRATEGY_KEYS.map(k => {
+        const s = TRADE_S.top10.strategies[k];
+        return `<button type="button" role="tab" aria-selected="${k === stratKey}" class="os-window-btn${k === stratKey ? ' is-active' : ''}" data-top10-strat="${k}">${escapeHtml(s.label)}</button>`;
+      }).join('')}
+    </div>
+    <div class="top10-strat-banner">
+      <span class="top10-strat-horizon mono">${escapeHtml(stratMeta.horizon)}</span>
+      <p class="top10-strat-desc">${escapeHtml(stratMeta.desc)}</p>
+    </div><div style="display:none">
+    </div>
     ${shown.length ? `<div class="setup-table">
       <div class="setup-head" aria-hidden="true">
         ${['rank', 'ticker', 'sma150', 'price', 'change', 'volume', 'score'].map(k =>
@@ -242,7 +286,7 @@ function renderTradingTop10() {
       // put tickers and prices near 1.2:1 contrast -- unreadable, and below
       // the 4.5:1 floor the design now enforces (test_contrast_e2e.js).
       const tail = rank >= 6 ? ' is-tail' : '';
-      const score = tradingTop10Score(r);
+      const score = tradingTop10Score(r, stratKey);
       // A table row: the column header says what each figure is, so the
       // cells carry the bare value. The whole row is still one link.
       return `
@@ -254,6 +298,7 @@ function renderTradingTop10() {
           <span class="mono setup-change ${change >= 0 ? 'is-up' : 'is-down'}">${fmtChange(change)}</span>
           <span class="mono setup-vol">${fmtCompactNumber(r.today_volume)}</span>
           <span class="setup-score mono ${tradingScoreClass(score)}">${Math.round(score)}</span>
+          ${tradingPlanHtml(r, stratKey)}
           ${tradingFlagsHtml(r, peers[r.ticker], held[r.ticker])}
         </a>`;
     }).join('')}</div>
@@ -267,6 +312,45 @@ function renderTradingTop10() {
     ${hasFlags ? '' : `<p class="trading-note">${TRADE_S.top10.flagsPending}</p>`}
     ${tradingSizingHtml()}`;
   wireTradingSizing();
+  mount.querySelectorAll('[data-top10-strat]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      tradingState.top10Strategy = btn.dataset.top10Strat;
+      renderTradingTop10();
+    });
+  });
+  mount.querySelectorAll('[data-plan-entry]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const v = sizingLoad();
+      v.entry = parseFloat(btn.dataset.planEntry);
+      v.stop = parseFloat(btn.dataset.planStop);
+      if (!v.portfolio) v.portfolio = 25000;
+      if (!v.maxRisk) v.maxRisk = 250;
+      if (!v.maxPosition) v.maxPosition = 5000;
+      if (!v.maxPct) v.maxPct = 20;
+      sizingSave(v);
+      tradingSizingOpen = true;
+      const tool = document.querySelector('.sizing-tool');
+      if (tool) {
+        tool.open = true;
+        const entryInput = tool.querySelector('[data-sizing="entry"]');
+        const stopInput = tool.querySelector('[data-sizing="stop"]');
+        const portInput = tool.querySelector('[data-sizing="portfolio"]');
+        const riskInput = tool.querySelector('[data-sizing="maxRisk"]');
+        const posInput = tool.querySelector('[data-sizing="maxPosition"]');
+        const pctInput = tool.querySelector('[data-sizing="maxPct"]');
+        if (entryInput) entryInput.value = v.entry;
+        if (stopInput) stopInput.value = v.stop;
+        if (portInput && !portInput.value) portInput.value = v.portfolio;
+        if (riskInput && !riskInput.value) riskInput.value = v.maxRisk;
+        if (posInput && !posInput.value) posInput.value = v.maxPosition;
+        if (pctInput && !pctInput.value) pctInput.value = v.maxPct;
+        renderSizingResult();
+        tool.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
   const all = document.getElementById('top10-all');
   if (all) all.addEventListener('click', () => { if (tradingShell) tradingShell.setTab('fullscan'); });
 }

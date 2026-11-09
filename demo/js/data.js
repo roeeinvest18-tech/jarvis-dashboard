@@ -50,6 +50,7 @@ const DASHBOARD = {
     priority: 'dashboard_data/priority.json',
     tradeNotes: 'dashboard_data/trade_notes.json',
     training: 'dashboard_data/training.json',
+    painpoints: 'dashboard_data/painpoints.json',
   },
 
   cache: {},

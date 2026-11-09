@@ -8,6 +8,7 @@
   ],
   "withheld": [
     "cci_oversold.json",
+    "painpoints.json",
     "priority.json",
     "tasks.json",
     "trade_notes.json"

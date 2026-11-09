@@ -44,7 +44,7 @@
 // --ink at 12px / 13px, weight 500; styles.css and workout-ui.js changed.
 // v26: UI pass phase A -- a 12px type floor for content text, 11px index
 // marks, and 16px fields so iOS does not zoom on focus; styles.css changed.
-const CACHE_NAME = 'jarvis-shell-v41';
+const CACHE_NAME = 'jarvis-shell-v47';
 const SHELL_ASSETS = [
   './',
   'index.html',
@@ -83,7 +83,7 @@ const SHELL_ASSETS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(SHELL_ASSETS))
+      .then((cache) => Promise.all(SHELL_ASSETS.map((u) => fetch(u, { cache: 'reload' }).then((r) => (r.ok ? cache.put(u, r) : null)))))
       .then(() => self.skipWaiting())
   );
 });

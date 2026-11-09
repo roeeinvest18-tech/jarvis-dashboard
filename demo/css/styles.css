@@ -5023,3 +5023,365 @@ body::before {
 .tl-table tr.is-link:hover td, .tl-table tr.is-link:hover th { background: var(--raise); }
 .tl-table a.tv-link { color: var(--ink); text-decoration: none; display: block; font-weight: 600; }
 .tl-table a.tv-link:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+
+
+/* ============================================================================
+   Left Vertical Navigation Sidebar (Top-to-Bottom) + PainPoints Radar View
+   ============================================================================ */
+@media (min-width: 768px) {
+  body {
+    padding-top: 0;
+    padding-left: var(--sidebar-w);
+  }
+  .shell-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sp-6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: auto;
+    width: var(--sidebar-w);
+    height: auto;
+    padding: var(--sp-6) 0;
+    border-bottom: none;
+    border-right: 1px solid var(--rule);
+    overflow-y: auto;
+  }
+  .shell-logo {
+    padding: 0 var(--sp-6);
+    margin-right: 0;
+  }
+  .shell-side-section {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+  .shell-side-section + .shell-side-section {
+    padding-left: 0;
+    padding-top: var(--sp-4);
+    border-left: none;
+    border-top: 1px solid var(--rule);
+  }
+  .shell-side-section .shell-eyebrow {
+    display: block;
+    padding: 0 var(--sp-6) var(--sp-2);
+  }
+  .shell-side-link {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-2) var(--sp-6);
+    min-height: 38px;
+    border-bottom: none;
+    border-left: 2px solid transparent;
+    font-size: var(--fs-body);
+  }
+  .shell-side-link svg {
+    display: block;
+    flex-shrink: 0;
+  }
+  .shell-side-link.is-active {
+    border-bottom-color: transparent;
+    border-left-color: var(--mark);
+    background: var(--hi);
+    color: var(--ink);
+  }
+  .shell-side-foot {
+    margin: auto 0 0 0;
+    padding: var(--sp-4) var(--sp-6) 0;
+    border-top: 1px solid var(--rule);
+  }
+  .shell-side-name {
+    display: block;
+  }
+}
+
+/* --- PainPoints Tab Styles (Nocturne Palette) ----------------------------- */
+.pp-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.pp-lang-switch {
+  display: flex;
+  gap: var(--sp-2);
+}
+.pp-lang-switch .os-btn.is-active {
+  border-color: var(--mark);
+  color: var(--ink);
+  background: var(--mark-soft);
+}
+.pp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-5);
+}
+@media (max-width: 640px) {
+  .pp-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.pp-stat-box {
+  background: var(--raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-panel);
+  padding: var(--sp-4);
+  box-shadow: inset 0 1px 0 var(--edge-hi);
+}
+.pp-stat-num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-top: 4px;
+}
+.pp-stat-num.is-accent { color: var(--mark); }
+.pp-stat-num.is-up { color: var(--up); }
+
+.pp-summary {
+  background: var(--raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-panel);
+  padding: var(--sp-4) var(--sp-5);
+  color: var(--ink2);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  margin: 0 0 var(--sp-5) 0;
+}
+
+.pp-cluster-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.pp-cluster-card {
+  background: var(--raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-panel);
+  padding: var(--sp-5);
+  box-shadow: inset 0 1px 0 var(--edge-hi);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.pp-cluster-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--rule);
+}
+.pp-badge-cat {
+  font-size: var(--fs-tag);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mark);
+  background: var(--mark-soft);
+  padding: 3px 8px;
+  border-radius: var(--r-sm);
+}
+.pp-badge-sources {
+  font-size: var(--fs-secondary);
+  color: var(--ink2);
+  margin-left: auto;
+  margin-right: var(--sp-2);
+}
+.pp-badge-score {
+  font-family: var(--font-mono);
+  font-size: var(--fs-secondary);
+  font-weight: 600;
+  color: var(--up);
+  background: var(--up-soft);
+  padding: 3px 10px;
+  border-radius: var(--r-sm);
+}
+.pp-cluster-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.25;
+}
+.pp-cluster-who {
+  font-size: var(--fs-secondary);
+  color: var(--ink2);
+}
+.pp-cluster-quote {
+  margin: 0;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg);
+  border-inline-start: 2px solid var(--mark);
+  border-radius: var(--r-sm);
+  color: var(--ink2);
+  font-style: italic;
+  font-size: var(--fs-secondary);
+  line-height: 1.5;
+}
+.pp-quote-link {
+  color: var(--mark);
+  font-style: normal;
+  text-decoration: none;
+  margin-inline-start: var(--sp-2);
+}
+.pp-cluster-mvp {
+  background: var(--mark-soft);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  font-size: var(--fs-secondary);
+  color: var(--ink);
+}
+.pp-mvp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--rule);
+  color: var(--ink2);
+}
+.pp-competitors {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding-top: var(--sp-2);
+}
+.pp-comp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--fs-secondary);
+  color: var(--ink2);
+}
+.pp-metrics-bar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-2);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--rule);
+  text-align: center;
+}
+.pp-metric-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pp-m-num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--ink);
+}
+.pp-m-lbl {
+  font-size: var(--fs-tag);
+  color: var(--ink3);
+}
+
+
+/* --- Top 10 strategy tabs, horizon banner & trade setup strip ------------ */
+.top10-strat-tabs {
+  margin-bottom: var(--sp-3);
+}
+.top10-strat-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  margin-bottom: var(--sp-4);
+  background: var(--bg);
+  border: 1px solid var(--panel-line);
+  border-radius: var(--r-panel);
+}
+.top10-strat-horizon {
+  font-size: var(--fs-tag);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(156, 194, 255, 0.12);
+  border: 1px solid rgba(156, 194, 255, 0.28);
+  color: var(--mark-hi);
+  white-space: nowrap;
+}
+.top10-strat-desc {
+  margin: 0;
+  font-size: var(--fs-body);
+  color: var(--ink2);
+  line-height: 1.45;
+  flex: 1 1 260px;
+}
+.setup-table .setup-plan {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-4);
+  padding: 6px 10px;
+  margin: 2px 0 4px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-label);
+  color: var(--ink);
+}
+.setup-plan-cell {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  white-space: nowrap;
+}
+.setup-plan-k {
+  color: var(--ink2);
+  text-transform: uppercase;
+  font-size: var(--fs-tag);
+  letter-spacing: 0.05em;
+}
+.setup-plan-sub {
+  color: var(--ink2);
+  font-size: var(--fs-tag);
+}
+.setup-plan-badge {
+  font-size: var(--fs-tag);
+  padding: 1px 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.setup-plan-badge.is-worthwhile {
+  color: var(--up);
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.28);
+}
+.setup-plan-badge.is-tight {
+  color: var(--ink2);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--field-line);
+}
+.setup-plan-size {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--field-line);
+  border-radius: var(--r-sm);
+  color: var(--mark-hi);
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  padding: 2px 8px;
+  cursor: pointer;
+}
+.setup-plan-size:hover {
+  border-color: var(--mark-hi);
+  background: rgba(156, 194, 255, 0.1);
+}
