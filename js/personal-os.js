@@ -384,7 +384,7 @@ function osRenderJobs() {
 }
 
 function osJobCardHtml(job) {
-  const JOBS_S = STRINGJOBS_S.jobs;
+  const JOBS_S = STRINGS.jobs;
   const matchPct = job.match_score || 85;
   const budget = job.budget || '$150';
   const platform = job.platform || 'Upwork';
@@ -439,7 +439,7 @@ function osJobCardHtml(job) {
 }
 
 function osPaintJobs(mount, data) {
-  const JOBS_S = STRINGJOBS_S.jobs;
+  const JOBS_S = STRINGS.jobs;
   if (!data || !Array.isArray(data.jobs) || !data.jobs.length) {
     mount.innerHTML = `
       <div class="pp-ghost">
@@ -463,7 +463,7 @@ function osPaintJobs(mount, data) {
 
   mount.innerHTML = `
     <div class="pp-toolbar">
-      <div class="sec-label">${escapeHtml(JOBS_S.labels.scanned)}: ${escapeHtml(String(stats.total_scanned || jobs.length))}</div>
+      <div class="sec-label">${escapeHtml(JOBS_S.stats.scanned)}: ${escapeHtml(String(stats.total_scanned || jobs.length))}</div>
     </div>
 
     <div class="os-window-tabs pp-track-tabs" role="tablist">

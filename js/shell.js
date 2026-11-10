@@ -116,6 +116,7 @@ const SHELL_ICONS = {
   memory: () => shellNavIcon('<path d="M4 3h8a1 1 0 0 1 1 1v9l-5-2.5L3 13V4a1 1 0 0 1 1-1z"/>'),
   history: () => shellNavIcon('<circle cx="8" cy="8" r="5.5"/><path d="M8 5v3.2l2.2 1.3"/>'),
   painpoints: () => shellNavIcon('<circle cx="8" cy="8" r="6"/><circle cx="8" cy="8" r="2.2"/><path d="M8 2v2M8 12v2M2 8h2M12 8h2"/>'),
+  jobs: () => shellNavIcon('<rect x="2.5" y="4.5" width="11" height="8.5" rx="1.5"/><path d="M5.5 4.5V3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1.5M2.5 8h11"/>'),
   top10: () => shellNavIcon('<path d="M3 12.5h10M4.5 12.5V8M8 12.5V4M11.5 12.5V6.5"/>'),
   breakouts: () => shellNavIcon('<path d="M2 11l4-4 3 3 5-6"/><path d="M10.5 4H14v3.5"/>'),
   fullscan: () => shellNavIcon('<circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/>'),
@@ -243,9 +244,9 @@ function renderShellSubTabs(mount, area, activeTabId, onTabChange) {
 // supplies a `render(tabId)` that draws the active panel; the shell owns
 // everything around it (nav, eyebrow, sub-tabs, persistence, hash sync).
 function mountShell({ areaId, titleFor, render }) {
-  if (typeof window !== 'undefined' && areaId === 'os' && typeof osRenderPainpoints === 'undefined') {
-    if (!sessionStorage.getItem('jarvis:cache-healed-v45')) {
-      sessionStorage.setItem('jarvis:cache-healed-v45', '1');
+  if (typeof window !== 'undefined' && areaId === 'os' && (typeof osRenderPainpoints === 'undefined' || typeof osRenderJobs === 'undefined')) {
+    if (!sessionStorage.getItem('jarvis:cache-healed-v50')) {
+      sessionStorage.setItem('jarvis:cache-healed-v50', '1');
       const healAssets = [
         './', 'index.html', 'trading.html', 'css/styles.css', 'js/strings.js',
         'js/icons.js', 'js/data.js', 'js/shell.js', 'js/components.js',
@@ -296,7 +297,10 @@ function mountShell({ areaId, titleFor, render }) {
     }
     renderShellTabBar(areaId);
     renderShellSidebar(areaId, activeTab, setTab);
-    if (areaId === 'os') osEnsurePainpointsMount();
+    if (areaId === 'os') {
+      if (typeof osEnsurePainpointsMount === 'function') osEnsurePainpointsMount();
+      if (typeof osEnsureJobsMount === 'function') osEnsureJobsMount();
+    }
     document.querySelectorAll('[data-shell-panel]').forEach(panel => {
       panel.hidden = panel.dataset.shellPanel !== activeTab;
     });
@@ -314,7 +318,15 @@ function mountShell({ areaId, titleFor, render }) {
         titleMount.innerHTML = shellTitleHtml(STRINGS.shell.tabs.painpoints, 'painpoints');
         titleMount.hidden = false;
       }
-      osRenderPainpoints();
+      if (typeof osRenderPainpoints === 'function') osRenderPainpoints();
+      return;
+    }
+    if (areaId === 'os' && activeTab === 'jobs') {
+      if (titleMount) {
+        titleMount.innerHTML = shellTitleHtml(STRINGS.shell.tabs.jobs, 'jobs');
+        titleMount.hidden = false;
+      }
+      if (typeof osRenderJobs === 'function') osRenderJobs();
       return;
     }
     render(activeTab);
@@ -323,6 +335,9 @@ function mountShell({ areaId, titleFor, render }) {
     }
     if (areaId === 'os' && activeTab === 'painpoints' && typeof osRenderPainpoints === 'function') {
       osRenderPainpoints();
+    }
+    if (areaId === 'os' && activeTab === 'jobs' && typeof osRenderJobs === 'function') {
+      osRenderJobs();
     }
   }
 
