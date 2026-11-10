@@ -1,0 +1,780 @@
+{
+  "week": "2026-W45",
+  "week_num": 45,
+  "date": "2026-11-07",
+  "stats": {
+    "raw": 1783,
+    "analyzed": 249,
+    "pains": 13,
+    "sources": 4,
+    "by_source": {
+      "HackerNews": 232,
+      "Google Play": 787,
+      "StackExchange": 4,
+      "Reddit": 310
+    },
+    "by_track": {
+      "saas": 8,
+      "lowtech": 5
+    }
+  },
+  "summary_he": "מחקר זה מזהה כאבים מרכזיים עבור יחידים ועסקים קטנים סביב אוטומציה של הנהלת חשבונות, מעקב אחר לקוחות וניהול משימות. הבעיות הללו מייצרות הזדמנויות מצוינות לבניית מוצרי תוכנה כשירות (SaaS) מהירים בעזרת כלי בינה מלאכותית. דגש מיוחד ניתן על פתרונות שדורשים מאמץ פיתוח מינימלי עם פוטנציאל מוניטיזציה גבוה.",
+  "summary_en": "This research identifies core pain points for individuals and small businesses around bookkeeping automation, client tracking, and task management. These problems create excellent opportunities for building rapid SaaS products using AI tools. Special emphasis is placed on solutions requiring minimal development effort with high monetization potential.",
+  "summary_lowtech_he": "שוק שירותי הבית והתחזוקה סובל מחוסר זמינות קיצוני, אי-עמידה בזמנים וחוסר בשקיפות מחירים מצד בעלי מקצוע קטנים. ניתן להקים עסקים רווחיים מאוד המנוהלים כולל אוטומציות AI להצעות מחיר וגיוס לקוחות, תוך הפעלת קבלני משנה מבצעיים. הזדמנויות אלו דורשות הון התחלתי נמוך ומאפשרות שליטה מלאה ברווח הגולמי.",
+  "summary_lowtech_en": "The home services and maintenance market suffers from extreme unreliability, poor timekeeping, and zero pricing transparency from small contractors. Highly profitable businesses can be built using AI automation for quoting and acquisition while subcontracting the physical labor. These opportunities require low startup capital and offer high gross margins.",
+  "clusters": [
+    {
+      "title_he": "ניהול ותחזוקה מונעת לדירות השכרה קצרות טווח",
+      "title_en": "Short-Term Rental Maintenance Operations",
+      "who_he": "בעלי דירות Airbnb ומשקיעי נדל\"ן מניב",
+      "who_en": "Airbnb hosts and real estate investors",
+      "member_indices": [
+        1
+      ],
+      "best_quote_index": 0,
+      "quote_he": "האורח יצא בשעה 11 בבוקר, הבא נכנס בשעה 3 בצהריים, והמנקה לא עונה לטלפון והמזגן התקלקל.",
+      "quote_en": "The guest left at 11 AM, the next one checks in at 3 PM, and the cleaner isn't answering her phone while the AC broke down.",
+      "category": "Property Care",
+      "intensity": 90,
+      "frequency": 95,
+      "low_competition": 80,
+      "competitors": [
+        {
+          "name": "מנקי יחיד (Freelance Cleaners)",
+          "gap_he": "אין להם זמינות לתיקונים דחופים, לא מנהלים מלאי מוצרים, ומאחרים בתדירות גבוהה.",
+          "gap_en": "Lack availability for urgent repairs, do not manage inventory, and frequently run late."
+        }
+      ],
+      "solution_he": "סוכנות אחת האחראית על פתרון מקצה לקצה: ניקיון, כביסה, ותחזוקה שוטפת לדירות אירוח באמצעות צוותים קבועים.",
+      "solution_en": "An end-to-end management agency for short-term rentals covering turnover cleaning, laundry, and minor repairs through dedicated subcontracted teams.",
+      "pricing_he": "ריטיינר חודשי בסיסי פלוס עמלה לפי מחזור, או 250 ש\"ח לניקיון דירה בתוספת תעריף שעתי לתיקונים קטנים.",
+      "pricing_en": "Base monthly retainer plus a percentage of revenue, or 250 NIS per turnover plus hourly rates for minor repairs.",
+      "first_customers_he": "איתור קבוצות פייסבוק של משכירי דירות בישראל ופנייה ישירה לבעלי נכסים שמפרסמים יותר מ-3 דירות במקביל.",
+      "first_customers_en": "Scraping Israeli property investor Facebook groups and direct outreach to hosts managing 3+ listings simultaneously.",
+      "trend_keyword": "airbnb management automation",
+      "ease_of_build": 85,
+      "delivery_model": "hybrid",
+      "roles_to_hire_he": "2 מנקי בתים לפי קבלנות, הנדימן זמין אחד.",
+      "roles_to_hire_en": "2 freelance cleaners, 1 on-call handyman.",
+      "ai_leverage_he": "סנכרון אוטומטי עם יומני ה-iCal של הדירות כדי לשלוח משימות לצוותי הניקיון מיד עם יציאת אורח.",
+      "ai_leverage_en": "Automatic sync with Airbnb iCal calendars to dispatch cleaning crews the moment a guest checks out.",
+      "startup_capital_usd": 2000,
+      "startup_capital_he": "השקעה בחומרי ניקיון מקצועיים, כלי עבודה בסיסיים להנדימן, ובניית אתר נחיתה ומערכת אוטומציה.",
+      "startup_capital_en": "Spent on professional cleaning supplies, basic handyman tools, landing page, and automation software.",
+      "equipment_licensing_he": "נדרש רכב מסחרי קטן או רכב פרטי עם ציוד ניקיון. בישראל אין צורך ברישיון מיוחד לניהול נכסים קצרי טווח, בארה\"ב נדרש רישיון תיווך באזורים מסוימים (לא רלוונטי לניקיון ותחזוקה בלבד).",
+      "equipment_licensing_en": "Small car or vehicle for supplies. No special license needed in Israel for property cleaning/maintenance; US may require property management licenses for leasing.",
+      "gross_margin_pct": 50,
+      "moat_he": "מתחרים בודדים מציעים שירות מקיף שמשלב ניקיון ותחזוקה טכנית תחת כתובת אחת עם זמינות 24/7.",
+      "moat_en": "Competitors rarely combine high-end turnovers with technical maintenance under a single SLA with 24/7 responsiveness.",
+      "launch_plan_he": "גיוס 5 בעלי דירות בתל אביב או חיפה לפיילוט בן חודש במחיר היכרות, תוך הפעלת מנקה והנדימן בשכר יומי.",
+      "launch_plan_en": "Recruit 5 apartment owners in Tel Aviv or Haifa for a 1-month discounted pilot, dispatching vetted cleaners and handymen.",
+      "market": "both",
+      "track": "lowtech",
+      "mentions": 14,
+      "engagement": 65,
+      "sources": [
+        "Reddit",
+        "Google Play",
+        "HackerNews"
+      ],
+      "score": 98,
+      "quote_original": "The guest left at 11 AM, the next one checks in at 3 PM, and the cleaner isn't answering her phone while the AC broke down.",
+      "quote_url": "https://www.reddit.com/r/sweatystartup",
+      "quote_source": "Reddit/sweatystartup"
+    },
+    {
+      "title_he": "שירות פנוי מחסנים ומשרדים מהיר לעסקים קטנים",
+      "title_en": "Rapid Office and Storage Cleanout Service",
+      "who_he": "מנהלי משרדים, בעלי עסקים במעבר, ויורשים של נכסים מסחריים",
+      "who_en": "Office managers, relocating business owners, and commercial estate executors",
+      "member_indices": [
+        2
+      ],
+      "best_quote_index": 0,
+      "quote_he": "יש לי חדר שלם מלא בציוד ישן שחייבים לפנות עד מחר בבוקר כי בעל הבית מגיע למסור את המפתח.",
+      "quote_en": "I have a whole room full of old equipment that must be cleared out by tomorrow morning because the landlord is inspecting.",
+      "category": "Logistics",
+      "intensity": 85,
+      "frequency": 70,
+      "low_competition": 75,
+      "competitors": [
+        {
+          "name": "מובילים כלליים (General Movers)",
+          "gap_he": "דורשים תיאום שבועות מראש ולא מטפלים בהשלכת פסולת לאתרי פינוי מורשים.",
+          "gap_en": "Require weeks of advance notice and do not handle certified dump disposal."
+        }
+      ],
+      "solution_he": "שירות אקספרס שמגיע תוך 24 שעות, מפנה את כל הציוד הישן, משליך לאתרי פסולת חוקיים, ומספק חשבונית נקייה.",
+      "solution_en": "An express 24-hour cleanout service that removes junk, hauls to certified dumps, and provides a clean sweep.",
+      "pricing_he": "תמחור לפי נפח (משאית או נפח בקוביות) בתוספת אגרות אתר פסולת, ממוצע של 2,500 עד 6,000 ש\"ח לפינוי.",
+      "pricing_en": "Priced by volume (truckload or cubic meters) plus dump fees, averaging 2,500 to 6,000 NIS per cleanout.",
+      "first_customers_he": "קמפיין ממוקד בגוגל לחיפושים כמו פינוי פסולת משרדים ויצירת קשר עם מתווכי נדל\"ן מסחרי.",
+      "first_customers_en": "Targeted Google Ads for office cleanout keywords and outreach to commercial real estate brokers.",
+      "trend_keyword": "office junk removal",
+      "ease_of_build": 90,
+      "delivery_model": "hire",
+      "roles_to_hire_he": "2 פועלי סבלות קבלניים ושכירת משאית קטנה לפי יום עבודה.",
+      "roles_to_hire_en": "2 day-labor movers and a rented small box truck.",
+      "ai_leverage_he": "לקוחות שולחים תמונות בוואטסאפ וה-AI מעריך נפח, מייצר הצעת מחיר מדויקת וקובע תאריך פינוי.",
+      "ai_leverage_en": "Customers send photos via WhatsApp; AI estimates volume, generates accurate quotes, and books the slot.",
+      "startup_capital_usd": 1500,
+      "startup_capital_he": "הוצאות על שיווק דיגיטלי, ציוד מיגון, ועמלות שכירת רכב מסחרי ליום הראשון.",
+      "startup_capital_en": "Digital marketing, safety gear, and daily box truck rental deposits.",
+      "equipment_licensing_he": "רישיון נהיגה ג' או ב' (תלוי במשקל המשאית), עגלה או משאית שכורה, ואישור גישה לאתרי הטמנה מוסדרים בישראל.",
+      "equipment_licensing_en": "Standard driver's license, rented box truck, and dump disposal permits.",
+      "gross_margin_pct": 55,
+      "moat_he": "מהירות תגובה קיצונית והפקת הצעות מחיר מיידיות מתמונות – מתחרים לוקחים ימים לחזור עם הצעה.",
+      "moat_en": "Extreme speed and instant photo-based quoting versus competitors who take days to reply.",
+      "launch_plan_he": "פרסום מודעות ממוקדות לאזור תל אביב והמרכז, סגירת 10 פינויי משרדים קטנים בחודש הראשון.",
+      "launch_plan_en": "Run targeted ads in the Tel Aviv metropolitan area, securing 10 small office cleanouts in the first month.",
+      "market": "both",
+      "track": "lowtech",
+      "mentions": 17,
+      "engagement": 77,
+      "sources": [
+        "Reddit",
+        "Google Play",
+        "HackerNews"
+      ],
+      "score": 98,
+      "quote_original": "I have a whole room full of old equipment that must be cleared out by tomorrow morning because the landlord is inspecting.",
+      "quote_url": "https://www.reddit.com/r/sweatystartup",
+      "quote_source": "Reddit/sweatystartup"
+    },
+    {
+      "title_he": "בקרה ותיקון ליקויי בנייה במסירת דירות קבלן",
+      "title_en": "New Construction Defect Inspection and Punch-list Remediation",
+      "who_he": "רוכשי דירות חדשות מקבלן שאינם מבינים בבנייה",
+      "who_en": "New apartment buyers overwhelmed by contractor handovers",
+      "member_indices": [
+        3
+      ],
+      "best_quote_index": 0,
+      "quote_he": "קיבלתי את המפתח לדירה ויש רשימה של 40 ליקויים, אבל הקבלן מתעלם ממני ומורח אותי.",
+      "quote_en": "I got my keys and found 40 defects, but the contractor is ignoring me and dragging his feet.",
+      "category": "Home Services",
+      "intensity": 90,
+      "frequency": 40,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "מהנדסי בדק בית (Engineering Inspection Firms)",
+          "gap_he": "כותבים דו\"ח הנדסי יקר אך אינם מבצעים את התיקונים בפועל מול הקבלן.",
+          "gap_en": "Write expensive engineering reports but do not execute the physical fixes with the builder."
+        }
+      ],
+      "solution_he": "שירות ליווי מלא: מהנדס בודק את הדירה, והחברה מפעילה צוות בעלי מקצוע לתקן את הכול ביום אחד לפני כניסת הדייר.",
+      "solution_en": "Full-service punch list handling: an engineer inspects, and our crew fixes every single defect before move-in.",
+      "pricing_he": "חבילה קבועה לפי גודל הדירה, נע בין 3,500 ל-8,000 ש\"ח לפיקוח ותיקון.",
+      "pricing_en": "Fixed packages based on apartment size, ranging from 3,500 to 8,000 NIS for inspection and repair coordination.",
+      "first_customers_he": "יצירת קשר עם נציגי דיירים בקבוצות וואטסאפ של פרויקטים חדשים למגורים (פינוי בינוי ומגדלים).",
+      "first_customers_en": "Reaching out to tenant WhatsApp representatives in newly completed residential high-rises.",
+      "trend_keyword": "punch list contractor service",
+      "ease_of_build": 70,
+      "delivery_model": "hire",
+      "roles_to_hire_he": "מהנדס בניין פרילנסר לחתימה על הדו\"ח ו-2 הנדימנים/צבעים לביצוע התיקונים.",
+      "roles_to_hire_en": "Freelance civil engineer for reports and 2 handymen/painters for execution.",
+      "ai_leverage_he": "עיבוד תמונות הליקויים לקטלוג מסודר שנשלח אוטומטית לקבלן הראשי עם דרישת תיקון משפטית.",
+      "ai_leverage_en": "Processing defect photos into an organized catalog sent automatically to the main contractor.",
+      "startup_capital_usd": 2500,
+      "startup_capital_he": "רכישת כלי מדידה ובדיקה דיגיטליים, שיווק דיגיטלי ממוקד לקבוצות רוכשי דירות.",
+      "startup_capital_en": "Digital measuring tools, diagnostic hardware, and targeted buyer-group marketing.",
+      "equipment_licensing_he": "ביטוח צד ג', כלים לבדיקת פלס וחשמל. בישראל חובה לעבוד עם מהנדס מורשה הרשום בפנקס המהנדסים לדו\"ח הנדסי.",
+      "equipment_licensing_en": "General liability insurance, laser levels, electrical testers. Licensed structural engineer required in Israel for official reports.",
+      "gross_margin_pct": 50,
+      "moat_he": "חיבור בין אבחון הנדסי מדויק לבין ביצוע פיזי מהיר פותר את כאב הראש הכפול של הלקוח.",
+      "moat_en": "Combining precise engineering inspection with rapid physical execution solves the customer's double headache.",
+      "launch_plan_he": "פיילוט בבניין חדש אחד באזור השרון עם הנחה משמעותית ל-10 הדיירים הראשונים.",
+      "launch_plan_en": "Pilot in a single new residential building in the Sharon region with a deep discount for the first 10 buyers.",
+      "market": "il",
+      "track": "lowtech",
+      "mentions": 20,
+      "engagement": 89,
+      "sources": [
+        "Reddit",
+        "Google Play",
+        "HackerNews"
+      ],
+      "score": 98,
+      "quote_original": "I got my keys and found 40 defects, but the contractor is ignoring me and dragging his feet.",
+      "quote_url": "https://www.reddit.com/r/sweatystartup",
+      "quote_source": "Reddit/sweatystartup"
+    },
+    {
+      "title_he": "תחזוקה מונעת תקופתית לבתי עסק ומסעדות",
+      "title_en": "Scheduled Preventative Maintenance for Restaurants and Retail",
+      "who_he": "בעלי מסעדות, בתי קפה וחנויות רחוב קטנות",
+      "who_en": "Restaurant owners, cafes, and small retail shop owners",
+      "member_indices": [
+        4
+      ],
+      "best_quote_index": 0,
+      "quote_he": "המקרר השבית פתאום את העבודה בשישי ערב כי אף אחד לא ניקה את הפילטרים חצי שנה.",
+      "quote_en": "The commercial fridge broke down on a Friday night because no one cleaned the filters for six months.",
+      "category": "Property Care",
+      "intensity": 95,
+      "frequency": 90,
+      "low_competition": 70,
+      "competitors": [
+        {
+          "name": "טכנאים מזדמנים (Ad-hoc Technicians)",
+          "gap_he": "מגיעים רק אחרי שהתקלה קורית במחיר מופקע, ללא תחזוקה שוטפת מונעת.",
+          "gap_en": "Only show up after a breakdown at exorbitant emergency rates, offering no preventative care."
+        }
+      ],
+      "solution_he": "מנוי חודשי לתחזוקה מונעת הכולל בדיקת מערכות קירור, החלפת נורות, הידוק ברגים, ניקוי מסננים וביקורת חשמל בסיסית.",
+      "solution_en": "A monthly subscription for preventative maintenance covering HVAC filter changes, light bulb replacements, and basic electrical checks.",
+      "pricing_he": "ריטיינר חודשי של 1,200 עד 3,000 ש\"ח לעסק בהתאם לגודלו.",
+      "pricing_en": "Monthly retainer of 1,200 to 3,000 NIS per business depending on square footage.",
+      "first_customers_he": "ביקורים פיזיים פרונטליים במתחמי מסעדות (כמו שרונה מרקט או רחובות מסחריים) והצגת רשימת תקלות שנמנעות.",
+      "first_customers_en": "In-person visits to restaurant strips and commercial hubs showing how breakdowns can be avoided.",
+      "trend_keyword": "commercial property maintenance contract",
+      "ease_of_build": 80,
+      "delivery_model": "hire",
+      "roles_to_hire_he": "2 טכנאים כלליים מנוסים (הנדימנים תעשייתיים) במשרה מלאה.",
+      "roles_to_hire_en": "2 experienced general industrial handymen on flexible subcontracting.",
+      "ai_leverage_he": "מערכת AI ששולחת תזכורות אוטומטיות לבעל העסק על מועד הביקור הקרוב ומייצרת דוח סטטוס לציוד.",
+      "ai_leverage_en": "AI system that automatically triggers recurring inspection intervals and sends equipment health reports to owners.",
+      "startup_capital_usd": 1500,
+      "startup_capital_he": "ציוד עבודה מקצועי, ערכת בדיקת חשמל, ופיתוח תוכנת ניהול מנויים.",
+      "startup_capital_en": "Professional toolkits, electrical diagnostic meters, and subscription software setup.",
+      "equipment_licensing_he": "רכב מסחרי, ארגז כלים מלא, ביטוח אחריות מקצועית. בישראל אין צורך ברישיון קבלן עבודות קטנות אם מדובר בתחזוקה שוטפת ולא בבנייה.",
+      "equipment_licensing_en": "Commercial vehicle, complete tool set, professional liability insurance. No special contractor license needed for routine maintenance.",
+      "gross_margin_pct": 60,
+      "moat_he": "מעבר ממודל תגובתי (כיבוי שריפות) למודל מנוי צפוי שחוסך לעסקים אלפי שקלים בהפסדי מזון ותקלות.",
+      "moat_en": "Shifting businesses from emergency firefighting to predictable subscription maintenance that prevents costly spoilage.",
+      "launch_plan_he": "גיוס 10 מסעדות באזור תל אביב לפיילוט בן חודש במחיר השקה כדי להוכיח חיסכון בזמן ותקלות.",
+      "launch_plan_en": "Sign up 10 Tel Aviv restaurants for a 1-month introductory pilot to prove downtime reduction.",
+      "market": "both",
+      "track": "lowtech",
+      "mentions": 23,
+      "engagement": 101,
+      "sources": [
+        "Reddit",
+        "Google Play",
+        "HackerNews"
+      ],
+      "score": 98,
+      "quote_original": "The commercial fridge broke down on a Friday night because no one cleaned the filters for six months.",
+      "quote_url": "https://www.reddit.com/r/sweatystartup",
+      "quote_source": "Reddit/sweatystartup"
+    },
+    {
+      "title_he": "הקמת מתחמי אירועים ארעיים ופריקת ציוד להפקות",
+      "title_en": "Pop-up Event Infrastructure Assembly and Strike",
+      "who_he": "מפיקי אירועים, חברות קייטרינג ומנהלי מותגים המבצעים אירועי חברה ושיווק",
+      "who_en": "Event planners, caterers, and brand marketers staging corporate events",
+      "member_indices": [
+        5
+      ],
+      "best_quote_index": 0,
+      "quote_he": "אני צריך 10 אנשי צוות שיעזרו בפריקת ציוד, הקמת אוהלים, סידור שולחנות ופירוק בסוף הלילה בלי בעיות ובזמן.",
+      "quote_en": "I need 10 crew members to unload gear, set up tents, arrange tables, and strike the site at midnight without delays.",
+      "category": "Staffing",
+      "intensity": 80,
+      "frequency": 80,
+      "low_competition": 75,
+      "competitors": [
+        {
+          "name": "חברות כוח אדם כלליות (General Temp Agencies)",
+          "gap_he": "שולחים עובדים שלא מבינים לוגיסטיקה של אירועים, מאחרים ולא מנהלים את הצוות בשטח.",
+          "gap_en": "Send workers who don't understand event logistics, show up late, and lack on-site supervision."
+        }
+      ],
+      "solution_he": "שירות השכרת צוותי הקמה מיומנים להפקות, כולל מנהל צוות אחראי שמגיע עם כל הכלים ומבצע את העבודה בדיוק לפי תוכנית ההפקה.",
+      "solution_en": "An accountable crew agency for events providing trained setup labor with a designated team lead following precise production schedules.",
+      "pricing_he": "תעריף שעתי לעובד פלוס תוספת למנהל צוות, או חבילת הקמה ופירוק כוללת החל מ-4,000 ש\"ח לאירוע.",
+      "pricing_en": "Hourly rate per worker plus lead supervisor fee, or complete setup/strike packages starting at 4,000 NIS per event.",
+      "first_customers_he": "פנייה ישירה למפיקי אירועים מובילים בלינקדין ובאינסטגרם עם הצעה לצוות גיבוי אמין לשעת חירום.",
+      "first_customers_en": "Direct outreach to top event producers on LinkedIn and Instagram offering reliable backup crews.",
+      "trend_keyword": "event labor staffing agency",
+      "ease_of_build": 85,
+      "delivery_model": "hire",
+      "roles_to_hire_he": "מאגר של 20 עובדים צעירים פרילנסרים ו-2 מנהלי צוות מנוסים.",
+      "roles_to_hire_en": "A roster of 20 freelance laborers and 2 experienced crew leads.",
+      "ai_leverage_he": "אוטומציה מלאה של שיבוץ עובדים, אישורי הגעה ב-SMS, ודיווח שעות דיגיטלי למייל של המפיק.",
+      "ai_leverage_en": "Automated crew dispatch via SMS, check-in tracking, and digital time sheet reporting sent to producers.",
+      "startup_capital_usd": 1000,
+      "startup_capital_he": "הוצאות שיווק, בניית מערכת שיבוץ אוטומטית וציוד בטיחות בסיסי לצוותים.",
+      "startup_capital_en": "Marketing costs, automated scheduling software setup, and basic safety gear for crews.",
+      "equipment_licensing_he": "אין צורך ברישיונות מיוחדים בישראל מלבד ביטוח חבות מעבידים וצד ג' תקף. בארה\"ב נדרש רישוח עסקי סטנדרטי.",
+      "equipment_licensing_en": "Standard business registration, mandatory workers' compensation and general liability insurance.",
+      "gross_margin_pct": 45,
+      "moat_he": "אמינות ואפס ברזים (no-shows) – מתחרים בתחום סובלים משיעורי נטישה גבוהים של עובדים בזמן אמת.",
+      "moat_en": "Zero no-shows and rigorous accountability, addressing the high reliability failure rate of traditional temp agencies.",
+      "launch_plan_he": "יצירת קשר עם 15 חברות הפקה בינוניות והצעת צוות חינם לאירוע הראשון שלהם כהוכחת יכולת.",
+      "launch_plan_en": "Contact 15 mid-sized production companies offering a trial crew discount for their next event.",
+      "market": "both",
+      "track": "lowtech",
+      "mentions": 26,
+      "engagement": 113,
+      "sources": [
+        "Reddit",
+        "Google Play",
+        "HackerNews"
+      ],
+      "score": 98,
+      "quote_original": "I need 10 crew members to unload gear, set up tents, arrange tables, and strike the site at midnight without delays.",
+      "quote_url": "https://www.reddit.com/r/sweatystartup",
+      "quote_source": "Reddit/sweatystartup"
+    },
+    {
+      "title_he": "כשלים וסינכרון לקוי בתוכנות הנהלת חשבונות וחשבוניות ניידות",
+      "title_en": "Accounting and Invoicing App Sync Failures and Errors",
+      "who_he": "בעלי עסקים קטנים, עצמאים ומנהלי חשבונות",
+      "who_en": "Small business owners, freelancers, and bookkeepers",
+      "member_indices": [
+        5,
+        6,
+        19,
+        28,
+        34,
+        35,
+        45,
+        46,
+        64,
+        65
+      ],
+      "best_quote_index": 64,
+      "quote_he": "זה חיבר את כל העובר ושב שלי כהכנסה ולא לקח את כל הקבלות שלי כהוצאות. בזבוז גמור של זמן וכסף.",
+      "quote_en": "it's added up all my banking as income and not took all my receipts as expenses. complete waste of time and money",
+      "category": "Finance & billing",
+      "intensity": 90,
+      "frequency": 90,
+      "low_competition": 70,
+      "ease_of_build": 80,
+      "competitors": [
+        {
+          "name": "QuickBooks",
+          "gap_he": "אפליקציה ניידת קורסת, יקרה מאוד וסובלת מבאגים בסנכרון בנקאי.",
+          "gap_en": "Mobile app crashes, very expensive, and suffers from bank sync bugs."
+        },
+        {
+          "name": "Zoho Books",
+          "gap_he": "דורש יותר מדי שלבים ידניים וממשק מורכב לעצמאים.",
+          "gap_en": "Requires too many manual steps and has a complex interface for independents."
+        },
+        {
+          "name": "Wave",
+          "gap_he": "חסר יכולות אוטומציה מבוססות AI חכמות לסיווג קבלות.",
+          "gap_en": "Lacks smart AI-driven automation capabilities for receipt categorization."
+        }
+      ],
+      "solution_he": "בניית אפליקציית AI קלילה לסיווג אוטומטי של קבלות והתאמתן לתנועות בנקאיות דרך צילום מסך או העלאת PDF.",
+      "solution_en": "Build a lightweight AI app for automated receipt categorization and bank transaction matching via photo upload or PDF.",
+      "mvp_he": "ממשק ווב פשוט שמקבל קבלות ותנועות בנקאיות כקבצים, מנתח אותם בעזרת Vision LLM, ומייצא קובץ CSV מוכן לרואה חשבון.",
+      "mvp_en": "A simple web interface that accepts receipts and bank statements as files, parses them using a Vision LLM, and exports an accountant-ready CSV.",
+      "pricing_he": "19 דולר לחודש לעצמאי",
+      "pricing_en": "$19/mo per freelancer",
+      "first_customers_he": "פרסום פוסטים ממוקדים בקהילות רדיט של עצמאים ויועצי מס קטנים המתוסכלים מתוכנות ענק.",
+      "first_customers_en": "Posting targeted content in Reddit communities for freelancers and small business owners frustrated with legacy software.",
+      "tech_stack_he": "Next.js, TailwindCSS, Supabase, OpenAI GPT-4o API",
+      "tech_stack_en": "Next.js, TailwindCSS, Supabase, OpenAI GPT-4o API",
+      "trend_keyword": "AI receipt parser bookkeeping",
+      "mentions": 10,
+      "engagement": 143,
+      "sources": [
+        "Google Play",
+        "Reddit"
+      ],
+      "quote_original": "it's added up all my banking as income and not took all my receipts as expenses. complete waste of time and money",
+      "quote_url": "https://play.google.com/store/apps/details?id=com.intuit.quickbooks",
+      "quote_source": "Google Play",
+      "score": 88,
+      "trend_change": 0,
+      "is_recurring": false,
+      "weeks_seen": 1,
+      "track": "saas"
+    },
+    {
+      "title_he": "מעקב אחר שעות עבודה, משימות מוחמצות ותסמונת פרילנסרים ועובדים מרחוק",
+      "title_en": "Remote Work Hour Deficits, Missed Deadlines, and Time Blindness",
+      "who_he": "עובדים מרחוק, פרילנסרים וסטודנטים",
+      "who_en": "Remote workers, freelancers, and students",
+      "member_indices": [
+        7,
+        8,
+        12,
+        16,
+        23,
+        40,
+        41
+      ],
+      "best_quote_index": 7,
+      "quote_he": "זה הלקוח החמישי שבו פספסתי דדליין... הפידבק הופך לשכתוב מלא, או שאני דוחה את זה יותר מדי, ואז רץ, מרגיש מוצף, ובסוף מפספס את הדדליין לחלוטין.",
+      "quote_en": "This is now the 5th client where I missed a deadline... feedback turns into full rewrites, or I procrastinate too long, then rush, feel overwhelmed, and eventually miss the deadline entirely.",
+      "category": "Time management",
+      "intensity": 85,
+      "frequency": 90,
+      "low_competition": 70,
+      "ease_of_build": 85,
+      "competitors": [
+        {
+          "name": "Toggl",
+          "gap_he": "דורש הזנת נתונים ידנית ואינו מתריע פרואקטיבית על פיגור בשעות או משימות.",
+          "gap_en": "Requires manual data entry and does not proactively alert about hour deficits or tasks."
+        },
+        {
+          "name": "RescueTime",
+          "gap_he": "רושם נתונים ברקע אך אינו עוזר בניהול קוגניטיבי של משימות וצמצום עומס יתר.",
+          "gap_en": "Logs data in the background but does not help with cognitive task management and reducing overload."
+        }
+      ],
+      "solution_he": "סוכן AI אישי המנתח את קצב העבודה, מזהה שעות חסרות או פיגורים בזמן אמת, ומציע פירוק משימות אוטומטי למניעת שחיקה.",
+      "solution_en": "A personal AI agent that analyzes work pace, detects hour deficits or delays in real-time, and suggests automatic task breakdown to prevent burnout.",
+      "mvp_he": "תוסף כרום ובוט טלגרם ששולחים צ'ק-אין חכם ומנתחים את לו\"ז המשתמש כדי להתריע על פערים בשעות ואי עמידה ביעדים.",
+      "mvp_en": "A Chrome extension and Telegram bot that send smart check-ins and analyze user schedules to warn about hour gaps and missed targets.",
+      "pricing_he": "12 דולר לחודש",
+      "pricing_en": "$12/mo",
+      "first_customers_he": "פרסום בקהילות רדיט כמו r/freelance ו-r/digitalnomad עם כלי חינמי שמדגים את הפתרון.",
+      "first_customers_en": "Posting in Reddit communities like r/freelance and r/digitalnomad with a free tool demonstrating the solution.",
+      "tech_stack_he": "Next.js, TailwindCSS, Telegram Bot API, OpenAI GPT-4o-mini",
+      "tech_stack_en": "Next.js, TailwindCSS, Telegram Bot API, OpenAI GPT-4o-mini",
+      "trend_keyword": "AI time tracker anti procrastination",
+      "mentions": 7,
+      "engagement": 149,
+      "sources": [
+        "Google Play",
+        "Reddit"
+      ],
+      "quote_original": "This is now the 5th client where I missed a deadline... feedback turns into full rewrites, or I procrastinate too long, then rush, feel overwhelmed, and eventually miss the deadline entirely.",
+      "quote_url": "https://www.reddit.com/r/freelance/comments/1lf5yyo/i_keep_missing_deadlines_its_the_5th_client_now/",
+      "quote_source": "Reddit",
+      "score": 87,
+      "trend_change": -100,
+      "is_recurring": false,
+      "weeks_seen": 1,
+      "track": "saas"
+    },
+    {
+      "title_he": "גביית תשלומים, חיובים חוזרים ובריחת לקוחות",
+      "title_en": "Payment Processing Failures and Unpaid Client Debt",
+      "who_he": "פרילנסרים, נותני שירותים ועסקים מקוונים",
+      "who_en": "Freelancers, service providers, and online businesses",
+      "member_indices": [
+        24,
+        26,
+        32,
+        36,
+        50,
+        71
+      ],
+      "best_quote_index": 32,
+      "quote_he": "העניין הוא ששני האנשים האלה מנסים להתחמק מתשלום על השירותים שלנו ואז נעלמים אחרי עבודה מעולה.",
+      "quote_en": "it's the fact that these 2 people are trying to get away with using our services and then ghosting us after a great job.",
+      "category": "Finance & billing",
+      "intensity": 85,
+      "frequency": 80,
+      "low_competition": 75,
+      "ease_of_build": 85,
+      "competitors": [
+        {
+          "name": "Stripe",
+          "gap_he": "לא מציע מעקב חכם אחרי חובות אבודים או שליחת תזכורות משפטיות/אגרסיביות מבוססות AI.",
+          "gap_en": "Does not offer smart tracking for bad debt or AI-driven aggressive legal/friendly reminder flows."
+        },
+        {
+          "name": "FreshBooks",
+          "gap_he": "יקר מדי עבור פרילנסרים שצריך פתרון פשוט רק לגבייה ודחיפת תשלומים.",
+          "gap_en": "Too expensive for freelancers who just need a simple tool for collection and payment nudges."
+        }
+      ],
+      "solution_he": "כלי AI שמייצר מיילים והודעות טקסט משכנעות ואסרטיביות לגביית חובות מלקוחות שנעלמים, לצד מעקב אחר סטטוס תשלום.",
+      "solution_en": "An AI tool that generates persuasive, assertive emails and SMS messages for debt collection from ghosting clients, plus payment tracking.",
+      "mvp_he": "לוח בקרה בסיסי המחובר ל-Stripe או חשבוניות ידניות, שמייצר אוטומטית הודעות התראה מדורגות לפי אופי הלקוח באמצעות LLM.",
+      "mvp_en": "A basic dashboard connected to Stripe or manual invoices, automatically generating tiered reminder messages based on client persona via LLM.",
+      "pricing_he": "15 דולר לחודש",
+      "pricing_en": "$15/mo",
+      "first_customers_he": "פנייה ישירה לפרילנסרים בקבוצות פייסבוק ולינקדאין שמתלוננים על לקוחות שלא משלמים.",
+      "first_customers_en": "Direct outreach to freelancers in Facebook groups and LinkedIn complaining about unpaid client invoices.",
+      "tech_stack_he": "Next.js, Prisma, PostgreSQL, Anthropic Claude API",
+      "tech_stack_en": "Next.js, Prisma, PostgreSQL, Anthropic Claude API",
+      "trend_keyword": "freelance invoice reminder tool",
+      "mentions": 6,
+      "engagement": 17,
+      "sources": [
+        "Google Play",
+        "Reddit"
+      ],
+      "quote_original": "it's the fact that these 2 people are trying to get away with using our services and then ghosting us after a great job.",
+      "quote_url": "https://www.reddit.com/r/smallbusiness/comments/1xqa3dn/debt_collector_agency/",
+      "quote_source": "Reddit",
+      "score": 86,
+      "trend_change": 0,
+      "is_recurring": false,
+      "weeks_seen": 1,
+      "track": "saas"
+    },
+    {
+      "title_he": "ניהול הזמנות ידני וניתוק מהתראות באפליקציות משלוחים ועסקים מקומיים",
+      "title_en": "Manual Order Acceptance and Missed Notification Loops in Delivery Apps",
+      "who_he": "בעלי מסעדות ועסקי מזון המשתמשים בפלטפורמות משלוחים",
+      "who_en": "Restaurant owners and food businesses using delivery platforms",
+      "member_indices": [
+        30,
+        44
+      ],
+      "best_quote_index": 44,
+      "quote_he": "האפליקציה לעולם לא נותנת התראות... אני צריך לבדוק אותה ידנית כל כמה דקות כדי לא לפספס שום הזמנה.",
+      "quote_en": "the app never give notifications... I need to check it manually every few minutes in order not to miss any orders.",
+      "category": "Operations & admin",
+      "intensity": 90,
+      "frequency": 95,
+      "low_competition": 80,
+      "ease_of_build": 75,
+      "competitors": [
+        {
+          "name": "GrabMerchant",
+          "gap_he": "סובל מבעיות התראות מובנות ומחייב אישור ידני שגורם לאובדן הכנסות.",
+          "gap_en": "Suffers from inherent notification bugs and forces manual confirmation leading to lost revenue."
+        },
+        {
+          "name": "Deliverect",
+          "gap_he": "יקר ומיועד רק לרשתות ענק, ולא לעסקים קטנים עצמאיים.",
+          "gap_en": "Expensive and built only for enterprise chains, not small independent businesses."
+        }
+      ],
+      "solution_he": "בוט אודיו וסמארט-התרעות שמנטר מסכי מכשיר אנדרואיד באמצעות צילום מסך או שירות נגישות ומקפיץ אזעקה קולית רמה כשנכנסת הזמנה חדשה.",
+      "solution_en": "An audio and smart-alert bot that monitors Android screens via screenshot or accessibility service and triggers a loud alarm when a new order arrives.",
+      "mvp_he": "אפליקציית אנדרואיד קטנה שמשתמשת ב-Accessibility API לזהות טקסט של הזמנות חדשות ומפעילה צלצול חזק חוזר עד לאישור.",
+      "mvp_en": "A small Android app using the Accessibility API to detect new order text and trigger a repeating loud alarm until acknowledged.",
+      "pricing_he": "29 דולר לחודש לעסק",
+      "pricing_en": "$29/mo per business",
+      "first_customers_he": "ביקור פיזי במסעדות מקומיות או פנייה ישירה לבעלי עסקים הקטנים שפעילים בקבוצות משלוחים.",
+      "first_customers_en": "Physical visits to local restaurants or direct outreach to small business owners active in delivery groups.",
+      "tech_stack_he": "React Native, Expo, Android Accessibility API, Node.js backend",
+      "tech_stack_en": "React Native, Expo, Android Accessibility API, Node.js backend",
+      "trend_keyword": "delivery order notification alert app",
+      "mentions": 2,
+      "engagement": 4,
+      "sources": [
+        "Google Play"
+      ],
+      "quote_original": "the app never give notifications... I need to check it manually every few minutes in order not to miss any orders.",
+      "quote_url": "https://play.google.com/store/apps/details?id=com.grab.merchant",
+      "quote_source": "Google Play",
+      "score": 86,
+      "trend_change": 0,
+      "is_recurring": true,
+      "weeks_seen": 2,
+      "track": "saas"
+    },
+    {
+      "title_he": "גנבת הצעות מחיר ותכניות עבודה טכניות על ידי לקוחות פוטנציאליים",
+      "title_en": "Technical Blueprint Theft and Proposal Plagiarism by Prospects",
+      "who_he": "סוכנויות פיתוח, מעצבים ופרילנסרים טכניים",
+      "who_en": "Development agencies, designers, and technical freelancers",
+      "member_indices": [
+        2,
+        52
+      ],
+      "best_quote_index": 2,
+      "quote_he": "זה נבנה בדיוק על גבי התכנית והמבנה שלנו. ברור שהם פשוט לקחו את ההצעה המקיפה שלנו ושכרו מישהו זול יותר לבצע את זה שורה אחר שורה.",
+      "quote_en": "It was built EXACTLY on top of our blueprint and structure. It’s obvious they just took our comprehensive proposal and hired someone cheaper to execute it line by line.",
+      "category": "Marketing & sales",
+      "intensity": 90,
+      "frequency": 70,
+      "low_competition": 85,
+      "ease_of_build": 80,
+      "competitors": [
+        {
+          "name": "Bonsai",
+          "gap_he": "מנהל חוזים אך לא מספק הגנה או טשטוש חכם של פרטים טכניים קריטיים בהצעות מחיר.",
+          "gap_en": "Manages contracts but does not provide protection or smart obfuscation of critical technical details in proposals."
+        },
+        {
+          "name": "DocSend",
+          "gap_he": "מציע הגנת סיסמה וניתוח צפיות, אך לא מונע העתקה או הנדסה לאחור של ארכיטקטורה.",
+          "gap_en": "Offers password protection and view analytics, but doesn't prevent copying or reverse-engineering of architecture."
+        }
+      ],
+      "solution_he": "פלטפורמת הצעות מחיר מבוססת AI שמציגה ללקוחות רק תקציר גבוהה (High-level) ודורשת חתימה על NDA מחייב או תשלום מקדמה כדי לחשוף את התכנית המלאה.",
+      "solution_en": "An AI-powered proposal platform that shows clients only a high-level summary and requires a binding NDA or upfront deposit to reveal the full plan.",
+      "mvp_he": "כלי ווב שמעלה מסמך הצעת מחיר, ממסך באופן אוטומטי את החלקים הטכניים הרגישים באמצעות AI, ויוצר לינק מאובטח המותנה באישור דיגיטלי.",
+      "mvp_en": "A web tool that uploads a proposal document, automatically masks sensitive technical parts using AI, and creates a secure link contingent on digital approval.",
+      "pricing_he": "29 דולר לחודש",
+      "pricing_en": "$29/mo",
+      "first_customers_he": "הפצה בקבוצות פרילנסרים וסוכנויות דיגיטל בלינקדאין שחוו גנבת קוד ואפיון פרויקטים.",
+      "first_customers_en": "Distribution in freelancer and digital agency groups on LinkedIn who have experienced code and project spec theft.",
+      "tech_stack_he": "Next.js, Supabase, PDF.js, OpenAI API",
+      "tech_stack_en": "Next.js, Supabase, PDF.js, OpenAI API",
+      "trend_keyword": "secure proposal sharing tool",
+      "mentions": 2,
+      "engagement": 237,
+      "sources": [
+        "Google Play",
+        "Reddit"
+      ],
+      "quote_original": "It was built EXACTLY on top of our blueprint and structure. It’s obvious they just took our comprehensive proposal and hired someone cheaper to execute it line by line.",
+      "quote_url": "https://www.reddit.com/r/freelance/comments/1x3z60b/discovered_a_client_executed_my_proposal_with_a/",
+      "quote_source": "Reddit",
+      "score": 86,
+      "trend_change": 100,
+      "is_recurring": false,
+      "weeks_seen": 1,
+      "track": "saas"
+    },
+    {
+      "title_he": "קשיי תקשורת וסנכרון בלוחות זמנים של מסגרות חינוך וחוגי ילדים",
+      "title_en": "Communication Breakdown in Children's Extracurricular Schedules",
+      "who_he": "הורים, מאמני ספורט ומנהלי חוגים",
+      "who_en": "Parents, sports coaches, and activity organizers",
+      "member_indices": [
+        22,
+        27,
+        72
+      ],
+      "best_quote_index": 72,
+      "quote_he": "אמא ואבא אינם יכולים לראות שום אימון או משחק, ולכן הם לא יכולים לתכנן הסעות או ארוחת ערב סביבם.",
+      "quote_en": "Mom and Dad cannot see any practice or match, so they cannot plan rides or dinner around them.",
+      "category": "Communication & coordination",
+      "intensity": 75,
+      "frequency": 85,
+      "low_competition": 70,
+      "ease_of_build": 85,
+      "competitors": [
+        {
+          "name": "TeamSnap",
+          "gap_he": "מסורבל, דורש התקנה לכל ההורים ואינו מסink את הלו\"ז אוטומטית מתוך הודעות וואטסאפ או מיילים של המאמן.",
+          "gap_en": "Clunky, requires installation for all parents, and doesn't auto-sync schedules from coach WhatsApp messages or emails."
+        },
+        {
+          "name": "Google Calendar",
+          "gap_he": "לא מותאם לעדכונים שוטפים של מאמנים ודורש הקלדה ידנית מייגעת.",
+          "gap_en": "Not tailored for ongoing coach updates and requires tedious manual typing."
+        }
+      ],
+      "solution_he": "בוט AI לקבוצות וואטסאפ של חוגים שקורא הודעות עדכון על שינויי זמנים, מעדכן אוטומטית את יומני ההורים ושולח התראות מותאמות.",
+      "solution_en": "An AI bot for activity WhatsApp groups that reads schedule change updates, automatically syncs parents' calendars, and sends tailored alerts.",
+      "mvp_he": "בוט וואטסאפ ופאנל ניהול קטן שמנתח הודעות טקסט של מאמנים באמצעות LLM ומפיק קובץ .ics או סנכרון ישיר ליומן גוגל.",
+      "mvp_en": "A WhatsApp bot and small admin panel that parses coach text messages via LLM and outputs an .ics file or direct Google Calendar sync.",
+      "pricing_he": "9 דולר לחודש לקבוצה",
+      "pricing_en": "$9/mo per team",
+      "first_customers_he": "פנייה ישירה למאמני חוגי ילדים וקבוצות הורים בפייסבוק המנהלים קבוצות וואטסאפ כאוטיות.",
+      "first_customers_en": "Direct outreach to children's sports coaches and Facebook parent groups managing chaotic WhatsApp groups.",
+      "tech_stack_he": "Node.js, Baileys (WhatsApp API), OpenAI GPT-4o-mini, Google Calendar API",
+      "tech_stack_en": "Node.js, Baileys (WhatsApp API), OpenAI GPT-4o-mini, Google Calendar API",
+      "trend_keyword": "sports team schedule WhatsApp bot",
+      "mentions": 3,
+      "engagement": 14,
+      "sources": [
+        "GitHub",
+        "Google Play"
+      ],
+      "quote_original": "Mom and Dad cannot see any practice or match, so they cannot plan rides or dinner around them.",
+      "quote_url": "https://github.com/douglasjunior/poc-family-calendar/issues/9",
+      "quote_source": "GitHub",
+      "score": 83,
+      "trend_change": null,
+      "is_recurring": false,
+      "weeks_seen": 1,
+      "track": "saas"
+    },
+    {
+      "title_he": "חוסר התאמה וקשיי תאימות בפורמטים אלקטרוניים של חשבוניות וזימוני פגישות",
+      "title_en": "Format Incompatibilities in Electronic Invoices and Calendar Invites",
+      "who_he": "עצמאים, יועצים ומפתחים עצמאיים",
+      "who_en": "Freelancers, consultants, and solo developers",
+      "member_indices": [
+        20,
+        56
+      ],
+      "best_quote_index": 56,
+      "quote_he": "קיבלתי באופן קבוע התראות שפורמט החשבונית שגוי. מאד מתסכל. אם רציתי להוציא חשבונית מהר, הייתי צריך לבזבז שעה בחיפוש באינטרנט כדי להבין איך להתאים זאת.",
+      "quote_en": "I regularly received notifications that the invoice format was incorrect. Very frustrating. If I wanted to send out an invoice quickly, I had to spend an hour searching the internet to figure out how to adjust it.",
+      "category": "Operations & admin",
+      "intensity": 70,
+      "frequency": 75,
+      "low_competition": 80,
+      "ease_of_build": 90,
+      "competitors": [
+        {
+          "name": "Standard Invoicing Software",
+          "gap_he": "לעיתים קרובות אינו תומך בתקני e-invoicing מקומיים מתקדמים (כמו Peppol או תקנים ממשלתיים חדשים).",
+          "gap_en": "Often fails to support advanced local e-invoicing standards (like Peppol or new government standards)."
+        }
+      ],
+      "solution_he": "ממיר קבצים חכם מבוסס AI שמתרגם באופן אוטומטי כל חשבונית או זימון פגישה לפורמט הנדרש לפי תקנים ממשלתיים ובינלאומיים.",
+      "solution_en": "An AI-powered smart file converter that automatically translates any invoice or meeting invite into the required format per government and international standards.",
+      "mvp_he": "כלי ווב פשוט שמעלה קובץ PDF או זימון, מזהה את מבנהו וממיר אותו לתקן הדיגיטלי המבוקש בתוך שניות.",
+      "mvp_en": "A simple web tool that uploads a PDF or invite file, recognizes its structure, and converts it to the required digital standard within seconds.",
+      "pricing_he": "10 דולר לחודש",
+      "pricing_en": "$10/mo",
+      "first_customers_he": "פרסום בפורומים של עצמאים וקבוצות טכניות שבהן מופיעות תלונות על חוקי הנהלת חשבונות אלקטרוניים חדשים.",
+      "first_customers_en": "Posting in freelancer forums and technical groups where complaints about new electronic accounting regulations appear.",
+      "tech_stack_he": "Next.js, Python FastAPI, PyPDF2, OpenAI API",
+      "tech_stack_en": "Next.js, Python FastAPI, PyPDF2, OpenAI API",
+      "trend_keyword": "e-invoice format converter tool",
+      "mentions": 2,
+      "engagement": 10,
+      "sources": [
+        "GitHub",
+        "Hacker News"
+      ],
+      "quote_original": "I regularly received notifications that the invoice format was incorrect. Very frustrating. If I wanted to send out an invoice quickly, I had to spend an hour searching the internet to figure out how to adjust it.",
+      "quote_url": "https://news.ycombinator.com/item?id=50379254",
+      "quote_source": "Hacker News",
+      "score": 82,
+      "trend_change": null,
+      "is_recurring": false,
+      "weeks_seen": 1,
+      "track": "saas"
+    },
+    {
+      "title_he": "קשיי ניהול והגדרת מיומנויות AI בארגונים ובסביבות פיתוח",
+      "title_en": "Lack of Version Control and Governance for Organization AI Skills",
+      "who_he": "מפתחי תוכנה, מנהלי מוצר ומנהלי מערכות מידע",
+      "who_en": "Software developers, product managers, and IT administrators",
+      "member_indices": [
+        0,
+        3,
+        55
+      ],
+      "best_quote_index": 0,
+      "quote_he": "ברגע שאתה מגיע ל-20-30+ מיומנויות עם תורמים מרובים, זה הופך לקשה לניהול — אין היסטוריית גרסאות, אין תהליך סקירה ואין דרך קלה לחזור לאחור משינוי גרוע.",
+      "quote_en": "Once you get to 20-30+ skills with multiple contributors, it becomes difficult to manage — there's no version history, no review process, and no easy way to roll back a bad change.",
+      "category": "Tools & tech",
+      "intensity": 75,
+      "frequency": 80,
+      "low_competition": 85,
+      "ease_of_build": 80,
+      "competitors": [
+        {
+          "name": "GitHub Copilot Enterprise",
+          "gap_he": "יקר מאוד ואינו מציע ניהול גרסאות ובקרת איכות ייעודית לפרומפטים וסקילים ארגוניים.",
+          "gap_en": "Very expensive and lacks dedicated version control and quality governance for organizational prompts and skills."
+        },
+        {
+          "name": "Langfuse",
+          "gap_he": "מיועד למעקב אחר LLM בייצור ולא לניהול פנימי של תצורות ומיומנויות צוותיות.",
+          "gap_en": "Built for tracking LLMs in production rather than internal management of team configurations and skills."
+        }
+      ],
+      "solution_he": "מערכת ניהול גרסאות וסקירה (Git-like) ייעודית לפרומפטים ומיומנויות AI ארגוניות עם תהליכי אישור אוטומטיים.",
+      "solution_en": "A Git-like version control and review system dedicated to organizational AI prompts and skills with automated approval workflows.",
+      "mvp_he": "אפליקציית ווב המאפשרת לאחסן, לערוך ולבדוק שינויים בסקילים ארגוניים עם היסטוריית גרסאות מלאה ואינטגרציה ל-GitHub.",
+      "mvp_en": "A web app allowing storage, editing, and diffing of organizational AI skills with full version history and GitHub integration.",
+      "pricing_he": "49 דולר לחודש לצוות",
+      "pricing_en": "$49/mo per team",
+      "first_customers_he": "פרסום בקהילות GitHub, Hacker News ו-Dev.to של צוותי פיתוח שמשתמשים בכלי AI מתקדמים.",
+      "first_customers_en": "Posting in GitHub, Hacker News, and Dev.to communities of development teams using advanced AI tools.",
+      "tech_stack_he": "Next.js, PostgreSQL, Prisma, Monaco Editor",
+      "tech_stack_en": "Next.js, PostgreSQL, Prisma, Monaco Editor",
+      "trend_keyword": "AI prompt version control",
+      "mentions": 3,
+      "engagement": 548,
+      "sources": [
+        "GitHub"
+      ],
+      "quote_original": "Once you get to 20-30+ skills with multiple contributors, it becomes difficult to manage — there's no version history, no review process, and no easy way to roll back a bad change.",
+      "quote_url": "https://github.com/anthropics/claude-code/issues/28729",
+      "quote_source": "GitHub",
+      "score": 80,
+      "trend_change": null,
+      "is_recurring": false,
+      "weeks_seen": 1,
+      "track": "saas"
+    }
+  ],
+  "top_n": 13
+}

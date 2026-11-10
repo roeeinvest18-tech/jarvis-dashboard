@@ -5385,3 +5385,62 @@ body::before {
   border-color: var(--mark-hi);
   background: rgba(156, 194, 255, 0.1);
 }
+
+
+/* --- PainPoints track selector & Low-Tech card extensions -------------- */
+.pp-track-tabs {
+  margin: var(--sp-3) 0 var(--sp-4);
+  gap: var(--sp-2);
+}
+.pp-track-count {
+  font-size: var(--fs-tag);
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink2);
+  margin-left: 4px;
+}
+.pp-badge-track {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.pp-badge-track.is-saas {
+  color: var(--mark-hi);
+  background: rgba(156, 194, 255, 0.12);
+  border: 1px solid rgba(156, 194, 255, 0.28);
+}
+.pp-badge-track.is-lowtech {
+  color: #f6ad55;
+  background: rgba(246, 173, 85, 0.12);
+  border: 1px solid rgba(246, 173, 85, 0.32);
+}
+.pp-badge-meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  color: var(--ink2);
+  padding: 1px 6px;
+  border-radius: var(--r-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--rule-soft);
+}
+.pp-cluster-card.is-lowtech {
+  border-left: 2px solid #f6ad55;
+}
+.pp-lt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--sp-2) var(--sp-4);
+  padding: var(--sp-3);
+  margin: var(--sp-2) 0;
+  background: rgba(246, 173, 85, 0.03);
+  border: 1px solid rgba(246, 173, 85, 0.15);
+  border-radius: var(--r-sm);
+}
+.pp-lt-grid .pp-mvp-row {
+  font-size: var(--fs-label);
+  line-height: 1.45;
+}

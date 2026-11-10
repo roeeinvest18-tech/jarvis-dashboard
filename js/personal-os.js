@@ -96,6 +96,7 @@ function osRenderTraining() {
 var osPainpointsPayload = null;
 var osPainpointsFetched = false;
 var osPainpointsLang = 'he';
+var osPainpointsTrack = 'all';
 
 const OS_TAB_TITLES = {
   training: 'Training',
@@ -165,13 +166,107 @@ function osRenderPainpoints() {
       .then(r => (r.ok ? r.json() : null))
       .catch(() => null)
       .then(payload => {
-        osPainpointsPayload = payload || OS_PAINPOINTS_FALLBACK;
+        osPainpointsPayload = payload;
         osPaintPainpoints(mount, payload);
       });
-    osPaintPainpoints(mount, osPainpointsPayload);
-    return;
   }
   osPaintPainpoints(mount, osPainpointsPayload);
+}
+
+function osPpTrack(c) {
+  return c && c.track === 'lowtech' ? 'lowtech' : 'saas';
+}
+
+function osPpPick(c, key, isHe) {
+  return isHe ? (c[key + '_he'] || c[key + '_en'] || '') : (c[key + '_en'] || c[key + '_he'] || '');
+}
+
+function osPpRow(label, value) {
+  if (!value) return '';
+  return `<div class="pp-mvp-row"><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</div>`;
+}
+
+function osPpCardHtml(c, isHe, dirAttr) {
+  const S = STRINGS.painpoints;
+  const track = osPpTrack(c);
+  const isLow = track === 'lowtech';
+  const title = osPpPick(c, 'title', isHe);
+  const who = osPpPick(c, 'who', isHe);
+  const quote = osPpPick(c, 'quote', isHe);
+  const solution = osPpPick(c, 'solution', isHe);
+  const score = typeof c.score === 'number' ? c.score
+    : Math.round(((c.intensity || 0) + (c.frequency || 0) + (c.ease_of_build || 0) + (c.low_competition || 0)) / 4);
+  const sourcesList = Array.isArray(c.sources) ? c.sources.join(' ? ') : '';
+  const competitors = Array.isArray(c.competitors) ? c.competitors : [];
+
+  let body;
+  if (isLow) {
+    const L = S.lowtech;
+    const capital = [typeof c.startup_capital_usd === 'number' ? L.capitalValue(c.startup_capital_usd) : '',
+      osPpPick(c, 'startup_capital', isHe)].filter(Boolean).join(' ? ');
+    const pricing = [osPpPick(c, 'pricing', isHe),
+      typeof c.gross_margin_pct === 'number' ? L.margin(c.gross_margin_pct) : ''].filter(Boolean).join(' ? ');
+    body = `
+      <div class="pp-cluster-mvp">
+        ${osPpRow(S.solutionLabel, solution)}
+        ${osPpRow(L.roles, osPpPick(c, 'roles_to_hire', isHe))}
+        ${osPpRow(L.ai, osPpPick(c, 'ai_leverage', isHe))}
+      </div>
+      <div class="pp-lt-grid">
+        ${osPpRow(L.capital, capital)}
+        ${osPpRow(L.equipment, osPpPick(c, 'equipment_licensing', isHe))}
+        ${osPpRow(L.pricing, pricing)}
+        ${osPpRow(L.firstCustomers, osPpPick(c, 'first_customers', isHe))}
+        ${osPpRow(L.moat, osPpPick(c, 'moat', isHe))}
+        ${osPpRow(L.pilot, osPpPick(c, 'launch_plan', isHe))}
+      </div>`;
+  } else {
+    const pricing = osPpPick(c, 'pricing', isHe);
+    const stack = osPpPick(c, 'tech_stack', isHe);
+    body = `
+      <div class="pp-cluster-mvp">
+        ${osPpRow(S.solutionLabel, solution)}
+        ${osPpRow(S.mvpLabel, osPpPick(c, 'mvp', isHe))}
+        <div class="pp-mvp-meta">
+          ${pricing ? `<span><strong>${escapeHtml(S.pricingLabel)}:</strong> ${escapeHtml(pricing)}</span>` : ''}
+          ${stack ? `<span><strong>${escapeHtml(S.stackLabel)}:</strong> ${escapeHtml(stack)}</span>` : ''}
+        </div>
+      </div>`;
+  }
+
+  const extraBadges = isLow ? [
+    c.delivery_model && S.delivery[c.delivery_model],
+    c.market && S.market[c.market],
+  ].filter(Boolean).map(t => `<span class="pp-badge-meta">${escapeHtml(t)}</span>`).join('') : '';
+
+  return `
+    <article class="pp-cluster-card${isLow ? ' is-lowtech' : ''}" ${dirAttr}>
+      <div class="pp-cluster-head" dir="ltr">
+        <span class="pp-badge-track is-${track}">${escapeHtml(S.trackBadge[track])}</span>
+        <span class="pp-badge-cat">${escapeHtml(c.category || '')}</span>
+        ${extraBadges}
+        <span class="pp-badge-sources">${escapeHtml(sourcesList)} ? ${escapeHtml(S.metrics.mentions(c.mentions || 0))}</span>
+        <span class="pp-badge-score">${escapeHtml(String(score))}</span>
+      </div>
+      <h2 class="pp-cluster-title">${escapeHtml(title)}</h2>
+      ${who ? `<div class="pp-cluster-who"><strong>${escapeHtml(S.whoLabel)}:</strong> ${escapeHtml(who)}</div>` : ''}
+      ${quote ? `<blockquote class="pp-cluster-quote">"${escapeHtml(quote)}"${c.quote_url ? ` <a href="${escapeHtml(c.quote_url)}" target="_blank" rel="noopener noreferrer" class="pp-quote-link">${escapeHtml(S.sourceLinkLabel)} &rarr;</a>` : ''}</blockquote>` : ''}
+      ${body}
+      ${competitors.length ? `
+        <div class="pp-competitors">
+          <div class="sec-label">${escapeHtml(S.competitorsLabel)}</div>
+          <div class="pp-comp-list">
+            ${competitors.map(comp => `
+              <div class="pp-comp-item"><strong>${escapeHtml(comp.name || '')}:</strong> ${escapeHtml(isHe ? (comp.gap_he || comp.gap_en || '') : (comp.gap_en || comp.gap_he || ''))}</div>`).join('')}
+          </div>
+        </div>` : ''}
+      <div class="pp-metrics-bar" dir="ltr">
+        <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.intensity ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.intensity)}</span></div>
+        <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.frequency ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.frequency)}</span></div>
+        <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.ease_of_build ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(isLow ? S.lowtech.launchEase : S.metrics.ease)}</span></div>
+        <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.low_competition ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.competition)}</span></div>
+      </div>
+    </article>`;
 }
 
 function osPaintPainpoints(mount, data) {
@@ -189,94 +284,56 @@ function osPaintPainpoints(mount, data) {
   const dirAttr = isHe ? 'dir="rtl"' : 'dir="ltr"';
   const stats = data.stats || {};
   const bySource = stats.by_source
-    ? Object.entries(stats.by_source).map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(String(v))}`).join(' · ')
+    ? Object.entries(stats.by_source).map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(String(v))}`).join(' ? ')
     : '';
-  const summary = isHe ? (data.summary_he || data.summary_en || '') : (data.summary_en || data.summary_he || '');
+  const counts = { all: data.clusters.length, saas: 0, lowtech: 0 };
+  data.clusters.forEach(c => { counts[osPpTrack(c)] += 1; });
+  const track = osPainpointsTrack;
+  const shown = track === 'all' ? data.clusters : data.clusters.filter(c => osPpTrack(c) === track);
+
+  const sumMain = isHe ? (data.summary_he || data.summary_en || '') : (data.summary_en || data.summary_he || '');
+  const sumLow = isHe ? (data.summary_lowtech_he || data.summary_lowtech_en || '') : (data.summary_lowtech_en || data.summary_lowtech_he || '');
+  const summaries = track === 'saas' ? [sumMain] : track === 'lowtech' ? [sumLow] : [sumMain, sumLow];
 
   mount.innerHTML = `
     <div class="pp-toolbar">
-      <div class="sec-label">${escapeHtml(S.weekLabel(data.week || '', data.date || ''))}${bySource ? ` · ${bySource}` : ''}</div>
+      <div class="sec-label">${escapeHtml(S.weekLabel(data.week || '', data.date || ''))}${bySource ? ` ? ${bySource}` : ''}</div>
       <div class="pp-lang-switch">
         <button type="button" class="os-btn ${isHe ? 'is-active' : ''}" data-pp-lang="he">${escapeHtml(S.langToggleHe)}</button>
         <button type="button" class="os-btn ${!isHe ? 'is-active' : ''}" data-pp-lang="en">${escapeHtml(S.langToggleEn)}</button>
       </div>
     </div>
 
-    <div class="pp-stats-grid">
-      <div class="pp-stat-box">
-        <div class="sec-label">${escapeHtml(S.stats.raw)}</div>
-        <div class="pp-stat-num">${escapeHtml(String(stats.raw ?? 0))}</div>
-      </div>
-      <div class="pp-stat-box">
-        <div class="sec-label">${escapeHtml(S.stats.analyzed)}</div>
-        <div class="pp-stat-num">${escapeHtml(String(stats.analyzed ?? 0))}</div>
-      </div>
-      <div class="pp-stat-box">
-        <div class="sec-label">${escapeHtml(S.stats.pains)}</div>
-        <div class="pp-stat-num is-accent">${escapeHtml(String(stats.pains ?? 0))}</div>
-      </div>
-      <div class="pp-stat-box">
-        <div class="sec-label">${escapeHtml(S.stats.sources)}</div>
-        <div class="pp-stat-num is-up">${escapeHtml(String(stats.sources ?? 0))}</div>
-      </div>
+    <div class="os-window-tabs pp-track-tabs" role="tablist">
+      ${['all', 'saas', 'lowtech'].map(k => `
+        <button type="button" role="tab" aria-selected="${k === track}" class="os-window-btn${k === track ? ' is-active' : ''}" data-pp-track="${k}">
+          ${escapeHtml(S.filters[k])} <span class="pp-track-count mono">${escapeHtml(S.filters.count(counts[k]))}</span>
+        </button>`).join('')}
     </div>
 
-    ${summary ? `<p class="pp-summary" ${dirAttr}>${escapeHtml(summary)}</p>` : ''}
+    <div class="pp-stats-grid">
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(S.stats.raw)}</div><div class="pp-stat-num">${escapeHtml(String(stats.raw ?? 0))}</div></div>
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(S.stats.analyzed)}</div><div class="pp-stat-num">${escapeHtml(String(stats.analyzed ?? 0))}</div></div>
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(S.stats.pains)}</div><div class="pp-stat-num is-accent">${escapeHtml(String(stats.pains ?? 0))}</div></div>
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(S.stats.sources)}</div><div class="pp-stat-num is-up">${escapeHtml(String(stats.sources ?? 0))}</div></div>
+    </div>
+
+    ${summaries.filter(Boolean).map(s => `<p class="pp-summary" ${dirAttr}>${escapeHtml(s)}</p>`).join('')}
 
     <div class="pp-cluster-list">
-      ${data.clusters.map(c => {
-        const title = isHe ? (c.title_he || c.title_en) : (c.title_en || c.title_he);
-        const who = isHe ? (c.who_he || c.who_en) : (c.who_en || c.who_he);
-        const quote = isHe ? (c.quote_he || c.quote_en) : (c.quote_en || c.quote_he);
-        const solution = isHe ? (c.solution_he || c.solution_en) : (c.solution_en || c.solution_he);
-        const mvp = isHe ? (c.mvp_he || c.mvp_en) : (c.mvp_en || c.mvp_he);
-        const pricing = isHe ? (c.pricing_he || c.pricing_en) : (c.pricing_en || c.pricing_he);
-        const stack = isHe ? (c.tech_stack_he || c.tech_stack_en) : (c.tech_stack_en || c.tech_stack_he);
-        const avgScore = Math.round(((c.intensity || 0) + (c.frequency || 0) + (c.ease_of_build || 0) + (c.low_competition || 0)) / 4);
-        const sourcesList = Array.isArray(c.sources) ? c.sources.join(' · ') : '';
-        const competitors = Array.isArray(c.competitors) ? c.competitors : [];
-
-        return `
-          <article class="pp-cluster-card" ${dirAttr}>
-            <div class="pp-cluster-head" dir="ltr">
-              <span class="pp-badge-cat">${escapeHtml(c.category || '')}</span>
-              <span class="pp-badge-sources">${escapeHtml(sourcesList)} · ${escapeHtml(S.metrics.mentions(c.mentions || 0))}</span>
-              <span class="pp-badge-score">${escapeHtml(String(avgScore))}</span>
-            </div>
-            <h2 class="pp-cluster-title">${escapeHtml(title || '')}</h2>
-            ${who ? `<div class="pp-cluster-who"><strong>${escapeHtml(S.whoLabel)}:</strong> ${escapeHtml(who)}</div>` : ''}
-            ${quote ? `<blockquote class="pp-cluster-quote">"${escapeHtml(quote)}"${c.quote_url ? ` <a href="${escapeHtml(c.quote_url)}" target="_blank" rel="noopener noreferrer" class="pp-quote-link">${escapeHtml(S.sourceLinkLabel)} &rarr;</a>` : ''}</blockquote>` : ''}
-            <div class="pp-cluster-mvp">
-              <div class="pp-mvp-row"><strong>${escapeHtml(S.solutionLabel)}:</strong> ${escapeHtml(solution || '')}</div>
-              <div class="pp-mvp-row"><strong>${escapeHtml(S.mvpLabel)}:</strong> ${escapeHtml(mvp || '')}</div>
-              <div class="pp-mvp-meta">
-                ${pricing ? `<span><strong>${escapeHtml(S.pricingLabel)}:</strong> ${escapeHtml(pricing)}</span>` : ''}
-                ${stack ? `<span><strong>${escapeHtml(S.stackLabel)}:</strong> ${escapeHtml(stack)}</span>` : ''}
-              </div>
-            </div>
-            ${competitors.length ? `
-              <div class="pp-competitors">
-                <div class="sec-label">${escapeHtml(S.competitorsLabel)}</div>
-                <div class="pp-comp-list">
-                  ${competitors.map(comp => `
-                    <div class="pp-comp-item">
-                      <strong>${escapeHtml(comp.name || '')}:</strong> ${escapeHtml(isHe ? (comp.gap_he || comp.gap_en || '') : (comp.gap_en || comp.gap_he || ''))}
-                    </div>`).join('')}
-                </div>
-              </div>` : ''}
-            <div class="pp-metrics-bar" dir="ltr">
-              <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.intensity ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.intensity)}</span></div>
-              <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.frequency ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.frequency)}</span></div>
-              <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.ease_of_build ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.ease)}</span></div>
-              <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.low_competition ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.competition)}</span></div>
-            </div>
-          </article>`;
-      }).join('')}
+      ${shown.length ? shown.map(c => osPpCardHtml(c, isHe, dirAttr)).join('')
+        : `<div class="empty-state">${escapeHtml(S.filterEmpty)}</div>`}
     </div>`;
 
   mount.querySelectorAll('[data-pp-lang]').forEach(btn => {
     btn.addEventListener('click', () => {
       osPainpointsLang = btn.dataset.ppLang;
+      osPaintPainpoints(mount, data);
+    });
+  });
+  mount.querySelectorAll('[data-pp-track]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      osPainpointsTrack = btn.dataset.ppTrack;
       osPaintPainpoints(mount, data);
     });
   });

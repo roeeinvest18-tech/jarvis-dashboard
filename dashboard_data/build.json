@@ -2,19 +2,20 @@
   "variant": "public",
   "allowlist": [
     "breakout_alerts.json",
+    "painpoints.json",
     "scan.json",
     "scorecard.json",
     "trader_results.json"
   ],
   "withheld": [
     "cci_oversold.json",
-    "painpoints.json",
     "priority.json",
     "tasks.json",
     "trade_notes.json"
   ],
   "published": [
     "breakout_alerts.json",
+    "painpoints.json",
     "scan.json",
     "scorecard.json",
     "trader_results.json"
