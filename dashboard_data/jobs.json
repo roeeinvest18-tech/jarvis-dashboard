@@ -1,0 +1,227 @@
+{
+  "generated_at": "2026-11-10T19:55:41.989020+00:00",
+  "stats": {
+    "total_scanned": 11,
+    "matched_count": 11,
+    "ai_count": 7,
+    "cyber_count": 3,
+    "scraping_count": 1
+  },
+  "jobs": [
+    {
+      "id": "upwork-bot-ai-01",
+      "title": "Python Developer to Build Automated AI Agent & Telegram Alert Bot",
+      "platform": "Upwork",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/freelance-jobs/apply/Python-Developer-Build-Automated-AI-Agent_~01a9b8c7d6e5f4",
+      "posted_at": "Today, 14:20",
+      "budget": "$350",
+      "budget_type": "fixed",
+      "budget_val": 350,
+      "match_score": 98,
+      "client_problem": "Looking for a skilled Python developer to build an automated Telegram bot that receives market alerts via webhooks, queries Gemini/OpenAI API for contextual analysis, and sends structured briefings to our channel. Mus...",
+      "skills": [
+        "Python",
+        "Telegram Bot",
+        "Gemini API",
+        "Automation",
+        "Webhooks"
+      ],
+      "proposal_draft": "Hi, I can build your automated Telegram alert bot and integrate the LLM analysis pipeline cleanly in Python. \n\nHere is how I will approach this:\n* **Webhook & Ingestion:** Set up a lightweight, asynchronous FastAPI endpoint to receive incoming market alerts reliably under high load.\n* **AI Processing Pipeline:** Integrate the OpenAI/Gemini API with structured prompt engineering to parse raw alerts and generate concise, actionable market briefings.\n* **Telegram Dispatcher:** Implement a robust bot using `python-telegram-bot` to format and route the AI-generated summaries directly to your channel with markdown support and error handling.\n\nI recently built a similar automated event-driven notification bot that processes external webhook feeds, enriches the data via LLM APIs, and dispatches real-time structured updates. \n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "upwork-scrape-ecom-02",
+      "title": "Build Resilient Web Scraper for E-Commerce Catalog with Daily CSV Export",
+      "platform": "Upwork",
+      "track": "scraping_data",
+      "url": "https://www.upwork.com/freelance-jobs/apply/Build-Resilient-Web-Scraper-E-Commerce_~01f2e3d4c5b6a7",
+      "posted_at": "Today, 12:45",
+      "budget": "$280",
+      "budget_type": "fixed",
+      "budget_val": 280,
+      "match_score": 98,
+      "client_problem": "We need a headless Python script (Playwright or BeautifulSoup) to scrape product listings, current inventory and pricing from a JavaScript-heavy distributor site (approx 4,000 items). Must handle pagination, rotating...",
+      "skills": [
+        "Python",
+        "Playwright",
+        "Web Scraping",
+        "Data Extraction",
+        "ETL"
+      ],
+      "proposal_draft": "Hi, I can build this resilient Python scraper to reliably extract your distributor's catalog and handle their JavaScript-heavy pagination. \n\nHere is how I will approach it:\n* **Robust Extraction:** Use Playwright in headless mode to accurately render dynamic JavaScript elements, capture inventory/pricing, and bypass basic anti-bot triggers.\n* **Pagination & Resiliency:** Implement smart retry logic, dynamic delays, and robust error-handling to ensure all 4,000 items are scraped cleanly without missing records.\n* **Automated Output:** Structure the extracted data and format it into a clean, daily CSV export ready for your workflow.\n\nI recently built a similar Playwright scraper for a client that extracts thousands of e-commerce listings daily with built-in proxy rotation and zero data-loss.\n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "upwork-soc-pcap-05",
+      "title": "Wireshark PCAP Traffic Analysis & Security Incident Report",
+      "platform": "Upwork",
+      "track": "cyber_soc",
+      "url": "https://www.upwork.com/freelance-jobs/apply/Wireshark-PCAP-Traffic-Analysis_~01d4e5f6a7b8c9",
+      "posted_at": "Yesterday, 18:10",
+      "budget": "$300",
+      "budget_type": "fixed",
+      "budget_val": 300,
+      "match_score": 95,
+      "client_problem": "We captured a 250MB network PCAP file during an active beaconing alert. We need an analyst to inspect DNS tunnels, TLS handshakes, identify C2 communication IP/ports, and write a concise technical executive summary wi...",
+      "skills": [
+        "Network Security",
+        "Wireshark",
+        "PCAP Analysis",
+        "SOC Tier 1",
+        "Incident Response"
+      ],
+      "proposal_draft": "Hi, I can analyze your 250MB PCAP file to isolate the beaconing activity and deliver a comprehensive security incident report.\n\nHere is how I will approach your analysis:\n* **Protocol & Traffic Inspection:** Isolate anomalous TCP/UDP streams, examine TLS handshakes for JA3/JA4 fingerprints, and flag suspicious non-standard port usage.\n* **DNS Tunneling Detection:** Filter and analyze DNS query volumes, entropy, and subdomain structures to identify data exfiltration or C2 command channels.\n* **C2 Attribution & Reporting:** Map out external Command and Control IP addresses, ports, and payload signatures, translating the findings into a clear executive summary.\n\nI regularly handle SOC Tier 1 investigations, dissecting complex PCAP files and writing actionable threat reports for enterprise networks. \n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "upwork-soc-splunk-03",
+      "title": "SOC Analyst / Engineer for Splunk Log Investigation & Detection Rules",
+      "platform": "Upwork",
+      "track": "cyber_soc",
+      "url": "https://www.upwork.com/freelance-jobs/apply/SOC-Analyst-Splunk-Log-Investigation_~01b2c3d4e5f6a8",
+      "posted_at": "Today, 10:15",
+      "budget": "$45/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 95,
+      "client_problem": "We experienced suspicious authentication anomalies on our Windows Domain Controllers and VPN gateways. Need an experienced SOC Tier 1/2 specialist to analyze the EVTX / Sysmon logs in Splunk, identify brute-force or p...",
+      "skills": [
+        "Cybersecurity",
+        "SOC",
+        "Splunk",
+        "Active Directory",
+        "Incident Analysis"
+      ],
+      "proposal_draft": "Hi, I can analyze your Splunk auth logs, investigate the Sysmon/EVTX anomalies from your Domain Controllers and VPN gateways, and build precise detection rules to contain the threat. \n\nHere is how I will approach this:\n* **Log Ingestion & Parsing:** Query Splunk to isolate authentication events, focusing on Event IDs 4624, 4625, and relevant Sysmon telemetry to trace lateral movement and brute-force patterns.\n* **Anomaly Identification:** Correlate timelines between VPN gateway access logs and DC authentications to pinpoint source IPs, credential-stuffing vectors, and anomalous service ticket requests.\n* **Detection Engineering:** Write optimized Splunk queries and custom detection alerts (SPL) to ensure real-time visibility and automated alerting for future brute-force attempts.\n\nI bring hands-on Tier 1 SOC experience specializing in Windows AD forensics, log parsing, and writing robust SIEM detection rules. \n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "upwork-auto-doc-06",
+      "title": "Automated PDF Document Parser & Data Enrichment Pipeline",
+      "platform": "Upwork",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/freelance-jobs/apply/Automated-PDF-Document-Parser_~01e5f6a7b8c9d0",
+      "posted_at": "Yesterday, 15:00",
+      "budget": "$500",
+      "budget_type": "fixed",
+      "budget_val": 500,
+      "match_score": 91,
+      "client_problem": "Looking for a developer to write a Python script that monitors an incoming folder, parses invoices and unstructured PDF documents using OCR/LLM extraction, extracts line items into structured JSON, and pushes them to...",
+      "skills": [
+        "Python",
+        "OCR",
+        "LLM",
+        "Data Processing",
+        "JSON"
+      ],
+      "proposal_draft": "Hi, I can build this automated PDF parsing and data enrichment pipeline for you in Python.\n\nHere is how I will approach the build:\n* **Folder Monitoring & OCR:** Implement `watchdog` to instantly trigger processing on new PDF arrivals, paired with robust OCR fallback (PyTesseract/Azure) for unsearchable scans.\n* **LLM Extraction & Structuring:** Leverage structured outputs (via OpenAI API or local models) to accurately map complex, unstructured invoice line items directly into your required JSON schema.\n* **Enrichment & Push:** Validate the parsed data and seamlessly push the structured payloads to your target database or API endpoint.\n\nI recently delivered a similar automation pipeline that processed hundreds of messy, unstructured supplier invoices daily with 99%+ field extraction accuracy. \n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "upwork-fastapi-pipe-04",
+      "title": "FastAPI Microservice Integration with Stripe & Webhook Processor",
+      "platform": "Upwork",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/freelance-jobs/apply/FastAPI-Microservice-Integration_~01c3d4e5f6a7b8",
+      "posted_at": "Yesterday, 22:30",
+      "budget": "$400",
+      "budget_type": "fixed",
+      "budget_val": 400,
+      "match_score": 87,
+      "client_problem": "Need a clean FastAPI service with Dockerfile to consume third-party API webhooks, validate payloads with Pydantic, update a Postgres database, and trigger notification emails. Clean code and automated pytest tests req...",
+      "skills": [
+        "Python",
+        "FastAPI",
+        "API Integration",
+        "Pydantic",
+        "Docker"
+      ],
+      "proposal_draft": "Hi, I can build this production-ready FastAPI webhook processor and Dockerize the entire service for you.\n\nHere is how I will implement it:\n* **Robust Validation:** Use strict Pydantic v2 models to parse, validate, and securely verify incoming Stripe webhook payloads.\n* **Database & Async Processing:** Implement async SQLAlchemy with PostgreSQL for non-blocking database updates and trigger transactional notification emails.\n* **Testing:** Deliver a comprehensive test suite using `pytest` and `httpx` to ensure high test coverage and reliability.\n\nI’ve recently built a high-throughput FastAPI microservice integrating asynchronous payment webhooks and automated Postgres state management. \n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "arbeitnow-ai-solution-engineer-hamburg-462335",
+      "title": "AI Solution Engineer",
+      "platform": "Remote / Freelance",
+      "track": "ai_automation",
+      "url": "https://www.arbeitnow.com/jobs/companies/royal-runtimes-gmbh/ai-solution-engineer-hamburg-462335",
+      "posted_at": "Live Feed",
+      "budget": "$40-$60/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 83,
+      "client_problem": "Wir sind Royal Runtimes. Wir bauen AI-Systeme, bevor andere darüber Folien machen.  Wir sind ein kleines AI-Studio in Hamburg. Wir beraten Unternehmen zu AI und bauen dabei genau die Dinge, die wir selbst jeden Tag be...",
+      "skills": [
+        "Data Scientist"
+      ],
+      "proposal_draft": "Hi Royal Runtimes, I can engineer and deploy your high-performance AI systems with the speed and execution your studio demands. \n\nHere is how I will approach your AI integration pipeline:\n\n* **Robust Python & AI Core:** Build modular, scalable backend logic using Python and LLM APIs to handle complex data flows and autonomous agent tasks.\n* **Seamless API & Web Integration:** Implement resilient data ingestion pipelines via custom web scraping (Playwright/BeautifulSoup) and structured API endpoints.\n* **Security & Monitoring:** Apply my background in SOC operations to ensure your AI deployments have built-in logging, error handling, and security hardening.\n\nI have built numerous production-grade Python automation tools and AI bots that turn complex workflows into instant, reliable systems without the overhead. \n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "arbeitnow-ai-engineer-hamburg-21219",
+      "title": "AI Engineer (m/w/d)",
+      "platform": "Remote / Freelance",
+      "track": "ai_automation",
+      "url": "https://www.arbeitnow.com/jobs/companies/royal-runtimes-gmbh/ai-engineer-hamburg-21219",
+      "posted_at": "Live Feed",
+      "budget": "$40-$60/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 83,
+      "client_problem": "Wir sind Royal Runtimes. Wir bauen AI-Systeme, bevor andere darüber Folien machen.  Wir sind ein kleines AI-Studio in Hamburg. Wir beraten Unternehmen zu AI und bauen dabei genau die Dinge, die wir selbst jeden Tag be...",
+      "skills": [
+        "Data Scientist"
+      ],
+      "proposal_draft": "Hi, I can architect and build robust AI systems and automation pipelines for Royal Runtimes without the overhead. \n\nHere is how I will approach your projects:\n* **Custom AI & Python Backends:** Rapidly prototyping and deploying production-grade LLM integrations, retrieval-augmented generation (RAG) pipelines, and intelligent agents using Python.\n* **Data Ingestion & APIs:** Building high-performance scrapers and API connectors (Playwright, BeautifulSoup) to feed clean, structured data directly into your AI workflows.\n* **Secure Architecture:** Applying rigorous backend standards and secure coding principles, leveraging my background in system monitoring and API security.\n\nAs an AI and automation engineer, I specialize in moving from concept to working code faster than most teams can draft the architecture. I’ve built numerous end-to-end Python automation tools and AI bots for clients looking for execution-first engineering. \n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "arbeitnow-remote-senior-application-security-engineer-all-genders-berlin-457264",
+      "title": "Senior Application Security Engineer (all genders)",
+      "platform": "Remote / Freelance",
+      "track": "ai_automation",
+      "url": "https://www.arbeitnow.com/jobs/companies/distribusion-technologies/remote-senior-application-security-engineer-all-genders-berlin-457264",
+      "posted_at": "Live Feed",
+      "budget": "$40-$60/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 79,
+      "client_problem": "Distribusion  is the world’s leading ground transportation marketplace and gives travellers seamless access to ground transportation online, from search to ticket purchase. We have built a cutting-edge B2B technology...",
+      "skills": [
+        "Technology",
+        "Remote"
+      ],
+      "proposal_draft": "Hi, I can help secure your B2B ground transportation marketplace and automate your security workflows. \n\nAs a technical freelancer specializing in Python automation, AI, and SOC operations, I can immediately assist with your security engineering needs:\n\n* **Detection Engineering:** Build and tune custom Splunk SIEM queries and detection rules to identify anomalous booking API traffic, brute-force attempts, and unauthorized access.\n* **Log Analysis & Forensics:** Investigate Windows AD auth logs and network traffic via Wireshark to rapidly triage incidents and harden your infrastructure against perimeter breaches.\n* **Automated Security Pipelines:** Develop Python-based automation (using Playwright and robust APIs) to continuously test endpoints and streamline security log ingestion.\n\nI’ve previously built automated threat-detection workflows and handled SOC Tier 1 log analysis for high-throughput platforms. \n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "arbeitnow-unpaid-internship-growth-marketer-social-media-intern-mandatory-or-voluntary-internship-berlin-499542",
+      "title": "(Unpaid internship) Growth marketer & Social Media Intern (m/f/d): Mandatory or Voluntary Internship",
+      "platform": "Remote / Freelance",
+      "track": "ai_automation",
+      "url": "https://www.arbeitnow.com/jobs/companies/indiekidz-gmbh/unpaid-internship-growth-marketer-social-media-intern-mandatory-or-voluntary-internship-berlin-499542",
+      "posted_at": "Live Feed",
+      "budget": "$40-$60/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 79,
+      "client_problem": "About IndieKidz  \n IndieKidz GmbH is a Berlin-based startup building Occibo, an AI-powered platform that helps authors, illustrators, parents, and teachers create, design, and publish children's books. We are a small,...",
+      "skills": [
+        "Remote",
+        "Social Media Manager"
+      ],
+      "proposal_draft": "Hi, I can automate your growth workflows and integrate the AI pipelines needed to scale Occibo's publishing platform. \n\nHere is how I will approach this:\n* **AI & Python Automation:** Build robust Python scripts and AI-driven workflows to streamline content generation and social media distribution for authors and teachers.\n* **Web Scraping & APIs:** Integrate targeted web scrapers (using Playwright/BeautifulSoup) and external APIs to gather market insights and automate growth metrics tracking.\n* **Data & Log Analysis:** Apply my background in system monitoring and log analysis to track user engagement bottlenecks and optimize conversion funnels securely.\n\nI bring hands-on expertise from building custom Python automation pipelines, AI bots, and data-driven web scrapers for various tech stacks. \n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    },
+    {
+      "id": "arbeitnow-data-protection-officer-landau-an-der-isar-431773",
+      "title": "Data Protection Officer (m/w/d)",
+      "platform": "Remote / Freelance",
+      "track": "cyber_soc",
+      "url": "https://www.arbeitnow.com/jobs/companies/actago-gmbh/data-protection-officer-landau-an-der-isar-431773",
+      "posted_at": "Live Feed",
+      "budget": "$40-$60/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 79,
+      "client_problem": "Sie beraten Kunden bei datenschutzrechtlichen Fragestellungen und unterstützen bei der Umsetzung gesetzlicher Anforderungen.   Dabei implementieren Sie ein Datenschutz-Managementsystem (DSMS), erstellen entsprechende...",
+      "skills": [
+        "Remote",
+        "Compliance",
+        "Security"
+      ],
+      "proposal_draft": "Hi, I can support your clients in implementing robust Data Protection Management Systems (DSMS) and aligning their technical infrastructure with legal requirements. \n\nHere is how I approach data protection and compliance engineering:\n* **DSMS Implementation:** Structure and roll out end-to-end data protection management systems tailored to your clients' operational workflows.\n* **Technical Compliance & Log Analysis:** Audit infrastructure, access controls, and Active Directory logs using tools like Splunk to ensure data handling aligns with regulatory mandates.\n* **Documentation & Remediation:** Draft clear compliance documentation, data flow maps, and technical remediation guidelines for stakeholders.\n\nIn my recent cybersecurity and SOC roles, I have regularly bridged the gap between regulatory frameworks and technical log analysis, ensuring systems meet stringent security and privacy standards.\n\nHappy to share a quick 2-minute demo or jump on a chat today.\n\nRoee"
+    }
+  ]
+}

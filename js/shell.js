@@ -37,6 +37,7 @@ const SHELL_AREAS = [
       { id: 'memory', label: SHELL_TABS.memory, parentId: 'insights' },
       { id: 'history', label: SHELL_TABS.history, parentId: 'insights' },
       { id: 'painpoints', label: SHELL_TABS.painpoints },
+      { id: 'jobs', label: SHELL_TABS.jobs },
     ],
   },
   {

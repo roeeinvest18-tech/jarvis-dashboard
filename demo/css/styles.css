@@ -5444,3 +5444,212 @@ body::before {
   font-size: var(--fs-label);
   line-height: 1.45;
 }
+
+
+/* Gigs & Jobs Zone */
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+}
+
+.job-card {
+  background: var(--bg-card);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  transition: border-color 0.15s ease;
+}
+
+.job-card:hover {
+  border-color: var(--rule-mid);
+}
+
+.job-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.job-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.job-badge-match {
+  font-size: var(--fs-tag);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(138, 180, 248, 0.14);
+  color: #8ab4f8;
+  border: 1px solid rgba(138, 180, 248, 0.35);
+  font-weight: 500;
+}
+
+.job-badge-platform {
+  font-size: var(--fs-tag);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink2);
+  border: 1px solid var(--rule-soft);
+}
+
+.job-badge-budget {
+  font-size: var(--fs-tag);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(82, 196, 26, 0.12);
+  color: #73d13d;
+  border: 1px solid rgba(82, 196, 26, 0.3);
+  font-weight: 500;
+}
+
+.job-posted {
+  font-size: var(--fs-tag);
+  color: var(--ink3);
+}
+
+.job-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.job-client-need {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ink2);
+}
+
+.job-field-label {
+  font-size: var(--fs-tag);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--ink3);
+  margin-right: 6px;
+  font-weight: 600;
+}
+
+.job-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.job-skill-pill {
+  font-size: var(--fs-tag);
+  padding: 1px 7px;
+  border-radius: var(--r-sm);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink2);
+  border: 1px solid var(--rule-soft);
+}
+
+.job-actions-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-1);
+}
+
+.job-open-link {
+  font-size: 0.85rem;
+  color: #8ab4f8;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.job-open-link:hover {
+  text-decoration: underline;
+}
+
+.job-toggle-proposal-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--rule-soft);
+  color: var(--ink);
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  font-size: 0.82rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.job-toggle-proposal-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--rule-mid);
+}
+
+.job-chevron {
+  transition: transform 0.2s ease;
+}
+
+.job-toggle-proposal-btn.is-open .job-chevron {
+  transform: rotate(180deg);
+}
+
+.job-proposal-drawer {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-sm);
+  padding: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+
+.job-proposal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+
+.job-proposal-title {
+  font-size: var(--fs-tag);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink3);
+  font-weight: 600;
+}
+
+.job-copy-btn {
+  background: rgba(138, 180, 248, 0.15);
+  border: 1px solid rgba(138, 180, 248, 0.35);
+  color: #8ab4f8;
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+  font-size: var(--fs-tag);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.job-copy-btn:hover {
+  background: rgba(138, 180, 248, 0.25);
+}
+
+.job-copy-btn.is-copied {
+  background: rgba(82, 196, 26, 0.2);
+  border-color: rgba(82, 196, 26, 0.5);
+  color: #73d13d;
+}
+
+.job-proposal-text {
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink);
+  white-space: pre-wrap;
+  margin: 0;
+  user-select: all;
+}

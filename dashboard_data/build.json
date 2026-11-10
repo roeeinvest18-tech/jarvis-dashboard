@@ -2,6 +2,7 @@
   "variant": "public",
   "allowlist": [
     "breakout_alerts.json",
+    "jobs.json",
     "painpoints.json",
     "scan.json",
     "scorecard.json",
@@ -15,6 +16,7 @@
   ],
   "published": [
     "breakout_alerts.json",
+    "jobs.json",
     "painpoints.json",
     "scan.json",
     "scorecard.json",

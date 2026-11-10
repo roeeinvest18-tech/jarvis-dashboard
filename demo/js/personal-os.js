@@ -104,6 +104,7 @@ const OS_TAB_TITLES = {
   memory: 'Memory',
   history: 'History',
   painpoints: STRINGS.shell.tabs.painpoints,
+  jobs: STRINGS.shell.tabs.jobs,
 };
 
 const osShell = mountShell({
@@ -134,6 +135,7 @@ const osShell = mountShell({
       return;
     }
     if (tab === 'painpoints') { osRenderPainpoints(); return; }
+    if (tab === 'jobs') { osRenderJobs(); return; }
     osActiveTab = tab;
     renderOsActiveTab();
     osTriggerSync();
@@ -335,6 +337,191 @@ function osPaintPainpoints(mount, data) {
     btn.addEventListener('click', () => {
       osPainpointsTrack = btn.dataset.ppTrack;
       osPaintPainpoints(mount, data);
+    });
+  });
+}
+
+
+// -----------------------------------------------------------------------------
+// Gigs & Jobs (Upwork & Freelance Scanner)
+// -----------------------------------------------------------------------------
+
+var osJobsPayload = null;
+var osJobsFetched = false;
+var osJobsFilter = 'all';
+
+function osEnsureJobsMount() {
+  let mount = document.getElementById('panel-jobs');
+  if (!mount) {
+    const body = document.querySelector('.shell-body');
+    if (body) {
+      mount = document.createElement('section');
+      mount.setAttribute('data-shell-panel', 'jobs');
+      mount.id = 'panel-jobs';
+      const strip = document.getElementById('health-strip');
+      body.insertBefore(mount, strip || null);
+    }
+  }
+  return mount;
+}
+
+function osRenderJobs() {
+  const mount = osEnsureJobsMount();
+  if (!mount) return;
+  mount.hidden = false;
+  if (!osJobsFetched) {
+    osJobsFetched = true;
+    fetch('dashboard_data/jobs.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(r => (r.ok ? r.json() : null))
+      .then(payload => {
+        osJobsPayload = payload;
+        osPaintJobs(mount, payload);
+      })
+      .catch(() => osPaintJobs(mount, null));
+  } else {
+    osPaintJobs(mount, osJobsPayload);
+  }
+}
+
+function osJobCardHtml(job) {
+  const JOBS_S = STRINGJOBS_S.jobs;
+  const matchPct = job.match_score || 85;
+  const budget = job.budget || '$150';
+  const platform = job.platform || 'Upwork';
+  const track = job.track || 'ai_automation';
+  const skills = Array.isArray(job.skills) ? job.skills : [];
+  const jobId = String(job.id || Math.random().toString(36).slice(2));
+
+  return `
+    <article class="job-card" data-job-track="${escapeHtml(track)}">
+      <div class="job-card-head">
+        <div class="job-badges">
+          <span class="job-badge-match mono">${escapeHtml(JOBS_S.labels.matchScore(matchPct))}</span>
+          <span class="job-badge-platform">${escapeHtml(platform)}</span>
+          <span class="job-badge-budget mono">${escapeHtml(budget)}</span>
+        </div>
+        <div class="job-posted mono">${escapeHtml(job.posted_at || '')}</div>
+      </div>
+
+      <h3 class="job-title">${escapeHtml(job.title || '')}</h3>
+
+      <div class="job-client-need">
+        <span class="job-field-label">${escapeHtml(JOBS_S.labels.clientNeed)}:</span>
+        <span class="job-field-body">${escapeHtml(job.client_problem || '')}</span>
+      </div>
+
+      ${skills.length ? `
+        <div class="job-skills-list">
+          ${skills.map(s => `<span class="job-skill-pill">${escapeHtml(s)}</span>`).join('')}
+        </div>
+      ` : ''}
+
+      <div class="job-actions-row">
+        <a class="job-open-link" href="${escapeHtml(job.url || 'https://www.upwork.com')}" target="_blank" rel="noopener">
+          ${escapeHtml(JOBS_S.labels.openListing)} &rarr;
+        </a>
+        <button type="button" class="job-toggle-proposal-btn" data-proposal-toggle="${escapeHtml(jobId)}">
+          ${escapeHtml(JOBS_S.labels.proposalDraft)} <span class="job-chevron">&#9662;</span>
+        </button>
+      </div>
+
+      <div class="job-proposal-drawer" id="job-proposal-${escapeHtml(jobId)}" hidden>
+        <div class="job-proposal-header">
+          <span class="job-proposal-title">${escapeHtml(JOBS_S.labels.proposalDraft)}</span>
+          <button type="button" class="job-copy-btn" data-job-id="${escapeHtml(jobId)}">
+            ${escapeHtml(JOBS_S.labels.copyProposal)}
+          </button>
+        </div>
+        <pre class="job-proposal-text" id="job-proposal-text-${escapeHtml(jobId)}">${escapeHtml(job.proposal_draft || '')}</pre>
+      </div>
+    </article>
+  `;
+}
+
+function osPaintJobs(mount, data) {
+  const JOBS_S = STRINGJOBS_S.jobs;
+  if (!data || !Array.isArray(data.jobs) || !data.jobs.length) {
+    mount.innerHTML = `
+      <div class="pp-ghost">
+        <h2 class="serif pp-ghost-title">${escapeHtml(JOBS_S.ghostHeading)}</h2>
+        <p class="pp-ghost-sub">${escapeHtml(JOBS_S.ghostSub)}</p>
+      </div>`;
+    return;
+  }
+
+  const jobs = data.jobs;
+  const stats = data.stats || {};
+  const filter = osJobsFilter;
+  const counts = {
+    all: jobs.length,
+    ai_automation: stats.ai_count || jobs.filter(j => j.track === 'ai_automation').length,
+    cyber_soc: stats.cyber_count || jobs.filter(j => j.track === 'cyber_soc').length,
+    scraping_data: stats.scraping_count || jobs.filter(j => j.track === 'scraping_data').length,
+  };
+
+  const filtered = filter === 'all' ? jobs : jobs.filter(j => j.track === filter);
+
+  mount.innerHTML = `
+    <div class="pp-toolbar">
+      <div class="sec-label">${escapeHtml(JOBS_S.labels.scanned)}: ${escapeHtml(String(stats.total_scanned || jobs.length))}</div>
+    </div>
+
+    <div class="os-window-tabs pp-track-tabs" role="tablist">
+      ${['all', 'ai_automation', 'cyber_soc', 'scraping_data'].map(k => `
+        <button type="button" role="tab" aria-selected="${k === filter}" class="os-window-btn${k === filter ? ' is-active' : ''}" data-job-filter="${k}">
+          ${escapeHtml(JOBS_S.filters[k])} <span class="pp-track-count mono">${escapeHtml(JOBS_S.filters.count(counts[k] || 0))}</span>
+        </button>`).join('')}
+    </div>
+
+    <div class="pp-stats-grid">
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.scanned)}</div><div class="pp-stat-val mono">${escapeHtml(String(stats.total_scanned || jobs.length))}</div></div>
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.matched)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.all))}</div></div>
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.ai)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.ai_automation))}</div></div>
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.cyber)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.cyber_soc))}</div></div>
+    </div>
+
+    <div class="job-list">
+      ${filtered.length ? filtered.map(j => osJobCardHtml(j)).join('')
+        : `<div class="empty-state">${escapeHtml(JOBS_S.filterEmpty)}</div>`}
+    </div>
+  `;
+
+  // Filter click handlers
+  mount.querySelectorAll('[data-job-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      osJobsFilter = btn.dataset.jobFilter;
+      osPaintJobs(mount, data);
+    });
+  });
+
+  // Proposal toggle handlers
+  mount.querySelectorAll('[data-proposal-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.proposalToggle;
+      const drawer = mount.querySelector('#job-proposal-' + id);
+      if (drawer) {
+        drawer.hidden = !drawer.hidden;
+        btn.classList.toggle('is-open', !drawer.hidden);
+      }
+    });
+  });
+
+  // Copy proposal handlers
+  mount.querySelectorAll('.job-copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.jobId;
+      const textEl = mount.querySelector('#job-proposal-text-' + id);
+      if (textEl && navigator.clipboard) {
+        navigator.clipboard.writeText(textEl.textContent).then(() => {
+          const original = btn.textContent;
+          btn.textContent = JOBS_S.labels.copied;
+          btn.classList.add('is-copied');
+          setTimeout(() => {
+            btn.textContent = original;
+            btn.classList.remove('is-copied');
+          }, 2000);
+        });
+      }
     });
   });
 }
