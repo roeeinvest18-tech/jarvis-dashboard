@@ -1,31 +1,17 @@
-# Jarvis Dashboard (public mirror)
+# Jarvis OS Dashboard
+[![Live App](https://img.shields.io/badge/Live_Dashboard-GitHub_Pages-blue)](https://roeeinvest18-tech.github.io/jarvis-dashboard/)
+[![License](https://img.shields.io/badge/License-Proprietary-gray.svg)](#)
 
-Static hosting for the Jarvis PWA. **Generated — do not edit by hand.**
+Public deployment and client mirror of **JARVIS** — an autonomous multi-agent operating system, quantitative market scanner, and threat intelligence engine running 24/7 on $0 infrastructure.
 
-Everything here is published from the private `morning-scout` repo by its
-`sync_dashboard.yml` workflow.
+**Live Application:** [https://roeeinvest18-tech.github.io/jarvis-dashboard/](https://roeeinvest18-tech.github.io/jarvis-dashboard/)
 
-## What is published here
+---
 
-Only the trading scan output:
+## Systems & Live Architecture
 
-- `dashboard_data/scan.json` — nightly breakout / zone-reclaim scan
-- `dashboard_data/cci_oversold.json` — CCI oversold watchlist
-
-Publication is **deny-by-default**: `build_pwa.PUBLIC_DATA_ALLOWLIST` in the
-private repo names the only files allowed to leave it, and a self-test
-asserts the personal feeds (positions and exit theses, task titles, email
-subjects, calendar entries) are withheld. A new feed added upstream is not
-published unless it is added to that allowlist deliberately.
-
-The app hides any zone whose data is absent, so this renders as a clean
-trading dashboard rather than a broken version of the full one.
-
-## Full version
-
-The complete Jarvis view — tasks, email, calendar, exit theses — runs
-locally from the private repo:
-
-```bash
-python build_pwa.py --serve
-```
+* **Autonomous Freelance Opportunity Agent:** Ingests live client postings, applies deterministic criteria, and synthesizes zero-hallucination bids answering specific client screening prompts with Gemini LLM.
+* **Autonomous Cyber & AI Threat Intelligence:** Scans leading research feeds (The Hacker News, BleepingComputer, Hugging Face), performs autonomous credibility evaluations, and synthesizes ready-to-publish technical articles in natural Hebrew.
+* **Deterministic Quantitative Scanner:** Analyzes a 1,330-ticker universe nightly using the Zone Reclaim algorithm (150-day SMA, CCI(20) oversold reversal, 2+ structure touches) with a strict 3-item Silence Budget to eliminate noise.
+* **Deny-by-Default Security Boundary:** Private execution credentials, broker keys, and internal state are strictly withheld by an automated adversarial publish guard.
+* **Zero-Framework High-Performance PWA:** Sub-second offline-first client powered by custom vanilla JavaScript and the Nocturne design system.
