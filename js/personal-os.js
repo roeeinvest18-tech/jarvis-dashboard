@@ -349,6 +349,7 @@ function osPaintPainpoints(mount, data) {
 var osJobsPayload = null;
 var osJobsFetched = false;
 var osJobsFilter = 'all';
+var osJobsBudgetFilter = 'all';
 
 function osEnsureJobsMount() {
   let mount = document.getElementById('panel-jobs');
@@ -386,6 +387,7 @@ function osRenderJobs() {
 function osJobCardHtml(job) {
   const JOBS_S = STRINGS.jobs;
   const matchPct = job.match_score || 85;
+  const isTopMatch = matchPct >= 95;
   const budget = job.budget || '$150';
   const platform = job.platform || 'Upwork';
   const track = job.track || 'ai_automation';
@@ -393,9 +395,10 @@ function osJobCardHtml(job) {
   const jobId = String(job.id || Math.random().toString(36).slice(2));
 
   return `
-    <article class="job-card" data-job-track="${escapeHtml(track)}">
+    <article class="job-card${isTopMatch ? ' is-top-match' : ''}" data-job-track="${escapeHtml(track)}">
       <div class="job-card-head">
         <div class="job-badges">
+          ${isTopMatch ? `<span class="job-badge-top mono">${escapeHtml(JOBS_S.labels.topMatch)}</span>` : ''}
           <span class="job-badge-match mono">${escapeHtml(JOBS_S.labels.matchScore(matchPct))}</span>
           <span class="job-badge-platform">${escapeHtml(platform)}</span>
           <span class="job-badge-budget mono">${escapeHtml(budget)}</span>
@@ -452,6 +455,7 @@ function osPaintJobs(mount, data) {
   const jobs = data.jobs;
   const stats = data.stats || {};
   const filter = osJobsFilter;
+  const budgetFilter = osJobsBudgetFilter;
   const counts = {
     all: jobs.length,
     ai_automation: stats.ai_count || jobs.filter(j => j.track === 'ai_automation').length,
@@ -459,7 +463,12 @@ function osPaintJobs(mount, data) {
     scraping_data: stats.scraping_count || jobs.filter(j => j.track === 'scraping_data').length,
   };
 
-  const filtered = filter === 'all' ? jobs : jobs.filter(j => j.track === filter);
+  const filtered = jobs.filter(j => {
+    const matchTrack = filter === 'all' || j.track === filter;
+    const jType = j.job_type || (j.budget && j.budget.indexOf('/hr') !== -1 ? 'hourly' : 'fixed');
+    const matchBudget = budgetFilter === 'all' || jType === budgetFilter;
+    return matchTrack && matchBudget;
+  });
 
   mount.innerHTML = `
     <div class="pp-toolbar">
@@ -470,6 +479,13 @@ function osPaintJobs(mount, data) {
       ${['all', 'ai_automation', 'cyber_soc', 'scraping_data'].map(k => `
         <button type="button" role="tab" aria-selected="${k === filter}" class="os-window-btn${k === filter ? ' is-active' : ''}" data-job-filter="${k}">
           ${escapeHtml(JOBS_S.filters[k])} <span class="pp-track-count mono">${escapeHtml(JOBS_S.filters.count(counts[k] || 0))}</span>
+        </button>`).join('')}
+    </div>
+
+    <div class="job-subfilters" role="tablist">
+      ${['all', 'fixed', 'hourly'].map(b => `
+        <button type="button" role="tab" aria-selected="${b === budgetFilter}" class="job-subfilter-btn${b === budgetFilter ? ' is-active' : ''}" data-job-budget-filter="${b}">
+          ${escapeHtml(JOBS_S.budgetFilters[b])}
         </button>`).join('')}
     </div>
 
@@ -490,6 +506,14 @@ function osPaintJobs(mount, data) {
   mount.querySelectorAll('[data-job-filter]').forEach(btn => {
     btn.addEventListener('click', () => {
       osJobsFilter = btn.dataset.jobFilter;
+      osPaintJobs(mount, data);
+    });
+  });
+
+  // Budget filter click handlers
+  mount.querySelectorAll('[data-job-budget-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      osJobsBudgetFilter = btn.dataset.jobBudgetFilter;
       osPaintJobs(mount, data);
     });
   });

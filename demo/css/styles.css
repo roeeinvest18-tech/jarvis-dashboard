@@ -5483,6 +5483,52 @@ body::before {
   gap: var(--sp-2);
 }
 
+.job-badge-top {
+  font-size: var(--fs-tag);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(250, 173, 20, 0.16);
+  color: #ffc069;
+  border: 1px solid rgba(250, 173, 20, 0.45);
+  font-weight: 600;
+}
+
+.job-card.is-top-match {
+  border-color: rgba(250, 173, 20, 0.25);
+  box-shadow: 0 0 12px rgba(250, 173, 20, 0.04);
+}
+
+.job-subfilters {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+
+.job-subfilter-btn {
+  background: transparent;
+  border: 1px solid var(--rule-soft);
+  color: var(--ink2);
+  font-size: var(--fs-tag);
+  padding: 4px 12px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.job-subfilter-btn:hover {
+  border-color: var(--rule-mid);
+  color: var(--ink);
+}
+
+.job-subfilter-btn.is-active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--ink);
+  color: var(--ink);
+  font-weight: 500;
+}
+
 .job-badge-match {
   font-size: var(--fs-tag);
   padding: 2px 8px;

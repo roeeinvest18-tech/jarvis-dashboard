@@ -1073,9 +1073,15 @@ const STRINGS = {
       scraping_data: 'Scraping & Data',
       count: (n) => String(n),
     },
+    budgetFilters: {
+      all: 'All formats',
+      fixed: 'Fixed price',
+      hourly: 'Hourly rate',
+    },
     filterEmpty: 'No opportunities in this category yet. New matches appear on next scan.',
     labels: {
       matchScore: (pct) => String(pct) + '% match',
+      topMatch: 'Top match',
       clientNeed: 'Client need',
       skills: 'Skills',
       proposalDraft: 'AI proposal draft',
