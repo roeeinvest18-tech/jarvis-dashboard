@@ -10,6 +10,7 @@
   ],
   "withheld": [
     "cci_oversold.json",
+    "linkedin_posts.json",
     "priority.json",
     "tasks.json",
     "trade_notes.json"

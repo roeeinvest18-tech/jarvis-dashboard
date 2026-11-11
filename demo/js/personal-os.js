@@ -134,8 +134,27 @@ const osShell = mountShell({
       if (settled) osRunPendingAction(tab);
       return;
     }
-    if (tab === 'painpoints') { osRenderPainpoints(); return; }
-    if (tab === 'jobs') { osRenderJobs(); return; }
+    if (tab === 'painpoints') {
+      const jb = document.getElementById('panel-jobs'); if (jb) jb.hidden = true;
+      const cn = document.getElementById('panel-content'); if (cn) cn.hidden = true;
+      osRenderPainpoints();
+      return;
+    }
+    if (tab === 'jobs') {
+      const pp = document.getElementById('panel-painpoints'); if (pp) pp.hidden = true;
+      const cn = document.getElementById('panel-content'); if (cn) cn.hidden = true;
+      osRenderJobs();
+      return;
+    }
+    if (tab === 'content') {
+      const pp = document.getElementById('panel-painpoints'); if (pp) pp.hidden = true;
+      const jb = document.getElementById('panel-jobs'); if (jb) jb.hidden = true;
+      osRenderContent();
+      return;
+    }
+    const pp = document.getElementById('panel-painpoints'); if (pp) pp.hidden = true;
+    const jb = document.getElementById('panel-jobs'); if (jb) jb.hidden = true;
+    const cn = document.getElementById('panel-content'); if (cn) cn.hidden = true;
     osActiveTab = tab;
     renderOsActiveTab();
     osTriggerSync();
@@ -539,6 +558,188 @@ function osPaintJobs(mount, data) {
         navigator.clipboard.writeText(textEl.textContent).then(() => {
           const original = btn.textContent;
           btn.textContent = JOBS_S.labels.copied;
+          btn.classList.add('is-copied');
+          setTimeout(() => {
+            btn.textContent = original;
+            btn.classList.remove('is-copied');
+          }, 2000);
+        });
+      }
+    });
+  });
+}
+
+/* --- Content Creator / LinkedIn Agent --------------------------------- */
+var osContentPayload = null;
+var osContentFetched = false;
+var osContentFilter = 'all';
+
+function osEnsureContentMount() {
+  let mount = document.getElementById('panel-content');
+  if (!mount) {
+    const body = document.querySelector('.shell-body');
+    if (body) {
+      mount = document.createElement('section');
+      mount.setAttribute('data-shell-panel', 'content');
+      mount.id = 'panel-content';
+      const strip = document.getElementById('health-strip');
+      body.insertBefore(mount, strip || null);
+    }
+  }
+  return mount;
+}
+
+function osRenderContent() {
+  const mount = osEnsureContentMount();
+  if (!mount) return;
+  mount.hidden = false;
+  const pp = document.getElementById('panel-painpoints'); if (pp) pp.hidden = true;
+  const jb = document.getElementById('panel-jobs'); if (jb) jb.hidden = true;
+
+  if (!osContentFetched) {
+    osContentFetched = true;
+    fetch('dashboard_data/linkedin_posts.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(r => (r.ok ? r.json() : null))
+      .then(payload => {
+        osContentPayload = payload;
+        osPaintContent(mount, payload);
+      })
+      .catch(() => osPaintContent(mount, null));
+  } else {
+    osPaintContent(mount, osContentPayload);
+  }
+}
+
+function osContentCardHtml(post) {
+  const CONTENT_S = STRINGS.content;
+  const category = post.category || 'cyber_soc';
+  const categoryLabels = {
+    cyber_soc: 'Cyber & SOC',
+    ai_agents: 'AI & Agents',
+    automation: 'Automation',
+    tech_dev: 'Tech & Dev'
+  };
+  const categoryLabel = categoryLabels[category] || category;
+  const postId = String(post.id || Math.random().toString(36).slice(2));
+
+  return `
+    <article class="content-card" data-content-track="${escapeHtml(category)}">
+      <div class="content-card-head">
+        <div class="content-badges">
+          <span class="content-badge-cat mono">${escapeHtml(categoryLabel)}</span>
+          <span class="content-badge-platform">${escapeHtml(post.source_platform || 'Tech News')}</span>
+        </div>
+        <div class="content-posted mono">${escapeHtml(post.posted_at || 'Today')}</div>
+      </div>
+
+      <h3 class="content-title">${escapeHtml(post.topic || '')}</h3>
+
+      <div class="content-intel-box">
+        <div class="content-intel-head">
+          <span class="content-intel-kicker">${escapeHtml(CONTENT_S.labels.credibility)}:</span>
+          <span class="content-intel-score mono">${escapeHtml(post.credibility_score || '9/10')}</span>
+        </div>
+        <p class="content-intel-rationale">${escapeHtml(post.credibility_rationale || '')}</p>
+      </div>
+
+      <div class="content-post-box" dir="rtl">
+        <div class="content-post-header">
+          <span class="content-post-badge">${escapeHtml(CONTENT_S.labels.draftedPost)}</span>
+          <button type="button" class="content-copy-btn" data-post-id="${escapeHtml(postId)}">
+            ${escapeHtml(CONTENT_S.labels.copyPost)}
+          </button>
+        </div>
+        <pre class="content-post-text" id="post-text-${escapeHtml(postId)}">${escapeHtml(post.linkedin_post || '')}</pre>
+      </div>
+
+      <div class="content-actions-row">
+        <a class="content-source-link" href="${escapeHtml(post.source_url || '#')}" target="_blank" rel="noopener">
+          ${escapeHtml(CONTENT_S.labels.openSource)} &rarr;
+        </a>
+        <a class="content-linkedin-link" href="https://www.linkedin.com/feed/" target="_blank" rel="noopener">
+          ${escapeHtml(CONTENT_S.labels.openLinkedIn)} &rarr;
+        </a>
+      </div>
+    </article>
+  `;
+}
+
+function osPaintContent(mount, data) {
+  const CONTENT_S = STRINGS.content;
+  if (!data || !Array.isArray(data.posts) || !data.posts.length) {
+    mount.innerHTML = `
+      <div class="pp-ghost">
+        <h2 class="serif pp-ghost-title">${escapeHtml(CONTENT_S.ghostHeading)}</h2>
+        <p class="pp-ghost-sub">${escapeHtml(CONTENT_S.ghostSub)}</p>
+      </div>
+    `;
+    return;
+  }
+
+  const posts = data.posts;
+  const stats = data.stats || {};
+  const totalDrafted = stats.total_drafted || posts.length;
+  const cyberCount = stats.cyber_count || posts.filter(p => p.category === 'cyber_soc').length;
+  const aiCount = stats.ai_count || posts.filter(p => p.category === 'ai_agents').length;
+
+  const filteredPosts = posts.filter(p => {
+    if (osContentFilter === 'all') return true;
+    return p.category === osContentFilter;
+  });
+
+  const filterKeys = [
+    ['all', CONTENT_S.filters.all, totalDrafted],
+    ['cyber_soc', CONTENT_S.filters.cyber_soc, cyberCount],
+    ['ai_agents', CONTENT_S.filters.ai_agents, aiCount],
+  ];
+
+  mount.innerHTML = `
+    <div class="jobs-summary-strip">
+      <div class="jobs-stat">
+        <span class="jobs-stat-label">${escapeHtml(CONTENT_S.stats.total)}</span>
+        <span class="jobs-stat-value mono">${totalDrafted}</span>
+      </div>
+      <div class="jobs-stat">
+        <span class="jobs-stat-label">${escapeHtml(CONTENT_S.stats.cyber)}</span>
+        <span class="jobs-stat-value mono">${cyberCount}</span>
+      </div>
+      <div class="jobs-stat">
+        <span class="jobs-stat-label">${escapeHtml(CONTENT_S.stats.ai)}</span>
+        <span class="jobs-stat-value mono">${aiCount}</span>
+      </div>
+    </div>
+
+    <div class="pp-track-pills">
+      ${filterKeys.map(([k, label, count]) => `
+        <button type="button" class="pp-pill ${osContentFilter === k ? 'is-active' : ''}" data-content-filter="${escapeHtml(k)}">
+          <span>${escapeHtml(label)}</span>
+          <span class="pp-pill-count mono">${count}</span>
+        </button>
+      `).join('')}
+    </div>
+
+    <div class="content-feed">
+      ${filteredPosts.length ? filteredPosts.map(osContentCardHtml).join('') : `<p class="pp-filter-empty">${escapeHtml(CONTENT_S.ghostSub)}</p>`}
+    </div>
+  `;
+
+  // Filter button handlers
+  mount.querySelectorAll('[data-content-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      osContentFilter = btn.dataset.contentFilter;
+      osPaintContent(mount, data);
+    });
+  });
+
+  // Copy post handlers
+  mount.querySelectorAll('.content-copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.postId;
+      const textEl = mount.querySelector('#post-text-' + id);
+      if (textEl && navigator.clipboard) {
+        navigator.clipboard.writeText(textEl.textContent).then(() => {
+          const original = btn.textContent;
+          btn.textContent = CONTENT_S.labels.copied;
           btn.classList.add('is-copied');
           setTimeout(() => {
             btn.textContent = original;

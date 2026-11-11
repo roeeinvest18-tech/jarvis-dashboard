@@ -38,6 +38,7 @@ const SHELL_AREAS = [
       { id: 'history', label: SHELL_TABS.history, parentId: 'insights' },
       { id: 'painpoints', label: SHELL_TABS.painpoints },
       { id: 'jobs', label: SHELL_TABS.jobs },
+      { id: 'content', label: SHELL_TABS.content },
     ],
   },
   {
@@ -245,8 +246,8 @@ function renderShellSubTabs(mount, area, activeTabId, onTabChange) {
 // everything around it (nav, eyebrow, sub-tabs, persistence, hash sync).
 function mountShell({ areaId, titleFor, render }) {
   if (typeof window !== 'undefined' && areaId === 'os' && (typeof osRenderPainpoints === 'undefined' || typeof osRenderJobs === 'undefined' || typeof NUTRITION === 'undefined')) {
-    if (!sessionStorage.getItem('jarvis:cache-healed-v52')) {
-      sessionStorage.setItem('jarvis:cache-healed-v52', '1');
+    if (!sessionStorage.getItem('jarvis:cache-healed-v53')) {
+      sessionStorage.setItem('jarvis:cache-healed-v53', '1');
       const healAssets = [
         './', 'index.html', 'trading.html', 'css/styles.css', 'js/strings.js',
         'js/icons.js', 'js/data.js', 'js/shell.js', 'js/components.js',
