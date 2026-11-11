@@ -107,7 +107,7 @@ const DAILY_MIND_METRICS = [
 ];
 
 const DAILY_DEFAULT_SETTINGS = {
-  protein_target_g: 150,
+  protein_target_g: 165,
   water_target_l: 2.5,
   supplements: [{ id: 'creatine', label: DAILY_HABIT_LABELS.creatine }],
 };

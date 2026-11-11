@@ -244,13 +244,13 @@ function renderShellSubTabs(mount, area, activeTabId, onTabChange) {
 // supplies a `render(tabId)` that draws the active panel; the shell owns
 // everything around it (nav, eyebrow, sub-tabs, persistence, hash sync).
 function mountShell({ areaId, titleFor, render }) {
-  if (typeof window !== 'undefined' && areaId === 'os' && (typeof osRenderPainpoints === 'undefined' || typeof osRenderJobs === 'undefined')) {
-    if (!sessionStorage.getItem('jarvis:cache-healed-v51')) {
-      sessionStorage.setItem('jarvis:cache-healed-v51', '1');
+  if (typeof window !== 'undefined' && areaId === 'os' && (typeof osRenderPainpoints === 'undefined' || typeof osRenderJobs === 'undefined' || typeof NUTRITION === 'undefined')) {
+    if (!sessionStorage.getItem('jarvis:cache-healed-v52')) {
+      sessionStorage.setItem('jarvis:cache-healed-v52', '1');
       const healAssets = [
         './', 'index.html', 'trading.html', 'css/styles.css', 'js/strings.js',
         'js/icons.js', 'js/data.js', 'js/shell.js', 'js/components.js',
-        'js/schedule-config.js', 'js/daily.js', 'js/daily-today.js', 'js/os.js',
+        'js/schedule-config.js', 'js/daily.js', 'js/nutrition.js', 'js/daily-today.js', 'js/os.js',
         'js/personal-os.js', 'js/training-hints.js', 'js/training.js',
         'js/program.js', 'js/workout.js', 'js/workout-ui.js', 'js/market-calendar.js',
         'js/health.js', 'js/trading-logic.js', 'js/account.js', 'js/trading.js',

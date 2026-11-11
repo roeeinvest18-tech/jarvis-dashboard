@@ -258,6 +258,19 @@ function dailyDateNavHtml(date) {
     </nav>`;
 }
 
+function dailyNutritionPillHtml(date) {
+  if (typeof NUTRITION === 'undefined') return '';
+  const state = NUTRITION.getNutritionState(date);
+  const totals = NUTRITION.calculateTotals(state);
+  return `
+    <div style="margin: 0 0 var(--sp-3);">
+      <button type="button" class="today-nutrition-pill" data-daily-open-nutrition>
+        <span aria-hidden="true">&#129367;</span>
+        <span>Nutrition &amp; Macros: <strong class="mono">${totals.total_protein}g pro</strong> &middot; <span class="mono">${totals.total_calories} kcal</span></span>
+      </button>
+    </div>`;
+}
+
 function dailySleepCardHtml(record) {
   const mins = dailySleepDurationMinutes(record.sleep_start, record.wake_time);
   if (mins === null) {
@@ -338,6 +351,8 @@ function renderDailyToday() {
 
     ${dailySleepCardHtml(record)}
 
+    ${dailyNutritionPillHtml(date)}
+
     ${DAILY_SCHEDULE.map(group => dailyScheduleGroupHtml(group, record, settings, trainingDay)
       + (group.id === 'morning' ? dailyFollowupsHtml(record) : '')).join('')}
 
@@ -380,6 +395,14 @@ function renderDailyToday() {
 function wireDailyToday() {
   const mount = document.getElementById('panel-today');
   if (!mount) return;
+
+  mount.querySelectorAll('[data-daily-open-nutrition]').forEach(btn => {
+    btn.onclick = () => {
+      if (typeof NUTRITION !== 'undefined') {
+        NUTRITION.openNutritionModal(dailyCurrentDate());
+      }
+    };
+  });
 
   mount.querySelectorAll('[data-daily-toggle]').forEach(btn => {
     btn.addEventListener('click', () => {
