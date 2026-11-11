@@ -5352,10 +5352,10 @@ body::before {
 }
 .setup-plan-sub {
   color: var(--ink2);
-  font-size: var(--fs-tag);
+  font-size: var(--fs-label);
 }
 .setup-plan-badge {
-  font-size: var(--fs-tag);
+  font-size: var(--fs-label);
   padding: 1px 6px;
   border-radius: 999px;
   white-space: nowrap;
@@ -5377,7 +5377,7 @@ body::before {
   border-radius: var(--r-sm);
   color: var(--mark-hi);
   font-family: var(--font-mono);
-  font-size: var(--fs-tag);
+  font-size: var(--fs-label);
   padding: 2px 8px;
   cursor: pointer;
 }
@@ -5484,7 +5484,7 @@ body::before {
 }
 
 .job-badge-top {
-  font-size: var(--fs-tag);
+  font-size: var(--fs-label);
   padding: 2px 8px;
   border-radius: 999px;
   background: rgba(250, 173, 20, 0.16);
@@ -5510,7 +5510,7 @@ body::before {
   background: transparent;
   border: 1px solid var(--rule-soft);
   color: var(--ink2);
-  font-size: var(--fs-tag);
+  font-size: var(--fs-label);
   padding: 4px 12px;
   border-radius: var(--r-sm);
   cursor: pointer;
@@ -5530,7 +5530,7 @@ body::before {
 }
 
 .job-badge-match {
-  font-size: var(--fs-tag);
+  font-size: var(--fs-label);
   padding: 2px 8px;
   border-radius: 999px;
   background: rgba(138, 180, 248, 0.14);
@@ -5540,7 +5540,7 @@ body::before {
 }
 
 .job-badge-platform {
-  font-size: var(--fs-tag);
+  font-size: var(--fs-label);
   padding: 2px 8px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.05);
@@ -5549,7 +5549,7 @@ body::before {
 }
 
 .job-badge-budget {
-  font-size: var(--fs-tag);
+  font-size: var(--fs-label);
   padding: 2px 8px;
   border-radius: 999px;
   background: rgba(82, 196, 26, 0.12);

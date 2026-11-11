@@ -313,6 +313,7 @@ function mountShell({ areaId, titleFor, render }) {
       }
       if (typeof workoutMigrateOnce === 'function') workoutMigrateOnce(null);
       renderWorkoutZone();
+      if (typeof osRunPendingAction === 'function') osRunPendingAction(activeTab);
       return;
     }
     if (areaId === 'os' && activeTab === 'painpoints') {
