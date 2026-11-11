@@ -1,5 +1,5 @@
 // nutrition.js - Jarvis OS Nutrition & Macro Hub
-// Lean bulk target: 165g protein / 3,050 kcal with custom and verified food tracking.
+// Lean bulk target: 165g protein / 3,050 kcal with custom, verified, searchable food tracking.
 
 (function () {
   'use strict';
@@ -10,23 +10,50 @@
   };
 
   const NUTRITION_PRESETS = [
-    { id: 'egg_m', label: 'Egg (Medium - M)', protein: 6.3, calories: 68, unit: 'unit' },
-    { id: 'egg_l', label: 'Egg (Large - L)', protein: 7.2, calories: 76, unit: 'unit' },
-    { id: 'egg_xl', label: 'Egg (XL)', protein: 8.1, calories: 86, unit: 'unit' },
-    { id: 'egg_whites', label: 'Egg whites (100g)', protein: 11.0, calories: 52, unit: '100g' },
-    { id: 'chicken_100', label: 'Chicken breast cooked (100g)', protein: 31.0, calories: 165, unit: '100g' },
-    { id: 'chicken_200', label: 'Chicken breast cooked (200g)', protein: 62.0, calories: 330, unit: '200g' },
-    { id: 'tuna_can', label: 'Canned tuna in water (112g)', protein: 28.0, calories: 120, unit: 'can' },
-    { id: 'cottage_100', label: 'Cottage cheese 5% (100g)', protein: 11.0, calories: 95, unit: '100g' },
-    { id: 'cottage_tub', label: 'Cottage cheese 5% (250g tub)', protein: 27.5, calories: 237, unit: 'tub' },
-    { id: 'whey_scoop', label: 'Whey protein scoop (30g)', protein: 24.0, calories: 120, unit: 'scoop' },
-    { id: 'pro_yogurt', label: 'Pro yogurt cup (20g pro)', protein: 20.0, calories: 125, unit: 'cup' },
-    { id: 'greek_0', label: 'Greek yogurt 0% (200g)', protein: 20.0, calories: 114, unit: '200g' },
-    { id: 'beef_100', label: 'Lean beef mince 5% (100g)', protein: 26.0, calories: 137, unit: '100g' },
-    { id: 'salmon_150', label: 'Salmon fillet (150g)', protein: 34.0, calories: 310, unit: 'fillet' },
-    { id: 'rice_150', label: 'White rice cooked (150g)', protein: 4.0, calories: 195, unit: '150g' },
-    { id: 'oats_50', label: 'Rolled oats (50g)', protein: 6.5, calories: 190, unit: '50g' },
-    { id: 'peanut_butter', label: 'Peanut butter (30g / 2 tbsp)', protein: 8.0, calories: 190, unit: '30g' },
+    // --- Eggs & Dairy (Breakfast, Dinner, Snacks) ---
+    { id: 'egg_m', label: 'Egg (Medium - M)', protein: 6.3, calories: 68, unit: 'unit', meals: ['breakfast', 'dinner'], aliases: ['egg', 'beitza', '\u05d1\u05d9\u05e6\u05d4', 'm'] },
+    { id: 'egg_l', label: 'Egg (Large - L)', protein: 7.2, calories: 76, unit: 'unit', meals: ['breakfast', 'dinner'], aliases: ['egg', 'beitza', '\u05d1\u05d9\u05e6\u05d4', 'l'] },
+    { id: 'egg_xl', label: 'Egg (XL)', protein: 8.1, calories: 86, unit: 'unit', meals: ['breakfast', 'dinner'], aliases: ['egg', 'beitza', '\u05d1\u05d9\u05e6\u05d4', 'xl'] },
+    { id: 'egg_whites', label: 'Egg whites (100g)', protein: 11.0, calories: 52, unit: '100g', meals: ['breakfast', 'dinner'], aliases: ['whites', 'egg', 'helmon', 'helbon', '\u05d7\u05dc\u05d1\u05d5\u05df'] },
+    { id: 'cottage_100', label: 'Cottage cheese 5% (100g)', protein: 11.0, calories: 95, unit: '100g', meals: ['breakfast', 'dinner'], aliases: ['cottage', 'cheese', 'gvinah', '\u05e7\u05d5\u05d8\u05d2\''] },
+    { id: 'cottage_tub', label: 'Cottage cheese 5% (250g tub)', protein: 27.5, calories: 237, unit: 'tub', meals: ['breakfast', 'dinner'], aliases: ['cottage', 'cheese', 'gvinah', '\u05e7\u05d5\u05d8\u05d2\''] },
+    { id: 'pro_yogurt_20', label: 'Pro yogurt cup (20g pro)', protein: 20.0, calories: 125, unit: 'cup', meals: ['breakfast', 'snacks'], aliases: ['pro', 'yogurt', 'yoplait', 'danone', 'madan', '\u05e4\u05e8\u05d5', '\u05de\u05e2\u05d3\u05df'] },
+    { id: 'pro_yogurt_25', label: 'Pro yogurt cup (25g pro)', protein: 25.0, calories: 150, unit: 'cup', meals: ['breakfast', 'snacks'], aliases: ['pro', 'yogurt', 'yoplait', 'danone', 'madan', '\u05e4\u05e8\u05d5', '\u05de\u05e2\u05d3\u05df'] },
+    { id: 'greek_0', label: 'Greek yogurt 0% (200g)', protein: 20.0, calories: 114, unit: '200g', meals: ['breakfast', 'dinner', 'snacks'], aliases: ['greek', 'yogurt', 'danone', '\u05d9\u05d5\u05d5\u05e0\u05d9'] },
+    { id: 'milk_3_glass', label: 'Cow milk 3% (200ml glass)', protein: 6.4, calories: 120, unit: 'glass', meals: ['breakfast', 'snacks'], aliases: ['milk', 'chalav', '\u05d7\u05dc\u05d1'] },
+    { id: 'soy_milk_glass', label: 'Soy / Alpro milk (200ml)', protein: 6.0, calories: 80, unit: 'glass', meals: ['breakfast', 'snacks'], aliases: ['soy', 'milk', 'alpro', 'soya', '\u05e1\u05d5\u05d9\u05d4'] },
+
+    // --- Breads & Grains (Breakfast, Lunch, Dinner) ---
+    { id: 'white_bread_slice', label: 'White bread (1 slice)', protein: 2.7, calories: 79, unit: 'slice', meals: ['breakfast', 'lunch', 'dinner'], aliases: ['bread', 'white', 'toast', 'lechem', '\u05dc\u05d7\u05dd'] },
+    { id: 'wheat_bread_slice', label: 'Whole wheat bread (1 slice)', protein: 3.8, calories: 85, unit: 'slice', meals: ['breakfast', 'lunch', 'dinner'], aliases: ['bread', 'wheat', 'whole', 'lechem', 'male', '\u05dc\u05d7\u05dd \u05de\u05dc\u05d0'] },
+    { id: 'pita_bread', label: 'Pita bread (1 standard 80g)', protein: 7.5, calories: 220, unit: 'pita', meals: ['breakfast', 'lunch', 'dinner'], aliases: ['pita', 'bread', 'pitah', '\u05e4\u05d9\u05ea\u05d4'] },
+    { id: 'bagel', label: 'Plain bagel (1 bagel ~95g)', protein: 10.0, calories: 260, unit: 'bagel', meals: ['breakfast', 'lunch'], aliases: ['bagel', 'bread', '\u05d1\u05d9\u05d9\u05d2\u05dc'] },
+    { id: 'oats_50', label: 'Rolled oats (50g dry)', protein: 6.5, calories: 190, unit: '50g', meals: ['breakfast', 'snacks'], aliases: ['oats', 'porridge', 'kvaker', '\u05e9\u05d5\u05e2\u05dc\u05d9\u05ea', '\u05e7\u05d5\u05d5\u05d0\u05e7\u05e8'] },
+    { id: 'oats_80', label: 'Rolled oats (80g dry)', protein: 10.4, calories: 304, unit: '80g', meals: ['breakfast', 'snacks'], aliases: ['oats', 'porridge', 'kvaker', '\u05e9\u05d5\u05e2\u05dc\u05d9\u05ea', '\u05e7\u05d5\u05d5\u05d0\u05e7\u05e8'] },
+    { id: 'rice_cooked_150', label: 'White rice cooked (150g)', protein: 4.0, calories: 195, unit: '150g', meals: ['lunch', 'dinner'], aliases: ['rice', 'white', 'orez', '\u05d0\u05d5\u05e8\u05d6'] },
+    { id: 'rice_cooked_250', label: 'White rice cooked (250g)', protein: 6.7, calories: 325, unit: '250g', meals: ['lunch', 'dinner'], aliases: ['rice', 'white', 'orez', '\u05d0\u05d5\u05e8\u05d6'] },
+    { id: 'pasta_cooked_150', label: 'Pasta cooked (150g)', protein: 8.5, calories: 235, unit: '150g', meals: ['lunch', 'dinner'], aliases: ['pasta', 'spaghetti', 'itriyot', '\u05e4\u05e1\u05d8\u05d4'] },
+    { id: 'sweet_potato_150', label: 'Baked sweet potato (150g)', protein: 3.0, calories: 135, unit: '150g', meals: ['lunch', 'dinner'], aliases: ['sweet potato', 'batata', '\u05d1\u05d8\u05d8\u05d4'] },
+
+    // --- Meats & Fish (Lunch, Dinner) ---
+    { id: 'chicken_100', label: 'Chicken breast cooked (100g)', protein: 31.0, calories: 165, unit: '100g', meals: ['lunch', 'dinner'], aliases: ['chicken', 'breast', 'of', 'hazeh', '\u05e2\u05d5\u05e3', '\u05d7\u05d6\u05d4 \u05e2\u05d5\u05e3'] },
+    { id: 'chicken_150', label: 'Chicken breast cooked (150g)', protein: 46.5, calories: 248, unit: '150g', meals: ['lunch', 'dinner'], aliases: ['chicken', 'breast', 'of', 'hazeh', '\u05e2\u05d5\u05e3', '\u05d7\u05d6\u05d4 \u05e2\u05d5\u05e3'] },
+    { id: 'chicken_200', label: 'Chicken breast cooked (200g)', protein: 62.0, calories: 330, unit: '200g', meals: ['lunch', 'dinner'], aliases: ['chicken', 'breast', 'of', 'hazeh', '\u05e2\u05d5\u05e3', '\u05d7\u05d6\u05d4 \u05e2\u05d5\u05e3'] },
+    { id: 'beef_100', label: 'Lean beef mince cooked (100g)', protein: 26.0, calories: 137, unit: '100g', meals: ['lunch', 'dinner'], aliases: ['beef', 'meat', 'basar', 'takhun', '\u05d1\u05e9\u05e8'] },
+    { id: 'beef_150', label: 'Lean beef mince cooked (150g)', protein: 39.0, calories: 206, unit: '150g', meals: ['lunch', 'dinner'], aliases: ['beef', 'meat', 'basar', '\u05d1\u05e9\u05e8'] },
+    { id: 'salmon_150', label: 'Salmon fillet cooked (150g)', protein: 34.0, calories: 310, unit: 'fillet', meals: ['lunch', 'dinner'], aliases: ['salmon', 'fish', 'dag', '\u05e1\u05dc\u05de\u05d5\u05df', '\u05d3\u05d2'] },
+    { id: 'tuna_can', label: 'Canned tuna in water (112g)', protein: 28.0, calories: 120, unit: 'can', meals: ['lunch', 'dinner', 'breakfast'], aliases: ['tuna', 'fish', 'tuna can', '\u05d8\u05d5\u05e0\u05d4'] },
+
+    // --- Fruits, Snacks & Extras (Snacks, Breakfast, Lunch, Dinner) ---
+    { id: 'banana_med', label: 'Banana (1 medium ~118g)', protein: 1.3, calories: 105, unit: 'unit', meals: ['breakfast', 'snacks'], aliases: ['banana', 'fruit', 'peri', '\u05d1\u05e0\u05e0\u05d4'] },
+    { id: 'banana_large', label: 'Banana (1 large ~136g)', protein: 1.6, calories: 121, unit: 'unit', meals: ['breakfast', 'snacks'], aliases: ['banana', 'fruit', 'peri', '\u05d1\u05e0\u05e0\u05d4'] },
+    { id: 'apple_med', label: 'Apple (1 medium ~182g)', protein: 0.5, calories: 95, unit: 'unit', meals: ['snacks', 'breakfast'], aliases: ['apple', 'tapuach', 'fruit', '\u05ea\u05e4\u05d5\u05d7'] },
+    { id: 'whey_scoop', label: 'Whey protein scoop (30g)', protein: 24.0, calories: 120, unit: 'scoop', meals: ['breakfast', 'snacks'], aliases: ['whey', 'protein', 'shake', 'avka', '\u05d7\u05dc\u05d1\u05d5\u05df', '\u05d0\u05d1\u05e7\u05d4'] },
+    { id: 'protein_bar', label: 'Protein bar (standard ~60g)', protein: 20.0, calories: 210, unit: 'bar', meals: ['snacks'], aliases: ['bar', 'protein bar', 'snack', '\u05d7\u05d8\u05d9\u05e3 \u05d7\u05dc\u05d1\u05d5\u05df'] },
+    { id: 'peanut_butter', label: 'Peanut butter (30g / 2 tbsp)', protein: 8.0, calories: 190, unit: '30g', meals: ['breakfast', 'snacks'], aliases: ['peanut', 'butter', 'botnim', '\u05d7\u05de\u05d0\u05ea \u05d1\u05d5\u05d8\u05e0\u05d9\u05dd'] },
+    { id: 'almonds_30', label: 'Almonds (30g / handful)', protein: 6.0, calories: 170, unit: '30g', meals: ['snacks', 'breakfast'], aliases: ['almonds', 'nuts', 'shkedim', '\u05e9\u05e7\u05d3\u05d9\u05dd'] },
+    { id: 'avocado_half', label: 'Avocado (half ~100g)', protein: 2.0, calories: 160, unit: 'half', meals: ['breakfast', 'lunch', 'dinner'], aliases: ['avocado', '\u05d0\u05d1\u05d5\u05e7\u05d3\u05d5'] },
+    { id: 'olive_oil_tbsp', label: 'Olive oil (1 tbsp / 14g)', protein: 0.0, calories: 119, unit: 'tbsp', meals: ['lunch', 'dinner'], aliases: ['olive', 'oil', 'shemen', 'zayit', '\u05e9\u05de\u05df \u05d6\u05d9\u05ea'] },
   ];
 
   function getStorageKey(date) {
@@ -133,6 +160,22 @@
   }
 
   let activeModalDate = null;
+  // State for which meal panel is currently showing "all foods" instead of recommended
+  const mealFilterScope = {
+    breakfast: 'recommended',
+    lunch: 'recommended',
+    dinner: 'recommended',
+    snacks: 'recommended',
+  };
+  // Search query state per meal
+  const mealSearchQuery = {
+    breakfast: '',
+    lunch: '',
+    dinner: '',
+    snacks: '',
+  };
+  // Active edit state: { mealKey, index }
+  let activeEditingItem = null;
 
   function openNutritionModal(date) {
     activeModalDate = date || (typeof dailyCurrentDate === 'function' ? dailyCurrentDate() : new Date().toISOString().slice(0, 10));
@@ -141,6 +184,7 @@
 
   function closeNutritionModal() {
     activeModalDate = null;
+    activeEditingItem = null;
     const overlay = document.getElementById('daily-nutrition-overlay');
     if (overlay) overlay.remove();
   }
@@ -203,6 +247,25 @@
     wireNutritionSheetEvents(overlay, state);
   }
 
+  function filterPresetsForMeal(mealKey) {
+    const scope = mealFilterScope[mealKey] || 'recommended';
+    const query = (mealSearchQuery[mealKey] || '').trim().toLowerCase();
+
+    return NUTRITION_PRESETS.filter((p) => {
+      // Scope filter (recommended vs all)
+      if (scope === 'recommended' && !query) {
+        if (!p.meals.includes(mealKey)) return false;
+      }
+
+      // Query filter
+      if (!query) return true;
+
+      const labelMatch = p.label.toLowerCase().includes(query);
+      const aliasMatch = (p.aliases || []).some((a) => a.toLowerCase().includes(query));
+      return labelMatch || aliasMatch;
+    });
+  }
+
   function renderMealSection(mealKey, state) {
     const mealNames = {
       breakfast: 'Breakfast',
@@ -220,6 +283,10 @@
     mealPro = Math.round(mealPro * 10) / 10;
     mealCal = Math.round(mealCal);
 
+    const filteredPresets = filterPresetsForMeal(mealKey);
+    const scope = mealFilterScope[mealKey] || 'recommended';
+    const currentQuery = mealSearchQuery[mealKey] || '';
+
     return `
       <section class="meal-block" data-meal="${mealKey}">
         <div class="meal-head">
@@ -231,25 +298,48 @@
         </div>
 
         <div class="meal-add-panel is-hidden" id="add-panel-${mealKey}">
-          <div class="add-preset-row">
-            <label class="field-label" for="preset-select-${mealKey}">Verified preset</label>
-            <div class="preset-controls">
-              <select class="food-select" id="preset-select-${mealKey}">
-                <option value="">Select food or egg size...</option>
-                ${NUTRITION_PRESETS.map((p) => `<option value="${p.id}">${p.label} (${p.protein}g pro · ${p.calories} kcal)</option>`).join('')}
-              </select>
-              <input type="number" class="food-qty-input mono" id="preset-qty-${mealKey}" value="1" min="1" max="20" placeholder="Qty">
-              <button type="button" class="btn-sub-action" data-action="add-preset" data-meal="${mealKey}">Add</button>
+          <!-- Search & Filter Controls -->
+          <div class="food-search-row">
+            <input type="search" class="food-search-input" id="search-input-${mealKey}" placeholder="Search food (banana, bread, egg, pro...)" value="${escapeHtml(currentQuery)}">
+            <div class="food-scope-pills">
+              <button type="button" class="scope-pill ${scope === 'recommended' ? 'is-active' : ''}" data-action="set-scope" data-meal="${mealKey}" data-scope="recommended">
+                Recommended for ${mealNames[mealKey].split(' ')[0]}
+              </button>
+              <button type="button" class="scope-pill ${scope === 'all' ? 'is-active' : ''}" data-action="set-scope" data-meal="${mealKey}" data-scope="all">
+                All foods (${NUTRITION_PRESETS.length})
+              </button>
             </div>
           </div>
 
+          <!-- Preset selector -->
+          <div class="add-preset-row">
+            <label class="field-label" for="preset-select-${mealKey}">Verified food item</label>
+            <div class="preset-controls">
+              <select class="food-select" id="preset-select-${mealKey}">
+                <option value="">${filteredPresets.length > 0 ? 'Select a food to autofill & customize...' : 'No matches found - enter custom below'}</option>
+                ${filteredPresets.map((p) => `<option value="${p.id}" data-pro="${p.protein}" data-cal="${p.calories}" data-name="${escapeHtml(p.label)}">${p.label} (${p.protein}g pro · ${p.calories} kcal)</option>`).join('')}
+              </select>
+            </div>
+          </div>
+
+          <!-- Editable parameters before adding -->
           <div class="add-custom-row">
-            <span class="field-label">Custom food</span>
+            <span class="field-label">Custom / Edit details before adding:</span>
             <div class="custom-inputs">
-              <input type="text" class="custom-name" id="custom-name-${mealKey}" placeholder="Food name (e.g. Protein bar)">
-              <input type="number" class="custom-num mono" id="custom-pro-${mealKey}" placeholder="Protein (g)" step="0.5" min="0">
-              <input type="number" class="custom-num mono" id="custom-cal-${mealKey}" placeholder="Calories" min="0">
-              <button type="button" class="btn-sub-action" data-action="add-custom" data-meal="${mealKey}">Save</button>
+              <input type="text" class="custom-name" id="item-name-${mealKey}" placeholder="Food name (e.g. Pro yogurt / Banana)">
+              <div class="custom-num-wrap">
+                <label class="input-sub-label">Protein (g)</label>
+                <input type="number" class="custom-num mono" id="item-pro-${mealKey}" placeholder="Protein (g)" step="0.5" min="0">
+              </div>
+              <div class="custom-num-wrap">
+                <label class="input-sub-label">Calories</label>
+                <input type="number" class="custom-num mono" id="item-cal-${mealKey}" placeholder="Calories" min="0">
+              </div>
+              <div class="custom-num-wrap">
+                <label class="input-sub-label">Qty</label>
+                <input type="number" class="custom-num mono qty-box" id="item-qty-${mealKey}" value="1" min="1" max="20">
+              </div>
+              <button type="button" class="btn-sub-action btn-add-confirm" data-action="confirm-add" data-meal="${mealKey}">+ Add to ${mealNames[mealKey]}</button>
             </div>
           </div>
         </div>
@@ -257,15 +347,38 @@
         <div class="meal-items-list">
           ${items.length === 0 ? `<p class="meal-empty">No items logged yet</p>` : ''}
           ${items
-            .map(
-              (item, idx) => `
-            <div class="logged-food-row">
-              <span class="food-desc">${escapeHtml(item.name)}${item.qty && item.qty > 1 ? ` &times; ${item.qty}` : ''}</span>
-              <span class="food-macros mono">${item.protein}g · ${item.calories} kcal</span>
-              <button type="button" class="food-del-btn" data-action="del-item" data-meal="${mealKey}" data-index="${idx}" aria-label="Remove item">&times;</button>
-            </div>
-          `
-            )
+            .map((item, idx) => {
+              const isEditing = activeEditingItem && activeEditingItem.mealKey === mealKey && activeEditingItem.index === idx;
+              if (isEditing) {
+                return `
+                  <div class="logged-food-edit-box" id="edit-box-${mealKey}-${idx}">
+                    <div class="custom-inputs">
+                      <input type="text" class="custom-name" id="edit-name-${mealKey}-${idx}" value="${escapeHtml(item.name)}">
+                      <div class="custom-num-wrap">
+                        <label class="input-sub-label">Pro (g)</label>
+                        <input type="number" class="custom-num mono" id="edit-pro-${mealKey}-${idx}" value="${item.protein}" step="0.5">
+                      </div>
+                      <div class="custom-num-wrap">
+                        <label class="input-sub-label">Kcal</label>
+                        <input type="number" class="custom-num mono" id="edit-cal-${mealKey}-${idx}" value="${item.calories}">
+                      </div>
+                      <button type="button" class="btn-sub-action is-save-edit" data-action="save-edit-item" data-meal="${mealKey}" data-index="${idx}">Save</button>
+                      <button type="button" class="btn-sub-action is-cancel-edit" data-action="cancel-edit-item">Cancel</button>
+                    </div>
+                  </div>
+                `;
+              }
+              return `
+                <div class="logged-food-row">
+                  <span class="food-desc">${escapeHtml(item.name)}${item.qty && item.qty > 1 ? ` &times; ${item.qty}` : ''}</span>
+                  <span class="food-macros mono">${item.protein}g · ${item.calories} kcal</span>
+                  <div class="food-row-actions">
+                    <button type="button" class="food-edit-btn" data-action="edit-item" data-meal="${mealKey}" data-index="${idx}" aria-label="Edit item">Edit</button>
+                    <button type="button" class="food-del-btn" data-action="del-item" data-meal="${mealKey}" data-index="${idx}" aria-label="Remove item">&times;</button>
+                  </div>
+                </div>
+              `;
+            })
             .join('')}
         </div>
       </section>
@@ -280,6 +393,7 @@
       if (e.target === overlay) closeNutritionModal();
     };
 
+    // Toggle add panel
     overlay.querySelectorAll('[data-action="toggle-add"]').forEach((btn) => {
       btn.onclick = function () {
         const mealKey = btn.dataset.meal;
@@ -288,46 +402,80 @@
           const isHidden = panel.classList.contains('is-hidden');
           panel.classList.toggle('is-hidden', !isHidden);
           btn.textContent = isHidden ? 'Cancel' : '+ Add food';
+          if (isHidden) {
+            const searchInput = document.getElementById('search-input-' + mealKey);
+            if (searchInput) searchInput.focus();
+          }
         }
       };
     });
 
-    overlay.querySelectorAll('[data-action="add-preset"]').forEach((btn) => {
+    // Scope pills: recommended vs all
+    overlay.querySelectorAll('[data-action="set-scope"]').forEach((btn) => {
       btn.onclick = function () {
         const mealKey = btn.dataset.meal;
-        const select = document.getElementById('preset-select-' + mealKey);
-        const qtyInput = document.getElementById('preset-qty-' + mealKey);
-        const presetId = select ? select.value : '';
-        const qty = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10) || 1) : 1;
-
-        if (!presetId) return;
-        const preset = NUTRITION_PRESETS.find((p) => p.id === presetId);
-        if (!preset) return;
-
-        state.meals[mealKey] = state.meals[mealKey] || [];
-        state.meals[mealKey].push({
-          id: 'item_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
-          name: preset.label,
-          qty: qty,
-          protein: Math.round(preset.protein * qty * 10) / 10,
-          calories: Math.round(preset.calories * qty),
-        });
-
-        saveNutritionState(state);
+        const scope = btn.dataset.scope;
+        mealFilterScope[mealKey] = scope;
         renderNutritionSheet();
+        // Re-open panel
+        const panel = document.getElementById('add-panel-' + mealKey);
+        if (panel) panel.classList.remove('is-hidden');
+        const toggleBtn = overlay.querySelector(`[data-action="toggle-add"][data-meal="${mealKey}"]`);
+        if (toggleBtn) toggleBtn.textContent = 'Cancel';
       };
     });
 
-    overlay.querySelectorAll('[data-action="add-custom"]').forEach((btn) => {
+    // Search input
+    overlay.querySelectorAll('.food-search-input').forEach((input) => {
+      const mealKey = input.id.replace('search-input-', '');
+      input.oninput = function () {
+        mealSearchQuery[mealKey] = input.value;
+        const select = document.getElementById('preset-select-' + mealKey);
+        if (select) {
+          const filtered = filterPresetsForMeal(mealKey);
+          select.innerHTML = `
+            <option value="">${filtered.length > 0 ? 'Select a food to autofill & customize...' : 'No matches found - enter custom below'}</option>
+            ${filtered.map((p) => `<option value="${p.id}" data-pro="${p.protein}" data-cal="${p.calories}" data-name="${escapeHtml(p.label)}">${p.label} (${p.protein}g pro · ${p.calories} kcal)</option>`).join('')}
+          `;
+        }
+      };
+    });
+
+    // Preset select autofills editable inputs
+    overlay.querySelectorAll('.food-select').forEach((select) => {
+      const mealKey = select.id.replace('preset-select-', '');
+      select.onchange = function () {
+        const opt = select.options[select.selectedIndex];
+        if (!opt || !opt.value) return;
+
+        const preset = NUTRITION_PRESETS.find((p) => p.id === opt.value);
+        if (!preset) return;
+
+        const nameInput = document.getElementById('item-name-' + mealKey);
+        const proInput = document.getElementById('item-pro-' + mealKey);
+        const calInput = document.getElementById('item-cal-' + mealKey);
+        const qtyInput = document.getElementById('item-qty-' + mealKey);
+
+        if (nameInput) nameInput.value = preset.label;
+        if (proInput) proInput.value = preset.protein;
+        if (calInput) calInput.value = preset.calories;
+        if (qtyInput) qtyInput.value = '1';
+      };
+    });
+
+    // Confirm add button
+    overlay.querySelectorAll('[data-action="confirm-add"]').forEach((btn) => {
       btn.onclick = function () {
         const mealKey = btn.dataset.meal;
-        const nameInput = document.getElementById('custom-name-' + mealKey);
-        const proInput = document.getElementById('custom-pro-' + mealKey);
-        const calInput = document.getElementById('custom-cal-' + mealKey);
+        const nameInput = document.getElementById('item-name-' + mealKey);
+        const proInput = document.getElementById('item-pro-' + mealKey);
+        const calInput = document.getElementById('item-cal-' + mealKey);
+        const qtyInput = document.getElementById('item-qty-' + mealKey);
 
         const name = nameInput ? nameInput.value.trim() : '';
-        const pro = proInput ? parseFloat(proInput.value) || 0 : 0;
-        const cal = calInput ? parseFloat(calInput.value) || 0 : 0;
+        const basePro = proInput ? parseFloat(proInput.value) || 0 : 0;
+        const baseCal = calInput ? parseFloat(calInput.value) || 0 : 0;
+        const qty = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10) || 1) : 1;
 
         if (!name) return;
 
@@ -335,9 +483,9 @@
         state.meals[mealKey].push({
           id: 'item_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
           name: name,
-          qty: 1,
-          protein: Math.round(pro * 10) / 10,
-          calories: Math.round(cal),
+          qty: qty,
+          protein: Math.round(basePro * qty * 10) / 10,
+          calories: Math.round(baseCal * qty),
         });
 
         saveNutritionState(state);
@@ -345,12 +493,55 @@
       };
     });
 
+    // Edit item action
+    overlay.querySelectorAll('[data-action="edit-item"]').forEach((btn) => {
+      btn.onclick = function () {
+        const mealKey = btn.dataset.meal;
+        const idx = parseInt(btn.dataset.index, 10);
+        activeEditingItem = { mealKey, index: idx };
+        renderNutritionSheet();
+      };
+    });
+
+    // Cancel edit
+    overlay.querySelectorAll('[data-action="cancel-edit-item"]').forEach((btn) => {
+      btn.onclick = function () {
+        activeEditingItem = null;
+        renderNutritionSheet();
+      };
+    });
+
+    // Save edited item
+    overlay.querySelectorAll('[data-action="save-edit-item"]').forEach((btn) => {
+      btn.onclick = function () {
+        const mealKey = btn.dataset.meal;
+        const idx = parseInt(btn.dataset.index, 10);
+        const nameInput = document.getElementById(`edit-name-${mealKey}-${idx}`);
+        const proInput = document.getElementById(`edit-pro-${mealKey}-${idx}`);
+        const calInput = document.getElementById(`edit-cal-${mealKey}-${idx}`);
+
+        if (state.meals && state.meals[mealKey] && state.meals[mealKey][idx]) {
+          const item = state.meals[mealKey][idx];
+          if (nameInput && nameInput.value.trim()) item.name = nameInput.value.trim();
+          if (proInput) item.protein = Math.round((parseFloat(proInput.value) || 0) * 10) / 10;
+          if (calInput) item.calories = Math.round(parseFloat(calInput.value) || 0);
+          activeEditingItem = null;
+          saveNutritionState(state);
+          renderNutritionSheet();
+        }
+      };
+    });
+
+    // Delete item
     overlay.querySelectorAll('[data-action="del-item"]').forEach((btn) => {
       btn.onclick = function () {
         const mealKey = btn.dataset.meal;
         const idx = parseInt(btn.dataset.index, 10);
         if (state.meals && state.meals[mealKey]) {
           state.meals[mealKey].splice(idx, 1);
+          if (activeEditingItem && activeEditingItem.mealKey === mealKey && activeEditingItem.index === idx) {
+            activeEditingItem = null;
+          }
           saveNutritionState(state);
           renderNutritionSheet();
         }

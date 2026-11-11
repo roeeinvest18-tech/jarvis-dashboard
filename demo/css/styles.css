@@ -5857,51 +5857,108 @@ body::before {
   margin-bottom: 4px;
 }
 
-.preset-controls, .custom-inputs {
+.food-search-row {
   display: flex;
+  flex-direction: column;
   gap: var(--sp-2);
-  align-items: center;
-  flex-wrap: wrap;
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--rule-soft);
 }
 
-.food-select {
-  flex: 1 1 200px;
+.food-search-input {
+  width: 100%;
   background: var(--bg);
   border: 1px solid var(--field-line);
   color: var(--ink);
-  padding: 6px 10px;
+  padding: 8px 12px;
   border-radius: var(--r-sm);
   font-size: 16px;
 }
 
-.food-qty-input {
-  width: 70px;
+.food-search-input:focus {
+  outline: none;
+  border-color: var(--mark);
+}
+
+.food-scope-pills {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.scope-pill {
+  background: transparent;
+  border: 1px solid var(--rule-soft);
+  color: var(--ink2);
+  font-size: var(--fs-label);
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.scope-pill:hover {
+  color: var(--ink);
+  border-color: var(--rule-mid);
+}
+
+.scope-pill.is-active {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: var(--mark);
+  color: var(--mark-hi);
+  font-weight: 500;
+}
+
+.preset-controls, .custom-inputs {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.food-select {
+  flex: 1 1 220px;
   background: var(--bg);
   border: 1px solid var(--field-line);
   color: var(--ink);
-  padding: 6px 10px;
+  padding: 8px 10px;
   border-radius: var(--r-sm);
   font-size: 16px;
 }
 
 .custom-name {
-  flex: 2 1 160px;
+  flex: 2 1 180px;
   background: var(--bg);
   border: 1px solid var(--field-line);
   color: var(--ink);
-  padding: 6px 10px;
+  padding: 8px 10px;
   border-radius: var(--r-sm);
   font-size: 16px;
 }
 
+.custom-num-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.input-sub-label {
+  font-size: var(--fs-label);
+  color: var(--ink2);
+}
+
 .custom-num {
-  flex: 1 1 80px;
+  width: 78px;
   background: var(--bg);
   border: 1px solid var(--field-line);
   color: var(--ink);
-  padding: 6px 10px;
+  padding: 8px 10px;
   border-radius: var(--r-sm);
   font-size: 16px;
+}
+
+.custom-num.qty-box {
+  width: 58px;
 }
 
 .btn-sub-action {
@@ -5909,10 +5966,11 @@ body::before {
   border: 1px solid var(--rule-soft);
   color: var(--ink);
   font-size: var(--fs-label);
-  padding: 6px 14px;
+  padding: 8px 14px;
   border-radius: var(--r-sm);
   cursor: pointer;
   white-space: nowrap;
+  transition: all 0.15s ease;
 }
 
 .btn-sub-action:hover {
@@ -5920,10 +5978,23 @@ body::before {
   border-color: var(--ink);
 }
 
+.btn-add-confirm {
+  background: var(--mark);
+  border-color: var(--mark);
+  color: #030712;
+  font-weight: 600;
+}
+
+.btn-add-confirm:hover {
+  background: var(--mark-hi);
+  border-color: var(--mark-hi);
+  color: #030712;
+}
+
 .meal-items-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .meal-empty {
@@ -5937,8 +6008,9 @@ body::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 6px;
-  background: rgba(255, 255, 255, 0.015);
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--rule-soft);
   border-radius: var(--r-sm);
 }
 
@@ -5954,6 +6026,28 @@ body::before {
   margin-right: var(--sp-2);
 }
 
+.food-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.food-edit-btn {
+  background: transparent;
+  border: 1px solid var(--rule-soft);
+  color: var(--ink2);
+  font-size: var(--fs-label);
+  padding: 2px 7px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.food-edit-btn:hover {
+  color: var(--mark);
+  border-color: var(--mark);
+}
+
 .food-del-btn {
   background: transparent;
   border: none;
@@ -5966,6 +6060,26 @@ body::before {
 
 .food-del-btn:hover {
   color: var(--down);
+}
+
+.logged-food-edit-box {
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px dashed var(--mark);
+  border-radius: var(--r-sm);
+  margin: 4px 0;
+}
+
+.btn-sub-action.is-save-edit {
+  background: var(--mark);
+  color: #030712;
+  font-weight: 600;
+  border-color: var(--mark);
+}
+
+.btn-sub-action.is-cancel-edit {
+  background: transparent;
+  color: var(--ink2);
 }
 
 /* Today nutrition quick summary button */
