@@ -5713,6 +5713,47 @@ body::before {
   margin-top: 2px;
 }
 
+.nutrition-head-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.btn-nutrition-sync {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid var(--rule-soft);
+  color: var(--mark);
+  font-size: var(--fs-label);
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.btn-nutrition-sync:hover {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: var(--mark);
+  color: var(--mark-hi);
+}
+
+.btn-nutrition-sync:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.nutrition-sync-warning {
+  padding: 8px 12px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-label);
+  color: #fbbf24;
+  line-height: 1.4;
+}
+
 .nutrition-body {
   display: flex;
   flex-direction: column;

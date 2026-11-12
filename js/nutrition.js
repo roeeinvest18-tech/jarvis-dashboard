@@ -1,5 +1,6 @@
 // nutrition.js - Jarvis OS Nutrition & Macro Hub
 // Lean bulk target: 165g protein / 3,050 kcal with custom, verified, searchable food tracking.
+// Fully cross-device synchronized via Jarvis Personal OS /daily sync endpoint.
 
 (function () {
   'use strict';
@@ -61,6 +62,22 @@
   }
 
   function getNutritionState(date) {
+    // 1. Check DAILY day record first (cloud synced state)
+    try {
+      if (typeof DAILY !== 'undefined' && typeof DAILY.getDay === 'function') {
+        const record = DAILY.getDay(date);
+        if (record && record.nutrition && record.nutrition.meals) {
+          try {
+            localStorage.setItem(getStorageKey(date), JSON.stringify(record.nutrition));
+          } catch (e) {}
+          return record.nutrition;
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    // 2. Check local storage fallback
     try {
       const raw = localStorage.getItem(getStorageKey(date));
       if (raw) {
@@ -70,6 +87,7 @@
     } catch (e) {
       // ignore
     }
+
     return {
       date: date,
       target_protein: DEFAULT_TARGETS.protein_target,
@@ -84,42 +102,88 @@
   }
 
   function saveNutritionState(state) {
+    // 1. Save to local storage for instant offline access
     try {
       localStorage.setItem(getStorageKey(state.date), JSON.stringify(state));
     } catch (e) {
       // ignore
     }
 
-    // Sync with Daily OS records if available
+    // 2. Embed into DAILY day record and push through cross-device sync
     try {
-      if (typeof DAILY !== 'undefined' && typeof DAILY.getDay === 'function') {
+      if (typeof DAILY !== 'undefined' && typeof DAILY.getDay === 'function' && typeof DAILY.saveDay === 'function') {
         const record = DAILY.getDay(state.date);
         const totals = calculateTotals(state);
-        let changed = false;
 
-        if (state.meals.breakfast && state.meals.breakfast.length > 0 && !record.breakfast) {
+        // Attach full nutrition state
+        record.nutrition = state;
+        record.updated_at = new Date().toISOString();
+
+        if (state.meals.breakfast && state.meals.breakfast.length > 0) {
           record.breakfast = true;
-          changed = true;
         }
-        if (state.meals.dinner && state.meals.dinner.length > 0 && !record.dinner) {
+        if (state.meals.dinner && state.meals.dinner.length > 0) {
           record.dinner = true;
-          changed = true;
         }
-        if (totals.total_protein >= state.target_protein && !record.protein_target_met) {
+        if (totals.total_protein >= state.target_protein) {
           record.protein_target_met = true;
-          changed = true;
         }
 
-        if (changed && typeof DAILY.saveDay === 'function') {
-          DAILY.saveDay(record);
-          if (typeof renderDailyToday === 'function') {
-            renderDailyToday();
-          }
+        DAILY.saveDay(record);
+
+        if (typeof renderDailyToday === 'function') {
+          renderDailyToday();
+        }
+
+        // Trigger sync immediately so other devices receive the changes
+        if (typeof dailyTriggerSync === 'function') {
+          dailyTriggerSync();
         }
       }
     } catch (e) {
       // ignore
     }
+  }
+
+  // Automatic migration on load: migrate any local nutrition data into DAILY so it syncs immediately
+  function syncLocalNutritionWithDaily() {
+    try {
+      if (typeof DAILY === 'undefined' || typeof DAILY.getDay !== 'function' || typeof DAILY.saveDay !== 'function') return;
+      let changed = false;
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('jarvis:nutrition:')) {
+          const date = key.replace('jarvis:nutrition:', '');
+          try {
+            const raw = localStorage.getItem(key);
+            if (!raw) continue;
+            const parsed = JSON.parse(raw);
+            if (parsed && parsed.meals) {
+              const record = DAILY.getDay(date);
+              const hasRecordMeals = record.nutrition && record.nutrition.meals &&
+                Object.values(record.nutrition.meals).some(m => m && m.length > 0);
+              const hasLocalMeals = Object.values(parsed.meals).some(m => m && m.length > 0);
+
+              if (!hasRecordMeals && hasLocalMeals) {
+                record.nutrition = parsed;
+                record.updated_at = new Date().toISOString();
+                DAILY.saveDay(record);
+                changed = true;
+              }
+            }
+          } catch (err) {}
+        }
+      }
+      if (changed && typeof dailyTriggerSync === 'function') {
+        dailyTriggerSync();
+      }
+    } catch (e) {}
+  }
+
+  // Run migration on script load and DOMContentLoaded
+  syncLocalNutritionWithDaily();
+  if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', syncLocalNutritionWithDaily);
   }
 
   function calculateTotals(state) {
@@ -202,6 +266,11 @@
     const state = getNutritionState(activeModalDate);
     const totals = calculateTotals(state);
 
+    const syncCfg = (typeof DAILY !== 'undefined' && typeof DAILY.syncConfig === 'function')
+      ? DAILY.syncConfig()
+      : { url: '', token: '' };
+    const hasSync = Boolean(syncCfg.url && syncCfg.token);
+
     overlay.innerHTML = `
       <div class="sheet nutrition-sheet" role="dialog" aria-modal="true" aria-label="Nutrition and Macros">
         <div class="sheet-head">
@@ -209,10 +278,21 @@
             <span class="sheet-kicker">Nutrition &amp; Macros</span>
             <span class="nutrition-goal-tag">Lean bulk target: ${totals.target_protein}g · ${totals.target_calories} kcal</span>
           </div>
-          <button type="button" class="sheet-x" id="nutrition-close-btn" aria-label="Close">&times;</button>
+          <div class="nutrition-head-actions">
+            <button type="button" class="btn-nutrition-sync" id="nutrition-sync-btn" title="Sync nutrition data with cloud">
+              Sync
+            </button>
+            <button type="button" class="sheet-x" id="nutrition-close-btn" aria-label="Close">&times;</button>
+          </div>
         </div>
 
         <div class="sheet-body nutrition-body">
+          ${!hasSync ? `
+            <div class="nutrition-sync-warning">
+              Notice: Cloud sync is not configured on this device. Open Settings (#insights) to configure your sync URL &amp; token to sync between phone and computer.
+            </div>
+          ` : ''}
+
           <div class="nutrition-summary-card">
             <div class="macro-metric">
               <div class="macro-metric-head">
@@ -393,6 +473,29 @@
       if (e.target === overlay) closeNutritionModal();
     };
 
+    // Sync button
+    const syncBtn = document.getElementById('nutrition-sync-btn');
+    if (syncBtn) {
+      syncBtn.onclick = function () {
+        syncBtn.disabled = true;
+        syncBtn.textContent = 'Syncing...';
+        if (typeof DAILY !== 'undefined' && typeof DAILY.syncWithServer === 'function') {
+          DAILY.syncWithServer().then((res) => {
+            syncBtn.textContent = res ? 'Synced' : 'No connection';
+            setTimeout(() => {
+              renderNutritionSheet();
+              if (typeof renderDailyToday === 'function') renderDailyToday();
+            }, 600);
+          }).catch(() => {
+            syncBtn.disabled = false;
+            syncBtn.textContent = 'Retry sync';
+          });
+        } else {
+          syncBtn.textContent = 'Sync unavailable';
+        }
+      };
+    }
+
     // Toggle add panel
     overlay.querySelectorAll('[data-action="toggle-add"]').forEach((btn) => {
       btn.onclick = function () {
@@ -565,6 +668,7 @@
     calculateTotals,
     openNutritionModal,
     closeNutritionModal,
+    syncLocalNutritionWithDaily,
     DEFAULT_TARGETS,
     NUTRITION_PRESETS,
   };
