@@ -3,6 +3,7 @@
   "allowlist": [
     "breakout_alerts.json",
     "jobs.json",
+    "linkedin_posts.json",
     "painpoints.json",
     "scan.json",
     "scorecard.json",
@@ -10,7 +11,6 @@
   ],
   "withheld": [
     "cci_oversold.json",
-    "linkedin_posts.json",
     "priority.json",
     "tasks.json",
     "trade_notes.json"
@@ -18,6 +18,7 @@
   "published": [
     "breakout_alerts.json",
     "jobs.json",
+    "linkedin_posts.json",
     "painpoints.json",
     "scan.json",
     "scorecard.json",
