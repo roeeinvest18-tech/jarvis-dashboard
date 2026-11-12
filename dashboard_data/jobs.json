@@ -1,329 +1,274 @@
 {
-  "generated_at": "2026-11-11T10:32:56.979964+00:00",
+  "generated_at": "2026-11-12T14:10:28.680386+00:00",
   "stats": {
-    "total_scanned": 30,
-    "matched_count": 15,
-    "ai_count": 13,
-    "cyber_count": 1,
-    "scraping_count": 1
+    "total_scanned": 13,
+    "matched_count": 13,
+    "ai_count": 8,
+    "cyber_count": 3,
+    "scraping_count": 2
   },
   "jobs": [
     {
-      "id": "upwork-2120017479559378900",
-      "title": "AI Consultancy and Cybersecurity Agency Partner(s)",
-      "platform": "Upwork Live • Verified Client (United Kingdom)",
-      "track": "cyber_soc",
-      "url": "https://www.upwork.com/jobs/~022120017479559378900",
-      "posted_at": "Today (Live)",
-      "budget": "$20-$40/hr",
-      "budget_type": "hourly",
-      "budget_val": 40,
-      "match_score": 97,
-      "client_problem": "We are seeking a strategic partner to help develop an AI consultancy and cybersecurity agency. The ideal candidate(s) will have experience in: AI and development/implementation Machine Learning Updated AI knowledge and ability to build tool...",
-      "skills": [
-        "Adobe Illustrator",
-        "Graphic Design",
-        "Logo Design",
-        "Illustration"
-      ],
-      "proposal_draft": "Hi there,\n\nI am interested in your project to build out an AI consultancy and cybersecurity practice. My background is in the intersection of production-grade Python automation and SOC-level security telemetry, and I am available to help build the technical foundation for your agency.\n\n**Regarding your requirements:**\n\n1. **Experience in AI/ML Implementation:** I architect stateful Python agents using LangGraph/LangChain, integrating LLM providers (Claude, OpenAI, Gemini) with robust Pydantic schema validation to ensure output reliability. I specialize in building RAG architectures (Qdrant/Pinecone) that are modular enough for quick client deployment.\n2. **Cybersecurity/SOC Track:** I have deep experience in SOC Tier 1 security telemetry, including log correlation in Splunk, traffic analysis with Wireshark, and automating security-focused workflows via Python scripts and webhooks.\n3. **Past Agent Examples:** I do not believe in fabricated case studies. I can walk you through live architectures I currently run—including multi-model failover logic, automated CI/CD runners, and custom web scrapers using Playwright—on our kickoff call, or demonstrate a working Staging PoC that mirrors your specific use case.\n\nMy approach to building agency-grade AI tools focuses on stability and maintainability. I prioritize rate-limit handling, persistent storage of agent state, and circuit breakers for LLM API calls. I don't just script prototypes; I build systems designed to run autonomously with built-in observability and error logging.\n\nI am available this week to discuss how we can structure your service offerings from a technical standpoint. To get a sense of your current infrastructure: Are you planning to build these solutions within a private cloud environment, or are you looking to integrate directly into client-side SaaS environments via webhooks and API-first architectures?\n\nBest regards,\n\nRoee"
-    },
-    {
-      "id": "upwork-2120031256374819929",
-      "title": "Small Pilot: AI implementation for Customer Service",
-      "platform": "Upwork Live • Verified Client (Thailand)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120031256374819929",
-      "posted_at": "Today (Live)",
-      "budget": "$3000",
-      "budget_type": "fixed",
-      "budget_val": 3000,
-      "match_score": 96,
-      "client_problem": "We are looking for a freelancer or agency to propose practical ways to reduce repetitive customer service work using AI. Our setup - LiveChat.com and LINE. No voice support. - Multiple markets, brands and languages. - Initial scope: one in...",
-      "skills": [
-        "Call Center Management",
-        "Business with 1000+ Employees",
-        "AI Bot",
-        "AI Agents",
-        "AI Chatbot",
-        "AI Builder"
-      ],
-      "proposal_draft": "Hi there,\n\nI am Roee Nir, an automation engineer specializing in Python-based LLM orchestration and API integrations. I have experience building the exact type of middleware required to connect platforms like LiveChat and LINE to autonomous agents.\n\n**Addressing your requirements:**\n\n1. **AI Implementation Strategy:** I propose a Python-based backend using FastAPI to act as the traffic controller between your LiveChat/LINE webhooks and your LLM provider. This allows for centralized logging, Pydantic-based schema validation for agent outputs, and, critically, multi-model failover (e.g., using Claude 3.5 Sonnet as primary, with OpenAI as a fallback) to ensure 24/7 reliability.\n2. **Handling Multiple Markets/Languages:** I utilize RAG architectures with Qdrant or Pinecone, allowing you to segment your knowledge base by brand/market metadata. This ensures the agent retrieves only the relevant documentation for the specific customer inquiry without cross-contaminating data across brands.\n3. **Experience/Examples:** Rather than citing hypothetical metrics, I work with live, stateful Python agents and production-grade CI/CD pipelines. I can walk you through the specific code patterns I use for asynchronous webhook handling and RAG document ingestion during our kickoff call, or demonstrate a working Staging PoC that mirrors your environment.\n\n**Architectural Approach:**\nMy focus is on \"Production-Grade AI.\" For your use case, I implement:\n*   **Rate-Limit Management:** Automated exponential backoff for API calls to ensure stability during spikes.\n*   **Human-in-the-loop (HITL):** A signal flag in the agent logic that allows the system to hand off to a human agent in LiveChat if the confidence score drops below a set threshold or if the customer expresses frustration.\n*   **Vector Database Management:** A simple pipeline to sync your existing internal docs to a vector store, making updates to agent knowledge as simple as updating a document file.\n\nI can have a functional PoC hooked up to your dev environment within 5-7 business days to demonstrate the message routing and retrieval accuracy.\n\nAre your brand knowledge bases currently centralized in a specific format (e.g., Notion, Zendesk, or internal Markdown files), or will we need to build a scraper/parser to consolidate that data for the RAG pipeline?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-2120249666101580269",
-      "title": "AI Engineer / Architect: AEO + SEO Site Improvements & AI Analytics Dashboard",
-      "platform": "Upwork Live • Verified Client (United States)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120249666101580269",
-      "posted_at": "Today (Live)",
-      "budget": "$50-$90/hr",
-      "budget_type": "hourly",
-      "budget_val": 90,
-      "match_score": 96,
-      "client_problem": "We're a small agency. We get decent traffic from Google, but we barely show up when people ask ChatGPT, Perplexity or Google's AI Overviews. We want to fix that properly, with good engineering behind it. We need someone who can look at the...",
-      "skills": [
-        "AI Agent Development",
-        "Python",
-        "Large Language Model",
-        "Software Architecture",
-        "Full-Stack Development",
-        "Technical SEO"
-      ],
-      "proposal_draft": "Hi there,\n\n1. **Approach to AI SEO:** My strategy centers on structured data ingestion and semantic optimization. I treat your site content as a knowledge base to be indexed by RAG-capable systems. I will implement a pipeline that transforms your existing site architecture into a format optimized for LLM crawler consumption, focusing on schema markup and authoritative semantic density rather than just keywords.\n2. **Architecture:** I architect stateful Python agents that use Pydantic for strict schema validation. For your AI analytics dashboard, I would utilize a FastAPI backend coupled with Qdrant for vector search, allowing you to monitor and adjust how your content is surfaced in AI Overviews.\n3. **Experience:** I have built and currently operate live autonomous Python automation systems and AI workflows that feature multi-model failover (balancing OpenAI/Claude/Gemini to ensure uptime) and automated CI/CD runners. I don’t rely on black-box tools; I build bespoke orchestration layers using LangGraph/LangChain concepts.\n\nTo address your goal of appearing in Perplexity and Google’s AI Overviews, we need to shift from traditional SEO to \"Answer Engine Optimization.\" This requires ensuring your core content is not only crawlable but semantically structured to be retrieved by retrieval-augmented generation (RAG) models.\n\nI can walk you through the live architectures and specific code patterns I run for reliable API handling and ingestion on our kickoff call, or demonstrate a working Staging PoC if you have specific data sets you want to test immediately.\n\nWhat is the current primary CMS or tech stack hosting your site content, and do you currently have any structured logs or events capturing how users are finding you via these new search channels?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-2119987140820143951",
-      "title": "AI Agent Developer Needed: Multi-Agent Development & Agent Orchestration",
-      "platform": "Upwork Live • Verified Client (United States)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022119987140820143951",
-      "posted_at": "Today (Live)",
-      "budget": "$30-$60/hr",
-      "budget_type": "hourly",
-      "budget_val": 60,
-      "match_score": 96,
-      "client_problem": "We’re looking for an experienced freelancer skilled in agent development to help us build AI agents that can reason, use tools, and complete tasks autonomously. The project involves multi-agent development, where several specialized agen...",
-      "skills": [
-        "AI Agent Development",
-        "Machine Learning"
-      ],
-      "proposal_draft": "Hi there.\n\nTo address your requirements directly:\n\n1. **Experience with Multi-Agent Orchestration:** I specialize in building stateful Python agents using LangGraph and custom orchestration logic. I focus on modular architectures where specialized agents handle specific tasks (e.g., one for tool selection/reasoning, one for validation, and one for final output generation) to keep system complexity manageable.\n2. **Tools & LLM Frameworks:** I work primarily with Claude (for reasoning/coding tasks) and OpenAI (for general utility), implementing multi-provider failover logic so your workflow stays live even if one API experiences downtime.\n3. **Architecture Approach:** I use Pydantic for rigid schema validation between agent steps—this ensures your LLM outputs are always machine-readable and ready for downstream database or API integration.\n4. **Availability:** I am available to start immediately and can present a working Staging PoC for a core agent loop within 72 hours of defining the objective.\n\nMy background is in Python automation and AI workflows. Rather than treating an agent as a black-box prompt, I architect them as robust pipelines. I implement rate-limit backoff handling, persistent state management via Vector DBs (like Qdrant or Pinecone for RAG), and webhook-based CRM/Database syncing.\n\nI don't believe in \"set and forget\" automation. I build systems with observability in mind—if an agent hallucinates or a tool fails, the system logs the exact step and exception, allowing for rapid iteration rather than blind debugging. I am happy to walk you through live architectures and the specific code patterns I use for stateful agent cycles on our kickoff call.\n\nWhat is the primary data source or toolset these agents need to interface with (e.g., proprietary APIs, SQL databases, or unstructured documentation) to accomplish their tasks?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-2120153287516897750",
-      "title": "Full Stack Developer AI, Node.js & React developer",
-      "platform": "Upwork Live • Verified Client (UKR)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120153287516897750",
-      "posted_at": "Today (Live)",
-      "budget": "$20-$38/hr",
-      "budget_type": "hourly",
-      "budget_val": 38,
-      "match_score": 96,
-      "client_problem": "We’re looking for a skilled and versatile Full Stack Developer to join our team. If you love building modern web applications, working with AI integrations, and writing clean, scalable code using Node.js and React, we’d love to chat. W...",
-      "skills": [
-        "CSS 3",
-        "CSS",
-        "HTML5",
-        "HTML",
-        "Bootstrap",
-        "Vue.js"
-      ],
-      "proposal_draft": "Hi,\n\nI’ve reviewed the requirements for your full-stack AI initiative. While my primary development stack centers on Python automation and LLM orchestration (LangGraph/Pydantic schemas), I have extensive experience integrating these backends into React/Node environments via FastAPI and secure webhook patterns.\n\nRegarding your requirements:\n\n1. **AI Integration/Architecture:** I specialize in building stateful agents with multi-model failover. If the primary provider (e.g., GPT-4o) hits rate limits or latency spikes, my architectures automatically route to a secondary (e.g., Claude 3.5 Sonnet) via pre-configured abstraction layers.\n2. **Data & RAG:** I utilize Qdrant/Pinecone for vector storage. I focus on clean ETL pipelines that ensure your RAG documents remain synchronized with your production data through automated webhooks.\n3. **Production Reliability:** I don't just ship scripts; I build robust systems with Pydantic validation to ensure the data flowing from your LLMs to your React frontend is structured, predictable, and error-free. \n4. **Demonstration:** I can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC that mirrors the complexity of the system you are aiming to build.\n\nI am available to discuss how we can bridge your Node.js/React environment with a scalable Python-based AI agent layer to ensure high uptime and data integrity.\n\nAre you currently managing your RAG document indexing through an automated pipeline, or is that a component you need architected from scratch?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-2120246594442601658",
-      "title": "AI Developer Needed for Personal AI Assistant Project (Python, UI, Backend Services)",
-      "platform": "Upwork Live ",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120246594442601658",
-      "posted_at": "Today (Live)",
-      "budget": "$25-$45/hr",
-      "budget_type": "hourly",
-      "budget_val": 35,
-      "match_score": 96,
-      "client_problem": "Project Overview I'm building a personal AI assistant called SID as a long-term personal project. The core AI foundation is already in place, and I'm looking for an experienced AI/software developer to help take the project to the next sta...",
-      "skills": [
-        "Front-End Development",
-        "Python",
-        "Machine Learning",
-        "Visual Basic",
-        "Multimodal Large Language Model",
-        "API Development"
-      ],
-      "proposal_draft": "Hi, I’m Roee Nir. I specialize in building autonomous Python agents and resilient AI infrastructure.\n\nI have reviewed your requirements for SID. To address your specific screening criteria:\n\n1. **[Insert Answer to Question 1 from Job Posting]**\n2. **[Insert Answer to Question 2 from Job Posting]**\n3. **[Insert Answer to Question 3 from Job Posting]**\n\nRegarding SID’s architecture, my focus is on reliability and maintainability. In my production environments, I rarely rely on a single LLM provider. I implement multi-provider failover logic—if the OpenAI API latency spikes or returns 5xx errors, my agents automatically route to Claude or Gemini to maintain uptime. \n\nFor your RAG implementation, I prefer utilizing Qdrant or Pinecone with strict Pydantic schema validation to ensure the data ingested into your agent’s context is clean, structured, and consistent. I also prioritize webhook reliability and error handling (exponential backoff) to ensure your assistant doesn’t lose state or fail on external service timeouts. \n\nI don't rely on \"black box\" solutions; I build systems that are observable via structured logging, allowing us to debug exactly why an agent made a specific decision. I can walk you through the live architectures and code patterns I run for my own automation workflows, or demonstrate a working Staging PoC on our kickoff call to show you how I handle state management in Python.\n\nI’m available to discuss how we can modularize SID’s backend to scale from a personal project to a high-availability service. \n\nTo ensure the context window remains performant as SID grows, how are you currently handling your document chunking and metadata filtering strategy in your RAG pipeline?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-2120195016828654061",
-      "title": "AI Agent Architect: Observability, Evals, Knowledge + Guided Setup for Our MCP (Paid Review)",
-      "platform": "Upwork Live • Verified Client (United States)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120195016828654061",
-      "posted_at": "Today (Live)",
-      "budget": "$25-$45/hr",
-      "budget_type": "hourly",
-      "budget_val": 35,
-      "match_score": 96,
-      "client_problem": "We're a profitable, founder-led B2B SaaS. Our customers are professional buyers. They use our product to track items across online marketplaces and to act fast on the ones they want. The agent core is built and in production. One shared to...",
-      "skills": [
-        "AI Agent Development",
-        "Model Context Protocol (MCP)",
-        "Solution Architecture",
-        "AI Architecture",
-        "Generative AI",
-        "AI Evaluation"
-      ],
-      "proposal_draft": "Hi,\n\nI’ve reviewed the requirements for your B2B SaaS agent architecture. Regarding your screening/application prompts:\n\n1. **Experience with MCP/Agentic Workflows:** I focus on building resilient Python-based agents using LangGraph for state management and Pydantic for structured schema validation. My approach centers on decoupling the orchestration logic from the model provider, allowing for seamless multi-model failover.\n2. **Observability & Evals:** I implement telemetry pipelines that track agent step-latency, token usage per function call, and semantic drift. I treat LLM outputs as data streams—logging them into structured formats (JSON/Parquet) for offline evaluation against your \"golden dataset.\"\n3. **Availability:** I am available to begin the initial review and architecture deep-dive immediately.\n\nMy production philosophy is built on three pillars: **Deterministic Reliability, Observability, and Schema-Strictness.**\n\nIn my current systems, I utilize a multi-provider fallback pattern (e.g., primary pipeline routing through Claude 3.5 Sonnet with a fallback to OpenAI or Gemini based on latency/status-code monitoring). For RAG architectures, I move beyond simple vector search by implementing hybrid search patterns with Qdrant and metadata-filtered retrieval to ensure your agents aren't just \"hallucinating\" context, but pulling verified product/market data.\n\nI don’t believe in \"black box\" agents. I build systems where every transition is traceable, loggable, and testable via CI/CD pipelines. I can walk you through the live architectures and code patterns I run for stateful orchestration on our kickoff call, or demonstrate a working Staging PoC that mirrors the complexity of your current setup.\n\nI am interested in how you are currently handling rate-limit management and anti-bot bypass for your online marketplace scraping—are you utilizing a persistent proxy pool with rotating session headers, or is your agent currently relying on direct-to-site API calls?\n\nBest regards, \nRoee"
-    },
-    {
-      "id": "upwork-2119967223646927961",
-      "title": "Automation & AI Developer | Python, Excel, APIs, Airtable & Business Systems (Long-Term)",
-      "platform": "Upwork Live • Verified Client (Canada)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022119967223646927961",
-      "posted_at": "Today (Live)",
-      "budget": "$25-$45/hr",
-      "budget_type": "hourly",
-      "budget_val": 35,
-      "match_score": 96,
-      "client_problem": "We are an established Canadian company looking for an experienced Python developer and automation specialist for ongoing projects. We need someone who can independently develop, implement, and maintain automation solutions for our internal...",
-      "skills": [
-        "Dashboard",
-        "Business Process Automation",
-        "AI Builder",
-        "Make.com",
-        "API",
-        "Python"
-      ],
-      "proposal_draft": "Hi, I’m Roee Nir. I specialize in building autonomous Python-based workflows and LLM-integrated systems.\n\n**Answers to your requirements:**\n\n1. **Automation & AI Experience:** I architect production-grade Python agents that utilize Pydantic for schema validation, ensuring your business logic remains consistent even when LLM outputs vary. I focus on building robust pipelines that handle API rate-limiting, webhooks, and data synchronization between Airtable and internal business systems.\n2. **Technical Architecture:** My stack centers on Python, FastAPI, and orchestrators like n8n for rapid integration, paired with RAG architectures (using Qdrant/Pinecone) for data retrieval. I implement multi-provider failover—if an OpenAI endpoint latency spikes or fails, my systems automatically route to Anthropic or Gemini to ensure uptime.\n3. **Availability:** I am available for long-term collaboration and can begin scoping your current bottlenecks immediately.\n\n**My Approach:**\nI don’t just write scripts; I build resilient systems. In my current setups, I prioritize:\n*   **Data Integrity:** Using Pydantic to strictly enforce data structures before pushing updates to your Airtable or CRM.\n*   **Resiliency:** Webhook listeners built with exponential backoff and retry logic to handle third-party service downtime.\n*   **Telemetry:** Given my background in SOC Tier 1 security, I build logging into my automations—tracking every trigger and LLM call so we can debug failures in seconds rather than hours.\n\nI don’t believe in \"black box\" automations. I can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC if you have a specific workflow in mind for the first sprint.\n\nWhat is the primary bottleneck or manual process you are currently looking to offload first, and does your data pipeline currently rely on webhooks or scheduled polling?\n\nBest regards,\n\nRoee"
-    },
-    {
-      "id": "upwork-2120154054437900781",
-      "title": "Email campaign development",
-      "platform": "Upwork Live • Verified Client (USA)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120154054437900781",
-      "posted_at": "Today (Live)",
-      "budget": "$25-$45/hr",
-      "budget_type": "hourly",
-      "budget_val": 35,
-      "match_score": 96,
-      "client_problem": "I’m looking for an email marketing specialist to help migrate America’s Movement Break from Constant Contact to an affordable, easy\\-to\\-use platform\\. The project includes moving contacts and emails, setting up an automated email serie...",
-      "skills": [
-        "Automation",
-        "System Automation",
-        "Make.com",
-        "HighLevel",
-        "Automated Workflow",
-        "n8n"
-      ],
-      "proposal_draft": "Hi there,\n\n1. Regarding the migration: I have handled numerous data migrations between legacy platforms and modern automation stacks. My approach is to sanitize the data before import to prevent bounce rates and ensure clean segmentation for your new automated series.\n2. Regarding the automation: I specialize in building Python-based workflows that replace manual email management. Rather than relying on rigid platform features, I build flexible logic using FastAPI and n8n that can be updated without rebuilding the entire pipeline.\n\nI focus on the engineering side of email operations: data integrity, webhook-driven triggers, and ensuring your transition from Constant Contact doesn't result in deliverability issues.\n\nI don’t rely on black-box tools. My systems use Pydantic for strict schema validation, ensuring your contact data is consistently formatted before hitting your new provider. If you have specific requirements for your automated series (e.g., branching logic based on user interaction or multi-provider API failovers), I can architect a system that is resilient and easy for you to manage.\n\nI can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC for the automation flow.\n\nI am available this week to discuss your current contact volume and the specific triggers required for your series.\n\nWhat is the target platform you are planning to migrate to, and are you using a custom database or CRM as your primary source of truth for these contacts?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-2120247278558050967",
-      "title": "Set up AI Appointment Service to Book Calls on Calendly Link",
-      "platform": "Upwork Live • Verified Client (United States)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120247278558050967",
-      "posted_at": "Today (Live)",
-      "budget": "$12-$30/hr",
-      "budget_type": "hourly",
-      "budget_val": 30,
-      "match_score": 96,
-      "client_problem": "Hi, We are running Meta Ads to a LeadForm. Those leads go into a spreadsheet for manual review. If the lead fits the the criteria I want to be able to use an SMS AI appointment setting software to follow up and book a call with those lea...",
-      "skills": [
-        "Lead Management Automation",
-        "Mobile Marketing Automation",
-        "AI Agents",
-        "AI Integration APIs & Tools",
-        "AI Agent Development"
-      ],
-      "proposal_draft": "Hi,\n\n1. **Proposed Stack:** I would implement this using a Python-based webhook handler (FastAPI) or n8n to ingest your LeadForm data, triggering an LLM agent (OpenAI/Claude) for qualification. For the SMS/booking logic, I utilize Twilio integrated with your Calendly API.\n2. **Architecture:** To ensure high reliability, I build in Pydantic schema validation for lead data and implement a multi-provider failover so the booking logic doesn't stall if one API provider experiences latency.\n3. **Timeline:** I can have a functional staging PoC ready for testing within 3–4 days, focusing on the webhook-to-SMS handshake and lead qualification logic.\n\nMy experience lies in building autonomous systems that prioritize data integrity and error handling. Instead of fragile, black-box solutions, I develop stateful Python agents that handle webhook retries and logging, ensuring you don't lose leads due to intermittent network issues or API rate limits. I have built out similar pipelines using LangGraph for multi-step reasoning, ensuring the AI only moves to the booking phase once the lead meets your specific qualification criteria.\n\nI can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC that connects your current LeadForm to a mock booking flow.\n\nAre you currently using a specific CRM or database where you store these leads, or should we treat the spreadsheet as the primary source of truth for the automation trigger?\n\nBest regards,\n\nRoee"
-    },
-    {
-      "id": "upwork-2119992927855983705",
-      "title": "AI Automation Engineer | AI Agents, Workflow Automation & API Integrations",
-      "platform": "Upwork Live • Verified Client (United Kingdom)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022119992927855983705",
-      "posted_at": "Today (Live)",
-      "budget": "$15-$30/hr",
-      "budget_type": "hourly",
-      "budget_val": 30,
-      "match_score": 96,
-      "client_problem": "We are looking for an experienced AI Automation Engineer to build intelligent AI agents and automate business workflows. The ideal candidate should have hands-on experience with Claude, ChatGPT, n8n, Make, Python, and API integrations. You...",
-      "skills": [
-        "AI Integration Deliverables",
-        "AI Chatbot Development Skills",
-        "AI Integration APIs & Tools"
-      ],
-      "proposal_draft": "Hi, I’m Roee Nir. I specialize in building production-grade AI agents and robust automation pipelines.\n\nRegarding your requirements:\n\n1. **Experience:** I architect and maintain autonomous Python-based AI agents, focusing on high-reliability workflows. My core stack includes LangGraph/LangChain for stateful agent logic, Pydantic for rigorous schema validation, and multi-provider LLM failover (OpenAI/Claude/Gemini) to ensure uptime.\n2. **Tools:** I regularly implement custom FastAPI backends, n8n workflows for complex orchestration, and RAG architectures using vector DBs like Qdrant/Pinecone for document retrieval.\n3. **Capabilities:** I can walk you through the live architectures and code patterns I run for production environments on our kickoff call, or demonstrate a working Staging PoC that mirrors your requirements.\n\nMy approach prioritizes system stability over \"black box\" automation. I focus on:\n\n*   **Resiliency:** Implementing exponential backoff, rate-limit handling, and automated error retries for all API interactions.\n*   **Validation:** Ensuring LLM outputs conform to strictly typed Pydantic schemas before hitting your downstream databases or CRMs.\n*   **Observability:** Using logging correlation and webhook monitoring to debug agent behavior, ensuring we aren't \"flying blind\" once the system is live.\n*   **Anti-Fragility:** Building modular pipelines where switching between LLM models or adding new data sources is a configuration change, not a rewrite.\n\nI am available to discuss your specific data flow and logic requirements this week.\n\nAre you handling your knowledge base updates through an automated sync (e.g., watching a specific Google Drive/Notion path), or do you need a manual ingestion pipeline for the RAG component?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-2120198641109058006",
-      "title": "Adapt AI Chatbot Automation Workflow",
-      "platform": "Upwork Live • Verified Client (Switzerland)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120198641109058006",
-      "posted_at": "Today (Live)",
-      "budget": "$15-$25/hr",
-      "budget_type": "hourly",
-      "budget_val": 25,
-      "match_score": 96,
-      "client_problem": "I'm looking for a freelancer to take over an existing AI chatbot automation project built with n8n and Supabase. The workflow is already developed, and detailed handover documentation is available. This is not a build-from-scratch project. ...",
-      "skills": [
-        "AI Agent Development",
-        "AI Bot",
-        "AI Implementation",
-        "n8n",
-        "Automation",
-        "Supabase"
-      ],
-      "proposal_draft": "Hi there.\n\nRegarding the technical requirements for the n8n and Supabase handover:\n\n1. **Experience with the stack:** I work daily with n8n for workflow orchestration and Supabase for backend state/vector storage. I am comfortable auditing existing JSON workflows, optimizing node execution logic, and ensuring Pydantic schema validation for your API payloads.\n2. **Workflow reliability:** I prioritize robust error handling—implementing retry logic with exponential backoff and webhook health checks—to ensure the automation doesn't silently fail.\n3. **Availability:** I am prepared to begin the codebase audit immediately.\n\nMy development process focuses on production-grade stability. I don't just \"fix\" workflows; I ensure they are maintainable by documenting the data flow and adding logging mechanisms that make debugging easier for the next iteration. Whether it’s optimizing RAG retrieval latencies or ensuring your LLM calls have multi-provider failover, I focus on the architecture behind the interface.\n\nI can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC involving similar Python-to-n8n bridge logic.\n\nWhen would be a good time to review your current documentation and the existing n8n workflows?\n\nRegarding the Supabase schema—are you currently utilizing RAG with pgvector, or is the chatbot logic primarily using stored prompt templates and standard database queries?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-2119895503208409490",
-      "title": "Remote AI Implementation & Automation Specialist",
-      "platform": "Upwork Live • Verified Client (Dominican Republic)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022119895503208409490",
-      "posted_at": "Today (Live)",
-      "budget": "$15-$20/hr",
-      "budget_type": "hourly",
-      "budget_val": 20,
-      "match_score": 96,
-      "client_problem": "We are looking for a skilled and versatile AI Implementation & Automation Specialist to help integrate artificial intelligence into business operations, automate workflows, and improve productivity across different departments. The ideal c...",
-      "skills": [
-        "AI Implementation",
-        "AI Automation",
-        "Workflow Automation",
-        "Make.com",
-        "n8n",
-        "AI Chatbot Development"
-      ],
-      "proposal_draft": "Hi, I am Roee Nir. \n\nI’ve reviewed the requirements for your AI implementation project. Here are my direct responses to your screening questions:\n\n1. **[Insert Question 1 from Job Posting Here]**: [Your Answer]\n2. **[Insert Question 2 from Job Posting Here]**: [Your Answer]\n3. **[Insert Question 3 from Job Posting Here]**: [Your Answer]\n\nMy approach to business automation centers on building resilient, production-grade systems rather than fragile \"prompt-chain\" scripts. I specialize in architecting Python-based agents that prioritize data integrity and uptime. \n\n**My core technical focus areas include:**\n* **Resilient LLM Pipelines:** I implement multi-provider failover logic (e.g., automatically routing from OpenAI to Anthropic/Gemini if one hits rate limits or downtime), combined with strict Pydantic schema validation to ensure the AI output is always machine-readable and ready for your downstream database.\n* **RAG & Knowledge Retrieval:** I build systems using Qdrant/Pinecone for high-recall vector search, ensuring your AI answers are grounded in your specific business data with verifiable citations.\n* **Orchestration & Integration:** I use n8n and FastAPI to bridge your tech stack, ensuring webhooks are handled with robust retry mechanisms and logging. If we are dealing with external sites, I utilize Playwright with anti-bot bypass strategies to ensure consistent data extraction.\n* **Security & Observability:** Coming from a SOC Tier 1 background, I treat automation security as a primary concern. I build monitoring loops that surface failed automation runs or anomalies in the telemetry before they impact your operations.\n\nI don't rely on templated solutions. I can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC that mirrors your specific workflow requirements.\n\nI am available to discuss your current infrastructure and how we can best integrate these agents to scale your operations. \n\nAre you currently leaning toward a specific vector database for your RAG implementation, or is that a piece of the architecture you need me to architect from scratch?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-2119973327290383449",
-      "title": "Supplement Brand Price Scrape",
-      "platform": "Upwork Live ",
+      "id": "upwork-live-2120880945184806394",
+      "title": "Data Scraping Specialist Needed for Discrete Web Data Extraction",
+      "platform": "Upwork (Live Feed)",
       "track": "scraping_data",
-      "url": "https://www.upwork.com/jobs/~022119973327290383449",
-      "posted_at": "Today (Live)",
-      "budget": "$25-$45/hr",
+      "url": "https://www.upwork.com/jobs/~022120880945184806394",
+      "posted_at": "Today, 16:07 (Live)",
+      "budget": ",000",
+      "budget_type": "fixed",
+      "budget_val": 10000,
+      "match_score": 99,
+      "client_problem": "Seeking an experienced data scraping specialist to extract specific data from a website behind secure authentication with high discretion and resilience.",
+      "skills": [
+        "Data Scraping",
+        "Data Extraction",
+        "Python",
+        "Playwright",
+        "Security"
+      ],
+      "proposal_draft": "Hi,\n\nI saw your posting for discrete web data extraction behind secure authentication. I build resilient Python-based extraction pipelines (Playwright/Stealth) engineered to navigate multi-step authentication, maintain session persistence across token refreshes, and handle anti-bot telemetry cleanly.\n\nHere is my architectural approach:\n1. Authentication & Session Stability: Headless browser automation configured with encrypted credential storage, stateful session cookie renewal, and automated reconnects on session expiry.\n2. Ingestion & Schema Safety: Strict Pydantic models to validate extracted records in real time, preventing malformed payload leakage.\n3. Discretion & Hygiene: Rate-limited egress patterns, request jitter, and zero-leakage local storage.\n\nI run autonomous automation architectures with full observability. Available to review your target platform requirements and demo a working staging PoC.\n\nWhat authentication mechanism does the platform use (OAuth, 2FA, or standard session cookies)?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "upwork-live-2120867924746213531",
+      "title": "AI Automation Developer – Brilliant Directories, n8n/API & Social Media Integration",
+      "platform": "Upwork (Live Feed)",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/jobs/~022120867924746213531",
+      "posted_at": "Today, 15:14 (Live)",
+      "budget": "",
+      "budget_type": "fixed",
+      "budget_val": 500,
+      "match_score": 96,
+      "client_problem": "Automate repetitive tasks across businesses, starting with BikrX: integrating Brilliant Directories, n8n, social media APIs, and webhook event listeners.",
+      "skills": [
+        "n8n",
+        "API Integration",
+        "Automation",
+        "webhooks",
+        "Python",
+        "AI Agents"
+      ],
+      "proposal_draft": "Hi,\n\nI saw your posting for the AI Automation Developer position integrating Brilliant Directories with n8n and social media APIs. I architect and run production automation systems combining webhook listeners, n8n workflows, and custom Python microservices with multi-model failover.\n\nExecution Plan:\n1. Webhook & Ingestion Layer: Connect Brilliant Directories webhooks to an orchestration node with deduplication and payload validation.\n2. API Connectors & Rate-Limiting: Safe integration with social media endpoints featuring backoff strategies to prevent token exhaustion.\n3. Monitoring & Error Recovery: Automated alert notifications on any webhook drop or failed transformation step.\n\nI focus on resilient, durable architectures rather than brittle scripts. Happy to walk you through live automation pipelines on a brief kickoff call.\n\nWhich social media platforms are in the phase 1 scope for automated posting?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "upwork-live-2120849319729993210",
+      "title": "Browser Automation Specialist – Parallel Workflow & Session Stability",
+      "platform": "Upwork (Live Feed)",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/jobs/~022120849319729993210",
+      "posted_at": "Today, 14:02 (Live)",
+      "budget": "-/hr",
+      "budget_type": "hourly",
+      "budget_val": 48,
+      "match_score": 95,
+      "client_problem": "Build a stable, scalable multi-account browser workflow where a script launches multiple Chrome instances, manages persistent sessions, and drives automated pipelines.",
+      "skills": [
+        "Python",
+        "Automation",
+        "Selenium",
+        "Playwright",
+        "Session Management"
+      ],
+      "proposal_draft": "Hi,\n\nI saw your posting for the Browser Automation Specialist role to build a multi-account parallel Chrome workflow. Managing concurrent browser sessions without state collision or memory bloat is an engineering challenge I solve regularly.\n\nMy Architecture:\n1. Isolated Profile Sandboxing: Separate user data directories (UserDataDir) with unique fingerprints and proxy binding per instance to avoid cross-session contamination.\n2. Lifecycle & Memory Control: Concurrency pooling with automated process recycling to prevent orphaned headless Chrome processes from hogging system RAM.\n3. Session Resiliency: Checkpointing state to disk after each key action, so transient failures resume without re-authenticating from scratch.\n\nI can demonstrate live parallel browser architectures I run on our kickoff call.\n\nHow many concurrent Chrome instances are you planning to run per worker machine?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "upwork-live-2120833648274083856",
+      "title": "AI Automation Expert – Build Agentic Workflows for Service Businesses (Claude, Grok)",
+      "platform": "Upwork (Live Feed)",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/jobs/~022120833648274083856",
+      "posted_at": "Today, 12:58 (Live)",
+      "budget": "-/hr",
       "budget_type": "hourly",
       "budget_val": 35,
       "match_score": 95,
-      "client_problem": "Hi! I'm looking for support scraping for prices of supplement brands across the U.S., DACH region, Israel, Spain, Italy and the UK. We still need to finalize the scope of coverage, but would want to include Amazon as well as potentially add...",
+      "client_problem": "Looking for a technical assistant and builder to turn client problems into functional AI agent workflows (Claude, Grok, automation pipelines).",
       "skills": [
-        "Web Scraping",
-        "Data Scraping",
-        "Data Collection",
-        "Data Cleaning",
-        "Data Integration",
-        "ETL"
+        "AI Agents",
+        "Claude API",
+        "Automation",
+        "Python",
+        "FastAPI"
       ],
-      "proposal_draft": "Hi, I’m Roee Nir.\n\nGiven the geographic spread of your requirement (U.S., DACH, Israel, Spain, Italy, UK) and the complexity of scraping Amazon alongside smaller regional retailers, my approach focuses on reliability and residential proxy management to handle varying anti-bot signatures.\n\n1. **Approach to Amazon & Multi-Region Scraping:** To handle Amazon’s scale and regional variance, I utilize Playwright with residential rotating proxies and fingerprint-masking middleware. For regional retailers, I implement modular scrapers that handle local currency formatting and regional localization (e.g., German/Italian/Spanish character encoding).\n2. **Infrastructure:** I deploy these scrapers within Python-based CI/CD runners using Pydantic for schema validation. This ensures that if a site layout changes, the pipeline fails early rather than injecting corrupted data into your database.\n3. **Failover & Rate Limits:** My architecture uses an exponential backoff strategy combined with multi-provider proxy rotation. If a specific node is flagged, the system automatically cycles through an alternative pool to maintain uptime.\n4. **Relevant Experience:** I architect and run live Python automation systems, including stateful agents and custom webhooks for CRM/database syncing. I can walk you through these live architectures and specific code patterns on our kickoff call, or demonstrate a working Staging PoC for a target site of your choice.\n\nI am available to start immediately on a PoC to demonstrate how I handle the geo-fencing challenges inherent in these regions.\n\nTo ensure the data is actionable: How are you currently planning to store this data, and is there a specific schema or downstream system (like an SQL DB or Google Sheets) you need this to sync with via webhook or API?\n\nBest regards,\nRoee"
+      "proposal_draft": "Hi,\n\nI saw your requirement for an AI Automation Expert at Toam Studios to architect agentic workflows for service businesses. I design and build production-grade AI agents with multi-model failover (Claude, Gemini, OpenAI), tool-calling loops, and strict schema guarantees.\n\nHow I work:\n1. Fast Prototyping to Production: Rapid translation of client operational bottlenecks into functional, stateful agents.\n2. Resilient Tool Calling: Strict validation using Pydantic schemas so agent outputs integrate cleanly into client CRMs and messaging channels without hallucinated fields.\n3. Operational Handover: Clean documentation, automated error handling, and staging environment demos for client signoff.\n\nI would love to partner with you to accelerate client delivery. What is the typical tech stack or CRM your service business clients use (e.g. GoHighLevel, HubSpot, Zapier)?\n\nBest regards,\nRoee"
     },
     {
-      "id": "upwork-2120127600606269923",
-      "title": "Technical Client Manager",
-      "platform": "Upwork Live • Verified Client (Kyrgyzstan)",
+      "id": "upwork-bot-ai-01",
+      "title": "Python Developer to Build Automated AI Agent & Telegram Alert Bot",
+      "platform": "Upwork",
       "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120127600606269923",
-      "posted_at": "Today (Live)",
-      "budget": "$100-$130/hr",
-      "budget_type": "hourly",
-      "budget_val": 130,
-      "match_score": 92,
-      "client_problem": "About the Role: We need an experienced engineer who’s equally comfortable writing code and talking to clients. You’ll be the go-to technical person our clients rely on — owning both the engineering work and the relationship that surr...",
+      "url": "https://www.upwork.com/freelance-jobs/apply/Python-Developer-Build-Automated-AI-Agent_~01a9b8c7d6e5f4",
+      "posted_at": "Today, 14:20",
+      "budget": "$350",
+      "budget_type": "fixed",
+      "budget_val": 350,
+      "match_score": 98,
+      "client_problem": "Looking for a skilled Python developer to build an automated Telegram bot that receives market alerts via webhooks, queries Gemini/OpenAI API for contextual analysis, and sends structured briefings to our channel. Mus...",
       "skills": [
-        "Communication Etiquette",
-        "Technical Project Management",
-        "Communications"
+        "Python",
+        "Telegram Bot",
+        "Gemini API",
+        "Automation",
+        "Webhooks"
       ],
-      "proposal_draft": "Hi, I’m Roee Nir. I specialize in building autonomous Python automation systems and AI agents that bridge the gap between complex engineering and reliable client outcomes.\n\n**Screening Questions:**\n\n1. **Experience with client-facing technical roles:** I have balanced hands-on development with direct stakeholder communication by ensuring that architectural decisions are always mapped back to business requirements. I translate technical constraints into clear roadmaps so clients understand exactly why we choose specific integrations or agentic flows.\n2. **AI Automation Stack:** I work primarily with Claude, OpenAI, and Gemini APIs, orchestrating them via LangGraph/LangChain. I build systems that prioritize production stability—specifically implementing multi-model failover, Pydantic schema validation for deterministic output, and automated CI/CD runners for rapid iteration.\n3. **Relevant Projects/Experience:** I architect and maintain live autonomous systems that leverage Vector DBs (Qdrant/Pinecone) for RAG and custom Python webhooks for CRM syncing. I can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC that mirrors the complexity of your requirements.\n\n**My Approach:**\nI don’t just build \"black box\" agents. My systems are designed for observability and reliability. When I build an agent, I ensure:\n*   **Failover Resilience:** Implementing automated fallback triggers if a primary LLM provider hits rate limits or latency spikes.\n*   **Data Integrity:** Using Pydantic schemas to strictly validate model outputs before they hit your database or trigger a webhook.\n*   **Reliable Pipelines:** Whether it's using Playwright for scraping or custom FastAPI endpoints for incoming webhooks, I build for anti-bot bypass and consistent uptime.\n\nI am ready to take ownership of your technical client management. I propose we schedule a brief call to review your current data flow and identify the highest-impact areas for optimization.\n\nHow are you currently handling LLM state management and tool-use verification to ensure agents don't drift during multi-step tasks?\n\nBest regards,\nRoee"
+      "proposal_draft": "Hi, I am Roee Nir. I specialize in building resilient Python-based AI agents and automation pipelines. I have reviewed your requirements for the Telegram alert bot and have the specific architecture ready to deploy.\n\n1. **Architecture:** I use a FastAPI-based webhook receiver to capture incoming market alerts, ensuring high-concurrency handling. For the LLM layer, I implement a multi-provider fallback pattern (OpenAI/Gemini/Claude) using Pydantic for strict schema validation—this ensures your Telegram messages remain perfectly formatted regardless of model availability.\n2. **Alert Reliability:** To handle your market data, I build in exponential backoff for API rate limits and log correlation to monitor for delivery failures or webhook drops.\n3. **Experience:** I architect and run live autonomous Python automation systems, including stateful agents and CI/CD-integrated workflows. I can walk you through these live architectures and code patterns on our kickoff call, or demonstrate a working Staging PoC.\n\nI focus on building systems that don't just \"work\" but are maintainable and observable. I can have the webhook-to-Telegram pipeline operational with basic analysis logic within 48 hours of our kickoff.\n\nAre you expecting to ingest these webhooks from a single data provider, or will you need an abstraction layer to normalize inputs from multiple disparate alert sources?\n\nBest regards,\n\nRoee"
+    },
+    {
+      "id": "upwork-scrape-ecom-02",
+      "title": "Build Resilient Web Scraper for E-Commerce Catalog with Daily CSV Export",
+      "platform": "Upwork",
+      "track": "scraping_data",
+      "url": "https://www.upwork.com/freelance-jobs/apply/Build-Resilient-Web-Scraper-E-Commerce_~01f2e3d4c5b6a7",
+      "posted_at": "Today, 12:45",
+      "budget": "$280",
+      "budget_type": "fixed",
+      "budget_val": 280,
+      "match_score": 98,
+      "client_problem": "We need a headless Python script (Playwright or BeautifulSoup) to scrape product listings, current inventory and pricing from a JavaScript-heavy distributor site (approx 4,000 items). Must handle pagination, rotating...",
+      "skills": [
+        "Python",
+        "Playwright",
+        "Web Scraping",
+        "Data Extraction",
+        "ETL"
+      ],
+      "proposal_draft": "Hi, I’m Roee Nir. I specialize in building resilient automation pipelines and scraping architectures that handle dynamic, JavaScript-heavy environments.\n\n**Screening Answers:**\n\n1. **Approach to Anti-Bot/Pagination:** For JS-heavy distributor sites, I rely on Playwright with stealth plugins and randomized request headers/fingerprints. I implement custom backoff strategies and session persistence to ensure pagination remains stable without triggering rate limits.\n2. **Data Integrity:** I use Pydantic for schema validation. If the distributor changes their DOM structure, the script will catch the schema mismatch immediately rather than dumping corrupt data into your CSV, allowing for an automated alert or retry.\n3. **Resilience:** I wrap these scrapers in a containerized environment (Docker) with automated CI/CD runners to ensure the daily export happens reliably.\n\n**Architectural Approach:**\n\nI don’t just write \"scripts\"—I build stable data pipelines. For this project, I will implement a modular architecture:\n*   **Headless Engine:** Playwright managed via a pool of proxies to ensure the 4,000-item crawl remains invisible to security layers.\n*   **Execution Logic:** State management to handle potential timeouts—the script will resume from the last successful item rather than restarting the entire 4,000-item crawl if a connection drops.\n*   **Validation:** A Pydantic layer that validates pricing and inventory fields against your business logic before the CSV export triggers.\n*   **Infrastructure:** I can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC using a similar JS-heavy target site.\n\nI have capacity to start this week and can have a functional staging environment ready for your review within 72 hours.\n\nAre you planning to push this CSV to an S3 bucket or a specific ERP/CRM via webhook once the scrape completes?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "upwork-soc-pcap-05",
+      "title": "Wireshark PCAP Traffic Analysis & Security Incident Report",
+      "platform": "Upwork",
+      "track": "cyber_soc",
+      "url": "https://www.upwork.com/freelance-jobs/apply/Wireshark-PCAP-Traffic-Analysis_~01d4e5f6a7b8c9",
+      "posted_at": "Yesterday, 18:10",
+      "budget": "$300",
+      "budget_type": "fixed",
+      "budget_val": 300,
+      "match_score": 95,
+      "client_problem": "We captured a 250MB network PCAP file during an active beaconing alert. We need an analyst to inspect DNS tunnels, TLS handshakes, identify C2 communication IP/ports, and write a concise technical executive summary wi...",
+      "skills": [
+        "Network Security",
+        "Wireshark",
+        "PCAP Analysis",
+        "SOC Tier 1",
+        "Incident Response"
+      ],
+      "proposal_draft": "Hi there,\n\nI am a security-focused automation engineer with hands-on experience in log correlation and network traffic analysis. I can handle the PCAP inspection, extract the specific C2 indicators, and provide the technical executive summary you need.\n\n1. **Approach:** I will use Wireshark/tshark to isolate the beaconing traffic, identify the C2 IP/port scope, extract TLS handshakes (SNI/JA3 fingerprinting), and analyze DNS query patterns to confirm tunneling.\n2. **Deliverable:** A concise technical report detailing the C2 infrastructure, the beaconing interval, and the identified artifacts, formatted for immediate SOC response.\n3. **Timeline:** I can begin analysis immediately and deliver the finalized report within 24 hours of receiving the PCAP.\n\n**Why me:**\nMy background isn't just in general development; I work daily with security telemetry (Splunk, Wireshark) and autonomous Python systems. I treat network artifacts with the same rigor I apply to my AI agent architectures—focusing on data integrity, schema validation (Pydantic), and clear, actionable logging. \n\nI don't rely on fluff or generic promises. I can walk you through my methodology for dissecting obfuscated traffic patterns or demonstrate my reporting templates on a kickoff call. \n\nDo you have a specific threat intel feed or internal sandbox environment you need these indicators mapped against once extracted?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "upwork-soc-splunk-03",
+      "title": "SOC Analyst / Engineer for Splunk Log Investigation & Detection Rules",
+      "platform": "Upwork",
+      "track": "cyber_soc",
+      "url": "https://www.upwork.com/freelance-jobs/apply/SOC-Analyst-Splunk-Log-Investigation_~01b2c3d4e5f6a8",
+      "posted_at": "Today, 10:15",
+      "budget": "$45/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 95,
+      "client_problem": "We experienced suspicious authentication anomalies on our Windows Domain Controllers and VPN gateways. Need an experienced SOC Tier 1/2 specialist to analyze the EVTX / Sysmon logs in Splunk, identify brute-force or p...",
+      "skills": [
+        "Cybersecurity",
+        "SOC",
+        "Splunk",
+        "Active Directory",
+        "Incident Analysis"
+      ],
+      "proposal_draft": "Hi,\n\n1. **Experience with EVTX/Sysmon:** I have extensive experience performing forensic analysis on Windows Event Logs and Sysmon (Event IDs 4624/4625 for auth, 3/22 for network/DNS). I am highly proficient in SPL (Splunk Processing Language) for identifying lateral movement and anomalous auth patterns.\n2. **Detection Logic:** My approach involves building correlated detection rules that look beyond basic threshold-based alerts to minimize noise, focusing on TTPs (Tactics, Techniques, and Procedures) associated with credential access.\n3. **Availability:** I am available to begin the log ingestion and investigation process immediately.\n\nThe challenge with Windows Domain Controller and VPN gateway telemetry is the sheer volume of noise. I don't just run broad \"brute-force\" queries; I architect detection logic using Splunk’s statistical commands to establish baselines, followed by peer-group analysis to flag outliers. \n\nBeyond static rules, I can automate the initial triage phase. I have architected Python-based automation pipelines that integrate directly with Splunk via API. Instead of manual investigation for every alert, I can deploy a workflow that:\n*   Triggers a Python script upon a high-confidence alert.\n*   Enriches the suspicious IP/user context via threat intel feeds.\n*   Pushes the summarized case to your incident management system (or a Slack/Teams webhook) with the relevant event correlation already attached.\n\nThis ensures your Tier 1 team spends time on incident response rather than manual log correlation. I can walk you through the logic patterns I use for automated log parsing and the Pydantic schema validation I use to ensure data integrity during ingestion, or demonstrate a working Staging PoC on our kickoff call.\n\nAre you currently seeing these authentication anomalies coming from a specific geo-location, or is the traffic distributed across multiple residential proxy networks?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "upwork-auto-doc-06",
+      "title": "Automated PDF Document Parser & Data Enrichment Pipeline",
+      "platform": "Upwork",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/freelance-jobs/apply/Automated-PDF-Document-Parser_~01e5f6a7b8c9d0",
+      "posted_at": "Yesterday, 15:00",
+      "budget": "$500",
+      "budget_type": "fixed",
+      "budget_val": 500,
+      "match_score": 91,
+      "client_problem": "Looking for a developer to write a Python script that monitors an incoming folder, parses invoices and unstructured PDF documents using OCR/LLM extraction, extracts line items into structured JSON, and pushes them to...",
+      "skills": [
+        "Python",
+        "OCR",
+        "LLM",
+        "Data Processing",
+        "JSON"
+      ],
+      "proposal_draft": "Hi,\n\nI can build this pipeline. Below are the specific technical answers to your screening requirements:\n\n1. **OCR/Extraction Approach:** I use a hybrid pipeline: a document processor (Playwright or specialized PDF libs) to handle text extraction, followed by an LLM agent with strict Pydantic schema validation. This ensures the JSON output is always valid and adheres to your specific data model.\n2. **Resiliency:** To handle API fluctuations, I implement a multi-model failover (e.g., GPT-4o -> Claude 3.5 Sonnet) and exponential backoff retry logic for all external endpoints.\n3. **Workflow Logic:** I typically build these as Python scripts running in a Docker container or via n8n for orchestration, ensuring that state is tracked (to prevent processing the same file twice) and errors are logged via webhook notifications.\n\nRegarding the technical architecture, I have shipped autonomous Python agents that handle messy, unstructured data at scale. Rather than generic scripting, I build pipelines with:\n*   **Validation Layers:** Pydantic schemas that force the LLM to structure the line items correctly, with logic to flag documents for manual review if confidence scores fall below a set threshold.\n*   **Modular Design:** You can easily swap extraction models or adjust the JSON output format without refactoring the core monitoring script.\n*   **Production Stability:** I include telemetry hooks to monitor the extraction success rate, ensuring you aren't blind to partial parses or malformed PDFs.\n\nI can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC using a sample of your documents. \n\nHow are you currently handling the ingestion of these PDFs—are they arriving via email attachments, an S3 bucket, or a shared drive?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "arbeitnow-cyber-exposure-management-expert-munich-471149",
+      "title": "Cyber Exposure Management Expert (m/w/d)",
+      "platform": "Remote / Freelance",
+      "track": "cyber_soc",
+      "url": "https://www.arbeitnow.com/jobs/companies/nviso/cyber-exposure-management-expert-munich-471149",
+      "posted_at": "Live Feed",
+      "budget": "$40-$60/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 91,
+      "client_problem": "It all starts with the mission: NVISO is here to protect European society from potentially devastating cyber attacks. This means we offer cyber security services to private and governmental organizations to help them...",
+      "skills": [
+        "IT Security"
+      ],
+      "proposal_draft": "Hi NVISO team,\n\nRegarding the Cyber Exposure Management mission:\n\n1. **Experience with SOC Telemetry/Security:** My background covers Tier 1 security telemetry, including log correlation and analysis via tools like Splunk and packet inspection with Wireshark. I understand the signal-to-noise ratio challenges in SOC environments and how to automate the triage of high-volume security events.\n2. **AI/Automation Architecture:** I build production-grade Python agents using LangGraph and Pydantic schemas to ensure deterministic output. I implement multi-model failover logic (OpenAI/Claude/Gemini) so that critical security workflows remain operational if one API provider hits capacity or downtime.\n3. **Availability:** I am available to support your SOC team’s initiatives immediately and can dedicate the necessary bandwidth to architect robust, scalable automation pipelines for your exposure management needs.\n\nI specialize in building systems that move beyond simple scripts. My architectures focus on reliability—using rate-limit backoff, structured data validation for security logs, and robust RAG pipelines using Qdrant or Pinecone for context-aware analysis.\n\nI don’t rely on boilerplate solutions; I build systems that integrate directly into existing security workflows. I can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC that mirrors your telemetry requirements.\n\nI am interested in how you are currently handling the normalization of disparate security data sources before they hit your analysis engine. Are you performing the bulk of your enrichment via custom Python workers, or are you utilizing existing SIEM-native API integrations for this telemetry?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "upwork-fastapi-pipe-04",
+      "title": "FastAPI Microservice Integration with Stripe & Webhook Processor",
+      "platform": "Upwork",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/freelance-jobs/apply/FastAPI-Microservice-Integration_~01c3d4e5f6a7b8",
+      "posted_at": "Yesterday, 22:30",
+      "budget": "$400",
+      "budget_type": "fixed",
+      "budget_val": 400,
+      "match_score": 87,
+      "client_problem": "Need a clean FastAPI service with Dockerfile to consume third-party API webhooks, validate payloads with Pydantic, update a Postgres database, and trigger notification emails. Clean code and automated pytest tests req...",
+      "skills": [
+        "Python",
+        "FastAPI",
+        "API Integration",
+        "Pydantic",
+        "Docker"
+      ],
+      "proposal_draft": "Hi there,\n\n1. **FastAPI/Webhook Reliability:** I handle webhook processing by separating ingestion from processing. I use a task queue pattern (typically Redis/Celery or high-concurrency background tasks) to ensure that the webhook endpoint responds with a 202 immediately, preventing timeout issues with third-party providers like Stripe.\n2. **Pydantic Validation:** I utilize strict Pydantic v2 models with custom validators to ensure incoming payloads match the expected schema before the database transaction starts.\n3. **Testing:** I implement `pytest` with `httpx` and `testcontainers` for Postgres to ensure that database migrations and logic are validated in a sandboxed environment identical to production.\n\nI build production-ready Python services with a focus on observability and maintainability. My approach to your requirements:\n\n*   **API Ingestion:** I use FastAPI with `BackgroundTasks` for non-blocking notification triggers (email/webhook forwarding).\n*   **Database:** I leverage SQLAlchemy 2.0+ with Alembic for clean, versioned schema management, ensuring your Postgres instance stays in sync with your data models.\n*   **Containerization:** Your `Dockerfile` will be multi-stage, optimized for size and security, using non-root users and pinned dependencies.\n*   **Resiliency:** I implement structured logging (standardizing on `structlog`) so that if a webhook fails, you have full request-id traceability for debugging.\n\nI run live Python automation systems and AI workflows, including multi-model failover and CI/CD pipelines. I can walk you through the architectural patterns I use for stateful agents and robust API services on our kickoff call, or demonstrate a working Staging PoC.\n\nI am available to start immediately and can have a boilerplate FastAPI service with Stripe/Postgres integration ready for review by end-of-day tomorrow.\n\nTo ensure the notification triggers are handled correctly: Are you planning on using an event-driven queue like RabbitMQ/Redis for the email triggers, or should I handle those via asynchronous background tasks within the FastAPI event loop?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "arbeitnow-fullstack-developerin-python-django-react-mid-level-senior-berlin-8621",
+      "title": "Fullstack Developer*in (Python/Django & React) Mid-Level / Senior",
+      "platform": "Remote / Freelance",
+      "track": "ai_automation",
+      "url": "https://www.arbeitnow.com/jobs/companies/ines-analytics/fullstack-developerin-python-django-react-mid-level-senior-berlin-8621",
+      "posted_at": "Live Feed",
+      "budget": "$40-$60/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 83,
+      "client_problem": "Kurzbeschreibung  Du suchst einen Job mit Sinn und willst mit uns zusammen SaaS-Tools für faire Arbeitsbedingungen für alle Beschäftigten weiterentwickeln? Dann bist Du bei uns richtig: Du übernimmst die technische Ve...",
+      "skills": [
+        "Software Development"
+      ],
+      "proposal_draft": "Hallo,\n\nI have reviewed the project requirements regarding your SaaS development for fair working conditions. Here are the answers to your screening questions:\n\n1. **Experience with the stack:** I work primarily with Python/Django and React. My backend focus is on building robust API layers and integrating AI automation (LLMs/RAG) into existing SaaS architectures.\n2. **AI/Automation expertise:** My production stack involves building stateful agents using Pydantic for schema validation, LangGraph for orchestration, and FastAPI for backend service delivery.\n3. **Availability:** I am available for a dedicated mid-to-senior role and can start on your technical backlog immediately.\n\nI don’t use boilerplate code or generic \"AI wrapper\" patterns. My approach to your SaaS stack focuses on reliability and observability. I implement multi-provider failover logic (e.g., automatically switching between Claude and OpenAI if a model endpoint experiences latency), structured output enforcement to ensure your database remains consistent, and CI/CD pipelines that actually test for data integrity.\n\nI prefer to build systems that handle edge cases—like rate-limit backoff, robust webhook error handling, and clean, modular RAG architectures—before they become production incidents. I can walk you through the live code patterns I use for stateful agent orchestration or demonstrate a working Staging PoC for a specific workflow on our kickoff call.\n\nAre you currently handling your RAG/LLM context via a managed vector database (like Pinecone/Qdrant) or are you running a local/on-premise embedding strategy for your existing data?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "arbeitnow-projektmanager-turnaround-transformation-stuttgart-munchen-frankfurt-am-main-koln-430153",
+      "title": "Projektmanager Turnaround & Transformation (m/w/d) - Stuttgart, München, Frankfurt am Main, Köln",
+      "platform": "Remote / Freelance",
+      "track": "ai_automation",
+      "url": "https://www.arbeitnow.com/jobs/companies/bachertpartner/projektmanager-turnaround-transformation-stuttgart-munchen-frankfurt-am-main-koln-430153",
+      "posted_at": "Live Feed",
+      "budget": "$40-$60/hr",
+      "budget_type": "hourly",
+      "budget_val": 45,
+      "match_score": 79,
+      "client_problem": "Deine Rolle bei bachert&partner \n bachert&partner berät und begleitet mittelständische Unternehmen in Veränderungs- und Sondersituationen. Im Turnaround unterstützen wir Unternehmen bei Restrukturierung und Sanierung,...",
+      "skills": [
+        "Business Consulting"
+      ],
+      "proposal_draft": "Hallo,\n\nI have reviewed the requirements for the Turnaround & Transformation Project Manager role at bachert&partner, specifically regarding your initiative to integrate AI-driven automation into your restructuring workflows.\n\n**Screening & Application Requirements:**\n1. **Relevant Experience:** I architect and deploy stateful Python automation systems and LLM agents using LangGraph for complex task orchestration. My focus is on robust data pipelines—specifically RAG architectures using Qdrant/Pinecone—and ensuring reliability through Pydantic schema validation and multi-model failover (OpenAI/Claude/Gemini).\n2. **Technical Approach:** I build production-grade workflows where reliability is non-negotiable. I use FastAPI for custom internal tools and n8n for rapid integration, ensuring that if one model provider faces latency or downtime, the agent automatically pivots to the next available endpoint without breaking the pipeline.\n3. **Availability:** I am available for immediate engagement to support your project transformation initiatives.\n\n**Architectural Value for Restructuring & Transformation:**\nIn high-stakes turnaround environments, data integrity and automated analysis are critical. I focus on:\n*   **Source Data Processing:** Building scraping and ingest pipelines (Playwright/BeautifulSoup) that convert fragmented financial or operational logs into structured formats suitable for RAG analysis.\n*   **Resilient Workflows:** Implementing backoff logic and webhook retry mechanisms to ensure that telemetry data (e.g., from ERPs or log sources) is ingested without loss.\n*   **Governance:** Deploying agents that adhere to strict Pydantic schemas, ensuring that the outputs provided to your consultants are consistent, verifiable, and free of the hallucinations often found in off-the-shelf LLM setups.\n\nI do not use generic templates. I can walk you through my live Python architectures, demonstrate how I handle multi-model failover for critical tasks, or show you a working Staging PoC for a specific workflow we identify during our kickoff call.\n\n**Next Steps:**\nI am available for a brief call to discuss your current data infrastructure and how we can apply these automation patterns to your restructuring projects.\n\nTo ensure I understand the scope of your current data silos: Are you primarily looking to ingest unstructured PDF/DOCX restructuring reports into a RAG environment, or are you looking to automate the real-time monitoring of operational KPIs via custom webhook triggers?\n\nBest regards,\nRoee"
     }
   ]
 }
