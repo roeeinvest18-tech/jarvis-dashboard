@@ -6,6 +6,44 @@
 // training.js, os.js — so moving Training under Personal OS was a routing
 // change here rather than a rewrite there.
 
+// Check URL search params for 1-click cloud sync configuration
+(function checkUrlSyncPairing() {
+  try {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const syncUrl = params.get('sync_url');
+    const syncToken = params.get('sync_token');
+    if (syncUrl && syncToken) {
+      if (typeof DAILY !== 'undefined' && typeof DAILY.saveSyncConfig === 'function') {
+        DAILY.saveSyncConfig(syncUrl, syncToken);
+      } else {
+        const clean = syncUrl.replace(/\/+$/, '');
+        localStorage.setItem('jarvis:daily:syncUrl', clean);
+        localStorage.setItem('jarvis:daily:syncToken', syncToken);
+        localStorage.setItem('jarvis:training:syncUrl', clean);
+        localStorage.setItem('jarvis:training:syncToken', syncToken);
+        localStorage.setItem('jarvis:workout:syncUrl', clean);
+        localStorage.setItem('jarvis:workout:syncToken', syncToken);
+      }
+      params.delete('sync_url');
+      params.delete('sync_token');
+      const newQuery = params.toString();
+      const newUrl = window.location.pathname + (newQuery ? '?' + newQuery : '') + window.location.hash;
+      try {
+        window.history.replaceState(null, '', newUrl);
+      } catch (e) {}
+      setTimeout(() => {
+        if (typeof DAILY !== 'undefined' && typeof DAILY.syncWithServer === 'function') {
+          DAILY.syncWithServer();
+        }
+        if (typeof WORKOUT !== 'undefined' && typeof WORKOUT.syncWithServer === 'function') {
+          WORKOUT.syncWithServer();
+        }
+      }, 300);
+    }
+  } catch (e) {}
+})();
+
 // Deep links from History ("edit this day") arrive as ?date=YYYY-MM-DD.
 // Validated strictly rather than trusted: a malformed value falls back to
 // today instead of opening a record under a nonsense key.

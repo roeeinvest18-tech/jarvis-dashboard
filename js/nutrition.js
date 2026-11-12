@@ -289,7 +289,20 @@
         <div class="sheet-body nutrition-body">
           ${!hasSync ? `
             <div class="nutrition-sync-warning">
-              Notice: Cloud sync is not configured on this device. Open Settings (#insights) to configure your sync URL &amp; token to sync between phone and computer.
+              <div class="sync-warning-text">
+                Notice: Cloud sync is not configured on this device yet. Configure it below to sync seamlessly with your computer.
+              </div>
+              <button type="button" class="btn-sub-action btn-inline-sync-toggle" id="btn-toggle-inline-sync" style="margin-top: 6px;">
+                Configure Cloud Sync
+              </button>
+              <div class="inline-sync-box is-hidden" id="inline-sync-box" style="margin-top: 8px;">
+                <input type="url" id="inline-sync-url" class="custom-name" placeholder="https://your-app.up.railway.app" style="width: 100%; margin-bottom: 6px; font-size: 13px;">
+                <input type="password" id="inline-sync-token" class="custom-name" placeholder="Sync Bearer Token" style="width: 100%; margin-bottom: 6px; font-size: 13px;">
+                <div style="display: flex; gap: 8px;">
+                  <button type="button" class="btn-sub-action is-save-edit" id="btn-save-inline-sync">Save &amp; Sync Now</button>
+                  <button type="button" class="btn-sub-action is-cancel-edit" id="btn-cancel-inline-sync">Cancel</button>
+                </div>
+              </div>
             </div>
           ` : ''}
 
@@ -472,6 +485,57 @@
     overlay.onclick = function (e) {
       if (e.target === overlay) closeNutritionModal();
     };
+
+    // Inline Sync Configuration
+    const toggleSyncBtn = document.getElementById('btn-toggle-inline-sync');
+    const syncBox = document.getElementById('inline-sync-box');
+    const cancelSyncBtn = document.getElementById('btn-cancel-inline-sync');
+    const saveSyncBtn = document.getElementById('btn-save-inline-sync');
+
+    if (toggleSyncBtn && syncBox) {
+      toggleSyncBtn.onclick = function () {
+        const isHidden = syncBox.classList.contains('is-hidden');
+        syncBox.classList.toggle('is-hidden', !isHidden);
+        toggleSyncBtn.textContent = isHidden ? 'Hide Sync Settings' : 'Configure Cloud Sync';
+        if (isHidden) {
+          const cfg = (typeof DAILY !== 'undefined' && typeof DAILY.syncConfig === 'function') ? DAILY.syncConfig() : { url: '', token: '' };
+          const uInput = document.getElementById('inline-sync-url');
+          const tInput = document.getElementById('inline-sync-token');
+          if (uInput && cfg.url) uInput.value = cfg.url;
+          if (tInput && cfg.token) tInput.value = cfg.token;
+          if (uInput) uInput.focus();
+        }
+      };
+    }
+
+    if (cancelSyncBtn && syncBox && toggleSyncBtn) {
+      cancelSyncBtn.onclick = function () {
+        syncBox.classList.add('is-hidden');
+        toggleSyncBtn.textContent = 'Configure Cloud Sync';
+      };
+    }
+
+    if (saveSyncBtn) {
+      saveSyncBtn.onclick = function () {
+        const uInput = document.getElementById('inline-sync-url');
+        const tInput = document.getElementById('inline-sync-token');
+        const url = uInput ? uInput.value.trim() : '';
+        const token = tInput ? tInput.value.trim() : '';
+        if (!url || !token) {
+          alert('Please enter both the Sync URL and Token.');
+          return;
+        }
+        saveSyncBtn.disabled = true;
+        saveSyncBtn.textContent = 'Saving...';
+        if (typeof DAILY !== 'undefined' && typeof DAILY.saveSyncConfig === 'function') {
+          DAILY.saveSyncConfig(url, token);
+          DAILY.syncWithServer().finally(() => {
+            renderNutritionSheet();
+            if (typeof renderDailyToday === 'function') renderDailyToday();
+          });
+        }
+      };
+    }
 
     // Sync button
     const syncBtn = document.getElementById('nutrition-sync-btn');

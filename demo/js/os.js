@@ -516,7 +516,11 @@ function osSettingsHtml() {
 
   const syncBody = (url && token)
     ? `<p class="os-note">${escapeHtml(SET_S.syncOn(host))}
-        <button type="button" class="os-btn os-btn-quiet" id="os-sync-forget">${SET_S.syncForget}</button></p>`
+        <button type="button" class="os-btn os-btn-quiet" id="os-sync-forget">${SET_S.syncForget}</button></p>
+        <p class="os-note" style="margin-top: 6px;">
+          <button type="button" class="os-btn os-btn-primary" id="os-copy-pairing-link">Copy Mobile Pairing Link</button>
+          <span id="os-pair-link-status" style="margin-left: 8px; font-size: 12px; color: #a78bfa;"></span>
+        </p>`
     : `<p class="os-note">${SET_S.syncOff}</p>
        <form id="os-sync-form" class="os-settings-form" autocomplete="off">
          <input type="url" id="os-sync-url" placeholder="${SET_S.serverUrl}" required
@@ -637,6 +641,25 @@ function wireOsSettings() {
     forget.addEventListener('click', () => {
       DAILY.clearSyncConfig();
       renderOsInsights();
+    });
+  }
+
+  const copyPairBtn = document.getElementById('os-copy-pairing-link');
+  if (copyPairBtn) {
+    copyPairBtn.addEventListener('click', () => {
+      const cfg = DAILY.syncConfig();
+      if (!cfg.url || !cfg.token) return;
+      const base = window.location.origin + window.location.pathname;
+      const pairingUrl = `${base}?sync_url=${encodeURIComponent(cfg.url)}&sync_token=${encodeURIComponent(cfg.token)}`;
+      navigator.clipboard.writeText(pairingUrl).then(() => {
+        const stat = document.getElementById('os-pair-link-status');
+        if (stat) stat.textContent = 'Pairing link copied!';
+        setTimeout(() => {
+          if (stat) stat.textContent = '';
+        }, 3000);
+      }).catch(() => {
+        prompt('Copy this pairing link to open on your phone:', pairingUrl);
+      });
     });
   }
 }
