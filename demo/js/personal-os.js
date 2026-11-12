@@ -44,6 +44,87 @@
   } catch (e) {}
 })();
 
+// ---- Feedback & Self-Learning Rating Storage ----
+let osFeedbackRatings = {};
+try {
+  osFeedbackRatings = JSON.parse(localStorage.getItem('jarvis:feedback:ratings') || '{}');
+} catch (e) {
+  osFeedbackRatings = {};
+}
+
+function osSaveRating(type, id, score, title, metadata) {
+  const key = type + ':' + id;
+  osFeedbackRatings[key] = {
+    type: type,
+    id: id,
+    score: score,
+    title: title || '',
+    metadata: metadata || {},
+    timestamp: new Date().toISOString()
+  };
+  try {
+    localStorage.setItem('jarvis:feedback:ratings', JSON.stringify(osFeedbackRatings));
+  } catch (e) {}
+
+  // Sync to Railway daily_store if available
+  try {
+    if (typeof DAILY !== 'undefined' && typeof DAILY.saveSettings === 'function') {
+      DAILY.saveSettings({ feedback_ratings: osFeedbackRatings });
+    }
+  } catch (e) {}
+}
+
+function osRatingWidgetHtml(type, id, title, metadata) {
+  const key = type + ':' + id;
+  const current = (osFeedbackRatings[key] && osFeedbackRatings[key].score) || 0;
+  const metaStr = escapeHtml(JSON.stringify(metadata || {}));
+  const titleStr = escapeHtml(title || '');
+
+  return `
+    <div class="os-rating-widget" data-rating-type="${escapeHtml(type)}" data-rating-id="${escapeHtml(id)}" data-rating-title="${titleStr}" data-rating-meta="${metaStr}">
+      <span class="os-rating-label">Rate (1–10):</span>
+      <div class="os-rating-pills">
+        ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => {
+          const isSel = n === current;
+          const cls = isSel ? (n >= 8 ? ' is-selected is-high' : n <= 4 ? ' is-selected is-low' : ' is-selected') : '';
+          return `<button type="button" class="os-rating-btn${cls}" data-rating-score="${n}" title="Rate ${n}/10">${n}</button>`;
+        }).join('')}
+      </div>
+      <span class="os-rating-feedback mono">${current > 0 ? '(' + current + '/10)' : ''}</span>
+    </div>
+  `;
+}
+
+// Global click listener for ratings
+if (typeof document !== 'undefined') {
+  document.addEventListener('click', function(ev) {
+    const btn = ev.target.closest('.os-rating-btn');
+    if (!btn) return;
+    const widget = btn.closest('.os-rating-widget');
+    if (!widget) return;
+    const type = widget.dataset.ratingType;
+    const id = widget.dataset.ratingId;
+    const title = widget.dataset.ratingTitle;
+    let metadata = {};
+    try {
+      metadata = JSON.parse(widget.dataset.ratingMeta || '{}');
+    } catch (e) {}
+    const score = parseInt(btn.dataset.ratingScore, 10);
+    if (!score) return;
+
+    osSaveRating(type, id, score, title, metadata);
+
+    widget.querySelectorAll('.os-rating-btn').forEach(b => {
+      const s = parseInt(b.dataset.ratingScore, 10);
+      b.className = 'os-rating-btn' + (s === score ? (score >= 8 ? ' is-selected is-high' : score <= 4 ? ' is-selected is-low' : ' is-selected') : '');
+    });
+    const fb = widget.querySelector('.os-rating-feedback');
+    if (fb) {
+      fb.textContent = 'Saved (' + score + '/10)';
+    }
+  });
+}
+
 // Deep links from History ("edit this day") arrive as ?date=YYYY-MM-DD.
 // Validated strictly rather than trusted: a malformed value falls back to
 // today instead of opening a record under a nonsense key.
@@ -325,6 +406,7 @@ function osPpCardHtml(c, isHe, dirAttr) {
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.ease_of_build ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(isLow ? S.lowtech.launchEase : S.metrics.ease)}</span></div>
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.low_competition ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.competition)}</span></div>
       </div>
+      ${osRatingWidgetHtml('painpoint', c.title_en || title || 'pp-' + Math.random().toString(36).slice(2), title || '', { track: track, category: c.category || '' })}
     </article>`;
 }
 
@@ -494,6 +576,7 @@ function osJobCardHtml(job) {
         </div>
         <pre class="job-proposal-text" id="job-proposal-text-${escapeHtml(jobId)}">${escapeHtml(job.proposal_draft || '')}</pre>
       </div>
+      ${osRatingWidgetHtml('upwork', jobId, job.title || '', { track: track, budget: budget })}
     </article>
   `;
 }
@@ -700,6 +783,7 @@ function osContentCardHtml(post) {
           ${escapeHtml(CONTENT_S.labels.openLinkedIn)} &rarr;
         </a>
       </div>
+      ${osRatingWidgetHtml('linkedin', postId, post.topic || '', { category: category, source: post.source_platform || '' })}
     </article>
   `;
 }

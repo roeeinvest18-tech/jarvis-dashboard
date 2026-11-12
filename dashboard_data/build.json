@@ -2,6 +2,7 @@
   "variant": "public",
   "allowlist": [
     "breakout_alerts.json",
+    "feedback_ratings.json",
     "jobs.json",
     "linkedin_posts.json",
     "painpoints.json",
@@ -17,6 +18,7 @@
   ],
   "published": [
     "breakout_alerts.json",
+    "feedback_ratings.json",
     "jobs.json",
     "linkedin_posts.json",
     "painpoints.json",
