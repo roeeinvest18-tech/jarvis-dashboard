@@ -516,6 +516,7 @@ function osPaintJobs(mount, data) {
   const counts = {
     all: jobs.length,
     ai_automation: stats.ai_count || jobs.filter(j => j.track === 'ai_automation').length,
+    web_dashboards: stats.web_count || jobs.filter(j => j.track === 'web_dashboards').length,
     cyber_soc: stats.cyber_count || jobs.filter(j => j.track === 'cyber_soc').length,
     scraping_data: stats.scraping_count || jobs.filter(j => j.track === 'scraping_data').length,
   };
@@ -550,6 +551,7 @@ function osPaintJobs(mount, data) {
       <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.scanned)}</div><div class="pp-stat-val mono">${escapeHtml(String(stats.total_scanned || jobs.length))}</div></div>
       <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.matched)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.all))}</div></div>
       <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.ai)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.ai_automation))}</div></div>
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.web)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.web_dashboards))}</div></div>
       <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.cyber)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.cyber_soc))}</div></div>
     </div>
 
