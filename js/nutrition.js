@@ -129,7 +129,7 @@
           record.protein_target_met = true;
         }
 
-        DAILY.saveDay(record);
+        DAILY.saveDay(state.date, record);
 
         if (typeof renderDailyToday === 'function') {
           renderDailyToday();
@@ -167,7 +167,7 @@
               if (!hasRecordMeals && hasLocalMeals) {
                 record.nutrition = parsed;
                 record.updated_at = new Date().toISOString();
-                DAILY.saveDay(record);
+                DAILY.saveDay(date, record);
                 changed = true;
               }
             }

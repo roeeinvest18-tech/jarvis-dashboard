@@ -246,8 +246,8 @@ function renderShellSubTabs(mount, area, activeTabId, onTabChange) {
 // everything around it (nav, eyebrow, sub-tabs, persistence, hash sync).
 function mountShell({ areaId, titleFor, render }) {
   if (typeof window !== 'undefined' && areaId === 'os' && (typeof osRenderPainpoints === 'undefined' || typeof osRenderJobs === 'undefined' || typeof NUTRITION === 'undefined')) {
-    if (!sessionStorage.getItem('jarvis:cache-healed-v57')) {
-      sessionStorage.setItem('jarvis:cache-healed-v57', '1');
+    if (!sessionStorage.getItem('jarvis:cache-healed-v58')) {
+      sessionStorage.setItem('jarvis:cache-healed-v58', '1');
       const healAssets = [
         './', 'index.html', 'trading.html', 'css/styles.css', 'js/strings.js',
         'js/icons.js', 'js/data.js', 'js/shell.js', 'js/components.js',

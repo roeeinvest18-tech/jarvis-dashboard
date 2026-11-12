@@ -492,13 +492,22 @@ const DAILY = {
     return Object.prototype.hasOwnProperty.call(this.days(), date);
   },
 
-  saveDay(date, patch) {
+  saveDay(dateOrRecord, patch) {
+    let date;
+    let actualPatch;
+    if (typeof dateOrRecord === 'object' && dateOrRecord !== null && dateOrRecord.date) {
+      date = dateOrRecord.date;
+      actualPatch = { ...dateOrRecord, ...(patch || {}) };
+    } else {
+      date = dateOrRecord;
+      actualPatch = patch || {};
+    }
     const days = this.days();
     const existing = days[date];
     const record = dailyNormalizeRecord(existing, date);
     const next = {
       ...record,
-      ...patch,
+      ...actualPatch,
       date,
       created_at: (existing && existing.created_at) || record.created_at,
       updated_at: new Date().toISOString(),
