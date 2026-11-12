@@ -42,8 +42,12 @@ const TRAINING_SYNC_TOKEN_KEY = 'jarvis:training:syncToken';
 function trainingSyncConfig() {
   try {
     return {
-      url: (localStorage.getItem(TRAINING_SYNC_URL_KEY) || '').replace(/\/+$/, ''),
-      token: localStorage.getItem(TRAINING_SYNC_TOKEN_KEY) || '',
+      url: (localStorage.getItem(TRAINING_SYNC_URL_KEY)
+        || localStorage.getItem('jarvis:daily:syncUrl')
+        || localStorage.getItem('jarvis:workout:syncUrl') || '').replace(/\/+$/, ''),
+      token: localStorage.getItem(TRAINING_SYNC_TOKEN_KEY)
+        || localStorage.getItem('jarvis:daily:syncToken')
+        || localStorage.getItem('jarvis:workout:syncToken') || '',
     };
   } catch (e) {
     return { url: '', token: '' };
@@ -52,8 +56,13 @@ function trainingSyncConfig() {
 
 function saveTrainingSyncConfig(url, token) {
   try {
-    localStorage.setItem(TRAINING_SYNC_URL_KEY, url.replace(/\/+$/, ''));
+    const cleanUrl = url.replace(/\/+$/, '');
+    localStorage.setItem(TRAINING_SYNC_URL_KEY, cleanUrl);
     localStorage.setItem(TRAINING_SYNC_TOKEN_KEY, token);
+    localStorage.setItem('jarvis:daily:syncUrl', cleanUrl);
+    localStorage.setItem('jarvis:daily:syncToken', token);
+    localStorage.setItem('jarvis:workout:syncUrl', cleanUrl);
+    localStorage.setItem('jarvis:workout:syncToken', token);
   } catch (e) { /* non-fatal */ }
 }
 
@@ -61,6 +70,10 @@ function clearTrainingSyncConfig() {
   try {
     localStorage.removeItem(TRAINING_SYNC_URL_KEY);
     localStorage.removeItem(TRAINING_SYNC_TOKEN_KEY);
+    localStorage.removeItem('jarvis:daily:syncUrl');
+    localStorage.removeItem('jarvis:daily:syncToken');
+    localStorage.removeItem('jarvis:workout:syncUrl');
+    localStorage.removeItem('jarvis:workout:syncToken');
   } catch (e) { /* non-fatal */ }
 }
 

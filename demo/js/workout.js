@@ -1407,9 +1407,11 @@ const WORKOUT = {
     try {
       return {
         url: (localStorage.getItem(WORKOUT_KEYS.syncUrl)
-          || localStorage.getItem('jarvis:training:syncUrl') || '').replace(/\/+$/, ''),
+          || localStorage.getItem('jarvis:training:syncUrl')
+          || localStorage.getItem('jarvis:daily:syncUrl') || '').replace(/\/+$/, ''),
         token: localStorage.getItem(WORKOUT_KEYS.syncToken)
-          || localStorage.getItem('jarvis:training:syncToken') || '',
+          || localStorage.getItem('jarvis:training:syncToken')
+          || localStorage.getItem('jarvis:daily:syncToken') || '',
       };
     } catch (e) {
       return { url: '', token: '' };

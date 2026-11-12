@@ -246,8 +246,8 @@ function renderShellSubTabs(mount, area, activeTabId, onTabChange) {
 // everything around it (nav, eyebrow, sub-tabs, persistence, hash sync).
 function mountShell({ areaId, titleFor, render }) {
   if (typeof window !== 'undefined' && areaId === 'os' && (typeof osRenderPainpoints === 'undefined' || typeof osRenderJobs === 'undefined' || typeof NUTRITION === 'undefined')) {
-    if (!sessionStorage.getItem('jarvis:cache-healed-v55')) {
-      sessionStorage.setItem('jarvis:cache-healed-v55', '1');
+    if (!sessionStorage.getItem('jarvis:cache-healed-v56')) {
+      sessionStorage.setItem('jarvis:cache-healed-v56', '1');
       const healAssets = [
         './', 'index.html', 'trading.html', 'css/styles.css', 'js/strings.js',
         'js/icons.js', 'js/data.js', 'js/shell.js', 'js/components.js',
@@ -366,6 +366,20 @@ function mountShell({ areaId, titleFor, render }) {
 
   shellSetTab(areaId, activeTab);
   paint();
+
+  if (typeof document !== 'undefined' && !window.__jarvis_sync_listeners_installed) {
+    window.__jarvis_sync_listeners_installed = true;
+    const triggerAutoSync = () => {
+      try {
+        if (typeof dailyTriggerSync === 'function') dailyTriggerSync();
+        if (typeof WORKOUT !== 'undefined' && typeof WORKOUT.syncWithServer === 'function') WORKOUT.syncWithServer();
+      } catch (e) {}
+    };
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') triggerAutoSync();
+    });
+    window.addEventListener('focus', triggerAutoSync);
+  }
 
   return { get tab() { return activeTab; }, setTab, repaint: paint };
 }

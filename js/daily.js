@@ -291,6 +291,9 @@ function dailyNormalizeRecord(record, date) {
   merged.priorities = Array.isArray(merged.priorities) ? merged.priorities.slice(0, 3) : [];
   merged.priorities_done = Array.isArray(merged.priorities_done)
     ? merged.priorities_done.slice(0, 3) : [];
+  if (record && record.nutrition) {
+    merged.nutrition = record.nutrition;
+  }
   return merged;
 }
 
@@ -743,8 +746,12 @@ const DAILY = {
   syncConfig() {
     try {
       const url = localStorage.getItem(DAILY_KEYS.syncUrl)
+        || localStorage.getItem('jarvis:training:syncUrl')
+        || localStorage.getItem('jarvis:workout:syncUrl')
         || localStorage.getItem(DAILY_FALLBACK_SYNC_URL_KEY) || '';
       const token = localStorage.getItem(DAILY_KEYS.syncToken)
+        || localStorage.getItem('jarvis:training:syncToken')
+        || localStorage.getItem('jarvis:workout:syncToken')
         || localStorage.getItem(DAILY_FALLBACK_SYNC_TOKEN_KEY) || '';
       return { url: url.replace(/\/+$/, ''), token };
     } catch (e) {
@@ -754,8 +761,14 @@ const DAILY = {
 
   saveSyncConfig(url, token) {
     try {
-      localStorage.setItem(DAILY_KEYS.syncUrl, (url || '').replace(/\/+$/, ''));
-      localStorage.setItem(DAILY_KEYS.syncToken, token || '');
+      const cleanUrl = (url || '').replace(/\/+$/, '');
+      const cleanToken = token || '';
+      localStorage.setItem(DAILY_KEYS.syncUrl, cleanUrl);
+      localStorage.setItem(DAILY_KEYS.syncToken, cleanToken);
+      localStorage.setItem('jarvis:training:syncUrl', cleanUrl);
+      localStorage.setItem('jarvis:training:syncToken', cleanToken);
+      localStorage.setItem('jarvis:workout:syncUrl', cleanUrl);
+      localStorage.setItem('jarvis:workout:syncToken', cleanToken);
     } catch (e) { /* non-fatal */ }
   },
 
@@ -763,6 +776,10 @@ const DAILY = {
     try {
       localStorage.removeItem(DAILY_KEYS.syncUrl);
       localStorage.removeItem(DAILY_KEYS.syncToken);
+      localStorage.removeItem('jarvis:training:syncUrl');
+      localStorage.removeItem('jarvis:training:syncToken');
+      localStorage.removeItem('jarvis:workout:syncUrl');
+      localStorage.removeItem('jarvis:workout:syncToken');
     } catch (e) { /* non-fatal */ }
   },
 
