@@ -670,14 +670,14 @@ function osContentCardHtml(post) {
         <div class="content-posted mono">${escapeHtml(post.posted_at || 'Today')}</div>
       </div>
 
-      <h3 class="content-title">${escapeHtml(post.topic || '')}</h3>
+      <h3 class="content-title" dir="rtl">${escapeHtml(post.topic || '')}</h3>
 
       <div class="content-intel-box">
         <div class="content-intel-head">
           <span class="content-intel-kicker">${escapeHtml(CONTENT_S.labels.credibility)}:</span>
           <span class="content-intel-score mono">${escapeHtml(post.credibility_score || '9/10')}</span>
         </div>
-        <p class="content-intel-rationale">${escapeHtml(post.credibility_rationale || '')}</p>
+        <p class="content-intel-rationale" dir="rtl">${escapeHtml(post.credibility_rationale || '')}</p>
       </div>
 
       <div class="content-post-box" dir="rtl">
@@ -732,32 +732,22 @@ function osPaintContent(mount, data) {
   ];
 
   mount.innerHTML = `
-    <div class="jobs-summary-strip">
-      <div class="jobs-stat">
-        <span class="jobs-stat-label">${escapeHtml(CONTENT_S.stats.total)}</span>
-        <span class="jobs-stat-value mono">${totalDrafted}</span>
-      </div>
-      <div class="jobs-stat">
-        <span class="jobs-stat-label">${escapeHtml(CONTENT_S.stats.cyber)}</span>
-        <span class="jobs-stat-value mono">${cyberCount}</span>
-      </div>
-      <div class="jobs-stat">
-        <span class="jobs-stat-label">${escapeHtml(CONTENT_S.stats.ai)}</span>
-        <span class="jobs-stat-value mono">${aiCount}</span>
-      </div>
-    </div>
-
-    <div class="pp-track-pills">
+    <div class="os-window-tabs pp-track-tabs" role="tablist">
       ${filterKeys.map(([k, label, count]) => `
-        <button type="button" class="pp-pill ${osContentFilter === k ? 'is-active' : ''}" data-content-filter="${escapeHtml(k)}">
-          <span>${escapeHtml(label)}</span>
-          <span class="pp-pill-count mono">${count}</span>
+        <button type="button" role="tab" aria-selected="${osContentFilter === k}" class="os-window-btn${osContentFilter === k ? ' is-active' : ''}" data-content-filter="${escapeHtml(k)}">
+          ${escapeHtml(label)} <span class="pp-track-count mono">${count}</span>
         </button>
       `).join('')}
     </div>
 
+    <div class="pp-stats-grid">
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(CONTENT_S.stats.total)}</div><div class="pp-stat-val mono">${totalDrafted}</div></div>
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(CONTENT_S.stats.cyber)}</div><div class="pp-stat-val mono">${cyberCount}</div></div>
+      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(CONTENT_S.stats.ai)}</div><div class="pp-stat-val mono">${aiCount}</div></div>
+    </div>
+
     <div class="content-feed">
-      ${filteredPosts.length ? filteredPosts.map(osContentCardHtml).join('') : `<p class="pp-filter-empty">${escapeHtml(CONTENT_S.ghostSub)}</p>`}
+      ${filteredPosts.length ? filteredPosts.map(osContentCardHtml).join('') : `<div class="empty-state">${escapeHtml(CONTENT_S.ghostSub)}</div>`}
     </div>
   `;
 

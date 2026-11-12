@@ -6210,7 +6210,10 @@ body::before {
   font-size: var(--fs-label-lg);
   font-weight: 600;
   color: var(--ink);
-  line-height: 1.35;
+  line-height: 1.45;
+  text-align: right;
+  direction: rtl;
+  unicode-bidi: plaintext;
 }
 
 .content-intel-box {
@@ -6246,7 +6249,10 @@ body::before {
   margin: 0;
   font-size: var(--fs-label);
   color: var(--ink);
-  line-height: 1.4;
+  line-height: 1.5;
+  text-align: right;
+  direction: rtl;
+  unicode-bidi: plaintext;
 }
 
 .content-post-box {
@@ -6297,14 +6303,15 @@ body::before {
 
 .content-post-text {
   font-family: inherit;
-  font-size: 0.92rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.65;
   color: var(--ink);
   white-space: pre-wrap;
   margin: 0;
   user-select: all;
   text-align: right;
   direction: rtl;
+  unicode-bidi: plaintext;
 }
 
 .content-actions-row {
