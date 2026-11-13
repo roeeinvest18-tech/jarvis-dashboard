@@ -3,449 +3,522 @@
   "week_num": 46,
   "date": "2026-11-13",
   "stats": {
-    "raw": 770,
-    "analyzed": 89,
-    "pains": 11,
+    "raw": 800,
+    "analyzed": 96,
+    "pains": 15,
     "sources": 6,
     "by_source": {
       "Lobste.rs": 2,
       "GitHub": 21,
+      "Hacker News": 58,
       "Hacker News (Ask HN)": 2,
-      "Dev.to": 1,
-      "Google Play": 9,
-      "Hacker News": 54
+      "Google Play": 12,
+      "Dev.to": 1
     },
     "by_track": {
       "saas": 8,
-      "lowtech": 0
+      "lowtech": 1
     }
   },
-  "summary_he": "המערכת מציגה שמונה בעיות מרכזיות המאפשרות ליזם בודד לפתח מוצרי תוכנה כשירות מבוססי בינה מלאכותית. האשכולות נבחרו בקפידה על סמך פוטנציאל מוניטיזציה גבוה בשוק העסקי, פיתוח מהיר ותחרות נמוכה יחסית. כל אשכול כולל אסטרטגיה עסקית ממוקדת לרכישת לקוחות ראשונים ומבנה טכנולוגי לביצוע מהיר.",
-  "summary_en": "The system presents eight core pain points enabling a solo builder to develop monetizable AI-powered SaaS products. Clusters were carefully selected based on high B2B monetization potential, rapid development, and relatively low competition. Each cluster includes a targeted business strategy for acquiring first customers and a fast modern tech stack.",
-  "summary_lowtech_he": "",
-  "summary_lowtech_en": "",
+  "summary_he": "המערכת מנתחת תלונות משתמשים ומתחברת לבעיות עסקיות ותפעוליות קריטיות שניתן לפתור באמצעות פתרונות AI ייעודיים. הזיהוי מתמקד בבעיות עם מוכנות גבוהה לתשלום בתחומי תפעול, ניהול משימות וכלים טכנולוגיים. הניתוח מספק תוכנית הקמה מהירה עבור סולו-בילדרס.",
+  "summary_en": "The system analyzes user feedback and maps out critical operational and business pain points solvable via dedicated AI solutions. Focus is placed on high-willingness-to-pay problems in operations, task management, and technology tooling. The output provides a rapid MVP execution plan for solo builders.",
+  "summary_lowtech_he": "זיהינו הזדמנות עסקית ממוקדת אחת בעולם השירותים המקומיים והתמיכה האישית. ההצעה מתבססת על אוטומציה של תהליכי ניהול ותפעול עבור צרכנים שזקוקים לליווי והכוונה. מודל זה מאפשר ליזם יחיד להקים עסק רווחי בעזרת כלי בינה מלאכותית ומיקור חוץ.",
+  "summary_lowtech_en": "We identified one focused business opportunity in local services and personal support. The offering relies on automating management and operational processes for consumers needing guidance. This model enables a single founder to build a profitable business using AI tools and outsourcing.",
   "clusters": [
     {
-      "title_he": "ניהול מורכבות קוד מבוסס AI למפתחים עצמאיים",
-      "title_en": "AI Codebase Complexity and Maintenance Manager",
-      "who_he": "מפתחי סולו ומהנדסי תוכנה המסתמכים רבות על כלי פיתוח מבוססי AI",
-      "who_en": "Solo developers and software engineers heavily relying on AI coding agents",
+      "title_he": "ניהול מסירת קוד והעברת בעלות על פרויקטים ישנים",
+      "title_en": "Legacy Code Handover and Ownership Transition",
+      "who_he": "מהנדסי תוכנה, ראשי צוותים וחברות פיתוח",
+      "who_en": "Software engineers, tech leads, and development agencies",
       "member_indices": [
-        1
+        7
       ],
-      "best_quote_index": 1,
-      "quote_he": "כל פעם שאני בונה משהו חדש, זה מוסיף עוד מורכבות והסוכן רק נראה... כל סשן תיקון באגים מרגיש כמו משחק מכות",
-      "quote_en": "Every time I build anything new, it adds more complexity and the agent only seems to... Every bug-fixing session to feel like a game of whack-a-mole",
-      "category": "Tools & tech",
+      "best_quote_index": 7,
+      "quote_he": "מה שקורה בפועל הוא שהאדם שעבד על זה נתקע עם תחזוקה לנצח יחד עם לקיחת אחריות על העבודה החדשה יותר",
+      "quote_en": "What happens in practice is the person who worked on it gets saddled with maintaining it forever along with taking up the responsibilities of the newer work",
+      "category": "Operations & admin",
       "intensity": 90,
-      "frequency": 95,
-      "low_competition": 85,
+      "frequency": 85,
+      "low_competition": 90,
       "competitors": [
         {
-          "name": "SonarQube",
-          "gap_he": "מערכת ארגונית כבדה שמזהה באגים כלליים אך אינה מותאמת לארכיטקטורה המבולגנת של קוד שנוצר על ידי AI",
-          "gap_en": "Heavy enterprise tool detecting general bugs but unoptimized for chaotic AI-generated code architecture"
+          "name": "Confluence",
+          "gap_he": "דפי תיעוד סטטיים שאינם בודקים את מוכנות הצוות החדש או מייצרים מדדי העברה ברורים",
+          "gap_en": "Static documentation pages that fail to verify new team readiness or generate clear handover metrics"
         },
         {
-          "name": "GitHub Copilot",
-          "gap_he": "מסייע בכתיבת קוד חדש אך אינו מנהל את החוב הטכנולוגי והמורכבות המצטברת בסשני פיתוח",
-          "gap_en": "Helps write new code but does not manage technical debt and accumulated complexity across sessions"
+          "name": "Jira",
+          "gap_he": "מתמקד במעקב משימות כללי ולא מציע זרימת עבודה מובנית להעברת ידע הנדסי בין עובדים",
+          "gap_en": "Focuses on general task tracking without a structured workflow for engineering knowledge transfer"
         }
       ],
-      "solution_he": "כלי CLI ודשבורד הסורק פרויקטים שנוצרו על ידי AI, מזהה חוב טכנולוגי, קוד כפול ובעיות ארכיטקטורה ומציע תיקונים",
-      "solution_en": "A CLI and dashboard tool scanning AI-generated projects, detecting technical debt, duplication, and architectural issues with automated fixes",
-      "pricing_he": "19 עד 49 דולר בחודש למפתח",
-      "pricing_en": "$19 to $49 per month per developer",
-      "first_customers_he": "פרסום מדריכים טכניים ב-Hacker News וב-Reddit בקטגוריית WebDev עם כלי בדיקה חינמי",
-      "first_customers_en": "Publishing technical guides on Hacker News and Reddit WebDev communities offering a free scanner tool",
-      "trend_keyword": "AI code refactoring tool",
+      "solution_he": "פלטפורמת מבוססת AI הסורקת את המאגרים ב-GitHub, מראיינת את המפתח היוצא, מייצרת מסמכי מעבר מקיפים ובודקת את הבנת הצוות הקולט דרך שאלונים אוטומטיים.",
+      "solution_en": "An AI platform that scans GitHub repositories, interviews the departing developer, generates comprehensive handover docs, and tests the receiving team's comprehension via automated quizzes.",
+      "pricing_he": "39$ לחודש לצוות פיתוח או תמחור לפי מספר פרויקטים שעוברים העברה.",
+      "pricing_en": "$39/month per dev team or project-based transition packs.",
+      "first_customers_he": "פרסום בקהילות פיתוח כמו Hacker News וקבוצות CTO בטלגרם ובלינקדאין.",
+      "first_customers_en": "Posting in developer communities like Hacker News and CTO channels on Telegram and LinkedIn.",
+      "trend_keyword": "engineering handover tool",
       "ease_of_build": 80,
-      "mvp_he": "סקריפט שרץ על תיקיית הגיט, מנתח את הקוד בעזרת LLM ומציג דוח מורכבות והמלצות ניקוי",
-      "mvp_en": "A script running on a git repository, analyzing code via LLM and presenting a complexity report with cleanup recommendations",
-      "tech_stack_he": "TypeScript, Node.js, Anthropic Claude API, Next.js",
-      "tech_stack_en": "TypeScript, Node.js, Anthropic Claude API, Next.js",
+      "mvp_he": "כלי CLI ודשבורד ווב שמתחבר ל-GitHub, קורא קומיטים וקבצי README, ומייצר סיכומי מעבר ידע בעזרת LLM.",
+      "mvp_en": "A CLI tool and web dashboard connecting to GitHub, parsing commits and README files, and generating AI-assisted handover summaries.",
+      "tech_stack_he": "Next.js, GitHub REST API, Anthropic Claude API, Tailwind CSS",
+      "tech_stack_en": "Next.js, GitHub REST API, Anthropic Claude API, Tailwind CSS",
       "track": "saas",
       "mentions": 1,
-      "engagement": 78,
+      "engagement": 0,
       "sources": [
-        "Hacker News (Ask HN)"
+        "Hacker News"
       ],
-      "quote_original": "Every time I build anything new, it adds more complexity and the agent only seems to... Every bug-fixing session to feel like a game of whack-a-mole",
-      "quote_url": "https://news.ycombinator.com/item?id=50444380",
-      "quote_source": "Hacker News (Ask HN)",
-      "score": 88,
+      "quote_original": "What happens in practice is the person who worked on it gets saddled with maintaining it forever along with taking up the responsibilities of the newer work",
+      "quote_url": "https://news.ycombinator.com/item?id=50481441",
+      "quote_source": "Hacker News",
+      "score": 86,
       "trend_change": 0,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "חיוב מנויים מובנה לוורדפרס עבור פרילנסרים",
-      "title_en": "Embedded Subscription Billing for Freelancers",
-      "who_he": "פרילנסרים וסוכנויות בניית אתרים המנהלים תחזוקה שוטפת ללקוחות",
-      "who_en": "Freelancers and web agencies managing ongoing client maintenance",
+      "title_he": "ניהול החלפות משמרות דחופות",
+      "title_en": "Urgent Shift Replacement Management",
+      "who_he": "מנהלי משמרות ועסקים מבוססי משמרות",
+      "who_en": "Shift managers and shift-based businesses",
       "member_indices": [
-        4
+        0,
+        14
       ],
-      "best_quote_index": 4,
-      "quote_he": "הוספת תכונת חיוב מינימלית בתוך אזור הניהול כך שפרילנסרים או סוכנויות יוכלו בקלות לאפשר ללקוחותיהם להקים מנוי",
-      "quote_en": "adding a minimal billing feature within the admin area so that freelancers or agencies can easily have their clients setup a subscription",
-      "category": "Finance & billing",
+      "best_quote_index": 0,
+      "quote_he": "כאשר עובד משמרת הודיע על מחלה פחות מש שעתיים לפני תחילת המשמרת, אני רוצה למצוא מחליף מאושת במהירות ולקבל תיעוד של מי נוצר איתו קשר",
+      "quote_en": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted",
+      "category": "Operations & admin",
       "intensity": 85,
       "frequency": 90,
       "low_competition": 80,
       "competitors": [
         {
-          "name": "Stripe Billing",
-          "gap_he": "דורש פיתוח מורכב והגדרות טכניות מתקדמות שאינן מתאימות לפרילנסרים",
-          "gap_en": "Requires complex development and advanced technical setup unsuitable for freelancers"
-        },
-        {
-          "name": "WHMCS",
-          "gap_he": "מערכת כבדה, מיושנת ויקרה מאוד המיועדת לחברות אחסון ענק",
-          "gap_en": "Heavy, outdated, and very expensive system designed for large hosting companies"
-        }
-      ],
-      "solution_he": "תוסף ניהול קל משקל המוטמע ישירות במערכות ניהול תוכן ומאפשר חיוב אוטומטי של לקוחות עבור דמי ניהול חודשיים",
-      "solution_en": "A lightweight management plugin embedded directly into CMS dashboards enabling automated monthly client billing",
-      "pricing_he": "מנוי חודשי לפי נפח עסקאות, 29 עד 79 דולר בחודש",
-      "pricing_en": "Monthly subscription based on transaction volume, $29 to $79 per month",
-      "first_customers_he": "פנייה ישירה לקבוצות פרילנסרים ומפתחי אתרים בפייסבוק וב-GitHub עם הדגמת וידאו קצרה",
-      "first_customers_en": "Direct outreach to web developer and freelancer groups on Facebook and GitHub with a short video demo",
-      "trend_keyword": "freelancer recurring billing plugin",
-      "ease_of_build": 85,
-      "mvp_he": "ממשק משתמש בסיסי לחיבור חשבון תשלומים והצגת סטטוס מנויי הלקוחות",
-      "mvp_en": "Basic UI to connect a payment account and display client subscription status",
-      "tech_stack_he": "React, Node.js, Stripe API, TailwindCSS",
-      "tech_stack_en": "React, Node.js, Stripe API, TailwindCSS",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 6,
-      "sources": [
-        "GitHub"
-      ],
-      "quote_original": "adding a minimal billing feature within the SlickStack dashboard area of WP Admin so that freelancers or agencies can easily have their clients setup a subscription",
-      "quote_url": "https://github.com/littlebizzy/slickstack/issues/160",
-      "quote_source": "GitHub",
-      "score": 85,
-      "trend_change": 0,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "ניהול משימות ונוכחות מתנדבים בארגונים",
-      "title_en": "Volunteer Attendance and Shift Tracking",
-      "who_he": "מנהלי עמותות וארגונים ללא כוונת רווח המסתמכים על מתנדבים",
-      "who_en": "Nonprofit managers and volunteer coordinators relying on shift workers",
-      "member_indices": [
-        10
-      ],
-      "best_quote_index": 10,
-      "quote_he": "כרגע רישום למשמרות אינו עוקב אחר הגעתו בפועל של המתנדב, ונתוני ההשפעה מבוססים על רישום ולא על נוכחות",
-      "quote_en": "Currently shift signups don't track whether volunteers actually attended. Impact statistics are based on signups, not actual attendance",
-      "category": "Operations & admin",
-      "intensity": 80,
-      "frequency": 85,
-      "low_competition": 75,
-      "competitors": [
-        {
-          "name": "SignUpGenius",
-          "gap_he": "ממוקד רק ברישום ראשוני ואינו כולל אימות הגעה או מדדי אימפקט מתקדמים",
-          "gap_en": "Focused purely on initial signup and lacks attendance verification or advanced impact metrics"
-        },
-        {
-          "name": "Doodle",
-          "gap_he": "מערכת תיאום פגישות כללית שאינה מותאמת לניהול משמרות מתנדבים בארגונים",
-          "gap_en": "General scheduling tool not tailored for non-profit volunteer shift management"
-        }
-      ],
-      "solution_he": "כלי מבוסס וואטסאפ ואינטרנט המאמת נוכחות מתנדבים בלחיצה אחת ומייצר דוחות אימפקט אוטומטיים",
-      "solution_en": "A web and WhatsApp-based tool that verifies volunteer attendance with a single click and generates automatic impact reports",
-      "pricing_he": "תמחור לפי מספר מתנדבים פעילים, 39 עד 99 דולר בחודש",
-      "pricing_en": "Tiered pricing based on active volunteers, $39 to $99 per month",
-      "first_customers_he": "יצירת קשר ישירות עם מנהלי עמותות קטנות ובינוניות בלינקדאין ובהצעת פיילוט חינמי",
-      "first_customers_en": "Direct outreach to SMB non-profit directors on LinkedIn offering a free pilot program",
-      "trend_keyword": "volunteer management software",
-      "ease_of_build": 90,
-      "mvp_he": "מערכת ליצירת משמרות ושליחת קישורי אישור נוכחות מהירים למתנדבים",
-      "mvp_en": "System to create shifts and send quick attendance confirmation links to volunteers",
-      "tech_stack_he": "Next.js, Supabase, Twilio API, TailwindCSS",
-      "tech_stack_en": "Next.js, Supabase, Twilio API, TailwindCSS",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "GitHub"
-      ],
-      "quote_original": "Currently shift signups don't track whether volunteers actually attended. Impact statistics are based on signups, not actual attendance.",
-      "quote_url": "https://github.com/everybody-eats-nz/volunteer-portal/issues/265",
-      "quote_source": "GitHub",
-      "score": 83,
-      "trend_change": -61,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "ניהול ותיעוד כיסוי משמרות חירום בעסקים קטנים",
-      "title_en": "Emergency Shift Coverage Audit Trail",
-      "who_he": "מנהלי מסעדות, חנויות קמעונאיות ועסקים עם עובדי משמרות",
-      "who_en": "Restaurant and retail managers dealing with last-minute staff replacements",
-      "member_indices": [
-        2
-      ],
-      "best_quote_index": 2,
-      "quote_he": "התהליך הזה אינו פורמלי, אינו משאיר שובל ביקורת, ונכשל לעתים תכופות תחת לחץ זמן",
-      "quote_en": "This process is informal, leaves no audit trail, and frequently fails under time pressure",
-      "category": "Operations & admin",
-      "intensity": 85,
-      "frequency": 90,
-      "low_competition": 70,
-      "competitors": [
-        {
           "name": "7shifts",
-          "gap_he": "יקר מדי ומורכב עבור עסקים קטנים המעוניינים רק בפתרון מהיר להחלפת משמרות",
-          "gap_en": "Too expensive and complex for small businesses wanting a quick shift-swapping solution"
+          "gap_he": "מערכות גדולות ויקרות שלא מותאמות להודעות ווטסאפ מהירות ואוטומטיות למציאת מחליף מהרגע להרגע",
+          "gap_en": "Bloated and expensive platforms not optimized for rapid automated WhatsApp broadcasts for last-minute replacements"
         },
         {
           "name": "When I Work",
-          "gap_he": "מערכת ניהול משמרות מלאה שאינה מותאמת לברודקאסט חירום מהיר ומעקב ביקורת",
-          "gap_en": "Full scheduling suite lacking rapid emergency broadcast and audit tracking"
+          "gap_he": "דורש תהליך הגדרה ארוך ואינו מציע ניהול נוכחות חכם שמשווה בין הרשמה להגעה בפועל",
+          "gap_en": "Requires lengthy setup and lacks smart attendance tracking that correlates signups with actual check-ins"
         }
       ],
-      "solution_he": "בוט חכם המפיץ בקשות להחלפת משמרות בוואטסאפ ומתעד את כל ההסכמות עם שובל ביקורת מלא",
-      "solution_en": "A smart bot that broadcasts shift replacement requests on WhatsApp and logs all agreements with a full audit trail",
-      "pricing_he": "29 דולר לחודש לעסק ללא הגבלת עובדים",
-      "pricing_en": "$29 per month per business with unlimited staff",
-      "first_customers_he": "פנייה למנהלי מסעדות ובתי קפה מקומיים והצגת פתרון שממנוהל דרך הוואטסאפ של העובדים",
-      "first_customers_en": "Reaching out to local restaurant and cafe managers demonstrating a WhatsApp-native solution",
-      "trend_keyword": "shift swapping software",
+      "solution_he": "בוט וואטסאפ מבוסס AI ששולח התראות אוטומטיות לעובדים פנויים בעת ביטול משמרת, מנהל את תור ההסכמות, מעדכן את סידור העבודה ועוקב אחר נוכחות בפועל.",
+      "solution_en": "An AI-powered WhatsApp bot that broadcasts shift availability alerts to eligible workers during sudden callouts, manages confirmation queues, updates schedules, and tracks actual attendance.",
+      "pricing_he": "מנוי חודשי לפי מספר עובדים בעסק, 29$ עד 79$ לחודש.",
+      "pricing_en": "Monthly subscription based on employee headcount, $29 to $79 per month.",
+      "first_customers_he": "פנייה ישירה למנהלי בתי קפה, מסעדות ומרכזי לוגיסטיקה קטנים בקבוצות פייסבוק ולינקדאין.",
+      "first_customers_en": "Direct outreach to cafe, restaurant, and small logistics managers in Facebook groups and local business communities.",
+      "trend_keyword": "shift replacement software",
       "ease_of_build": 85,
-      "mvp_he": "שליחת הודעת וואטסאפ מרוכזת לעובדים עם כפתור אישור שמעדכן לוח זמנים מרכזי",
-      "mvp_en": "Sending a broadcast WhatsApp message to staff with a confirm button updating a central schedule",
-      "tech_stack_he": "Node.js, Baileys/WhatsApp API, PostgreSQL, Vercel",
-      "tech_stack_en": "Node.js, Baileys/WhatsApp API, PostgreSQL, Vercel",
+      "mvp_he": "בוט ווטסאפ המחובר ל-Supabase ו-OpenAI API ששולח הודעות לעובדים ומעדכן לוח זמנים מבוסס טבלה.",
+      "mvp_en": "A WhatsApp bot connected to Supabase and OpenAI API that broadcasts availability requests and updates a tabular schedule.",
+      "tech_stack_he": "Next.js, Supabase, Twilio/WhatsApp API, Vercel AI SDK",
+      "tech_stack_en": "Next.js, Supabase, Twilio/WhatsApp API, Vercel AI SDK",
       "track": "saas",
-      "mentions": 1,
+      "mentions": 2,
       "engagement": 20,
       "sources": [
         "GitHub"
       ],
-      "quote_original": "This process is informal, leaves no audit trail, and frequently fails under time pressure.",
+      "quote_original": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted",
       "quote_url": "https://github.com/muaddibco/RealWorldProblems/issues/1820",
       "quote_source": "GitHub",
-      "score": 83,
-      "trend_change": 0,
+      "score": 85,
+      "trend_change": 100,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "גירוד אוטומטי של לוחות זמנים ויחסי הימורים מספריים",
-      "title_en": "Automated Sports Betting Odds Scraper",
-      "who_he": "מהמרי ספורט מקצועיים ואנליסטים של שווקי הימורים",
-      "who_en": "Professional sports bettors and betting market data analysts",
+      "title_he": "שירות ליוווי אישי ממומן ומנוהל דיגיטלית",
+      "title_en": "Digital-Managed Affordable Life Coaching and Support",
+      "who_he": "אנשים עם אתגרים תפקודיים, קשיי קשב וריכוז או חסמים יומיומיים שאינם יכולים להרשות לעצמם מאמן אישי יקר.",
+      "who_en": "Individuals with neurodivergence or life challenges who cannot afford expensive life coaching.",
       "member_indices": [
-        8
+        6
       ],
-      "best_quote_index": 8,
-      "quote_he": "אני לא מצליח למצוא דרך אמינה לשלוף את הסיכויים עקב הגנות נגד בוטים. אשמח מאוד לעזרתכם!",
-      "quote_en": "I can’t find a reliable way to fetch the odds due to anti-bot protection. I would really appreciate your help!",
-      "category": "Operations & admin",
+      "best_quote_index": 0,
+      "quote_he": "אולי חלק מזה היה נפתר עם זמינות טובה יותר של שירותי בריאות וניהול בריאות... אולי מאמן חיים היה שימושי (אבל אני לא יכול להרשות לעצמי גם את זה)",
+      "quote_en": "Maybe some of this could be alleviated with the availability of better healthcare and healthcare management... Maybe a life coach would be useful (but I can't afford that, either)",
+      "category": "Personal & family",
       "intensity": 85,
       "frequency": 90,
-      "low_competition": 70,
+      "low_competition": 80,
       "competitors": [
         {
-          "name": "RapidAPI Odds Providers",
-          "gap_he": "יקרים מאוד, מעדכנים לאט ואינם תומכים בספריות הימורים רכות או נישתיות לפי דרישת המשתמש",
-          "gap_en": "Very expensive, slow to update, and lack support for soft or niche bookmakers upon user demand"
+          "name": "Traditional Private Life Coaches",
+          "gap_he": "גובים תעריפים גבוהים מאוד לשעה ואין לכם זמינות דיגיטלית רציפה בין הפגישות.",
+          "gap_en": "Charge very high hourly rates and lack continuous digital availability between sessions."
+        },
+        {
+          "name": "Mental Health Apps",
+          "gap_he": "אפליקציות כלליות מדי ללא מעקב אנושי מותאם אישית או הכוונה מעשית ליומיום.",
+          "gap_en": "Too generic without personalized human follow-up or practical daily guidance."
+        }
+      ],
+      "solution_he": "שירות מנוי חודשי נגיש המשלב מעקב יומי מבוסס AI לצד שיחות אימון קצרות המבוצעות על ידי מאמנים מתחילים או סטודנטים בהכשרה, תחת פיקוח תהליכי.",
+      "solution_en": "An accessible monthly subscription service combining daily AI-based tracking with short coaching check-ins delivered by junior coaches or trainees under process supervision.",
+      "pricing_he": "מנוי חודשי בסך 400-700 ש\"ח (כ-120 עד 200 דולר) עבור מעקב יומי ושיחות וידאו שבועיות.",
+      "pricing_en": "Monthly subscription of $120 to $200 for daily tracking and weekly video check-ins.",
+      "first_customers_he": "פרסום ממוקד בקבוצות פייסבוק וקהילות דיגיטליות של אנשים עם הפרעות קשב וריכוז והתפתחות אישית, והצעת פייлот מוזל לחודש הראשון.",
+      "first_customers_en": "Targeted posting in Facebook groups and digital communities for ADHD and personal growth, offering a discounted first-month pilot.",
+      "trend_keyword": "affordable life coaching",
+      "ease_of_build": 85,
+      "delivery_model": "hybrid",
+      "roles_to_hire_he": "גיוס 2 סטודנטים לאימון או עבודה סוציאלית כספקים במשרה חלקית.",
+      "roles_to_hire_en": "Hire 2 coaching or social work students as part-time subcontractors.",
+      "ai_leverage_he": "בוט וואטסאפ מבוסס AI ששולח תזכורות יומיות, מרכז את המשימות של הלקוח ומייצר סיכומי פגישות עבור המאמנים.",
+      "ai_leverage_en": "An AI-powered WhatsApp bot that sends daily reminders, aggregates client tasks, and generates session summaries for the coaches.",
+      "startup_capital_usd": 1000,
+      "startup_capital_he": "הקמת אתר נחיתה, מערכת CRM, אוטומציות וואטסאפ ותקציב שיווק ראשוני במימון עצמי.",
+      "startup_capital_en": "Setting up landing page, CRM, WhatsApp automation, and initial self-funded marketing budget.",
+      "equipment_licensing_he": "ללא צורך בציוד מיוחד או רישיונות מיוחדים בישראל או בארה\"ב כל עוד לא מדובר בטיפול רפואי רשמי (יש להבהיר כי מדובר באימון אישי ולא בטיפול פסיכולוגי).",
+      "equipment_licensing_en": "No special equipment or licenses needed in Israel or the US as long as it is framed as coaching and not official medical treatment.",
+      "gross_margin_pct": 70,
+      "moat_he": "ספקי שירות מסורתיים יקרים מדי או מנותקים מטכנולוגיה, בעוד שמתחרים דיגיטליים טהורים חסרים את המגע האנושי. המודל ההיברידי יוצר שליטה בעלויות וערך גבוה ללקוח.",
+      "moat_en": "Traditional providers are too expensive or disconnected from tech, while pure digital competitors lack human touch. The hybrid model creates cost control and high customer value.",
+      "launch_plan_he": "הרצת פייлот בן 30 יום ל-10 משתמשים ראשונים במחיר מוזל כדי לבדוק את שיעורי ההתמדה והשביעות רצון דרך וואטסאפ.",
+      "launch_plan_en": "Run a 30-day pilot for 10 initial users at a discounted price to test retention and satisfaction via WhatsApp.",
+      "market": "both",
+      "track": "lowtech",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted",
+      "quote_url": "https://github.com/muaddibco/RealWorldProblems/issues/1820",
+      "quote_source": "GitHub",
+      "mvp_he": "הרצת פייлот בן 30 יום ל-10 משתמשים ראשונים במחיר מוזל כדי לבדוק את שיעורי ההתמדה והשביעות רצון דרך וואטסאפ.",
+      "tech_stack_he": "בוט וואטסאפ מבוסס AI ששולח תזכורות יומיות, מרכז את המשימות של הלקוח ומייצר סיכומי פגישות עבור המאמנים. | גיוס 2 סטודנטים לאימון או עבודה סוציאלית כספקים במשרה חלקית.",
+      "mvp_en": "Run a 30-day pilot for 10 initial users at a discounted price to test retention and satisfaction via WhatsApp.",
+      "tech_stack_en": "An AI-powered WhatsApp bot that sends daily reminders, aggregates client tasks, and generates session summaries for the coaches. | Hire 2 coaching or social work students as part-time subcontractors.",
+      "score": 85,
+      "trend_change": null,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "אוטומציה ואיסוף נתוני לייב מבורסות הימורים וספרים אלקטרוניים",
+      "title_en": "Automated Odds Scraping from Sportsbooks",
+      "who_he": "מנתחי נתונים ספורטיביים ומשקיעי שוק חיזוי",
+      "who_en": "Sports data analysts and prediction market quants",
+      "member_indices": [
+        12
+      ],
+      "best_quote_index": 12,
+      "quote_he": "אני ממשיך להיתקל בבעיות עם הגנה נגד בוטים שמונעת גרוד נתונים. אני מחפש דרך לשאוב סיכויים מפינקל וספרים רכים אחרים באופן אוטומטי.",
+      "quote_en": "I keep facing issues with anti-bot protection that prevents scraping data. I’m looking for a way to fetch odds from Pinnacle and other soft bookmakers automatically.",
+      "category": "Tools & tech",
+      "intensity": 85,
+      "frequency": 90,
+      "low_competition": 80,
+      "competitors": [
+        {
+          "name": "Apify",
+          "gap_he": "דורש התאמה ידנית מורכבת של פרוקסי ופתרונות עקיפה נגד מערכות הגנה מתקדמות כמו Cloudflare",
+          "gap_en": "Requires complex manual proxy configuration and anti-bot bypass setups for advanced protections like Cloudflare"
         },
         {
           "name": "Octoparse",
-          "gap_he": "כלי גרוד כללי שאינו מותאם לעקיפת מנגנוני הגנה מתקדמים של אתרי הימורים בזמן אמת",
-          "gap_en": "General scraping tool unoptimized for bypassing advanced anti-bot measures on betting sites in real-time"
+          "gap_he": "לא מותאם לספרי ספורט דינמיים בזמן אמת ולקצב עדכוני ליין גבוה",
+          "gap_en": "Not optimized for real-time dynamic sportsbooks and high-frequency line updates"
         }
       ],
-      "solution_he": "שירות API ענן המשתמש בטכנולוגיית דפדפן חכמה לעקוף חסימות בוטים ולספק נתוני הימורים חיים מאתרי ספורט",
-      "solution_en": "A cloud API service using smart browser automation to bypass bot blocks and stream live betting odds from sportsbooks",
-      "pricing_he": "79 עד 199 דולר בחודש לפי נפח בקשות",
-      "pricing_en": "$79 to $199 per month based on request volume",
-      "first_customers_he": "השתתפות בפורומים ייעודיים של סוחרים ומהמרי ספורט ב-GitHub ובדיסקורד והצעת גישה ראשונית",
-      "first_customers_en": "Participating in specialized sports betting developer communities on GitHub and Discord offering early access",
-      "trend_keyword": "sports odds api scraper",
-      "ease_of_build": 75,
-      "mvp_he": "שרת פייתון המשתמש בדפדפן אוטומטי לשליפת נתונים מנוסחים מראש מאתר ספורט מרכזי והחזרתם בפורמט JSON",
-      "mvp_en": "A Python server using automated browsers to scrape structured data from a major sportsbook and return JSON",
-      "tech_stack_he": "Python, Playwright, FastAPI, Redis",
-      "tech_stack_en": "Python, Playwright, FastAPI, Redis",
+      "solution_he": "שירות API מנוהל העוקף מערכות הגנה נגד בוטים ומספק נתוני סיכויים נקיים בזמן אמת מספרות ספורט מובילות.",
+      "solution_en": "A managed API service that bypasses anti-bot defenses and delivers clean, real-time odds data from major soft bookmakers.",
+      "pricing_he": "מנוי מבוסס צריכה, החל מ-79$ לחודש עבור בקשות API חודשיות.",
+      "pricing_en": "Usage-based subscription starting at $79/month for API call volumes.",
+      "first_customers_he": "איתור מפתחים ומהמרי ערך בפורומים כמו Reddit r/sportsbetting וקבוצות פיתוח כלי ספורט.",
+      "first_customers_en": "Finding developers and value bettors on Reddit subreddits like r/sportsbetting and developer forums.",
+      "trend_keyword": "sportsbook odds api",
+      "ease_of_build": 70,
+      "mvp_he": "שרת Node.js המשלב פתרונות פרוקסי חכמים ודפדפנים מדומה לשאיפה תקופתית של נתוני ליין ושמירתם בבסיס נתונים.",
+      "mvp_en": "A Node.js server integrating smart proxies and headless browsers to periodically scrape odds and store them in a database.",
+      "tech_stack_he": "Node.js, Puppeteer/Playwright, Bright Data proxy, PostgreSQL",
+      "tech_stack_en": "Node.js, Puppeteer/Playwright, Bright Data proxy, PostgreSQL",
       "track": "saas",
       "mentions": 1,
       "engagement": 0,
       "sources": [
         "GitHub"
       ],
-      "quote_original": "I can’t find a reliable way to fetch the odds due to anti-bot protection. I would really appreciate your help!",
+      "quote_original": "I keep facing issues with anti-bot protection that prevents scraping data. I’m looking for a way to fetch odds from Pinnacle and other soft bookmakers automatically.",
       "quote_url": "https://github.com/kapsidisC/Arbitrage-Bet-Finder/issues/1",
       "quote_source": "GitHub",
-      "score": 81,
+      "score": 82,
+      "trend_change": -100,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "איסוף וגביית תשלומים לקבוצות חברתיות וחוגים",
+      "title_en": "Dues and Payment Reconciliation for Groups",
+      "who_he": "מארגני קבוצות ספורט, חוגים וקהילות חובבים",
+      "who_en": "Recreational group organizers, club leaders, and community heads",
+      "member_indices": [
+        1
+      ],
+      "best_quote_index": 1,
+      "quote_he": "שמירת תוצאות באפליקציית פתקים. התוצאות נעלמו, היה קשה ליישר קו לגבי תשלומים במשחקים שבהם לא השתמשנו במזומן, ואף אחד לא הסכים מי שילם לשנה",
+      "quote_en": "keeping results in a notes app. Results went missing, it was difficult to reconcile payments on games where we didn't use cash, and nobody agreed on who was up for the year",
+      "category": "Finance & billing",
+      "intensity": 75,
+      "frequency": 80,
+      "low_competition": 75,
+      "competitors": [
+        {
+          "name": "TeamSnap",
+          "gap_he": "מורכב מדי ויקר מאוד לקבוצות חברים קטנות שרק רוצות לנהל משחק שבועי ואיסוף כסף",
+          "gap_en": "Too complex and expensive for casual small groups that just want weekly game coordination and money collection"
+        },
+        {
+          "name": "Venmo / PayPal",
+          "gap_he": "אינו מקשר בין הגעה לאירוע לבין סטטוס התשלום, ודורש מעקב ידני בטבלאות",
+          "gap_en": "Does not link event attendance with payment status, requiring manual spreadsheet tracking"
+        }
+      ],
+      "solution_he": "אפליקציית ניהול קלה המרכזת אישורי הגעה, שולחת תזכורות תשלום אוטומטיות ומאפשרת סליקה פשוטה עם התאמה אוטומטית לפי שם החבר.",
+      "solution_en": "A streamlined management web app that coordinates RSVPs, sends automated payment reminders, and simplifies checkout with automated member reconciliation.",
+      "pricing_he": "חינם לקבוצה בסיסית, 19$ לחודש למארגנים המנהלים מספר קבוצות או אירועים מרובים.",
+      "pricing_en": "Free tier for basic groups, $19/month for organizers managing multiple groups or events.",
+      "first_customers_he": "פרסום בקהילות רדיט וקבוצות פייסבוק של ספורט חובבני (כדורגל שכונות, ליגות ריצה).",
+      "first_customers_en": "Posting in Reddit communities and Facebook groups for amateur sports (pickup soccer, running leagues).",
+      "trend_keyword": "sports team payment tracker",
+      "ease_of_build": 90,
+      "mvp_he": "מערכת מבוססת אינטרנט ליצירת אירועים, קישור תשלום של Stripe ושליחת הודעות וואטסאפ אוטומטיות לאישור הגעה ותשלום.",
+      "mvp_en": "A web-based system for event creation, Stripe payment links, and automated WhatsApp messages for RSVP and payment confirmation.",
+      "tech_stack_he": "Next.js, Tailwind CSS, Stripe API, Supabase",
+      "tech_stack_en": "Next.js, Tailwind CSS, Stripe API, Supabase",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 3,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "keeping results in a notes app. Results went missing, it was difficult to reconcile payments on games where we didn't use cash, and nobody agreed on who was up for the year",
+      "quote_url": "https://news.ycombinator.com/item?id=50465129",
+      "quote_source": "Hacker News",
+      "score": 80,
+      "trend_change": 100,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "הרצה ובדיקת משחקי דפדפן מבוססי קוד LLM בלחיצה אחת",
+      "title_en": "One-Click Execution & Sandbox for LLM Web Games",
+      "who_he": "חובבי טכנולוגיה, מפתחי פרוטוטייפים ויוצרי תוכן",
+      "who_en": "Tech enthusiasts, prototype developers, and creators",
+      "member_indices": [
+        4
+      ],
+      "best_quote_index": 4,
+      "quote_he": "עם זאת, עצם הניסיון לשחק וללמוד אותם היה מתסכל: 1. קישורי GitHub גולמיים דורשים הורדת קובץ ה-html מקומית או ניתוב דרך שירות צד שלישי",
+      "quote_en": "However, actually trying to play and study them was frustrating: 1. Raw GitHub links require downloading the .html locally or routing through third-part",
+      "category": "Tools & tech",
+      "intensity": 65,
+      "frequency": 80,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "CodePen",
+          "gap_he": "דורש הדבקה ידנית של קוד ואינו תומך ביבוא ישיר מקישורי GitHub או פוסטים של משתמשים בלחיצה אחת",
+          "gap_en": "Requires manual code pasting and lacks one-click import from raw GitHub links or social post shares"
+        },
+        {
+          "name": "StackBlitz",
+          "gap_he": "כבד מדי למשחקי קובץ יחיד פשוטים שנכתבו במהירות על ידי מודלי בינה מלאכותית",
+          "gap_en": "Too heavy-weight for simple single-file games quickly generated by AI models"
+        }
+      ],
+      "solution_he": "שירות ענן קליל הממיר מיד כל קישור GitHub או קוד גולמי של משחק סנגל-פייל לסביבת הרצה אינטראקטיבית ומוגנת.",
+      "solution_en": "A lightweight cloud service that instantly transforms any raw GitHub link or single-file game code into an interactive, sandboxed preview page.",
+      "pricing_he": "חינם לשימוש אישי, 15$ לחודש ליוצרי תוכן הזקוקים לשיתוף לינקים מעוצבים וקבועים.",
+      "pricing_en": "Free tier for personal use, $15/month for creators needing persistent branded link sharing.",
+      "first_customers_he": "שיתוף הכלי בשרתי דיסקורד של כלי AI וב-Hacker News סביב שחרורי משחקי רטרו של LLM.",
+      "first_customers_en": "Sharing the tool in AI tool Discord servers and Hacker News when LLM retro game trends spike.",
+      "trend_keyword": "html game sandbox runner",
+      "ease_of_build": 95,
+      "mvp_he": "אפליקציית Web המקבלת כתובת URL של קובץ HTML, מריצה אותו בתוך iframe מאובטח עם תצוגה מקדימה מיידית.",
+      "mvp_en": "A web app that accepts an HTML file URL and renders it inside a secure iframe with instant preview.",
+      "tech_stack_he": "Next.js, Vercel Edge Functions, Tailwind CSS",
+      "tech_stack_en": "Next.js, Vercel Edge Functions, Tailwind CSS",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "However, actually trying to play and study them was frustrating: 1. Raw GitHub links require downloading the .html locally or routing through third-part",
+      "quote_url": "https://news.ycombinator.com/item?id=50469021",
+      "quote_source": "Hacker News",
+      "score": 80,
       "trend_change": 0,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "אפליקציית לוח שנה משפחתית מודרנית ומהירה",
-      "title_en": "High-Performance Shared Family Calendar",
-      "who_he": "הורים עסוקים ומשפחות המתקשות לנהל לוחות זמנים משותפים באפליקציות כבדות",
-      "who_en": "Busy parents and families struggling to manage shared schedules on bloated apps",
+      "title_he": "חוסר תאימות ותצוגה לקויה באפליקציות ניהול נכסים ומשפחה ניידות",
+      "title_en": "Mobile UI/UX Failures in Property and Family Management Apps",
+      "who_he": "בעלי נכסים להשכרה ומנהלי משפחה ניידים",
+      "who_en": "Landlords, property managers, and mobile family organizers",
       "member_indices": [
-        6,
-        7
+        2,
+        8,
+        9,
+        10,
+        11
       ],
-      "best_quote_index": 6,
-      "quote_he": "בשישה חודשים האחרונים האפליקציה לא נטענת מעבר לחודש הנוכחי. זה מתסכל מאוד ואף גרם לפגישות כפולות",
-      "quote_en": "in the last 6 months or so the app will not load past the current month. This has been incredibly frustrating and has even caused double bookings on apts",
-      "category": "Personal & family",
-      "intensity": 80,
+      "best_quote_index": 8,
+      "quote_he": "האפליקציה לא תיטען מעבר לחודש הנוכחי. זה היה מתסכל בצורה בלתי רגילה ואפילו גרם להזמנות כפולות בדירות.",
+      "quote_en": "app will not load past the current month. This has been incredibly frustrating and has even caused double bookings on apts.",
+      "category": "Operations & admin",
+      "intensity": 75,
       "frequency": 85,
       "low_competition": 70,
       "competitors": [
         {
-          "name": "Cozi Family Organizer",
-          "gap_he": "אפליקציה מיושנת מאוד, עמוסת פרסומות ומלאה בבאגים טכניים בממשק המובייל",
-          "gap_en": "Very outdated app loaded with advertisements and riddled with mobile UI bugs"
+          "name": "TenantCloud",
+          "gap_he": "אפליקציית מובייל מוגבלת שמסתירה פיצ'רים קריטיים ודורשת מעבר תמידי לגרסת הדסקטופ",
+          "gap_en": "Limited mobile app hiding critical features and forcing constant fallback to desktop versions"
         },
         {
           "name": "Google Calendar",
-          "gap_he": "אינו מספק חוויית ניהול משפחתית אינטואיטיבית המרכזת מטלות, אירועים וילדים במקום אחד פשוט",
-          "gap_en": "Fails to provide an intuitive family management experience consolidating chores, events, and kids in one simple place"
+          "gap_he": "ממשק לוח שנה בסיסי שאינו מותאם לניהול נכסים מורכב, תיאום משפחתי או מעקב היסטוריית גלישה של ילדים",
+          "gap_en": "Basic calendar interface not tailored for complex property management, family scheduling, or children's browsing oversight"
         }
       ],
-      "solution_he": "אפליקציית לוח שנה מהירה וניידת למשפחות עם ממשק מגע חדשני, טעינה מיידית וניהול אירועים מבוסס AI",
-      "solution_en": "A fast mobile family calendar app with modern touch interface, instant loading, and AI-assisted event management",
-      "pricing_he": "6.99 דולר לחודש למשפחה שלמה",
-      "pricing_en": "$6.99 per month per entire family",
-      "first_customers_he": "שיווק בקבוצות פייסבוק של הורים ואימהות עם דגש על פתרון בעיית הכפילויות והעומס",
-      "first_customers_en": "Marketing in parenting Facebook groups focusing on solving scheduling conflicts and app bloat",
-      "trend_keyword": "shared family calendar app",
+      "solution_he": "אפליקציית מעטפת ניידת מהירה ואינטואיטיבית המרכזת ממשקים חיצוניים מורכבים לתוך דשבורד מובייל אחיד ונוח.",
+      "solution_en": "A fast, intuitive mobile wrapper app aggregating complex external management portals into a unified mobile dashboard.",
+      "pricing_he": "19$ עד 39$ לחודש למשתמש מקצועי.",
+      "pricing_en": "$19 to $39/month per professional user.",
+      "first_customers_he": "פרסום בקבוצות פייסבוק של משקיעי נדל",
+      "first_customers_en": "Targeting real estate investor groups and busy parents on Facebook and local forums.",
+      "trend_keyword": "mobile property management app",
       "ease_of_build": 85,
-      "mvp_he": "אפליקציית ווב מובייל מהירה המציגה לוח שנה שיתופי עם סנכרון מהיר ועיצוב נקי",
-      "mvp_en": "A fast mobile web app displaying a shared calendar with rapid sync and clean design",
-      "tech_stack_he": "React Native, Expo, Supabase, TailwindCSS",
-      "tech_stack_en": "React Native, Expo, Supabase, TailwindCSS",
+      "mvp_he": "אפליקציית React Native המייצרת תצוגה נקייה מעל ממשקי פלטפורמות קיימים באמצעות פבליק API או WebViews מותאמים.",
+      "mvp_en": "A React Native app rendering a clean interface over existing platform systems using public APIs or tailored WebViews.",
+      "tech_stack_he": "React Native, Expo, Node.js, Tailwind CSS",
+      "tech_stack_en": "React Native, Expo, Node.js, Tailwind CSS",
       "track": "saas",
-      "mentions": 2,
-      "engagement": 0,
+      "mentions": 5,
+      "engagement": 10,
       "sources": [
         "Google Play"
       ],
-      "quote_original": "in the last 6 months or so the app will not load past the current month. This has been incredibly frustrating and has even caused double bookings on apts.",
+      "quote_original": "app will not load past the current month. This has been incredibly frustrating and has even caused double bookings on apts.",
       "quote_url": "https://play.google.com/store/apps/details?id=com.cozi.androidfree",
       "quote_source": "Google Play",
-      "score": 80,
+      "score": 79,
+      "trend_change": null,
+      "is_recurring": true,
+      "weeks_seen": 2
+    },
+    {
+      "title_he": "אכיפת פרטיות וניהול סיכונים משפטיים בתמלול פגישות",
+      "title_en": "Meeting Transcription Legal Compliance & Privacy Guard",
+      "who_he": "יועצים משפטיים, חברות גלובליות ומנהלי IT",
+      "who_en": "Legal counsels, global enterprises, and IT managers",
+      "member_indices": [
+        5
+      ],
+      "best_quote_index": 5,
+      "quote_he": "זו בעיה משפטית במקומות מסוימים (כמו גרמניה). במקומות רבים הקלטה ללא הסכמה אינה חוקית... כדאי לחשוב פעמיים לפני שמחזיקים בתמלולים של פגישות מסוימות.",
+      "quote_en": "This is a legal concern in some places (like Germany). In many places recording without consent is illegal... you might want to think twice about having any transcripts of certain meetings.",
+      "category": "Operations & admin",
+      "intensity": 80,
+      "frequency": 70,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Fireflies.ai",
+          "gap_he": "מקליט הכל כברירת מחדל ללא סינון אוטומטי של מידע רגיש או בדיקת תאימות רגולטורית לפי מדינה",
+          "gap_en": "Records everything by default without automated scrubbing of sensitive data or region-specific consent compliance checks"
+        },
+        {
+          "name": "Otter.ai",
+          "gap_he": "חסר מנגנון אבטחה ארגוני שמונע היווצרות תיעוד אסור לפי תקני GDPR ותקנות פרטיות מקומיות",
+          "gap_en": "Lacks enterprise-grade policy safeguards preventing illegal record creation under GDPR and local privacy mandates"
+        }
+      ],
+      "solution_he": "תוכנת פרוקסי לפגישות וידאו המזהה רגולציות מקומיות, חוסמת הקלטה אוטומטית בנוכחות משתתפים ממדינות אסורות, ומבצעת מחיקה אוטומטית של מידע רגיש מהתמלול.",
+      "solution_en": "A video meeting proxy tool that detects local regulations, automatically blocks recording when attendees join from restricted jurisdictions, and scrubs sensitive info from transcripts.",
+      "pricing_he": "תמחור ארגוני לפי מספר משתמשים, החל מ-49$ לחודש לחברה.",
+      "pricing_en": "Enterprise per-seat pricing starting at $49/month per organization.",
+      "first_customers_he": "פנייה למנהלי אבטחת מידע וציות (CISO / Compliance) בחברות אירופאיות ב-LinkedIn.",
+      "first_customers_en": "Targeting CISOs and Compliance Officers at European companies via LinkedIn outreach.",
+      "trend_keyword": "meeting compliance software",
+      "ease_of_build": 75,
+      "mvp_he": "תוסף כרום או בוט המשתלב ב-Zoom/Google Meet, בודק את המיקום של המשתתפים, ושולט על מתג ההקלטה בהתאם למדיניות משפטית.",
+      "mvp_en": "A Chrome extension or bot integrated into Zoom/Google Meet that checks participant geo-locations and enforces recording policy switches.",
+      "tech_stack_he": "TypeScript, Chrome Extension APIs, OpenAI API, Node.js",
+      "tech_stack_en": "TypeScript, Chrome Extension APIs, OpenAI API, Node.js",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "This is a legal concern in some places (like Germany). In many places recording without consent is illegal... you might want to think twice about having any transcripts of certain meetings.",
+      "quote_url": "https://news.ycombinator.com/item?id=50465134",
+      "quote_source": "Hacker News",
+      "score": 77,
       "trend_change": null,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "חיבור אוטומטי של הודעות לקוחות למספרי הזמנות במשלוחים",
-      "title_en": "Order-to-Message Linkage in Delivery Apps",
-      "who_he": "חברות שליחויות מקומיות ומפעילי שירותי לוגיסטיקה קטנים",
-      "who_en": "Local courier companies and small logistics service operators",
+      "title_he": "הרשאות אורח מוגבלות לכלי MCP ופיתוח בסביבות עבודה משותפות",
+      "title_en": "Guest Permission Restrictions for MCP and Workspace Tools",
+      "who_he": "קבלנים עצמאיים, פרילנסרים ויועצים חיצוניים",
+      "who_en": "Independent contractors, freelancers, and external consultants",
       "member_indices": [
-        5
+        3
       ],
-      "best_quote_index": 5,
-      "quote_he": "האפליקציה לא הצליחה לקשר את ההודעה שלי להזמנה. שלחתי להם והם ענו שבעצם צריך לשלוח להם אימייל",
-      "quote_en": "the app could not link my message to the order. Fine. I send that to them then they reply and say actually I now need to email them",
-      "category": "Logistics & delivery",
-      "intensity": 80,
+      "best_quote_index": 3,
+      "quote_he": "אתה אורח, ולכן איنك יכול להתחבר ל-Notion MCP. בקש מבעל סביבת העבודה לשדרג אותך לחבר, או עבור סביבות עבודה.",
+      "quote_en": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
+      "category": "Tools & tech",
+      "intensity": 70,
       "frequency": 80,
       "low_competition": 75,
       "competitors": [
         {
-          "name": "Zendesk",
-          "gap_he": "יקר מאוד, מורכב ודורש הגדרות אינטגרציה ארוכות שאינן מתאימות לספקי משלוחים קטנים",
-          "gap_en": "Extremely expensive and complex, requiring lengthy setup unsuitable for small delivery providers"
+          "name": "Notion Guest Management",
+          "gap_he": "אינו מאפשר גישה לכלי AI חיצוניים (MCP) מבלי לתת הרשאות מלאות ויקרות לחברה",
+          "gap_en": "Does not support external AI tool (MCP) access without granting full, costly enterprise seat memberships"
         },
-        {
-          "name": "Freshdesk",
-          "gap_he": "מערכת פניות כללית שאינה מקשרת אוטומטית הודעות צ'אט למערכות ניהול משלוחים נידחות",
-          "gap_en": "General helpdesk that does not automatically link chat messages to niche delivery management systems"
-        }
-      ],
-      "solution_he": "תוכנת צ'אט מרכזית המשתמשת ב-AI לזיהוי מספר הזמנה מהודעת הלקוח וקישור מיידי לכרטיס המשלוח",
-      "solution_en": "A centralized chat widget using AI to automatically extract order numbers from customer messages and link them to shipments",
-      "pricing_he": "49 דולר לחודש עבור צוות תמיכה קטן",
-      "pricing_en": "$49 per month for a small support team",
-      "first_customers_he": "איתור חברות שליחות אזוריות בלינקדאין והצעת חיבור מהיר למערכות הקיימות שלהן",
-      "first_customers_en": "Identifying regional courier companies on LinkedIn and offering rapid integration with their systems",
-      "trend_keyword": "delivery customer support chat software",
-      "ease_of_build": 80,
-      "mvp_he": "ממשק המקבל פניות ומזהה מספרים באמצעות מודל שפה כדי לשייך אותם להזמנות",
-      "mvp_en": "An interface receiving inquiries and using a language model to identify numbers and match them to orders",
-      "tech_stack_he": "Python, FastAPI, OpenAI API, Next.js",
-      "tech_stack_en": "Python, FastAPI, OpenAI API, Next.js",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 3,
-      "sources": [
-        "Google Play"
-      ],
-      "quote_original": "the app could not link my message to the order. Fine. I send that to them then they reply and say actually I now need to email them.",
-      "quote_url": "https://play.google.com/store/apps/details?id=com.lugg",
-      "quote_source": "Google Play",
-      "score": 79,
-      "trend_change": null,
-      "is_recurring": true,
-      "weeks_seen": 3
-    },
-    {
-      "title_he": "גישור על פערי תאימות API למפתחי אורחים במערכות שיתופיות",
-      "title_en": "API and MCP Bridge for Workspace Guests",
-      "who_he": "יועצים חיצוניים וקבלנים העובדים כאורחים בסביבות עבודה שיתופיות",
-      "who_en": "External consultants and contractors working as guests in client collaborative workspaces",
-      "member_indices": [
-        0
-      ],
-      "best_quote_index": 0,
-      "quote_he": "אתה אורח, לכן איنك יכול להתחבר לזה. בקש מבעל סביבת העבודה לשדרג אותך לחבר או להחליף סביבות עבודה",
-      "quote_en": "You are a guest, so you cannot connect to MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces",
-      "category": "Communication & coordination",
-      "intensity": 75,
-      "frequency": 80,
-      "low_competition": 90,
-      "competitors": [
         {
           "name": "Zapier",
-          "gap_he": "דורש הרשאות מנהל מלאות במערכת המקור שבעלי העסקים מסרבים לתת לאורחים חיצוניים",
-          "gap_en": "Requires full admin permissions in the source system that business owners refuse to grant external guests"
-        },
-        {
-          "name": "Make.com",
-          "gap_he": "כלי אוטומציה מתקדם שגם הוא נחסם ברמת הרשאות האורח הבסיסיות בארגונים",
-          "gap_en": "Advanced automation tool that is similarly blocked by basic guest permission levels in organizations"
+          "gap_he": "דורש חיבורי API מורכבים ואינו פותר את בעיית הגישה הישירה לכלי עבודה של הלקוח",
+          "gap_en": "Requires complex API plumbing and does not solve direct workspace tooling access for external contractors"
         }
       ],
-      "solution_he": "כליתוכנה היושב בצד הלקוח ומאפשר למשתמשים אורחים לסנכרן ולגשת למידע דרך שכבת פרוקסי חכמה וממשק מותאם אישית",
-      "solution_en": "A client-side proxy tool allowing guest users to sync and access data securely via a smart proxy layer and custom interface",
-      "pricing_he": "29 דולר בחודש למשתמש",
-      "pricing_en": "$29 per month per user",
-      "first_customers_he": "פרסום פוסטים ממוקדים בקהילות פרילנסרים ומפתחים ב-X וב-Reddit המציגים פתרון לבעיית הרשאות אורח",
-      "first_customers_en": "Publishing targeted posts in freelancer and developer communities on X and Reddit highlighting guest permission solutions",
-      "trend_keyword": "workspace guest api bridge",
-      "ease_of_build": 70,
-      "mvp_he": "אפליקציית דסקטופ קטנה המייצרת עותק מקומי מסונכרן של מסמכים עבור משתמשים בעלי הרשאות מוגבלות",
-      "mvp_en": "A small desktop app creating a synced local copy of documents for restricted permission users",
-      "tech_stack_he": "Electron, TypeScript, Node.js, SQLite",
-      "tech_stack_en": "Electron, TypeScript, Node.js, SQLite",
+      "solution_he": "פרוקסי מאובטח המאפשר לקבלנים חיצוניים להשתמש בכלי MCP ו-API של לקוחות באמצעות טוקנים זמניים המפוקחים על ידי הבעלים.",
+      "solution_en": "A secure proxy enabling external contractors to utilize client MCP and API tools via temporary tokens managed by workspace owners.",
+      "pricing_he": "29$ לחודש עבור פרילנסרים המחברים מספר לקוחות שונים.",
+      "pricing_en": "$29/month for freelancers connecting multiple client workspaces.",
+      "first_customers_he": "שיווק בקהילות מפתחים ומשתמשי Claude MCP וסביבות Notion ב-Reddit ו-Twitter.",
+      "first_customers_en": "Marketing in developer and Claude MCP/Notion user communities on Reddit and Twitter.",
+      "trend_keyword": "mcp proxy tool",
+      "ease_of_build": 80,
+      "mvp_he": "שירת צד-שרת המתווך בקשות API ומאפשר אימות מול סביבות עבודה חיצוניות של לקוחות.",
+      "mvp_en": "A server-side proxy relaying API requests and enabling authentication against external client workspaces.",
+      "tech_stack_he": "Node.js, Express, OAuth2, Redis",
+      "tech_stack_en": "Node.js, Express, OAuth2, Redis",
       "track": "saas",
       "mentions": 1,
-      "engagement": 192,
+      "engagement": 194,
       "sources": [
         "GitHub"
       ],
       "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
       "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
       "quote_source": "GitHub",
-      "score": 78,
+      "score": 76,
       "trend_change": null,
       "is_recurring": false,
       "weeks_seen": 1
@@ -453,11 +526,11 @@
   ],
   "top_n": 10,
   "categories": {
+    "Operations & admin": 6,
+    "Communication & coordination": 1,
+    "Personal & family": 2,
     "Tools & tech": 4,
-    "Operations & admin": 2,
-    "Personal & family": 3,
-    "Finance & billing": 1,
-    "Logistics & delivery": 1
+    "Time management": 2
   },
   "prev_categories": {},
   "category_names": {
