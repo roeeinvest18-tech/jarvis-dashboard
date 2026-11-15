@@ -839,6 +839,31 @@ const STRINGS = {
       totalSessions: (n) => `${n} session${n === 1 ? '' : 's'} matched`,
       noMatch: 'No logged session matches that search or filter. Try another exercise name or tap All.',
     },
+    run2k: {
+      hrLabel: 'avg HR (bpm)',
+      rpeLabel: 'effort (1-10)',
+      sectionTitle: '2K run & Cooper 2027 predictor',
+      trendLabel: '2K time trend',
+      latestPace: (clock, pace) => `Latest: ${clock} (${pace}/km)`,
+      cooperProjection: (lowM, highM) => `Projected 12-min Cooper distance: ${lowM}\u2013${highM} m`,
+      nextMilestone: (targetM, targetClock, targetPace, trimSec) =>
+        `Next milestone: ${targetM} m in Cooper requires about ${targetClock} for 2K (${targetPace}/km, -${trimSec}s/km).`,
+      aerobicGain: (hrDelta, rpeDelta) => {
+        const parts = [];
+        if (hrDelta !== null && hrDelta <= -3) parts.push(`avg HR ${hrDelta} bpm`);
+        if (rpeDelta !== null && rpeDelta <= -0.5) parts.push(`effort ${rpeDelta}`);
+        return `Aerobic efficiency gain vs previous 2K: ${parts.join(', ')} at a similar or faster time.`;
+      },
+    },
+    benchmarks: {
+      boardTitle: 'Benchmarks & personal bests',
+      run2kLabel: '2K Run PB',
+      cooperLabel: 'Cooper 12-min PB',
+      sprintLabel: 'Sprint PB',
+      inlineLastOnly: (date, summary) => `Last logged (${date}): ${summary}`,
+      inlineLastBest: (lastDate, lastSummary, bestDate, bestSummary) =>
+        `Last (${lastDate}): ${lastSummary} · Best (${bestDate}): ${bestSummary}`,
+    },
   },
 
   // ---- Personal OS: Insights ----------------------------------------------

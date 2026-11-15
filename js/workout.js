@@ -640,6 +640,8 @@ const WORKOUT = {
         target_rest_s_min: workoutNum(r.target_rest_s_min),
         target_rest_s_max: workoutNum(r.target_rest_s_max),
         done: r.done === true || r.done === '1' || r.done === 1,
+        avg_hr_bpm: workoutNum(r.avg_hr_bpm),
+        rpe: workoutClamp(workoutNum(r.rpe), 1, 10),
       };
     }
     throw new Error(`unknown progression type: ${progressionType}`);

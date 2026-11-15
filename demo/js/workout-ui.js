@@ -339,12 +339,18 @@ function workoutSetCellsHtml(type, exerciseId, row, sets, perSet = [], unit = nu
   // A sprint row of the current program is drawn as one card per sprint
   // (workoutSprintCardsHtml), not as cells here.
   if (type === 'time_or_distance' && row && row.sprint_build) return '';
-  if (type === 'time_or_distance' && row && row.measure) {
+  if (type === 'time_or_distance' && row && (row.measure || exerciseId === 'run_2k')) {
     const set = sets[0] || null;
     const val = k => (set && set[k] !== null && set[k] !== undefined ? String(set[k]) : '');
-    const km = val('distance') || (row.measure === 'run' ? '2' : '');
+    const isRun = row.measure === 'run' || exerciseId === 'run_2k';
+    const km = val('distance') || (isRun ? '2' : '');
+    const R2 = STRINGS.workout.run2k;
     return workoutSetCellHtml(0, 'distance', 'km', km, 'step="0.01" min="0"')
-      + workoutSetCellHtml(0, 'duration', 'time (min)', val('duration'), 'step="0.01" min="0"');
+      + workoutSetCellHtml(0, 'duration', 'time (min)', val('duration'), 'step="0.01" min="0"')
+      + (isRun
+        ? workoutSetCellHtml(0, 'avg_hr_bpm', R2.hrLabel, val('avg_hr_bpm'), 'step="1" min="40" max="230"')
+          + workoutSetCellHtml(0, 'rpe', R2.rpeLabel, val('rpe'), 'step="0.5" min="1" max="10"')
+        : '');
   }
   // time_or_distance: one row, a handful of named fields rather than an
   // indexed set -- the model already treats a whole sprint/Cooper entry as
@@ -531,6 +537,36 @@ function workoutRowEditorHtml(row) {
   </div>`;
 }
 
+function workoutExerciseInlineBenchmarkHtml(exerciseId, currentDate) {
+  const B = STRINGS.workout.benchmarks;
+  const all = WORKOUT.sessions()
+    .map(s => {
+      const entry = (s.entries || []).find(e => e.exercise_id === exerciseId && WORKOUT.filledSets(e).length > 0);
+      return entry ? { session: s, entry } : null;
+    })
+    .filter(Boolean);
+  if (!all.length) return '';
+  const prior = currentDate ? all.filter(x => x.session.date < currentDate) : [];
+  const pool = prior.length ? prior : all.filter(x => x.session.date !== currentDate);
+  if (!pool.length) return '';
+
+  const last = pool[pool.length - 1];
+  const lastSummary = workoutFormatEntrySummary(last.entry);
+  if (!lastSummary) return '';
+
+  let best = last;
+  let bestScore = -Infinity;
+  pool.forEach(item => {
+    const sc = workoutEntryPerformanceScore(item.entry);
+    if (sc !== null && sc > bestScore) { bestScore = sc; best = item; }
+  });
+  const bestSummary = workoutFormatEntrySummary(best.entry);
+  const text = (pool.length === 1 || best.session.id === last.session.id || bestSummary === lastSummary)
+    ? B.inlineLastOnly(workoutPrettyDate(last.session.date), lastSummary)
+    : B.inlineLastBest(workoutPrettyDate(last.session.date), lastSummary, workoutPrettyDate(best.session.date), bestSummary);
+  return `<p class="wk-note wk-inline-bench" data-wk-inline-bench>${escapeHtml(text)}</p>`;
+}
+
 function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
   const ex = programExercise(row.exercise_id);
   if (!ex) return '';
@@ -597,6 +633,7 @@ function workoutExerciseHtml(row, loggedEntry, date, ctx = {}) {
     </div>
     ${ctx.editable && workoutEditOpen === row.exercise_id ? workoutRowEditorHtml(row) : ''}
     <p class="wk-why">${escapeHtml(ex.why)}</p>
+    ${workoutExerciseInlineBenchmarkHtml(row.exercise_id, date)}
     ${gapWarningHtml}
     ${row.note ? `<p class="wk-note">${escapeHtml(row.note)}</p>` : ''}
     ${row.rest && !row.sprint_build ? `<p class="wk-note wk-rest" data-wk-rest="${escapeHtml(row.rest)}" style="cursor:pointer;" title="Tap to start or reset rest timer">Rest ${escapeHtml(row.rest)}<span class="wk-rest-live mono" data-wk-rest-live style="color:var(--mark); margin-left:8px;"></span></p>` : ''}
@@ -1197,6 +1234,144 @@ function workoutSeriesLine(values) {
   return shown.length ? shown.join(' → ') : '';
 }
 
+function workoutRun2kPoints() {
+  return WORKOUT.historyFor('run_2k').map(h => {
+    const s = h.sets && h.sets[0];
+    if (!s) return null;
+    const dist = (s.distance !== null && s.distance !== undefined && Number(s.distance) > 0) ? Number(s.distance) : 2;
+    const dur = Number(s.duration);
+    if (!Number.isFinite(dur) || dur <= 0) return null;
+    return {
+      date: h.session.date,
+      sessionId: h.session.id,
+      distance: dist,
+      duration: dur,
+      pace: dur / dist,
+      avg_hr_bpm: s.avg_hr_bpm !== undefined ? s.avg_hr_bpm : null,
+      rpe: s.rpe !== undefined ? s.rpe : null,
+    };
+  }).filter(Boolean);
+}
+
+function workoutCooperPoints() {
+  return WORKOUT.historyFor('cooper_test').map(h => {
+    const s = h.sets && h.sets[0];
+    if (!s) return null;
+    const dist = Number(s.distance);
+    if (!Number.isFinite(dist) || dist <= 0) return null;
+    return { date: h.session.date, distance: dist };
+  }).filter(Boolean);
+}
+
+function workoutBenchmarksBoardHtml(strength, sprint, run2kPoints, cooperPoints) {
+  const B = STRINGS.workout.benchmarks;
+  const cards = [];
+  if (run2kPoints.length) {
+    const best = run2kPoints.reduce((a, b) => (b.pace < a.pace ? b : a));
+    cards.push({
+      label: B.run2kLabel,
+      value: workoutFormatRunClock(best.duration) || `${best.duration} min`,
+      meta: `${workoutFormatRunClock(best.pace)}/km · ${workoutPrettyDate(best.date)}`,
+    });
+  }
+  if (cooperPoints.length) {
+    const best = cooperPoints.reduce((a, b) => (b.distance > a.distance ? b : a));
+    cards.push({
+      label: B.cooperLabel,
+      value: `${best.distance} m`,
+      meta: workoutPrettyDate(best.date),
+    });
+  }
+  if (sprint.length) {
+    const best = sprint.reduce((a, b) => (b.best < a.best ? b : a));
+    cards.push({
+      label: B.sprintLabel,
+      value: `${best.best}s`,
+      meta: `${best.distance ? `${best.distance}m · ` : ''}${workoutPrettyDate(best.date)}`,
+    });
+  }
+  const strengthCards = strength.map(x => {
+    const loaded = x.ex.progression_type === 'external_load' && x.series.some(p => p.top_weight !== null && p.top_weight > 0);
+    let bestPt = null;
+    let bestScore = -1;
+    x.series.forEach(p => {
+      const sc = loaded
+        ? ((p.top_weight || 0) * (1 + (p.best_reps || 0) / 30))
+        : (p.best_reps || 0);
+      if (sc > bestScore) { bestScore = sc; bestPt = p; }
+    });
+    if (!bestPt || bestScore <= 0) return null;
+    if (loaded && bestPt.top_weight) {
+      const e1rm = bestPt.best_reps ? Math.round(bestPt.top_weight * (1 + bestPt.best_reps / 30) * 10) / 10 : null;
+      return {
+        label: x.ex.name,
+        value: `${workoutFormatLoad(bestPt.top_weight, bestPt.load_unit)}${bestPt.best_reps ? ` \u00d7 ${bestPt.best_reps}` : ''}`,
+        meta: `${e1rm ? `1RM ~${workoutFormatLoad(e1rm, bestPt.load_unit)} · ` : ''}${workoutPrettyDate(bestPt.date)}`,
+        score: bestScore,
+      };
+    }
+    return bestPt.best_reps ? {
+      label: x.ex.name,
+      value: `${bestPt.best_reps} reps`,
+      meta: workoutPrettyDate(bestPt.date),
+      score: bestScore,
+    } : null;
+  }).filter(Boolean).slice(0, 4);
+
+  const allCards = [...cards, ...strengthCards];
+  if (!allCards.length) return '';
+  return `<div class="wk-bench-section">
+    <h3 class="os-subhead">${escapeHtml(B.boardTitle)}</h3>
+    <div class="wk-bench-grid">
+      ${allCards.map(c => `<div class="wk-bench-card">
+        <span class="wk-bench-label">${escapeHtml(c.label)}</span>
+        <strong class="wk-bench-val wk-num">${escapeHtml(c.value)}</strong>
+        <span class="wk-bench-meta wk-num">${escapeHtml(c.meta)}</span>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function workoutRun2kPredictorHtml(run2kPoints) {
+  if (!run2kPoints.length) return '';
+  const R2 = STRINGS.workout.run2k;
+  const last = run2kPoints[run2kPoints.length - 1];
+  const p = last.pace;
+  const lowM = Math.round((12 / (p * 1.04)) * 1000 / 10) * 10;
+  const highM = Math.round((12 / p) * 1000 / 10) * 10;
+  const targetM = Math.max(2400, Math.ceil((lowM + 50) / 100) * 100);
+  const reqPace = (12 / (targetM / 1000)) / 1.04;
+  const targetClock = workoutFormatRunClock(reqPace * 2);
+  const targetPace = workoutFormatRunClock(reqPace);
+  const trimSec = Math.max(1, Math.round((p - reqPace) * 60));
+
+  let aerobicNote = '';
+  if (run2kPoints.length >= 2) {
+    const prev = run2kPoints[run2kPoints.length - 2];
+    const hrDelta = (last.avg_hr_bpm && prev.avg_hr_bpm) ? Math.round(last.avg_hr_bpm - prev.avg_hr_bpm) : null;
+    const rpeDelta = (last.rpe && prev.rpe) ? Math.round((last.rpe - prev.rpe) * 10) / 10 : null;
+    if (last.pace <= prev.pace + 0.08 && ((hrDelta !== null && hrDelta <= -3) || (rpeDelta !== null && rpeDelta <= -0.5))) {
+      aerobicNote = `<p class="os-note wk-aerobic-note">${escapeHtml(R2.aerobicGain(hrDelta, rpeDelta))}</p>`;
+    }
+  }
+
+  return `<div class="wk-predictor-card">
+    <h3 class="os-subhead">${escapeHtml(R2.sectionTitle)}</h3>
+    <ul class="os-list">
+      <li>
+        <span>${escapeHtml(R2.trendLabel)}</span>
+        <span class="wk-num">${escapeHtml(workoutSeriesLine(run2kPoints.slice(-6).map(pt => workoutFormatRunClock(pt.duration))))}</span>
+      </li>
+      <li>
+        <span>${escapeHtml(R2.latestPace(workoutFormatRunClock(last.duration), workoutFormatRunClock(p)))}</span>
+        <span class="wk-num">${escapeHtml(R2.cooperProjection(lowM, highM))}</span>
+      </li>
+    </ul>
+    <p class="os-note">${escapeHtml(R2.nextMilestone(targetM, targetClock, targetPace, trimSec))}</p>
+    ${aerobicNote}
+  </div>`;
+}
+
 function workoutProgressHtml() {
   // The current program, then anything else that was ever logged. An exercise
   // that is no longer scheduled keeps its history here; the two removed skills
@@ -1213,10 +1388,12 @@ function workoutProgressHtml() {
     .filter(x => Object.keys(x.trend).length > 0);
 
   const sprint = WORKOUT.sprintTrend().filter(p => p.best !== null);
+  const run2k = workoutRun2kPoints();
+  const cooper = workoutCooperPoints();
   const volume = WORKOUT.weeklyVolumeByCategory();
   const weeks = Object.keys(volume).sort().slice(-4);
 
-  if (!strength.length && !holds.length && !sprint.length && !weeks.length) {
+  if (!strength.length && !holds.length && !sprint.length && !run2k.length && !cooper.length && !weeks.length) {
     return `<div class="os-block">
       <div class="os-head"><h2 class="wk-title">Progress</h2></div>
       <p class="wk-why">This fills in as you log. It shows how each movement is
@@ -1226,6 +1403,8 @@ function workoutProgressHtml() {
 
   return `<div class="os-block">
     <div class="os-head"><h2 class="wk-title">Progress</h2></div>
+    ${workoutBenchmarksBoardHtml(strength, sprint, run2k, cooper)}
+    ${workoutRun2kPredictorHtml(run2k)}
     ${strength.length ? `
       <h3 class="os-subhead">Strength</h3>
       <ul class="os-list">
@@ -1328,6 +1507,8 @@ function workoutFormatEntrySummary(entry) {
       parts.push(detail && entry.exercise_id === 'run_2k' ? `${dur} min (${detail})` : `${dur} min`);
     }
     if (s.rep_count !== null && s.rep_count !== undefined) parts.push(`${s.rep_count} reps`);
+    if (s.avg_hr_bpm !== null && s.avg_hr_bpm !== undefined) parts.push(`HR ${s.avg_hr_bpm} bpm`);
+    if (s.rpe !== null && s.rpe !== undefined) parts.push(`RPE ${s.rpe}`);
     return parts.join(' \u00b7 ');
   }
 
