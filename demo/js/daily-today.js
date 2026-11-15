@@ -435,7 +435,13 @@ function wireDailyToday() {
       dailyTriggerSync();
     };
     input.addEventListener('blur', commit);
-    input.addEventListener('keydown', ev => { if (ev.key === 'Enter') input.blur(); });
+    input.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter') {
+        if (ev.isComposing || ev.keyCode === 229) return;
+        ev.preventDefault();
+        input.blur();
+      }
+    });
   });
 
   mount.querySelectorAll('[data-daily-tv]').forEach(btn => {
@@ -574,7 +580,11 @@ function dailyOpenPriorityInput(ghostBtn) {
   };
   input.addEventListener('blur', commit);
   input.addEventListener('keydown', ev => {
-    if (ev.key === 'Enter') { ev.preventDefault(); input.blur(); }
+    if (ev.key === 'Enter') {
+      if (ev.isComposing || ev.keyCode === 229) return;
+      ev.preventDefault();
+      input.blur();
+    }
     if (ev.key === 'Escape') { input.value = ''; input.blur(); }
   });
 }
@@ -940,7 +950,13 @@ function wireDailyCloseFlow() {
       dailyTriggerSync();
     };
     input.addEventListener('blur', commit);
-    input.addEventListener('keydown', ev => { if (ev.key === 'Enter') input.blur(); });
+    input.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter') {
+        if (ev.isComposing || ev.keyCode === 229) return;
+        ev.preventDefault();
+        input.blur();
+      }
+    });
   });
 
   overlay.querySelectorAll('[data-daily-number]').forEach(input => {

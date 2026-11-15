@@ -515,7 +515,11 @@ function wireBubbles(payload) {
     };
     input.addEventListener('blur', commit);
     input.addEventListener('keydown', ev => {
-      if (ev.key === 'Enter') { ev.preventDefault(); input.blur(); }
+      if (ev.key === 'Enter') {
+        if (ev.isComposing || ev.keyCode === 229) return;
+        ev.preventDefault();
+        input.blur();
+      }
       else if (ev.key === 'Escape') { cancelled = true; input.blur(); }
     });
   });
@@ -572,7 +576,11 @@ function wireBubbles(payload) {
     };
     input.addEventListener('blur', commit);
     input.addEventListener('keydown', ev => {
-      if (ev.key === 'Enter') { ev.preventDefault(); input.blur(); }
+      if (ev.key === 'Enter') {
+        if (ev.isComposing || ev.keyCode === 229) return;
+        ev.preventDefault();
+        input.blur();
+      }
       else if (ev.key === 'Escape') { cancelled = true; input.blur(); }
     });
   });

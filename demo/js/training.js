@@ -672,6 +672,7 @@ function wireTrainingRowEdit(payload) {
         editingTrainingRow = null;
         renderTrainingZone(payload);
       } else if (ev.key === 'Enter') {
+        if (ev.isComposing || ev.keyCode === 229) return;
         ev.preventDefault();
         input.closest('tr').querySelector('.drill-row-save').click();
       }

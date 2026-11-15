@@ -6409,4 +6409,12 @@ body::before {
   transition: opacity 0.2s ease;
 }
 
+/* Defer off-screen rendering for below-the-fold feed cards */
+.pp-cluster-card:nth-child(n+3),
+.job-card:nth-child(n+3),
+.content-card:nth-child(n+3) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 280px;
+}
+
 
