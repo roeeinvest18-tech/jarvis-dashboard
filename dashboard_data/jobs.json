@@ -1,11 +1,12 @@
 {
-  "generated_at": "2026-11-12T14:10:28.680386+00:00",
+  "generated_at": "2026-11-15T12:01:31.196948+00:00",
   "stats": {
-    "total_scanned": 13,
-    "matched_count": 13,
-    "ai_count": 8,
-    "cyber_count": 3,
-    "scraping_count": 2
+    "total_scanned": 66,
+    "matched_count": 16,
+    "ai_count": 7,
+    "cyber_count": 0,
+    "scraping_count": 2,
+    "web_count": 7
   },
   "jobs": [
     {
@@ -28,70 +29,6 @@
         "Security"
       ],
       "proposal_draft": "Hi,\n\nI saw your posting for discrete web data extraction behind secure authentication. I build resilient Python-based extraction pipelines (Playwright/Stealth) engineered to navigate multi-step authentication, maintain session persistence across token refreshes, and handle anti-bot telemetry cleanly.\n\nHere is my architectural approach:\n1. Authentication & Session Stability: Headless browser automation configured with encrypted credential storage, stateful session cookie renewal, and automated reconnects on session expiry.\n2. Ingestion & Schema Safety: Strict Pydantic models to validate extracted records in real time, preventing malformed payload leakage.\n3. Discretion & Hygiene: Rate-limited egress patterns, request jitter, and zero-leakage local storage.\n\nI run autonomous automation architectures with full observability. Available to review your target platform requirements and demo a working staging PoC.\n\nWhat authentication mechanism does the platform use (OAuth, 2FA, or standard session cookies)?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-live-2120867924746213531",
-      "title": "AI Automation Developer – Brilliant Directories, n8n/API & Social Media Integration",
-      "platform": "Upwork (Live Feed)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120867924746213531",
-      "posted_at": "Today, 15:14 (Live)",
-      "budget": "",
-      "budget_type": "fixed",
-      "budget_val": 500,
-      "match_score": 96,
-      "client_problem": "Automate repetitive tasks across businesses, starting with BikrX: integrating Brilliant Directories, n8n, social media APIs, and webhook event listeners.",
-      "skills": [
-        "n8n",
-        "API Integration",
-        "Automation",
-        "webhooks",
-        "Python",
-        "AI Agents"
-      ],
-      "proposal_draft": "Hi,\n\nI saw your posting for the AI Automation Developer position integrating Brilliant Directories with n8n and social media APIs. I architect and run production automation systems combining webhook listeners, n8n workflows, and custom Python microservices with multi-model failover.\n\nExecution Plan:\n1. Webhook & Ingestion Layer: Connect Brilliant Directories webhooks to an orchestration node with deduplication and payload validation.\n2. API Connectors & Rate-Limiting: Safe integration with social media endpoints featuring backoff strategies to prevent token exhaustion.\n3. Monitoring & Error Recovery: Automated alert notifications on any webhook drop or failed transformation step.\n\nI focus on resilient, durable architectures rather than brittle scripts. Happy to walk you through live automation pipelines on a brief kickoff call.\n\nWhich social media platforms are in the phase 1 scope for automated posting?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-live-2120849319729993210",
-      "title": "Browser Automation Specialist – Parallel Workflow & Session Stability",
-      "platform": "Upwork (Live Feed)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120849319729993210",
-      "posted_at": "Today, 14:02 (Live)",
-      "budget": "-/hr",
-      "budget_type": "hourly",
-      "budget_val": 48,
-      "match_score": 95,
-      "client_problem": "Build a stable, scalable multi-account browser workflow where a script launches multiple Chrome instances, manages persistent sessions, and drives automated pipelines.",
-      "skills": [
-        "Python",
-        "Automation",
-        "Selenium",
-        "Playwright",
-        "Session Management"
-      ],
-      "proposal_draft": "Hi,\n\nI saw your posting for the Browser Automation Specialist role to build a multi-account parallel Chrome workflow. Managing concurrent browser sessions without state collision or memory bloat is an engineering challenge I solve regularly.\n\nMy Architecture:\n1. Isolated Profile Sandboxing: Separate user data directories (UserDataDir) with unique fingerprints and proxy binding per instance to avoid cross-session contamination.\n2. Lifecycle & Memory Control: Concurrency pooling with automated process recycling to prevent orphaned headless Chrome processes from hogging system RAM.\n3. Session Resiliency: Checkpointing state to disk after each key action, so transient failures resume without re-authenticating from scratch.\n\nI can demonstrate live parallel browser architectures I run on our kickoff call.\n\nHow many concurrent Chrome instances are you planning to run per worker machine?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-live-2120833648274083856",
-      "title": "AI Automation Expert – Build Agentic Workflows for Service Businesses (Claude, Grok)",
-      "platform": "Upwork (Live Feed)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120833648274083856",
-      "posted_at": "Today, 12:58 (Live)",
-      "budget": "-/hr",
-      "budget_type": "hourly",
-      "budget_val": 35,
-      "match_score": 95,
-      "client_problem": "Looking for a technical assistant and builder to turn client problems into functional AI agent workflows (Claude, Grok, automation pipelines).",
-      "skills": [
-        "AI Agents",
-        "Claude API",
-        "Automation",
-        "Python",
-        "FastAPI"
-      ],
-      "proposal_draft": "Hi,\n\nI saw your requirement for an AI Automation Expert at Toam Studios to architect agentic workflows for service businesses. I design and build production-grade AI agents with multi-model failover (Claude, Gemini, OpenAI), tool-calling loops, and strict schema guarantees.\n\nHow I work:\n1. Fast Prototyping to Production: Rapid translation of client operational bottlenecks into functional, stateful agents.\n2. Resilient Tool Calling: Strict validation using Pydantic schemas so agent outputs integrate cleanly into client CRMs and messaging channels without hallucinated fields.\n3. Operational Handover: Clean documentation, automated error handling, and staging environment demos for client signoff.\n\nI would love to partner with you to accelerate client delivery. What is the typical tech stack or CRM your service business clients use (e.g. GoHighLevel, HubSpot, Zapier)?\n\nBest regards,\nRoee"
     },
     {
       "id": "upwork-bot-ai-01",
@@ -136,139 +73,266 @@
       "proposal_draft": "Hi, I’m Roee Nir. I specialize in building resilient automation pipelines and scraping architectures that handle dynamic, JavaScript-heavy environments.\n\n**Screening Answers:**\n\n1. **Approach to Anti-Bot/Pagination:** For JS-heavy distributor sites, I rely on Playwright with stealth plugins and randomized request headers/fingerprints. I implement custom backoff strategies and session persistence to ensure pagination remains stable without triggering rate limits.\n2. **Data Integrity:** I use Pydantic for schema validation. If the distributor changes their DOM structure, the script will catch the schema mismatch immediately rather than dumping corrupt data into your CSV, allowing for an automated alert or retry.\n3. **Resilience:** I wrap these scrapers in a containerized environment (Docker) with automated CI/CD runners to ensure the daily export happens reliably.\n\n**Architectural Approach:**\n\nI don’t just write \"scripts\"—I build stable data pipelines. For this project, I will implement a modular architecture:\n*   **Headless Engine:** Playwright managed via a pool of proxies to ensure the 4,000-item crawl remains invisible to security layers.\n*   **Execution Logic:** State management to handle potential timeouts—the script will resume from the last successful item rather than restarting the entire 4,000-item crawl if a connection drops.\n*   **Validation:** A Pydantic layer that validates pricing and inventory fields against your business logic before the CSV export triggers.\n*   **Infrastructure:** I can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC using a similar JS-heavy target site.\n\nI have capacity to start this week and can have a functional staging environment ready for your review within 72 hours.\n\nAre you planning to push this CSV to an S3 bucket or a specific ERP/CRM via webhook once the scrape completes?\n\nBest regards,\nRoee"
     },
     {
-      "id": "upwork-soc-pcap-05",
-      "title": "Wireshark PCAP Traffic Analysis & Security Incident Report",
-      "platform": "Upwork",
-      "track": "cyber_soc",
-      "url": "https://www.upwork.com/freelance-jobs/apply/Wireshark-PCAP-Traffic-Analysis_~01d4e5f6a7b8c9",
-      "posted_at": "Yesterday, 18:10",
-      "budget": "$300",
-      "budget_type": "fixed",
-      "budget_val": 300,
-      "match_score": 95,
-      "client_problem": "We captured a 250MB network PCAP file during an active beaconing alert. We need an analyst to inspect DNS tunnels, TLS handshakes, identify C2 communication IP/ports, and write a concise technical executive summary wi...",
-      "skills": [
-        "Network Security",
-        "Wireshark",
-        "PCAP Analysis",
-        "SOC Tier 1",
-        "Incident Response"
-      ],
-      "proposal_draft": "Hi there,\n\nI am a security-focused automation engineer with hands-on experience in log correlation and network traffic analysis. I can handle the PCAP inspection, extract the specific C2 indicators, and provide the technical executive summary you need.\n\n1. **Approach:** I will use Wireshark/tshark to isolate the beaconing traffic, identify the C2 IP/port scope, extract TLS handshakes (SNI/JA3 fingerprinting), and analyze DNS query patterns to confirm tunneling.\n2. **Deliverable:** A concise technical report detailing the C2 infrastructure, the beaconing interval, and the identified artifacts, formatted for immediate SOC response.\n3. **Timeline:** I can begin analysis immediately and deliver the finalized report within 24 hours of receiving the PCAP.\n\n**Why me:**\nMy background isn't just in general development; I work daily with security telemetry (Splunk, Wireshark) and autonomous Python systems. I treat network artifacts with the same rigor I apply to my AI agent architectures—focusing on data integrity, schema validation (Pydantic), and clear, actionable logging. \n\nI don't rely on fluff or generic promises. I can walk you through my methodology for dissecting obfuscated traffic patterns or demonstrate my reporting templates on a kickoff call. \n\nDo you have a specific threat intel feed or internal sandbox environment you need these indicators mapped against once extracted?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-soc-splunk-03",
-      "title": "SOC Analyst / Engineer for Splunk Log Investigation & Detection Rules",
-      "platform": "Upwork",
-      "track": "cyber_soc",
-      "url": "https://www.upwork.com/freelance-jobs/apply/SOC-Analyst-Splunk-Log-Investigation_~01b2c3d4e5f6a8",
-      "posted_at": "Today, 10:15",
-      "budget": "$45/hr",
-      "budget_type": "hourly",
-      "budget_val": 45,
-      "match_score": 95,
-      "client_problem": "We experienced suspicious authentication anomalies on our Windows Domain Controllers and VPN gateways. Need an experienced SOC Tier 1/2 specialist to analyze the EVTX / Sysmon logs in Splunk, identify brute-force or p...",
-      "skills": [
-        "Cybersecurity",
-        "SOC",
-        "Splunk",
-        "Active Directory",
-        "Incident Analysis"
-      ],
-      "proposal_draft": "Hi,\n\n1. **Experience with EVTX/Sysmon:** I have extensive experience performing forensic analysis on Windows Event Logs and Sysmon (Event IDs 4624/4625 for auth, 3/22 for network/DNS). I am highly proficient in SPL (Splunk Processing Language) for identifying lateral movement and anomalous auth patterns.\n2. **Detection Logic:** My approach involves building correlated detection rules that look beyond basic threshold-based alerts to minimize noise, focusing on TTPs (Tactics, Techniques, and Procedures) associated with credential access.\n3. **Availability:** I am available to begin the log ingestion and investigation process immediately.\n\nThe challenge with Windows Domain Controller and VPN gateway telemetry is the sheer volume of noise. I don't just run broad \"brute-force\" queries; I architect detection logic using Splunk’s statistical commands to establish baselines, followed by peer-group analysis to flag outliers. \n\nBeyond static rules, I can automate the initial triage phase. I have architected Python-based automation pipelines that integrate directly with Splunk via API. Instead of manual investigation for every alert, I can deploy a workflow that:\n*   Triggers a Python script upon a high-confidence alert.\n*   Enriches the suspicious IP/user context via threat intel feeds.\n*   Pushes the summarized case to your incident management system (or a Slack/Teams webhook) with the relevant event correlation already attached.\n\nThis ensures your Tier 1 team spends time on incident response rather than manual log correlation. I can walk you through the logic patterns I use for automated log parsing and the Pydantic schema validation I use to ensure data integrity during ingestion, or demonstrate a working Staging PoC on our kickoff call.\n\nAre you currently seeing these authentication anomalies coming from a specific geo-location, or is the traffic distributed across multiple residential proxy networks?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-auto-doc-06",
-      "title": "Automated PDF Document Parser & Data Enrichment Pipeline",
-      "platform": "Upwork",
+      "id": "upwork-live-2120867924746213531",
+      "title": "AI Automation Developer – Brilliant Directories, n8n/API & Social Media Integration",
+      "platform": "Upwork (Live Feed)",
       "track": "ai_automation",
-      "url": "https://www.upwork.com/freelance-jobs/apply/Automated-PDF-Document-Parser_~01e5f6a7b8c9d0",
-      "posted_at": "Yesterday, 15:00",
-      "budget": "$500",
+      "url": "https://www.upwork.com/jobs/~022120867924746213531",
+      "posted_at": "Today, 15:14 (Live)",
+      "budget": "",
       "budget_type": "fixed",
       "budget_val": 500,
-      "match_score": 91,
-      "client_problem": "Looking for a developer to write a Python script that monitors an incoming folder, parses invoices and unstructured PDF documents using OCR/LLM extraction, extracts line items into structured JSON, and pushes them to...",
+      "match_score": 96,
+      "client_problem": "Automate repetitive tasks across businesses, starting with BikrX: integrating Brilliant Directories, n8n, social media APIs, and webhook event listeners.",
       "skills": [
-        "Python",
-        "OCR",
-        "LLM",
-        "Data Processing",
-        "JSON"
-      ],
-      "proposal_draft": "Hi,\n\nI can build this pipeline. Below are the specific technical answers to your screening requirements:\n\n1. **OCR/Extraction Approach:** I use a hybrid pipeline: a document processor (Playwright or specialized PDF libs) to handle text extraction, followed by an LLM agent with strict Pydantic schema validation. This ensures the JSON output is always valid and adheres to your specific data model.\n2. **Resiliency:** To handle API fluctuations, I implement a multi-model failover (e.g., GPT-4o -> Claude 3.5 Sonnet) and exponential backoff retry logic for all external endpoints.\n3. **Workflow Logic:** I typically build these as Python scripts running in a Docker container or via n8n for orchestration, ensuring that state is tracked (to prevent processing the same file twice) and errors are logged via webhook notifications.\n\nRegarding the technical architecture, I have shipped autonomous Python agents that handle messy, unstructured data at scale. Rather than generic scripting, I build pipelines with:\n*   **Validation Layers:** Pydantic schemas that force the LLM to structure the line items correctly, with logic to flag documents for manual review if confidence scores fall below a set threshold.\n*   **Modular Design:** You can easily swap extraction models or adjust the JSON output format without refactoring the core monitoring script.\n*   **Production Stability:** I include telemetry hooks to monitor the extraction success rate, ensuring you aren't blind to partial parses or malformed PDFs.\n\nI can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC using a sample of your documents. \n\nHow are you currently handling the ingestion of these PDFs—are they arriving via email attachments, an S3 bucket, or a shared drive?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "arbeitnow-cyber-exposure-management-expert-munich-471149",
-      "title": "Cyber Exposure Management Expert (m/w/d)",
-      "platform": "Remote / Freelance",
-      "track": "cyber_soc",
-      "url": "https://www.arbeitnow.com/jobs/companies/nviso/cyber-exposure-management-expert-munich-471149",
-      "posted_at": "Live Feed",
-      "budget": "$40-$60/hr",
-      "budget_type": "hourly",
-      "budget_val": 45,
-      "match_score": 91,
-      "client_problem": "It all starts with the mission: NVISO is here to protect European society from potentially devastating cyber attacks. This means we offer cyber security services to private and governmental organizations to help them...",
-      "skills": [
-        "IT Security"
-      ],
-      "proposal_draft": "Hi NVISO team,\n\nRegarding the Cyber Exposure Management mission:\n\n1. **Experience with SOC Telemetry/Security:** My background covers Tier 1 security telemetry, including log correlation and analysis via tools like Splunk and packet inspection with Wireshark. I understand the signal-to-noise ratio challenges in SOC environments and how to automate the triage of high-volume security events.\n2. **AI/Automation Architecture:** I build production-grade Python agents using LangGraph and Pydantic schemas to ensure deterministic output. I implement multi-model failover logic (OpenAI/Claude/Gemini) so that critical security workflows remain operational if one API provider hits capacity or downtime.\n3. **Availability:** I am available to support your SOC team’s initiatives immediately and can dedicate the necessary bandwidth to architect robust, scalable automation pipelines for your exposure management needs.\n\nI specialize in building systems that move beyond simple scripts. My architectures focus on reliability—using rate-limit backoff, structured data validation for security logs, and robust RAG pipelines using Qdrant or Pinecone for context-aware analysis.\n\nI don’t rely on boilerplate solutions; I build systems that integrate directly into existing security workflows. I can walk you through live architectures and code patterns I run on our kickoff call, or demonstrate a working Staging PoC that mirrors your telemetry requirements.\n\nI am interested in how you are currently handling the normalization of disparate security data sources before they hit your analysis engine. Are you performing the bulk of your enrichment via custom Python workers, or are you utilizing existing SIEM-native API integrations for this telemetry?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-fastapi-pipe-04",
-      "title": "FastAPI Microservice Integration with Stripe & Webhook Processor",
-      "platform": "Upwork",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/freelance-jobs/apply/FastAPI-Microservice-Integration_~01c3d4e5f6a7b8",
-      "posted_at": "Yesterday, 22:30",
-      "budget": "$400",
-      "budget_type": "fixed",
-      "budget_val": 400,
-      "match_score": 87,
-      "client_problem": "Need a clean FastAPI service with Dockerfile to consume third-party API webhooks, validate payloads with Pydantic, update a Postgres database, and trigger notification emails. Clean code and automated pytest tests req...",
-      "skills": [
-        "Python",
-        "FastAPI",
+        "n8n",
         "API Integration",
-        "Pydantic",
-        "Docker"
+        "Automation",
+        "webhooks",
+        "Python",
+        "AI Agents"
       ],
-      "proposal_draft": "Hi there,\n\n1. **FastAPI/Webhook Reliability:** I handle webhook processing by separating ingestion from processing. I use a task queue pattern (typically Redis/Celery or high-concurrency background tasks) to ensure that the webhook endpoint responds with a 202 immediately, preventing timeout issues with third-party providers like Stripe.\n2. **Pydantic Validation:** I utilize strict Pydantic v2 models with custom validators to ensure incoming payloads match the expected schema before the database transaction starts.\n3. **Testing:** I implement `pytest` with `httpx` and `testcontainers` for Postgres to ensure that database migrations and logic are validated in a sandboxed environment identical to production.\n\nI build production-ready Python services with a focus on observability and maintainability. My approach to your requirements:\n\n*   **API Ingestion:** I use FastAPI with `BackgroundTasks` for non-blocking notification triggers (email/webhook forwarding).\n*   **Database:** I leverage SQLAlchemy 2.0+ with Alembic for clean, versioned schema management, ensuring your Postgres instance stays in sync with your data models.\n*   **Containerization:** Your `Dockerfile` will be multi-stage, optimized for size and security, using non-root users and pinned dependencies.\n*   **Resiliency:** I implement structured logging (standardizing on `structlog`) so that if a webhook fails, you have full request-id traceability for debugging.\n\nI run live Python automation systems and AI workflows, including multi-model failover and CI/CD pipelines. I can walk you through the architectural patterns I use for stateful agents and robust API services on our kickoff call, or demonstrate a working Staging PoC.\n\nI am available to start immediately and can have a boilerplate FastAPI service with Stripe/Postgres integration ready for review by end-of-day tomorrow.\n\nTo ensure the notification triggers are handled correctly: Are you planning on using an event-driven queue like RabbitMQ/Redis for the email triggers, or should I handle those via asynchronous background tasks within the FastAPI event loop?\n\nBest regards,\nRoee"
+      "proposal_draft": "Hi,\n\nI saw your posting for the AI Automation Developer position integrating Brilliant Directories with n8n and social media APIs. I architect and run production automation systems combining webhook listeners, n8n workflows, and custom Python microservices with multi-model failover.\n\nExecution Plan:\n1. Webhook & Ingestion Layer: Connect Brilliant Directories webhooks to an orchestration node with deduplication and payload validation.\n2. API Connectors & Rate-Limiting: Safe integration with social media endpoints featuring backoff strategies to prevent token exhaustion.\n3. Monitoring & Error Recovery: Automated alert notifications on any webhook drop or failed transformation step.\n\nI focus on resilient, durable architectures rather than brittle scripts. Happy to walk you through live automation pipelines on a brief kickoff call.\n\nWhich social media platforms are in the phase 1 scope for automated posting?\n\nBest regards,\nRoee"
     },
     {
-      "id": "arbeitnow-fullstack-developerin-python-django-react-mid-level-senior-berlin-8621",
-      "title": "Fullstack Developer*in (Python/Django & React) Mid-Level / Senior",
-      "platform": "Remote / Freelance",
-      "track": "ai_automation",
-      "url": "https://www.arbeitnow.com/jobs/companies/ines-analytics/fullstack-developerin-python-django-react-mid-level-senior-berlin-8621",
-      "posted_at": "Live Feed",
-      "budget": "$40-$60/hr",
-      "budget_type": "hourly",
-      "budget_val": 45,
-      "match_score": 83,
-      "client_problem": "Kurzbeschreibung  Du suchst einen Job mit Sinn und willst mit uns zusammen SaaS-Tools für faire Arbeitsbedingungen für alle Beschäftigten weiterentwickeln? Dann bist Du bei uns richtig: Du übernimmst die technische Ve...",
+      "id": "remotive-2091137",
+      "title": "Senior Data Engineer (Lemon.io)",
+      "platform": "Remotive (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remotive.com/remote-jobs/data/senior-data-engineer-2091137",
+      "posted_at": "2026-11-11",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 95,
       "skills": [
-        "Software Development"
+        "Next.Js",
+        "React",
+        "Shopify",
+        "Wordpress",
+        "Ui/Ux"
       ],
-      "proposal_draft": "Hallo,\n\nI have reviewed the project requirements regarding your SaaS development for fair working conditions. Here are the answers to your screening questions:\n\n1. **Experience with the stack:** I work primarily with Python/Django and React. My backend focus is on building robust API layers and integrating AI automation (LLMs/RAG) into existing SaaS architectures.\n2. **AI/Automation expertise:** My production stack involves building stateful agents using Pydantic for schema validation, LangGraph for orchestration, and FastAPI for backend service delivery.\n3. **Availability:** I am available for a dedicated mid-to-senior role and can start on your technical backlog immediately.\n\nI don’t use boilerplate code or generic \"AI wrapper\" patterns. My approach to your SaaS stack focuses on reliability and observability. I implement multi-provider failover logic (e.g., automatically switching between Claude and OpenAI if a model endpoint experiences latency), structured output enforcement to ensure your database remains consistent, and CI/CD pipelines that actually test for data integrity.\n\nI prefer to build systems that handle edge cases—like rate-limit backoff, robust webhook error handling, and clean, modular RAG architectures—before they become production incidents. I can walk you through the live code patterns I use for stateful agent orchestration or demonstrate a working Staging PoC for a specific workflow on our kickoff call.\n\nAre you currently handling your RAG/LLM context via a managed vector database (like Pinecone/Qdrant) or are you running a local/on-premise embedding strategy for your existing data?\n\nBest regards,\nRoee"
+      "client_problem": "The client needs experienced senior data engineers to integrate into high-performing client teams.",
+      "proposal_draft": "I saw your opening for a Senior Data Engineer through Lemon.io and would love to bring my strong Python and automation background to your client teams. I build robust data pipelines and scalable backend systems with a focus on clean, efficient code. Let us discuss how I can add immediate value to your next project. Best regards, Roee"
     },
     {
-      "id": "arbeitnow-projektmanager-turnaround-transformation-stuttgart-munchen-frankfurt-am-main-koln-430153",
-      "title": "Projektmanager Turnaround & Transformation (m/w/d) - Stuttgart, München, Frankfurt am Main, Köln",
-      "platform": "Remote / Freelance",
-      "track": "ai_automation",
-      "url": "https://www.arbeitnow.com/jobs/companies/bachertpartner/projektmanager-turnaround-transformation-stuttgart-munchen-frankfurt-am-main-koln-430153",
-      "posted_at": "Live Feed",
-      "budget": "$40-$60/hr",
-      "budget_type": "hourly",
-      "budget_val": 45,
-      "match_score": 79,
-      "client_problem": "Deine Rolle bei bachert&partner \n bachert&partner berät und begleitet mittelständische Unternehmen in Veränderungs- und Sondersituationen. Im Turnaround unterstützen wir Unternehmen bei Restrukturierung und Sanierung,...",
+      "id": "remotive-2091136",
+      "title": "Senior React Full-stack Developer (Lemon.io)",
+      "platform": "Remotive (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remotive.com/remote-jobs/software-development/senior-react-full-stack-developer-2091136",
+      "posted_at": "2026-11-10",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 95,
       "skills": [
-        "Business Consulting"
+        "Next.Js",
+        "React",
+        "Shopify",
+        "Wordpress",
+        "Ui/Ux"
       ],
-      "proposal_draft": "Hallo,\n\nI have reviewed the requirements for the Turnaround & Transformation Project Manager role at bachert&partner, specifically regarding your initiative to integrate AI-driven automation into your restructuring workflows.\n\n**Screening & Application Requirements:**\n1. **Relevant Experience:** I architect and deploy stateful Python automation systems and LLM agents using LangGraph for complex task orchestration. My focus is on robust data pipelines—specifically RAG architectures using Qdrant/Pinecone—and ensuring reliability through Pydantic schema validation and multi-model failover (OpenAI/Claude/Gemini).\n2. **Technical Approach:** I build production-grade workflows where reliability is non-negotiable. I use FastAPI for custom internal tools and n8n for rapid integration, ensuring that if one model provider faces latency or downtime, the agent automatically pivots to the next available endpoint without breaking the pipeline.\n3. **Availability:** I am available for immediate engagement to support your project transformation initiatives.\n\n**Architectural Value for Restructuring & Transformation:**\nIn high-stakes turnaround environments, data integrity and automated analysis are critical. I focus on:\n*   **Source Data Processing:** Building scraping and ingest pipelines (Playwright/BeautifulSoup) that convert fragmented financial or operational logs into structured formats suitable for RAG analysis.\n*   **Resilient Workflows:** Implementing backoff logic and webhook retry mechanisms to ensure that telemetry data (e.g., from ERPs or log sources) is ingested without loss.\n*   **Governance:** Deploying agents that adhere to strict Pydantic schemas, ensuring that the outputs provided to your consultants are consistent, verifiable, and free of the hallucinations often found in off-the-shelf LLM setups.\n\nI do not use generic templates. I can walk you through my live Python architectures, demonstrate how I handle multi-model failover for critical tasks, or show you a working Staging PoC for a specific workflow we identify during our kickoff call.\n\n**Next Steps:**\nI am available for a brief call to discuss your current data infrastructure and how we can apply these automation patterns to your restructuring projects.\n\nTo ensure I understand the scope of your current data silos: Are you primarily looking to ingest unstructured PDF/DOCX restructuring reports into a RAG environment, or are you looking to automate the real-time monitoring of operational KPIs via custom webhook triggers?\n\nBest regards,\nRoee"
+      "client_problem": "The client requires skilled senior React full-stack developers for contract placements with top tech companies.",
+      "proposal_draft": "As a web and dashboard developer experienced in building modern, responsive interfaces, I am a great fit for your React full-stack openings. I specialize in turning complex requirements into clean, high-performance web applications. I am ready to jump into client teams and deliver results quickly. Best regards, Roee"
+    },
+    {
+      "id": "remotive-2091165",
+      "title": "Full-Stack Developer (Fluence International, Inc.)",
+      "platform": "Remotive (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remotive.com/remote-jobs/software-development/full-stack-developer-2091165",
+      "posted_at": "2026-10-29",
+      "budget": "$3.5k–$5k/month",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 95,
+      "skills": [
+        "Next.Js",
+        "React",
+        "Frontend",
+        "Web App",
+        "Ui/Ux"
+      ],
+      "client_problem": "The company needs a pragmatic, security-minded full-stack developer to build and scale B2B mental health applications.",
+      "proposal_draft": "Your focus on secure, robust applications for mental health platforms caught my attention, especially given my strong security mindset as a SOC Tier 1 Analyst. I combine full-stack web development expertise with security best practices to build reliable tools. I would love to help scale your B2B product offerings. Best regards, Roee"
+    },
+    {
+      "id": "remotive-2091135",
+      "title": "Senior Back-end Developer (Lemon.io)",
+      "platform": "Remotive (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remotive.com/remote-jobs/software-development/senior-back-end-developer-2091135",
+      "posted_at": "2026-10-27",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 95,
+      "skills": [
+        "Next.Js",
+        "React",
+        "Shopify",
+        "Wordpress",
+        "Ui/Ux"
+      ],
+      "client_problem": "An AI-native cloud company needs senior back-end developers to support their GPU infrastructure and model inference fleet.",
+      "proposal_draft": "Your client's need for a Senior Back-end Developer to support AI inference and GPU infrastructure aligns perfectly with my Python and automation skills. I build scalable backend architectures designed to handle intensive compute and data workloads. I am ready to help optimize and scale your cloud operations. Best regards, Roee"
+    },
+    {
+      "id": "upwork-live-2120849319729993210",
+      "title": "Browser Automation Specialist – Parallel Workflow & Session Stability",
+      "platform": "Upwork (Live Feed)",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/jobs/~022120849319729993210",
+      "posted_at": "Today, 14:02 (Live)",
+      "budget": "-/hr",
+      "budget_type": "hourly",
+      "budget_val": 48,
+      "match_score": 95,
+      "client_problem": "Build a stable, scalable multi-account browser workflow where a script launches multiple Chrome instances, manages persistent sessions, and drives automated pipelines.",
+      "skills": [
+        "Python",
+        "Automation",
+        "Selenium",
+        "Playwright",
+        "Session Management"
+      ],
+      "proposal_draft": "Hi,\n\nI saw your posting for the Browser Automation Specialist role to build a multi-account parallel Chrome workflow. Managing concurrent browser sessions without state collision or memory bloat is an engineering challenge I solve regularly.\n\nMy Architecture:\n1. Isolated Profile Sandboxing: Separate user data directories (UserDataDir) with unique fingerprints and proxy binding per instance to avoid cross-session contamination.\n2. Lifecycle & Memory Control: Concurrency pooling with automated process recycling to prevent orphaned headless Chrome processes from hogging system RAM.\n3. Session Resiliency: Checkpointing state to disk after each key action, so transient failures resume without re-authenticating from scratch.\n\nI can demonstrate live parallel browser architectures I run on our kickoff call.\n\nHow many concurrent Chrome instances are you planning to run per worker machine?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "upwork-live-2120833648274083856",
+      "title": "AI Automation Expert – Build Agentic Workflows for Service Businesses (Claude, Grok)",
+      "platform": "Upwork (Live Feed)",
+      "track": "ai_automation",
+      "url": "https://www.upwork.com/jobs/~022120833648274083856",
+      "posted_at": "Today, 12:58 (Live)",
+      "budget": "-/hr",
+      "budget_type": "hourly",
+      "budget_val": 35,
+      "match_score": 95,
+      "client_problem": "Looking for a technical assistant and builder to turn client problems into functional AI agent workflows (Claude, Grok, automation pipelines).",
+      "skills": [
+        "AI Agents",
+        "Claude API",
+        "Automation",
+        "Python",
+        "FastAPI"
+      ],
+      "proposal_draft": "Hi,\n\nI saw your requirement for an AI Automation Expert at Toam Studios to architect agentic workflows for service businesses. I design and build production-grade AI agents with multi-model failover (Claude, Gemini, OpenAI), tool-calling loops, and strict schema guarantees.\n\nHow I work:\n1. Fast Prototyping to Production: Rapid translation of client operational bottlenecks into functional, stateful agents.\n2. Resilient Tool Calling: Strict validation using Pydantic schemas so agent outputs integrate cleanly into client CRMs and messaging channels without hallucinated fields.\n3. Operational Handover: Clean documentation, automated error handling, and staging environment demos for client signoff.\n\nI would love to partner with you to accelerate client delivery. What is the typical tech stack or CRM your service business clients use (e.g. GoHighLevel, HubSpot, Zapier)?\n\nBest regards,\nRoee"
+    },
+    {
+      "id": "remoteok-1137673",
+      "title": "Tech lead (Ringbook Limited)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remoteOK.com/remote-jobs/remote-tech-lead-ringbook-limited-1137673",
+      "posted_at": "2026-11-03",
+      "budget": "$40,000-$50,000/yr",
+      "budget_type": "remote",
+      "budget_val": 50000,
+      "match_score": 89,
+      "skills": [
+        "React",
+        "Frontend",
+        "Web App"
+      ],
+      "client_problem": "The company needs a technical lead to design application architecture, build scalable features, and integrate AI capabilities.",
+      "proposal_draft": "I would love to help lead your engineering efforts by designing scalable architectures and integrating innovative AI capabilities. With my dual background in Python/AI automation and full-stack web development, I can drive both backend pipelines and frontend interfaces. Let us chat about scaling the Ringbook platform together. Best regards, Roee"
+    },
+    {
+      "id": "remoteok-1137527",
+      "title": "Senior Software Engineer II Applied AI (Wrapbook)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-senior-software-engineer-ii-applied-ai-wrapbook-1137527",
+      "posted_at": "2026-10-15",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai Agent",
+        "Workflow",
+        "Rag"
+      ],
+      "client_problem": "Wrapbook needs a senior software engineer to build out applied AI systems for production finance workflows.",
+      "proposal_draft": "Your work building an AI-native system of action for production finance is fascinating, and I want to help expand those capabilities. I specialize in Python-based AI automation and building smart workflows that reduce manual overhead. I am eager to bring my expertise to the Wrapbook engineering team. Best regards, Roee"
+    },
+    {
+      "id": "remoteok-1137410",
+      "title": "Frontend Engineer (Bjak)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-frontend-engineer-bjak-1137410",
+      "posted_at": "2026-09-20",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Chatbot",
+        "Workflow",
+        "Prompt"
+      ],
+      "client_problem": "The company needs a frontend engineer to build proactive, AI-native applications that minimize complex prompting for everyday users.",
+      "proposal_draft": "I love the mission of building proactive, AI-native applications that abstract away complex prompting for users. My expertise in web development and AI automation allows me to design intuitive interfaces backed by intelligent workflows. I would be thrilled to help build the future of ActAI. Best regards, Roee"
+    },
+    {
+      "id": "remotive-1680495",
+      "title": "Remote Office Assistant (Coalition Technologies)",
+      "platform": "Remotive (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remotive.com/remote-jobs/marketing/remote-office-assistant-1680495",
+      "posted_at": "2026-11-11",
+      "budget": "$35,3k- $52k",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Frontend",
+        "Shopify",
+        "Wordpress"
+      ],
+      "client_problem": "Coalition Technologies needs a reliable remote office assistant to handle administrative tasks, billing, reporting, and internal operations.",
+      "proposal_draft": "I am a detail-oriented remote professional with strong organizational skills and technical aptitude suited for fast-paced operational environments. While my core is in technical development, I bring the precision and communication needed to streamline administrative and reporting tasks. I am ready to support your daily operations seamlessly. Best regards, Roee"
+    },
+    {
+      "id": "remotive-2069746",
+      "title": "Tech Lead Full-Stack Rails Engineer (Mitre Media)",
+      "platform": "Remotive (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remotive.com/remote-jobs/software-development/tech-lead-full-stack-rails-engineer-2069746",
+      "posted_at": "2026-10-14",
+      "budget": "$170k - $200k",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "React",
+        "Web App",
+        "Fullstack"
+      ],
+      "client_problem": "Mitre Media needs a tech lead full-stack Rails engineer to build AI-driven FinTech tools and data insights platforms.",
+      "proposal_draft": "Your work leveraging LLMs to power novel FinTech insights for investors matches my passion for applied AI and web development. I can step in to architect robust full-stack features and integrate advanced data intelligence tools. I am excited about the opportunity to lead and build with your lean team. Best regards, Roee"
+    },
+    {
+      "id": "arbeitnow-remote-ai-integration-automation-engineer-ger-128389",
+      "title": "AI Integration & Automation Engineer (m/w/d) GER (Customs Support Group)",
+      "platform": "Arbeitnow Remote (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://www.arbeitnow.com/jobs/companies/customs-support-group/remote-ai-integration-automation-engineer-ger-128389",
+      "posted_at": "Recent",
+      "budget": "Remote",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Llm",
+        "Automation",
+        "Rag"
+      ],
+      "client_problem": "The Customs Support Group needs an AI integration and automation engineer to drive their digital transformation across Europe.",
+      "proposal_draft": "Your digital transformation initiatives require robust AI integration and automated workflows, which are my exact specialties. I build custom Python automation solutions that streamline complex data processes and enterprise operations. I would love to help scale CSG's technical capabilities across Europe. Best regards, Roee"
     }
   ]
 }
