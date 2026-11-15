@@ -22,6 +22,8 @@ let workoutTemplateDay = null;  // a day chosen in the title's selector; null = 
 let workoutEditingId = null;    // a session being edited, rather than logged fresh
 let workoutConfirmDelete = null;
 let workoutLinkPending = null;   // the exercise awaiting its superset partner
+let workoutHistoryQuery = '';
+let workoutHistoryFilter = 'all';
 
 function workoutCurrentDate() { return workoutDate || workoutTodayIso(); }
 
@@ -1283,22 +1285,280 @@ function workoutSupersetSummaryHtml(session) {
   }).join('');
 }
 
-function workoutHistoryHtml() {
-  const sessions = WORKOUT.sessions().slice().reverse();
-  if (!sessions.length) {
-    return `<div class="os-block"><div class="os-head"><h2 class="wk-title">History</h2></div>
-      <p class="wk-why">Every session you log appears here, editable and deletable.</p></div>`;
+function workoutFormatRunClock(minutes) {
+  const n = Number(minutes);
+  if (!Number.isFinite(n) || n <= 0) return '';
+  const totalSecs = Math.round(n * 60);
+  const mm = Math.floor(totalSecs / 60);
+  const ss = String(totalSecs % 60).padStart(2, '0');
+  return `${mm}:${ss}`;
+}
+
+function workoutFormatEntrySummary(entry) {
+  const filled = WORKOUT.filledSets(entry);
+  if (!filled.length) return '';
+  const type = entry.progression_type;
+  const ex = programExercise(entry.exercise_id);
+
+  if (type === 'time_or_distance') {
+    if (entry.exercise_id === 'sprints' || filled.length > 1) {
+      const times = filled.map(s => Number(s.duration)).filter(v => Number.isFinite(v) && v > 0);
+      const best = times.length ? Math.min(...times) : null;
+      const dist = filled[0].target_distance_m || filled[0].distance;
+      const parts = [`${filled.length} sprint${filled.length === 1 ? '' : 's'}`];
+      if (dist) parts.push(`${dist}m`);
+      if (best !== null) parts.push(`best ${best}s`);
+      return parts.join(' \u00b7 ');
+    }
+    const s = filled[0];
+    if (entry.exercise_id === 'cooper_test') {
+      const parts = [];
+      if (s.distance !== null && s.distance !== undefined) parts.push(`${s.distance} m`);
+      if (s.duration !== null && s.duration !== undefined) parts.push(`${s.duration} min`);
+      return parts.join(' \u00b7 ');
+    }
+    const parts = [];
+    const dist = s.distance !== null && s.distance !== undefined ? Number(s.distance) : null;
+    const dur = s.duration !== null && s.duration !== undefined ? Number(s.duration) : null;
+    if (dist !== null) parts.push(`${dist} km`);
+    if (dur !== null) {
+      const clock = workoutFormatRunClock(dur);
+      const pace = (dist && dist > 0 && dur > 0) ? `${workoutFormatRunClock(dur / dist)}/km` : '';
+      const detail = [clock, pace].filter(Boolean).join(', ');
+      parts.push(detail && entry.exercise_id === 'run_2k' ? `${dur} min (${detail})` : `${dur} min`);
+    }
+    if (s.rep_count !== null && s.rep_count !== undefined) parts.push(`${s.rep_count} reps`);
+    return parts.join(' \u00b7 ');
   }
-  return `<div class="os-block">
-    <div class="os-head"><h2 class="wk-title">History</h2><span class="os-count">${sessions.length}</span></div>
+
+  if (type === 'external_load') {
+    const unit = workoutRowLoadUnit(entry.exercise_id, entry);
+    const nonNullWeights = filled.map(s => s.weight).filter(w => w !== null && w !== undefined && w !== 0);
+    const uniqueWeights = new Set(nonNullWeights.map(String));
+    const repsList = filled.map(s => (s.reps !== null && s.reps !== undefined ? s.reps : '?')).join(', ');
+    if (uniqueWeights.size === 1 && nonNullWeights.length === filled.length) {
+      return `${workoutFormatLoad(nonNullWeights[0], unit)} \u00d7 ${repsList}`;
+    }
+    if (nonNullWeights.length) {
+      return filled.map(s => `${s.weight ? workoutFormatLoad(s.weight, unit) : 'bw'}\u00d7${s.reps !== null && s.reps !== undefined ? s.reps : '?'}`).join(', ');
+    }
+    return `${repsList} reps`;
+  }
+
+  if (type === 'tempo_then_load') {
+    const repsList = filled.map(s => (s.reps !== null && s.reps !== undefined ? s.reps : '?')).join(', ');
+    const maxAdded = Math.max(0, ...filled.map(s => Number(s.added_weight) || 0));
+    const slow = filled.some(s => s.tempo_stage === 'slow_eccentric');
+    return `${repsList} reps${maxAdded > 0 ? ` (+${maxAdded}kg)` : ''}${slow ? ' \u00b7 slow ecc.' : ''}`;
+  }
+
+  if (type === 'hold_duration') {
+    const metricList = filled.map(s => {
+      const val = WORKOUT.holdMetricValue(s);
+      return ex ? workoutFormatHoldMetric(ex, val) : (val !== null ? `${val}` : '');
+    }).filter(Boolean).join(', ');
+    const variation = filled[0].variation ? workoutPrettyVariation(filled[0].variation) : '';
+    return [metricList, variation].filter(Boolean).join(' \u00b7 ');
+  }
+
+  return '';
+}
+
+const WORKOUT_HISTORY_ALIASES = {
+  // Hebrew keyword equivalents encoded as ASCII Unicode escapes so the JS
+  // source stays strictly ASCII while supporting Hebrew search input.
+  '\u05e8\u05d9\u05e6\u05ea': 'run',
+  '\u05e8\u05d9\u05e6\u05d4': 'run',
+  '\u05e8\u05e5': 'run',
+  '\u05e1\u05e4\u05e8\u05d9\u05e0\u05d8': 'sprint',
+  '\u05e1\u05e4\u05e8\u05d9\u05e0\u05d8\u05d9\u05dd': 'sprint',
+  '\u05e7\u05d5\u05e4\u05e8': 'cooper',
+  '\u05d0\u05d5\u05e4\u05e0\u05d9\u05d9\u05dd': 'bike',
+  '\u05e1\u05e7\u05d5\u05d5\u05d0\u05d8': 'squat',
+  '\u05de\u05ea\u05d7': 'pull-up',
+  '\u05e9\u05db\u05d9\u05d1\u05d5\u05ea': 'push-up',
+  '\u05e8\u05d2\u05dc\u05d9\u05d9\u05dd': 'legs',
+  '\u05d7\u05d6\u05d4': 'chest',
+  '\u05d2\u05d1': 'row',
+  '\u05e7"\u05de': 'km',
+  '\u05e7\u05de': 'km',
+};
+
+function workoutHistoryTokens(raw) {
+  const clean = String(raw || '').trim().toLowerCase();
+  if (!clean) return [];
+  return clean.split(/\s+/).filter(Boolean).map(tok => {
+    if (WORKOUT_HISTORY_ALIASES[tok]) return WORKOUT_HISTORY_ALIASES[tok];
+    if (tok === '2\u05e7\u05de' || tok === '2\u05e7"\u05de') return '2k';
+    return tok;
+  });
+}
+
+function workoutEntrySearchBlob(entry) {
+  const ex = programExercise(entry.exercise_id) || {};
+  const extra = entry.exercise_id === 'run_2k' ? '2k 2km 2000 2000m run cardio'
+    : entry.exercise_id === 'cooper_test' ? 'cooper 12min run cardio test'
+    : entry.exercise_id === 'sprints' ? 'sprint sprints speed cardio'
+    : entry.exercise_id === 'bike_easy' ? 'bike cycle cardio aerobic' : '';
+  return [
+    entry.exercise_id,
+    workoutExerciseName(entry.exercise_id),
+    ex.category || '',
+    ex.movement_pattern || '',
+    workoutFormatEntrySummary(entry),
+    extra,
+  ].join(' ').toLowerCase();
+}
+
+function workoutEntryMatchesTokens(entry, tokens) {
+  if (!tokens.length) return true;
+  const blob = workoutEntrySearchBlob(entry);
+  return tokens.every(t => blob.includes(t));
+}
+
+function workoutSessionMatchesFilter(session, filter) {
+  if (!filter || filter === 'all') return true;
+  const focus = String(session.focus || '').toLowerCase();
+  const entries = session.entries || [];
+  if (filter === 'cardio') {
+    return /cardio|sprint|run|cooper/.test(focus) || entries.some(e => {
+      const ex = programExercise(e.exercise_id);
+      return e.progression_type === 'time_or_distance' || (ex && ex.category === 'conditioning');
+    });
+  }
+  if (focus.includes(filter)) return true;
+  if (filter === 'upper') {
+    return entries.some(e => {
+      const ex = programExercise(e.exercise_id);
+      return ex && (ex.category === 'push' || ex.category === 'pull');
+    });
+  }
+  return entries.some(e => {
+    const ex = programExercise(e.exercise_id);
+    return ex && ex.category === filter;
+  });
+}
+
+function workoutSessionMatchesHistory(session, query, filter) {
+  if (!workoutSessionMatchesFilter(session, filter)) return false;
+  const tokens = workoutHistoryTokens(query);
+  if (!tokens.length) return true;
+  const headerBlob = [session.date, workoutPrettyDate(session.date), session.focus || ''].join(' ').toLowerCase();
+  if (tokens.every(t => headerBlob.includes(t))) return true;
+  return (session.entries || []).some(e => workoutEntryMatchesTokens(e, tokens));
+}
+
+function workoutEntryPerformanceScore(entry) {
+  const filled = WORKOUT.filledSets(entry);
+  if (!filled.length) return null;
+  if (entry.exercise_id === 'cooper_test') {
+    const d = Number(filled[0].distance);
+    return Number.isFinite(d) && d > 0 ? d : null;
+  }
+  if (entry.exercise_id === 'sprints' || (entry.progression_type === 'time_or_distance' && filled.length > 1)) {
+    const times = filled.map(s => Number(s.duration)).filter(v => Number.isFinite(v) && v > 0);
+    return times.length ? -Math.min(...times) : null;
+  }
+  if (entry.progression_type === 'time_or_distance') {
+    const dur = Number(filled[0].duration);
+    const dist = Number(filled[0].distance);
+    if (entry.exercise_id === 'run_2k') {
+      if (Number.isFinite(dur) && dur > 0) return -(dist && dist > 0 ? dur / dist : dur);
+      return null;
+    }
+    return Number.isFinite(dur) && dur > 0 ? dur : (Number.isFinite(dist) && dist > 0 ? dist : null);
+  }
+  if (entry.progression_type === 'external_load') {
+    let best = -1;
+    filled.forEach(s => {
+      const w = Number(s.weight);
+      const r = Number(s.reps) || 0;
+      const score = (Number.isFinite(w) && w > 0) ? (w * (1 + r / 30)) : r;
+      if (score > best) best = score;
+    });
+    return best >= 0 ? best : null;
+  }
+  if (entry.progression_type === 'tempo_then_load') {
+    const maxAdded = Math.max(0, ...filled.map(s => Number(s.added_weight) || 0));
+    const totalReps = filled.reduce((a, s) => a + (Number(s.reps) || 0), 0);
+    return maxAdded * 1000 + totalReps;
+  }
+  if (entry.progression_type === 'hold_duration') {
+    return filled.reduce((a, s) => a + (Number(WORKOUT.holdMetricValue(s)) || 0), 0);
+  }
+  return null;
+}
+
+function workoutHistoryLookupHtml(matchedSessions, query, filter) {
+  const H = STRINGS.workout.history;
+  const tokens = workoutHistoryTokens(query);
+  if (!tokens.length && filter !== 'cardio') return '';
+  const byExercise = new Map();
+  matchedSessions.forEach(s => {
+    (s.entries || []).forEach(entry => {
+      if (!WORKOUT.filledSets(entry).length) return;
+      if (tokens.length && !workoutEntryMatchesTokens(entry, tokens)) return;
+      if (!tokens.length && filter === 'cardio') {
+        const ex = programExercise(entry.exercise_id);
+        if (entry.progression_type !== 'time_or_distance' && !(ex && ex.category === 'conditioning')) return;
+      }
+      if (!byExercise.has(entry.exercise_id)) byExercise.set(entry.exercise_id, []);
+      byExercise.get(entry.exercise_id).push({ session: s, entry });
+    });
+  });
+  if (!byExercise.size) return '';
+
+  const blocks = Array.from(byExercise.entries()).slice(0, 3).map(([exId, items]) => {
+    const last = items[0];
+    const lastSummary = workoutFormatEntrySummary(last.entry);
+    let best = null;
+    let bestScore = -Infinity;
+    items.forEach(item => {
+      const sc = workoutEntryPerformanceScore(item.entry);
+      if (sc !== null && sc > bestScore) { bestScore = sc; best = item; }
+    });
+    const bestSummary = best ? workoutFormatEntrySummary(best.entry) : '';
+    const showBest = items.length > 1 && best && bestSummary;
+    return `<div class="wk-history-lookup">
+      <div class="wk-history-lookup-head">
+        <strong>${escapeHtml(H.summaryTitle(workoutExerciseName(exId)))}</strong>
+        <button type="button" class="linkbtn" data-wk-edit="${last.session.id}">Edit latest</button>
+      </div>
+      <p class="os-note wk-num">${escapeHtml(H.lastLogged(workoutPrettyDate(last.session.date), lastSummary || '-'))}</p>
+      ${showBest ? `<p class="os-note wk-num">${escapeHtml(H.bestLogged(workoutPrettyDate(best.session.date), bestSummary))}</p>` : ''}
+    </div>`;
+  }).join('');
+  return blocks;
+}
+
+function workoutHistoryResultsHtml(allSessions) {
+  const H = STRINGS.workout.history;
+  const tokens = workoutHistoryTokens(workoutHistoryQuery);
+  const filtered = allSessions.filter(s => workoutSessionMatchesHistory(s, workoutHistoryQuery, workoutHistoryFilter));
+  if (!filtered.length) {
+    return `<p class="wk-why">${escapeHtml(H.noMatch)}</p>`;
+  }
+  return `
+    ${workoutHistoryLookupHtml(filtered, workoutHistoryQuery, workoutHistoryFilter)}
     <div class="os-history">
-      ${sessions.map(s => {
-        const sets = (s.entries || []).reduce((a, e) => a + WORKOUT.filledSets(e).length, 0);
+      ${filtered.map(s => {
+        const entries = s.entries || [];
+        const sets = entries.reduce((a, e) => a + WORKOUT.filledSets(e).length, 0);
         return `<div class="os-history-item">
           <div class="os-history-row">
             <span>${escapeHtml(workoutPrettyDate(s.date))}${s.focus ? ` &middot; ${escapeHtml(s.focus)}` : ''}</span>
-            <span class="wk-num">${(s.entries || []).length} ex &middot; ${sets} sets</span>
+            <span class="wk-num">${entries.length} ex &middot; ${sets} sets</span>
           </div>
+          ${entries.length ? `<ul class="wk-history-entries">
+            ${entries.map(e => {
+              const summary = workoutFormatEntrySummary(e);
+              const isMatch = tokens.length > 0 && workoutEntryMatchesTokens(e, tokens);
+              return `<li class="wk-history-entry${isMatch ? ' is-match' : ''}">
+                <span class="wk-history-entry-name">${escapeHtml(workoutExerciseName(e.exercise_id))}</span>
+                ${summary ? `<span class="wk-num wk-history-entry-val">${escapeHtml(summary)}</span>` : ''}
+              </li>`;
+            }).join('')}
+          </ul>` : ''}
           ${s.migrated ? '<p class="os-note">Logged before the rebuild. Reps only, no load or RIR recorded.</p>' : ''}
           ${s.comeback_session ? '<p class="os-note">Comeback session.</p>' : ''}
           ${workoutSupersetSummaryHtml(s)}
@@ -1311,7 +1571,52 @@ function workoutHistoryHtml() {
           </div>
         </div>`;
       }).join('')}
+    </div>`;
+}
+
+function workoutHistoryHtml() {
+  const H = STRINGS.workout.history;
+  const sessions = WORKOUT.sessions().slice().reverse();
+  if (!sessions.length) {
+    return `<div class="os-block"><div class="os-head"><h2 class="wk-title">${escapeHtml(H.title)}</h2></div>
+      <p class="wk-why">${escapeHtml(H.why)}</p></div>`;
+  }
+  const filteredCount = sessions.filter(s => workoutSessionMatchesHistory(s, workoutHistoryQuery, workoutHistoryFilter)).length;
+  const filterKeys = ['all', 'cardio', 'legs', 'push', 'pull', 'upper'];
+  const quickTags = [
+    ['2k', H.quickTags.run2k],
+    ['cooper', H.quickTags.cooper],
+    ['sprint', H.quickTags.sprints],
+    ['squat', H.quickTags.squat],
+    ['pull-up', H.quickTags.pullUps],
+  ];
+  const hasFilter = Boolean(workoutHistoryQuery.trim() || workoutHistoryFilter !== 'all');
+  return `<div class="os-block">
+    <div class="os-head">
+      <h2 class="wk-title">${escapeHtml(H.title)}</h2>
+      <span class="os-count" id="wk-history-count">${hasFilter ? escapeHtml(H.totalSessions(filteredCount)) : sessions.length}</span>
     </div>
+    <div class="wk-history-controls">
+      <div class="wk-history-search-row">
+        <input type="search" id="wk-history-search" class="wk-history-search"
+          value="${escapeHtml(workoutHistoryQuery)}"
+          placeholder="${escapeHtml(H.searchPlaceholder)}"
+          aria-label="${escapeHtml(H.searchLabel)}" autocomplete="off">
+        <button type="button" class="os-btn os-btn-quiet" id="wk-history-clear"${hasFilter ? '' : ' hidden'}>${escapeHtml(H.clearSearch)}</button>
+      </div>
+      <div class="wk-pill-group wk-lib-chips" role="group" aria-label="${escapeHtml(H.title)}">
+        ${filterKeys.map(k => `<button type="button" class="pill${workoutHistoryFilter === k ? ' is-active' : ''}"
+          data-wk-hist-filter="${k}">${escapeHtml(H.filters[k])}</button>`).join('')}
+      </div>
+      <div class="wk-history-quick" role="group" aria-label="${escapeHtml(H.quickFindLabel)}">
+        <span class="os-note">${escapeHtml(H.quickFindLabel)}:</span>
+        ${quickTags.map(([q, label]) => {
+          const active = workoutHistoryQuery.trim().toLowerCase() === q;
+          return `<button type="button" class="pill${active ? ' is-active' : ''}" data-wk-hist-quick="${q}">${escapeHtml(label)}</button>`;
+        }).join('')}
+      </div>
+    </div>
+    <div id="wk-history-results">${workoutHistoryResultsHtml(sessions)}</div>
   </div>`;
 }
 
@@ -2180,37 +2485,97 @@ function wireWorkoutZone() {
     addForm.addEventListener('submit', ev => { ev.preventDefault(); workoutHandleAddExercise(addForm); });
   }
 
-  mount.querySelectorAll('[data-wk-edit]').forEach(btn => {
+  const workoutWireHistoryActions = scope => {
+    if (!scope) return;
+    scope.querySelectorAll('[data-wk-edit]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const session = WORKOUT.session(btn.getAttribute('data-wk-edit'));
+        if (!session) return;
+        workoutEditingId = session.id;
+        workoutDate = session.date;
+        workoutTemplateDay = null;
+        workoutView = 'log';
+        renderWorkoutZone();
+      });
+    });
+
+    // Delete is two taps: the first turns the row into a confirmation, so a
+    // mistap cannot destroy a logged session.
+    scope.querySelectorAll('[data-wk-delete]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        workoutConfirmDelete = btn.getAttribute('data-wk-delete');
+        refreshHistory();
+      });
+    });
+    scope.querySelectorAll('[data-wk-delete-cancel]').forEach(btn => {
+      btn.addEventListener('click', () => { workoutConfirmDelete = null; refreshHistory(); });
+    });
+    scope.querySelectorAll('[data-wk-delete-confirm]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        WORKOUT.deleteSession(btn.getAttribute('data-wk-delete-confirm'));
+        workoutConfirmDelete = null;
+        refreshHistory();
+        WORKOUT.syncWithServer();
+      });
+    });
+  };
+
+  const refreshHistory = () => {
+    const resultsEl = document.getElementById('wk-history-results');
+    if (!resultsEl) { renderWorkoutZone(); return; }
+    const sessions = WORKOUT.sessions().slice().reverse();
+    if (!sessions.length) { renderWorkoutZone(); return; }
+    const H = STRINGS.workout.history;
+    const filteredCount = sessions.filter(s => workoutSessionMatchesHistory(s, workoutHistoryQuery, workoutHistoryFilter)).length;
+    const hasFilter = Boolean(workoutHistoryQuery.trim() || workoutHistoryFilter !== 'all');
+    const countEl = document.getElementById('wk-history-count');
+    if (countEl) countEl.textContent = hasFilter ? H.totalSessions(filteredCount) : String(sessions.length);
+    const clearEl = document.getElementById('wk-history-clear');
+    if (clearEl) clearEl.hidden = !hasFilter;
+    mount.querySelectorAll('[data-wk-hist-quick]').forEach(b => {
+      b.classList.toggle('is-active', b.getAttribute('data-wk-hist-quick') === workoutHistoryQuery.trim().toLowerCase());
+    });
+    resultsEl.innerHTML = workoutHistoryResultsHtml(sessions);
+    workoutWireHistoryActions(resultsEl);
+  };
+
+  const histSearch = document.getElementById('wk-history-search');
+  if (histSearch) {
+    histSearch.addEventListener('input', ev => {
+      workoutHistoryQuery = histSearch.value;
+      if (!ev.isComposing) refreshHistory();
+    });
+    histSearch.addEventListener('compositionend', () => {
+      workoutHistoryQuery = histSearch.value;
+      refreshHistory();
+    });
+    histSearch.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' && !ev.isComposing) ev.preventDefault();
+    });
+  }
+  const histClear = document.getElementById('wk-history-clear');
+  if (histClear) {
+    histClear.addEventListener('click', () => {
+      workoutHistoryQuery = '';
+      workoutHistoryFilter = 'all';
+      renderWorkoutZone();
+    });
+  }
+  mount.querySelectorAll('[data-wk-hist-filter]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const session = WORKOUT.session(btn.getAttribute('data-wk-edit'));
-      if (!session) return;
-      workoutEditingId = session.id;
-      workoutDate = session.date;
-      workoutTemplateDay = null;
-      workoutView = 'log';
+      workoutHistoryFilter = btn.getAttribute('data-wk-hist-filter') || 'all';
+      renderWorkoutZone();
+    });
+  });
+  mount.querySelectorAll('[data-wk-hist-quick]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const q = btn.getAttribute('data-wk-hist-quick') || '';
+      workoutHistoryQuery = workoutHistoryQuery.trim().toLowerCase() === q ? '' : q;
       renderWorkoutZone();
     });
   });
 
-  // Delete is two taps: the first turns the row into a confirmation, so a
-  // mistap cannot destroy a logged session.
-  mount.querySelectorAll('[data-wk-delete]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      workoutConfirmDelete = btn.getAttribute('data-wk-delete');
-      renderWorkoutZone();
-    });
-  });
-  mount.querySelectorAll('[data-wk-delete-cancel]').forEach(btn => {
-    btn.addEventListener('click', () => { workoutConfirmDelete = null; renderWorkoutZone(); });
-  });
-  mount.querySelectorAll('[data-wk-delete-confirm]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      WORKOUT.deleteSession(btn.getAttribute('data-wk-delete-confirm'));
-      workoutConfirmDelete = null;
-      renderWorkoutZone();
-      WORKOUT.syncWithServer();
-    });
-  });
+  workoutWireHistoryActions(mount);
 }
 
 function workoutMarkWorkoutDone(date) {
