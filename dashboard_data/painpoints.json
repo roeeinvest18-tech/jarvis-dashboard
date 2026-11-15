@@ -3,181 +3,182 @@
   "week_num": 46,
   "date": "2026-11-15",
   "stats": {
-    "raw": 734,
-    "analyzed": 85,
+    "raw": 730,
+    "analyzed": 90,
     "pains": 12,
-    "sources": 5,
+    "sources": 6,
     "by_source": {
       "Lobste.rs": 2,
       "GitHub": 21,
       "Hacker News (Ask HN)": 3,
-      "Hacker News": 50,
-      "Google Play": 9
+      "Hacker News": 54,
+      "Google Play": 9,
+      "Dev.to": 1
     },
     "by_track": {
       "saas": 8,
-      "lowtech": 0
+      "lowtech": 1
     }
   },
-  "summary_he": "המערכת מנתחת תלונות משתמשים אמיתיות ומזהה הזדמנויות עסקיות לתוכנות B2B בשווקים ממוקדים. האשכולות נבחרו בקפידה לפי היתכנות טכנית, נכונות לשלם ופערים בשוק הקיים. התוצאה היא תוכנית עסקית מוכנה לפיתוח מהיר על ידי מפתח יחיד.",
-  "summary_en": "The system analyzes real user complaints and identifies high-value B2B SaaS opportunities in targeted markets. Clusters are filtered by technical feasibility, willingness to pay, and clear gaps in existing market solutions. The result is an actionable blueprint for a solo builder to execute rapidly.",
-  "summary_lowtech_he": "",
-  "summary_lowtech_en": "",
+  "summary_he": "המערכת מנתחת כאבים אמיתיים של עסקים ופרילנסרים וממפה הזדמנויות לבניית מוצרי SaaS מבוססי AI. האשכולות נבחרו בקפידה על סמך פוטנציאל מוניטיזציה גבוה, קלות פיתוח ואי-תלות בצרכנים פרטיים. כל אשכול מציג פתרון מדויק, מתחרים קיימים, טקטיקת שיווק למשתמשים ראשונים וסטאק טכנולוגי מהיר.",
+  "summary_en": "The system analyzes real pain points from businesses and freelancers, mapping opportunities for AI-powered SaaS products. Clusters are meticulously selected based on high monetization potential, ease of building, and B2B/prosumer viability. Each cluster features a targeted solution, existing competitors, go-to-market strategies, and a rapid AI tech stack.",
+  "summary_lowtech_he": "המנתח מציג הזדמנויות עסקיות קלאסיות בעולמות ה-Sweaty Startups והשירותים המקומיים, שבהן מייסד יחיד יכול להקים פעילות רווחית עם הון התחלתי מינימלי. הפתרונות מבוססים על שילוב של אוטומציה מבוססת בינה מלאכותית יחד עם העסקת בעלי מקצוע מקומיים. ההזדמנויות נבחרו בקפידה לפי רמת ביקוש גבוהה, תחרות נמוכה, והיתכנות מעשית בשוק הישראלי או הבינלאומי.",
+  "summary_lowtech_en": "The analyst presents classic sweaty startup and local service business opportunities where a single founder can build a profitable operation with minimal initial capital. The solutions combine AI-based automation alongside the employment of local professionals. Opportunities were carefully selected based on high demand, low competition, and practical feasibility in the Israeli or global market.",
   "clusters": [
     {
-      "title_he": "ניהול תורים וקריאות חירום למשמרות",
-      "title_en": "Automated Shift Replacement Coordinator",
-      "who_he": "מנהלי משמרות ואחראי כוח אדם בעסקים קטנים ובינוניים",
-      "who_en": "Shift managers and HR leads in retail, hospitality, and healthcare",
+      "title_he": "ניהול ידע והמשכיות תחזוקה לפרויקטים ישנים",
+      "title_en": "Legacy Project Maintenance Handover Documentation",
+      "who_he": "מהנדסי תוכנה, צוותי פיתוח ופלגים טכניים שנתקעים עם תחזוקת קוד ישן",
+      "who_en": "Software engineers and tech leads burdened with maintaining legacy systems they built years ago",
+      "member_indices": [
+        4
+      ],
+      "best_quote_index": 4,
+      "quote_he": "מה שקורה בפועל זה שהבן אדם שעבד על זה נשאר לתחזק את זה לנצח לצד האחריות על המשימות החדשות שנוחתות עליו.",
+      "quote_en": "What happens in practice is the person who worked on it gets saddled with maintaining it forever along with taking up the responsibilities of the newer work that comes along their way.",
+      "category": "Operations & admin",
+      "intensity": 85,
+      "frequency": 90,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Confluence",
+          "gap_he": "דורש כתיבה ידנית סיזיפית שלא נעשית אף פעם בזמן אמת ונשארת ריקה",
+          "gap_en": "Requires tedious manual writing which engineers never complete on time."
+        },
+        {
+          "name": "GitLab Wiki",
+          "gap_he": "מבוסס קוד סטטי וללא יכולת ניתוח אוטומטית של 'למי שייך מה' והסברים מבוססי AI",
+          "gap_en": "Static markdown files without intelligent code ownership mapping or automated AI summaries."
+        }
+      ],
+      "solution_he": "כלי AI שסורק את ההיסטוריה של מאגר הקוד, ממפה את הבעלות על המודולים השונים ומייצר תיעוד אוטומטי המוכרז כ-Runbook מוכן להעברה לצוות אחר.",
+      "solution_en": "An AI agent that analyzes git repositories, maps code ownership, and automatically generates maintenance runbooks for project handovers.",
+      "pricing_he": "$19 למשתמש לחודש או תמחור לפי מספר ריפוזיטוריים",
+      "pricing_en": "$19/user/month or tier-based pricing per active repository",
+      "first_customers_he": "פנייה לראשי צוותים ב-GitHub ובלינקדאין שמתלוננים על שחיקה ותחזוקת קוד מת",
+      "first_customers_en": "Targeting engineering managers on LinkedIn and X who complain about tech debt and legacy burnout",
+      "trend_keyword": "codebase documentation AI agent",
+      "ease_of_build": 80,
+      "mvp_he": "בוט ל-GitHub שמתחבר לריפו, קורא את ה-Commit history והארכיטקטורה, ומייצר קובץ Markdown מסודר עם תרשים ארכיטקטוני",
+      "mvp_en": "GitHub bot connecting to a repo, parsing commit history and structure, and outputting a comprehensive Markdown handover guide",
+      "tech_stack_he": "Python, LangChain, GitHub API, OpenAI GPT-4o",
+      "tech_stack_en": "Python, LangChain, GitHub API, OpenAI GPT-4o",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "What happens in practice is the person who worked on it gets saddled with maintaining it forever along with taking up the responsibilities of the newer work that comes along their way.",
+      "quote_url": "https://news.ycombinator.com/item?id=50481441",
+      "quote_source": "Hacker News",
+      "score": 85,
+      "trend_change": 0,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "ניהול ותיעוד החלפות משמרות דחופות",
+      "title_en": "Emergency Shift Replacement and Audit Trail",
+      "who_he": "מנהלי משמרות ועסקים עם צוותים שעובדים במשמרות כמו קמעונאות, אירוח ושירותים",
+      "who_en": "Shift managers and business owners with hourly staff in retail, hospitality, and services",
       "member_indices": [
         0,
         11
       ],
       "best_quote_index": 0,
-      "quote_he": "כאשר עובד משמרת מודיע על מחלה פחות מש שעתיים לפני תחילת המשמרת, אני רוצה למצוא מחליף מאומת במהירות ולקבל תיעוד של מי נוצר קשר... מבלי להסתמך על חוט הודעות אישיות",
-      "quote_en": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted... without relying on personal text threads",
+      "quote_he": "כשא עובד קורא מחלה פחות משעריים לפני המשמרת, אני צריך למצוא מחליף מאומת במהירות ושתהיה לי היסטוריה של מי קיבל פניעה, מי סירב ומי הסכים.",
+      "quote_en": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted, who declined, and who agreed.",
       "category": "Operations & admin",
       "intensity": 90,
       "frequency": 85,
-      "low_competition": 80,
+      "low_competition": 75,
       "competitors": [
         {
-          "name": "When I Work",
-          "gap_he": "יקר מדי ומורכב עבור ארגונים קטנים שצריכים פתרון מהיר בלבד",
-          "gap_en": "Too heavy and expensive for small teams needing instant emergency dispatching"
+          "name": "7shifts",
+          "gap_he": "מערכת כבדה ויקרה שדורשת הטמעה ארוכה ולא מתאימה לניהול מהיר של הקפצות מהיום להיום",
+          "gap_en": "Heavy and expensive platform requiring complex onboarding, not built for instant last-minute broadcast fills."
         },
         {
-          "name": "7shifts",
-          "gap_he": "ממוקד מסעדות בלבד ודורש תהליך הגדרה ארוך ומורכב",
-          "gap_en": "Focused purely on restaurants and requires a lengthy setup process"
+          "name": "When I Work",
+          "gap_he": "חסרה אוטומציה מבוססת AI שיודעת לדרג את העובדים לפי זמינות והסתברות הגעה",
+          "gap_en": "Lacks AI-driven ranking of available workers based on historical attendance and response speed."
         }
       ],
-      "solution_he": "כלי אוטומטי מבוסס וואטסאפ ו-SMS שמקפיץ מחליפים לפי זמינות ומנהל תיעוד מלא ואודיטבי בלחיצת כפתור אחת.",
-      "solution_en": "An automated SMS and WhatsApp bot that broadcasts shift openings to eligible staff, tracks responses, and confirms replacements instantly.",
-      "pricing_he": "מנוי חודשי לפי מספר עובדים, החל מ-29 דולר לחודש",
-      "pricing_en": "Monthly subscription based on employee count, starting at $29/month",
-      "first_customers_he": "פנייה ישירה למנהלי סניפים של רשתות מזון מהיר ובתי קפה בלינקדאין ובקבוצות פייסבוק מקומיות",
-      "first_customers_en": "Direct cold outreach to local cafe and retail managers via LinkedIn and local business groups",
+      "solution_he": "בוט חכם ששולח התראות וואטסאפ אוטומטיות לעובדים רלוונטיים במקרה של חירום, מנהל תור חכם ועוקב אחרי הגעה בפועל ליצירת דוחות אמינות.",
+      "solution_en": "An AI-powered dispatcher that broadcasts shift vacancies via SMS/WhatsApp, ranks available staff by reliability, and tracks attendance.",
+      "pricing_he": "מנוי חודשי לפי מספר עובדים פעילים, החל מ-$29 לחודש לעסק קטן",
+      "pricing_en": "Monthly subscription based on active staff count, starting at $29/month for small businesses",
+      "first_customers_he": "פנייה ישירה לבעלי מסעדות ובתי קפה מקומיים שמתמודדים יומיומית עם ביטולים של הרגע האחרון",
+      "first_customers_en": "Direct cold outreach to local cafe and restaurant owners who struggle daily with last-minute call-outs",
       "trend_keyword": "shift replacement software",
       "ease_of_build": 85,
-      "mvp_he": "מערכת פשוטה המקבלת התראת מחלה בווטסאפ ושולחת הודעות קבועות מראש לעובדים זמינים עם לינקי אישור",
-      "mvp_en": "A simple backend service integrating Twilio WhatsApp API to broadcast shift alerts and collect acceptances",
-      "tech_stack_he": "Next.js, Tailwind, Supabase, Twilio API",
-      "tech_stack_en": "Next.js, Tailwind, Supabase, Twilio API",
+      "mvp_he": "לוח בקרה פשוט להזנת משמרות, אינטגרציה עם Twilio לשליחת הודעות וואטסאפ ומנגנון תגובה בסיסי",
+      "mvp_en": "Simple dashboard for shift creation, Twilio integration for WhatsApp messaging, and basic response logging",
+      "tech_stack_he": "Next.js, Supabase, Tailwind CSS, Vapi or Twilio API",
+      "tech_stack_en": "Next.js, Supabase, Tailwind CSS, Vapi or Twilio API",
       "track": "saas",
       "mentions": 2,
       "engagement": 20,
       "sources": [
         "GitHub"
       ],
-      "quote_original": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted... without relying on personal text threads",
+      "quote_original": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted, who declined, and who agreed, so I can fill the gap without relying on personal text threads and without disputes later about who was offered the shift.",
       "quote_url": "https://github.com/muaddibco/RealWorldProblems/issues/1820",
       "quote_source": "GitHub",
-      "score": 86,
-      "trend_change": 100,
+      "score": 84,
+      "trend_change": -81,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "חיוב מנויים מובנה לפרילנסרים וסוכנויות",
-      "title_en": "Embedded Recurring Billing for Agencies",
-      "who_he": "פרילנסרים, סוכנויות דיגיטל ומפתחי אתרים עצמאיים",
-      "who_en": "Freelancers, digital agencies, and independent web developers",
+      "title_he": "חיוב ומנויים מובנים לפרילנסרים וסוכנויות",
+      "title_en": "Embedded Billing for Freelancers and Agencies",
+      "who_he": "סוכנויות וורדפרס, מפתחי עצמאיים ונותני שירותי תחזוקה שוטפת",
+      "who_en": "WordPress agencies, freelance developers, and ongoing maintenance providers",
       "member_indices": [
         2
       ],
       "best_quote_index": 2,
-      "quote_he": "הוספת תכונת חיוב מינימלית באזור הלוח של WP Admin כך שפרילנסרים או סוכנויות יוכלו בקלות לגרום ללקוחות שלהם להגדיר מנוי",
-      "quote_en": "adding a minimal billing feature within the dashboard area so that freelancers or agencies can easily have their clients setup a subscription",
+      "quote_he": "הוספת פיצ'ר חיוב מינימלי בתוך אזור הניהול כך שקל לגרום ללקוחות להגדיר מנוי לתחזוקת שרתים או שירותים דומים.",
+      "quote_en": "adding a minimal billing feature within the admin area so that freelancers or agencies can easily have their clients setup a subscription for whatever server management, maintenance, etc services they are providing.",
       "category": "Finance & billing",
       "intensity": 85,
       "frequency": 90,
-      "low_competition": 75,
+      "low_competition": 70,
       "competitors": [
         {
           "name": "Stripe Billing",
-          "gap_he": "מורכב להטמעה ישירה ודורש פיתוח מותאם אישית לכל לקוח",
-          "gap_en": "Too complex to embed directly without extensive custom development"
+          "gap_he": "דורש הקמת עמוד נפרד, לא מוטמע בתוך מערכות הניהול היומיומיות של הלקוח כמו דשבורד האתר",
+          "gap_en": "Requires separate checkout links and is not natively embedded inside client management dashboards."
         },
         {
           "name": "Chargebee",
-          "gap_he": "מיועד לחברות ענק עם צוותי כספים ולא לפרילנסרים בודדים",
-          "gap_en": "Built for enterprise finance teams rather than solo contractors"
+          "gap_he": "יקר מדי ומורכב בהרבה עבור פרילנסרים ועסקים קטנים שמנהלים כמה עשרות מנויים",
+          "gap_en": "Way too expensive and over-engineered for solo freelancers managing dozens of subscriptions."
         }
       ],
-      "solution_he": "וידג'ט חיוב קל משקל שמתחבר ישירות לסטריפ ומאפשר להטמיע לינקי תשלום חוזרים במערכות ניהול קיימות בקוד אחיד.",
-      "solution_en": "A lightweight white-label billing widget connecting to Stripe that lets freelancers embed recurring payment links anywhere.",
-      "pricing_he": "עמלה של 0.5 אחוז על מחזור או מנוי קבוע של 19 דולר לחודש",
-      "pricing_en": "0.5% transaction fee or flat $19/month pro tier",
-      "first_customers_he": "פרסום בקהילות וורדפרס וקהילות פרילנסרים בפטראון ודיסקורד",
-      "first_customers_en": "Posting in WordPress developer communities and independent freelancer Discord servers",
-      "trend_keyword": "freelance recurring billing widget",
+      "solution_he": "וידג'ט מוטמע (Embeddable widget) שמתחבר ל-Stripe ומאפשר לפרילנסרים להציג כפתור מנוי אוטומטי ישירות בתוך פאנל הניהול של הלקוח.",
+      "solution_en": "An embeddable Stripe-powered widget allowing freelancers to place recurring billing buttons directly inside client portals or admin dashboards.",
+      "pricing_he": "תוכנית שטוחה של $39 לחודש ללא עמלות נוספות מצד הפלטפורמה",
+      "pricing_en": "Flat $39/month fee with zero platform transaction fees",
+      "first_customers_he": "פרסום קהילתי בקבוצות פייסבוק של בוני אתרים וסוכנויות דיגיטל קטנות",
+      "first_customers_en": "Posting in Facebook groups for web developers and boutique digital agencies",
+      "trend_keyword": "embeddable billing widget",
       "ease_of_build": 90,
-      "mvp_he": "לוח בקרה ליצירת קישורי מנוי מותאמים אישית עם דפי תשלום מעוצבים",
-      "mvp_en": "A simple dashboard generating white-labeled hosted checkout pages connected to Stripe Connect",
-      "tech_stack_he": "React, Node.js, Stripe API, PostgreSQL",
-      "tech_stack_en": "React, Node.js, Stripe API, PostgreSQL",
+      "mvp_he": "ווידג'ט JS שנטען באתר הלקוח ומקושר لحساب Stripe Connect של הפרילנסר",
+      "mvp_en": "A simple JS widget embedded in client sites connected to the freelancer's Stripe Connect account",
+      "tech_stack_he": "React, Stripe Connect API, Node.js",
+      "tech_stack_en": "React, Stripe Connect API, Node.js",
       "track": "saas",
       "mentions": 1,
       "engagement": 6,
       "sources": [
         "GitHub"
       ],
-      "quote_original": "adding a minimal billing feature within the SlickStack dashboard area of WP Admin so that freelancers or agencies can easily have their clients setup a subscription for whatever server management, maintenance, etc services they are providing",
+      "quote_original": "adding a minimal billing feature within the SlickStack dashboard area of WP Admin so that freelancers or agencies can easily have their clients setup a subscription for whatever server management, maintenance, etc services they are providing.",
       "quote_url": "https://github.com/littlebizzy/slickstack/issues/160",
-      "quote_source": "GitHub",
-      "score": 86,
-      "trend_change": 0,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "אנליטיקה אוטומטית למסעדות ובתי עסק",
-      "title_en": "Automated Hospitality Table Analytics",
-      "who_he": "מנהלי מסעדות, בתי קפה ובעלי עסקים בתחום האירוח",
-      "who_en": "Restaurant owners and hospitality operations managers",
-      "member_indices": [
-        10
-      ],
-      "best_quote_index": 10,
-      "quote_he": "נקודת קצה זו תספק אנליטיקה שימושית למסעדות מבלי לדרוש ממנהלים לחשב זאת ידנית.",
-      "quote_en": "This endpoint would provide useful restaurant analytics without requiring managers to manually calculate it.",
-      "category": "Operations & admin",
-      "intensity": 80,
-      "frequency": 90,
-      "low_competition": 85,
-      "competitors": [
-        {
-          "name": "Toast POS",
-          "gap_he": "דוחות מסובכים ויקרים, דורשים החלפת חומרה מלאה",
-          "gap_en": "Expensive and locked into their proprietary hardware ecosystem"
-        },
-        {
-          "name": "TouchBistro",
-          "gap_he": "מערכת כבדה שלא מספקת תובנות בזמן אמת על זמני המתנה",
-          "gap_en": "Heavy POS system lacking instant wait-time and turnover tracking analytics"
-        }
-      ],
-      "solution_he": "כלי מבוסס AI המנתח נתוני הזמנות קיימים ומפיק דוחות ממוקדים על זמני המתנה, קצב תחלופת שולחנות ושעות עומס.",
-      "solution_en": "An AI-powered dashboard parsing raw POS export data to deliver instant insights on wait times, table turnover, and peak hours.",
-      "pricing_he": "49 דולר לחודש למסעדה",
-      "pricing_en": "$49/month per location",
-      "first_customers_he": "פנייה ישירה לבעלי מסעדות עצמאיות והצעת ניתוח חינם של קבצי הנתונים שלהם",
-      "first_customers_en": "Cold emailing independent restaurant owners with a free sample audit of their POS logs",
-      "trend_keyword": "restaurant table analytics software",
-      "ease_of_build": 80,
-      "mvp_he": "דשבורד המקבל קבצי CSV מכל קופה ומייצר דוח תובנות ויזואלי באמצעות מודל שפה",
-      "mvp_en": "A dashboard uploading CSV exports and leveraging LLMs to instantly structure and visualize operational metrics",
-      "tech_stack_he": "Next.js, Python FastAPI, OpenAI API, Chart.js",
-      "tech_stack_en": "Next.js, Python FastAPI, OpenAI API, Chart.js",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "GitHub"
-      ],
-      "quote_original": "This endpoint would provide useful restaurant analytics without requiring managers to manually calculate it.",
-      "quote_url": "https://github.com/PranavN2005/SQueaL/issues/16",
       "quote_source": "GitHub",
       "score": 84,
       "trend_change": 0,
@@ -185,105 +186,106 @@
       "weeks_seen": 1
     },
     {
-      "title_he": "גישור הרשאות ואפשרות חיבור MCP לפרילנסרים אורחים",
-      "title_en": "Workspace Guest API & MCP Bridge",
-      "who_he": "מפתחים עצמאיים ויועצי טכנולוגיה חיצוניים",
-      "who_en": "Contractors, external developers, and agency consultants",
+      "title_he": "פלטפורמת ניהול נכסים אלטרנטיבית ופשוטה למשכירים",
+      "title_en": "Streamlined Property Management Alternative for Landlords",
+      "who_he": "בעלי נכסים קטנים ומשכירים פרטיים שסובלים מאפליקציות גרועות וחסרות תמיכה",
+      "who_en": "Independent landlords and small property owners suffering from bloated, broken proptech apps",
       "member_indices": [
-        3
+        7,
+        8
       ],
-      "best_quote_index": 3,
-      "quote_he": "אתה אורח, ולכן איنا יכול להתחבר ל-Notion MCP. בקש מבעל סביבת העבודה לשדרג אותך לחבר, או עבור סביבות עבודה.",
-      "quote_en": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "category": "Tools & tech",
-      "intensity": 80,
+      "best_quote_index": 8,
+      "quote_he": "ירידה ברמה לעומת האפליקציה הקודמת בכל מובן. הרבה פיצ'רים מוסתרים, מעצבנים לשימוש, או נעולים מאחורי גרסת הדסקטופ.",
+      "quote_en": "a downgrade from tenantcloud mobile app in almost every way. a lot of features are hidden, annoying to use, or locked behind the desktop version.",
+      "category": "Operations & admin",
+      "intensity": 90,
       "frequency": 85,
-      "low_competition": 90,
+      "low_competition": 70,
       "competitors": [
         {
-          "name": "Notion API",
-          "gap_he": "אינו מאפשר גישה לכלי MCP ופרוטוקולי בינה מלאכותית למשתמשי אורח מטעמי אבטחה קשיחים",
-          "gap_en": "Enforces rigid permission walls blocking external AI tooling and MCP connectors for guests"
+          "name": "TenantCloud",
+          "gap_he": "ממשק מורכב מדי, מלא בבאגים בנייד ומנסה לדחוף שירותי צד שלישי יקרים",
+          "gap_en": "Clunky mobile app interface, bloated with features, locking core utilities behind desktop views."
         },
         {
-          "name": "Zapier",
-          "gap_he": "דורש מנויים יקרים ואינו תומך בפרוטוקולי Model Context Protocol החדשים",
-          "gap_en": "Expensive and lacks native support for modern Model Context Protocol endpoints"
+          "name": "Avail",
+          "gap_he": "תהליכי גבייה איטיים ותמיכת לקוחות מזלזלת שלא עונה לפניות דחופות",
+          "gap_en": "Slow payout processing and poor customer service responsiveness for landlords."
         }
       ],
-      "solution_he": "כלי מתווך המאפשר לפרילנסרים לחבר כלי AI ו-MCP לסביבות עבודה של לקוחות מבלי להזדקק להרשאות מלאות של מנהל.",
-      "solution_en": "A secure proxy bridge allowing external contractors to route MCP tool calls safely into client workspaces.",
-      "pricing_he": "29 דולר לחודש לפרילנסר",
-      "pricing_en": "$29/month per contractor",
-      "first_customers_he": "פרסום בקהילות מפתחים וקבוצות דיסקורד העוסקות ב-AI כגון LangChain ו-Cursor",
-      "first_customers_en": "Promoting in developer communities and AI engineering Discord servers",
-      "trend_keyword": "mcp bridge for contractors",
-      "ease_of_build": 80,
-      "mvp_he": "שרת פרוקסי קל המקבל בקשות MCP ומאמת אותן מול טוקנים זמניים של אורח",
-      "mvp_en": "A lightweight proxy server translating MCP requests using authorized guest access tokens securely",
-      "tech_stack_he": "Node.js, Express, TypeScript, Redis",
-      "tech_stack_en": "Node.js, Express, TypeScript, Redis",
+      "solution_he": "אפליקציית נייד מהירה ומינימלית לבעלי דירות המרכזת גביית שכר דירה אוטומטית, ניהול תקלות וחוזים בלחיצת כפתור אחת.",
+      "solution_en": "A lightning-fast, mobile-first property management app focusing on instant rent collection, repair tracking, and clean tenant communication.",
+      "pricing_he": "$15 לחודש לכל נכס מושכר",
+      "pricing_en": "$15/month per active rental unit",
+      "first_customers_he": "פרסום בקבוצות פייסבוק של משקיעי נדל\"ן ובעלי דירות להשכרה",
+      "first_customers_en": "Posting in local real estate investor Facebook groups and forums",
+      "trend_keyword": "simple landlord app",
+      "ease_of_build": 85,
+      "mvp_he": "אפליקציית Web פשוטה לניהול שוכרים, שליחת קישורי תשלום ב-Stripe ומעקב אחרי פניות תחזוקה",
+      "mvp_en": "Simple web-app for tenant tracking, Stripe payment links generation, and maintenance ticket logging",
+      "tech_stack_he": "FlutterFlow or React Native, Supabase, Stripe API",
+      "tech_stack_en": "FlutterFlow or React Native, Supabase, Stripe API",
       "track": "saas",
-      "mentions": 1,
-      "engagement": 198,
+      "mentions": 2,
+      "engagement": 0,
       "sources": [
-        "GitHub"
+        "Google Play"
       ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
-      "quote_source": "GitHub",
-      "score": 83,
-      "trend_change": 0,
+      "quote_original": "a downgrade from tenantcloud mobile app in almost every way. a lot of features are hidden, annoying to use, or locked behind the desktop version.",
+      "quote_url": "https://play.google.com/store/apps/details?id=com.turbotenant.owner",
+      "quote_source": "Google Play",
+      "score": 84,
+      "trend_change": -100,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "מדריכי תחזוקה עונתית לבעלי נכסים",
-      "title_en": "Seasonal Property Maintenance Lead Gen",
-      "who_he": "חברות ניהול נכסים, בעלי דירות וסוכני נדל\"ן",
-      "who_en": "Property managers, landlords, and real estate agencies",
+      "title_he": "ממשק ארנק קריפטו מותאם להצגת כתובות וברקודים",
+      "title_en": "Clean Crypto Address and QR Viewing Extension",
+      "who_he": "סוחרים, מפתחי בלוקצ'יין ומשתמשי קריפטו כבדים שמבצעים העברות תכופות",
+      "who_en": "Crypto traders, blockchain developers, and active users performing frequent wallet verifications",
       "member_indices": [
-        9
+        10
       ],
-      "best_quote_index": 9,
-      "quote_he": "GA4 מראה שפוסטים להשוואה אלו מייצרים תנועה... אבל עומק הגלילה הוא רק 20.44% - משתמשים אינם ממירים ממודעות לפעולה.",
-      "quote_en": "GA4 shows these comparison posts are driving traffic... but homepage scroll depth is only 20.44% — users aren't converting from awareness to action.",
-      "category": "Marketing & sales",
-      "intensity": 75,
+      "best_quote_index": 10,
+      "quote_he": "בממשק ה-Snap, הכתובת נחתכת עם שלוש נקודות. אני לא מצליח למצוא אף מסך שמציג את הכתובת המלאה בתצוגה אחת.",
+      "quote_en": "In the Snap UI, the address is truncated with ellipses. I can’t find any screen that shows the full address in one view",
+      "category": "Tools & tech",
+      "intensity": 70,
       "frequency": 80,
       "low_competition": 85,
       "competitors": [
         {
-          "name": "HubSpot",
-          "gap_he": "יקר להחריד ודורש הגדרה מורכבת שאינה מותאמת לנישות נדל\"ן מקומיות",
-          "gap_en": "Extremely expensive and over-engineered for simple local maintenance blogs"
+          "name": "MetaMask Extension",
+          "gap_he": "ממשק מוגבל שלא מאפשר הגדלה נוחה של כתובות או הצגה מהירה של QR לאימות אל מול בורסות",
+          "gap_en": "Cluttered UI that truncates addresses and lacks quick, full-screen QR verification modes."
         },
         {
-          "name": "ActiveCampaign",
-          "gap_he": "מערכת דיוור כללית שאינה מציעה ווידג'טים מובנים לתחזוקת נכסים",
-          "gap_en": "Generic email tool lacking interactive property maintenance checklists"
+          "name": "Rabby Wallet",
+          "gap_he": "למרות שהוא טוב יותר, עדיין חסרים בו פיצ'רים ייעודיים להשוואת כתובות מהירה ומניעת שגיאות העברה",
+          "gap_en": "Better alternative, but still lacks dedicated error-prevention views for high-value exchange transfers."
         }
       ],
-      "solution_he": "ווידג'ט אינטראקטיבי של צ'ק-ליסט תחזוקה עונתית שמוטמע באתרים של חברות נדל\"ן וממיר תנועת קוראים ללידים חמים.",
-      "solution_en": "An interactive seasonal maintenance checklist widget embedded in property sites that captures qualified client emails.",
-      "pricing_he": "39 דולר לחודש",
-      "pricing_en": "$39/month",
-      "first_customers_he": "איתור בלוגים בתחום הנדל\"ן והצעת הווידג'ט לשדרוג אחוז ההמרה בחינם לשבועיים",
-      "first_customers_en": "Reaching out to property management bloggers offering a free conversion-boosting widget",
-      "trend_keyword": "property maintenance lead generator",
-      "ease_of_build": 90,
-      "mvp_he": "בובינג ווידג'ט מבוסס React המייצר צ'ק-ליסטים מותאמים אישית לפי אזור גיאוגרפי",
-      "mvp_en": "A React-based embeddable widget that outputs location-specific maintenance schedules in exchange for contact info",
-      "tech_stack_he": "React, Tailwind CSS, Vercel, Supabase",
-      "tech_stack_en": "React, Tailwind CSS, Vercel, Supabase",
+      "solution_he": "תוספת לדפדפן (Browser Extension) שמתלבשת על ארנקי קריפטו ומספקת תצוגה נקייה, מלאה ומוגדלת של כתובות עם בדיקת התאמה אוטומטית למניעת טעויות העברה.",
+      "solution_en": "A lightweight browser extension that overlays crypto wallets to provide full, un-truncated address views and instant QR code verification.",
+      "pricing_he": "חינם עם גרסת פרימיום ב-$9 לחודש לפיצ'רים מתקדמים ואבטחת העברות",
+      "pricing_en": "Free tier with a $9/month pro version for advanced transfer safety checks",
+      "first_customers_he": "פרסום בקהילות דיסקורד ורדית של סוחרי קריפטו ומשתמשי DeFi",
+      "first_customers_en": "Posting in crypto trading Discord servers and Reddit communities like r/cryptocurrency",
+      "trend_keyword": "crypto address viewer extension",
+      "ease_of_build": 95,
+      "mvp_he": "תוספת Chrome פשוטה שקוראת את שדה הכתובת הפעיל בעמוד ומציגה אותו בחלון צף מוגדל עם ברקוד",
+      "mvp_en": "A simple Chrome extension injecting a floating modal displaying full wallet addresses and large scannable QRs",
+      "tech_stack_he": "Plasmo framework, React, Tailwind CSS, qrcode.js",
+      "tech_stack_en": "Plasmo framework, React, Tailwind CSS, qrcode.js",
       "track": "saas",
       "mentions": 1,
       "engagement": 0,
       "sources": [
         "GitHub"
       ],
-      "quote_original": "GA4 shows these comparison posts are driving traffic... but homepage scroll depth is only 20.44% — users aren't converting from awareness to action.",
-      "quote_url": "https://github.com/dror75p-ops/Doryangel-web-3-carousel-blog/issues/305",
+      "quote_original": "In the Snap UI, the address is truncated with ellipses. I can’t find any screen that shows the full address in one view",
+      "quote_url": "https://github.com/pianity/arsnap/issues/28",
       "quote_source": "GitHub",
       "score": 82,
       "trend_change": 0,
@@ -291,161 +293,229 @@
       "weeks_seen": 1
     },
     {
-      "title_he": "אגרגציית סיכומי התנדבות ונוכחות",
-      "title_en": "Volunteer Attendance and Impact Tracker",
-      "who_he": "מנהלי עמותות, ארגוני התנדבות ומתנסים",
-      "who_en": "Nonprofit coordinators, community organizers, and charity leads",
+      "title_he": "קישור אוטומטי בין תמיכה בהודעות למספרי הזמנות",
+      "title_en": "Auto-linking Support Chats to Order IDs",
+      "who_he": "חברות הובלה, לוגיסטיקה ומסחר אלקטרוני שסובלות מתמיכת לקוחות מנותקת",
+      "who_en": "Moving, logistics, and e-commerce companies struggling with disconnected customer support chats",
       "member_indices": [
-        11
+        3
       ],
-      "best_quote_index": 11,
-      "quote_he": "נכון לעכשיו הרשמות למשמרות אינן עוקבות אחר השתתפות בפועל של מתנדבים. סטטיסטיקות השפעה מבוססות על הרשמות, לא על נוכחות בפועל.",
-      "quote_en": "Currently shift signups don't track whether volunteers actually attended. Impact statistics are based on signups, not actual attendance.",
+      "best_quote_index": 3,
+      "quote_he": "כשהמובילים איבדו חלק מהמיטה שלי והשתמשתי בצ'אט באפליקציה, הם ביקשו ממני לחפש ידנית את מספר ההזמנה כי האפליקציה לא יכלה לקשר בין ההודעה להזמנה.",
+      "quote_en": "When the movers lost part of my bed. When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order.",
       "category": "Operations & admin",
-      "intensity": 70,
-      "frequency": 85,
+      "intensity": 80,
+      "frequency": 80,
       "low_competition": 80,
       "competitors": [
         {
-          "name": "VolunteerMatch",
-          "gap_he": "מיועד לחיפוש מתנדבים בלבד ולא מנהל נוכחות שוטפת בארגון",
-          "gap_en": "Focused on recruitment rather than tracking actual on-site attendance metrics"
-        },
-        {
-          "name": "Bloomerang",
-          "gap_he": "מערכת CRM רחבה מדי לתורמים ואינה ממוקדת בשטח למשמרות מתנדבים",
-          "gap_en": "Broad donor CRM that lacks quick operational shift check-ins"
-        }
-      ],
-      "solution_he": "מערכת צ'ק-אין פשוטה מבוססת קוד QR שמאמתת נוכחות מתנדבים ומפיקה דוחות השפעה שנתיים לתורמים.",
-      "solution_en": "A lightweight QR code check-in system verifying real volunteer attendance and generating automated impact reports.",
-      "pricing_he": "19 דולר לחודש לעמותה",
-      "pricing_en": "$19/month per organization",
-      "first_customers_he": "פנייה ישירה לרכזי עמותות קטנות בלינקדאין וברשתות חברתיות",
-      "first_customers_en": "Cold messaging local nonprofit coordinators and community group leaders on LinkedIn",
-      "trend_keyword": "volunteer attendance software",
-      "ease_of_build": 90,
-      "mvp_he": "דף אינטרנט לסריקת QR המעדכן אוטומטית את בסיס הנתונים בזמן אמת ומציג דוח סיכום",
-      "mvp_en": "A mobile web check-in page scanning QR codes and updating attendance records instantly in a dashboard",
-      "tech_stack_he": "Next.js, Tailwind, Supabase, HTML5 QR Scanner",
-      "tech_stack_en": "Next.js, Tailwind, Supabase, HTML5 QR Scanner",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "GitHub"
-      ],
-      "quote_original": "Currently shift signups don't track whether volunteers actually attended. Impact statistics are based on signups, not actual attendance.",
-      "quote_url": "https://github.com/everybody-eats-nz/volunteer-portal/issues/265",
-      "quote_source": "GitHub",
-      "score": 81,
-      "trend_change": null,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "אינטגרציית תמיכה וקישור הזמנות אוטומטי",
-      "title_en": "Support Chat Order Linker",
-      "who_he": "מנהלי תמיכת לקוחות בחברות לוגיסטיקה ושליחויות",
-      "who_en": "Customer support leads at logistics, moving, and delivery companies",
-      "member_indices": [
-        1
-      ],
-      "best_quote_index": 1,
-      "quote_he": "כאשר השתמשתי בצ'אט באפליקציה הם היו צריכים שאבדוק ידנית את מספר ההזמנה שלי, האפליקציה לא יכלה לקשר את ההודעה שלי להזמנה.",
-      "quote_en": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order.",
-      "category": "Communication & coordination",
-      "intensity": 80,
-      "frequency": 80,
-      "low_competition": 75,
-      "competitors": [
-        {
           "name": "Intercom",
-          "gap_he": "יקר מאוד ודורש פיתוח מורכב של ווובהוקים כדי להתחבר למערכות לוגיסטיקה נידחות",
-          "gap_en": "Extremely expensive and requires heavy webhook custom code to link context"
+          "gap_he": "יקר מאוד ומחייב הגדרות API מורכבות כדי להתממשק למערכות הזמנות נישה של חברות הובלה",
+          "gap_en": "Extremely expensive and requires complex custom API setups to integrate with niche moving software."
         },
         {
           "name": "Zendesk",
-          "gap_he": "מערכת מיושנת שאינה מקשרת אוטומטית בין פרופיל משתמש באפליקציה לבין מספר משלוח פעיל",
-          "gap_en": "Legacy tool failing to automatically stitch app sessions to active shipping orders"
+          "gap_he": "מערכת כבדה מדי שדורשת צוות תמיכה ייעודי ומייצרת חוויית משתמש מיושנת בנייד",
+          "gap_en": "Too heavy for small logistics fleets, creating a cumbersome mobile support experience."
         }
       ],
-      "solution_he": "תוסף צ'אט חכם שמזהה אוטומטית את המשתמש וההזמנה הפעילה שלו וחוסך את הצורך בשאלות זיהוי ידניות.",
-      "solution_en": "An embedded chat SDK that automatically attaches user identity and active order metadata to every support ticket.",
-      "pricing_he": "49 דולר לחודש בסיס בתוספת לפי נפח פניות",
-      "pricing_en": "$49/month base plus usage tiers",
-      "first_customers_he": "פנייה לחברות שילוח מקומיות ואפליקציות משלוחים קטנות שסובלות מציון חנות נמוך",
-      "first_customers_en": "Reaching out to regional delivery startups experiencing poor app store reviews regarding support",
-      "trend_keyword": "support chat order linking widget",
-      "ease_of_build": 75,
-      "mvp_he": "ווידג'ט צ'אט למוביל לקוח ששואב את ה-User Token ומציג לנציג את פרטי המשלוח מיד עם פתיחת השיחה",
-      "mvp_en": "An embeddable chat component capturing user auth tokens to fetch and display active order details on agent dashboard",
-      "tech_stack_he": "React, Node.js, Socket.io, PostgreSQL",
-      "tech_stack_en": "React, Node.js, Socket.io, PostgreSQL",
+      "solution_he": "ווידג'ט תמיכה חכם לנייד שמזהה אוטומטית את ההזמנה הפעילה של המשתמש ומזריק את ההקשר לנציג התמיכה.",
+      "solution_en": "An AI-enhanced mobile support widget that automatically detects the user's active order and injects context directly into the support thread.",
+      "pricing_he": "$49 לחודש לעד 3 נציגים ו-500 פניות",
+      "pricing_en": "$49/month for up to 3 agents and 500 tickets",
+      "first_customers_he": "פנייה לחברות הובלה בינוניות שחטפו ביקורות גרועות בחנויות האפליקציות בגלל שירות לקוחות",
+      "first_customers_en": "Cold emailing mid-sized moving companies with poor app store reviews regarding customer support",
+      "trend_keyword": "embeddable support widget order id",
+      "ease_of_build": 85,
+      "mvp_he": "ווידג'ט צ'אט שמבקש מספר טלפון או מזהה התחברות ושולף ברקע את פרטי ההזמנה האחרונה מה-DB",
+      "mvp_en": "Chat widget requesting phone/login to instantly fetch and display the user's latest order from the database",
+      "tech_stack_he": "Next.js, PostgreSQL, OpenAI API for intent detection, Tailwind",
+      "tech_stack_en": "Next.js, PostgreSQL, OpenAI API for intent detection, Tailwind",
       "track": "saas",
       "mentions": 1,
       "engagement": 3,
       "sources": [
         "Google Play"
       ],
-      "quote_original": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order. Fine. I send that to them then they reply and say actually I now need to email them.",
+      "quote_original": "When the movers lost part of my bed. When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order. Fine. I send that to them then they reply and say actually I now need to email them.",
       "quote_url": "https://play.google.com/store/apps/details?id=com.lugg",
       "quote_source": "Google Play",
-      "score": 78,
+      "score": 81,
       "trend_change": null,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "סנכרון וניהול יומנים משפחתיים ועסקיים מתקדם",
-      "title_en": "Advanced Calendar Sync & Multi-Month Fixer",
-      "who_he": "יועצים, פרילנסרים ואנשי מקצוע הסובלים מבעיות סנכרון יומנים",
-      "who_en": "Busy professionals, consultants, and families dealing with broken calendar syncing",
+      "title_he": "שירותי ניהול חיים ועומס קוגניטיבי למשתכרים שכר ביניים-גבוה",
+      "title_en": "Life management and cognitive overload services for high-earning middle-class individuals",
+      "who_he": "אנשים שמרוויחים שכר גבוה יחסית אך תקועים במלכודת המעמד הבינוני-גבוה, ללא יכולת לממן עוזר אישי מלא או מאמן חיים יקר.",
+      "who_en": "Individuals earning a relatively high salary who are trapped in the upper-middle-class squeeze, unable to afford a full-time personal assistant or expensive life coach.",
       "member_indices": [
-        4,
         5
       ],
-      "best_quote_index": 4,
-      "quote_he": "האפליקציה לא תטען מעבר לחודש הנוכחי. זה היה מתסכל בצורה לא רגילה אפילו גרם לכפולות פגישות בפגישות.",
-      "quote_en": "app will not load past the current month. This has been incredibly frustrating and has even caused double bookings on apts.",
-      "category": "Time management",
+      "best_quote_index": 0,
+      "quote_he": "אולי מאמן חיים היה שימושי אבל אני לא יכול להרשות לעצמי את זה, אני מרוויח יותר מדי בשביל עזרה משמעותית ובכלל לא מספיק בשביל מותרות.",
+      "quote_en": "Maybe a life coach would be useful (but I can't afford that, either). I make too much money to get meaningful assistance with any of that and nowhere near enough money.",
+      "category": "Personal & family",
       "intensity": 75,
-      "frequency": 90,
-      "low_competition": 70,
+      "frequency": 85,
+      "low_competition": 80,
       "competitors": [
         {
-          "name": "Google Calendar",
-          "gap_he": "סובל מבעיות תצוגה במובייל ומחסור בתצוגה חלקה של חודשים קדימה ללא טעינה מחדש",
-          "gap_en": "Lacks customizable month-view performance and smart conflict protection across multiple accounts"
+          "name": "Traditional Virtual Assistants",
+          "gap_he": "מתרכזים רק במשימות משרדיות עסקיות ודורשים ניהול צמוד ויומיומי מצד הלקוח.",
+          "gap_en": "Focus only on corporate administrative tasks and require close daily management from the client."
         },
         {
-          "name": "Calendly",
-          "gap_he": "מיועד לתיאום פגישות חיצוניות בלבד ואינו משמש כיומן אישי מלא",
-          "gap_en": "Focused purely on external scheduling links rather than unified daily calendar management"
+          "name": "High-End Concierge Services",
+          "gap_he": "יקרים מאוד, מיועדים לאלפיון העליון ואינם מנגישים פתרונות אוטומטיים לניהול שגרת החיים.",
+          "gap_en": "Very expensive, targeted at the ultra-wealthy, and do not provide automated routine life-management solutions."
         }
       ],
-      "solution_he": "אפליקציית יומן קלה המרכזת מספר חשבונות ומציגה חודשים קדימה בצורה חלקה ללא תקיעות או כפילויות.",
-      "solution_en": "A lightning-fast calendar client aggregating multiple feeds with zero pagination lag and instant duplicate detection.",
-      "pricing_he": "9 דולר לחודש למשתמש",
-      "pricing_en": "$9/month per user",
-      "first_customers_he": "פרסום בקהילות פרודוקטיביות ברדיט וב-Product Hunt",
-      "first_customers_en": "Launching on Product Hunt and sharing in productivity subreddits",
-      "trend_keyword": "fast multi account calendar app",
-      "ease_of_build": 75,
-      "mvp_he": "אפליקציית PWA המתחברת ל-Google Calendar API ומציגה תצוגה חלקה במיוחד של 12 חודשים קדימה",
-      "mvp_en": "A PWA client syncing with Google/Outlook APIs to render a high-performance continuous timeline view",
-      "tech_stack_he": "Next.js, FullCalendar.io, Google Calendar API, Tailwind",
-      "tech_stack_en": "Next.js, FullCalendar.io, Google Calendar API, Tailwind",
-      "track": "saas",
-      "mentions": 2,
+      "solution_he": "שירות אופרציה אישי היברידי המשלב בוט מבוסס AI לתיאום, תזכורות וניתוב משימות, יחד עם עוזרים אנושיים זוטרים שמבצעים את הסידורים הפיזיים והבירוקרטיים.",
+      "solution_en": "A hybrid personal operations service combining an AI bot for scheduling, reminders, and task routing, alongside junior human assistants who execute physical and bureaucratic errands.",
+      "pricing_he": "מנוי חודשי קבוע של 400 עד 800 דולר לחודש המעניק מכסת שעות חודשית.",
+      "pricing_en": "Fixed monthly subscription of $400 to $800 per month granting a monthly hourly quota.",
+      "first_customers_he": "פנייה ישירה בקבוצות פייסבוק ולינקדאין המיועדות להייטקיסטים ועצמאים בתל אביב והרצליה.",
+      "first_customers_en": "Direct outreach in Facebook and LinkedIn groups targeted at tech workers and freelancers in Tel Aviv and Herzliya.",
+      "trend_keyword": "virtual assistant services",
+      "ease_of_build": 85,
+      "delivery_model": "hybrid",
+      "roles_to_hire_he": "שני סטודנטים לעבודה משרדית חלקית או ניהול סידורים בשטח.",
+      "roles_to_hire_en": "Two university students for part-time administrative work or on-the-ground errands.",
+      "ai_leverage_he": "ה-AI מרכז את כל הבקשות בוואטסאפ, מנתח את סדר העדיפויות, מנסח הודעות לספקים ומפיק סיכומי סטטוס אוטומטיים ללקוח.",
+      "ai_leverage_en": "AI consolidates all WhatsApp requests, analyzes priorities, drafts messages to vendors, and produces automated status summaries for the client.",
+      "startup_capital_usd": 500,
+      "startup_capital_he": "הקמת אתר נחיתה, מערכת CRM בסיסית, רישום וואטסאפ עסקי ותקציב שיווק ראשוני במוקדי קהל יעד.",
+      "startup_capital_en": "Setting up a landing page, basic CRM, business WhatsApp registration, and initial target-audience marketing budget.",
+      "equipment_licensing_he": "אין צורך ברישיונות מיוחדים בישראל או בארה\"ב; נדרש מחשב, טלפון חכם וביטוח אחריות מקצועית בסיסי.",
+      "equipment_licensing_en": "No special licenses required in Israel or the US; requires a computer, smartphone, and basic professional liability insurance.",
+      "gross_margin_pct": 65,
+      "moat_he": "יצירת שגרת עבודה מול הלקוח ושילוב מושלם בין אוטומציה חכמה לזמינות אנושית זולה ויעילה שקשה למתחרים חקיין להעתיק מהר.",
+      "moat_en": "Creating a tight client workflow combining smart automation with cheap, efficient human availability that copycat competitors cannot easily replicate quickly.",
+      "launch_plan_he": "פיילוט בן 30 יום עם 5 משתמשי אלפא מקרב אנשי פיתוח תוכנה, מתן שירות מוזל בתמורה למשוב בונה והמלצות.",
+      "launch_plan_en": "A 30-day pilot with 5 alpha users from software development backgrounds, offering discounted service in exchange for constructive feedback and referrals.",
+      "market": "both",
+      "track": "lowtech",
+      "mentions": 1,
       "engagement": 0,
       "sources": [
-        "Google Play"
+        "Hacker News"
       ],
-      "quote_original": "app will not load past the current month. This has been incredibly frustrating and has even caused double bookings on apts.",
-      "quote_url": "https://play.google.com/store/apps/details?id=com.cozi.androidfree",
-      "quote_source": "Google Play",
-      "score": 78,
+      "quote_original": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted, who declined, and who agreed, so I can fill the gap without relying on personal text threads and without disputes later about who was offered the shift.",
+      "quote_url": "https://github.com/muaddibco/RealWorldProblems/issues/1820",
+      "quote_source": "GitHub",
+      "mvp_he": "פיילוט בן 30 יום עם 5 משתמשי אלפא מקרב אנשי פיתוח תוכנה, מתן שירות מוזל בתמורה למשוב בונה והמלצות.",
+      "tech_stack_he": "ה-AI מרכז את כל הבקשות בוואטסאפ, מנתח את סדר העדיפויות, מנסח הודעות לספקים ומפיק סיכומי סטטוס אוטומטיים ללקוח. | שני סטודנטים לעבודה משרדית חלקית או ניהול סידורים בשטח.",
+      "mvp_en": "A 30-day pilot with 5 alpha users from software development backgrounds, offering discounted service in exchange for constructive feedback and referrals.",
+      "tech_stack_en": "AI consolidates all WhatsApp requests, analyzes priorities, drafts messages to vendors, and produces automated status summaries for the client. | Two university students for part-time administrative work or on-the-ground errands.",
+      "score": 81,
+      "trend_change": -55,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "אוטומציה וניהול הרשאות רשת ואבטחה בקוד פתוח",
+      "title_en": "Automated Network Access Control and AAA Setup",
+      "who_he": "מנהלי תשתיות IT, אנשי DevOps ומנהלי מערכות רשת קטנות",
+      "who_en": "IT infrastructure managers, DevOps engineers, and small network administrators",
+      "member_indices": [
+        6
+      ],
+      "best_quote_index": 6,
+      "quote_he": "הגרסאות החופשיות מקשות מאוד בלי המון סקריפטים, טלאים ותכנות, וגם אז נדרשת עבודה רבה כדי להפוך את זה לאמין.",
+      "quote_en": "FOSS versions it much harder without lot of scripting, patching, programming and it's still without much more work to make it properly reliable.",
+      "category": "Tools & tech",
+      "intensity": 85,
+      "frequency": 75,
+      "low_competition": 80,
+      "competitors": [
+        {
+          "name": "Cisco ISE",
+          "gap_he": "יקר בצורה קיצונית ומיועד אך ורק לארגוני ענק עם תקציבי ענק",
+          "gap_en": "Prohibitively expensive and complex, built strictly for massive enterprise environments."
+        },
+        {
+          "name": "FreeRADIUS",
+          "gap_he": "דורש קונפיגורציית טקסט מסובכת לחלוטין וללא שום ממשק משתמש ידידותי מודרני",
+          "gap_en": "Requires writing complex configuration files manually with zero modern UI."
+        }
+      ],
+      "solution_he": "ממשק ניהול מודרני מבוסס AI המייצר קונפיגורציות מוכנות לכלים כמו FreeRADIUS ו-OpenVPN מתוך הנחיות טקסט פשוטות בשפה טבעית.",
+      "solution_en": "A modern AI-driven configuration generator that turns natural language requirements into robust Open Source AAA and RADIUS configs.",
+      "pricing_he": "$49 לחודש לשרת או חיבור רשת בודד",
+      "pricing_en": "$49/month per managed network node",
+      "first_customers_he": "פרסום בקהילות Reddit כמו r/sysadmin ו-r/homelab עם מדריכים מעשיים",
+      "first_customers_en": "Sharing practical walkthroughs in Reddit communities like r/sysadmin and r/homelab",
+      "trend_keyword": "radius server configuration generator",
+      "ease_of_build": 75,
+      "mvp_he": "אפליקציית Web המקבלת תיאור טקסטואלי של מדיניות אבטחה ומייצרת קובצי הגדרה תקינים לשרתי רשת",
+      "mvp_en": "Web app taking plain text security policies and generating validated configuration files for network servers",
+      "tech_stack_he": "Next.js, Python FastAPI, OpenAI API",
+      "tech_stack_en": "Next.js, Python FastAPI, OpenAI API",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "FOSS versions it much harder without lot of scripting, patching, programming and it's still without much more work to make it properly reliable.",
+      "quote_url": "https://news.ycombinator.com/item?id=50504930",
+      "quote_source": "Hacker News",
+      "score": 79,
+      "trend_change": null,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "איסוף אוטומטי של סיכויי הימורים ונתוני ספורט",
+      "title_en": "Automated Live Sports Odds and Betting Scraper",
+      "who_he": "מפתחים, חובבי ספורט אנליטיים ויזמי פינטק בתחום ההימורים",
+      "who_en": "Developers, sports analytics enthusiasts, and fintech side-project builders",
+      "member_indices": [
+        9
+      ],
+      "best_quote_index": 9,
+      "quote_he": "אני ממשיך להיתקל בבעיות עם הגנות נגד בוטים שמונעות איסוף נתונים מהאתרים.",
+      "quote_en": "I keep facing issues with anti-bot protection that prevents scraping the data.",
+      "category": "Tools & tech",
+      "intensity": 75,
+      "frequency": 80,
+      "low_competition": 75,
+      "competitors": [
+        {
+          "name": "OddsAPI",
+          "gap_he": "יקר מאוד ומציע כיסוי חלקי בלבד של ליגות נישה או בוצ'מייקרים קטנים",
+          "gap_en": "Very expensive pricing tiers and lacks deep coverage of niche bookmakers or regional leagues."
+        },
+        {
+          "name": "RapidAPI Scrapers",
+          "gap_he": "אינם אמינים, נופלים תדיר בגלל שינויי Cloudflare וחסרים ממשק API נקי",
+          "gap_en": "Unreliable scrapers that frequently break due to Cloudflare updates and lack clean API wrappers."
+        }
+      ],
+      "solution_he": "שירות API מנוהל שעוקף הגנות בוטים ומספק נתוני סיכויים בזמן אמת מכל סוכני ההימורים בפורמט JSON נקי.",
+      "solution_en": "A managed API service that bypasses anti-bot measures and delivers clean, normalized live odds from bookmakers in JSON format.",
+      "pricing_he": "$49 עד $199 לחודש בהתאם לנפח הקריאות",
+      "pricing_en": "$49 to $199/month based on request volume",
+      "first_customers_he": "איתור מפתחים ב-GitHub ובפורומים של ספורט אנטרטיקס ששאלו על פתרונות סקרייפינג",
+      "first_customers_en": "Reaching out directly to developers on GitHub issues and sports analytics forums",
+      "trend_keyword": "sports odds api provider",
+      "ease_of_build": 70,
+      "mvp_he": "סקריפט פייתון מבוסס פרוקסי חכמים ששולף נתונים מאתרים נבחרים ומציג אותם דרך נקודת קצה ב-FastAPI",
+      "mvp_en": "Python scraping worker utilizing smart proxies and headless browsers, exposed via a clean FastAPI endpoint",
+      "tech_stack_he": "Python, Playwright, Bright Data proxies, FastAPI, Redis",
+      "tech_stack_en": "Python, Playwright, Bright Data proxies, FastAPI, Redis",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "GitHub"
+      ],
+      "quote_original": "I keep facing issues with anti-bot protection that prevents scraping the data.",
+      "quote_url": "https://github.com/kapsidisC/Arbitrage-Bet-Finder/issues/1",
+      "quote_source": "GitHub",
+      "score": 75,
       "trend_change": null,
       "is_recurring": false,
       "weeks_seen": 1
@@ -454,11 +524,10 @@
   "top_n": 10,
   "categories": {
     "Communication & coordination": 1,
+    "Tools & tech": 4,
+    "Finance & billing": 2,
     "Operations & admin": 4,
-    "Finance & billing": 1,
-    "Tools & tech": 3,
-    "Personal & family": 2,
-    "Marketing & sales": 1
+    "Personal & family": 1
   },
   "prev_categories": {},
   "category_names": {
