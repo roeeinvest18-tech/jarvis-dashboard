@@ -1,90 +1,42 @@
 {
-  "generated_at": "2026-11-15T12:01:47.355247+00:00",
+  "generated_at": "2026-11-15T19:27:35.307958+00:00",
   "stats": {
-    "total_drafted": 5,
-    "cyber_count": 5,
+    "total_drafted": 2,
+    "cyber_count": 2,
     "ai_count": 0
   },
   "posts": [
     {
-      "id": "post-1-1794744107",
-      "topic": "Italy Fines Meta €805 Million Over Android Gallery Access",
+      "id": "post-1-1794770855",
+      "topic": "FBI warns ARTEX AI hacking tool is powering global cyberattacks",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/italy-fines-meta-805-million-over.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-15 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Official report on major regulatory enforcement action by the Italian data protection authority against Meta.",
-      "key_takeaways": [
-        "Meta fined €805 million for default gallery access in Facebook for Android.",
-        "Highlighting regulatory crackdown on privacy violations and lack of explicit user consent.",
-        "Implications for how mobile apps handle media permissions and baseline security configurations."
-      ],
-      "linkedin_post": "הקנס הענק שחטפה מטא באיטליה, בסך 805 מיליון אירו על גישת ברירת מחדל לגלריית התמונות באנדרואיד, הוא תזכורת חזקה למה הרגולטורים לא סולחים על הרשאות פתוחות. כנאנליסט SOC, אני רואה יום-יום איך אפליקציות צורכות גישה למידע רגיש בלי שהמשתמש באמת מבין על מה הוא לחץ, מה שפותח פרצות לא רק לפרטיות אלא גם לסיכונים רוחביים במכשיר. הגיע הזמן שארגונים יתייחסו להרשאות ברירת מחדל כאל סיכון אבטחי לכל דבר, ולא רק כאל בעיית UX פשוטה. איך אתם מטפלים באישורי גישה חריגים שמשתמשים מעניקים לאפליקציות ארגוניות או פרטיות?"
-    },
-    {
-      "id": "post-2-1794744107",
-      "topic": "Cursor and Fireworks AI Key Compromise",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-15 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Detailed disclosure from affected vendors regarding supply chain and API key compromise.",
-      "key_takeaways": [
-        "Stolen API key from Fireworks AI led to trojanized Claude Code extension on Cursor marketplace.",
-        "Demonstrates the fragility of third-party integrations and shared AI infrastructure credentials.",
-        "Emphasizes the need for robust secret management and strict access controls for AI tooling."
-      ],
-      "linkedin_post": "אירוע האבטחה של Cursor, שבו מפתח גישה שגנבו מ-Fireworks AI שימש להחדרת תוסף זדוני למרקטפלייס, ממחיש את סיוט שרשרת האספקה החדש בעולם פיתוח ה-AI. כמי שבונה אוטומציות ובודק כלים יום-יום, אני מבין כמה קל לסמוך על ספקי צד שלישי וכמה קשה לזהות שהמפתח שחלקת איתם דלף לשחקן תקיפה. התלות ההדדית הזו במפתחות API הופכת כל ספק שירות קטן לנקודת כשל מרכזית שיכולה לזהם את כל סביבת הפיתוח. איך אתם מנהלים ומנטרים את מפתחות ה-API שאתם נותנים לכלי AI שונים בצנרת שלכם?"
-    },
-    {
-      "id": "post-3-1794744107",
-      "topic": "UnrealIRCd Command Injection Vulnerability",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/attackers-exploit-unrealircd-flaw-that.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-15 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "CISA KEV addition confirms active exploitation in the wild for a high-severity server-level flaw.",
-      "key_takeaways": [
-        "UnrealIRCd vulnerability CVE-2026-114713 added to CISA KEV catalog due to active exploitation.",
-        "Allows server-level command injection via improper neutralization of delimiters.",
-        "Highlights the persistent danger of legacy components and open-source infrastructure flaws."
-      ],
-      "linkedin_post": "CISA הכניסה השבוע את חולשת ה-UnrealIRCd לקטלוג ה-KEV בעקבות ניצול פעיל בשטח, וזה עוד איתור שמזכיר לנו כמה תוכנות ותיקות ממשיכות לרדוף אותנו. בתור אנליסט SOC, אני רואה תקיפות על פרוטוקולים ישנים שארגונים שכחו שהם בכלל מריצים ברשת הפנימית או על שרתים קצה. הניצול של חולשות הזרקת פקודה ברמת השרת דורש מאיתנו לזהות לא רק את הפריצה עצמה, אלא גם את אותם נכסים רדומים שלא עודכנו חודשים. אילו כלים אתם משתמשים בו כדי לוודא שרכיבי קוד פתוח ישנים לא נשארים חשופים בסביבה שלכם?"
-    },
-    {
-      "id": "post-4-1794744107",
-      "topic": "PostgreSQL 22-Year-Old Bug and 52 Patches",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/postgresql-patches-52-flaws-including.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-15 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Official PostgreSQL security advisory covering 52 vulnerabilities, including a severe type confusion bug.",
-      "key_takeaways": [
-        "PostgreSQL patches 52 flaws, including a 22-year-old type confusion bug (CVE-2026-6460).",
-        "Enables authenticated RCE requiring server recompilation of C-language extensions.",
-        "Underscores the deep complexity of securing enterprise database systems and extensions."
-      ],
-      "linkedin_post": "באג בן 22 שנים שמתגלה ב-PostgreSQL ודורש תיקון והידור מחדש של הרחבות C ממחיש כמה קשה לשמור על תשתית בסיסי הנתונים שלנו נקייה. כמי שחופר בלוגים של אבטחה ב-SOC, אני יודע שחולשות מסוג זה שמאפשרות RCE מנוצלות לרוב בשקט מוחלט אחרי שהתוקף כבר השיג גישה בסיסית. התיקון הזה דורש הרבה מעבר לסתם עדכון גרסה שגרתי, ומחייב בדיקה מעמיקה של כל הקוד המותאם אישית שרץ על ה-DB. האם הארגון שלכם ערוך לבדוק ולבנות מחדש הרחבות DB מורכבות תחת לחץ של חולשת אפס-ימים?"
-    },
-    {
-      "id": "post-5-1794744107",
-      "topic": "US Disrupts North Korean FaceStealer Campaign",
-      "category": "cyber_soc",
-      "source_url": "https://www.bleepingcomputer.com/news/security/us-disrupts-north-korean-campaign-behind-400-million-crypto-theft/",
+      "source_url": "https://www.bleepingcomputer.com/news/security/fbi-warns-artex-ai-hacking-tool-is-powering-global-cyberattacks/",
       "source_platform": "BleepingComputer (Security & Incidents)",
       "posted_at": "Updated 2026-11-15 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Official reports on a coordinated US government takedown of a multi-million dollar North Korean cyber operation.",
+      "credibility_rationale": "Direct warning from the FBI regarding an active AI pentesting framework exploited in real world attacks like the ConnectWise breach.",
       "key_takeaways": [
-        "Disruption of North Korean 'FaceStealer' social engineering campaign responsible for $400M in crypto theft.",
-        "Demonstrates sophisticated targeting of individuals via advanced social engineering tactics.",
-        "Highlights the intersection of state-sponsored espionage and financial cybercrime."
+        "ARTEX automates offensive operations across supply chains.",
+        "Attackers leverage AI frameworks to scale Microsoft 365 tenant compromises.",
+        "Traditional signature based detection fails against dynamic AI driven payloads."
       ],
-      "linkedin_post": "מבצע האכיפה של ארה"
+      "linkedin_post": "כלי פנטסטטינג אוטומטיים הפכו את התקיפות הרוחביות לסקריפט פשוט שרץ ברקע. כשה-FBI מזהיר ש-ARTEX משמש לפריצות מורכבות כמו ב-ConnectWise, האנליסטים ב-SOC ממשיכים לרדוף אחרי התראות שווא ידניות כאילו אנחנו ב-2015. התוקפים לא צריכים יותר לכתוב אקספלויטים מורכבים כי האוטומציה מייצרת עבורם תנועה רוחבית שנראית לגיטימית לגמרי בתוך לוגים של Microsoft 365. בזמן שצוותי הגנה מתווכחים על הגדרות של EDR, אוטומציה התקפית חותכת את מחזור החיים של התקיפה לדקות ספורות בלי השארת סימנים קלאסיים."
+    },
+    {
+      "id": "post-2-1794770855",
+      "topic": "Cursor confirms security breach led to malicious Claude Code extension",
+      "category": "cyber_soc",
+      "source_url": "https://www.bleepingcomputer.com/news/security/cursor-confirms-security-breach-led-to-malicious-claude-code-extension/",
+      "source_platform": "BleepingComputer (Security & Incidents)",
+      "posted_at": "Updated 2026-11-15 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Official confirmation from Cursor regarding a supply chain breach via compromised credentials at Fireworks AI.",
+      "key_takeaways": [
+        "AI developer tools are prime targets for supply chain injection.",
+        "Compromising AI infrastructure providers bypasses local machine trust boundaries.",
+        "Extensions marketplaces in modern AI IDEs lack robust runtime integrity checks."
+      ],
+      "linkedin_post": "סביבת הפיתוח של ה-AI הפכה לנקודת הכניסה הקלה ביותר לשרשרת האספקה הארגונית. כשפריצה ל-Fireworks AI מאפשרת להפיץ תוסף זדוני לתוך Claude Code דרך Cursor, אנחנו רואים איך שרשרת האמון של מפתחי AI נשברת מבלי שהם ירגישו בכלל. כולם מתעסקים בהרשאות של מודלי שפה אבל שוכחים שמרחב העבודה של המפתח הוא ה-Admin Console האמיתי של הארגון. תוסף אחד שמקבל הרשאות קריאה וכתיבה לסביבת העבודה עוקף את כל בדיקות ה-AppSec הכי קשוחות שלנו."
     }
   ]
 }

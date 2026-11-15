@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-15T12:01:31.196948+00:00",
+  "generated_at": "2026-11-15T19:27:29.924881+00:00",
   "stats": {
-    "total_scanned": 66,
+    "total_scanned": 65,
     "matched_count": 16,
     "ai_count": 7,
     "cyber_count": 0,
@@ -112,8 +112,8 @@
         "Wordpress",
         "Ui/Ux"
       ],
-      "client_problem": "The client needs experienced senior data engineers to integrate into high-performing client teams.",
-      "proposal_draft": "I saw your opening for a Senior Data Engineer through Lemon.io and would love to bring my strong Python and automation background to your client teams. I build robust data pipelines and scalable backend systems with a focus on clean, efficient code. Let us discuss how I can add immediate value to your next project. Best regards, Roee"
+      "client_problem": "The client needs experienced contractors for ongoing React full-stack engineering roles.",
+      "proposal_draft": "Saw you are matching React full-stack engineers with companies needing extra development capacity. I build full-stack web apps with Python and React and can jump straight into client teams. Are you filling these roles on a W2 or 1099 contract basis? Best, Roee"
     },
     {
       "id": "remotive-2091136",
@@ -133,8 +133,8 @@
         "Wordpress",
         "Ui/Ux"
       ],
-      "client_problem": "The client requires skilled senior React full-stack developers for contract placements with top tech companies.",
-      "proposal_draft": "As a web and dashboard developer experienced in building modern, responsive interfaces, I am a great fit for your React full-stack openings. I specialize in turning complex requirements into clean, high-performance web applications. I am ready to jump into client teams and deliver results quickly. Best regards, Roee"
+      "client_problem": "The client needs to place senior React full-stack engineers into client contract roles.",
+      "proposal_draft": "I saw your opening for senior React developers to join external engineering teams. I regularly build web applications and dashboards using React and Python automation. What frontend architecture stack do your active clients prefer? Best, Roee"
     },
     {
       "id": "remotive-2091165",
@@ -154,8 +154,8 @@
         "Web App",
         "Ui/Ux"
       ],
-      "client_problem": "The company needs a pragmatic, security-minded full-stack developer to build and scale B2B mental health applications.",
-      "proposal_draft": "Your focus on secure, robust applications for mental health platforms caught my attention, especially given my strong security mindset as a SOC Tier 1 Analyst. I combine full-stack web development expertise with security best practices to build reliable tools. I would love to help scale your B2B product offerings. Best regards, Roee"
+      "client_problem": "The company needs a security-minded full-stack developer to build and maintain mental health B2B applications.",
+      "proposal_draft": "I saw your team is building B2B applications for mental health platforms. I build secure web applications and handle backend integrations with Python. Are you using TypeScript for the current full-stack codebase? Best, Roee"
     },
     {
       "id": "remotive-2091135",
@@ -175,8 +175,8 @@
         "Wordpress",
         "Ui/Ux"
       ],
-      "client_problem": "An AI-native cloud company needs senior back-end developers to support their GPU infrastructure and model inference fleet.",
-      "proposal_draft": "Your client's need for a Senior Back-end Developer to support AI inference and GPU infrastructure aligns perfectly with my Python and automation skills. I build scalable backend architectures designed to handle intensive compute and data workloads. I am ready to help optimize and scale your cloud operations. Best regards, Roee"
+      "client_problem": "An AI-native cloud company needs senior backend developers to support their GPU cluster infrastructure.",
+      "proposal_draft": "I saw your client needs backend engineers to support an AI-native cloud platform running model inference. I build Python-based automation tools and backend services. Are you using Docker and Kubernetes for managing the GPU clusters? Best, Roee"
     },
     {
       "id": "upwork-live-2120849319729993210",
@@ -236,8 +236,8 @@
         "Frontend",
         "Web App"
       ],
-      "client_problem": "The company needs a technical lead to design application architecture, build scalable features, and integrate AI capabilities.",
-      "proposal_draft": "I would love to help lead your engineering efforts by designing scalable architectures and integrating innovative AI capabilities. With my dual background in Python/AI automation and full-stack web development, I can drive both backend pipelines and frontend interfaces. Let us chat about scaling the Ringbook platform together. Best regards, Roee"
+      "client_problem": "The company needs a tech lead to design architecture, build web features, and integrate AI capabilities.",
+      "proposal_draft": "I saw you are looking for a tech lead to build out web application features and integrate AI capabilities. I build full-stack web applications and Python AI automation tools. What is the current backend database and API framework you are using? Best, Roee"
     },
     {
       "id": "remoteok-1137527",
@@ -255,8 +255,8 @@
         "Workflow",
         "Rag"
       ],
-      "client_problem": "Wrapbook needs a senior software engineer to build out applied AI systems for production finance workflows.",
-      "proposal_draft": "Your work building an AI-native system of action for production finance is fascinating, and I want to help expand those capabilities. I specialize in Python-based AI automation and building smart workflows that reduce manual overhead. I am eager to bring my expertise to the Wrapbook engineering team. Best regards, Roee"
+      "client_problem": "The production finance platform needs an applied AI engineer to build out their AI-driven finance systems.",
+      "proposal_draft": "I saw your platform is building AI systems for production finance and spend management. I build Python automation workflows and integrate AI models into applications. Are you using LangChain or custom API wrappers for the AI tooling? Best, Roee"
     },
     {
       "id": "remoteok-1137410",
@@ -274,8 +274,8 @@
         "Workflow",
         "Prompt"
       ],
-      "client_problem": "The company needs a frontend engineer to build proactive, AI-native applications that minimize complex prompting for everyday users.",
-      "proposal_draft": "I love the mission of building proactive, AI-native applications that abstract away complex prompting for users. My expertise in web development and AI automation allows me to design intuitive interfaces backed by intelligent workflows. I would be thrilled to help build the future of ActAI. Best regards, Roee"
+      "client_problem": "The company needs a frontend engineer to build proactive AI-native applications for everyday tasks.",
+      "proposal_draft": "I saw you are building AI-native applications focused on low-prompt workflows and high reliability. I build responsive frontend interfaces and connect them to backend automation logic. Are you using React for the frontend? Best, Roee"
     },
     {
       "id": "remotive-1680495",
@@ -293,46 +293,44 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "Coalition Technologies needs a reliable remote office assistant to handle administrative tasks, billing, reporting, and internal operations.",
-      "proposal_draft": "I am a detail-oriented remote professional with strong organizational skills and technical aptitude suited for fast-paced operational environments. While my core is in technical development, I bring the precision and communication needed to streamline administrative and reporting tasks. I am ready to support your daily operations seamlessly. Best regards, Roee"
+      "client_problem": "The company needs a remote office assistant to handle administrative, bookkeeping, and data entry tasks.",
+      "proposal_draft": "I saw you are looking for a remote assistant to manage data entry, bookkeeping, and internal reporting. I have strong administrative skills and use Python scripts to automate repetitive data tasks. Are you using specific accounting software like QuickBooks? Best, Roee"
     },
     {
-      "id": "remotive-2069746",
-      "title": "Tech Lead Full-Stack Rails Engineer (Mitre Media)",
-      "platform": "Remotive (Live Cloud)",
+      "id": "remoteok-1137793",
+      "title": "Software Engineer AI Tooling (Supabase)",
+      "platform": "RemoteOK (Live Cloud)",
       "track": "web_dashboards",
-      "url": "https://remotive.com/remote-jobs/software-development/tech-lead-full-stack-rails-engineer-2069746",
-      "posted_at": "2026-10-14",
-      "budget": "$170k - $200k",
+      "url": "https://remoteOK.com/remote-jobs/remote-software-engineer-ai-tooling-supabase-1137793",
+      "posted_at": "2026-11-13",
+      "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 89,
+      "match_score": 82,
       "skills": [
-        "React",
-        "Web App",
-        "Fullstack"
+        "Dashboard",
+        "Frontend"
       ],
-      "client_problem": "Mitre Media needs a tech lead full-stack Rails engineer to build AI-driven FinTech tools and data insights platforms.",
-      "proposal_draft": "Your work leveraging LLMs to power novel FinTech insights for investors matches my passion for applied AI and web development. I can step in to architect robust full-stack features and integrate advanced data intelligence tools. I am excited about the opportunity to lead and build with your lean team. Best regards, Roee"
+      "client_problem": "The Postgres development platform needs a software engineer to build out their AI tooling and agent workflows.",
+      "proposal_draft": "I saw your AI Tooling team is building features for developers and agents using Supabase. I build Python automation and backend integrations that tie directly into Postgres databases. Are you building these AI tools primarily in TypeScript or Python? Best, Roee"
     },
     {
-      "id": "arbeitnow-remote-ai-integration-automation-engineer-ger-128389",
-      "title": "AI Integration & Automation Engineer (m/w/d) GER (Customs Support Group)",
-      "platform": "Arbeitnow Remote (Live Cloud)",
+      "id": "remoteok-1137711",
+      "title": "HIL Support Specialist (Extend Your Team)",
+      "platform": "RemoteOK (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://www.arbeitnow.com/jobs/companies/customs-support-group/remote-ai-integration-automation-engineer-ger-128389",
-      "posted_at": "Recent",
-      "budget": "Remote",
+      "url": "https://remoteOK.com/remote-jobs/remote-hil-support-specialist-extend-your-team-1137711",
+      "posted_at": "2026-11-09",
+      "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 89,
+      "match_score": 82,
       "skills": [
         "Llm",
-        "Automation",
         "Rag"
       ],
-      "client_problem": "The Customs Support Group needs an AI integration and automation engineer to drive their digital transformation across Europe.",
-      "proposal_draft": "Your digital transformation initiatives require robust AI integration and automated workflows, which are my exact specialties. I build custom Python automation solutions that streamline complex data processes and enterprise operations. I would love to help scale CSG's technical capabilities across Europe. Best regards, Roee"
+      "client_problem": "The organization needs an HIL support specialist for a scheduled contractor role.",
+      "proposal_draft": "I saw your opening for an HIL support specialist starting late this year. I have strong technical troubleshooting experience and handle structured operational workflows. What time zone does the support team operate in? Best, Roee"
     }
   ]
 }
