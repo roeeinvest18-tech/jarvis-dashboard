@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T19:27:35.307958+00:00",
+  "generated_at": "2026-11-15T19:37:12.110677+00:00",
   "stats": {
     "total_drafted": 2,
     "cyber_count": 2,
@@ -7,36 +7,36 @@
   },
   "posts": [
     {
-      "id": "post-1-1794770855",
-      "topic": "FBI warns ARTEX AI hacking tool is powering global cyberattacks",
+      "id": "post-1-1794771432",
+      "topic": "Compromised AI Access Key Led to Trojanized Extension Incident",
       "category": "cyber_soc",
-      "source_url": "https://www.bleepingcomputer.com/news/security/fbi-warns-artex-ai-hacking-tool-is-powering-global-cyberattacks/",
-      "source_platform": "BleepingComputer (Security & Incidents)",
+      "source_url": "https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-15 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Direct warning from the FBI regarding an active AI pentesting framework exploited in real world attacks like the ConnectWise breach.",
+      "credibility_rationale": "Direct report from the affected vendor detailing a supply chain incident involving third-party API token leakage.",
       "key_takeaways": [
-        "ARTEX automates offensive operations across supply chains.",
-        "Attackers leverage AI frameworks to scale Microsoft 365 tenant compromises.",
-        "Traditional signature based detection fails against dynamic AI driven payloads."
+        "API keys issued to third-party AI providers can become vectors for supply chain attacks if leaked.",
+        "Read-only data access granted via stolen tokens can expose marketplace extensions.",
+        "Developer tool extensions are high-value targets for attackers seeking lateral movement."
       ],
-      "linkedin_post": "כלי פנטסטטינג אוטומטיים הפכו את התקיפות הרוחביות לסקריפט פשוט שרץ ברקע. כשה-FBI מזהיר ש-ARTEX משמש לפריצות מורכבות כמו ב-ConnectWise, האנליסטים ב-SOC ממשיכים לרדוף אחרי התראות שווא ידניות כאילו אנחנו ב-2015. התוקפים לא צריכים יותר לכתוב אקספלויטים מורכבים כי האוטומציה מייצרת עבורם תנועה רוחבית שנראית לגיטימית לגמרי בתוך לוגים של Microsoft 365. בזמן שצוותי הגנה מתווכחים על הגדרות של EDR, אוטומציה התקפית חותכת את מחזור החיים של התקיפה לדקות ספורות בלי השארת סימנים קלאסיים."
+      "linkedin_post": "כשספק AI צד שלישי חוטף פריצה ומפתח מקבל גישה לread-only data, אפילו שרשרת האספקה של הextensions שלך קורסת כמו מגדל קלפים. אירוע הפשרה של הClaude Code extension מראה שאין באמת דבר כזה הגנה היקפית כשמדובר במפתחות API שזזים בין מערכות פיתוח. ברגע שKey של Fireworks AI דלף, התוקף השתמש בו כדי לעקוף את מנגנוני הבקרה של הפלטפורמה ולהשתיל קוד זדוני ללא צורך בהנדסה חברתית מורכבת מול המשתמשים עצמם. בסופו של דבר אנחנו מתעסקים בלנתח לוגים של SOC אחרי שהנזק קרה, אבל שורת הקוד הזו התחילה בכלל בחולשה בצד של ספק חיצוני שבכלל לא היה חלק ממעגל הפיתוח הישיר של המוצר."
     },
     {
-      "id": "post-2-1794770855",
-      "topic": "Cursor confirms security breach led to malicious Claude Code extension",
+      "id": "post-2-1794771432",
+      "topic": "Active Exploitation of UnrealIRCd Command Injection Flaw",
       "category": "cyber_soc",
-      "source_url": "https://www.bleepingcomputer.com/news/security/cursor-confirms-security-breach-led-to-malicious-claude-code-extension/",
-      "source_platform": "BleepingComputer (Security & Incidents)",
+      "source_url": "https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-15 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Official confirmation from Cursor regarding a supply chain breach via compromised credentials at Fireworks AI.",
+      "credibility_rationale": "CISA KEV catalog addition confirming active exploitation in the wild with technical details on command injection.",
       "key_takeaways": [
-        "AI developer tools are prime targets for supply chain injection.",
-        "Compromising AI infrastructure providers bypasses local machine trust boundaries.",
-        "Extensions marketplaces in modern AI IDEs lack robust runtime integrity checks."
+        "UnrealIRCd vulnerability CVE-2026-114713 allows server-level command injection via improper delimiter neutralization.",
+        "Inclusion in CISA KEV proves attackers actively weaponize legacy server software components.",
+        "Command injection in chat servers provides immediate foothold for persistent infrastructure access."
       ],
-      "linkedin_post": "סביבת הפיתוח של ה-AI הפכה לנקודת הכניסה הקלה ביותר לשרשרת האספקה הארגונית. כשפריצה ל-Fireworks AI מאפשרת להפיץ תוסף זדוני לתוך Claude Code דרך Cursor, אנחנו רואים איך שרשרת האמון של מפתחי AI נשברת מבלי שהם ירגישו בכלל. כולם מתעסקים בהרשאות של מודלי שפה אבל שוכחים שמרחב העבודה של המפתח הוא ה-Admin Console האמיתי של הארגון. תוסף אחד שמקבל הרשאות קריאה וכתיבה לסביבת העבודה עוקף את כל בדיקות ה-AppSec הכי קשוחות שלנו."
+      "linkedin_post": "תשכחו מRCE מתוחכם בCloud Native, אנחנו עדיין רואים תוקפים עושים קופה מהממת מחוסר סינון פשוט של delimiters בשרתי IRC ישנים. הוספת החולשה של UnrealIRCd לקטלוג הKEV של CISA מזכירה לכל אנשי הSOC שהאיומים הכי קריטיים ברשת הם לעתים קרובות הרכיבים הוותיקים שאף אחד לא נוגע בהם שנים כי הם פשוט עובדים ברקע. כשפגוש חוסר ניטרול של תווים מיוחדים מול הרשאות מערכת ברמת הServer, התוצאה היא command injection ישיר שמדלג על כל הEDR וה-WAF. מי שחושב שארכיטקטורת מיקרוסרביסים פטרה אותו מתשתיות לדעת צריך לעשות סיבוב חוזר על ה-Asset Inventory שלו."
     }
   ]
 }
