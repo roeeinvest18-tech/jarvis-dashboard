@@ -6417,4 +6417,34 @@ body::before {
   contain-intrinsic-size: auto none auto 280px;
 }
 
+/* Tabular metrics alignment & subtle hover/press craft */
+.pp-badge-score,
+.pp-m-num,
+.job-score-pill,
+.content-cred-badge,
+.os-rating-btn {
+  font-variant-numeric: tabular-nums;
+}
+
+.pp-cluster-card,
+.job-card,
+.content-card {
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+
+@media (hover: hover) {
+  .pp-cluster-card:hover,
+  .job-card:hover,
+  .content-card:hover {
+    border-color: var(--line2);
+    transform: translateY(-1px);
+  }
+}
+
+.os-rating-btn:active,
+.content-copy-btn:active,
+.job-toggle-proposal-btn:active {
+  transform: translateY(1px);
+}
+
 

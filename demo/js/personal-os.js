@@ -6,6 +6,28 @@
 // training.js, os.js — so moving Training under Personal OS was a routing
 // change here rather than a rewrite there.
 
+function isAllowedSyncOrigin(rawUrl) {
+  if (!rawUrl || typeof rawUrl !== 'string') return false;
+  try {
+    const u = new URL(rawUrl.trim());
+    if (u.protocol === 'https:' && u.hostname.endsWith('.up.railway.app')) return true;
+    if ((u.protocol === 'http:' || u.protocol === 'https:') && (u.hostname === 'localhost' || u.hostname === '127.0.0.1')) {
+      return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
+function safeExternalUrl(rawUrl, fallback) {
+  const fb = fallback || '#';
+  if (!rawUrl || typeof rawUrl !== 'string') return fb;
+  try {
+    const u = new URL(rawUrl.trim());
+    if (u.protocol === 'https:' || u.protocol === 'http:') return u.href;
+  } catch (e) {}
+  return fb;
+}
+
 // Check URL search params for 1-click cloud sync configuration
 (function checkUrlSyncPairing() {
   try {
@@ -14,16 +36,26 @@
     const syncUrl = params.get('sync_url');
     const syncToken = params.get('sync_token');
     if (syncUrl && syncToken) {
-      if (typeof DAILY !== 'undefined' && typeof DAILY.saveSyncConfig === 'function') {
-        DAILY.saveSyncConfig(syncUrl, syncToken);
-      } else {
-        const clean = syncUrl.replace(/\/+$/, '');
-        localStorage.setItem('jarvis:daily:syncUrl', clean);
-        localStorage.setItem('jarvis:daily:syncToken', syncToken);
-        localStorage.setItem('jarvis:training:syncUrl', clean);
-        localStorage.setItem('jarvis:training:syncToken', syncToken);
-        localStorage.setItem('jarvis:workout:syncUrl', clean);
-        localStorage.setItem('jarvis:workout:syncToken', syncToken);
+      if (isAllowedSyncOrigin(syncUrl)) {
+        if (typeof DAILY !== 'undefined' && typeof DAILY.saveSyncConfig === 'function') {
+          DAILY.saveSyncConfig(syncUrl, syncToken);
+        } else {
+          const clean = syncUrl.replace(/\/+$/, '');
+          localStorage.setItem('jarvis:daily:syncUrl', clean);
+          localStorage.setItem('jarvis:daily:syncToken', syncToken);
+          localStorage.setItem('jarvis:training:syncUrl', clean);
+          localStorage.setItem('jarvis:training:syncToken', syncToken);
+          localStorage.setItem('jarvis:workout:syncUrl', clean);
+          localStorage.setItem('jarvis:workout:syncToken', syncToken);
+        }
+        setTimeout(() => {
+          if (typeof DAILY !== 'undefined' && typeof DAILY.syncWithServer === 'function') {
+            DAILY.syncWithServer();
+          }
+          if (typeof WORKOUT !== 'undefined' && typeof WORKOUT.syncWithServer === 'function') {
+            WORKOUT.syncWithServer();
+          }
+        }, 300);
       }
       params.delete('sync_url');
       params.delete('sync_token');
@@ -32,14 +64,6 @@
       try {
         window.history.replaceState(null, '', newUrl);
       } catch (e) {}
-      setTimeout(() => {
-        if (typeof DAILY !== 'undefined' && typeof DAILY.syncWithServer === 'function') {
-          DAILY.syncWithServer();
-        }
-        if (typeof WORKOUT !== 'undefined' && typeof WORKOUT.syncWithServer === 'function') {
-          WORKOUT.syncWithServer();
-        }
-      }, 300);
     }
   } catch (e) {}
 })();
@@ -390,7 +414,7 @@ function osPpCardHtml(c, isHe, dirAttr) {
       </div>
       <h2 class="pp-cluster-title">${escapeHtml(title)}</h2>
       ${who ? `<div class="pp-cluster-who"><strong>${escapeHtml(S.whoLabel)}:</strong> ${escapeHtml(who)}</div>` : ''}
-      ${quote ? `<blockquote class="pp-cluster-quote">"${escapeHtml(quote)}"${c.quote_url ? ` <a href="${escapeHtml(c.quote_url)}" target="_blank" rel="noopener noreferrer" class="pp-quote-link">${escapeHtml(S.sourceLinkLabel)} &rarr;</a>` : ''}</blockquote>` : ''}
+      ${quote ? `<blockquote class="pp-cluster-quote">"${escapeHtml(quote)}"${c.quote_url ? ` <a href="${escapeHtml(safeExternalUrl(c.quote_url, '#'))}" target="_blank" rel="noopener noreferrer" class="pp-quote-link">${escapeHtml(S.sourceLinkLabel)} &rarr;</a>` : ''}</blockquote>` : ''}
       ${body}
       ${competitors.length ? `
         <div class="pp-competitors">
@@ -559,7 +583,7 @@ function osJobCardHtml(job) {
       ` : ''}
 
       <div class="job-actions-row">
-        <a class="job-open-link" href="${escapeHtml(job.url || 'https://www.upwork.com')}" target="_blank" rel="noopener">
+        <a class="job-open-link" href="${escapeHtml(safeExternalUrl(job.url, 'https://www.upwork.com'))}" target="_blank" rel="noopener noreferrer">
           ${escapeHtml(JOBS_S.labels.openListing)} &rarr;
         </a>
         <button type="button" class="job-toggle-proposal-btn" data-proposal-toggle="${escapeHtml(jobId)}">
@@ -776,10 +800,10 @@ function osContentCardHtml(post) {
       </div>
 
       <div class="content-actions-row">
-        <a class="content-source-link" href="${escapeHtml(post.source_url || '#')}" target="_blank" rel="noopener">
+        <a class="content-source-link" href="${escapeHtml(safeExternalUrl(post.source_url, '#'))}" target="_blank" rel="noopener noreferrer">
           ${escapeHtml(CONTENT_S.labels.openSource)} &rarr;
         </a>
-        <a class="content-linkedin-link" href="https://www.linkedin.com/feed/" target="_blank" rel="noopener">
+        <a class="content-linkedin-link" href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">
           ${escapeHtml(CONTENT_S.labels.openLinkedIn)} &rarr;
         </a>
       </div>
