@@ -1168,6 +1168,8 @@ const STRINGS = {
       credibility: 'Source check',
       credibilityScore: (s) => `Credibility ${s}`,
       keyTakeaways: 'Key takeaways',
+      angle: 'Post angle',
+      hook: 'Opening hook',
       draftedPost: 'Drafted LinkedIn post',
       copyPost: 'Copy post',
       copied: 'Copied',

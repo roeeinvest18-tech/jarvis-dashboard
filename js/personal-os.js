@@ -10,7 +10,8 @@ function isAllowedSyncOrigin(rawUrl) {
   if (!rawUrl || typeof rawUrl !== 'string') return false;
   try {
     const u = new URL(rawUrl.trim());
-    if (u.protocol === 'https:' && u.hostname.endsWith('.up.railway.app')) return true;
+    if (u.username || u.password) return false;
+    if (u.protocol === 'https:' && /^[a-z0-9-]+\.up\.railway\.app$/i.test(u.hostname)) return true;
     if ((u.protocol === 'http:' || u.protocol === 'https:') && (u.hostname === 'localhost' || u.hostname === '127.0.0.1')) {
       return true;
     }
@@ -28,39 +29,56 @@ function safeExternalUrl(rawUrl, fallback) {
   return fb;
 }
 
-// Check URL search params for 1-click cloud sync configuration
+// Check URL hash (preferred) or search params for 1-click cloud sync configuration
 (function checkUrlSyncPairing() {
   try {
     if (typeof window === 'undefined') return;
-    const params = new URLSearchParams(window.location.search);
-    const syncUrl = params.get('sync_url');
-    const syncToken = params.get('sync_token');
+    const rawHash = (window.location.hash || '').replace(/^#/, '');
+    const hashHasSync = rawHash.includes('sync_url=') || rawHash.includes('sync_token=');
+    const hashParams = hashHasSync ? new URLSearchParams(rawHash) : null;
+    const searchParams = new URLSearchParams(window.location.search);
+
+    const syncUrl = (hashParams && hashParams.get('sync_url')) || searchParams.get('sync_url');
+    const syncToken = (hashParams && hashParams.get('sync_token')) || searchParams.get('sync_token');
+
     if (syncUrl && syncToken) {
       if (isAllowedSyncOrigin(syncUrl)) {
-        if (typeof DAILY !== 'undefined' && typeof DAILY.saveSyncConfig === 'function') {
-          DAILY.saveSyncConfig(syncUrl, syncToken);
-        } else {
-          const clean = syncUrl.replace(/\/+$/, '');
-          localStorage.setItem('jarvis:daily:syncUrl', clean);
-          localStorage.setItem('jarvis:daily:syncToken', syncToken);
-          localStorage.setItem('jarvis:training:syncUrl', clean);
-          localStorage.setItem('jarvis:training:syncToken', syncToken);
-          localStorage.setItem('jarvis:workout:syncUrl', clean);
-          localStorage.setItem('jarvis:workout:syncToken', syncToken);
+        const clean = syncUrl.trim().replace(/\/+$/, '');
+        const existing = (localStorage.getItem('jarvis:daily:syncUrl') || '').trim().replace(/\/+$/, '');
+        const confirmed = !existing || existing === clean || typeof window.confirm !== 'function'
+          || window.confirm('Replace existing sync server (' + existing + ') with ' + clean + '?');
+        if (confirmed) {
+          if (typeof DAILY !== 'undefined' && typeof DAILY.saveSyncConfig === 'function') {
+            DAILY.saveSyncConfig(clean, syncToken);
+          } else {
+            localStorage.setItem('jarvis:daily:syncUrl', clean);
+            localStorage.setItem('jarvis:daily:syncToken', syncToken);
+            localStorage.setItem('jarvis:training:syncUrl', clean);
+            localStorage.setItem('jarvis:training:syncToken', syncToken);
+            localStorage.setItem('jarvis:workout:syncUrl', clean);
+            localStorage.setItem('jarvis:workout:syncToken', syncToken);
+          }
+          setTimeout(() => {
+            if (typeof DAILY !== 'undefined' && typeof DAILY.syncWithServer === 'function') {
+              DAILY.syncWithServer();
+            }
+            if (typeof WORKOUT !== 'undefined' && typeof WORKOUT.syncWithServer === 'function') {
+              WORKOUT.syncWithServer();
+            }
+          }, 300);
         }
-        setTimeout(() => {
-          if (typeof DAILY !== 'undefined' && typeof DAILY.syncWithServer === 'function') {
-            DAILY.syncWithServer();
-          }
-          if (typeof WORKOUT !== 'undefined' && typeof WORKOUT.syncWithServer === 'function') {
-            WORKOUT.syncWithServer();
-          }
-        }, 300);
       }
-      params.delete('sync_url');
-      params.delete('sync_token');
-      const newQuery = params.toString();
-      const newUrl = window.location.pathname + (newQuery ? '?' + newQuery : '') + window.location.hash;
+      searchParams.delete('sync_url');
+      searchParams.delete('sync_token');
+      let nextHash = window.location.hash;
+      if (hashParams) {
+        hashParams.delete('sync_url');
+        hashParams.delete('sync_token');
+        const remHash = hashParams.toString();
+        nextHash = remHash ? '#' + remHash : '';
+      }
+      const newQuery = searchParams.toString();
+      const newUrl = window.location.pathname + (newQuery ? '?' + newQuery : '') + nextHash;
       try {
         window.history.replaceState(null, '', newUrl);
       } catch (e) {}
@@ -360,16 +378,16 @@ function osPpCardHtml(c, isHe, dirAttr) {
   const solution = osPpPick(c, 'solution', isHe);
   const score = typeof c.score === 'number' ? c.score
     : Math.round(((c.intensity || 0) + (c.frequency || 0) + (c.ease_of_build || 0) + (c.low_competition || 0)) / 4);
-  const sourcesList = Array.isArray(c.sources) ? c.sources.join(' ? ') : '';
+  const sourcesList = Array.isArray(c.sources) ? c.sources.join(' · ') : '';
   const competitors = Array.isArray(c.competitors) ? c.competitors : [];
 
   let body;
   if (isLow) {
     const L = S.lowtech;
     const capital = [typeof c.startup_capital_usd === 'number' ? L.capitalValue(c.startup_capital_usd) : '',
-      osPpPick(c, 'startup_capital', isHe)].filter(Boolean).join(' ? ');
+      osPpPick(c, 'startup_capital', isHe)].filter(Boolean).join(' · ');
     const pricing = [osPpPick(c, 'pricing', isHe),
-      typeof c.gross_margin_pct === 'number' ? L.margin(c.gross_margin_pct) : ''].filter(Boolean).join(' ? ');
+      typeof c.gross_margin_pct === 'number' ? L.margin(c.gross_margin_pct) : ''].filter(Boolean).join(' · ');
     body = `
       <div class="pp-cluster-mvp">
         ${osPpRow(S.solutionLabel, solution)}
@@ -409,7 +427,7 @@ function osPpCardHtml(c, isHe, dirAttr) {
         <span class="pp-badge-track is-${track}">${escapeHtml(S.trackBadge[track])}</span>
         <span class="pp-badge-cat">${escapeHtml(c.category || '')}</span>
         ${extraBadges}
-        <span class="pp-badge-sources">${escapeHtml(sourcesList)} ? ${escapeHtml(S.metrics.mentions(c.mentions || 0))}</span>
+        <span class="pp-badge-sources">${escapeHtml(sourcesList)} · ${escapeHtml(S.metrics.mentions(c.mentions || 0))}</span>
         <span class="pp-badge-score">${escapeHtml(String(score))}</span>
       </div>
       <h2 class="pp-cluster-title">${escapeHtml(title)}</h2>
@@ -449,7 +467,7 @@ function osPaintPainpoints(mount, data) {
   const dirAttr = isHe ? 'dir="rtl"' : 'dir="ltr"';
   const stats = data.stats || {};
   const bySource = stats.by_source
-    ? Object.entries(stats.by_source).map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(String(v))}`).join(' ? ')
+    ? Object.entries(stats.by_source).map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(String(v))}`).join(' · ')
     : '';
   const counts = { all: data.clusters.length, saas: 0, lowtech: 0 };
   data.clusters.forEach(c => { counts[osPpTrack(c)] += 1; });
@@ -462,7 +480,7 @@ function osPaintPainpoints(mount, data) {
 
   mount.innerHTML = `
     <div class="pp-toolbar">
-      <div class="sec-label">${escapeHtml(S.weekLabel(data.week || '', data.date || ''))}${bySource ? ` ? ${bySource}` : ''}</div>
+      <div class="sec-label">${escapeHtml(S.weekLabel(data.week || '', data.date || ''))}${bySource ? ` · ${bySource}` : ''}</div>
       <div class="pp-lang-switch">
         <button type="button" class="os-btn ${isHe ? 'is-active' : ''}" data-pp-lang="he">${escapeHtml(S.langToggleHe)}</button>
         <button type="button" class="os-btn ${!isHe ? 'is-active' : ''}" data-pp-lang="en">${escapeHtml(S.langToggleEn)}</button>
@@ -641,7 +659,7 @@ function osPaintJobs(mount, data) {
     </div>
 
     <div class="os-window-tabs pp-track-tabs" role="tablist">
-      ${['all', 'ai_automation', 'cyber_soc', 'scraping_data'].map(k => `
+      ${['all', 'ai_automation', 'web_dashboards', 'cyber_soc', 'scraping_data'].map(k => `
         <button type="button" role="tab" aria-selected="${k === filter}" class="os-window-btn${k === filter ? ' is-active' : ''}" data-job-filter="${k}">
           ${escapeHtml(JOBS_S.filters[k])} <span class="pp-track-count mono">${escapeHtml(JOBS_S.filters.count(counts[k] || 0))}</span>
         </button>`).join('')}
@@ -688,7 +706,7 @@ function osPaintJobs(mount, data) {
   mount.querySelectorAll('[data-proposal-toggle]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.proposalToggle;
-      const drawer = mount.querySelector('#job-proposal-' + id);
+      const drawer = document.getElementById('job-proposal-' + id);
       if (drawer) {
         drawer.hidden = !drawer.hidden;
         btn.classList.toggle('is-open', !drawer.hidden);
@@ -700,7 +718,7 @@ function osPaintJobs(mount, data) {
   mount.querySelectorAll('.job-copy-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.jobId;
-      const textEl = mount.querySelector('#job-proposal-text-' + id);
+      const textEl = document.getElementById('job-proposal-text-' + id);
       if (textEl && navigator.clipboard) {
         navigator.clipboard.writeText(textEl.textContent).then(() => {
           const original = btn.textContent;
@@ -786,7 +804,13 @@ function osContentCardHtml(post) {
           <span class="content-intel-kicker">${escapeHtml(CONTENT_S.labels.credibility)}:</span>
           <span class="content-intel-score mono">${escapeHtml(post.credibility_score || '9/10')}</span>
         </div>
-        <p class="content-intel-rationale" dir="rtl">${escapeHtml(post.credibility_rationale || '')}</p>
+        <p class="content-intel-rationale" dir="auto">${escapeHtml(post.credibility_rationale || '')}</p>
+        ${post.post_angle ? `<p class="content-intel-rationale" dir="auto"><strong>${escapeHtml(CONTENT_S.labels.angle)}:</strong> ${escapeHtml(post.post_angle)}</p>` : ''}
+        ${post.opening_hook ? `<p class="content-intel-rationale" dir="auto"><strong>${escapeHtml(CONTENT_S.labels.hook)}:</strong> ${escapeHtml(post.opening_hook)}</p>` : ''}
+        ${Array.isArray(post.key_takeaways) && post.key_takeaways.length ? `
+          <ul class="content-takeaways" dir="auto">
+            ${post.key_takeaways.slice(0, 3).map(t => `<li>${escapeHtml(t)}</li>`).join('')}
+          </ul>` : ''}
       </div>
 
       <div class="content-post-box" dir="rtl">
@@ -873,7 +897,7 @@ function osPaintContent(mount, data) {
   mount.querySelectorAll('.content-copy-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.postId;
-      const textEl = mount.querySelector('#post-text-' + id);
+      const textEl = document.getElementById('post-text-' + id);
       if (textEl && navigator.clipboard) {
         navigator.clipboard.writeText(textEl.textContent).then(() => {
           const original = btn.textContent;
