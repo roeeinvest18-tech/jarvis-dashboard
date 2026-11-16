@@ -1,58 +1,42 @@
 {
-  "generated_at": "2026-11-16T16:54:58.035838+00:00",
+  "generated_at": "2026-11-16T23:58:54.479102+00:00",
   "stats": {
-    "total_drafted": 3,
-    "cyber_count": 3,
+    "total_drafted": 2,
+    "cyber_count": 2,
     "ai_count": 0
   },
   "posts": [
     {
-      "id": "post-1-1794848098",
-      "topic": "Amazon Uncovers AI Agent Campaign Targeting LiteLLM, Dify, and Other Apps for API Keys",
+      "id": "post-1-1794873534",
+      "topic": "Google finds hackers using autonomous AI agents for automated exploits",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/amazon-uncovers-ai-agent-campaign.html",
+      "source_url": "https://thehackernews.com/2026/11/google-finds-hackers-using-ai-agents-to.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-16 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Reported by major tech news outlet with details from Amazon threat intelligence team.",
+      "credibility_rationale": "Reported directly from Google's threat intelligence findings on active adversarial agent frameworks.",
       "key_takeaways": [
-        "Attackers are using autonomous AI agents to scan for exposed AI applications.",
-        "Stolen API keys are immediately reused to power further attacks.",
-        "Decoy servers successfully trapped and logged the autonomous agent behavior."
+        "Threat actors are moving from simple prompts to autonomous multi-agent offensive frameworks.",
+        "Tools like ARTEX and PentAGI execute multi-stage intrusions from patches.",
+        "Attack velocity and scale are increasing significantly with autonomous AI."
       ],
-      "linkedin_post": "כשאמזון הציבה שרתי דמה ברשת, היא לא ציפתה לגלות סוכני AI תוקפים שפועלים לבד לגמרי.\n\nהסוכנים האלה סרקו אפליקציות פתוחות כמו LiteLLM ו-Dify, מצאו מפתחות API חשופים, והשתמשו בהם מיד כדי להריץ את המודלים שחיפשו את המפתח הבא.\n\nהאוטומציה עובדת עכשיו בשני הצדדים של המתרס.\nכשסוכנים מנהלים את התקיפה לבד, קצב האירועים נראה אחרת לגמרי."
+      "linkedin_post": "הפעם תוקפים כבר לא צריכים לשבת ולכתוב סקריפטים בעצמם.\n\nגוגל חשפה השבוע שקבוצות תקיפה התחילו להשתמש בסוכני AI אוטונומיים שמנתחים פצ'ים חדשים של תוכנה, בונים מהם אקספלויטים ומריצים מתקפות שלמות לבד במהירות שיא.\n\nכשתוכנות ההגנה והתקיפה רצות על אוטומציה מלאה עם AI, קצב אירועי האבטחה הופך למשהו אחר לגמרי.\nהעתיד שבו מכונות תוקפות מכונות כבר כאן ב-SOC."
     },
     {
-      "id": "post-2-1794848098",
-      "topic": "Microsoft says months-old bug caused global Microsoft 365 outage",
+      "id": "post-2-1794873534",
+      "topic": "Six unpatched Danfoss refrigeration controller flaws allowing remote takeover",
       "category": "cyber_soc",
-      "source_url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-says-months-old-bug-caused-global-microsoft-365-outage/",
-      "source_platform": "BleepingComputer (Security & Incidents)",
+      "source_url": "https://thehackernews.com/2026/11/six-unpatched-danfoss-refrigeration.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-16 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Official disclosure from Microsoft regarding a major global outage.",
+      "credibility_rationale": "Detailed disclosure by security consultancy Midnight Blue backed by multiple European government cyber agencies.",
       "key_takeaways": [
-        "A software bug introduced months prior triggered a global outage.",
-        "Over 80% of networking gateway servers became unresponsive.",
-        "Cascading failures can lie dormant in infrastructure for a long time."
+        "Six severe unpatched vulnerabilities found in Danfoss refrigeration controllers.",
+        "Attackers can achieve complete remote takeover without any login.",
+        "Even the latest firmware version fails to fix the exposed flaws."
       ],
-      "linkedin_post": "לפעמים באג שקט אחד יושב שקט במערכת חודשים עד שהוא פתאום מפיל את הכל.\n\nזה מה שקרה בשבוע שעבר כשמיקרוסופט הודתה שבאג קטן שהוכנס ביולי גרם לקריסה עולמית והשבית יותר מ-80 אחוז משרתי השער שלה.\n\nהקוד שרץ בייצור יכול להסתיר תקלות שרשרת הרסניות במשך חודשים ארוכים.\nהשאלה היא רק איזה שרת יגיב ראשון כשהם יתעוררו."
-    },
-    {
-      "id": "post-3-1794848098",
-      "topic": "Fandango says hackers stole payment card details from checkout pages",
-      "category": "cyber_soc",
-      "source_url": "https://www.bleepingcomputer.com/news/security/fandango-says-hackers-stole-payment-card-details-from-checkout-pages/",
-      "source_platform": "BleepingComputer (Security & Incidents)",
-      "posted_at": "Updated 2026-11-16 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Direct reporting on a confirmed data breach notification by Fandango.",
-      "key_takeaways": [
-        "Fandango Media suffered a data breach impacting checkout pages.",
-        "Customer payment card details were exposed.",
-        "Attackers continue to target client-side payment flows."
-      ],
-      "linkedin_post": "כל משתמש שמקליד את האשראי שלו בעמוד תשלום באינטרנט מניח שהמערכת מאובטחת לגמרי.\n\nחברת Fandango נאלצה להודיע השבוע שלקוחות נפגעו אחרי שתוקפים הצליחו לשלוף פרטי תשלום מדויקים ישירות מעמודי הקופה שלהם.\n\nקוד צד-לקוח ממשיך להיות נקודת תורפה שקטה.\nמספיק סקריפט אחד בצד הלא נכון כדי שהחגיגה תתחיל."
+      "linkedin_post": "לפעמים הרכיב הכי רגיש ברשת הוא משהו ששולט במקררים תעשייתיים.\n\nחוקרים חשפו השבוע שישה באגים קריטיים בבקרי קירור של Danfoss שמאפשרים לתוקפים מבחוץ להשתלט עליהם לגמרי בלי שום צורך בהזדהות או סיסמה.\n\nהקטע המלחיץ הוא שאין עדיין פצ' זמין, וגם גרסת הקושחה החדשה ביותר לא סוגרת את הפרצה.\nשליטה מרחוק בלי הגנה ברכיבים פיזיים היא סיכון ענק."
     }
   ]
 }
