@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T15:47:44.848211+00:00",
+  "generated_at": "2026-11-16T16:54:58.035838+00:00",
   "stats": {
     "total_drafted": 3,
     "cyber_count": 3,
@@ -7,52 +7,52 @@
   },
   "posts": [
     {
-      "id": "post-1-1794844064",
-      "topic": "Six Unpatched Danfoss Refrigeration Controller Flaws Could Allow Remote Takeover Without Login",
+      "id": "post-1-1794848098",
+      "topic": "Amazon Uncovers AI Agent Campaign Targeting LiteLLM, Dify, and Other Apps for API Keys",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/six-unpatched-danfoss-refrigeration.html",
+      "source_url": "https://thehackernews.com/2026/11/amazon-uncovers-ai-agent-campaign.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-16 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Reported by major tech news outlet with details from Amazon threat intelligence team.",
       "key_takeaways": [
-        "מקור: The Hacker News (Cybersecurity & Threats)",
-        "Six Unpatched Danfoss Refrigeration Controller Flaws Could Allow Remote Takeover Without Login",
-        "Six flaws in Danfoss AK-SM800A refrigeration controllers could let a remote attacker take over a controller without logging in, Dutch security consultancy Midnight Blue said earlier this week. No patch is available, and the researchers say "
+        "Attackers are using autonomous AI agents to scan for exposed AI applications.",
+        "Stolen API keys are immediately reused to power further attacks.",
+        "Decoy servers successfully trapped and logged the autonomous agent behavior."
       ],
-      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"Six Unpatched Danfoss Refrigeration Controller Flaws Could Allow Remote Takeover Without Login\":\n\nSix flaws in Danfoss AK-SM800A refrigeration controllers could let a remote attacker take over a controller without logging in, Dutch security consultancy Midnight Blue said earlier this week. No patch is available, and the researchers say \n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "linkedin_post": "כשאמזון הציבה שרתי דמה ברשת, היא לא ציפתה לגלות סוכני AI תוקפים שפועלים לבד לגמרי.\n\nהסוכנים האלה סרקו אפליקציות פתוחות כמו LiteLLM ו-Dify, מצאו מפתחות API חשופים, והשתמשו בהם מיד כדי להריץ את המודלים שחיפשו את המפתח הבא.\n\nהאוטומציה עובדת עכשיו בשני הצדדים של המתרס.\nכשסוכנים מנהלים את התקיפה לבד, קצב האירועים נראה אחרת לגמרי."
     },
     {
-      "id": "post-2-1794844064",
-      "topic": "Retadup Worm Resurfaces 7 Years After Takedown to Spread CoffeeLoader Malware",
+      "id": "post-2-1794848098",
+      "topic": "Microsoft says months-old bug caused global Microsoft 365 outage",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/retadup-worm-resurfaces-7-years-after.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "source_url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-says-months-old-bug-caused-global-microsoft-365-outage/",
+      "source_platform": "BleepingComputer (Security & Incidents)",
       "posted_at": "Updated 2026-11-16 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Official disclosure from Microsoft regarding a major global outage.",
       "key_takeaways": [
-        "מקור: The Hacker News (Cybersecurity & Threats)",
-        "Retadup Worm Resurfaces 7 Years After Takedown to Spread CoffeeLoader Malware",
-        "Cybersecurity researchers have disclosed details of a new variant of CoffeeLoader, a malware designed to deliver additional payloads to infected machines. \"On launch, the NSIS-based installer executable dropped a file named '7z.dll' into a "
+        "A software bug introduced months prior triggered a global outage.",
+        "Over 80% of networking gateway servers became unresponsive.",
+        "Cascading failures can lie dormant in infrastructure for a long time."
       ],
-      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"Retadup Worm Resurfaces 7 Years After Takedown to Spread CoffeeLoader Malware\":\n\nCybersecurity researchers have disclosed details of a new variant of CoffeeLoader, a malware designed to deliver additional payloads to infected machines. \"On launch, the NSIS-based installer executable dropped a file named '7z.dll' into a \n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "linkedin_post": "לפעמים באג שקט אחד יושב שקט במערכת חודשים עד שהוא פתאום מפיל את הכל.\n\nזה מה שקרה בשבוע שעבר כשמיקרוסופט הודתה שבאג קטן שהוכנס ביולי גרם לקריסה עולמית והשבית יותר מ-80 אחוז משרתי השער שלה.\n\nהקוד שרץ בייצור יכול להסתיר תקלות שרשרת הרסניות במשך חודשים ארוכים.\nהשאלה היא רק איזה שרת יגיב ראשון כשהם יתעוררו."
     },
     {
-      "id": "post-3-1794844064",
-      "topic": "SANSAR Linux Cryptomining Malware Uses Modified NVIDIA Library to Hide GPU Activity",
+      "id": "post-3-1794848098",
+      "topic": "Fandango says hackers stole payment card details from checkout pages",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/sansar-linux-cryptomining-malware-uses.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "source_url": "https://www.bleepingcomputer.com/news/security/fandango-says-hackers-stole-payment-card-details-from-checkout-pages/",
+      "source_platform": "BleepingComputer (Security & Incidents)",
       "posted_at": "Updated 2026-11-16 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Direct reporting on a confirmed data breach notification by Fandango.",
       "key_takeaways": [
-        "מקור: The Hacker News (Cybersecurity & Threats)",
-        "SANSAR Linux Cryptomining Malware Uses Modified NVIDIA Library to Hide GPU Activity",
-        "A financially motivated threat activity cluster tracked as REF3364 has been attributed to a Linux-focused cryptocurrency mining operation that tampers with the readings used to detect high GPU workloads. Central to the intrusion is a toolki"
+        "Fandango Media suffered a data breach impacting checkout pages.",
+        "Customer payment card details were exposed.",
+        "Attackers continue to target client-side payment flows."
       ],
-      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"SANSAR Linux Cryptomining Malware Uses Modified NVIDIA Library to Hide GPU Activity\":\n\nA financially motivated threat activity cluster tracked as REF3364 has been attributed to a Linux-focused cryptocurrency mining operation that tampers with the readings used to detect high GPU workloads. Central to the intrusion is a toolki\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "linkedin_post": "כל משתמש שמקליד את האשראי שלו בעמוד תשלום באינטרנט מניח שהמערכת מאובטחת לגמרי.\n\nחברת Fandango נאלצה להודיע השבוע שלקוחות נפגעו אחרי שתוקפים הצליחו לשלוף פרטי תשלום מדויקים ישירות מעמודי הקופה שלהם.\n\nקוד צד-לקוח ממשיך להיות נקודת תורפה שקטה.\nמספיק סקריפט אחד בצד הלא נכון כדי שהחגיגה תתחיל."
     }
   ]
 }
