@@ -2,7 +2,6 @@
   "variant": "public",
   "allowlist": [
     "breakout_alerts.json",
-    "feedback_ratings.json",
     "jobs.json",
     "linkedin_posts.json",
     "painpoints.json",
@@ -12,13 +11,13 @@
   ],
   "withheld": [
     "cci_oversold.json",
+    "feedback_ratings.json",
     "priority.json",
     "tasks.json",
     "trade_notes.json"
   ],
   "published": [
     "breakout_alerts.json",
-    "feedback_ratings.json",
     "jobs.json",
     "linkedin_posts.json",
     "painpoints.json",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T20:49:05.236229+00:00",
+  "generated_at": "2026-11-16T15:47:44.848211+00:00",
   "stats": {
     "total_drafted": 3,
     "cyber_count": 3,
@@ -7,52 +7,52 @@
   },
   "posts": [
     {
-      "id": "post-1-1794775745",
-      "topic": "Meta €805 Million Fine Over Android Gallery Access Without Explicit Consent",
+      "id": "post-1-1794844064",
+      "topic": "Six Unpatched Danfoss Refrigeration Controller Flaws Could Allow Remote Takeover Without Login",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/italy-fines-meta-805-million-over.html",
+      "source_url": "https://thehackernews.com/2026/11/six-unpatched-danfoss-refrigeration.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-15 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Directly sourced from a major enforcement action by a national data protection authority reported on a reputable cybersecurity platform.",
+      "posted_at": "Updated 2026-11-16 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
       "key_takeaways": [
-        "Default feature behavior on mobile apps can trigger massive regulatory penalties.",
-        "Accessing device media metadata without explicit consent creates severe compliance exposure.",
-        "Privacy by design fails when telemetry and convenience features bypass user friction."
+        "מקור: The Hacker News (Cybersecurity & Threats)",
+        "Six Unpatched Danfoss Refrigeration Controller Flaws Could Allow Remote Takeover Without Login",
+        "Six flaws in Danfoss AK-SM800A refrigeration controllers could let a remote attacker take over a controller without logging in, Dutch security consultancy Midnight Blue said earlier this week. No patch is available, and the researchers say "
       ],
-      "linkedin_post": "כשאפליקציית ענק מפעילה גישה לגלריית המכשיר כברירת מחדל, הקנסות הרגולטוריים מגיעים הרבה לפני שמישהו ב-SOC בכלל מספיק לשים לב לאנומליה. הרגולטור האיטלקי קנס את Meta בסכום אסטרונומי על פיצ'ר ששואב תמונות ומטא-דאטה בלי הסכמה מפורשת ואמיתית של המשתמש. מבחינה ארכיטקטונית, הקו בין חווית משתמש חלקה לבין איסוף דאטה פולשני הופך לדק עד בלתי נראה. כשפיתוח דוחף קוד שמדלג על אישורים מפורשים לטובת פיצ'ר המלצות אוטומטי, צוותי האבטחה נשארים לטאטא את השאריות ברמת הקומפליאנס. בסוף, אוטומציה של חווית משתמש שמחביאה הרשאות רגישות תחת הגדרות ברירת מחדל היא פצצת זמן משפטית ששום כלי ניטור לא יצליח למנוע."
+      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"Six Unpatched Danfoss Refrigeration Controller Flaws Could Allow Remote Takeover Without Login\":\n\nSix flaws in Danfoss AK-SM800A refrigeration controllers could let a remote attacker take over a controller without logging in, Dutch security consultancy Midnight Blue said earlier this week. No patch is available, and the researchers say \n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
     },
     {
-      "id": "post-2-1794775745",
-      "topic": "UnrealIRCd Server-Level Command Injection Added to CISA KEV",
+      "id": "post-2-1794844064",
+      "topic": "Retadup Worm Resurfaces 7 Years After Takedown to Spread CoffeeLoader Malware",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/attackers-exploit-unrealircd-flaw-that.html",
+      "source_url": "https://thehackernews.com/2026/11/retadup-worm-resurfaces-7-years-after.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-15 (Auto)",
-      "credibility_score": "10/10",
-      "credibility_rationale": "Based on a direct advisory from CISA regarding active exploitation of a tracked CVE.",
+      "posted_at": "Updated 2026-11-16 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
       "key_takeaways": [
-        "UnrealIRCd contains an active command injection vulnerability tracked in the KEV catalog.",
-        "Delimiters neutralization failure allows direct server-level execution.",
-        "Legacy server software remains a primary vector for unmitigated remote compromise."
+        "מקור: The Hacker News (Cybersecurity & Threats)",
+        "Retadup Worm Resurfaces 7 Years After Takedown to Spread CoffeeLoader Malware",
+        "Cybersecurity researchers have disclosed details of a new variant of CoffeeLoader, a malware designed to deliver additional payloads to infected machines. \"On launch, the NSIS-based installer executable dropped a file named '7z.dll' into a "
       ],
-      "linkedin_post": "כשחולשת Command Injection ישנה מגיעה לקטלוג ה-KEV של CISA, זה סימן שהתשתיות הישנות ששכחנו מאחור ממשיכות להיות דלת אחורית פתוחה לתוקפים. הפגיעות החדשה ב-UnrealIRCd מוכיחה שחוסר ניטרול של תווים מפרידים ממשיך להריץ פקודות ישירות ברמת מערכת ההפעלה. בשטח, אנליסטים ב-SOC פוגשים את האירועים האלו כשהשרת כבר נגוע לחלוטין והלוגים מוצפים בפקודות IRC עוינות. מי שממשיך להחזיק רכיבי קוד עתיקים בייצור בלי בידוד או פתרונות ניטור הדוקים משלם את המחיר ברגע שהתוקף מנצל חוסר סינון בסיסי בקוד."
+      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"Retadup Worm Resurfaces 7 Years After Takedown to Spread CoffeeLoader Malware\":\n\nCybersecurity researchers have disclosed details of a new variant of CoffeeLoader, a malware designed to deliver additional payloads to infected machines. \"On launch, the NSIS-based installer executable dropped a file named '7z.dll' into a \n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
     },
     {
-      "id": "post-3-1794775745",
-      "topic": "PostgreSQL 22-Year-Old Bug Enabling Authenticated RCE and 51 Other Flaws",
+      "id": "post-3-1794844064",
+      "topic": "SANSAR Linux Cryptomining Malware Uses Modified NVIDIA Library to Hide GPU Activity",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/postgresql-patches-52-flaws-including.html",
+      "source_url": "https://thehackernews.com/2026/11/sansar-linux-cryptomining-malware-uses.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-15 (Auto)",
-      "credibility_score": "10/10",
-      "credibility_rationale": "Official PostgreSQL patch release announcement detailing multi-vulnerability remediation including a complex type confusion flaw.",
+      "posted_at": "Updated 2026-11-16 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
       "key_takeaways": [
-        "PostgreSQL patches 52 flaws including a 22-year-old type confusion vulnerability.",
-        "Authenticated database users capable of creating objects can achieve remote code execution.",
-        "Full mitigation requires rebuilding C-language extensions alongside updating the binaries."
+        "מקור: The Hacker News (Cybersecurity & Threats)",
+        "SANSAR Linux Cryptomining Malware Uses Modified NVIDIA Library to Hide GPU Activity",
+        "A financially motivated threat activity cluster tracked as REF3364 has been attributed to a Linux-focused cryptocurrency mining operation that tampers with the readings used to detect high GPU workloads. Central to the intrusion is a toolki"
       ],
-      "linkedin_post": "באג שיושב בתוך PostgreSQL במשך שני עשורים מראה שוב איך מנגנוני Type Confusion יכולים לחכות בשקט עד שמישהו ימציא את האקספלויט הנכון. עדכון האבטחה האחרון מתקן עשרות חולשות, אבל החלק המעניין הוא שהרצת קוד מרחוק מתאפשרת לכל משתמש בעל הרשאות יצירת אובייקטים. בעולם האמיתי, פאץ' פשוט לא מספיק כאן כי צריך לבנות מחדש את כל הרחבות ה-C שרצות על השרת כדי לסגור את הפרצה הרמטית. מי שמנהל תשתיות דאטה בייצור יודע שעדכון גרסה שדורש קומפילציה מחדש של אובייקטים הוא בדיוק הסיוט שמכניס צוותי תשתיות ואבטחה ללחץ סביב השעון."
+      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"SANSAR Linux Cryptomining Malware Uses Modified NVIDIA Library to Hide GPU Activity\":\n\nA financially motivated threat activity cluster tracked as REF3364 has been attributed to a Linux-focused cryptocurrency mining operation that tampers with the readings used to detect high GPU workloads. Central to the intrusion is a toolki\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
     }
   ]
 }
