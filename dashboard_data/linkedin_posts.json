@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T09:54:21.887426+00:00",
+  "generated_at": "2026-11-17T16:50:03.252775+00:00",
   "stats": {
     "total_drafted": 3,
     "cyber_count": 3,
@@ -7,52 +7,52 @@
   },
   "posts": [
     {
-      "id": "post-1-1794909261",
-      "topic": "Supply Chain Attack via Hijacked Optimizely Scripts",
+      "id": "post-1-1794934203",
+      "topic": "עקיפת SHA Pinning ב GitHub Actions",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/hijacked-optimizely-scripts-served-card.html",
+      "source_url": "https://thehackernews.com/2026/11/hackers-found-way-around-github-sha.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-17 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Reported by established cybersecurity media with tracking data from Report URI regarding major media organizations.",
+      "credibility_rationale": "מדווח על ידי The Hacker News בהתבסס על אירועי תקיפה אמיתיים בשרשרת האספקה ותקיפת Trivy",
       "key_takeaways": [
-        "Third-party script inclusion remains a critical blind spot for enterprise security teams.",
-        "Attackers bypass perimeter defenses by compromising trusted SaaS analytics and experimentation platforms.",
-        "Traditional endpoint monitoring rarely detects malicious script injections served directly to visitor browsers."
+        "הסתמכות עיוורת על SHA Pinning כבר אינה ערובה מוחלטת לבטיחות ב CI/CD",
+        "תוקפים מצליחים לזייף מקור קוד כך שייראה כאילו הגיע מכלים רשמיים כמו checkout",
+        "נדרש ניטור מתקדם של אירועי חריגה בצינורות פיתוח בתוך ה SOC"
       ],
-      "linkedin_post": "כשאתרים של CNN ו BBC הופכים לצינור הפצה של קוד זדוני דרך סקריפט לגיטימי של Optimizely, ברור שההגנה ההיקפית פשטה את הרגל.\nהתקיפה האחרונה ממחישה איך שרשרת האספקה של צד שלישי מאפשרת לתוקפים לעקוף את כל בקרות האבטחה המסורתיות.\n1. פלטפורמות אנליטיקה ואופטימיזציה נטענות ישירות בדפדפן של המשתמש ונהנות מאמון עיוור של מערכות האבטחה.\n2. פגיעות בקוד של ספק חיצוני הופכת מיד לנכס תקיפה שמזרים סקריפטים זדוניים לאלפי ארגונים במקביל.\n3. אנליסטים ב SOC נדרשים לבחון לא רק את הלוגים הפנימיים, ואת תעבורת הדפדפן בזמן אמת.\nניטור תעבורת צד שלישי ומדיניות Content Security Policy קשוחה הם ההבדל בין גילוי מוקדם לנזק תדמיתי אדיר.\nאיך צוות ה SOC שלכם מתמודד עם ניטור סקריפטים חיצוניים שנטענים אצל משתמשי הקצה?\n#CyberSecurity #SOCAnalyst #BlueTeam #SupplyChainSecurity #WebSecurity #InfoSec"
+      "linkedin_post": "כשאנשי DevOps סומכים בעיניים עצומות על SHA Pinning כדי לאבטח את ה CI/CD, תוקפים כבר מצאו את הדרך לעקוף את המנגנון. מתקפות שרשרת אספקה על פלטפורמות כמו Trivy מראות שההנחה שהקוד בטוח רק כי הוא מוצמד ל Hash מדויק כבר פסה מהעולם. בתקיפות האחרונות, קוד זדוני הושתל באופן שמתחזה לכלי הרשמי של GitHub בצינורות הפיתוח. הנה מה שצריך להכניס למשמרת ב SOC: ראשית, בדיקה קפדנית של תצורות Actions ב GitHub. שנית, ניטור קבוע של קריאות רשת יוצאות משרתי הבנייה. שלישית, בחינה האם ה Artifacts שנבנים אכן תואמים למקור המקורי. ההנחה ששליטה ב Repository שקולה לשליטה ב Build כבר לא מחזיקה מים בשטח. איך אתם מנטרים את צינורות ה CI/CD שלכם ב SOC מפני זיופי קוד מתקדמים? #CyberSecurity #SOCAnalyst #BlueTeam #DevSecOps #InfoSec #SupplyChainSecurity"
     },
     {
-      "id": "post-2-1794909261",
-      "topic": "ConnectWise ScreenConnect Ongoing Attacks and SCKit",
+      "id": "post-2-1794934203",
+      "topic": "פרצת הקלטה באייפון למרות חסימת הרשאת מיקרופון",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/connectwise-warns-screenconnect-attacks.html",
+      "source_url": "https://thehackernews.com/2026/11/researchers-detail-iphone-flaw-that-let.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-17 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Direct advisory and investigation findings published regarding ConnectWise ScreenConnect environment security.",
+      "credibility_rationale": "מבוסס על מחקר טכני שפורסם על ידי חוקרים מ Meta Red Team X ותיקון רשמי של אפל",
       "key_takeaways": [
-        "Unpatched on-premises systems and legacy extensions are primary vectors for persistent compromise.",
-        "Attackers leverage legitimate remote management tooling to establish stealthy persistence in networks.",
-        "Version compliance alone is insufficient if third-party extensions remain active and vulnerable."
+        "אישור משתמש ברמת מערכת ההפעלה לא מבטיח בידוד מוחלט של חומרת השמע",
+        "חולשות בשירותי הא디오 של אפל אפשרו מעקף ישיר של דחיית המיקרופון",
+        "אנליסטים צריכים להכיר מנגנוני EDR וניטור למכשירים ניידים בארגון"
       ],
-      "linkedin_post": "כל עוד תוספים ישנים נשארים פעילים במערכות ConnectWise On-Premises, תוקפים ממשיכים לחגוג על גישה מרחוק לא מוצהרת.\nהאזהרות החוזרות ונשנות של ConnectWise על ניצול רכיבי SCKit מחייבות בחינה מחודשת של תהליכיניהול הפגיעות בארגון.\n1. תקיפות ממוקדות ממשיכות לפגוע בסביבות שבהן הלקוח הטכני לא עודכן לגרסה הנדרשת.\n2. שימוש תפעולי בלגיטימיות של כלי RMM מסווה את פעילות התוקף מעיני אנליסטים שאינם בודקים הרשאות תוספים לעומק.\n3. זיהוי התנהגותי של חיבורים חשודים מחייב הצלבה בין לוגים של התהליך לבין הפעילות המקורית ברשת.\nסגירת פתחי גישה ישנים דורשת מיפוי קפדני של כל הרחבות הצד שלישי המותנות במערכות ניהול קריטיות.\nהאם אתם סורקים באופן אוטומטי את כל תוספי ה RMM הארגוניים שלכם לאיתור חולשות פתוחות?\n#CyberSecurity #SOCAnalyst #BlueTeam #RMM #ThreatHunting #InfoSec"
+      "linkedin_post": "לחיצה על Don't Allow להרשאת מיקרופון במכשיר נייד כבר לא מבטיחה שהשיחות שלכם מוגנות. מחקר חדש שפרסמו חוקרים מ Meta חושף חולשה חמורה בשירותי האודיו של אפל שאיפשרה לאפליקציות להקליט סאונד למרות סירוב מפורש של המשתמש. התקיפה הזו מוכיחה שההפרדה בין הרשאת UI לבין הלוגיקה פנימית של ה API ברמת מערכת ההפעלה עדיין פרוצה. ברמת הניתוח, חשוב להבין: ראשית, תוקפים מנצלים פערים בלוגיקת ה Audio Service של המכשיר. שנית, אין להסתמך רק על חיוויי ממשק משתמש במכשירים ניידים ארגוניים. שלישית, נדרש ניטור התנהגותי של צריכת משאבי חומרה ברקע. המיתוס לפיו הרשאות מערכת סוגרות את כל פתחי הריגול במובייל התנפץ סופית. האם ארגונים שבהם אתם עובדים ממשיכים לאפשר שימוש במכשירים ניידים בלי בקרת EDR מתקדמת? #CyberSecurity #MobileSecurity #BlueTeam #SOCAnalyst #InfoSec #AppleSecurity"
     },
     {
-      "id": "post-3-1794909261",
-      "topic": "N-able N-central Flaws and Crypto Miners Deployment",
+      "id": "post-3-1794934203",
+      "topic": "שימוש בלגיטימי ב GitHub ו SharePoint כערוצי C2 בדלתות אחוריות",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/n-able-patches-17-n-central-flaws-as.html",
+      "source_url": "https://thehackernews.com/2026/11/new-gitdoor-and-graphdoor-backdoors.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-17 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Official vendor security patch release documentation combined with active threat intelligence data.",
+      "credibility_rationale": "מדווח על ידי קספרסקי במסגרת מעקב אחרי קמפיין Operation ShadowCloud המכוון למגזרי ממשל",
       "key_takeaways": [
-        "Multiple critical vulnerabilities in management platforms provide direct paths for Remote Code Execution.",
-        "Attackers rapidly weaponize newly disclosed bugs to deploy resource-intensive payloads like crypto miners.",
-        "Unified Endpoint Management platforms are high-value targets for attackers seeking broad infrastructure control."
+        "תקיפות מודרניות משתמשות בשירותי ענן לגיטימיים כדי להסוות תעבורת C2",
+        "כלים כמו GitDoor ו GraphDoor הופכים פלטפורמות כמו SharePoint ו GitHub לנשק",
+        "ניתוח לוגים דורש הבחנה בין פעילות פיתוח רגילה לבין תעבורת שליטה זדונה"
       ],
-      "linkedin_post": "כשחברת N-able נדרשת לתקן 17 חולשות במקביל בגרסת N-central אחת, ברור שתוקפים כבר מנצלות אותן בשטח להשתלת מטען.\nפלטפורמות ניהול קריטיות כמו UEM ו RMM הן יעדים מועדפים משום שהן שולטות על כל תחנות הקצה בארגון במקביל.\n1. ניצול כושל של הרשאות מוביל לביצוע פקודות מרחוק ולהרצת כורי מטבעות דיגיטליים על חשבון משאבי הלקוח.\n2. אנליסטים ב SOC צריכים לחפש חריגות בשימוש במעבדי תחנות הקצה ולא רק התראות אנטי וירוס סטנדרטיות.\n3. פער הזמן בין חשיפת חולשה לתיקון בפועל הוא חלון הזדמנויות שחובה לצמצם לאפס אוטומטית.\nתיקון מהיר של חולשות קריטיות הוא הגנה הכרחית אך לא מספקת מול תוקפים שמנצלים Zero Day בפועל.\nאיך אתם מתעדפים תיקוני אבטחה במערכות ניהול מרכזיות שאי אפשר לכבות לתחזוקה באמצע היום?\n#CyberSecurity #SOCAnalyst #BlueTeam #UEM #VulnerabilityManagement #InfoSec"
+      "linkedin_post": "כשתעבורת ה C2 של התוקפים עוברת ישירות דרך SharePoint ו GitHub, כל חוק ה Firewall הבסיסי שלכם הופך למיותר. במסגרת קמפיין Operation ShadowCloud שחשפה קספרסקי, זוהו הדלתות האחוריות GitDoor ו GraphDoor שמנצלות שירותים לגיטימיים לגמרי כדי לנהל תקשורת עם תוקפים. עבור אנליסטים ב SOC זו בעיה קריטית כי התקשורת נראית אמינה לחלוטין בעין רגילה. הנה מה שחייבים לבדוק בלוגים: ראשית, נפחי תעבורה מוזרים מול שירותי ענן מוכרים משרתים שאינם אמורים לתקשר איתם. שנית, דפוסי גישה עקביים של תהליכים חשודים ל Repositories או לקבצי ענן. שלישית, קיומם של סקריפטים המריצים פקודות מתוך תוכן שמורד מהרשת. ההגנה כאן לא מבוססת על חסימת הכתובת, אלא על זיהוי האנומליה בהתנהגות התהליך המקומי. אילו כלים ב SIEM שלכם מותאמים כיום לזהות שימוש לרעה ב APIs של שירותי ענן? #CyberSecurity #SOCAnalyst #BlueTeam #ThreatIntelligence #InfoSec #CloudSecurity"
     }
   ]
 }

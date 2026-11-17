@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-17T09:53:12.989499+00:00",
+  "generated_at": "2026-11-17T16:49:30.190062+00:00",
   "stats": {
-    "total_scanned": 77,
+    "total_scanned": 73,
     "matched_count": 16,
     "ai_count": 9,
     "cyber_count": 0,
@@ -111,8 +111,8 @@
         "Artificial Intelligence",
         "Llm"
       ],
-      "client_problem": "The client needs ML inference experts to design expert-level Terminal-Bench challenges and automated verification scripts.",
-      "proposal_draft": "I can help build and containerize these evaluation tasks using vLLM and Python-based assertions. We can write automated checks that reliably validate agent execution in isolated shell environments. Are you using Docker or custom VMs for the benchmark execution sandboxes?\nBest,\nRoee"
+      "client_problem": "Overview We are building a benchmark that tests how well AI agents handle real expert work in a terminal. We are hiring ML inference and serving experts to turn real, paid tasks from their jobs into expert-level Terminal",
+      "proposal_draft": "Hi,\n\nI read the brief for ML Inference Engineer â Terminal-Bench Task Designer (vLLM / SGLang / TensorRT-LLM) (Toptal). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent, Artificial Intelligence systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137571",
@@ -132,8 +132,8 @@
         "Workflow",
         "Mcp"
       ],
-      "client_problem": "The client needs senior engineers to own product development and DATEV integrations with external software and AI applications.",
-      "proposal_draft": "I build custom automation pipelines and integrations using Python and n8n to connect legacy financial platforms like DATEV. We can set up clean API wrappers and monitoring to ensure your data sync stays reliable. How are you currently handling error logging and auth token management for the DATEV endpoints?\nBest,\nRoee"
+      "client_problem": "Klardaten connects DATEV with other software and AI applications. Weâre hiring 1â2 senior engineers to own product development, DATEV integrations and automation. Based in the EU Â· Remote or Berlin Â· Full time Â· P",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior Software Engineer (Klardaten). I design and build custom dashboards, clean web interfaces, and Ai, Ai App, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137410",
@@ -152,8 +152,8 @@
         "Workflow",
         "Prompt"
       ],
-      "client_problem": "The client needs a frontend engineer to build proactive, AI-native applications for long-running workflows without complex prompting.",
-      "proposal_draft": "I build responsive Next.js interfaces and interactive dashboards tailored for asynchronous workflows. We can use Tailwind and React state management to keep background automation status clear and responsive. What backend queue or event stream are you using to track long-running agent tasks?\nBest,\nRoee"
+      "client_problem": "About ActAI There are over 5 billion users using basic applications today such email, notes, tasks, calendar and they're not AI-native. Our mission is to build proactive applications for anyone in the world, who are not",
+      "proposal_draft": "Hi,\n\nI read the brief for Frontend Engineer (Bjak). I design and build custom dashboards, clean web interfaces, and Ai, Chatbot, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-1680495",
@@ -172,8 +172,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs a remote office assistant to handle administrative, bookkeeping, billing, and internal operations tasks.",
-      "proposal_draft": "I can help set up internal reporting dashboards and streamline administrative data entry using automated Python workflows. We can organize your billing and tracking sheets to reduce manual overhead. What specific tools are you currently using for invoicing and bookkeeping?\nBest,\nRoee"
+      "client_problem": "Coalition Technologies is seeking a reliable, detail-oriented, and highly organized Remote Office Assistant to support administrative, bookkeeping, billing, reporting, data entry, and internal operations tasks. This role",
+      "proposal_draft": "Hi,\n\nI read the brief for Remote Office Assistant (Coalition Technologies). I design and build custom dashboards, clean web interfaces, and Frontend, Responsive, Shopify systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-2091137",
@@ -193,8 +193,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs senior data and full-stack engineers to build data processing pipelines and analytics features.",
-      "proposal_draft": "I build robust data ingestion pipelines and interactive analytics dashboards using Python, React, and SQL. We can structure your data flows to ensure clean aggregation and fast querying. What database and data warehouse setup are you currently targeting?\nBest,\nRoee"
+      "client_problem": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engin",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior Data Engineer (Lemon.io). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-2091136",
@@ -214,8 +214,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs a senior React full-stack developer to build scalable web applications and user interfaces.",
-      "proposal_draft": "I develop high-performance React and Next.js applications with clean state management and modern UI components. We can ensure the frontend communicates seamlessly with your backend services and APIs. What component library or styling system is your team currently standardizing on?\nBest,\nRoee"
+      "client_problem": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engin",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior React Full-stack Developer (Lemon.io). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-2091165",
@@ -235,8 +235,8 @@
         "Frontend",
         "Web App"
       ],
-      "client_problem": "The client needs a pragmatic full-stack developer to build and scale B2B products for mental health and clinical research.",
-      "proposal_draft": "I build secure full-stack applications using React, Node, and Python with a strong focus on data privacy. We can implement strict access controls and audit logging suitable for sensitive clinical environments. Are you hosting these services on AWS or GCP, and what compliance standards apply?\nBest,\nRoee"
+      "client_problem": "We’re looking for a pragmatic, security-minded Full-Stack Developer to help build and scale Fluence’s B2B products used by clinicians, researchers, and organizations in psychedelic-assisted therapy and mental health. You",
+      "proposal_draft": "Hi,\n\nI read the brief for Full-Stack Developer (Fluence International, Inc.). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-2091135",
@@ -256,8 +256,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs a senior backend developer to support cloud infrastructure for open-source AI model inference and GPU clusters.",
-      "proposal_draft": "I build scalable backend services and API wrappers in Python to handle high-throughput workloads and inference endpoints. We can set up monitoring dashboards to track resource usage across your GPU clusters. Are you orchestrating your model deployments with Kubernetes or Docker Swarm?\nBest,\nRoee"
+      "client_problem": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engin",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior Back-end Developer (Lemon.io). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "upwork-live-2120849319729993210",
@@ -317,8 +317,8 @@
         "Ai Tool",
         "Mcp"
       ],
-      "client_problem": "The client needs a software engineer to build AI tooling and integrations for the Postgres and vector search platform.",
-      "proposal_draft": "I build custom AI agents and automation workflows that integrate tightly with PostgreSQL, Edge Functions, and vector search. We can create clean wrapper libraries that make it simple for developers to query and orchestrate data. Are you focusing the initial tooling on Python SDKs or TypeScript wrappers?\nBest,\nRoee"
+      "client_problem": "About Supabase Supabase is the Postgres development platform, built by developers for developers. We provide a complete backend solution including Database, Auth, Storage, Edge Functions, Realtime, and Vector Search. All",
+      "proposal_draft": "Hi,\n\nI read the brief for Software Engineer AI Tooling (Supabase). I design and build custom dashboards, clean web interfaces, and Ai, Ai Tool, Mcp systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137608",
@@ -336,8 +336,8 @@
         "Ai Agent",
         "Workflow"
       ],
-      "client_problem": "The client needs a scientific account executive to help scale an automated lab platform that runs AI agent biology experiments.",
-      "proposal_draft": "I build custom automation pipelines and data dashboards that bridge software logic with external execution environments. We can set up structured event tracking to monitor automated experimental loops effectively. What data formats do your automated lab instruments output for API ingestion?\nBest,\nRoee"
+      "client_problem": "Adaptyv is building an automated lab that lets AI agents run biology experiments. We're entering the era of agentic science where AI models can now design novel proteins, propose hypotheses, and iterate on experimental r",
+      "proposal_draft": "Hi,\n\nI read the brief for Scientific Account Executive (Adaptyv). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     }
   ]
 }
