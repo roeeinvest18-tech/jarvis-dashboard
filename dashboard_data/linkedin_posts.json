@@ -1,58 +1,42 @@
 {
-  "generated_at": "2026-11-17T16:50:03.252775+00:00",
+  "generated_at": "2026-11-17T23:20:23.792684+00:00",
   "stats": {
-    "total_drafted": 3,
-    "cyber_count": 3,
+    "total_drafted": 2,
+    "cyber_count": 2,
     "ai_count": 0
   },
   "posts": [
     {
-      "id": "post-1-1794934203",
-      "topic": "עקיפת SHA Pinning ב GitHub Actions",
+      "id": "post-1-1794957623",
+      "topic": "Telegram Android Widgets RCE",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/hackers-found-way-around-github-sha.html",
+      "source_url": "https://thehackernews.com/2026/11/researchers-claim-two-rce-exploits-that.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-17 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "מדווח על ידי The Hacker News בהתבסס על אירועי תקיפה אמיתיים בשרשרת האספקה ותקיפת Trivy",
+      "credibility_rationale": "Meticulously documented research from NebuSec detailing a zero-day exploit mechanism against sandboxing assumptions.",
       "key_takeaways": [
-        "הסתמכות עיוורת על SHA Pinning כבר אינה ערובה מוחלטת לבטיחות ב CI/CD",
-        "תוקפים מצליחים לזייף מקור קוד כך שייראה כאילו הגיע מכלים רשמיים כמו checkout",
-        "נדרש ניטור מתקדם של אירועי חריגה בצינורות פיתוח בתוך ה SOC"
+        "Widgets can execute JavaScript outside intended isolation boundaries.",
+        "Attackers leverage bot-sent interactive elements for code execution.",
+        "Sandboxing on mobile apps often fails at the UI and component bridge."
       ],
-      "linkedin_post": "כשאנשי DevOps סומכים בעיניים עצומות על SHA Pinning כדי לאבטח את ה CI/CD, תוקפים כבר מצאו את הדרך לעקוף את המנגנון. מתקפות שרשרת אספקה על פלטפורמות כמו Trivy מראות שההנחה שהקוד בטוח רק כי הוא מוצמד ל Hash מדויק כבר פסה מהעולם. בתקיפות האחרונות, קוד זדוני הושתל באופן שמתחזה לכלי הרשמי של GitHub בצינורות הפיתוח. הנה מה שצריך להכניס למשמרת ב SOC: ראשית, בדיקה קפדנית של תצורות Actions ב GitHub. שנית, ניטור קבוע של קריאות רשת יוצאות משרתי הבנייה. שלישית, בחינה האם ה Artifacts שנבנים אכן תואמים למקור המקורי. ההנחה ששליטה ב Repository שקולה לשליטה ב Build כבר לא מחזיקה מים בשטח. איך אתם מנטרים את צינורות ה CI/CD שלכם ב SOC מפני זיופי קוד מתקדמים? #CyberSecurity #SOCAnalyst #BlueTeam #DevSecOps #InfoSec #SupplyChainSecurity"
+      "linkedin_post": "כל הגנה שמסתמכת על סנדבוקס בתוך אפליקציית מובייל היא עניין זמני עד שיגיע הווידג'ט הבא שיעקוף אותה.\nחברת NebuSec חשפה איך וידג'ט זדוני ב Telegram מצליח לעקוף את פילטר האבטחה ולהריץ JavaScript מחוץ למעטפת באפליקציית אנדרואיד.\n1. הווידג'טים הם רכיבים אינטראקטיביים שבוטים שולחים בצ'אט.\n2. הקוד רץ ישירות במכשיר הקורא בלי התערבות נוספת מצד המשתמש.\n3. הפער נוצר כאשר מנגנון הניקוד והבדיקה מתמקד בהודעות טקסט ומזניח את הלוגיקה של ה UI.\nניתוח לוגים של אירועים כאלה דורש מעקב מדויק אחרי התנהגות תהליכים ולא רק בדיקת חתימות.\nאיך אתם מזהים פעילות חריגה של סקריפטים בתוך אפליקציות מובייל בארגון שלכם?\n#CyberSecurity #SOCAnalyst #BlueTeam #AppSecurity #ThreatIntelligence #InfoSec"
     },
     {
-      "id": "post-2-1794934203",
-      "topic": "פרצת הקלטה באייפון למרות חסימת הרשאת מיקרופון",
+      "id": "post-2-1794957623",
+      "topic": "Trigram Campaign Targeting Devs",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/researchers-detail-iphone-flaw-that-let.html",
+      "source_url": "https://thehackernews.com/2026/11/oracle-to-patch-11-java-flaws-today-as.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-17 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "מבוסס על מחקר טכני שפורסם על ידי חוקרים מ Meta Red Team X ותיקון רשמי של אפל",
+      "credibility_rationale": "Comprehensive technical analysis by Stormshield covering supply chain threats directed at AI and blockchain developers.",
       "key_takeaways": [
-        "אישור משתמש ברמת מערכת ההפעלה לא מבטיח בידוד מוחלט של חומרת השמע",
-        "חולשות בשירותי הא디오 של אפל אפשרו מעקף ישיר של דחיית המיקרופון",
-        "אנליסטים צריכים להכיר מנגנוני EDR וניטור למכשירים ניידים בארגון"
+        "Campaign targets AI and blockchain developers using cloned brand repositories.",
+        "Infostealers are packaged as standard development tools or libraries.",
+        "Engineers tend to lower their guard when installing tools related to their tech stack."
       ],
-      "linkedin_post": "לחיצה על Don't Allow להרשאת מיקרופון במכשיר נייד כבר לא מבטיחה שהשיחות שלכם מוגנות. מחקר חדש שפרסמו חוקרים מ Meta חושף חולשה חמורה בשירותי האודיו של אפל שאיפשרה לאפליקציות להקליט סאונד למרות סירוב מפורש של המשתמש. התקיפה הזו מוכיחה שההפרדה בין הרשאת UI לבין הלוגיקה פנימית של ה API ברמת מערכת ההפעלה עדיין פרוצה. ברמת הניתוח, חשוב להבין: ראשית, תוקפים מנצלים פערים בלוגיקת ה Audio Service של המכשיר. שנית, אין להסתמך רק על חיוויי ממשק משתמש במכשירים ניידים ארגוניים. שלישית, נדרש ניטור התנהגותי של צריכת משאבי חומרה ברקע. המיתוס לפיו הרשאות מערכת סוגרות את כל פתחי הריגול במובייל התנפץ סופית. האם ארגונים שבהם אתם עובדים ממשיכים לאפשר שימוש במכשירים ניידים בלי בקרת EDR מתקדמת? #CyberSecurity #MobileSecurity #BlueTeam #SOCAnalyst #InfoSec #AppleSecurity"
-    },
-    {
-      "id": "post-3-1794934203",
-      "topic": "שימוש בלגיטימי ב GitHub ו SharePoint כערוצי C2 בדלתות אחוריות",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/new-gitdoor-and-graphdoor-backdoors.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-17 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "מדווח על ידי קספרסקי במסגרת מעקב אחרי קמפיין Operation ShadowCloud המכוון למגזרי ממשל",
-      "key_takeaways": [
-        "תקיפות מודרניות משתמשות בשירותי ענן לגיטימיים כדי להסוות תעבורת C2",
-        "כלים כמו GitDoor ו GraphDoor הופכים פלטפורמות כמו SharePoint ו GitHub לנשק",
-        "ניתוח לוגים דורש הבחנה בין פעילות פיתוח רגילה לבין תעבורת שליטה זדונה"
-      ],
-      "linkedin_post": "כשתעבורת ה C2 של התוקפים עוברת ישירות דרך SharePoint ו GitHub, כל חוק ה Firewall הבסיסי שלכם הופך למיותר. במסגרת קמפיין Operation ShadowCloud שחשפה קספרסקי, זוהו הדלתות האחוריות GitDoor ו GraphDoor שמנצלות שירותים לגיטימיים לגמרי כדי לנהל תקשורת עם תוקפים. עבור אנליסטים ב SOC זו בעיה קריטית כי התקשורת נראית אמינה לחלוטין בעין רגילה. הנה מה שחייבים לבדוק בלוגים: ראשית, נפחי תעבורה מוזרים מול שירותי ענן מוכרים משרתים שאינם אמורים לתקשר איתם. שנית, דפוסי גישה עקביים של תהליכים חשודים ל Repositories או לקבצי ענן. שלישית, קיומם של סקריפטים המריצים פקודות מתוך תוכן שמורד מהרשת. ההגנה כאן לא מבוססת על חסימת הכתובת, אלא על זיהוי האנומליה בהתנהגות התהליך המקומי. אילו כלים ב SIEM שלכם מותאמים כיום לזהות שימוש לרעה ב APIs של שירותי ענן? #CyberSecurity #SOCAnalyst #BlueTeam #ThreatIntelligence #InfoSec #CloudSecurity"
+      "linkedin_post": "המפתח הממוצע בודק את הקוד של הסוכן שהוא בונה, אבל מתקין כל חבילה חיצונית בלי להעיף מבט על ה hash.\nקמפיין Trigram החדש מתמקד במפתחי AI ובלוקצ'יין, ומזייף כחמישים מותגים שונים כדי להפיל אותם בפח עם Infostealers.\n1. התוקפים מנצלים את הרצון של מפתחים לאמץ כלים חדשים ומהירים לפיתוח.\n2. קבצים זדוניים מוסווים כעדכונים או כתוספים לתיקיות עבודה נפוצות.\n3. ברגע שהכלי רץ מקומית, כל נתוני ההתחברות והמפתחות של הסוכנים נשאבים החוצה.\nשמירה על סביבת פיתוח נקייה מחייבת פיקוח הדוק על התקנות חיצוניות גם בסביבות R&D.\nהאם צוותי ה SOC אצלכם מנטרים התקנות חריגות של ספריות בסביבות פיתוח AI?\n#CyberSecurity #AIgents #DevSecOps #Infostealer #ThreatHunting #CodeSecurity"
     }
   ]
 }
