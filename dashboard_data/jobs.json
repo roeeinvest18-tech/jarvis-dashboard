@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-16T23:58:42.483539+00:00",
+  "generated_at": "2026-11-17T09:53:12.989499+00:00",
   "stats": {
-    "total_scanned": 73,
+    "total_scanned": 77,
     "matched_count": 16,
-    "ai_count": 8,
+    "ai_count": 9,
     "cyber_count": 0,
     "scraping_count": 2,
-    "web_count": 6
+    "web_count": 5
   },
   "jobs": [
     {
@@ -111,28 +111,8 @@
         "Artificial Intelligence",
         "Llm"
       ],
-      "client_problem": "The client needs ML inference experts to design expert-level Terminal-Bench challenges with working solutions and automated checks using vLLM or SGLang.",
-      "proposal_draft": "I build and test LLM inference pipelines using vLLM and Python-based evaluation harnesses. We can set up the environment sandbox and automated verification checks quickly. Are you targeting specific GPU constraints for these benchmark tasks?\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137673",
-      "title": "Tech lead (Ringbook Limited)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remoteOK.com/remote-jobs/remote-tech-lead-ringbook-limited-1137673",
-      "posted_at": "2026-11-03",
-      "budget": "$40,000-$50,000/yr",
-      "budget_type": "remote",
-      "budget_val": 50000,
-      "match_score": 95,
-      "skills": [
-        "React",
-        "Frontend",
-        "Web App",
-        "Responsive"
-      ],
-      "client_problem": "The client needs a tech lead to architect scalable web features, integrate AI capabilities, and build responsive frontend interfaces.",
-      "proposal_draft": "I design full-stack web applications and integrate AI workflows using Next.js and Python backend APIs. I can help map out the system architecture and build clean interfaces. Which database are you currently using for your data pipelines?\nBest,\nRoee"
+      "client_problem": "The client needs ML inference experts to design expert-level Terminal-Bench challenges and automated verification scripts.",
+      "proposal_draft": "I can help build and containerize these evaluation tasks using vLLM and Python-based assertions. We can write automated checks that reliably validate agent execution in isolated shell environments. Are you using Docker or custom VMs for the benchmark execution sandboxes?\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137571",
@@ -152,8 +132,8 @@
         "Workflow",
         "Mcp"
       ],
-      "client_problem": "The client needs a senior engineer to own product development and build software integrations connecting DATEV with AI applications.",
-      "proposal_draft": "I build custom API integrations and automation workflows using Python and n8n to connect external platforms. I can help streamline the DATEV data sync process from end to end. What specific data objects need to be synchronized first?\nBest,\nRoee"
+      "client_problem": "The client needs senior engineers to own product development and DATEV integrations with external software and AI applications.",
+      "proposal_draft": "I build custom automation pipelines and integrations using Python and n8n to connect legacy financial platforms like DATEV. We can set up clean API wrappers and monitoring to ensure your data sync stays reliable. How are you currently handling error logging and auth token management for the DATEV endpoints?\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137410",
@@ -172,8 +152,8 @@
         "Workflow",
         "Prompt"
       ],
-      "client_problem": "The client needs a frontend engineer to build proactive, AI-native applications that simplify long-running workflows with minimal prompting.",
-      "proposal_draft": "I build responsive interfaces and AI-powered applications using React and Next.js. We can structure the state management to handle persistent user workflows smoothly. How are you currently managing conversation history states?\nBest,\nRoee"
+      "client_problem": "The client needs a frontend engineer to build proactive, AI-native applications for long-running workflows without complex prompting.",
+      "proposal_draft": "I build responsive Next.js interfaces and interactive dashboards tailored for asynchronous workflows. We can use Tailwind and React state management to keep background automation status clear and responsive. What backend queue or event stream are you using to track long-running agent tasks?\nBest,\nRoee"
     },
     {
       "id": "remotive-1680495",
@@ -192,8 +172,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs an office assistant to handle administrative tasks, bookkeeping, billing, reporting, and data entry.",
-      "proposal_draft": "I am an organized developer who builds automated reporting dashboards and streamlined data entry workflows. I can set up custom scripts to minimize manual bookkeeping errors. What specific tools are you using for daily billing right now?\nBest,\nRoee"
+      "client_problem": "The client needs a remote office assistant to handle administrative, bookkeeping, billing, and internal operations tasks.",
+      "proposal_draft": "I can help set up internal reporting dashboards and streamline administrative data entry using automated Python workflows. We can organize your billing and tracking sheets to reduce manual overhead. What specific tools are you currently using for invoicing and bookkeeping?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091137",
@@ -213,8 +193,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs experienced senior data engineers to join growing tech teams on a contract basis.",
-      "proposal_draft": "I build robust data pipelines and analytics dashboards using Python and SQL. I can integrate smoothly into existing engineering teams to ship features quickly. What cloud infrastructure does your team primarily rely on?\nBest,\nRoee"
+      "client_problem": "The client needs senior data and full-stack engineers to build data processing pipelines and analytics features.",
+      "proposal_draft": "I build robust data ingestion pipelines and interactive analytics dashboards using Python, React, and SQL. We can structure your data flows to ensure clean aggregation and fast querying. What database and data warehouse setup are you currently targeting?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091136",
@@ -234,8 +214,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs senior React full-stack developers to join scaling tech companies for contract roles.",
-      "proposal_draft": "I build responsive web apps and dashboards using React, TypeScript, and Node.js. I can jump into your codebase and start shipping production features immediately. Are your current frontend services built with Next.js or Vite?\nBest,\nRoee"
+      "client_problem": "The client needs a senior React full-stack developer to build scalable web applications and user interfaces.",
+      "proposal_draft": "I develop high-performance React and Next.js applications with clean state management and modern UI components. We can ensure the frontend communicates seamlessly with your backend services and APIs. What component library or styling system is your team currently standardizing on?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091165",
@@ -255,8 +235,8 @@
         "Frontend",
         "Web App"
       ],
-      "client_problem": "The client needs a full-stack developer to build and secure B2B mental health applications.",
-      "proposal_draft": "I develop secure full-stack web applications with robust backend APIs and clean React frontends. I focus on clean code and reliable documentation for sensitive data platforms. Are you using PostgreSQL for patient data storage?\nBest,\nRoee"
+      "client_problem": "The client needs a pragmatic full-stack developer to build and scale B2B products for mental health and clinical research.",
+      "proposal_draft": "I build secure full-stack applications using React, Node, and Python with a strong focus on data privacy. We can implement strict access controls and audit logging suitable for sensitive clinical environments. Are you hosting these services on AWS or GCP, and what compliance standards apply?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091135",
@@ -276,8 +256,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs a senior backend developer to support an AI-native cloud platform running open-source model inference.",
-      "proposal_draft": "I build scalable backend services and API architectures in Python for AI model workflows. I can help optimize your server fleet performance and inference routing. Are you using Docker and Kubernetes for your GPU cluster management?\nBest,\nRoee"
+      "client_problem": "The client needs a senior backend developer to support cloud infrastructure for open-source AI model inference and GPU clusters.",
+      "proposal_draft": "I build scalable backend services and API wrappers in Python to handle high-throughput workloads and inference endpoints. We can set up monitoring dashboards to track resource usage across your GPU clusters. Are you orchestrating your model deployments with Kubernetes or Docker Swarm?\nBest,\nRoee"
     },
     {
       "id": "upwork-live-2120849319729993210",
@@ -337,8 +317,27 @@
         "Ai Tool",
         "Mcp"
       ],
-      "client_problem": "The client needs a software engineer to build AI tooling and expand how developers use Supabase features like vector search and edge functions.",
-      "proposal_draft": "I build AI applications and agent workflows using Supabase, vector search, and edge functions. I can help develop clean developer tools that integrate natively with PostgreSQL. Are you planning to expose these tools via an SDK or REST API?\nBest,\nRoee"
+      "client_problem": "The client needs a software engineer to build AI tooling and integrations for the Postgres and vector search platform.",
+      "proposal_draft": "I build custom AI agents and automation workflows that integrate tightly with PostgreSQL, Edge Functions, and vector search. We can create clean wrapper libraries that make it simple for developers to query and orchestrate data. Are you focusing the initial tooling on Python SDKs or TypeScript wrappers?\nBest,\nRoee"
+    },
+    {
+      "id": "remoteok-1137608",
+      "title": "Scientific Account Executive (Adaptyv)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-scientific-account-executive-adaptyv-1137608",
+      "posted_at": "2026-10-31",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Agent",
+        "Workflow"
+      ],
+      "client_problem": "The client needs a scientific account executive to help scale an automated lab platform that runs AI agent biology experiments.",
+      "proposal_draft": "I build custom automation pipelines and data dashboards that bridge software logic with external execution environments. We can set up structured event tracking to monitor automated experimental loops effectively. What data formats do your automated lab instruments output for API ingestion?\nBest,\nRoee"
     }
   ]
 }
