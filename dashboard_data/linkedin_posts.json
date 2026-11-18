@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T16:21:50.835685+00:00",
+  "generated_at": "2026-11-18T22:50:36.063000+00:00",
   "stats": {
     "total_drafted": 3,
     "cyber_count": 3,
@@ -7,52 +7,52 @@
   },
   "posts": [
     {
-      "id": "post-1-1795018910",
-      "topic": "EggStreme Malware Evasion Techniques",
+      "id": "post-1-1795042236",
+      "topic": "NGINX HTTP/2 RCE Flaw",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/eggstreme-hackers-rebuild-malware-with.html",
+      "source_url": "https://thehackernews.com/2026/11/10-year-old-nginx-http2-flaw-lets.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-18 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Reported by Bitdefender and detailed via The Hacker News based on active threat actor tracking in government environments.",
+      "credibility_rationale": "Reported by The Hacker News with specific CVE details and vendor patch versions.",
       "key_takeaways": [
-        "Attackers rotate hashes and recompile malware constantly to bypass static detection.",
-        "Relying solely on file hashes in SIEM alerts is a losing game for SOC Tier 1 analysts.",
-        "Behavioral anomaly detection remains the primary defense against silent variants."
+        "Vulnerability exists in open-source NGINX versions since 1.9.5.",
+        "Allows unauthenticated remote code execution via HTTP/2 support.",
+        "Patched versions 1.31.9 and 1.30.7 are now available."
       ],
-      "linkedin_post": "אם ה Alert שלכם ב SOC עדיין מבוסס על Hash מדויק, התוקפים כבר עקפו אתכם בסיבוב הבא. קבוצות APT ממשיכות לשדרג את כלי הנוזקה כמו EggStreme ולשנות חתימות בכל קומפילציה מחדש. 1. שינוי קבוע של חתימות קבצים הופך חוקי Static Signature לחסרי תועלת לחלוטין מול תקיפות ממוקדות. 2. ניתוח התנהגות ברמת ה Endpoint מגלה חריגות שהשקט של הנוזקה לא מצליח להסתיר. 3. המעבר מלוגים בודדים לתמונת מצב רחבה ב SIEM הוא ההבדל בין זיהוי בזמן אמת לפספוס מלא. חיפוש חתימות סטטיות מתים בשטח ועוברים כולנו לזיהוי מבוסס התנהגות בלבד. איך צוות ה SOC שלכם מתמודד עם נוזקות שמשנות את ה Hash שלהן כל יום?\n#CyberSecurity #SOCAnalyst #BlueTeam #MalwareAnalysis #ThreatIntelligence #InfoSec"
+      "linkedin_post": "חולשה בת עשור שיושבת בלב שרתי NGINX מוכיחה שקוד ישן ממשיך להיות נקודת התעוררות קריטית לצוותי ההגנה. חשפנו לאחרונה את CVE-2026-123007, חולשת קוד מרוחק בשרתי NGINX המופעלים עם פרוטוקול HTTP/2 ללא אימות. 1. הפגיעות קיימת כבר מגרסה 1.9.5 ששוחררה ב 2015 ומאפשרת תקיפה ישירה. 2. ברמת הלוגים, תקיפה כזו תיראה כבקשות חריגות המנצלות את פרסור הפרוטוקול בשרת. 3. עדכון לגרסאות 1.31.9 או 1.30.7 הוא הפתרון המיידי והיחיד שסוגר את הפרצה. ניתוח תעבורת HTTP/2 בשרתי הפרוקסי שלכם הוא חובה לפני שהתוקפים מנצלים את זה. איזה סימנים אתם מחפשים בלוגים של NGINX כשאתם מנתחים אנומליות ברשת? #CyberSecurity #SOCAnalyst #BlueTeam #NGINX #InfoSec #VulnerabilityManagement"
     },
     {
-      "id": "post-2-1795018910",
-      "topic": "TPM Lockout Bypass on Windows Hello and BitLocker",
+      "id": "post-2-1795042236",
+      "topic": "F5 BIG-IP Traffic Crash and RCE Flaws",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/flash-chip-attack-bypasses-tpm-lockout.html",
+      "source_url": "https://thehackernews.com/2026/11/f5-warns-6-critical-big-ip-flaws-can.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-18 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Based on hardware security research from Technische Universität Berlin regarding TPM lockout vulnerabilities on AMD and Intel PCs.",
+      "credibility_rationale": "Official vendor warning regarding critical traffic management microkernel vulnerabilities.",
       "key_takeaways": [
-        "Hardware-level attacks can reset TPM lockouts and expose short PIN codes rapidly.",
-        "Physical security of enterprise endpoints is just as critical as perimeter defense.",
-        "Enforcing long and complex authentication PINs mitigates quick brute force attempts."
+        "Six critical flaws in F5 BIG-IP affecting traffic handling.",
+        "Can crash the Traffic Management Microkernel without authentication.",
+        "Requires specific configurations like particular iRules or APM policies."
       ],
-      "linkedin_post": "הגנת BitLocker שנראית חסינה על המסך שווה כקליפת השום אם מישהו פתח את המארז הפיזי של המחשב. חוקרים חשפו דרך לעקוף את נעילת ה TPM ולאפשר ניחוש מהיר של PIN קצר. 1. גישה פיזית לשבב מאפשרת לאפס את מנגנוני ההגנה של Windows Hello ושל כוננים מוצפנים. 2. שימוש בסיסמאות קצרות של ארבע ספרות חושף את התחנות לפריצה בתוך ימים בודדים. 3. אבטחת החומרה דורשת מדיניות קשיחה שאינה מתפשרת על אורך ומורכבות האימות. הגנה אמיתית מחייבת התייחסות לאיומי חומרה פיזיים ולא רק להגנות תוכנה מרוחקות. איזה משקל אתם נותנים לאבטחה פיזית של תחנות עבודה בארגון שלכם?\n#CyberSecurity #BlueTeam #EndpointSecurity #HardwareSecurity #BitLocker #InfoSec"
+      "linkedin_post": "תקיפה שלא דורשת הרשאות ויכולה להשבית את כל תעבורת הרשת בארגון ברגע אחד היא סיוט של כל מנהל תשתיות. חברת F5 פרסמה אזהרה על שש חולצות קריטיות ב מערכות BIG-IP שפוגעות ישירות ב Traffic Management Microkernel. 1. ניצול הפרצות אינו דורש התחברות ומאפשר קריסה פתאומית של התעבורה עד לאתחול רכיב הליבה. 2. הפגיעות מותנית בקונפיגורציות ספציפיות כמו שימוש בפקודות מסוימות ב iRules או סוכנים ב מדיניות APM. 3. ניטור התנהגות ה TMM ובדיקת חוקיות ה iRules בארגון הם קריטיים למניעת השבתה. זיהוי מוקדם של קונפיגורציות שגויות בציוד תקשורת קריטי מונע אסונות בייצור. איך צוות ה SOC שלכם מתממשק עם צוותי התשתיות לזיהוי חולצות קונפיגורציה בציוד קצה? #CyberSecurity #SOCAnalyst #BlueTeam #NetworkSecurity #F5BIGIP #InfoSec"
     },
     {
-      "id": "post-3-1795018910",
-      "topic": "AI Pentesting Vendor Evaluation and Automation Gaps",
+      "id": "post-3-1795042236",
+      "topic": "Apache Roller Deserialization RCE",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/ai-pentesting-checklist-for-web-apps-15.html",
+      "source_url": "https://thehackernews.com/2026/11/critical-apache-roller-rce-flaw-under.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-18 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "Sourced from analysis of recent vulnerability disclosure timelines and automated testing platform limitations.",
+      "credibility_score": "10/10",
+      "credibility_rationale": "High severity Apache Foundation advisory indicating active exploitation in the wild.",
       "key_takeaways": [
-        "Most AI pentesting tools look impressive in demos but fail in complex logged-in application flows.",
-        "Exploitation velocity by attackers often outpaces traditional patching cycles.",
-        "Evaluating AI agents requires strict production safety and deep code coverage checks."
+        "Tracked as CVE-2026-129448 with a CVSS score of 9.8.",
+        "Unauthenticated deserialization vulnerability in the XML-RPC endpoint.",
+        "Confirmed active exploitation in the wild requiring immediate patching."
       ],
-      "linkedin_post": "סוכן AI שמבטיח לבדוק את כל האפליקציה שלכם בדקה נכשל בדיוק איפה שהמשתמש האמיתי מתחיל לעבוד. עם קצב תקיפה שמתחיל עוד לפני שהפאץ יוצא לאור, ספקי כלי אוטומציה אינם שווים זה לזה. 1. הדגמות נוצצות מסתירות פערים משמעותיים ביכולת לנווט בתוך תהליכי Login מורכבים. 2. סוכן אוטומטי חייב להוכיח כיסוי אמיתי ולא רק סריקת פנימית בסיסית ושטחית. 3. בטיחות בסביבת Production היא קו אדום שמונע מסוכנים אגרסיביים מדי להרוס נתונים. בחירת סוכן AI מחייבת מבחן תוצאה בשטח ולא רק מצגות שיווקיות מלוטשות. באיזה מדד אתם משתמשים כדי לאמת את היכולות של כלי AI אוטומטיים לאבטחת יישומים?\n#AIAutomation #AIAgents #WebSecurity #Pentesting #DevSecOps #InfoSec"
+      "linkedin_post": "כאשר חולצת Deserialization עם ציון חומרה מקסימלי מתחילה להיות מנוצלת בשטח, אין מקום להססות בניהול טלאים. פלטפורמת הבלוגינג Apache Roller סובלת מחולצת RCE קריטית, המכונה CVE-2026-129448 עם ציון 9.8. 1. מדובר במימוש לקוי של פענוח אובייקטים לא מהימנים בנקודת הקצה XML-RPC ללא שום צורך באימות. 2. תוקפים כבר מנצלים את הפרצה באופן פעיל כדי להריץ פקודות מרחוק על שרתים פגיעים. 3. אנליסטים חייבים לחפש בקשות XML-RPC חשודות שמזריקות קוד זדוני דרך סביבת Java. תגובה מהירה להתראות WAF על נקודות קצה ישנות היא ההבדל בין פריצה לשליטה אירוע. אילו חוקי SIEM אתם כותבים כדי לזהות ניסיונות Deserialization בסביבת Web Applications? #CyberSecurity #SOCAnalyst #BlueTeam #JavaSecurity #Vulnerability #InfoSec"
     }
   ]
 }
