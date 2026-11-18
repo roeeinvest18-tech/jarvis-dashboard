@@ -1,123 +1,180 @@
 {
   "week": "2026-W47",
   "week_num": 47,
-  "date": "2026-11-17",
+  "date": "2026-11-18",
   "stats": {
-    "raw": 757,
-    "analyzed": 91,
-    "pains": 10,
-    "sources": 5,
+    "raw": 730,
+    "analyzed": 84,
+    "pains": 12,
+    "sources": 6,
     "by_source": {
       "Lobste.rs": 2,
       "GitHub": 20,
       "Hacker News (Ask HN)": 3,
-      "Google Play": 7,
-      "Hacker News": 59
+      "Dev.to": 3,
+      "Google Play": 8,
+      "Hacker News": 48
     },
     "by_track": {
       "saas": 8,
       "lowtech": 0
     }
   },
-  "summary_he": "ניתחנו את נקודות הכאב וזיהינו הזדמנויות עסקיות ממוקדות בתחום ה-B2B והפרוסומר עבור יזם יחיד. הדגש הוא על פתרונות אוטומציה מבוססי AI שפתרונות קיימים בשוק מחמיצים או מתמחרים גבוה מדי. כל האשכולות נבחרו בקפידה על סמך פוטנציאל מוניטיזציה ויכולת הקמה מהירה.",
-  "summary_en": "We analyzed the pain points and identified targeted B2B and prosumer business opportunities for a solo builder. The focus is on AI automation solutions that existing market players miss or overprice. All clusters were carefully selected based on monetization potential and fast MVP feasibility.",
+  "summary_he": "ניתחתי את נקודות הכאב וסיננתי את אלו שרלוונטיות ליזם יחיד לבניית מוצר תוכנה כשירות (SaaS) בתשלום גבוה. האשכולות שנבחרו מתמקדים בבעיות עסקיות קריטיות כמו אבטחת מידע מקומית, אוטומציה של משמרות והרשאות גישה. כל אשכול כולל ניתוח תחרותי, אסטרטגיית הפצה וארכיטקטורה מהירה ליישום.",
+  "summary_en": "Analyzed pain points and filtered out consumer complaints to highlight high-value B2B and prosumer SaaS opportunities for solo builders. The chosen clusters focus on critical workflows like local data redaction, shift coordination, and permission management. Each cluster provides competitive gaps, go-to-market tactics, and a fast AI tech stack.",
   "summary_lowtech_he": "",
   "summary_lowtech_en": "",
   "clusters": [
     {
-      "title_he": "אינטגרציית תמיכת לקוחות מבוססת הזמנות למערכות שליחויות",
-      "title_en": "Order-Linked Customer Support Chat for Logistics Apps",
-      "who_he": "מפעילי שירותי משלוחים, הובלות ופלטפורמות לוגיסטיקה מקומיות",
-      "who_en": "Delivery services, movers, and local logistics platform operators",
+      "title_he": "ניהול הרשאות ממוקד לסוכני אוטומציה ו-AI",
+      "title_en": "Fine-Grained Permission Proxies for AI Coding Agents",
+      "who_he": "מפתחים, צוותי הנדסה ומנהלי מערכות המשתמשים בסוכני AI וכלים אוטומטיים.",
+      "who_en": "Developers, engineering teams, and system administrators using autonomous AI coding agents.",
+      "member_indices": [
+        0,
+        5
+      ],
+      "best_quote_index": 5,
+      "quote_he": "חלק מהשירותים חסרים בקרת הרשאות מספקת, כך שכדי להעניק הרשאה לדברים שימושיים, אני חייב לאפשר גם דברים מסוכנים.",
+      "quote_en": "some services either don't have have suffiently fine control over permissions, so in order to grant permission to do useful things, I also have to allow it to do dangerous things, or I don't have a way to create a more limited access token at all.",
+      "category": "Tools & tech",
+      "intensity": 90,
+      "frequency": 80,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Standard OAuth Providers",
+          "gap_he": "מספקים גישת הכל-או-כלום (All-or-nothing) בלי יכולת סינון לפי פעולות ספציפיות או קריאות API מותרות.",
+          "gap_en": "Provide coarse all-or-nothing scopes without request-level policy interception."
+        },
+        {
+          "name": "Custom Reverse Proxies",
+          "gap_he": "דורשים תחזוקה ידנית אינסופית וכתיבת קוד מותאם אישית לכל פלטפורמה.",
+          "gap_en": "Require endless manual coding and maintenance for every individual API."
+        }
+      ],
+      "solution_he": "שכבת פרוקסי מאובטחת הממוקמת בין סוכן ה-AI לבין שירותי צד שלישי, ומסננת בקשות API לפי מדיניות הרשאות קפדנית המוגדרת מראש.",
+      "solution_en": "A secure API proxy layer sitting between autonomous AI agents and third-party services to enforce granular read/write policy guardrails.",
+      "pricing_he": "39$ לחודש למפתח או 199$ לצוות.",
+      "pricing_en": "$39/month per developer or $199/month for engineering teams.",
+      "first_customers_he": "פרסום בקהילות GitHub, Reddit (r/LocalLLaMA ו-r/programming) וקבוצות פיתוח.",
+      "first_customers_en": "Posting on Hacker News, r/LocalLLaMA, and GitHub communities building agentic workflows.",
+      "trend_keyword": "ai agent security proxy",
+      "ease_of_build": 75,
+      "mvp_he": "שירת פרוקסי ב-Node.js המיירט בקשות HTTP ומאמת אותן מול חוקי JSON Policy מוגדרים.",
+      "mvp_en": "A Node.js reverse proxy that intercepts API calls and validates payload contents against defined JSON access policies.",
+      "tech_stack_he": "TypeScript, Express.js, Redis, Docker",
+      "tech_stack_en": "TypeScript, Express.js, Redis, Docker",
+      "track": "saas",
+      "mentions": 2,
+      "engagement": 198,
+      "sources": [
+        "GitHub",
+        "Hacker News"
+      ],
+      "quote_original": "some services either don't have have suffiently fine control over permissions, so in order to grant permission to do useful things, I also have to allow it to do dangerous things, or I don't have a way to create a more limited access token at all.",
+      "quote_url": "https://news.ycombinator.com/item?id=50527667",
+      "quote_source": "Hacker News",
+      "score": 87,
+      "trend_change": 100,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "הסרת פרטים אישיים (PII) ממסמכים באופן מקומי ללא ענן",
+      "title_en": "Local PII Redaction for Sensitive Documents",
+      "who_he": "אנשי מקצוע מתחום המשפטים, הבריאות והפיננסים שנדרשים לנתח מסמכים רגישים עם כלי AI מבלי להפר חוקי פרטיות.",
+      "who_en": "Legal, healthcare, and finance professionals who need to analyze sensitive documents using AI without violating privacy regulations.",
       "member_indices": [
         3
       ],
       "best_quote_index": 3,
-      "quote_he": "כשתשתמשתי בצ'אט באפליקציה הם היה צריך שאחפש ידנית את מספר ההזמנה שלי, האפליקציה לא יכלה לקשר את ההודעה שלי להזמנה.",
-      "quote_en": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order.",
-      "category": "Logistics & delivery",
+      "quote_he": "עמית לעבודה ביקש ממני להסיר מידע רגיש לפני שליחתו ל-AI. בדקתי כלים אבל אף אחד לא זיהה נתונים אישיים אוטומטית בלי לשלוח אותם לענן.",
+      "quote_en": "A colleague asked me to redact some sensitive documents before sending them to AI for analysis. I considered Adobe and other tools, but none could detect personal data (PII) automatically without sending it to a large AI model.",
+      "category": "Operations & admin",
       "intensity": 85,
       "frequency": 90,
       "low_competition": 80,
       "competitors": [
         {
-          "name": "Intercom",
-          "gap_he": "יקר מאוד ודורש אינטגרציה מורכבת עם מערכות ניהול המשלוחים הייעודיות",
-          "gap_en": "Very expensive and requires complex custom integration with delivery management systems"
+          "name": "Adobe Acrobat Redaction",
+          "gap_he": "דורש עבודה ידנית מלאה ואינו כולל זיהוי חכם מבוסס AI מקומי.",
+          "gap_en": "Requires tedious manual masking and lacks local smart AI-driven detection."
         },
         {
-          "name": "Zendesk",
-          "gap_he": "לא מותאם לזרימת עבודה מהירה של לקוח קצה בנייד ודורש פתיחת טיקטים ידנית",
-          "gap_en": "Not tailored for fast mobile end-user workflows and requires manual ticket creation"
+          "name": "Cloud DLP Services",
+          "gap_he": "מחייב שליחת נתונים רגישים לשרתים חיצוניים, מה שמהווה בעיית אבטחה קשה.",
+          "gap_en": "Forces users to upload sensitive enterprise data to third-party cloud servers."
         }
       ],
-      "solution_he": "ווידג'ט צ'אט חכם מבוסס AI המוטמע באפליקציות משלוחים, שמזהה אוטומטי את המשתמש וההזמנה הפעילה ומספק תשובות מיידיות.",
-      "solution_en": "An AI-powered smart chat widget embedded in delivery apps that automatically resolves user identity and links queries to active orders.",
-      "pricing_he": "מנוי חודשי לפי נפח שיחות, החל מ-79 דולר לחודש.",
-      "pricing_en": "Monthly subscription based on chat volume, starting at $79/month.",
-      "first_customers_he": "פנייה ישירה לחברות שליחויות מקומיות קטנות שסובלות מדירוגים נמוכים בחנויות האפליקציות עקב שירות לקוחות איטי.",
-      "first_customers_en": "Direct outreach to small local courier companies suffering from low app store ratings due to slow support.",
-      "trend_keyword": "in app customer support chat delivery",
+      "solution_he": "אפליקציית דסקטופ מקומית המריצה מודל שפה קטן מקומי (Local LLM) לזיהוי והסרה אוטומטית של פרטים מזהים מ-PDF לפני שליחתם ל-AI חיצוני.",
+      "solution_en": "A local desktop utility running a small open-source LLM to automatically detect and redact PII from PDFs before sending them to external AI tools.",
+      "pricing_he": "מנוי חודשי של 29$ למשתמש או רישיון חד-פעמי של 149$ למשרדים.",
+      "pricing_en": "$29/month per user or $149 one-time desktop license for small firms.",
+      "first_customers_he": "פנייה ישירה לקציני אבטחת מידע ויועצים משפטיים עצמאיים בלינקדאין החוששים מפרצות מידע בענן.",
+      "first_customers_en": "Direct outreach on LinkedIn to compliance officers and independent legal consultants worried about data leaks.",
+      "trend_keyword": "local pii redaction tool",
       "ease_of_build": 85,
-      "mvp_he": "ווידג'ט צ'אט המקושר ל-API של מערכת המשלוחים של הלקוח ומנתח את הקונטקסט של המשתמש באמצעות LLM.",
-      "mvp_en": "A chat widget linked to the client's delivery API, analyzing user context instantly using an LLM.",
-      "tech_stack_he": "React, Tailwind CSS, Node.js, OpenAI API, PostgreSQL",
-      "tech_stack_en": "React, Tailwind CSS, Node.js, OpenAI API, PostgreSQL",
+      "mvp_he": "אפליקציית Electron עם ספריית Python מקומית (spaCy / Ollama) לזיהוי טקסט רגיש והשחרתו ב-PDF.",
+      "mvp_en": "An Electron desktop wrapper using a local Python script with spaCy and a tiny LLM to detect and mask PII in PDFs.",
+      "tech_stack_he": "Electron, Python, FastAPI, Ollama, PyMuPDF",
+      "tech_stack_en": "Electron, Python, FastAPI, Ollama, PyMuPDF",
       "track": "saas",
       "mentions": 1,
-      "engagement": 3,
+      "engagement": 0,
       "sources": [
-        "Google Play"
+        "Hacker News"
       ],
-      "quote_original": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order.",
-      "quote_url": "https://play.google.com/store/apps/details?id=com.lugg",
-      "quote_source": "Google Play",
+      "quote_original": "A colleague asked me to redact some sensitive documents before sending them to AI for analysis. I considered Adobe and other tools, but none could detect personal data (PII) automatically without sending it to a large AI model.",
+      "quote_url": "https://news.ycombinator.com/item?id=50548247",
+      "quote_source": "Hacker News",
       "score": 85,
       "trend_change": 0,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "אוטומציה ואכיפה של כיסוי משמרות חירום",
-      "title_en": "Emergency Shift Coverage and Audit Trail Automation",
-      "who_he": "מנהלי תפעול, אחראי משמרות ועסקים קטנים עם עובדים שעתיים",
-      "who_en": "Operations managers, shift supervisors, and small businesses with hourly staff",
+      "title_he": "ניהול ותיאור מחליפים למשמרות בחירום עם תיעוד מלא",
+      "title_en": "Emergency Shift Replacement Coordination with Audit Trail",
+      "who_he": "מנהלי סניפים, אחראי משמרות במסעדות, קמעונאות ושירותי בריאות.",
+      "who_en": "Branch managers, shift supervisors in retail, hospitality, and healthcare.",
       "member_indices": [
-        1
+        1,
+        11
       ],
       "best_quote_index": 1,
-      "quote_he": "כאשר עובד משמרת מודיע על מחלה פחות משעתיים לפני תחילת המשמרת, אני רוצה למצוא מחליף מאושר במהירות ושתהיה לי תיעוד של מי נוצר קשר איתו",
+      "quote_he": "כשאדם מתקשר חולה שעתיים לפני משמרת, אני רוצה למצוא מחליף מאושר מהר ושיהיה לי תיעוד של מי נוצר איתו קשר.",
       "quote_en": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted",
       "category": "Operations & admin",
-      "intensity": 90,
+      "intensity": 80,
       "frequency": 85,
       "low_competition": 75,
       "competitors": [
         {
           "name": "7shifts",
-          "gap_he": "יקר מדי ומורכב לעסקים קטנים שצריכים פתרון מהיר בווטסאפ",
-          "gap_en": "Too expensive and complex for small businesses needing a quick WhatsApp-first solution"
+          "gap_he": "מורכב מדי ויקר לעסקים קטנים; דורש תהליכים ארוכים במקום שידור קריאות חירום מהירות.",
+          "gap_en": "Too bloated and expensive for quick last-minute emergency broadcasts."
         },
         {
-          "name": "Planday",
-          "gap_he": "דורש התקנת אפליקציה מלאה לכל העובדים במקום שימוש בהודעות טקסט חכמות",
-          "gap_en": "Requires full app installation for all staff instead of leveraging smart SMS or WhatsApp"
+          "name": "WhatsApp Groups",
+          "gap_he": "אין בקרת הגעה אוטומטית, אין מעקב אחרי מי אישר ראשון, והודעות הולכות לאיבוד.",
+          "gap_en": "No structured confirmation workflow, audit trail, or automated tracking."
         }
       ],
-      "solution_he": "בוט AI המתחבר לווטסאפ או ל-SMS, מקבל דיווח מחלה ומריץ אוטומטית סבב פניות לפי ותק וזמינות לעובדים רלוונטיים עד למציאת מחליף עם תיעוד מלא.",
-      "solution_en": "An AI bot connecting via WhatsApp or SMS that receives sick calls and automatically broadcasts replacement requests to eligible staff until filled, keeping full logs.",
-      "pricing_he": "מנוי חודשי לפי מספר עובדים פעילים, החל מ-49 דולר לחודש.",
-      "pricing_en": "Monthly subscription per active employee, starting at $49/month.",
-      "first_customers_he": "פנייה ישירה למנהלי מסעדות ובתי קפה בלינקדאין ובקבוצות פייסבוק מקומיות של ניהול מסעדות.",
-      "first_customers_en": "Direct outreach to restaurant and cafe managers on LinkedIn and local hospitality Facebook groups.",
-      "trend_keyword": "shift coverage software",
-      "ease_of_build": 85,
-      "mvp_he": "בוט בסיסי שמקבל הודעת וואטסאפ על היעדרות ושולח הודעות תפוצה סדרתיות לעובדים עם כפתור אישור.",
-      "mvp_en": "A basic bot that receives a WhatsApp absence message and broadcasts sequential SMS requests to workers with a confirmation button.",
-      "tech_stack_he": "Next.js, Twilio API, Supabase, OpenAI API",
-      "tech_stack_en": "Next.js, Twilio API, Supabase, OpenAI API",
+      "solution_he": "בוט וואטסאפ ו-SMS חכם ששולח קריאת חירום אוטומטית לפי רשימת זמינות, תופס את המחליף הראשון שמאשר, ומעדכן את יומן העבודה.",
+      "solution_en": "An automated WhatsApp and SMS broadcast tool that blasts available staff, locks the shift to the first responder, and logs the audit trail.",
+      "pricing_he": "תשלום לפי שימוש או 49$ לחודש לעסק.",
+      "pricing_en": "$49/month per business location with unlimited emergency broadcasts.",
+      "first_customers_he": "ביקור פיזי ושיחות טלפון למסעדות מקומיות וחנויות קמעונאות שבהן מנהלי משמרות סובלים מהבעיה מדי יוף.",
+      "first_customers_en": "Cold calling and visiting local restaurant managers and retail store supervisors.",
+      "trend_keyword": "shift replacement automation",
+      "ease_of_build": 80,
+      "mvp_he": "בוט וואטסאפ המחובר ל-Supabase ששולח הודעות מרובות בלחיצת כפתור אחת ומעדכן את סטטוס המשמרת.",
+      "mvp_en": "A WhatsApp API bot connected to a Supabase backend that broadcasts shift offers and tracks replies.",
+      "tech_stack_he": "Node.js, Twilio API, Supabase, Next.js",
+      "tech_stack_en": "Node.js, Twilio API, Supabase, Next.js",
       "track": "saas",
-      "mentions": 1,
+      "mentions": 2,
       "engagement": 20,
       "sources": [
         "GitHub"
@@ -125,325 +182,257 @@
       "quote_original": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted",
       "quote_url": "https://github.com/muaddibco/RealWorldProblems/issues/1820",
       "quote_source": "GitHub",
-      "score": 84,
-      "trend_change": 100,
+      "score": 80,
+      "trend_change": -100,
       "is_recurring": true,
       "weeks_seen": 2
     },
     {
-      "title_he": "מודל תמחור מבוסס ביצועים לשיווק דיגיטלי לעסקים קטנים",
-      "title_en": "Performance-Based Ad Management and Lead Generation",
-      "who_he": "בעלי עסקים קטנים ובינוניים שמשלמים סכומי ריטיינר גבוהים לסוכנויות שיווק",
-      "who_en": "SMB owners paying high fixed retainers to underperforming marketing agencies",
+      "title_he": "מעקף הגנות אנטי-בוט לאיסוף נתונים פיננסיים והימורים",
+      "title_en": "Anti-Bot Bypass for Financial and Odds Scraping",
+      "who_he": "מפתחים עצמאיים, סוחרים אלגוריתמיים וחוקרי נתונים.",
+      "who_en": "Indie developers, quantitative traders, and data scrapers.",
       "member_indices": [
-        4
+        8
       ],
-      "best_quote_index": 4,
-      "quote_he": "כיום, רוב העסקים הקטנים משלמים לסוכנויות סכום קבוע כל חודש כדי לנהל את הפרסומות שלהם, גם כשהמודעות מביאות 0 לקוחות. זו הבעיה.",
-      "quote_en": "Today, most small businesses pay agencies a fixed fee every month to run their ads, even when the ads bring 0 clients. That's the problem.",
-      "category": "Marketing & sales",
-      "intensity": 95,
-      "frequency": 90,
-      "low_competition": 80,
-      "competitors": [
-        {
-          "name": "HubSpot",
-          "gap_he": "יקר מאוד ומכוון לארגונים גדולים ולא לבעל עסק קטן שמחפש פשטות",
-          "gap_en": "Very expensive and targeted at enterprises rather than SMB simplicity"
-        },
-        {
-          "name": "Local Marketing Agencies",
-          "gap_he": "דורשים חוזי התחייבות גבוהים ללא שקיפות או התחייבות לתוצאות לידים",
-          "gap_en": "Require heavy retainers with zero transparency or lead accountability"
-        }
-      ],
-      "solution_he": "פלטפורמת AI שבונה, מנהלת ואופטימיזציית קמפיינים ממומנים עם מודל תשלום המבוסס על לידים מאומתים בלבד.",
-      "solution_en": "An AI platform that builds and optimizes paid campaigns, charging businesses only per verified qualified lead generated.",
-      "pricing_he": "עמלה לפי ליד מיוצר (Pay-per-lead), ממוצע 30-50 דולר לליד.",
-      "pricing_en": "Pay-per-lead model, averaging $30-50 per qualified lead.",
-      "first_customers_he": "איתור בעלי עסקים מקומיים (כגון שיפוצניקים ועורכי דין) שמתלוננים ברשתות על סוכנויות שיווק והצעת פיילוט חינם.",
-      "first_customers_en": "Finding local service business owners complaining online about agencies and offering a risk-free pilot.",
-      "trend_keyword": "pay per lead marketing platform",
-      "ease_of_build": 70,
-      "mvp_he": "מערכת פשוטה לחיבור חשבונות פייסבוק/גוגל אדס, יצירת מודעות אוטומטית ויצירת דפי נחיתה עם מעקב לידים.",
-      "mvp_en": "Simple dashboard connecting Facebook/Google Ads APIs, auto-generating ad copy, and tracking leads via webhook.",
-      "tech_stack_he": "React, Node.js, Meta Marketing API, OpenAI API, PostgreSQL",
-      "tech_stack_en": "React, Node.js, Meta Marketing API, OpenAI API, PostgreSQL",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "Hacker News"
-      ],
-      "quote_original": "Today, most small businesses pay agencies a fixed fee every month to run their ads, even when the ads bring 0 clients. That's the problem.",
-      "quote_url": "https://news.ycombinator.com/item?id=50513359",
-      "quote_source": "Hacker News",
-      "score": 84,
-      "trend_change": 100,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "שער הרשאות מבוקר ומאובטח לסוכני קוד מבוססי AI",
-      "title_en": "Fine-Grained Permission Gateway for AI Coding Agents",
-      "who_he": "מפתחי תוכנה, צוותי DevOps ומנהלי אבטחת מידע בארגונים",
-      "who_en": "Software developers, DevOps engineers, and security leads",
-      "member_indices": [
-        7
-      ],
-      "best_quote_index": 7,
-      "quote_he": "חלק מהשירותים פשוט אין להם שליטה מספיק מדויקת בהרשאות, כך שכדי לתת הרשאה לעשות דברים שימושיים, אני צריך גם לאפשר לו לעשות דברים מסוכנים",
-      "quote_en": "some services either don't have have suffiently fine control over permissions, so in order to grant permission to do useful things, I also have to allow it to do dangerous things",
+      "best_quote_index": 8,
+      "quote_he": "אני מנסה לבנות תוכנית פייתון שמעתיקה סיכויים מפינקל ומשווה אותם עם סוכני הימורים אחרים... אני נתקל בבעיות הגנה נגד בוטים.",
+      "quote_en": "I’m trying to build a Python program that copies odds from Pinnacle and compares them with other soft bookmakers to identify arbitrage opportunities... I keep facing issues with anti-bot protection that prevents scraping the data.",
       "category": "Tools & tech",
-      "intensity": 90,
-      "frequency": 90,
-      "low_competition": 85,
-      "competitors": [
-        {
-          "name": "HashiCorp Vault",
-          "gap_he": "מורכב מאוד להגדרה ואינו מותאם ספציפית למודל העבודה הדינמי של סוכני AI",
-          "gap_en": "Extremely complex to configure and not tailored for dynamic AI agent workflows"
-        },
-        {
-          "name": "AWS IAM",
-          "gap_he": "מדיניות הרשאות גסה שאינה מאפשרת הגבלה בזמן אמת לפי הקשר הקוד",
-          "gap_en": "Coarse-grained policies lacking real-time context-aware limitations for code execution"
-        }
-      ],
-      "solution_he": "פרוקסי אבטחה המתווך בין סוכני AI (כמו Cursor או Claude Engineer) לבין תשתיות הענן והגיט, ומאפשר אישור פעולות רגישות בזמן אמת.",
-      "solution_en": "A security proxy sitting between AI coding agents and cloud/git infrastructure, requiring real-time human approval for risky operations.",
-      "pricing_he": "מנוי מבוסס משתמש, 29 דולר לחודש למפתח.",
-      "pricing_en": "User-based subscription at $29/month per developer.",
-      "first_customers_he": "הפצה בקהילות מפתחים בהקרקר ניוז, Reddit (r/devops) ו-GitHub עם דוגמאות קוד פתוח.",
-      "first_customers_en": "Distribution in Hacker News, Reddit (r/devops), and GitHub communities with open-source examples.",
-      "trend_keyword": "AI coding agent security proxy",
-      "ease_of_build": 65,
-      "mvp_he": "שרת פרוקסי בסיסי ש מיירט קריאות API של סוכני קוד, בודק חוקי אבטחה ומקפיץ אישור לטלגרם במקרה הצורך.",
-      "mvp_en": "Basic proxy server intercepting AI agent API calls, evaluating security rules, and sending Telegram approval requests for dangerous actions.",
-      "tech_stack_he": "Go, Docker, Redis, Telegram Bot API",
-      "tech_stack_en": "Go, Docker, Redis, Telegram Bot API",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "Hacker News"
-      ],
-      "quote_original": "some services either don't have have suffiently fine control over permissions, so in order to grant permission to do useful things, I also have to allow it to do dangerous things",
-      "quote_url": "https://news.ycombinator.com/item?id=50527667",
-      "quote_source": "Hacker News",
-      "score": 83,
-      "trend_change": -100,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "סנכרון ואכיפת תאימות בין Enums בקוד מרובה קבצים",
-      "title_en": "Cross-File Enum Consistency and Compiler Validation Tool",
-      "who_he": "מפתחי תוכנה ארכיטקטים שעובדים עם מערכות מורכבות ומספר שפות תכנות",
-      "who_en": "Software engineers and architects working with complex multi-file codebases",
-      "member_indices": [
-        5
-      ],
-      "best_quote_index": 5,
-      "quote_he": "אם אכנס בחזרה ל-Parser enum ואוסיף un_minus, אז אני חייב להיכנס גם ל-Typer enum... ולהוסיף את זה ידנית. אין לי ערבות זמן קומפילציה",
-      "quote_en": "If I go back in to the Parser enum and add a un_minus, then I have to also go into the Typer enum... and manually add it. I have no compile time guar",
-      "category": "Tools & tech",
-      "intensity": 80,
-      "frequency": 85,
-      "low_competition": 90,
-      "competitors": [
-        {
-          "name": "SonarQube",
-          "gap_he": "מבצע אנליזה כללית ואינו מזהה תלות לוגית בין enums שונים ברמת הקוד",
-          "gap_en": "Performs general static analysis and misses logical cross-enum dependency checking"
-        },
-        {
-          "name": "GitHub Copilot",
-          "gap_he": "מספק הצעות נקודתיות אך אינו מבטיח אכיפה מערכתית אוטומטית בזמן בנייה",
-          "gap_en": "Provides point suggestions but does not enforce automated architectural guarantees"
-        }
-      ],
-      "solution_he": "כלי CLI ותוסף ל-IDE המבוסס על מודל שפה, המזהה אוטומטית מבני נתונים תלויים (כמו enums) ומתריע או יוצר את העדכונים הנדרשים.",
-      "solution_en": "An AI-powered CLI tool and IDE extension that detects interdependent data structures across files and auto-generates or flags missing enum cases.",
-      "pricing_he": "מנוי מפתח ב-19 דולר לחודש.",
-      "pricing_en": "Developer subscription at $19/month.",
-      "first_customers_he": "פרסום פוסטים טכניים עמוקים ב-Hacker News וב-Dev.to עם קוד לדוגמה שפתרון זה פותר.",
-      "first_customers_en": "Publishing deep technical write-ups on Hacker News and Dev.to demonstrating the exact bug prevention.",
-      "trend_keyword": "static analysis enum sync",
-      "ease_of_build": 80,
-      "mvp_he": "כלי CLI שסורק קבצי קוד, מזהה enums מקבילים באמצעות AST ו-LLM, ומציג אזהרות על חוסר התאמה.",
-      "mvp_en": "A CLI tool scanning source files, detecting parallel enums using AST parsing and LLMs, and outputting mismatch warnings.",
-      "tech_stack_he": "TypeScript, Tree-sitter, Anthropic Claude API",
-      "tech_stack_en": "TypeScript, Tree-sitter, Anthropic Claude API",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "Hacker News"
-      ],
-      "quote_original": "If I go back in to the Parser enum and add a un_minus, then I have to also go into the Typer enum... and manually add it. I have no compile time guar",
-      "quote_url": "https://news.ycombinator.com/item?id=50524969",
-      "quote_source": "Hacker News",
-      "score": 83,
-      "trend_change": 0,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "פלטפורמת תרגול בעיות מעשיות לקורסים טכניים ומדעיים",
-      "title_en": "Practical Exercise and Problem Set Generator for Tech Courses",
-      "who_he": "יוצרי קורסים דיגיטליים, מרצים במכללות ומדריכי תכנות עצמאיים",
-      "who_en": "Digital course creators, bootcamp instructors, and independent coding mentors",
-      "member_indices": [
-        6
-      ],
-      "best_quote_index": 6,
-      "quote_he": "האם אתה גם שם את תכניות הלימודים, הערות הקורס, בחינות בפועל, תרגילים ו/או פתרונות תרגילים באינטרנט? אלו הם החלק היקר ביותר... אני לא יכול ללמוד למידה חישובית על ידי צפייה במישהו מדבר על למידה חישובית",
-      "quote_en": "Are you also putting the syllabi, course notes, practice exams, exercises, and/or exercise solutions online? Those are by far the most valuable part... I can't learn machine learning by watching someone talk about machine learning",
-      "category": "Operations & admin",
-      "intensity": 80,
-      "frequency": 75,
-      "low_competition": 85,
-      "competitors": [
-        {
-          "name": "Teachable",
-          "gap_he": "מתמקד באחסון סרטונים ואינו מייצר אוטומטית מטלות ותרגילים מעשיים מותאמים אישית",
-          "gap_en": "Focuses on video hosting and lacks automated custom exercise and problem set generation"
-        },
-        {
-          "name": "ChatGPT",
-          "gap_he": "דורש הנחיות ידניות חוזרות ואינו מנהל מערכת למידה ותרגול מובנית עם בדיקת תשובות",
-          "gap_en": "Requires repetitive manual prompting and lacks a structured learning and grading system"
-        }
-      ],
-      "solution_he": "כלי AI המייצר באופן אוטומטי מתוך סילבוס או סרטוני קורס מבחנים מעשיים, תרגילים וסביבת בדיקת קוד אוטומטית ללומדים.",
-      "solution_en": "An AI tool that automatically generates practical problem sets, exams, and auto-grading environments from course syllabi or video transcripts.",
-      "pricing_he": "מנוי חודשי ליוצרי תוכן ב-49 דולר לחודש.",
-      "pricing_en": "Creator subscription at $49/month.",
-      "first_customers_he": "הצטרפות לקהילות של יוצרי קורסים (כמו Podia/Teachable communities) והצעת הפקת סטים של תרגילים בחינם לפיילוט.",
-      "first_customers_en": "Joining course creator communities and offering free pilot exercise generation.",
-      "trend_keyword": "AI course exercise generator",
-      "ease_of_build": 90,
-      "mvp_he": "אפליקציית ווב המקבלת טקסט סילבוס, מריצה פרומפט מובנה לייצור מטלות ומציגה ממשק פתרון לתלמיד.",
-      "mvp_en": "Web app taking syllabus text, running structured generation prompts, and rendering an interactive student problem portal.",
-      "tech_stack_he": "Next.js, OpenAI API, Tailwind CSS, Supabase",
-      "tech_stack_en": "Next.js, OpenAI API, Tailwind CSS, Supabase",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "Hacker News"
-      ],
-      "quote_original": "Are you also putting the syllabi, course notes, practice exams, exercises, and/or exercise solutions online? Those are by far the most valuable part... I can't learn machine learning by watching someone talk about machine learning",
-      "quote_url": "https://news.ycombinator.com/item?id=50529860",
-      "quote_source": "Hacker News",
-      "score": 82,
-      "trend_change": null,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "מערכת מעקב וניתוח השוואת הימורים ואוספי נתונים אוטומטיים",
-      "title_en": "Automated Odds Scraping and Arbitrage Detection Engine",
-      "who_he": "מפתחים עצמאיים, מהמרי ספורט מקצועיים ויזמי פינטק בתחום הגיימינג",
-      "who_en": "Indie developers, professional sports bettors, and gaming fintech entrepreneurs",
-      "member_indices": [
-        9
-      ],
-      "best_quote_index": 9,
-      "quote_he": "אני מנסה לבנות תוכנית פייתון שמדפיסה סיכויי זכייה מפינאקל ומשווה אותם עם ספרי הימורים רכים אחרים... אני ממשיך להיתקל בבעיות עם הגנה נגד בוטים שמונעת גרופינג של הנתונים.",
-      "quote_en": "I’m trying to build a Python program that copies odds from Pinnacle and compares them with other soft bookmakers... I keep facing issues with anti-bot protection that prevents scraping the data.",
-      "category": "Finance & billing",
       "intensity": 85,
-      "frequency": 95,
+      "frequency": 80,
       "low_competition": 70,
       "competitors": [
         {
-          "name": "OddsJam",
-          "gap_he": "יקר להחריד (מאות דולרים בחודש) ואינו מאפשר למפתחים גישה חופשית ל-API גולמי",
-          "gap_en": "Extremely expensive ($hundreds/mo) and does not give developers raw API access"
+          "name": "Apify",
+          "gap_he": "יקר מדי להרצה שוטפת של 24/7 ודורש כתיבת סקריפטים מורכבים להוספת פרוקסי.",
+          "gap_en": "Expensive for continuous 24/7 monitoring and requires complex proxy management setups."
         },
         {
-          "name": "Apify",
-          "gap_he": "דורש תחזוקה שוטפת של סקריפטים לעקוף חסימות Cloudflare ו-Akamai",
-          "gap_en": "Requires constant manual maintenance of scraping scripts to bypass Cloudflare and Akamai blocks"
+          "name": "ScrapingBee",
+          "gap_he": "לא תמיד מצליח לעקוף הגנות מתקדמות של אתרי הימורים ופיננסים המזהים דפדפני אוטומציה.",
+          "gap_en": "Often blocked by sophisticated Cloudflare and Akamai bot challenges on target domains."
         }
       ],
-      "solution_he": "שירות API מנוהל לעקיפת הגנות אנטי-בוט ושאיבת נתוני סיכויים בזמן אמת מספרי הימורים שונים עבור מפתחים.",
-      "solution_en": "A managed API service bypassing anti-bot protections to scrape and normalize real-time sports betting odds for developers.",
-      "pricing_he": "תמחור לפי נפח קריאות API, החל מ-99 דולר לחודש.",
-      "pricing_en": "API call volume pricing starting at $99/month.",
-      "first_customers_he": "פרסום בפורומים של ספורט קוואנט ו-Reddit (r/sportsbook) עם כלי חינמי לבדיקת סיכויים בסיסיים.",
-      "first_customers_en": "Posting in sports quant forums and Reddit (r/sportsbook) with a free basic odds checker tool.",
-      "trend_keyword": "sports betting odds api scraper",
-      "ease_of_build": 60,
-      "mvp_he": "שירות ענן המריץ דפדפנים מנוהלים עם פרוקסי סובב עוקף Cloudflare ומחזיר JSON נקי.",
-      "mvp_en": "A cloud service running managed headless browsers with rotating proxies bypassing Cloudflare and returning clean JSON.",
-      "tech_stack_he": "Python, Playwright, Bright Data Proxies, FastAPI, Redis",
-      "tech_stack_en": "Python, Playwright, Bright Data Proxies, FastAPI, Redis",
+      "solution_he": "-API מנוהל המספק כתובות IP נקיות ודפדפנים מוסווים המיועדים ספציפי לאיסוף נתוני ספורט ופיננסים בזמן אמת.",
+      "solution_en": "A managed scraping proxy endpoint optimized with automated stealth browser fingerprinting specifically for sportsbooks and financial portals.",
+      "pricing_he": "49$ לחודש עבור 50,000 בקשות מוצלחות.",
+      "pricing_en": "$49/month tier for 50,000 successful requests.",
+      "first_customers_he": "איתור משתמשים ב-GitHub ובפורומים של סחר אלגוריתמי וארביטראז'.",
+      "first_customers_en": "Reaching out to developers on GitHub issues and sports betting developer subreddits.",
+      "trend_keyword": "anti bot scraping api",
+      "ease_of_build": 70,
+      "mvp_he": "שרת פרוקסי ב-Python המשלב Playwright Stealth עם רוטציית כתובות IP אוטומטית.",
+      "mvp_en": "A Python backend wrapping Playwright with stealth plugins and automated proxy rotation pools.",
+      "tech_stack_he": "Python, FastAPI, Playwright, Redis",
+      "tech_stack_en": "Python, FastAPI, Playwright, Redis",
       "track": "saas",
       "mentions": 1,
       "engagement": 0,
       "sources": [
         "GitHub"
       ],
-      "quote_original": "I’m trying to build a Python program that copies odds from Pinnacle and compares them with other soft bookmakers... I keep facing issues with anti-bot protection that prevents scraping the data.",
+      "quote_original": "I’m trying to build a Python program that copies odds from Pinnacle and compares them with other soft bookmakers to identify arbitrage opportunities... I keep facing issues with anti-bot protection that prevents scraping the data.",
       "quote_url": "https://github.com/kapsidisC/Arbitrage-Bet-Finder/issues/1",
       "quote_source": "GitHub",
-      "score": 78,
+      "score": 77,
+      "trend_change": 0,
+      "is_recurring": true,
+      "weeks_seen": 2
+    },
+    {
+      "title_he": "קישור אוטומטי של פניות תמיכה למספרי הזמנות באפליקציות מובייל",
+      "title_en": "Auto-Linking Support Chats to Order IDs in Mobile Apps",
+      "who_he": "מנהלי מוצר ושירות לקוחות בחברות שליחויות, לוגיסטיקה ואיקומרס קטנות.",
+      "who_en": "Product managers and customer support leads in delivery, logistics, and e-commerce apps.",
+      "member_indices": [
+        2
+      ],
+      "best_quote_index": 2,
+      "quote_he": "כשהשתמשתי בצ'אט באפליקציה הם ביקשו ממני למצוא ידנית את מספר ההזמנה, האפליקציה לא הצליחה לקשר את ההודעה להזמנה.",
+      "quote_en": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order. Fine. I send that to them then they reply and say actually I now need to email them.",
+      "category": "Operations & admin",
+      "intensity": 75,
+      "frequency": 80,
+      "low_competition": 70,
+      "competitors": [
+        {
+          "name": "Intercom / Zendesk Chat SDKs",
+          "gap_he": "מציגים צ'אט גנרי שאינו מוטמע באופן עמוק עם לוגיקת ההזמנות והמשלוחים של אפליקציית הלקוח.",
+          "gap_en": "Provide generic chat widgets that lack deep native context linking to internal order databases."
+        }
+      ],
+      "solution_he": "ווידג'ט צ'אט חכם למובייל המזהה אוטומטית את ההזמנה הפעילה של המשתמש ומצמיד את ההקשר לכל פנייה שמועברת לנציג.",
+      "solution_en": "A drop-in mobile chat widget SDK that automatically injects active order metadata into the support ticket conversation.",
+      "pricing_he": "49$ לחודש בסיסי ועוד סנטים ספורים לכל שיחה.",
+      "pricing_en": "$49/month base plus usage-based tier for small delivery apps.",
+      "first_customers_he": "איתור חברות משלוחים מקומיות ואפליקציות סטארטאפ קטנות בחנויות האפליקציות שסובלות מביקורות גרועות על שירות לקוחות.",
+      "first_customers_en": "Reaching out to regional delivery and logistics app founders on Twitter and Product Hunt.",
+      "trend_keyword": "in-app support chat sdk",
+      "ease_of_build": 80,
+      "mvp_he": "ספריית React Native צד לקוח המקושרת לשרת Node.js המייצר כרטיס תמיכה עם נתוני ההזמנה האחרונה.",
+      "mvp_en": "A React Native chat component linked to a backend that automatically appends user session and order data.",
+      "tech_stack_he": "React Native, Node.js, PostgreSQL, Socket.io",
+      "tech_stack_en": "React Native, Node.js, PostgreSQL, Socket.io",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 3,
+      "sources": [
+        "Google Play"
+      ],
+      "quote_original": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order. Fine. I send that to them then they reply and say actually I now need to email them.",
+      "quote_url": "https://play.google.com/store/apps/details?id=com.lugg",
+      "quote_source": "Google Play",
+      "score": 76,
+      "trend_change": 0,
+      "is_recurring": true,
+      "weeks_seen": 3
+    },
+    {
+      "title_he": "מערכת ניהול נכסים נגישה ומלאה למובייל",
+      "title_en": "Mobile-First Property Management Dashboards",
+      "who_he": "משכירי דירות פרטיים, מנהלי נכסים קטנים ובעלי נדל\"ן מניב.",
+      "who_en": "Independent landlords, small property managers, and real estate hosts.",
+      "member_indices": [
+        7
+      ],
+      "best_quote_index": 7,
+      "quote_he": "שדרוג לאחור מאפליקציית TenantCloud בנייד כמעט מכל בחינה. הרבה פיצ'רים מוסתרים או נעולים בגרסת הדסקטופ.",
+      "quote_en": "a downgrade from tenantcloud mobile app in almost every way. a lot of features are hidden, annoying to use, or locked behind the desktop version.",
+      "category": "Operations & admin",
+      "intensity": 75,
+      "frequency": 70,
+      "low_competition": 75,
+      "competitors": [
+        {
+          "name": "TenantCloud",
+          "gap_he": "ממשק המובייל שלהם מסורבל ומחייב מעבר תכוף לגרסת הדסקטופ לפעולות בסיסיות.",
+          "gap_en": "Clunky mobile experience forcing users to desktop for vital management actions."
+        },
+        {
+          "name": "AppFolio",
+          "gap_he": "מיועד אך ורק לחברות ענק עם מאות יחידות דיור ויקר בצורה קיצונית.",
+          "gap_en": "Enterprise-only pricing and complexity for massive real estate portfolios."
+        }
+      ],
+      "solution_he": "אפליקציית מובייל מהירה לניהול נכסים המאפשרת גביית שכר דירה, מעקב תחזוקה וניהול דיירים בלחיצת כפתור מהנייד.",
+      "solution_en": "A clean, mobile-first property management PWA for independent landlords to handle rent collection and maintenance tasks on the go.",
+      "pricing_he": "1$ לחודש לכל יחידת דיור מנוהלת (מינימום 25$).",
+      "pricing_en": "$1/month per managed unit with a $25/month minimum floor.",
+      "first_customers_he": "קבוצות פייסבוק של משקיעי נדל\"ן ובעלי נכסים פרטיים.",
+      "first_customers_en": "Posting in real estate investor Facebook groups and BiggerPockets forums.",
+      "trend_keyword": "mobile property management app",
+      "ease_of_build": 85,
+      "mvp_he": "אפליקציית Web (PWA) עם תצוגת דשבורד מותאמת לנייד לרישום דיירים, הפקת קבלות ומעקב תשלומים.",
+      "mvp_en": "A responsive PWA built with Next.js featuring streamlined mobile views for tenant records and rent logs.",
+      "tech_stack_he": "Next.js, Tailwind CSS, PostgreSQL, Stripe API",
+      "tech_stack_en": "Next.js, Tailwind CSS, PostgreSQL, Stripe API",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Google Play"
+      ],
+      "quote_original": "a downgrade from tenantcloud mobile app in almost every way. a lot of features are hidden, annoying to use, or locked behind the desktop version.",
+      "quote_url": "https://play.google.com/store/apps/details?id=com.turbotenant.owner",
+      "quote_source": "Google Play",
+      "score": 76,
       "trend_change": null,
       "is_recurring": true,
       "weeks_seen": 2
     },
     {
-      "title_he": "אוטומציית אימות והקמת AAA ו-RBAC לציוד תקשורת בקוד פתוח",
-      "title_en": "Automated AAA and RBAC Setup for Open Source Networking Gear",
-      "who_he": "מנהלי רשתות, אנשי תשתיות ומהנדסי IT בחברות קטנות ובינוניות",
-      "who_en": "Network administrators, infrastructure specialists, and IT engineers in SMBs",
+      "title_he": "תצוגת כתובות קריפטו מלאות ואימות צילומי מסך",
+      "title_en": "Full Crypto Address Viewers for Exchange Screenshots",
+      "who_he": "משתמשי קריפטו, סוחרים ופעילים המבצעים אימות מול בורסות.",
+      "who_en": "Crypto users, traders, and web3 enthusiasts completing exchange verifications.",
       "member_indices": [
-        8
+        9
       ],
-      "best_quote_index": 8,
-      "quote_he": "גרסאות קוד פתוח עושות את זה הרבה יותר קשה בלי הרבה סקריפטים, טלאים, תכנות וזה עדיין בלי הרבה עבודה נוספת כדי לעשות את זה אמין כראוי.",
-      "quote_en": "FOSS versions it much harder without lot of scripting, patching, programming and it's still without much more work to make it properly reliable.",
+      "best_quote_index": 9,
+      "quote_he": "בממשק ה-Snap, הכתובת קطועה עם שלוש נקודות. אני לא מוצא שום מסך שמציג את הכתובת המלאה בתצוגה אחת, ואין אפשרות הצג כתובת מלאה.",
+      "quote_en": "In the Snap UI, the address is truncated with ellipses. I can’t find any screen that shows the full address in one view, and there’s no “show full address” option. This becomes a real problem because some exchanges require a screenshot that clearly shows the entire wallet address",
       "category": "Tools & tech",
-      "intensity": 75,
-      "frequency": 80,
-      "low_competition": 85,
+      "intensity": 65,
+      "frequency": 60,
+      "low_competition": 90,
       "competitors": [
         {
-          "name": "Cisco ISE",
-          "gap_he": "יקר באופן קיצוני ודורש רישוי ארגוני כבד שאינו מתאים לציוד מגוון או קוד פתוח",
-          "gap_en": "Extremely expensive enterprise licensing not suited for mixed or open-source hardware"
-        },
-        {
-          "name": "FreeRADIUS",
-          "gap_he": "דורש כתיבת קבצי הגדרה ידניים מורכבים והמון סקריפטים כדי להגיע לאמינות ובקרה מלאה",
-          "gap_en": "Requires complex manual configuration files and extensive scripting to achieve reliability"
+          "name": "MetaMask / Wallet Extensions",
+          "gap_he": "מקצצים כתובות ארוכות בממשק כדי לשמור על עיצוב נקי, מבלי לספק מצב צילום מסך מיוחד.",
+          "gap_en": "Truncate addresses for UI cleanliness without providing an un-truncated compliance view."
         }
       ],
-      "solution_he": "כלי מבוסס AI המייצר אוטומטית את קבצי ההגדרות, הסקריפטים והפוליסות עבור מערכות AAA ו-RBAC בקוד פתוח לציוד תקשורת.",
-      "solution_en": "An AI-powered configuration generator that writes robust setup scripts, policies, and hardening guides for open-source network AAA tools.",
-      "pricing_he": "רישיון חד-פעמי או מנוי תמיכה ב-69 דולר לחודש.",
-      "pricing_en": "One-time license or support subscription at $69/month.",
-      "first_customers_he": "פרסום במדורי רשתות ב-Reddit (r/networking) ו-Hacker News עם מחולק חוקי FreeRADIUS חינמי.",
-      "first_customers_en": "Posting in Reddit (r/networking) and Hacker News with a free FreeRADIUS rule generator utility.",
-      "trend_keyword": "network radius AAA configuration tool",
-      "ease_of_build": 75,
-      "mvp_he": "ממשק ווב פשוט הממיר דרישות אבטחת רשת באנגלית טבעית לקבצי קונפיגורציה מלאים עבור FreeRADIUS ו-TACACS+.",
-      "mvp_en": "A simple web interface translating natural language network security requirements into complete FreeRADIUS/TACACS+ config files.",
-      "tech_stack_he": "Python, FastAPI, OpenAI API, React",
-      "tech_stack_en": "Python, FastAPI, OpenAI API, React",
+      "solution_he": "אפליקציית Web פשוטה המאפשרת ייבוא מאובטח של ארנק והפקת תצוגה נקייה ומלאה של כתובות וקודי QR לצילומי מסך לבורסות.",
+      "solution_en": "A lightweight web utility that securely displays un-truncated wallet addresses and large QR codes optimized for exchange screenshot compliance.",
+      "pricing_he": "תשלום חד-פעמי של 9$ או חינם עם פרסומות נותנות חסות.",
+      "pricing_en": "$9 one-time utility fee or free with sponsor tools.",
+      "first_customers_he": "שיווק בקהילות Web3 בטלגרם ובדיסקורד של בורסות וארנקים.",
+      "first_customers_en": "Sharing in Web3 Discord servers and crypto support channels.",
+      "trend_keyword": "crypto address screenshot tool",
+      "ease_of_build": 95,
+      "mvp_he": "דף HTML/JS פשוט המשתמש בקידוד פתוח כדי להציג את כתובת הארנק המלאה וקוד QR גדול ברור.",
+      "mvp_en": "A single-page web app using ethers.js to render full addresses and clean QR codes on demand.",
+      "tech_stack_he": "React, Tailwind CSS, ethers.js, qrcode.react",
+      "tech_stack_en": "React, Tailwind CSS, ethers.js, qrcode.react",
       "track": "saas",
       "mentions": 1,
       "engagement": 0,
       "sources": [
-        "Hacker News"
+        "GitHub"
       ],
-      "quote_original": "FOSS versions it much harder without lot of scripting, patching, programming and it's still without much more work to make it properly reliable.",
-      "quote_url": "https://news.ycombinator.com/item?id=50504930",
-      "quote_source": "Hacker News",
-      "score": 78,
+      "quote_original": "In the Snap UI, the address is truncated with ellipses. I can’t find any screen that shows the full address in one view, and there’s no “show full address” option. This becomes a real problem because some exchanges require a screenshot that clearly shows the entire wallet address",
+      "quote_url": "https://github.com/pianity/arsnap/issues/28",
+      "quote_source": "GitHub",
+      "score": 76,
+      "trend_change": null,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "אופטימיזציה של שעות שיא ומשמרות במסעדות מבוססת API",
+      "title_en": "API-Driven Restaurant Peak Hour & Turnover Analytics",
+      "who_he": "בעלי מסעדות, מנהלי תפעול ורשתות מזון מהיר.",
+      "who_en": "Restaurant owners, operations managers, and hospitality chains.",
+      "member_indices": [
+        10
+      ],
+      "best_quote_index": 10,
+      "quote_he": "הקצה הזה יספק אנטיליגנציה שימושית למסעדות בלי לדרוש ממנהלים לחשב זאת ידנית.",
+      "quote_en": "This endpoint would provide useful restaurant analytics without requiring managers to manually calculate it.",
+      "category": "Hospitality & food",
+      "intensity": 70,
+      "frequency": 75,
+      "low_competition": 80,
+      "competitors": [
+        {
+          "name": "Toast / Square Analytics",
+          "gap_he": "מספקים דוחות מכירות גולמיים אך אינם מתרגמים אותם להמלצות תפעוליות וכוח אדם מדויקות.",
+          "gap_en": "Provide raw sales reports without translating them into actionable staffing and turnover forecasts."
+        }
+      ],
+      "solution_he": "לוח בקרה חכם המתחבר למערכות הקופה (POS) ומחשב אוטומטית את זמני השהייה בשולחנות, שעות עומס והמלצות לסידור עובדים.",
+      "solution_en": "An analytics dashboard connecting to restaurant POS systems to automatically compute table turnover, peak hours, and optimal staffing schedules.",
+      "pricing_he": "79$ לחודש לסניף.",
+      "pricing_en": "$79/month per restaurant location.",
+      "first_customers_he": "פנייה ישירה לבעלי מסעדות עצמאיות באזור המקומי והצגת דשבורד לדוגמה.",
+      "first_customers_en": "Direct outreach to local independent restaurant owners with a sample efficiency audit.",
+      "trend_keyword": "restaurant table turnover analytics",
+      "ease_of_build": 80,
+      "mvp_he": "דשבורד ב-Next.js המתחבר לממשקי POS נפוצים ומציג גרפים של זמני המתנה ותחלופת סועדים.",
+      "mvp_en": "A Next.js dashboard pulling mock or live POS transaction logs to display table turnaround metrics.",
+      "tech_stack_he": "Next.js, Prisma, PostgreSQL, Chart.js",
+      "tech_stack_en": "Next.js, Prisma, PostgreSQL, Chart.js",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "GitHub"
+      ],
+      "quote_original": "This endpoint would provide useful restaurant analytics without requiring managers to manually calculate it.",
+      "quote_url": "https://github.com/PranavN2005/SQueaL/issues/16",
+      "quote_source": "GitHub",
+      "score": 76,
       "trend_change": null,
       "is_recurring": false,
       "weeks_seen": 1
@@ -451,11 +440,10 @@
   ],
   "top_n": 10,
   "categories": {
-    "Tools & tech": 4,
-    "Operations & admin": 3,
-    "Logistics & delivery": 1,
-    "Marketing & sales": 1,
-    "Other": 1
+    "Tools & tech": 3,
+    "Operations & admin": 6,
+    "Finance & billing": 2,
+    "Hospitality & food": 1
   },
   "prev_categories": {
     "Communication & coordination": 1,
