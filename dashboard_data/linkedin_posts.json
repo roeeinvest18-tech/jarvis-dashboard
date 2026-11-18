@@ -1,42 +1,58 @@
 {
-  "generated_at": "2026-11-17T23:20:23.792684+00:00",
+  "generated_at": "2026-11-18T16:21:50.835685+00:00",
   "stats": {
-    "total_drafted": 2,
-    "cyber_count": 2,
+    "total_drafted": 3,
+    "cyber_count": 3,
     "ai_count": 0
   },
   "posts": [
     {
-      "id": "post-1-1794957623",
-      "topic": "Telegram Android Widgets RCE",
+      "id": "post-1-1795018910",
+      "topic": "EggStreme Malware Evasion Techniques",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/researchers-claim-two-rce-exploits-that.html",
+      "source_url": "https://thehackernews.com/2026/11/eggstreme-hackers-rebuild-malware-with.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-17 (Auto)",
+      "posted_at": "Updated 2026-11-18 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Meticulously documented research from NebuSec detailing a zero-day exploit mechanism against sandboxing assumptions.",
+      "credibility_rationale": "Reported by Bitdefender and detailed via The Hacker News based on active threat actor tracking in government environments.",
       "key_takeaways": [
-        "Widgets can execute JavaScript outside intended isolation boundaries.",
-        "Attackers leverage bot-sent interactive elements for code execution.",
-        "Sandboxing on mobile apps often fails at the UI and component bridge."
+        "Attackers rotate hashes and recompile malware constantly to bypass static detection.",
+        "Relying solely on file hashes in SIEM alerts is a losing game for SOC Tier 1 analysts.",
+        "Behavioral anomaly detection remains the primary defense against silent variants."
       ],
-      "linkedin_post": "כל הגנה שמסתמכת על סנדבוקס בתוך אפליקציית מובייל היא עניין זמני עד שיגיע הווידג'ט הבא שיעקוף אותה.\nחברת NebuSec חשפה איך וידג'ט זדוני ב Telegram מצליח לעקוף את פילטר האבטחה ולהריץ JavaScript מחוץ למעטפת באפליקציית אנדרואיד.\n1. הווידג'טים הם רכיבים אינטראקטיביים שבוטים שולחים בצ'אט.\n2. הקוד רץ ישירות במכשיר הקורא בלי התערבות נוספת מצד המשתמש.\n3. הפער נוצר כאשר מנגנון הניקוד והבדיקה מתמקד בהודעות טקסט ומזניח את הלוגיקה של ה UI.\nניתוח לוגים של אירועים כאלה דורש מעקב מדויק אחרי התנהגות תהליכים ולא רק בדיקת חתימות.\nאיך אתם מזהים פעילות חריגה של סקריפטים בתוך אפליקציות מובייל בארגון שלכם?\n#CyberSecurity #SOCAnalyst #BlueTeam #AppSecurity #ThreatIntelligence #InfoSec"
+      "linkedin_post": "אם ה Alert שלכם ב SOC עדיין מבוסס על Hash מדויק, התוקפים כבר עקפו אתכם בסיבוב הבא. קבוצות APT ממשיכות לשדרג את כלי הנוזקה כמו EggStreme ולשנות חתימות בכל קומפילציה מחדש. 1. שינוי קבוע של חתימות קבצים הופך חוקי Static Signature לחסרי תועלת לחלוטין מול תקיפות ממוקדות. 2. ניתוח התנהגות ברמת ה Endpoint מגלה חריגות שהשקט של הנוזקה לא מצליח להסתיר. 3. המעבר מלוגים בודדים לתמונת מצב רחבה ב SIEM הוא ההבדל בין זיהוי בזמן אמת לפספוס מלא. חיפוש חתימות סטטיות מתים בשטח ועוברים כולנו לזיהוי מבוסס התנהגות בלבד. איך צוות ה SOC שלכם מתמודד עם נוזקות שמשנות את ה Hash שלהן כל יום?\n#CyberSecurity #SOCAnalyst #BlueTeam #MalwareAnalysis #ThreatIntelligence #InfoSec"
     },
     {
-      "id": "post-2-1794957623",
-      "topic": "Trigram Campaign Targeting Devs",
+      "id": "post-2-1795018910",
+      "topic": "TPM Lockout Bypass on Windows Hello and BitLocker",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/oracle-to-patch-11-java-flaws-today-as.html",
+      "source_url": "https://thehackernews.com/2026/11/flash-chip-attack-bypasses-tpm-lockout.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-17 (Auto)",
+      "posted_at": "Updated 2026-11-18 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Comprehensive technical analysis by Stormshield covering supply chain threats directed at AI and blockchain developers.",
+      "credibility_rationale": "Based on hardware security research from Technische Universität Berlin regarding TPM lockout vulnerabilities on AMD and Intel PCs.",
       "key_takeaways": [
-        "Campaign targets AI and blockchain developers using cloned brand repositories.",
-        "Infostealers are packaged as standard development tools or libraries.",
-        "Engineers tend to lower their guard when installing tools related to their tech stack."
+        "Hardware-level attacks can reset TPM lockouts and expose short PIN codes rapidly.",
+        "Physical security of enterprise endpoints is just as critical as perimeter defense.",
+        "Enforcing long and complex authentication PINs mitigates quick brute force attempts."
       ],
-      "linkedin_post": "המפתח הממוצע בודק את הקוד של הסוכן שהוא בונה, אבל מתקין כל חבילה חיצונית בלי להעיף מבט על ה hash.\nקמפיין Trigram החדש מתמקד במפתחי AI ובלוקצ'יין, ומזייף כחמישים מותגים שונים כדי להפיל אותם בפח עם Infostealers.\n1. התוקפים מנצלים את הרצון של מפתחים לאמץ כלים חדשים ומהירים לפיתוח.\n2. קבצים זדוניים מוסווים כעדכונים או כתוספים לתיקיות עבודה נפוצות.\n3. ברגע שהכלי רץ מקומית, כל נתוני ההתחברות והמפתחות של הסוכנים נשאבים החוצה.\nשמירה על סביבת פיתוח נקייה מחייבת פיקוח הדוק על התקנות חיצוניות גם בסביבות R&D.\nהאם צוותי ה SOC אצלכם מנטרים התקנות חריגות של ספריות בסביבות פיתוח AI?\n#CyberSecurity #AIgents #DevSecOps #Infostealer #ThreatHunting #CodeSecurity"
+      "linkedin_post": "הגנת BitLocker שנראית חסינה על המסך שווה כקליפת השום אם מישהו פתח את המארז הפיזי של המחשב. חוקרים חשפו דרך לעקוף את נעילת ה TPM ולאפשר ניחוש מהיר של PIN קצר. 1. גישה פיזית לשבב מאפשרת לאפס את מנגנוני ההגנה של Windows Hello ושל כוננים מוצפנים. 2. שימוש בסיסמאות קצרות של ארבע ספרות חושף את התחנות לפריצה בתוך ימים בודדים. 3. אבטחת החומרה דורשת מדיניות קשיחה שאינה מתפשרת על אורך ומורכבות האימות. הגנה אמיתית מחייבת התייחסות לאיומי חומרה פיזיים ולא רק להגנות תוכנה מרוחקות. איזה משקל אתם נותנים לאבטחה פיזית של תחנות עבודה בארגון שלכם?\n#CyberSecurity #BlueTeam #EndpointSecurity #HardwareSecurity #BitLocker #InfoSec"
+    },
+    {
+      "id": "post-3-1795018910",
+      "topic": "AI Pentesting Vendor Evaluation and Automation Gaps",
+      "category": "cyber_soc",
+      "source_url": "https://thehackernews.com/2026/11/ai-pentesting-checklist-for-web-apps-15.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "posted_at": "Updated 2026-11-18 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "Sourced from analysis of recent vulnerability disclosure timelines and automated testing platform limitations.",
+      "key_takeaways": [
+        "Most AI pentesting tools look impressive in demos but fail in complex logged-in application flows.",
+        "Exploitation velocity by attackers often outpaces traditional patching cycles.",
+        "Evaluating AI agents requires strict production safety and deep code coverage checks."
+      ],
+      "linkedin_post": "סוכן AI שמבטיח לבדוק את כל האפליקציה שלכם בדקה נכשל בדיוק איפה שהמשתמש האמיתי מתחיל לעבוד. עם קצב תקיפה שמתחיל עוד לפני שהפאץ יוצא לאור, ספקי כלי אוטומציה אינם שווים זה לזה. 1. הדגמות נוצצות מסתירות פערים משמעותיים ביכולת לנווט בתוך תהליכי Login מורכבים. 2. סוכן אוטומטי חייב להוכיח כיסוי אמיתי ולא רק סריקת פנימית בסיסית ושטחית. 3. בטיחות בסביבת Production היא קו אדום שמונע מסוכנים אגרסיביים מדי להרוס נתונים. בחירת סוכן AI מחייבת מבחן תוצאה בשטח ולא רק מצגות שיווקיות מלוטשות. באיזה מדד אתם משתמשים כדי לאמת את היכולות של כלי AI אוטומטיים לאבטחת יישומים?\n#AIAutomation #AIAgents #WebSecurity #Pentesting #DevSecOps #InfoSec"
     }
   ]
 }
