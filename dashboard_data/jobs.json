@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-18T22:50:28.093474+00:00",
+  "generated_at": "2026-11-19T16:28:50.663289+00:00",
   "stats": {
-    "total_scanned": 73,
+    "total_scanned": 72,
     "matched_count": 16,
-    "ai_count": 9,
+    "ai_count": 8,
     "cyber_count": 0,
     "scraping_count": 2,
-    "web_count": 5
+    "web_count": 6
   },
   "jobs": [
     {
@@ -111,8 +111,8 @@
         "Artificial Intelligence",
         "Llm"
       ],
-      "client_problem": "The client needs ML inference experts to design expert-level terminal benchmark tasks using vLLM, SGLang, or TensorRT-LLM.",
-      "proposal_draft": "I build custom AI agents and handle inference optimization regularly using Python and vLLM. We can set up automated validation checks to score agent behaviors reliably in sandbox terminal environments. Are you using Docker containers to isolate the test tasks, or running them on dedicated runner nodes?\nBest,\nRoee"
+      "client_problem": "The client needs ML inference experts to design expert-level Terminal-Bench challenges and evaluation environments for AI agents.",
+      "proposal_draft": "I build custom Python evaluation harnesses and agent benchmarks using vLLM containers. We can structure these tasks with clean bash and Python assertions for deterministic grading. Are you containerizing the evaluation environments with Docker for this benchmark?\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137571",
@@ -132,28 +132,8 @@
         "Workflow",
         "Mcp"
       ],
-      "client_problem": "The client needs senior engineers to own product development and build integrations connecting DATEV with other software and AI applications.",
-      "proposal_draft": "I build backend automations and custom workflows using n8n and Python. Connecting accounting systems like DATEV to external APIs requires clean error handling and secure credential storage. Are you using webhooks or scheduled polling to sync data from DATEV?\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137410",
-      "title": "Frontend Engineer (Bjak)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-frontend-engineer-bjak-1137410",
-      "posted_at": "2026-09-20",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 95,
-      "skills": [
-        "Ai",
-        "Chatbot",
-        "Workflow",
-        "Prompt"
-      ],
-      "client_problem": "The client needs a frontend engineer to help build proactive, AI-native applications that simplify long-running workflows without complex prompting.",
-      "proposal_draft": "I build custom AI apps and responsive web interfaces using Next.js and TypeScript. Managing persistent state for asynchronous, long-running agent workflows requires robust client-side polling or server-sent events. How are you handling state synchronization between the backend orchestration and the UI?\nBest,\nRoee"
+      "client_problem": "The client needs senior engineers to own product development, DATEV software integrations, and business automation workflows.",
+      "proposal_draft": "I build custom n8n and Python integration workflows connecting financial platforms to internal tools. We can map out the DATEV API endpoints and handle the sync logic cleanly. Which endpoints are you planning to integrate first?\nBest,\nRoee"
     },
     {
       "id": "remotive-1680495",
@@ -172,8 +152,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs a remote office assistant to handle administrative, bookkeeping, billing, and reporting tasks.",
-      "proposal_draft": "I design internal operations dashboards and build automated data pipelines using Python and modern workspace tools. Automating repetitive reporting helps cut down manual bookkeeping hours significantly. Which accounting or billing software are you currently using for your daily operations?\nBest,\nRoee"
+      "client_problem": "The client needs a remote office assistant to handle billing, data entry, bookkeeping, and internal administrative operations.",
+      "proposal_draft": "I set up internal admin workflows, automated billing trackers, and reporting dashboards using modern cloud software. We can streamline your data entry processes with custom spreadsheets or lightweight internal web apps. What tools do you currently use for your billing and invoicing?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091137",
@@ -193,8 +173,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs senior data engineers to join client teams for contract roles ranging from startups to enterprise companies.",
-      "proposal_draft": "I build custom data pipelines, interactive analytics dashboards, and Python backend services. Integrating structured data sources into clean analytical views is my core focus. What database and data warehouse stack do most of your current clients rely on?\nBest,\nRoee"
+      "client_problem": "The client needs experienced senior data engineers to build and scale data pipelines and infrastructure for companies.",
+      "proposal_draft": "I build robust data pipelines and analytics backends using Python and SQL. We can set up clean extraction scripts and automated validation checks to keep your datasets reliable. What database and warehouse stack are you currently using?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091136",
@@ -214,8 +194,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs senior React full-stack developers for contract placements with companies ranging from funded startups to large enterprises.",
-      "proposal_draft": "I design and build custom web applications and admin dashboards using React, Next.js, and TypeScript. Delivering clean frontend interfaces backed by solid API integrations is my primary workflow. Are these client projects typically Greenfield builds or existing codebases that need refactoring?\nBest,\nRoee"
+      "client_problem": "The client needs senior full-stack React developers to join client teams and build scalable web applications.",
+      "proposal_draft": "I build responsive web applications and dashboards using React, Next.js, and TypeScript. We can set up your component architecture and API routes for fast performance. Are you using Tailwind CSS for your styling system?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091165",
@@ -235,8 +215,8 @@
         "Frontend",
         "Web App"
       ],
-      "client_problem": "The client needs a full-stack developer to build and scale B2B mental health and therapy platforms with a strong focus on security.",
-      "proposal_draft": "I build secure full-stack applications and analytics dashboards using Next.js, TypeScript, and Python. Handling sensitive health data requires strict role-based access control and encrypted database storage. Are you currently using PostgreSQL with row-level security for your user data?\nBest,\nRoee"
+      "client_problem": "The client needs a pragmatic full-stack developer to build and secure B2B mental health and therapy applications.",
+      "proposal_draft": "I build secure full-stack applications and user interfaces with React and Python. We can ensure proper data validation and role-based access controls for clinical workflows. How are you currently handling user authentication in your stack?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091135",
@@ -256,8 +236,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs a senior back-end developer to support an AI-native cloud platform that runs model inference and manages GPU clusters.",
-      "proposal_draft": "I build backend services and workflow automation systems using Python and cloud-native tools. Managing resource scheduling and inference endpoints requires predictable API performance and fast scaling. Are you orchestrating your GPU workloads with Kubernetes or a custom scheduler?\nBest,\nRoee"
+      "client_problem": "The client needs a senior backend developer to support an AI-native cloud platform running model inference and GPU clusters.",
+      "proposal_draft": "I build backend services and API integrations for AI applications using Python and FastAPI. We can optimize your orchestration workflows and container deployments for speed. Which container orchestration tools are you running for your GPU fleet?\nBest,\nRoee"
     },
     {
       "id": "upwork-live-2120849319729993210",
@@ -302,6 +282,44 @@
       "proposal_draft": "Hi,\n\nI saw your requirement for an AI Automation Expert at Toam Studios to architect agentic workflows for service businesses. I design and build production-grade AI agents with multi-model failover (Claude, Gemini, OpenAI), tool-calling loops, and strict schema guarantees.\n\nHow I work:\n1. Fast Prototyping to Production: Rapid translation of client operational bottlenecks into functional, stateful agents.\n2. Resilient Tool Calling: Strict validation using Pydantic schemas so agent outputs integrate cleanly into client CRMs and messaging channels without hallucinated fields.\n3. Operational Handover: Clean documentation, automated error handling, and staging environment demos for client signoff.\n\nI would love to partner with you to accelerate client delivery. What is the typical tech stack or CRM your service business clients use (e.g. GoHighLevel, HubSpot, Zapier)?\n\nBest regards,\nRoee"
     },
     {
+      "id": "remoteok-1137805",
+      "title": "SEO Full Stack Engineer (Treatwell)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remoteOK.com/remote-jobs/remote-seo-full-stack-engineer-treatwell-1137805",
+      "posted_at": "2026-11-18",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "React",
+        "Analytics",
+        "Full Stack"
+      ],
+      "client_problem": "The client needs a full-stack engineer focused heavily on frontend development to improve marketplace SEO and growth features.",
+      "proposal_draft": "I build high-performance web interfaces using Next.js, React, and Tailwind CSS. We can optimize your site rendering and component structure for better search engine indexing. Are you currently using Server-Side Rendering or Static Generation for your marketplace pages?\nBest,\nRoee"
+    },
+    {
+      "id": "remoteok-1137803",
+      "title": "Legal Engineering Counsel (Stedi)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-legal-engineering-counsel-stedi-1137803",
+      "posted_at": "2026-11-18",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Agent",
+        "Automation"
+      ],
+      "client_problem": "The client needs legal engineering counsel to support a headless healthcare clearinghouse and API RCM engine.",
+      "proposal_draft": "I build custom API integrations and workflow automation tools for developer platforms. We can structure your documentation and developer experience workflows cleanly. What specific EDI transaction formats are your primary focus right now?\nBest,\nRoee"
+    },
+    {
       "id": "remoteok-1137793",
       "title": "Software Engineer AI Tooling (Supabase)",
       "platform": "RemoteOK (Live Cloud)",
@@ -317,27 +335,8 @@
         "Ai Tool",
         "Mcp"
       ],
-      "client_problem": "The client needs a software engineer to join the AI Tooling team and build features that help developers and agents build with Supabase.",
-      "proposal_draft": "I build custom AI applications and leverage Postgres tools like Supabase for database management and vector search. Setting up edge functions and real-time triggers makes building agentic workflows much faster. Are you primarily focusing on TypeScript or Python SDKs for the agent tooling integration?\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137608",
-      "title": "Scientific Account Executive (Adaptyv)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-scientific-account-executive-adaptyv-1137608",
-      "posted_at": "2026-10-31",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Ai Agent",
-        "Workflow"
-      ],
-      "client_problem": "The client needs a scientific account executive to help drive adoption of their automated lab platform for AI-driven biology experiments.",
-      "proposal_draft": "I build custom AI apps and automated workflows that connect software agents to external APIs and physical systems. Explaining technical architectures to engineering teams is a natural part of my workflow design process. What kind of API protocols do your automated lab instruments expose for external agent control?\nBest,\nRoee"
+      "client_problem": "The client needs a software engineer to build developer tooling and integrations for the Supabase Postgres ecosystem.",
+      "proposal_draft": "I build developer tooling, custom AI agents, and workflow integrations using Python and TypeScript. We can create clean utility packages that interface directly with Postgres and edge functions. Are you planning to use vector search embeddings in these new developer tools?\nBest,\nRoee"
     }
   ]
 }
