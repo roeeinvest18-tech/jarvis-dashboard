@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T16:29:27.226326+00:00",
+  "generated_at": "2026-11-19T22:54:15.737660+00:00",
   "stats": {
     "total_drafted": 3,
     "cyber_count": 3,
@@ -7,52 +7,52 @@
   },
   "posts": [
     {
-      "id": "post-1-1795105767",
-      "topic": "Critical VMware vCenter Authentication Bypass Flaw",
+      "id": "post-1-1795128855",
+      "topic": "phpAfterShell Session Flaw",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/critical-vmware-vcenter-flaw-cvss-98.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-19 (Auto)",
-      "credibility_score": "10/10",
-      "credibility_rationale": "Official advisory details confirmed regarding critical infrastructure authentication bypass.",
-      "key_takeaways": [
-        "Network-based attackers can bypass authentication on unpatched vCenter servers without valid credentials.",
-        "No viable workaround exists, forcing immediate patching of central management ESX infrastructure.",
-        "Compromise of vCenter grants full administrative control over all virtual machines and hosts."
-      ],
-      "linkedin_post": "כאשר קונסולת הניהול המרכזית של הווירטואליזציה נפרצת ללא אימות, הארגון מאבד את השליטה על כל השרתים ברגע.\nחולשת CVSS 9.8 חדשה ב VMware vCenter מאפשרת לתוקף ברשת לבצע עקיפת אימות מלאה.\n1. פגיעה ב vCenter משמעה גישה מיידית לכל מארחי ESX והמכונות הוירטואליות.\n2. אין פתרון עקיף שזמין כרגע, מה שמחייב עדכון גרסה דחוף ללא דיחוי.\n3. בלוגים של מערכת ה SOC נראה גישה חריגה לממשקי הניהול המרכזיים.\nעדכון מערכות ניהול מרכזיות הוא תמיד נקודת הכשל הקריטית ביותר ב ארגון מודרני.\nאיך אתם מוודאים ב צוות ה SOC שלכם זיהוי מוקדם של גישה חריגה למערכות vSphere?\n#CyberSecurity #SOCAnalyst #BlueTeam #VMware #InfoSec #VulnerabilityManagement"
-    },
-    {
-      "id": "post-2-1795105767",
-      "topic": "PHP Critical Flaws and RCE Vulnerabilities",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/php-fixes-7-critical-flaws-including.html",
+      "source_url": "https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-19 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Directly references the official PHP Foundation security releases and CVE identifiers.",
+      "credibility_rationale": "מבוסס על ניתוח חולשה אמיתית עם מזהה CVE רשמי ומנגנון תקיפה טכני מובהק ברמת קוד",
       "key_takeaways": [
-        "Multiple critical vulnerabilities including CVE-2026-115560 enable remote code execution via improper input validation.",
-        "Attackers can leverage flawed input parsing to execute unauthorized system commands or modify files.",
-        "Standard WAF rules might fail if input validation failures occur deep within core execution paths."
+        "מנגנון האחסון ברירת המחדל של PHP פגיע לקטיעת כתיבה",
+        "שילוב עם gadget chain מוביל להרצת קוד מרחוק",
+        "נדרש עדכון מיידי של עצי הפיתוח והשרתים"
       ],
-      "linkedin_post": "פגיעויות קריטיות בליבת PHP מזכירות לנו שוב שהקוד שנמצא בבסיס האפליקציה הוא נקודת התורפה הקלאסית.\nעדכון האבטחה החדש מתקן שבעה פגמים קריטיים, כולל CVE-2026-115560 שמוביל ל RCE.\n1. אימות קלטים לקוי מאפשר לתוקף לשנות קבצים ולהריץ קוד מרחוק על השרת.\n2. בחינת לוגים ב סביבת Web Application Firewall דורשת זיהוי פטרטרנים של פגיעה בלוגים.\n3. מערכות סייבר חייבות לזהות התנהגות תהליכים חשודה המושקת מתוך תהליכי PHP.\nחולשות קור שנובעות מאימות קלטים דורשות תיקון ברמת הקוד ולא רק סינון ברשת.\nאילו כלים אתם משלבים ב צינור הפיתוח שלכם לאיתור בעיות קור כאלו?\n#CyberSecurity #AppSec #PHP #BlueTeam #RCE #InfoSec"
+      "linkedin_post": "כאשר כתיבת קובץ סשן נעצרת ברגע המדויק, האפליקציה מתחילה להחזיר אובייקטים שהתוקף בחר.\nחולשת phpAfterShell מוכיחה שוב כמה מנגנוני ברירת המחדל של PHP רגישים למניפולציות מבניות.\n1. החולשה פוגעת באחסון סשנים מבוסס קבצים דרך קטיעת כתיבה בזמן אמת.\n2. תוקפים משלבים זאת עם gadget chain כדי להפעיל קוד זדוני על השרת.\n3. החולשה מקבלת את הסימון CVE-2026-126714 ומחייבת תיקון קוד מיידי.\nבחינת לוגים של שרתי אינטרנט חייבת לזהות דפוסי בקשות חריגים סביב ניהול סשנים.\nאיך צוותי האבטחה אצלכם מזהים חריגות במנגנוני סשן פנימיים?\n#CyberSecurity #SOCAnalyst #PHP #InfoSec #VulnerabilityManagement #BlueTeam"
     },
     {
-      "id": "post-3-1795105767",
-      "topic": "Drupal Critical Installer Flaw and Site Takeover",
+      "id": "post-2-1795128855",
+      "topic": "GPT-6.2 Jailbreak and Automated Threat Vectors",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/drupal-patches-critical-installer-flaw.html",
+      "source_url": "https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-19 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Official Drupal security disclosure regarding installer exploitation.",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס על סקירת איומים שבועית עדכנית המדווחת על מגמות תקיפה ופגיעויות במודלים מתקדמים",
       "key_takeaways": [
-        "Unauthenticated attackers can abuse built-in site installers under specific uncommon configurations.",
-        "Successful exploitation leads directly to site takeover or remote code execution.",
-        "Monitoring configuration states and installer endpoints is crucial for web defense teams."
+        "תקיפות סוכן נשענות על הנדסה חברתית מוכרת כמו הצעות עבודה",
+        "חולשות Jailbreak מאפשרות עקיפת מנגנוני הגנה במודלים",
+        "שילוב AI מייצר וקטורי תקיפה חדשים באוטומציה"
       ],
-      "linkedin_post": "מנגנון התקנה מובנה במערכות ניהול תוכן שנשאר פתוח בתנאים מסוימים הופך דלת אחורית לשליטה מלאה.\nעדכון אבטחה קריטי ב Drupal חושף כיצד תוקף ללא הרשאות יכול לנצל את מתקין האתר.\n1. תנאים ספציפיים בקונפיגורציה מאפשרים התקנה מחדש של המערכת מרחוק.\n2. התוצאה הישירה היא השתלטות מלאה על האתר והרצת קוד בשרת.\n3. אנליסטים ב SOC צריך לבדוק בקשות HTTP חריגות המופנות לנתיבי ההתקנה.\nהגנה אמיתית על אתרי ארגון דורשת נעילה פיזית של מנגנוני התקנה לאחר הפריסה הראשונית.\nאיך אתם מנטרים ניסיונות גישה לקבצי התקנה רגישים בשרתים שלכם?\n#CyberSecurity #Drupal #WebSecurity #SOCAnalyst #InfoSec #BlueTeam"
+      "linkedin_post": "הדרך הקלה ביותר לשבור הגנות של מודל שפה היא לתת למשתמש בדיוק את מה שהוא מצפה לקבל.\nדיווחים שבועיים חושפים כיצד חולשות Jailbreak במודלי AI מתקדמים משולבות בקמפיינים מתוחכמים.\n1. תוקפים משתמשים במסרים מוכרים כמו הצעות עבודה כדי להוריד את רמת החשד.\n2. פרצות במודלים מאפשרות עקיפת מגבלות בטיחות והפקדת קוד זדוני.\n3. אוטומציה של תקיפות מאיצה את היכולת לייצר פישינג מותאם אישית.\nכמפתח אוטומציות AI, הגנה על הסוכנים מחייבת אימות קפדני של הקלט ולא רק סינון תגובות.\nאיזה מנגנון בקרה אתם מטמיעים כדי למנוע Jailbreak בסוכני ה AI שלכם?\n#AIAutomation #CyberSecurity #MachineLearning #AIAgents #InfoSec #ThreatIntelligence"
+    },
+    {
+      "id": "post-3-1795128855",
+      "topic": "SBC Medical Group Data Breach",
+      "category": "cyber_soc",
+      "source_url": "https://www.bleepingcomputer.com/news/security/hackers-steal-data-of-16-million-sbc-medical-group-customers/",
+      "source_platform": "BleepingComputer (Security & Incidents)",
+      "posted_at": "Updated 2026-11-19 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "מבוסס על דיווח רגולטורי רשמי לרשות ניירות הערך האמריקאית אודות תקרית סייבר רחבת היקף",
+      "key_takeaways": [
+        "דליפת נתונים שחוגגת מידע רגיש של 1.6 מיליון לקוחות",
+        "ריבוי אירועי אבטחה המעידים על בעיות רוחביות בבקרות גישה",
+        "חובה לנתח אינדיקציות לתנועה רוחבית לאחר פריצה ראשונית"
+      ],
+      "linkedin_post": "אירוע אבטחה שקט בתוך רשת הארגון הופך בן לילה לכותרת ראשית על מיליוני לקוחות פגועים.\nהפריצה לנתוני SBC Medical Group חושפת מידע רגיש של 1.6 מיליון אנשים בשתי תקריות נפרדות.\n1. דליפת נתונים בהיקף כזה מצביעה על כשל מתמשך באיתור תנועה חשודה בתוך השרתים.\n2. חשיפת פרטי עובדים ולקוחות מלמדת על הפרדה לקויה בין רשתות פנימיות.\n3. אנליסטים בצוותי הגנה חייבים לחפש סימני Exfiltration מוקדמים בלוגים של הנתונים.\nזיהוי חריגה בנפח התעבורה החוצה הוא קו ההגנה האחרון לפני האסון.\nאיך אתם מגדירים התראות ב SIEM על חריגות בנפח המידע היוצא מהארגון?\n#CyberSecurity #SOCAnalyst #DataBreach #BlueTeam #SIEM #InfoSec"
     }
   ]
 }

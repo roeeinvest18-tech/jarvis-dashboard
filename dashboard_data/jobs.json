@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T16:28:50.663289+00:00",
+  "generated_at": "2026-11-19T22:54:08.311582+00:00",
   "stats": {
     "total_scanned": 72,
     "matched_count": 16,
@@ -111,8 +111,8 @@
         "Artificial Intelligence",
         "Llm"
       ],
-      "client_problem": "The client needs ML inference experts to design expert-level Terminal-Bench challenges and evaluation environments for AI agents.",
-      "proposal_draft": "I build custom Python evaluation harnesses and agent benchmarks using vLLM containers. We can structure these tasks with clean bash and Python assertions for deterministic grading. Are you containerizing the evaluation environments with Docker for this benchmark?\nBest,\nRoee"
+      "client_problem": "The client needs ML inference experts to design expert-level Terminal-Bench tasks using vLLM or SGLang for AI agents.",
+      "proposal_draft": "I build custom Python evaluation loops and custom workflows using vLLM for high-throughput inference setups. Setting up automated correctness checks via Docker containers usually keeps the benchmark runs reproducible. Are you targeting specific context window sizes for these terminal tasks?\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137571",
@@ -132,8 +132,8 @@
         "Workflow",
         "Mcp"
       ],
-      "client_problem": "The client needs senior engineers to own product development, DATEV software integrations, and business automation workflows.",
-      "proposal_draft": "I build custom n8n and Python integration workflows connecting financial platforms to internal tools. We can map out the DATEV API endpoints and handle the sync logic cleanly. Which endpoints are you planning to integrate first?\nBest,\nRoee"
+      "client_problem": "The client needs senior software engineers to build DATEV software integrations and backend automation workflows.",
+      "proposal_draft": "I build custom n8n and Python integration pipelines connecting financial platforms to external APIs. Writing modular integration modules ensures the data syncs cleanly without dropping state. How are you currently handling rate limiting on the DATEV endpoints?\nBest,\nRoee"
     },
     {
       "id": "remotive-1680495",
@@ -152,8 +152,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs a remote office assistant to handle billing, data entry, bookkeeping, and internal administrative operations.",
-      "proposal_draft": "I set up internal admin workflows, automated billing trackers, and reporting dashboards using modern cloud software. We can streamline your data entry processes with custom spreadsheets or lightweight internal web apps. What tools do you currently use for your billing and invoicing?\nBest,\nRoee"
+      "client_problem": "The client needs an office assistant to handle administrative tasks, billing, bookkeeping, and internal data entry operations.",
+      "proposal_draft": "I build internal operations dashboards and automated data entry trackers using Python and clean database structures. Setting up automated billing reconciliation templates saves hours of manual spreadsheet work every week. What tools are you currently using for invoicing and tracking data?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091137",
@@ -173,8 +173,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs experienced senior data engineers to build and scale data pipelines and infrastructure for companies.",
-      "proposal_draft": "I build robust data pipelines and analytics backends using Python and SQL. We can set up clean extraction scripts and automated validation checks to keep your datasets reliable. What database and warehouse stack are you currently using?\nBest,\nRoee"
+      "client_problem": "The client needs senior data engineers to build data pipelines and infrastructure for high-growth tech companies.",
+      "proposal_draft": "I build robust data pipelines and analytics dashboards using Python and SQL workflows. Setting up proper logging and error handling keeps the extraction jobs stable across client migrations. What cloud data warehouse are you using for the core pipelines?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091136",
@@ -194,8 +194,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs senior full-stack React developers to join client teams and build scalable web applications.",
-      "proposal_draft": "I build responsive web applications and dashboards using React, Next.js, and TypeScript. We can set up your component architecture and API routes for fast performance. Are you using Tailwind CSS for your styling system?\nBest,\nRoee"
+      "client_problem": "The client needs senior React full-stack developers to build client-facing web applications and user interfaces.",
+      "proposal_draft": "I build responsive web applications using React, Next.js, and TypeScript with clean component architectures. Setting up reusable design systems in Tailwind ensures the frontend remains maintainable as features scale. Are you using Tailwind or a component library for the UI primitives?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091165",
@@ -215,8 +215,8 @@
         "Frontend",
         "Web App"
       ],
-      "client_problem": "The client needs a pragmatic full-stack developer to build and secure B2B mental health and therapy applications.",
-      "proposal_draft": "I build secure full-stack applications and user interfaces with React and Python. We can ensure proper data validation and role-based access controls for clinical workflows. How are you currently handling user authentication in your stack?\nBest,\nRoee"
+      "client_problem": "The client needs a full-stack developer to build and maintain secure B2B web applications for mental health and clinical research.",
+      "proposal_draft": "I build secure full-stack applications using Next.js, Python, and robust database models. Implementing strict data validation and role-based access control keeps sensitive clinical data protected. Are you hosting the application infrastructure on AWS or GCP?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091135",
@@ -236,8 +236,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The client needs a senior backend developer to support an AI-native cloud platform running model inference and GPU clusters.",
-      "proposal_draft": "I build backend services and API integrations for AI applications using Python and FastAPI. We can optimize your orchestration workflows and container deployments for speed. Which container orchestration tools are you running for your GPU fleet?\nBest,\nRoee"
+      "client_problem": "The client needs a senior backend developer to support AI cloud infrastructure, model fine-tuning, and GPU cluster management.",
+      "proposal_draft": "I build backend services and orchestration APIs using Python, Docker, and FastAPI. Setting up reliable health checks and container management keeps GPU inference clusters running smoothly. Which framework are you using for managing the model fine-tuning jobs?\nBest,\nRoee"
     },
     {
       "id": "upwork-live-2120849319729993210",
@@ -297,8 +297,8 @@
         "Analytics",
         "Full Stack"
       ],
-      "client_problem": "The client needs a full-stack engineer focused heavily on frontend development to improve marketplace SEO and growth features.",
-      "proposal_draft": "I build high-performance web interfaces using Next.js, React, and Tailwind CSS. We can optimize your site rendering and component structure for better search engine indexing. Are you currently using Server-Side Rendering or Static Generation for your marketplace pages?\nBest,\nRoee"
+      "client_problem": "The client needs a full-stack engineer focused heavily on frontend development to improve marketplace SEO and growth metrics.",
+      "proposal_draft": "I build fast marketplace interfaces using React, Next.js, and server-side rendering techniques to optimize search indexation. Implementing proper meta tagging and structured data ensures core web vitals stay green across markets. Are you currently handling internationalization routing via Next.js middleware?\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137803",
@@ -316,8 +316,8 @@
         "Ai Agent",
         "Automation"
       ],
-      "client_problem": "The client needs legal engineering counsel to support a headless healthcare clearinghouse and API RCM engine.",
-      "proposal_draft": "I build custom API integrations and workflow automation tools for developer platforms. We can structure your documentation and developer experience workflows cleanly. What specific EDI transaction formats are your primary focus right now?\nBest,\nRoee"
+      "client_problem": "The client needs a legal engineering counsel to support API-first healthcare clearinghouse and RCM engine integrations.",
+      "proposal_draft": "I build automated API workflows and custom developer tooling using Python and modern web protocols. Setting up comprehensive schema validation ensures EDI data transactions pass without formatting errors. What schema validation libraries are you using for the healthcare payloads?\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137793",
@@ -335,8 +335,8 @@
         "Ai Tool",
         "Mcp"
       ],
-      "client_problem": "The client needs a software engineer to build developer tooling and integrations for the Supabase Postgres ecosystem.",
-      "proposal_draft": "I build developer tooling, custom AI agents, and workflow integrations using Python and TypeScript. We can create clean utility packages that interface directly with Postgres and edge functions. Are you planning to use vector search embeddings in these new developer tools?\nBest,\nRoee"
+      "client_problem": "The client needs a software engineer to build AI tooling and developer interfaces for the Supabase platform.",
+      "proposal_draft": "I build custom developer tools, chat interfaces, and AI agent workflows that interact directly with database APIs. Using Postgres functions and vector search simplifies managing state across agent interactions. Are you planning to build the tooling as an Edge Function or a CLI extension?\nBest,\nRoee"
     }
   ]
 }
