@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T16:01:09.961045+00:00",
+  "generated_at": "2026-11-20T22:29:46.404249+00:00",
   "stats": {
     "total_drafted": 3,
     "cyber_count": 3,
@@ -7,52 +7,52 @@
   },
   "posts": [
     {
-      "id": "post-1-1795190469",
-      "topic": "Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts",
+      "id": "post-1-1795213786",
+      "topic": "WhatsApp Ad-Reply URL Validation Vulnerability",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html",
+      "source_url": "https://thehackernews.com/2026/11/whatsapp-patches-3-security-flaws.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-20 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Reported by recognized security outlets covering official vendor advisories from Meta regarding CVE-2026-23871.",
       "key_takeaways": [
-        "מקור: The Hacker News (Cybersecurity & Threats)",
-        "Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts",
-        "A flaw in KVM, the hypervisor built into the Linux kernel, let researchers read about 127 GB of a cloud server's memory from inside a virtual machine of their own on DigitalOcean. On a shared server, that memory can include other customers'"
+        "Incomplete validation of external ad-reply URLs exposes Android clients to scam exploitation.",
+        "Attack surface includes both WhatsApp and WhatsApp Business apps before version 2.26.17.4.",
+        "Client-side input sanitization remains a critical battleground for mobile messaging applications."
       ],
-      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts\":\n\nA flaw in KVM, the hypervisor built into the Linux kernel, let researchers read about 127 GB of a cloud server's memory from inside a virtual machine of their own on DigitalOcean. On a shared server, that memory can include other customers'\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "linkedin_post": "כשאפליקציית המסרים הפופולרית בעולם סובלת מפער של ולידציית URL, השאלה היא לא אם ינצלו את זה אלא כמה מהר תוקפים ימציאו וקטור הנדסה חברתית חדש. חברת Meta תיקנה לאחרונה את CVE-2026-23871, חולשה קריטית שנובעת מאימות לקוי של קישורי תגובה למודעות באנדרואיד. תקיפות כאלו מוכיחות כמה קל לעקוף מנגנוני הגנה מובנים כשחסרה אכיפה קפדנית ברמת הקישור. ניתוח של פערים כאלו מלמד אותנו שלוש תובנות קריטיות: 1. אימות כתובות חייב להתבצע בצד השרת ולא להסתמך על תקינות הקליינט. 2. ממשקי WhatsApp Business מהווים יעד מועדף לתקיפה עקב אינטראקציה גבוהה עם לקוחות. 3. אנליסטים חייבים לעקוב אחרי דפוסי תנועה חריגים סביב קמפיינים של מודעות. ניטור נכון של בקשות רשת יכול לזהות התנהגות חשודה עוד לפני שהמשתמש לוחץ על הקישור. איך אתם מזהים אצלכם בארגון תעבורת מובייל חשודה שחושפת את העובדים להנדסה חברתית מתקדמת? #CyberSecurity #SOCAnalyst #BlueTeam #MobileSecurity #ThreatIntel #InfoSec"
     },
     {
-      "id": "post-2-1795190469",
-      "topic": "The Path to AI Autonomy in the SOC",
+      "id": "post-2-1795213786",
+      "topic": "Bazuka Android Malware with LLM Integration",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/the-path-to-ai-autonomy-in-soc.html",
+      "source_url": "https://thehackernews.com/2026/11/bazuka-android-malware-uses-fake-screen.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-20 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Discovered and detailed by mobile security company ThreatFabric during active threat hunting investigations.",
       "key_takeaways": [
-        "מקור: The Hacker News (Cybersecurity & Threats)",
-        "The Path to AI Autonomy in the SOC",
-        "Security leaders are about to hand AI agents a lot more authority. In a recent a16z survey of CISOs at organizations with more than 1,000 employees, 36% said they are comfortable today letting AI agents act autonomously on low-risk security"
+        "Bazuka integrates Large Language Models to automate victim management and control at scale.",
+        "The malware uses fake screen overlays to stealthily harvest credentials and execute device control.",
+        "Evolution of mobile trojans now includes advanced automation capabilities previously seen only in desktop threats."
       ],
-      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"The Path to AI Autonomy in the SOC\":\n\nSecurity leaders are about to hand AI agents a lot more authority. In a recent a16z survey of CISOs at organizations with more than 1,000 employees, 36% said they are comfortable today letting AI agents act autonomously on low-risk security\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "linkedin_post": "נוזקות אנדרואיד הפסיקו להסתמך רק על סקריפטים ידניים, וכשאנחנו רואים שילוב של מודלי שפה בתוך פלטפורמות שליטה ובקרה אנחנו מבינים שהמשחק השתנה. חשיפת משפחת הנוזקות Bazuka מציגה קפיצת מדרגה ביכולות האוטומציה של תוקפים, המשתמשים בטכנולוגיות מתקדמות לניהול קורבנות רחב היקף. מאחורי הקלעים, הארכיטקטורה של האיומים הללו בנויה כדי להטעות אנליסטים ולהקשות על הזיהוי. הנה מה שחשוב להבין על מנגנוני הפעולה של הנוזקה: 1. שימוש במסכי כיסוי מזויפים כדי להסתיר גניבת נתונים ושליטה מרחוק. 2. שילוב AI לניהול האינטראקציה והתאמת קצב התקיפה לכל קורבן בנפרד. 3. ניצול הרשאות נגישות באנדרואיד כדי לעקוף אמצעי אימות מתקדמים. זיהוי תקיפות כאלו ב SOC דורש בחינה מעמיקה של התנהגות אפליקציות ולא רק חתימות סטטיות. האם מערכות ה EDR וה-XDR שלכם יודעות להתמודד עם נוזקות מובייל שמקבלות החלטות אוטונומיות בזמן אמת? #CyberSecurity #SOCAnalyst #AI #ThreatHunting #MalwareAnalysis #InfoSec"
     },
     {
-      "id": "post-3-1795190469",
-      "topic": "SonicWall Warns Gen 6 Firewalls Won't Get Security Patches, Even for Critical Flaws",
+      "id": "post-3-1795213786",
+      "topic": "Bell Canada Agentic Threat Actor Breach",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/sonicwall-warns-gen-6-firewalls-wont.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "source_url": "https://www.bleepingcomputer.com/news/security/bell-canada-says-agentic-hacker-stole-enterprise-customer-data/",
+      "source_platform": "BleepingComputer (Security & Incidents)",
       "posted_at": "Updated 2026-11-20 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Official statement and confirmation from Bell Canada regarding an active corporate enterprise data breach.",
       "key_takeaways": [
-        "מקור: The Hacker News (Cybersecurity & Threats)",
-        "SonicWall Warns Gen 6 Firewalls Won't Get Security Patches, Even for Critical Flaws",
-        "SonicWall has urged all customers still running Generation 6 firewalls to retire and replace them immediately and stop exposing the devices on the internet edge, citing security risks fueled by AI-assisted attacks. \"Attackers now use automa"
+        "Threat actors leverage autonomous agentic workflows to accelerate corporate network reconnaissance and data exfiltration.",
+        "Enterprise customer data tied to provisioning systems was successfully compromised during the incident.",
+        "Defenders must adapt to high-speed automated attacks that mimic legitimate administrative activity."
       ],
-      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"SonicWall Warns Gen 6 Firewalls Won't Get Security Patches, Even for Critical Flaws\":\n\nSonicWall has urged all customers still running Generation 6 firewalls to retire and replace them immediately and stop exposing the devices on the internet edge, citing security risks fueled by AI-assisted attacks. \"Attackers now use automa\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "linkedin_post": "כשאיומים מוגדרים בתור אנטרפרייז אייג'נטיק, זה אומר שתוקפים כבר מריצים תהליכי תקיפה אוטונומיים שמקצרים את זמן הפריצה משבועות לדקות. חברת התקשורת Bell Canada אישרה مؤخراً כי שחקן תקיפה אוטונומי הצליח לחדור למערכותיה ולגנוב מידע רגיש של לקוחות עסקיים. האירוע הזה ממחיש את המעבר מכלים ידניים לביצוע סקאוט וגניבת מידע באמצעות סוכנים חכמים. כדי להבין את העצימות של התקיפות הללו, צריך להסתכל על מספר היבטים טכניים: 1. פעילות הסוכן מדמה התנהגות לגיטימית ומקשה על הפרדה רעש מסיגנל בלוגים. 2. גישה למערכות פרוביזיונינג מאפשרת לתוקפים להבין את ארכיטקטורת הרשת לעומק. 3. מהירות הפעולה של סוכנים אוטונומיים משאירה חלון זמנים קצר מאוד לתגובת צוותי ההגנה. הגנה מול תקיפות כאלו דורשת מעבר מניטור ידני לתגובה אוטומטית מהירה שמזהה חריגות בפעילות משתמשים. איך צוותי ההגנה אצלכם מתמודדים עם תקיפות מהירות שמתבצעות ברמת אוטומציה גבוהה? #CyberSecurity #SOCAnalyst #BlueTeam #IncidentResponse #Automation #InfoSec"
     }
   ]
 }
