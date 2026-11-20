@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T22:54:15.737660+00:00",
+  "generated_at": "2026-11-20T16:01:09.961045+00:00",
   "stats": {
     "total_drafted": 3,
     "cyber_count": 3,
@@ -7,52 +7,52 @@
   },
   "posts": [
     {
-      "id": "post-1-1795128855",
-      "topic": "phpAfterShell Session Flaw",
+      "id": "post-1-1795190469",
+      "topic": "Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html",
+      "source_url": "https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-19 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "מבוסס על ניתוח חולשה אמיתית עם מזהה CVE רשמי ומנגנון תקיפה טכני מובהק ברמת קוד",
-      "key_takeaways": [
-        "מנגנון האחסון ברירת המחדל של PHP פגיע לקטיעת כתיבה",
-        "שילוב עם gadget chain מוביל להרצת קוד מרחוק",
-        "נדרש עדכון מיידי של עצי הפיתוח והשרתים"
-      ],
-      "linkedin_post": "כאשר כתיבת קובץ סשן נעצרת ברגע המדויק, האפליקציה מתחילה להחזיר אובייקטים שהתוקף בחר.\nחולשת phpAfterShell מוכיחה שוב כמה מנגנוני ברירת המחדל של PHP רגישים למניפולציות מבניות.\n1. החולשה פוגעת באחסון סשנים מבוסס קבצים דרך קטיעת כתיבה בזמן אמת.\n2. תוקפים משלבים זאת עם gadget chain כדי להפעיל קוד זדוני על השרת.\n3. החולשה מקבלת את הסימון CVE-2026-126714 ומחייבת תיקון קוד מיידי.\nבחינת לוגים של שרתי אינטרנט חייבת לזהות דפוסי בקשות חריגים סביב ניהול סשנים.\nאיך צוותי האבטחה אצלכם מזהים חריגות במנגנוני סשן פנימיים?\n#CyberSecurity #SOCAnalyst #PHP #InfoSec #VulnerabilityManagement #BlueTeam"
-    },
-    {
-      "id": "post-2-1795128855",
-      "topic": "GPT-6.2 Jailbreak and Automated Threat Vectors",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-19 (Auto)",
+      "posted_at": "Updated 2026-11-20 (Auto)",
       "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס על סקירת איומים שבועית עדכנית המדווחת על מגמות תקיפה ופגיעויות במודלים מתקדמים",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
       "key_takeaways": [
-        "תקיפות סוכן נשענות על הנדסה חברתית מוכרת כמו הצעות עבודה",
-        "חולשות Jailbreak מאפשרות עקיפת מנגנוני הגנה במודלים",
-        "שילוב AI מייצר וקטורי תקיפה חדשים באוטומציה"
+        "מקור: The Hacker News (Cybersecurity & Threats)",
+        "Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts",
+        "A flaw in KVM, the hypervisor built into the Linux kernel, let researchers read about 127 GB of a cloud server's memory from inside a virtual machine of their own on DigitalOcean. On a shared server, that memory can include other customers'"
       ],
-      "linkedin_post": "הדרך הקלה ביותר לשבור הגנות של מודל שפה היא לתת למשתמש בדיוק את מה שהוא מצפה לקבל.\nדיווחים שבועיים חושפים כיצד חולשות Jailbreak במודלי AI מתקדמים משולבות בקמפיינים מתוחכמים.\n1. תוקפים משתמשים במסרים מוכרים כמו הצעות עבודה כדי להוריד את רמת החשד.\n2. פרצות במודלים מאפשרות עקיפת מגבלות בטיחות והפקדת קוד זדוני.\n3. אוטומציה של תקיפות מאיצה את היכולת לייצר פישינג מותאם אישית.\nכמפתח אוטומציות AI, הגנה על הסוכנים מחייבת אימות קפדני של הקלט ולא רק סינון תגובות.\nאיזה מנגנון בקרה אתם מטמיעים כדי למנוע Jailbreak בסוכני ה AI שלכם?\n#AIAutomation #CyberSecurity #MachineLearning #AIAgents #InfoSec #ThreatIntelligence"
+      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts\":\n\nA flaw in KVM, the hypervisor built into the Linux kernel, let researchers read about 127 GB of a cloud server's memory from inside a virtual machine of their own on DigitalOcean. On a shared server, that memory can include other customers'\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
     },
     {
-      "id": "post-3-1795128855",
-      "topic": "SBC Medical Group Data Breach",
+      "id": "post-2-1795190469",
+      "topic": "The Path to AI Autonomy in the SOC",
       "category": "cyber_soc",
-      "source_url": "https://www.bleepingcomputer.com/news/security/hackers-steal-data-of-16-million-sbc-medical-group-customers/",
-      "source_platform": "BleepingComputer (Security & Incidents)",
-      "posted_at": "Updated 2026-11-19 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "מבוסס על דיווח רגולטורי רשמי לרשות ניירות הערך האמריקאית אודות תקרית סייבר רחבת היקף",
+      "source_url": "https://thehackernews.com/2026/11/the-path-to-ai-autonomy-in-soc.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "posted_at": "Updated 2026-11-20 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
       "key_takeaways": [
-        "דליפת נתונים שחוגגת מידע רגיש של 1.6 מיליון לקוחות",
-        "ריבוי אירועי אבטחה המעידים על בעיות רוחביות בבקרות גישה",
-        "חובה לנתח אינדיקציות לתנועה רוחבית לאחר פריצה ראשונית"
+        "מקור: The Hacker News (Cybersecurity & Threats)",
+        "The Path to AI Autonomy in the SOC",
+        "Security leaders are about to hand AI agents a lot more authority. In a recent a16z survey of CISOs at organizations with more than 1,000 employees, 36% said they are comfortable today letting AI agents act autonomously on low-risk security"
       ],
-      "linkedin_post": "אירוע אבטחה שקט בתוך רשת הארגון הופך בן לילה לכותרת ראשית על מיליוני לקוחות פגועים.\nהפריצה לנתוני SBC Medical Group חושפת מידע רגיש של 1.6 מיליון אנשים בשתי תקריות נפרדות.\n1. דליפת נתונים בהיקף כזה מצביעה על כשל מתמשך באיתור תנועה חשודה בתוך השרתים.\n2. חשיפת פרטי עובדים ולקוחות מלמדת על הפרדה לקויה בין רשתות פנימיות.\n3. אנליסטים בצוותי הגנה חייבים לחפש סימני Exfiltration מוקדמים בלוגים של הנתונים.\nזיהוי חריגה בנפח התעבורה החוצה הוא קו ההגנה האחרון לפני האסון.\nאיך אתם מגדירים התראות ב SIEM על חריגות בנפח המידע היוצא מהארגון?\n#CyberSecurity #SOCAnalyst #DataBreach #BlueTeam #SIEM #InfoSec"
+      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"The Path to AI Autonomy in the SOC\":\n\nSecurity leaders are about to hand AI agents a lot more authority. In a recent a16z survey of CISOs at organizations with more than 1,000 employees, 36% said they are comfortable today letting AI agents act autonomously on low-risk security\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+    },
+    {
+      "id": "post-3-1795190469",
+      "topic": "SonicWall Warns Gen 6 Firewalls Won't Get Security Patches, Even for Critical Flaws",
+      "category": "cyber_soc",
+      "source_url": "https://thehackernews.com/2026/11/sonicwall-warns-gen-6-firewalls-wont.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "posted_at": "Updated 2026-11-20 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
+      "key_takeaways": [
+        "מקור: The Hacker News (Cybersecurity & Threats)",
+        "SonicWall Warns Gen 6 Firewalls Won't Get Security Patches, Even for Critical Flaws",
+        "SonicWall has urged all customers still running Generation 6 firewalls to retire and replace them immediately and stop exposing the devices on the internet edge, citing security risks fueled by AI-assisted attacks. \"Attackers now use automa"
+      ],
+      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"SonicWall Warns Gen 6 Firewalls Won't Get Security Patches, Even for Critical Flaws\":\n\nSonicWall has urged all customers still running Generation 6 firewalls to retire and replace them immediately and stop exposing the devices on the internet edge, citing security risks fueled by AI-assisted attacks. \"Attackers now use automa\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
     }
   ]
 }
