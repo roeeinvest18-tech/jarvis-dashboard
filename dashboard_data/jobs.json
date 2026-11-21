@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-20T22:29:37.358701+00:00",
+  "generated_at": "2026-11-21T15:15:01.788243+00:00",
   "stats": {
-    "total_scanned": 78,
+    "total_scanned": 65,
     "matched_count": 16,
-    "ai_count": 8,
-    "cyber_count": 1,
+    "ai_count": 9,
+    "cyber_count": 0,
     "scraping_count": 2,
     "web_count": 5
   },
@@ -95,6 +95,26 @@
       "proposal_draft": "Hi,\n\nI read the brief for AI Automation Developer - Brilliant Directories, n8n/API & Social Media Integration. I design and build custom dashboards, clean web interfaces, and n8n, API Integration, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
+      "id": "remoteok-1137903",
+      "title": "Data Strategy Operations Manager (Abnormal)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-data-strategy-operations-manager-abnormal-1137903",
+      "posted_at": "2026-11-20",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 95,
+      "skills": [
+        "Ai",
+        "Ai Agent",
+        "Automation",
+        "Workflow"
+      ],
+      "client_problem": "About the Role As the Data Strategy and Operations Manager at Abnormal AI, you will own our go-to-market data quality strategy and serve as the steward of data across Salesforce and the systems around it. You will design",
+      "proposal_draft": "Hi,\n\nI read the brief for Data Strategy Operations Manager (Abnormal). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
       "id": "remoteok-1137858",
       "title": "Principal DevSecOps Engineer (Upgrade)",
       "platform": "RemoteOK (Live Cloud)",
@@ -112,8 +132,8 @@
         "Automation",
         "Claude"
       ],
-      "client_problem": "The team needs a DevSecOps engineer to build security automation and improve SaaS operational security.",
-      "proposal_draft": "I saw you are looking for someone to build out security automation and script operational workflows using APIs and IAM policies. I regularly set up similar pipelines and Python automation tools to tighten SOC environments. Are you leaning towards using custom Python scripts or an orchestration tool like n8n for this setup?\n\nBest,\nRoee"
+      "client_problem": "About the Role: We are looking for a highly technical, hands-on Principal DevSecOps Developer to join Upgrade's Security team. In this role, you'll focus on building and improving security automation, strengthening our S",
+      "proposal_draft": "Hi,\n\nI read the brief for Principal DevSecOps Engineer (Upgrade). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent, Llm systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remoteok-1137826",
@@ -132,28 +152,8 @@
         "Ai Assistant",
         "Llm"
       ],
-      "client_problem": "The company needs an Enterprise Solutions Engineer to help customers integrate enterprise search, AI assistants, and autonomous agents.",
-      "proposal_draft": "I saw you are scaling an enterprise AI ecosystem with multiple SaaS connectors and custom API integrations. I frequently build custom AI apps and chatbots connected to secure backend workflows using Python and modern APIs. How are you currently handling LLM routing and token management across these connectors?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137820",
-      "title": "Designated Technical Support Engineer - West (Glean)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-designated-technical-support-engineer-west-glean-1137820",
-      "posted_at": "2026-11-19",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 95,
-      "skills": [
-        "Ai",
-        "Ai Agent",
-        "Ai Assistant",
-        "Llm"
-      ],
-      "client_problem": "The organization needs a Technical Support Engineer to troubleshoot enterprise AI search systems and API integrations.",
-      "proposal_draft": "I noticed you are looking for technical support for enterprise AI search and agent platforms. Coming from a SOC background with strong debugging skills, I am comfortable digging into API logs and resolving complex integration issues quickly. What specific ticketing or logging stack are you using for customer escalations?\n\nBest,\nRoee"
+      "client_problem": "About Glean: Â Glean is the Work AI platform that helps everyone work smarter with AI. What began as the industryâs most advanced enterprise search has evolved into a full-scale Work AI ecosystem, powering intelligent",
+      "proposal_draft": "Hi,\n\nI read the brief for Enterprise Solutions Engineer, East (Glean). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent, Ai Assistant systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-1680495",
@@ -172,8 +172,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "The company needs an Office Assistant to handle bookkeeping, billing, data entry, and internal administrative operations.",
-      "proposal_draft": "I saw you need reliable support for internal reporting, bookkeeping, and operational data entry. I have a strong background in managing digital workflows, internal tooling, and dashboard tracking. Which specific software are you currently using for billing and internal data management?\n\nBest,\nRoee"
+      "client_problem": "Coalition Technologies is seeking a reliable, detail-oriented, and highly organized Remote Office Assistant to support administrative, bookkeeping, billing, reporting, data entry, and internal operations tasks. This role",
+      "proposal_draft": "Hi,\n\nI read the brief for Remote Office Assistant (Coalition Technologies). I design and build custom dashboards, clean web interfaces, and Frontend, Responsive, Shopify systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-2091137",
@@ -193,8 +193,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "Companies need experienced senior data engineers to build robust data pipelines and backend systems.",
-      "proposal_draft": "I noticed you are matching senior engineers with clients needing robust data architecture and backend development. I build custom data pipelines and automation workflows using Python and React interfaces. What type of database and cloud infrastructure do your current clients use most frequently?\n\nBest,\nRoee"
+      "client_problem": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engin",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior Data Engineer (Lemon.io). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-2091136",
@@ -214,8 +214,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "Companies need senior React full-stack developers to build scalable web applications.",
-      "proposal_draft": "I saw you are placing senior React full-stack developers into fast-paced client engineering teams. I specialize in building responsive web apps and interactive dashboards using React, Next.js, and TypeScript. Are these roles typically focused on greenfield product development or maintaining existing React codebases?\n\nBest,\nRoee"
+      "client_problem": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engin",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior React Full-stack Developer (Lemon.io). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-2091165",
@@ -235,8 +235,8 @@
         "Frontend",
         "Web App"
       ],
-      "client_problem": "The team needs a full-stack developer to build and scale B2B mental health applications securely.",
-      "proposal_draft": "I noticed you are building secure B2B web applications for clinicians and mental health researchers. I design and develop secure web interfaces and dashboards using React and Next.js with a strong focus on data privacy. Are you currently using a specific authentication provider for handling clinical user roles?\n\nBest,\nRoee"
+      "client_problem": "We’re looking for a pragmatic, security-minded Full-Stack Developer to help build and scale Fluence’s B2B products used by clinicians, researchers, and organizations in psychedelic-assisted therapy and mental health. You",
+      "proposal_draft": "Hi,\n\nI read the brief for Full-Stack Developer (Fluence International, Inc.). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-2091135",
@@ -256,8 +256,8 @@
         "Shopify",
         "Wordpress"
       ],
-      "client_problem": "An AI-native cloud company needs a senior backend developer to support GPU clusters, fine-tuning, and model inference.",
-      "proposal_draft": "I saw your client runs an AI-native platform for open-source model inference and GPU cluster management. I build backend automation and API integrations using Python and containerized environments. Are you using Docker and Kubernetes to manage the inference fleet orchestration?\n\nBest,\nRoee"
+      "client_problem": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engin",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior Back-end Developer (Lemon.io). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "upwork-live-2120849319729993210",
@@ -302,6 +302,25 @@
       "proposal_draft": "Hi,\n\nI saw your requirement for an AI Automation Expert at Toam Studios to architect agentic workflows for service businesses. I design and build production-grade AI agents with multi-model failover (Claude, Gemini, OpenAI), tool-calling loops, and strict schema guarantees.\n\nHow I work:\n1. Fast Prototyping to Production: Rapid translation of client operational bottlenecks into functional, stateful agents.\n2. Resilient Tool Calling: Strict validation using Pydantic schemas so agent outputs integrate cleanly into client CRMs and messaging channels without hallucinated fields.\n3. Operational Handover: Clean documentation, automated error handling, and staging environment demos for client signoff.\n\nI would love to partner with you to accelerate client delivery. What is the typical tech stack or CRM your service business clients use (e.g. GoHighLevel, HubSpot, Zapier)?\n\nBest regards,\nRoee"
     },
     {
+      "id": "remoteok-1137879",
+      "title": "Manager, Business Risk and AI Automation (Reddit)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-manager-business-risk-and-ai-automation-reddit-1137879",
+      "posted_at": "2026-11-20",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Automation",
+        "Automation"
+      ],
+      "client_problem": "Reddit is a community of communities. Itâs built on shared interests, passion, and trust, and is home to the most open and authentic conversations on the internet. Every day, Reddit users submit, vote, and comment on t",
+      "proposal_draft": "Hi,\n\nI read the brief for Manager, Business Risk and AI Automation (Reddit). I design and build custom dashboards, clean web interfaces, and Ai, Ai Automation, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
       "id": "remoteok-1137844",
       "title": "Staff Software Engineer (Interfaces) (Netlify)",
       "platform": "RemoteOK (Live Cloud)",
@@ -317,27 +336,8 @@
         "Workflow",
         "Mcp"
       ],
-      "client_problem": "The team needs a software engineer to build core product interfaces and developer tools for human and agent interaction.",
-      "proposal_draft": "I noticed you are building core product experiences and developer tools for both human and agent interactions. I specialize in designing and developing interactive web apps, CLI tools, and React-based dashboards. Are you building these new interfaces primarily with React and TypeScript?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137821",
-      "title": "L1 Technical Support Engineer (Spanish-Speaking) (Abnormal)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://remoteOK.com/remote-jobs/remote-l1-technical-support-engineer-spanish-speaking-abnormal-1137821",
-      "posted_at": "2026-11-19",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Splunk",
-        "Threat",
-        "Cybersecurity"
-      ],
-      "client_problem": "The company needs a technical support engineer to investigate and resolve enterprise email and SaaS security threats.",
-      "proposal_draft": "I saw you need an experienced technical support engineer to handle complex investigations in email and SaaS security. With a background as a SOC Tier 1 Analyst, I am very familiar with analyzing threat logs and escalating security incidents. What SIEM or log analysis tools does your support team rely on daily?\n\nBest,\nRoee"
+      "client_problem": "About the Team As a Staff Software Engineer at Netlify, you'll join a collaborative team that values continuous learning, mutual support, and shared growth. Together, we create tools that help developers build faster, mo",
+      "proposal_draft": "Hi,\n\nI read the brief for Staff Software Engineer (Interfaces) (Netlify). I design and build custom dashboards, clean web interfaces, and Ai, Workflow, Mcp systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     }
   ]
 }

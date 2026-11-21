@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T22:29:46.404249+00:00",
+  "generated_at": "2026-11-21T15:15:17.608931+00:00",
   "stats": {
     "total_drafted": 3,
     "cyber_count": 3,
@@ -7,52 +7,52 @@
   },
   "posts": [
     {
-      "id": "post-1-1795213786",
-      "topic": "WhatsApp Ad-Reply URL Validation Vulnerability",
+      "id": "post-1-1795274117",
+      "topic": "חטיפת נתוני משתמש מ Meta Muse דרך דף אידנטרנט זדוני",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/whatsapp-patches-3-security-flaws.html",
+      "source_url": "https://thehackernews.com/2026/11/a-single-malicious-webpage-let.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-20 (Auto)",
+      "posted_at": "Updated 2026-11-21 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Reported by recognized security outlets covering official vendor advisories from Meta regarding CVE-2026-23871.",
+      "credibility_rationale": "מקור חדשותי מוכר המדווח על מחקר אבטחה מעבדתי שמדגים פגיעות אמיתית במודלי בינה מלאכותית.",
       "key_takeaways": [
-        "Incomplete validation of external ad-reply URLs exposes Android clients to scam exploitation.",
-        "Attack surface includes both WhatsApp and WhatsApp Business apps before version 2.26.17.4.",
-        "Client-side input sanitization remains a critical battleground for mobile messaging applications."
+        "דף אינטרנט זדוני יכול לשלוף שיחות פרטיות וזיכרונות של משתמשים מ Meta Muse.",
+        "התקיפה מתבצעת ללא הצגת חלון אישור או הנחיה למשתמש.",
+        "ניתן להרחיב את התקיפה כדי לגשת לפרטי הזדהות של חשבונות מחוברים."
       ],
-      "linkedin_post": "כשאפליקציית המסרים הפופולרית בעולם סובלת מפער של ולידציית URL, השאלה היא לא אם ינצלו את זה אלא כמה מהר תוקפים ימציאו וקטור הנדסה חברתית חדש. חברת Meta תיקנה לאחרונה את CVE-2026-23871, חולשה קריטית שנובעת מאימות לקוי של קישורי תגובה למודעות באנדרואיד. תקיפות כאלו מוכיחות כמה קל לעקוף מנגנוני הגנה מובנים כשחסרה אכיפה קפדנית ברמת הקישור. ניתוח של פערים כאלו מלמד אותנו שלוש תובנות קריטיות: 1. אימות כתובות חייב להתבצע בצד השרת ולא להסתמך על תקינות הקליינט. 2. ממשקי WhatsApp Business מהווים יעד מועדף לתקיפה עקב אינטראקציה גבוהה עם לקוחות. 3. אנליסטים חייבים לעקוב אחרי דפוסי תנועה חריגים סביב קמפיינים של מודעות. ניטור נכון של בקשות רשת יכול לזהות התנהגות חשודה עוד לפני שהמשתמש לוחץ על הקישור. איך אתם מזהים אצלכם בארגון תעבורת מובייל חשודה שחושפת את העובדים להנדסה חברתית מתקדמת? #CyberSecurity #SOCAnalyst #BlueTeam #MobileSecurity #ThreatIntel #InfoSec"
+      "linkedin_post": "המשתמש בטוח שהוא מדבר עם עוזר חכם, אבל דף אינטרנט אחד שואב לו את כל הזיכרונות והשיחות בלי שום התראה.\nמחקר חדש חושף איך אפשר לנצל את Meta Muse לשליפת מידע פרטי וCredentials בלי להקפיץ חלון אישור למשתמש.\n1. הקוד הזדוני רץ ברקע ומנצל את חוסר ההפרדה בארכיטקטורת האסיסטנט.\n2. מתוך זיכרון המערכת נשלפים נתוני שיחות עבר ונתוני התחברות לחשבונות חיצוניים.\n3. בלוגים של ה SOC נראה בקשת HTTP תמימה לכאורה שמאחוריה זורם מידע רגיש.\nאין כאן פריצת רשת גסה, אלא ניצול של מנגנון שמירת הזיכרון באסיסטנטים של AI.\nאיך לדעתכם צוותי הגנה יכולים לזהות אקספילטרציה של זיכרון AI שעוברת בערוצים לגיטימיים?\n#CyberSecurity #SOCAnalyst #BlueTeam #AIUsecases #InfoSec #ThreatIntelligence"
     },
     {
-      "id": "post-2-1795213786",
-      "topic": "Bazuka Android Malware with LLM Integration",
+      "id": "post-2-1795274117",
+      "topic": "חולשת זיכרון קריטית ב GnuPG דרך מפתחות OpenPGP זדוניים",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/bazuka-android-malware-uses-fake-screen.html",
+      "source_url": "https://thehackernews.com/2026/11/gnupg-warns-critical-gpgme-flaw-could.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-20 (Auto)",
+      "posted_at": "Updated 2026-11-21 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Discovered and detailed by mobile security company ThreatFabric during active threat hunting investigations.",
+      "credibility_rationale": "הודעה רשמית מטעם פרויקט GnuPG על חולשת CVE מאומתת עם גרסאות תיקון זמינות.",
       "key_takeaways": [
-        "Bazuka integrates Large Language Models to automate victim management and control at scale.",
-        "The malware uses fake screen overlays to stealthily harvest credentials and execute device control.",
-        "Evolution of mobile trojans now includes advanced automation capabilities previously seen only in desktop threats."
+        "מפתח OpenPGP עם מזהה משתמש ארוך במיוחד גורם לבאג זיכרון ב GnuPG.",
+        "החולשה מתועדת בתור CVE-2026-129975 ומשפיעה על ספריית GnuPG מתחת לגרסה 2.3.0.",
+        "תוקפים יכולים לנצל זאת כדי לחשוף נתונים מאפליקציות שעושות שימוש בספריה."
       ],
-      "linkedin_post": "נוזקות אנדרואיד הפסיקו להסתמך רק על סקריפטים ידניים, וכשאנחנו רואים שילוב של מודלי שפה בתוך פלטפורמות שליטה ובקרה אנחנו מבינים שהמשחק השתנה. חשיפת משפחת הנוזקות Bazuka מציגה קפיצת מדרגה ביכולות האוטומציה של תוקפים, המשתמשים בטכנולוגיות מתקדמות לניהול קורבנות רחב היקף. מאחורי הקלעים, הארכיטקטורה של האיומים הללו בנויה כדי להטעות אנליסטים ולהקשות על הזיהוי. הנה מה שחשוב להבין על מנגנוני הפעולה של הנוזקה: 1. שימוש במסכי כיסוי מזויפים כדי להסתיר גניבת נתונים ושליטה מרחוק. 2. שילוב AI לניהול האינטראקציה והתאמת קצב התקיפה לכל קורבן בנפרד. 3. ניצול הרשאות נגישות באנדרואיד כדי לעקוף אמצעי אימות מתקדמים. זיהוי תקיפות כאלו ב SOC דורש בחינה מעמיקה של התנהגות אפליקציות ולא רק חתימות סטטיות. האם מערכות ה EDR וה-XDR שלכם יודעות להתמודד עם נוזקות מובייל שמקבלות החלטות אוטונומיות בזמן אמת? #CyberSecurity #SOCAnalyst #AI #ThreatHunting #MalwareAnalysis #InfoSec"
+      "linkedin_post": "מספיק מפתח הצפנה אחד עם מבנה זדוני כדי להפיל יישומים שלמים שמסתמכים על GnuPG.\nפרויקט GnuPG פרסם אזהרה דחופה על חולשה קריטית ב GnuPG שמאפשרת חשיפת נתוני אפליקציות.\n1. מזהה משתמש ארוך במיוחד במפתח OpenPGP מצליח לערער את ניהול הזיכרון בספריה.\n2. חולשת Memory Corruption זו, שמספרה CVE-2026-129975, דורשת שדרוג מיידי לגרסה 2.3.0 ומעלה.\n3. תוכנות צד שלישי המשתמשות ב GPGME חשופות לגניבת מידע פנימי מבלי שהמשתמש הרגיש בדבר.\nעדכון ספריית הצפנה מרגיש כמו שגרת תחזוקה משעממת, עד שחולשת זיכרון הופכת אותו לקריטי.\nהאם אתם ממפים אוטומטית את גרסאות ה GnuPG בכל סביבות הפיתוח והייצור שלכם?\n#CyberSecurity #VulnerabilityManagement #GnuPG #InfoSec #SoftwareSecurity #BlueTeam"
     },
     {
-      "id": "post-3-1795213786",
-      "topic": "Bell Canada Agentic Threat Actor Breach",
+      "id": "post-3-1795274117",
+      "topic": "סוכני AI אוטונומיים איתרו Zero-Day בשרת עיבוד רפואי",
       "category": "cyber_soc",
-      "source_url": "https://www.bleepingcomputer.com/news/security/bell-canada-says-agentic-hacker-stole-enterprise-customer-data/",
-      "source_platform": "BleepingComputer (Security & Incidents)",
-      "posted_at": "Updated 2026-11-20 (Auto)",
+      "source_url": "https://thehackernews.com/2026/11/attackers-ai-agents-found-zero-day-in.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "posted_at": "Updated 2026-11-21 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Official statement and confirmation from Bell Canada regarding an active corporate enterprise data breach.",
+      "credibility_rationale": "דיווח של Amazon Threat Intelligence על אירוע אמיתי שבו סוכני AI שימשו למציאת חולשת Zero-Day.",
       "key_takeaways": [
-        "Threat actors leverage autonomous agentic workflows to accelerate corporate network reconnaissance and data exfiltration.",
-        "Enterprise customer data tied to provisioning systems was successfully compromised during the incident.",
-        "Defenders must adapt to high-speed automated attacks that mimic legitimate administrative activity."
+        "תוקפים הפעילו סוכני AI אוטונומיים שאיתרו פגיעות Zero-Day בשרת MONAI Label.",
+        "החולשה מאפשרת כתיבת קבצים מחוץ לתיקיית האחסון המוגדרת ללא צורך בהזדהות.",
+        "התקיפה הסתיימה בהשגת גישת Root על שרת באוניברסיטה במערך בריאות."
       ],
-      "linkedin_post": "כשאיומים מוגדרים בתור אנטרפרייז אייג'נטיק, זה אומר שתוקפים כבר מריצים תהליכי תקיפה אוטונומיים שמקצרים את זמן הפריצה משבועות לדקות. חברת התקשורת Bell Canada אישרה مؤخراً כי שחקן תקיפה אוטונומי הצליח לחדור למערכותיה ולגנוב מידע רגיש של לקוחות עסקיים. האירוע הזה ממחיש את המעבר מכלים ידניים לביצוע סקאוט וגניבת מידע באמצעות סוכנים חכמים. כדי להבין את העצימות של התקיפות הללו, צריך להסתכל על מספר היבטים טכניים: 1. פעילות הסוכן מדמה התנהגות לגיטימית ומקשה על הפרדה רעש מסיגנל בלוגים. 2. גישה למערכות פרוביזיונינג מאפשרת לתוקפים להבין את ארכיטקטורת הרשת לעומק. 3. מהירות הפעולה של סוכנים אוטונומיים משאירה חלון זמנים קצר מאוד לתגובת צוותי ההגנה. הגנה מול תקיפות כאלו דורשת מעבר מניטור ידני לתגובה אוטומטית מהירה שמזהה חריגות בפעילות משתמשים. איך צוותי ההגנה אצלכם מתמודדים עם תקיפות מהירות שמתבצעות ברמת אוטומציה גבוהה? #CyberSecurity #SOCAnalyst #BlueTeam #IncidentResponse #Automation #InfoSec"
+      "linkedin_post": "האקרים כבר לא צריכים לשבת שעות ולחפש באגים לבד, סוכני AI עושים את זה בשבילך ומגיעים ל Root.\nמחקר של Amazon Threat Intelligence חושף שסוכני AI אוטונומיים איתרו Zero-Day בשרת עיבוד תמונה רפואי.\n1. הסוכנים מצאו חולשת Path Traversal בשרת MONAI Label בגרסה 0.8.5 ומטה.\n2. תוקפים ללא הרשאות הצליחו לכתוב קבצים זדוניים מחוץ לתיקיית היישום המקורית.\n3. התהליך הוביל להשתלטות מלאה וגישת שורש על שרת מרכזי באוניברסיטה.\nהאוטומציה התקיפה פועלת במהירות שמערכות הגנה מסורתיות מתקשות לעמוד בקצבה.\nכיצד מפתחי סוכני AI יכולים להטמיע מנגנוני הגנה עצמיים מפני סריקת חולשות אוטונומית?\n#AIgents #AIAutomation #CyberSecurity #ZeroDay #VulnerabilityResearch #Infosec"
     }
   ]
 }
