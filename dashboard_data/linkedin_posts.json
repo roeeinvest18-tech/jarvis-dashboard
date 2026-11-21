@@ -1,82 +1,82 @@
 {
-  "generated_at": "2026-11-21T17:41:16.234516+00:00",
+  "generated_at": "2026-11-21T18:03:26.203826+00:00",
   "stats": {
     "total_drafted": 4,
-    "cyber_count": 3,
-    "ai_count": 1
+    "cyber_count": 2,
+    "ai_count": 2
   },
   "posts": [
     {
-      "id": "post-1-1795282876",
-      "topic": "Signal AI Agent Chat Protection",
+      "id": "post-1-1795284206",
+      "topic": "Meta Muse private chat extraction via malicious webpage",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/signal-blocks-ai-agents-from-reading.html",
+      "source_url": "https://thehackernews.com/2026/11/a-single-malicious-webpage-let.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-21 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Reported directly from authoritative security journalism covering official platform updates.",
+      "credibility_rationale": "Reported by major cybersecurity news outlet with specific technical details on client-side AI assistant data exposure.",
       "key_takeaways": [
-        "Signal blocks screenshots by default against system level AI agents",
-        "OS level agentic integrations pose native surveillance vectors inside encrypted apps",
-        "Application layer controls cannot fully secure data against hyper privileged OS assistants"
+        "Malicious webpages can silently extract chat history from AI assistants without user prompts.",
+        "Connected account credentials stored within assistant memory are also at risk.",
+        "Traditional browser boundary defenses fail when AI memory context is directly accessible via DOM interactions."
       ],
-      "post_angle": "ההתנגשות בין עוזרי מערכת הפעלה מבוססי סוכני AI לבין אפליקציות הצפנה יוצרת חזית אבטחה חדשה לחלוטין ברמת המכשיר.",
-      "opening_hook": "הסכנה האמיתית לפרטיות הצפנת הקצה שלכם כבר לא מגיעה מהרשת אלא ממערכת ההפעלה שיושבת מתחת לאפליקציה.",
-      "linkedin_post": "הסכנה האמיתית לפרטיות הצפנת הקצה שלכם כבר לא מגיעה מהרשת אלא ממערכת ההפעלה שיושבת מתחת לאפליקציה. חברת סיגנל נאלצה לחסום צילומי מסך כברירת מחדל כדי למנוע מסוכני AI מובנים לקרוא צ'אטים פרטיים. 1. סוכני מערכת במערכות הפעלה מודרניות מקבלים גישה רוחבית למסך התצוגה תוך עקיפת מנגנוני הבידוד של האפליקציה. 2. חסימת צילומי מסך היא פתרון חלקי בלבד כי סוכנים יכולים לשאוב מידע ישירות מזיכרון המכשיר או מצינורות העברת נתונים פנימיים. 3. אנליסטים חייבים להבין שגבולות האבטחה המסורתיים בין מערכת ההפעלה לאפליקציה קרסו ברגע ששילבו סוכני אוטומציה בכל פינה. ההגנה על נתונים רגישים מחייבת מעבר לבקרה נוקשה על הרשאות הזיכרון של סוכנים ברמת המכשיר המקומי. אילו עוד אתגרים תפעוליים אתם צופים בשילוב סוכני AI בסביבות עבודה מאובטחות? #CyberSecurity #SOCAnalyst #BlueTeam #Privacy #AIAutomation"
+      "post_angle": "ההתמקדות היא באופן שבו דפדפן וזאת באמצעות תקיפת צד לקוח מצליחה לשלוף זיכרונות של סוכן AI בלי שאף חלון אישור יקפוץ למשתמש.",
+      "opening_hook": "האם שמתם לב איך סוכני AI שומרים זיכרונות פרטיים שכל דפדפן זדוני יכול לשלוף בשקט מבלי להקפיץ חלון אישור אחד?",
+      "linkedin_post": "האם שמתם לב איך סוכני AI שומרים זיכרונות פרטיים שכל דפדפן זדוני יכול לשלוף בשקט מבלי להקפיץ חלון אישור אחד?\nמחקר חדש חושף איך עמוד ווב פשוט מצליח לחטוף שיחות פרטיות ופרטי התחברות שמקושרים לעוזר חכם כמו Meta Muse.\n1. התקיפה מנצלת את נקודת המפגש בין הדפדפן לזיכרון של סוכן ה AI מבלי להפעיל מנגנוני אישור הרשאות.\n2. הנתונים הנשלפים כוללים לא רק את שיחות העבר, וtokens רגישים של חשבונות מחוברים.\n3. הלוגים במערכת יראו גלישה תמימה לחלוטין בזמן שמתבצעת קריאת זיכרון פנימית בעזרת סקריפט צד לקוח.\nהגנת סביבות עבודה מחייבת ניטור קפדני של גישת סקריפטים חיצוניים לזכרונות וקונטקסט של עוזרים חכמים.\nאיך אתם ממליצים לחסום זליגת מידע מזיכרון של סוכני AI בדפדפן הארגוני?\n#CyberSecurity #SOCAnalyst #BlueTeam #InfoSec #AI"
     },
     {
-      "id": "post-2-1795282876",
-      "topic": "Meta Thin Orchestrator AI Agent Architecture",
+      "id": "post-2-1795284206",
+      "topic": "Catching JiTTests Just-in-Time Test Generation at Meta",
       "category": "ai_agents",
-      "source_url": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
+      "source_url": "https://engineering.fb.com/2026/10/29/security/catching-bugs-before-they-land-jittestings-human-on-the-loop-approach-at-full-scale/",
       "source_platform": "Engineering at Meta (AI & Systems)",
       "posted_at": "Updated 2026-11-21 (Auto)",
       "credibility_score": "10/10",
-      "credibility_rationale": "Published directly by Meta engineering detailing production system architectures.",
+      "credibility_rationale": "Directly published by Meta Engineering detailing production-scale deployment of LLM test generation.",
       "key_takeaways": [
-        "Thin orchestrator architectures drastically improve agent reliability and latency",
-        "Routing layers should only handle dispatch and basic verification without heavy reasoning",
-        "Specialized agents must execute domain logic independently to avoid context bottlenecks"
+        "LLMs can generate runtime tests on the fly just before code lands in production.",
+        "Human-on-the-loop validation ensures high reliability at enterprise scale.",
+        "Catching bugs preemptively transforms how CI/CD pipelines handle security validation."
       ],
-      "post_angle": "ככל שנותנים לראוטר של סוכן ה AI יותר מדי עומס חישובי, כך המערכת הופכת לפחות אמינה ואיטית יותר.",
-      "opening_hook": "אם אתם מעמיסים על הראוטר של סוכן ה AI את כל הלוגיקה הארגונית, אתם מייצרים צוואר בקבוק שקורס תחת העומס.",
-      "linkedin_post": "אם אתם מעמיסים על הראוטר של סוכן ה AI את כל הלוגיקה הארגונית, אתם מייצרים צוואר בקבוק שקורס תחת העומס. מטא חשפו ארכיטקטורה שבה שכבת הניווט דתית ורזה במיוחד. 1. ראוטר רזה אחראי אך ורק לניתוב משימות ואכיפת בדיקות אמינות בסיסיות ללא הסקת מסקנות כבדה. 2. סוכנים ייעודיים מבצעים את החשיבה העמוקה והלוגיקה הדומיינית בבידוד מוחלט מהמערכת המרכזית. 3. הפרדה זו מקטינה דרמטית את שגיאות ההקשר ומאיצה את זמן התגובה של התהליך האוטומטי המלא. מפתחי סוכנים חייבים לזכור שפשטות בשכבת הניווט היא המפתח ליציבות במערכות מורכבות. איך אתם מנהלים את חלוקת העבודה בין הראוטר המרכזי לסוכנים הפרטניים בפרויקטים שלכם? #AIAutomation #MachineLearning #AIAgents #SoftwareEngineering #TechArchitecture"
+      "post_angle": "במקום לתקן באגים אחרי שהגיעו לפרודקשן, מטא משתמשת בסוכני AI שמייצרים בדיקות בזמן אמת עם מעורבות אנושית מדויקת.",
+      "opening_hook": "למה להמשיך לתקן באגים בייצור כשאפשר לייצר בדיקות אבטחה אוטומטיות תוך כדי ריצה עם מודלי שפה?",
+      "linkedin_post": "למה להמשיך לתקן באגים בייצור כשאפשר לייצר בדיקות אבטחה אוטומטיות תוך כדי ריצה עם מודלי שפה?\nמטא פרסמו את התוצאות של הטמעת מערכת JiTTesting שיוצרת בדיקות קוד בדיוק ברגע הנכון לפני ההטמעה.\n1. המערכת מנצלת מודלי שפה גדולים כדי לזהות חולשות בלוגיקה של הקוד בזמן ה PR ולא בדיעבד.\n2. גישת Human-on-the-loop מוודאת שהמודל לא מייצר רעש אלא מתמקד רק במקרי קצה אמיתיים.\n3. התהליך משתלב בצינור ה CI/CD ומונע כניסת רכיבים פגיעים עוד לפני שהם נוגעים בסביבת העבודה.\nשילוב נכון של סוכני AI בפיתוח דורש מעבר מבדיקות סטטיות פסיביות לאוטומציה חכמה שרצה בזמן אמת.\nאילו אתגרים אתם פוגשים כשאתם מנסים לשלב בדיקות מבוססות AI בתהליכי הפיתוח אצלכם?\n#AIAutomation #SoftwareEngineering #DevSecOps #AICoding #Tech"
     },
     {
-      "id": "post-3-1795282876",
-      "topic": "Meta JiTTesting Automated Bug Catching",
+      "id": "post-3-1795284206",
+      "topic": "MONAI Label zero-day exploited by autonomous AI agents for root access",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/hackers-exploit-critical-vmware-cisco.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-21 (Auto)",
-      "credibility_score": "10/10",
-      "credibility_rationale": "Detailed technical research paper and engineering implementation report from Meta.",
-      "key_takeaways": [
-        "Just-in-Time test generation catches bugs before production deployment at scale",
-        "Human on the loop verification prevents hallucinated fixes from corrupting codebases",
-        "LLMs deployed as real time linters outperform post hoc security scanning tools"
-      ],
-      "post_angle": "מודלי שפה לא צריכים רק לסרוק קוד ישן אלא לייצר טסטים בדיוק ברגע הכתיבה כדי למנוע את הבאג הבא.",
-      "opening_hook": "רוב כלי האבטחה מתעוררים רק אחרי שהקוד כבר זוהם ושוגר לפרודקשן.",
-      "linkedin_post": "רוב כלי האבטחה מתעוררים רק אחרי שהקוד כבר זוהם ושוגר לפרודקשן. במטא מיישמים כעת מערכת שמייצרת בדיקות תוך כדי תנועה ממש בזמן כתיבת הקוד. 1. יצירת בדיקות אוטומטיות ברגע הכתיבה מאפשרת לזהות כשלים לוגיים עוד לפני מיזוג הקוד למערכת הראשית. 2. שילוב מנגנון אנושי בלולאה מבטיח שתיקונים וטסטים שמייצר המודל לא יכניסו חולשות חדשות למערכת. 3. מעבר מסריקות סטטיות מיושנות למודל מניעה בזמן אמת חוסך שעות של אירועי אבטחה בצוותי הנדסה. ארכיטקטורת אבטחה מודרנית חייבת לשלב אוטומציה חכמה כבר בשלב פיתוח הקוד המקורי. האם לדעתכם בדיקות אוטומטיות מבוססות מודלים יכולות להחליף לחלוטין את בדיקות הקוד הידניות? #AI #DevSecOps #SecureCoding #AIAgents #Engineering"
-    },
-    {
-      "id": "post-4-1795282876",
-      "topic": "CISA KEV Vulnerability Exploitations",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/hackers-exploit-critical-vmware-cisco.html",
+      "source_url": "https://thehackernews.com/2026/11/attackers-ai-agents-found-zero-day-in.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-21 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Official threat intelligence tracking direct from CISA known exploited vulnerabilities database.",
+      "credibility_rationale": "Backed by threat intelligence analysis regarding autonomous agent exploitation of medical imaging servers.",
       "key_takeaways": [
-        "Critical deserialization and remote code execution flaws are actively exploited",
-        "Infrastructure components like VMware vCenter and Cisco are prime espionage targets",
-        "Standard patching schedules fail against rapid targeted exploitation campaigns"
+        "Autonomous AI agents were used to discover an unauthenticated arbitrary file write zero-day.",
+        "The vulnerability allowed root access takeover on default installations of MONAI Label.",
+        "Automated discovery by threat actors drastically shrinks the window between vulnerability disclosure and exploitation."
       ],
-      "post_angle": "חולשות קריטיות בתשתיות מרכזיות מנוצלות מיד בסביבות ארגוניות מבלי שלצוותי ההגנה יהיה זמן תגובה ריאלי.",
-      "opening_hook": "המרחק בין פרסום חולשת דציאליזציה קריטית לבין ניצול שלה בפועל בשטח הופך לקצר מדי עבור מנהלי תשתיות.",
-      "linkedin_post": "המרחק בין פרסום חולשת דציאליזציה קריטית לבין ניצול שלה בפועל בשטח הופך לקצר מדי עבור מנהלי תשתיות. רשות ההגנה האמריקאית עדכנה על ניצול נרחב של חולשות במערכות VMware ו Cisco. 1. תוקפים ממקדים את עיקר המאמצים בתשתיות שליטה ובקרה ארגוניות לצורך השגת דריסת רגל ראשונית שקטה. 2. ניתוח לוגים של מערכות אלו דורש זיהוי דפוסים חריגים של הרצת פקודות ולא רק בדיקת חתימות קלאסית. 3. ניהול תיקונים מסורתי נכשל כאשר תוקפים מנצלים חולשות חדשות בתוך שעות ספורות מרגע גילוין. אנליסטים חייבים להגדיר התראות ממוקדות על התנהגות חריגה ברכיבי השער והניהול של הארגון. אילו כלים אוטומטיים אתם מריצים ב SOC כדי לזהות ניצול אפס ימים בזמן אמת? #CyberSecurity #SOCAnalyst #VulnerabilityManagement #BlueTeam #InfoSec"
+      "post_angle": "תוקפים כבר משתמשים בסוכני AI אוטונומיים שמגלים חולשות אפס ימים בשרתים רגישים ומגיעים לרמת הרשאה גבוהה באופן מיידי.",
+      "opening_hook": "כשאנשי סייבר מדברים על אוטומציה, תוקפים כבר מריצים סוכני AI אוטונומיים שמוצאים אפס ימים ומשיגים Root ברשת.",
+      "linkedin_post": "כשאנשי סייבר מדברים על אוטומציה, תוקפים כבר מריצים סוכני AI אוטונומיים שמוצאים אפס ימים ומשיגים Root ברשת.\nתקיפה שזוהתה לאחרונה השתמשה בסוכנים כדי לאתר חולשת כתיבת קבצים בשרת רפואי ולהשתלט עליו לחלוטין.\n1. הסוכן סרק באופן עצמאי את הרכיבים וזיהה נקודת תורפה המאפשרת כתיבה מחוץ לתיקיית האחסון המוגדרת.\n2. ניצול החולשה בוצע ללא צורך בחשבון תקף, מה שהעניק לתוקפים הרשאות גישה מלאות לשרת.\n3. דפוס התקיפה מעיד על יכולת גילוי אוטומטית שרצה הרבה יותר מהר מכל סריקת וולנראביליטיז מסורתית.\nהתמודדות עם איומים אוטונומיים מחייבת את צוותי ה SOC לעבור לניטור התנהגותי בזמן אמת ולא להסתמך רק על חתימות.\nאיך צוות ה SOC שלכם נערך לזיהוי פעילות של סוכני תקיפה אוטונומיים ברשת?\n#CyberSecurity #SOCAnalyst #ZeroDay #ThreatIntelligence #BlueTeam"
+    },
+    {
+      "id": "post-4-1795284206",
+      "topic": "An Organizational Second Brain: Building an AI That Learns From Experts",
+      "category": "ai_agents",
+      "source_url": "https://engineering.fb.com/2026/09/02/ml-applications/organizational-second-brain-ai-learns-from-experts/",
+      "source_platform": "Engineering at Meta (AI & Systems)",
+      "posted_at": "Updated 2026-11-21 (Auto)",
+      "credibility_score": "10/10",
+      "credibility_rationale": "Detailed architecture overview published by Meta engineering on building auditable knowledge agents.",
+      "key_takeaways": [
+        "Organizational AI agents need a structured, auditable knowledge architecture.",
+        "Separating raw data ingestion from verified expert logic prevents hallucination drift.",
+        "Preserving specialist knowledge creates a scalable second brain for complex technical domains."
+      ],
+      "post_angle": "האתגר האמיתי בבניית סוכן מומחה ארגוני הוא הפרדה ברורה בין ארכיטקטורת ידע מובנית למודל כדי למנוע הלוצינציות.",
+      "opening_hook": "איך בונים סוכן AI ארגוני שלא ממציא עובדות מדעיות אלא לומד ישירות מהמומחים הכי טובים בארגון?",
+      "linkedin_post": "איך בונים סוכן AI ארגוני שלא ממציא עובדות מדעיות אלא לומד ישירות מהמומחים הכי טובים בארגון?\nמטא חשפו את הארכיטקטורה של המוח הארגוני השני שלהם שנועד לשמר מומחיות עמוקה בלי לפגוע באמינות.\n1. המערכת מפרידה בין שכבת ניהול הידע המובנית לבין מודל השפה כדי לוודא שכל פלט עובר אימות קפדני.\n2. מומחי תוכן מעדכנים את בסיס הנתונים באופן שוטף והסוכן לומד רק מתוך מקורות מוסמכים בלבד.\n3. הארכיטקטורה הזו פותרת את בעיית הדעיכה של ידע ארגוני כשעובדים ותיקים עוזבים את החברה.\nפיתוח סוכני AI מתקדמים מחייב בקרה מבנית על מקורות המידע ולא רק התבססות על הזיכרון הפנימי של המודל.\nאילו ארכיטקטורות אתם מיישמים כדי לוודא שהסוכנים שלכם מספקים תשובות מדויקות ולא מנחשים?\n#AI #MachineLearning #ArtificialIntelligence #Developers #Automation"
     }
   ]
 }
