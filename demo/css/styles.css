@@ -6634,6 +6634,9 @@ body::before {
 /* ============================================================================
    Top 10 Demo Paper Portfolio Tracker
    ============================================================================ */
+.demo-tool { margin-top: var(--section-gap); border-top: 1px solid var(--rule); }
+.demo-tool summary { display: flex; justify-content: space-between; align-items: baseline; padding: var(--sp-4) 0; cursor: pointer; min-height: 44px; list-style: none; }
+.demo-tool summary::-webkit-details-marker { display: none; }
 .setup-plan-actions {
   margin-left: auto;
   display: inline-flex;

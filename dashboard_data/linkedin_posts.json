@@ -1,58 +1,82 @@
 {
-  "generated_at": "2026-11-21T15:15:17.608931+00:00",
+  "generated_at": "2026-11-21T17:41:16.234516+00:00",
   "stats": {
-    "total_drafted": 3,
+    "total_drafted": 4,
     "cyber_count": 3,
-    "ai_count": 0
+    "ai_count": 1
   },
   "posts": [
     {
-      "id": "post-1-1795274117",
-      "topic": "חטיפת נתוני משתמש מ Meta Muse דרך דף אידנטרנט זדוני",
+      "id": "post-1-1795282876",
+      "topic": "Signal AI Agent Chat Protection",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/a-single-malicious-webpage-let.html",
+      "source_url": "https://thehackernews.com/2026/11/signal-blocks-ai-agents-from-reading.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-21 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "מקור חדשותי מוכר המדווח על מחקר אבטחה מעבדתי שמדגים פגיעות אמיתית במודלי בינה מלאכותית.",
+      "credibility_rationale": "Reported directly from authoritative security journalism covering official platform updates.",
       "key_takeaways": [
-        "דף אינטרנט זדוני יכול לשלוף שיחות פרטיות וזיכרונות של משתמשים מ Meta Muse.",
-        "התקיפה מתבצעת ללא הצגת חלון אישור או הנחיה למשתמש.",
-        "ניתן להרחיב את התקיפה כדי לגשת לפרטי הזדהות של חשבונות מחוברים."
+        "Signal blocks screenshots by default against system level AI agents",
+        "OS level agentic integrations pose native surveillance vectors inside encrypted apps",
+        "Application layer controls cannot fully secure data against hyper privileged OS assistants"
       ],
-      "linkedin_post": "המשתמש בטוח שהוא מדבר עם עוזר חכם, אבל דף אינטרנט אחד שואב לו את כל הזיכרונות והשיחות בלי שום התראה.\nמחקר חדש חושף איך אפשר לנצל את Meta Muse לשליפת מידע פרטי וCredentials בלי להקפיץ חלון אישור למשתמש.\n1. הקוד הזדוני רץ ברקע ומנצל את חוסר ההפרדה בארכיטקטורת האסיסטנט.\n2. מתוך זיכרון המערכת נשלפים נתוני שיחות עבר ונתוני התחברות לחשבונות חיצוניים.\n3. בלוגים של ה SOC נראה בקשת HTTP תמימה לכאורה שמאחוריה זורם מידע רגיש.\nאין כאן פריצת רשת גסה, אלא ניצול של מנגנון שמירת הזיכרון באסיסטנטים של AI.\nאיך לדעתכם צוותי הגנה יכולים לזהות אקספילטרציה של זיכרון AI שעוברת בערוצים לגיטימיים?\n#CyberSecurity #SOCAnalyst #BlueTeam #AIUsecases #InfoSec #ThreatIntelligence"
+      "post_angle": "ההתנגשות בין עוזרי מערכת הפעלה מבוססי סוכני AI לבין אפליקציות הצפנה יוצרת חזית אבטחה חדשה לחלוטין ברמת המכשיר.",
+      "opening_hook": "הסכנה האמיתית לפרטיות הצפנת הקצה שלכם כבר לא מגיעה מהרשת אלא ממערכת ההפעלה שיושבת מתחת לאפליקציה.",
+      "linkedin_post": "הסכנה האמיתית לפרטיות הצפנת הקצה שלכם כבר לא מגיעה מהרשת אלא ממערכת ההפעלה שיושבת מתחת לאפליקציה. חברת סיגנל נאלצה לחסום צילומי מסך כברירת מחדל כדי למנוע מסוכני AI מובנים לקרוא צ'אטים פרטיים. 1. סוכני מערכת במערכות הפעלה מודרניות מקבלים גישה רוחבית למסך התצוגה תוך עקיפת מנגנוני הבידוד של האפליקציה. 2. חסימת צילומי מסך היא פתרון חלקי בלבד כי סוכנים יכולים לשאוב מידע ישירות מזיכרון המכשיר או מצינורות העברת נתונים פנימיים. 3. אנליסטים חייבים להבין שגבולות האבטחה המסורתיים בין מערכת ההפעלה לאפליקציה קרסו ברגע ששילבו סוכני אוטומציה בכל פינה. ההגנה על נתונים רגישים מחייבת מעבר לבקרה נוקשה על הרשאות הזיכרון של סוכנים ברמת המכשיר המקומי. אילו עוד אתגרים תפעוליים אתם צופים בשילוב סוכני AI בסביבות עבודה מאובטחות? #CyberSecurity #SOCAnalyst #BlueTeam #Privacy #AIAutomation"
     },
     {
-      "id": "post-2-1795274117",
-      "topic": "חולשת זיכרון קריטית ב GnuPG דרך מפתחות OpenPGP זדוניים",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/gnupg-warns-critical-gpgme-flaw-could.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "id": "post-2-1795282876",
+      "topic": "Meta Thin Orchestrator AI Agent Architecture",
+      "category": "ai_agents",
+      "source_url": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
+      "source_platform": "Engineering at Meta (AI & Systems)",
       "posted_at": "Updated 2026-11-21 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "הודעה רשמית מטעם פרויקט GnuPG על חולשת CVE מאומתת עם גרסאות תיקון זמינות.",
+      "credibility_score": "10/10",
+      "credibility_rationale": "Published directly by Meta engineering detailing production system architectures.",
       "key_takeaways": [
-        "מפתח OpenPGP עם מזהה משתמש ארוך במיוחד גורם לבאג זיכרון ב GnuPG.",
-        "החולשה מתועדת בתור CVE-2026-129975 ומשפיעה על ספריית GnuPG מתחת לגרסה 2.3.0.",
-        "תוקפים יכולים לנצל זאת כדי לחשוף נתונים מאפליקציות שעושות שימוש בספריה."
+        "Thin orchestrator architectures drastically improve agent reliability and latency",
+        "Routing layers should only handle dispatch and basic verification without heavy reasoning",
+        "Specialized agents must execute domain logic independently to avoid context bottlenecks"
       ],
-      "linkedin_post": "מספיק מפתח הצפנה אחד עם מבנה זדוני כדי להפיל יישומים שלמים שמסתמכים על GnuPG.\nפרויקט GnuPG פרסם אזהרה דחופה על חולשה קריטית ב GnuPG שמאפשרת חשיפת נתוני אפליקציות.\n1. מזהה משתמש ארוך במיוחד במפתח OpenPGP מצליח לערער את ניהול הזיכרון בספריה.\n2. חולשת Memory Corruption זו, שמספרה CVE-2026-129975, דורשת שדרוג מיידי לגרסה 2.3.0 ומעלה.\n3. תוכנות צד שלישי המשתמשות ב GPGME חשופות לגניבת מידע פנימי מבלי שהמשתמש הרגיש בדבר.\nעדכון ספריית הצפנה מרגיש כמו שגרת תחזוקה משעממת, עד שחולשת זיכרון הופכת אותו לקריטי.\nהאם אתם ממפים אוטומטית את גרסאות ה GnuPG בכל סביבות הפיתוח והייצור שלכם?\n#CyberSecurity #VulnerabilityManagement #GnuPG #InfoSec #SoftwareSecurity #BlueTeam"
+      "post_angle": "ככל שנותנים לראוטר של סוכן ה AI יותר מדי עומס חישובי, כך המערכת הופכת לפחות אמינה ואיטית יותר.",
+      "opening_hook": "אם אתם מעמיסים על הראוטר של סוכן ה AI את כל הלוגיקה הארגונית, אתם מייצרים צוואר בקבוק שקורס תחת העומס.",
+      "linkedin_post": "אם אתם מעמיסים על הראוטר של סוכן ה AI את כל הלוגיקה הארגונית, אתם מייצרים צוואר בקבוק שקורס תחת העומס. מטא חשפו ארכיטקטורה שבה שכבת הניווט דתית ורזה במיוחד. 1. ראוטר רזה אחראי אך ורק לניתוב משימות ואכיפת בדיקות אמינות בסיסיות ללא הסקת מסקנות כבדה. 2. סוכנים ייעודיים מבצעים את החשיבה העמוקה והלוגיקה הדומיינית בבידוד מוחלט מהמערכת המרכזית. 3. הפרדה זו מקטינה דרמטית את שגיאות ההקשר ומאיצה את זמן התגובה של התהליך האוטומטי המלא. מפתחי סוכנים חייבים לזכור שפשטות בשכבת הניווט היא המפתח ליציבות במערכות מורכבות. איך אתם מנהלים את חלוקת העבודה בין הראוטר המרכזי לסוכנים הפרטניים בפרויקטים שלכם? #AIAutomation #MachineLearning #AIAgents #SoftwareEngineering #TechArchitecture"
     },
     {
-      "id": "post-3-1795274117",
-      "topic": "סוכני AI אוטונומיים איתרו Zero-Day בשרת עיבוד רפואי",
+      "id": "post-3-1795282876",
+      "topic": "Meta JiTTesting Automated Bug Catching",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/attackers-ai-agents-found-zero-day-in.html",
+      "source_url": "https://thehackernews.com/2026/11/hackers-exploit-critical-vmware-cisco.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "posted_at": "Updated 2026-11-21 (Auto)",
+      "credibility_score": "10/10",
+      "credibility_rationale": "Detailed technical research paper and engineering implementation report from Meta.",
+      "key_takeaways": [
+        "Just-in-Time test generation catches bugs before production deployment at scale",
+        "Human on the loop verification prevents hallucinated fixes from corrupting codebases",
+        "LLMs deployed as real time linters outperform post hoc security scanning tools"
+      ],
+      "post_angle": "מודלי שפה לא צריכים רק לסרוק קוד ישן אלא לייצר טסטים בדיוק ברגע הכתיבה כדי למנוע את הבאג הבא.",
+      "opening_hook": "רוב כלי האבטחה מתעוררים רק אחרי שהקוד כבר זוהם ושוגר לפרודקשן.",
+      "linkedin_post": "רוב כלי האבטחה מתעוררים רק אחרי שהקוד כבר זוהם ושוגר לפרודקשן. במטא מיישמים כעת מערכת שמייצרת בדיקות תוך כדי תנועה ממש בזמן כתיבת הקוד. 1. יצירת בדיקות אוטומטיות ברגע הכתיבה מאפשרת לזהות כשלים לוגיים עוד לפני מיזוג הקוד למערכת הראשית. 2. שילוב מנגנון אנושי בלולאה מבטיח שתיקונים וטסטים שמייצר המודל לא יכניסו חולשות חדשות למערכת. 3. מעבר מסריקות סטטיות מיושנות למודל מניעה בזמן אמת חוסך שעות של אירועי אבטחה בצוותי הנדסה. ארכיטקטורת אבטחה מודרנית חייבת לשלב אוטומציה חכמה כבר בשלב פיתוח הקוד המקורי. האם לדעתכם בדיקות אוטומטיות מבוססות מודלים יכולות להחליף לחלוטין את בדיקות הקוד הידניות? #AI #DevSecOps #SecureCoding #AIAgents #Engineering"
+    },
+    {
+      "id": "post-4-1795282876",
+      "topic": "CISA KEV Vulnerability Exploitations",
+      "category": "cyber_soc",
+      "source_url": "https://thehackernews.com/2026/11/hackers-exploit-critical-vmware-cisco.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-21 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "דיווח של Amazon Threat Intelligence על אירוע אמיתי שבו סוכני AI שימשו למציאת חולשת Zero-Day.",
+      "credibility_rationale": "Official threat intelligence tracking direct from CISA known exploited vulnerabilities database.",
       "key_takeaways": [
-        "תוקפים הפעילו סוכני AI אוטונומיים שאיתרו פגיעות Zero-Day בשרת MONAI Label.",
-        "החולשה מאפשרת כתיבת קבצים מחוץ לתיקיית האחסון המוגדרת ללא צורך בהזדהות.",
-        "התקיפה הסתיימה בהשגת גישת Root על שרת באוניברסיטה במערך בריאות."
+        "Critical deserialization and remote code execution flaws are actively exploited",
+        "Infrastructure components like VMware vCenter and Cisco are prime espionage targets",
+        "Standard patching schedules fail against rapid targeted exploitation campaigns"
       ],
-      "linkedin_post": "האקרים כבר לא צריכים לשבת שעות ולחפש באגים לבד, סוכני AI עושים את זה בשבילך ומגיעים ל Root.\nמחקר של Amazon Threat Intelligence חושף שסוכני AI אוטונומיים איתרו Zero-Day בשרת עיבוד תמונה רפואי.\n1. הסוכנים מצאו חולשת Path Traversal בשרת MONAI Label בגרסה 0.8.5 ומטה.\n2. תוקפים ללא הרשאות הצליחו לכתוב קבצים זדוניים מחוץ לתיקיית היישום המקורית.\n3. התהליך הוביל להשתלטות מלאה וגישת שורש על שרת מרכזי באוניברסיטה.\nהאוטומציה התקיפה פועלת במהירות שמערכות הגנה מסורתיות מתקשות לעמוד בקצבה.\nכיצד מפתחי סוכני AI יכולים להטמיע מנגנוני הגנה עצמיים מפני סריקת חולשות אוטונומית?\n#AIgents #AIAutomation #CyberSecurity #ZeroDay #VulnerabilityResearch #Infosec"
+      "post_angle": "חולשות קריטיות בתשתיות מרכזיות מנוצלות מיד בסביבות ארגוניות מבלי שלצוותי ההגנה יהיה זמן תגובה ריאלי.",
+      "opening_hook": "המרחק בין פרסום חולשת דציאליזציה קריטית לבין ניצול שלה בפועל בשטח הופך לקצר מדי עבור מנהלי תשתיות.",
+      "linkedin_post": "המרחק בין פרסום חולשת דציאליזציה קריטית לבין ניצול שלה בפועל בשטח הופך לקצר מדי עבור מנהלי תשתיות. רשות ההגנה האמריקאית עדכנה על ניצול נרחב של חולשות במערכות VMware ו Cisco. 1. תוקפים ממקדים את עיקר המאמצים בתשתיות שליטה ובקרה ארגוניות לצורך השגת דריסת רגל ראשונית שקטה. 2. ניתוח לוגים של מערכות אלו דורש זיהוי דפוסים חריגים של הרצת פקודות ולא רק בדיקת חתימות קלאסית. 3. ניהול תיקונים מסורתי נכשל כאשר תוקפים מנצלים חולשות חדשות בתוך שעות ספורות מרגע גילוין. אנליסטים חייבים להגדיר התראות ממוקדות על התנהגות חריגה ברכיבי השער והניהול של הארגון. אילו כלים אוטומטיים אתם מריצים ב SOC כדי לזהות ניצול אפס ימים בזמן אמת? #CyberSecurity #SOCAnalyst #VulnerabilityManagement #BlueTeam #InfoSec"
     }
   ]
 }

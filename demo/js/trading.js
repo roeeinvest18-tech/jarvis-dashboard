@@ -545,7 +545,7 @@ function tradingDemoHtml(scan) {
     : D.note;
 
   return `
-    <details class="sizing-tool demo-tool"${isOpen ? ' open' : ''}>
+    <details class="demo-tool"${isOpen ? ' open' : ''}>
       <summary><span class="sec-label">${escapeHtml(D.title)}</span><span class="sec-note mono">${escapeHtml(badgeNote)}</span></summary>
       <div class="demo-stats-grid">
         <div class="demo-stat-card">

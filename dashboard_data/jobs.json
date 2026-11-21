@@ -1,343 +1,286 @@
 {
-  "generated_at": "2026-11-21T15:15:01.788243+00:00",
+  "generated_at": "2026-11-21T17:40:55.434481+00:00",
   "stats": {
-    "total_scanned": 65,
-    "matched_count": 16,
+    "total_scanned": 106,
+    "matched_count": 14,
     "ai_count": 9,
-    "cyber_count": 0,
-    "scraping_count": 2,
-    "web_count": 5
+    "cyber_count": 1,
+    "scraping_count": 0,
+    "web_count": 4
   },
   "jobs": [
     {
-      "id": "upwork-live-2120880945184806394",
-      "title": "Data Scraping Specialist Needed for Discrete Web Data Extraction",
-      "platform": "Upwork (Live Feed)",
-      "track": "scraping_data",
-      "url": "https://www.upwork.com/jobs/~022120880945184806394",
-      "posted_at": "Today, 16:07 (Live)",
-      "budget": "$10,000",
-      "budget_type": "fixed",
-      "budget_val": 10000,
-      "match_score": 99,
-      "client_problem": "Seeking an experienced data scraping specialist to extract specific data from a website behind secure authentication with high discretion and resilience.",
-      "skills": [
-        "Data Scraping",
-        "Data Extraction",
-        "Python",
-        "Playwright",
-        "Security"
-      ],
-      "proposal_draft": "Hi,\n\nI saw your posting for discrete web data extraction behind secure authentication. I build resilient Python-based extraction pipelines (Playwright/Stealth) engineered to navigate multi-step authentication, maintain session persistence across token refreshes, and handle anti-bot telemetry cleanly.\n\nHere is my architectural approach:\n1. Authentication & Session Stability: Headless browser automation configured with encrypted credential storage, stateful session cookie renewal, and automated reconnects on session expiry.\n2. Ingestion & Schema Safety: Strict Pydantic models to validate extracted records in real time, preventing malformed payload leakage.\n3. Discretion & Hygiene: Rate-limited egress patterns, request jitter, and zero-leakage local storage.\n\nI run autonomous automation architectures with full observability. Available to review your target platform requirements and demo a working staging PoC.\n\nWhat authentication mechanism does the platform use (OAuth, 2FA, or standard session cookies)?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-bot-ai-01",
-      "title": "Python Developer to Build Automated AI Agent & Telegram Alert Bot",
-      "platform": "Upwork",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/freelance-jobs/apply/Python-Developer-Build-Automated-AI-Agent_~01a9b8c7d6e5f4",
-      "posted_at": "Today, 14:20",
-      "budget": "$350",
-      "budget_type": "fixed",
-      "budget_val": 350,
-      "match_score": 98,
-      "client_problem": "Looking for a skilled Python developer to build an automated Telegram bot that receives market alerts via webhooks, queries Gemini/OpenAI API for contextual analysis, and sends structured briefings to our channel. Mus...",
-      "skills": [
-        "Python",
-        "Telegram Bot",
-        "Gemini API",
-        "Automation",
-        "Webhooks"
-      ],
-      "proposal_draft": "Hi,\n\nI read the brief for Python Developer to Build Automated AI Agent & Telegram Alert Bot. I design and build custom dashboards, clean web interfaces, and Python, Telegram Bot, Gemini API systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "upwork-scrape-ecom-02",
-      "title": "Build Resilient Web Scraper for E-Commerce Catalog with Daily CSV Export",
-      "platform": "Upwork",
-      "track": "scraping_data",
-      "url": "https://www.upwork.com/freelance-jobs/apply/Build-Resilient-Web-Scraper-E-Commerce_~01f2e3d4c5b6a7",
-      "posted_at": "Today, 12:45",
-      "budget": "$280",
-      "budget_type": "fixed",
-      "budget_val": 280,
-      "match_score": 98,
-      "client_problem": "We need a headless Python script (Playwright or BeautifulSoup) to scrape product listings, current inventory and pricing from a JavaScript-heavy distributor site (approx 4,000 items). Must handle pagination, rotating...",
-      "skills": [
-        "Python",
-        "Playwright",
-        "Web Scraping",
-        "Data Extraction",
-        "ETL"
-      ],
-      "proposal_draft": "Hi,\n\nI read the brief for Build Resilient Web Scraper for E-Commerce Catalog with Daily CSV Export. I design and build custom dashboards, clean web interfaces, and Python, Playwright, Web Scraping systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "upwork-live-2120867924746213531",
-      "title": "AI Automation Developer – Brilliant Directories, n8n/API & Social Media Integration",
-      "platform": "Upwork (Live Feed)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120867924746213531",
-      "posted_at": "Today, 15:14 (Live)",
-      "budget": "$500",
-      "budget_type": "fixed",
-      "budget_val": 500,
+      "id": "wwr-673669056",
+      "title": "Ritual: Frontend Engineer",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://weworkremotely.com/remote-jobs/ritual-frontend-engineer",
+      "posted_at": "Sat, 21 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
       "match_score": 96,
-      "client_problem": "Automate repetitive tasks across businesses, starting with BikrX: integrating Brilliant Directories, n8n, social media APIs, and webhook event listeners.",
       "skills": [
-        "n8n",
-        "API Integration",
-        "Automation",
-        "webhooks",
-        "Python",
-        "AI Agents"
-      ],
-      "proposal_draft": "Hi,\n\nI read the brief for AI Automation Developer - Brilliant Directories, n8n/API & Social Media Integration. I design and build custom dashboards, clean web interfaces, and n8n, API Integration, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137903",
-      "title": "Data Strategy Operations Manager (Abnormal)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-data-strategy-operations-manager-abnormal-1137903",
-      "posted_at": "2026-11-20",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 95,
-      "skills": [
-        "Ai",
-        "Ai Agent",
-        "Automation",
-        "Workflow"
-      ],
-      "client_problem": "About the Role As the Data Strategy and Operations Manager at Abnormal AI, you will own our go-to-market data quality strategy and serve as the steward of data across Salesforce and the systems around it. You will design",
-      "proposal_draft": "Hi,\n\nI read the brief for Data Strategy Operations Manager (Abnormal). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137858",
-      "title": "Principal DevSecOps Engineer (Upgrade)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-principal-devsecops-engineer-upgrade-1137858",
-      "posted_at": "2026-11-19",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 95,
-      "skills": [
-        "Ai",
-        "Ai Agent",
-        "Llm",
-        "Automation",
-        "Claude"
-      ],
-      "client_problem": "About the Role: We are looking for a highly technical, hands-on Principal DevSecOps Developer to join Upgrade's Security team. In this role, you'll focus on building and improving security automation, strengthening our S",
-      "proposal_draft": "Hi,\n\nI read the brief for Principal DevSecOps Engineer (Upgrade). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent, Llm systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137826",
-      "title": "Enterprise Solutions Engineer, East (Glean)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-enterprise-solutions-engineer-east-glean-1137826",
-      "posted_at": "2026-11-19",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 95,
-      "skills": [
-        "Ai",
-        "Ai Agent",
-        "Ai Assistant",
-        "Llm"
-      ],
-      "client_problem": "About Glean: Â Glean is the Work AI platform that helps everyone work smarter with AI. What began as the industryâs most advanced enterprise search has evolved into a full-scale Work AI ecosystem, powering intelligent",
-      "proposal_draft": "Hi,\n\nI read the brief for Enterprise Solutions Engineer, East (Glean). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent, Ai Assistant systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remotive-1680495",
-      "title": "Remote Office Assistant (Coalition Technologies)",
-      "platform": "Remotive (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remotive.com/remote-jobs/marketing/remote-office-assistant-1680495",
-      "posted_at": "2026-11-11",
-      "budget": "$35,3k- $52k",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 95,
-      "skills": [
+        "Dashboard",
         "Frontend",
-        "Responsive",
-        "Shopify",
-        "Wordpress"
+        "Prototype"
       ],
-      "client_problem": "Coalition Technologies is seeking a reliable, detail-oriented, and highly organized Remote Office Assistant to support administrative, bookkeeping, billing, reporting, data entry, and internal operations tasks. This role",
-      "proposal_draft": "Hi,\n\nI read the brief for Remote Office Assistant (Coalition Technologies). I design and build custom dashboards, clean web interfaces, and Frontend, Responsive, Shopify systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a frontend engineer to build user interfaces for a sovereign execution layer and chain supporting AI-native operations.",
+      "proposal_draft": "I build responsive Next.js and React interfaces with clean state management. I can hook up your frontend to the testnet using TypeScript and Tailwind. Are you handling wallet connections via Ethers.js or Wagmi for this interface?\n\nBest,\nRoee"
     },
     {
-      "id": "remotive-2091137",
-      "title": "Senior Data Engineer (Lemon.io)",
-      "platform": "Remotive (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remotive.com/remote-jobs/data/senior-data-engineer-2091137",
-      "posted_at": "2026-11-11",
+      "id": "wwr-198333796",
+      "title": "Smartsheet: Software Engineer II - Full Stack (Remote Eligible)",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/smartsheet-software-engineer-ii-full-stack-remote-eligible",
+      "posted_at": "Sat, 21 Nov 2026",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 95,
-      "skills": [
-        "Ui/Ux",
-        "Next.Js",
-        "React",
-        "Shopify",
-        "Wordpress"
-      ],
-      "client_problem": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engin",
-      "proposal_draft": "Hi,\n\nI read the brief for Senior Data Engineer (Lemon.io). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remotive-2091136",
-      "title": "Senior React Full-stack Developer (Lemon.io)",
-      "platform": "Remotive (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remotive.com/remote-jobs/software-development/senior-react-full-stack-developer-2091136",
-      "posted_at": "2026-11-10",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 95,
-      "skills": [
-        "Ui/Ux",
-        "Next.Js",
-        "React",
-        "Shopify",
-        "Wordpress"
-      ],
-      "client_problem": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engin",
-      "proposal_draft": "Hi,\n\nI read the brief for Senior React Full-stack Developer (Lemon.io). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remotive-2091165",
-      "title": "Full-Stack Developer (Fluence International, Inc.)",
-      "platform": "Remotive (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remotive.com/remote-jobs/software-development/full-stack-developer-2091165",
-      "posted_at": "2026-10-29",
-      "budget": "$3.5k–$5k/month",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 95,
-      "skills": [
-        "Ui/Ux",
-        "Next.Js",
-        "React",
-        "Frontend",
-        "Web App"
-      ],
-      "client_problem": "We’re looking for a pragmatic, security-minded Full-Stack Developer to help build and scale Fluence’s B2B products used by clinicians, researchers, and organizations in psychedelic-assisted therapy and mental health. You",
-      "proposal_draft": "Hi,\n\nI read the brief for Full-Stack Developer (Fluence International, Inc.). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remotive-2091135",
-      "title": "Senior Back-end Developer (Lemon.io)",
-      "platform": "Remotive (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remotive.com/remote-jobs/software-development/senior-back-end-developer-2091135",
-      "posted_at": "2026-10-27",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 95,
-      "skills": [
-        "Ui/Ux",
-        "Next.Js",
-        "React",
-        "Shopify",
-        "Wordpress"
-      ],
-      "client_problem": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engin",
-      "proposal_draft": "Hi,\n\nI read the brief for Senior Back-end Developer (Lemon.io). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Next.Js, React systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "upwork-live-2120849319729993210",
-      "title": "Browser Automation Specialist – Parallel Workflow & Session Stability",
-      "platform": "Upwork (Live Feed)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120849319729993210",
-      "posted_at": "Today, 14:02 (Live)",
-      "budget": "-/hr",
-      "budget_type": "hourly",
-      "budget_val": 48,
-      "match_score": 95,
-      "client_problem": "Build a stable, scalable multi-account browser workflow where a script launches multiple Chrome instances, manages persistent sessions, and drives automated pipelines.",
-      "skills": [
-        "Python",
-        "Automation",
-        "Selenium",
-        "Playwright",
-        "Session Management"
-      ],
-      "proposal_draft": "Hi,\n\nI saw your posting for the Browser Automation Specialist role to build a multi-account parallel Chrome workflow. Managing concurrent browser sessions without state collision or memory bloat is an engineering challenge I solve regularly.\n\nMy Architecture:\n1. Isolated Profile Sandboxing: Separate user data directories (UserDataDir) with unique fingerprints and proxy binding per instance to avoid cross-session contamination.\n2. Lifecycle & Memory Control: Concurrency pooling with automated process recycling to prevent orphaned headless Chrome processes from hogging system RAM.\n3. Session Resiliency: Checkpointing state to disk after each key action, so transient failures resume without re-authenticating from scratch.\n\nI can demonstrate live parallel browser architectures I run on our kickoff call.\n\nHow many concurrent Chrome instances are you planning to run per worker machine?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "upwork-live-2120833648274083856",
-      "title": "AI Automation Expert – Build Agentic Workflows for Service Businesses (Claude, Grok)",
-      "platform": "Upwork (Live Feed)",
-      "track": "ai_automation",
-      "url": "https://www.upwork.com/jobs/~022120833648274083856",
-      "posted_at": "Today, 12:58 (Live)",
-      "budget": "-/hr",
-      "budget_type": "hourly",
-      "budget_val": 35,
-      "match_score": 95,
-      "client_problem": "Looking for a technical assistant and builder to turn client problems into functional AI agent workflows (Claude, Grok, automation pipelines).",
-      "skills": [
-        "AI Agents",
-        "Claude API",
-        "Automation",
-        "Python",
-        "FastAPI"
-      ],
-      "proposal_draft": "Hi,\n\nI saw your requirement for an AI Automation Expert at Toam Studios to architect agentic workflows for service businesses. I design and build production-grade AI agents with multi-model failover (Claude, Gemini, OpenAI), tool-calling loops, and strict schema guarantees.\n\nHow I work:\n1. Fast Prototyping to Production: Rapid translation of client operational bottlenecks into functional, stateful agents.\n2. Resilient Tool Calling: Strict validation using Pydantic schemas so agent outputs integrate cleanly into client CRMs and messaging channels without hallucinated fields.\n3. Operational Handover: Clean documentation, automated error handling, and staging environment demos for client signoff.\n\nI would love to partner with you to accelerate client delivery. What is the typical tech stack or CRM your service business clients use (e.g. GoHighLevel, HubSpot, Zapier)?\n\nBest regards,\nRoee"
-    },
-    {
-      "id": "remoteok-1137879",
-      "title": "Manager, Business Risk and AI Automation (Reddit)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-manager-business-risk-and-ai-automation-reddit-1137879",
-      "posted_at": "2026-11-20",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
+      "match_score": 96,
       "skills": [
         "Ai",
-        "Ai Automation",
-        "Automation"
+        "Ai Agent",
+        "Ai Tool"
       ],
-      "client_problem": "Reddit is a community of communities. Itâs built on shared interests, passion, and trust, and is home to the most open and authentic conversations on the internet. Every day, Reddit users submit, vote, and comment on t",
-      "proposal_draft": "Hi,\n\nI read the brief for Manager, Business Risk and AI Automation (Reddit). I design and build custom dashboards, clean web interfaces, and Ai, Ai Automation, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a full stack engineer to build solutions that unite human teams with automated AI agents.",
+      "proposal_draft": "I build full stack apps connecting Python backends to modern React frontends. I often use Tailwind for the UI and integrate custom LLM workflows. How are you handling state synchronization between the human users and the background AI agents?\n\nBest,\nRoee"
     },
     {
-      "id": "remoteok-1137844",
-      "title": "Staff Software Engineer (Interfaces) (Netlify)",
-      "platform": "RemoteOK (Live Cloud)",
+      "id": "wwr-253265715",
+      "title": "Netlify: Staff Software Engineer (Interfaces)",
+      "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-staff-software-engineer-interfaces-netlify-1137844",
-      "posted_at": "2026-11-19",
-      "budget": "Remote / Competitive",
+      "url": "https://weworkremotely.com/remote-jobs/netlify-staff-software-engineer-interfaces",
+      "posted_at": "Thu, 19 Nov 2026",
+      "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 89,
+      "match_score": 96,
       "skills": [
         "Ai",
         "Workflow",
         "Mcp"
       ],
-      "client_problem": "About the Team As a Staff Software Engineer at Netlify, you'll join a collaborative team that values continuous learning, mutual support, and shared growth. Together, we create tools that help developers build faster, mo",
-      "proposal_draft": "Hi,\n\nI read the brief for Staff Software Engineer (Interfaces) (Netlify). I design and build custom dashboards, clean web interfaces, and Ai, Workflow, Mcp systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a staff software engineer to own and scale core product experiences and developer tools.",
+      "proposal_draft": "I build developer-focused interfaces and high-performance React applications. I regularly work with Next.js, TypeScript, and Tailwind to ship clean UI components. Are you maintaining a shared design system or building component libraries from scratch for this experience?\n\nBest,\nRoee"
+    },
+    {
+      "id": "arbeitnow-remote-1226-front-end-developer-germany-84712",
+      "title": "1226 | Front-end Developer (Intetics 2)",
+      "platform": "Arbeitnow Remote (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://www.arbeitnow.com/jobs/companies/intetics-2/remote-1226-front-end-developer-germany-84712",
+      "posted_at": "Recent",
+      "budget": "Remote",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 96,
+      "skills": [
+        "Ui Design",
+        "React",
+        "Web App",
+        "Responsive"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a front-end developer for custom software application development and digital solutions.",
+      "proposal_draft": "I build polished web interfaces using React, Next.js, and TypeScript with Tailwind CSS. I make sure layouts are fully responsive and match custom Figma designs closely. What state management library do you prefer to use for your client-side applications?\n\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-163686",
+      "title": "Senior Software Engineer (3Y Health)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://jobicy.com/jobs/163686-senior-software-engineer-27",
+      "posted_at": "2026-11-21",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 93,
+      "skills": [
+        "Ai",
+        "Ai Agent",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a senior software engineer to build an AI-native operating system for healthcare practices.",
+      "proposal_draft": "I build custom AI apps and internal tools using Python, Next.js, and automated workflows. I can help wire up your backend data flows to clean analytics dashboards. Are you using HIPAA-compliant cloud storage for handling the patient and practice data?\n\nBest,\nRoee"
+    },
+    {
+      "id": "hn-50445335",
+      "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
+      "platform": "HackerNews Freelance (Live)",
+      "track": "web_dashboards",
+      "url": "https://news.ycombinator.com/item?id=50445335",
+      "posted_at": "2026-11-10",
+      "budget": "Direct Contract / Freelance",
+      "budget_type": "contract",
+      "budget_val": 0,
+      "match_score": 90,
+      "skills": [
+        "Ui/Ux",
+        "Full Stack"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a full stack engineer and SaaS specialist with strong UI and UX design skills.",
+      "proposal_draft": "I design and build complete SaaS products from Figma wireframes to full stack Next.js code. I focus on clean typography, responsive layouts, and fast backend integrations. What database and hosting provider are you planning to use for this project?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-47032759",
+      "title": "Gusto, Inc.: Software Engineer,  Financial Data & Payments",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/gusto-inc-software-engineer-financial-data-payments",
+      "posted_at": "Sat, 21 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Tool"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a software engineer to build and scale financial data and payment processing systems.",
+      "proposal_draft": "I build robust backend systems in Python and connect them to secure payment and database architectures. I focus on clean API design and reliable data handling. Which payment gateways are you currently integrating into your financial workflows?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-734849062",
+      "title": "Cockroach Labs: Member of Technical Staff (Storage)",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/cockroach-labs-member-of-technical-staff-storage",
+      "posted_at": "Sat, 21 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Agent"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a technical staff member to build database storage technology optimized for AI workloads.",
+      "proposal_draft": "I build high-performance applications and backend architectures using Python and optimized database layers. I enjoy tackling low-level data scaling and retrieval bottlenecks. What specific storage engine benchmarks are you optimizing for right now?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-980908664",
+      "title": "Postscript: Senior Software Engineer, Full Stack (80% backend)",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://weworkremotely.com/remote-jobs/postscript-senior-software-engineer-full-stack-80-backend",
+      "posted_at": "Fri, 20 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Shopify",
+        "Full Stack"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a senior full stack engineer to build AI-forward retention features for ecommerce platforms.",
+      "proposal_draft": "I build full stack apps with heavy backend logic in Python and clean React frontends. I can help integrate AI tools into existing merchant workflows and APIs. Are you using Shopify GraphQL APIs for managing your merchant data and events?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-291508019",
+      "title": "No Sweat Work Media: Remote High-End Automotive AI Retoucher | South Africa | R700 per hour or project fee | Ad hoc work in 2027",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/no-sweat-work-media-remote-high-end-automotive-ai-retoucher-south-africa-r700-per",
+      "posted_at": "Sat, 21 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Tool"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a high-end automotive AI retoucher for ongoing ad hoc visual projects.",
+      "proposal_draft": "I work with digital design tools and custom visual workflows to produce clean assets. I focus on high-fidelity output and precise detail work. What specific resolution and file formats do you require for the final deliverables?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-817754677",
+      "title": "Elation Health: Head of Design",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/elation-health-head-of-design",
+      "posted_at": "Fri, 20 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Automation",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a head of design to build intelligent automation and EHR workflows for primary care practices.",
+      "proposal_draft": "I design intuitive UI and UX for complex clinical dashboards using Figma and Tailwind. I ensure workflows reduce friction for healthcare providers. Are you looking to update an existing design system or build a brand new one from scratch?\n\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-163670",
+      "title": "Staff Security Engineer - SecOps & Threats (6sense)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "cyber_soc",
+      "url": "https://jobicy.com/jobs/163670-staff-security-engineer-secops-threats",
+      "posted_at": "2026-11-21",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 87,
+      "skills": [
+        "Threat",
+        "Cybersecurity",
+        "Detection"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a staff security engineer to manage security operations, SecOps, and threat detection.",
+      "proposal_draft": "I bring SOC Tier 1 analyst experience with hands-on threat monitoring, log analysis, and security hardening. I can help automate alert triage and security workflows using Python scripts. Which SIEM or log management tools are you currently running in your stack?\n\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-163692",
+      "title": "Hydrus - Session Director — Spanish (Mexico) (Welo Global)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://jobicy.com/jobs/163692-hydrus-session-director-spanish-mexico",
+      "posted_at": "2026-11-21",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 86,
+      "skills": [
+        "Ai",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a session director to manage and monitor conversational AI voice recording sessions.",
+      "proposal_draft": "I build and manage AI workflows and technical setups with a strong eye for quality control. I can help streamline your recording session tracking and data organization. What audio format and metadata structure do you use for your recordings?\n\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-163663",
+      "title": "Senior Technical Product Manager, AI (Teamworks)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://jobicy.com/jobs/163663-senior-technical-product-manager-ai",
+      "posted_at": "2026-11-21",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 86,
+      "skills": [
+        "Ai",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-21T17:40:55.434481+00:00",
+      "client_problem": "The client needs a senior technical product manager to own and scale an AI platform across multiple sports products.",
+      "proposal_draft": "I build custom AI apps, agents, and shared platform architectures that integrate seamlessly into existing product suites. I bridge technical development with clean interface design. How are you currently managing prompt versioning and evaluation across your AI features?\n\nBest,\nRoee"
     }
   ]
 }
