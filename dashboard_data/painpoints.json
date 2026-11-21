@@ -1,576 +1,672 @@
 {
   "week": "2026-W47",
   "week_num": 47,
-  "date": "2026-11-20",
+  "date": "2026-11-21",
   "stats": {
-    "raw": 658,
-    "analyzed": 72,
-    "pains": 11,
+    "raw": 763,
+    "analyzed": 104,
+    "pains": 27,
     "sources": 6,
     "by_source": {
-      "Hacker News (Ask HN)": 4,
+      "Hacker News (Ask HN)": 5,
       "Lobste.rs": 2,
-      "GitHub": 4,
-      "Google Play": 9,
+      "GitHub": 20,
       "Dev.to": 2,
-      "Hacker News": 51
+      "Google Play": 9,
+      "Hacker News": 66
     },
     "by_track": {
       "saas": 8,
-      "lowtech": 2
+      "lowtech": 3
     }
   },
-  "summary_he": "המערכת ניתחה את נקודות הכאב ומיפתה 8 בעיות מרכזיות בתחומי פיתוח תוכנה, אוטומציה, שיווק וניהול פיננסי. הבעיות הללו מציגות הזדמנויות עסקיות מצוינות ליזמים בודדים לבניית מוצרי AI רווחיים. כל פתרון מותאם לשוק שמוכן לשלם 19-99 דולר בחודש כדי לחסוך זמן יקר.",
-  "summary_en": "The system analyzed the pain points and mapped 8 core problems across software development, automation, marketing, and financial management. These problems present excellent opportunities for solo builders to launch profitable AI products. Each solution targets a market willing to pay $19-$99/month to save valuable time.",
-  "summary_lowtech_he": "המערכת מציגה שתי הזדמנויות עסקיות ממוקדות בתחום השירותים המקומיים והלוגיסטיקה, שניתן להקים בהשקעה נמוכה. הפתרונות מבוססות על אוטומציה של בינה מלאכותית ושכירת קבלני משנה מקומיים, תוך פתרון כאבי לב אמיתיים לצרכנים. ההזדמנויות מתאימות לפעילות בישראל ובעולם עם שולי רווח גבוהים.",
-  "summary_lowtech_en": "The system highlights two targeted business opportunities in local services and logistics that can be launched with low capital. The solutions rely on AI automation and hiring local subcontractors to solve real consumer pain points. Both opportunities fit local and global markets with high gross margins.",
+  "summary_he": "המערכת מנתחת תלונות B2B ופרוסיומר אמיתיות כדי לזהות הזדמנויות לפיתוח מוצרי SaaS מבוססי AI. האשכולות שנבחרו מתמקדים בבעיות בעלות ערך גבוה שמשתמשים מוכנים לשלם עליהן כסף רב. הניתוח מתעלם מרעשים צרכניים ומתמקד בבעיות תפעול, גיוס וניהול.",
+  "summary_en": "The system analyzes real B2B and prosumer complaints to identify monetizable AI SaaS opportunities. The selected clusters focus on high-value business problems where users readily pay for solutions. The analysis filters out consumer noise to prioritize operational, recruitment, and management workflows.",
+  "summary_lowtech_he": "שוק שירותי הבית והתיקונים סובל מחוסר אמינות, זמינות נמוכה של בעלי מקצוע וחוסר יכולת של לקוחות פרטיים ללמוד או לבצע משימות פיזיות לבד. הזדמנויות סטארט-אפ רזות אלו משלבות אוטומציה מבוססת בינה מלאכותית עם תפעול קבלני לשם יצירת שירותי ניהול משפצים ותיקונים אמינים. הפתרונות מותאמים במיוחד לשוק הישראלי, שבו בעלי מקצוע נוטים לאחר וקשה למצוא מענה איכותי ומהיר לתיקונים קטנים.",
+  "summary_lowtech_en": "The home repair and local services market suffers from poor reliability, low availability of skilled trades, and the inability of consumers to handle complex physical DIY tasks. These lean startup opportunities combine AI-driven operations with subcontracted labor to deliver reliable home maintenance services. They are particularly well-suited for markets like Israel, where scheduling unreliability is rampant and small repair jobs are chronically underserved.",
   "clusters": [
     {
-      "title_he": "אובדן נראות מותג במנועי חיפוש מבוססי AI",
-      "title_en": "AI Search Engine Brand Visibility Volatility",
-      "who_he": "אנשי שיווק דיגיטלי ומנהלי מותגים קטנים המנסים לשמור על עקביות בתוצאות חיפוש מבוססות LLM.",
-      "who_en": "Digital marketers and small brand managers trying to maintain consistency in LLM-based search results.",
+      "title_he": "הצפת קורות חיים ומועדונים פיקטיביים המיוצרים על ידי בינה מלאכותית",
+      "title_en": "Recruiter Overwhelm from AI-Generated Job Application Spam",
+      "who_he": "מגייסים ומנהלי משאבי אנוש בחברות צמיחה",
+      "who_en": "Recruiters and hiring managers at growing companies",
       "member_indices": [
-        5
+        11
       ],
-      "best_quote_index": 0,
-      "quote_he": "84% מהתשובות ציינו קבוצת מותגים שונה ביום המחרת. ב-Gemini זה היה 95%. כל תשובה היא סיכום של כמה דפי אינטרנט, והמנוע בוחר את הדפים האלו מחדש בכל פעם.",
-      "quote_en": "84% of answers named a different set of brands the next day. On Gemini it was 95%. Each answer is a summary of a few web pages, and the engine picks those pages fresh each time.",
+      "best_quote_index": 11,
+      "quote_he": "פתיחת משרה הביאה לי אלף קורות חיים ביום, כולם נכתבו על ידי ChatGPT על ידי קופים... אין לי שום דרך לדעת בלי לדבר איתם, מה שהיה בלתי אפשרי בהתחשב בהיקף העצום של מתקפת הספאם.",
+      "quote_en": "opening a position got me a thousand of applications per day, all ChatGPT’d resumes from monkeys... there is no way for me to tell without talking to them, which was impossible considering the sheer scale of the spam onslaught.",
       "category": "Marketing & sales",
-      "intensity": 85,
+      "intensity": 95,
       "frequency": 90,
-      "low_competition": 80,
+      "low_competition": 85,
       "competitors": [
         {
-          "name": "Semrush",
-          "gap_he": "מתמקד ב-SEO מסורתי ואינו נותן מענה לתנודתיות של תשובות מבוססות LLM.",
-          "gap_en": "Focuses on traditional SEO and lacks tracking for volatile LLM-generated answers."
+          "name": "Greenhouse",
+          "gap_he": "מסנן לפי מילות מפתח בסיסיות אבל לא מזהה ביעילות זיופי AI מתוחכמים או מסמכים שנוצרו אוטומטית.",
+          "gap_en": "Filters by basic keywords but fails to efficiently detect sophisticated AI-generated fabrications or auto-generated documents."
         },
         {
-          "name": "Ahrefs",
-          "gap_he": "חסר כלי לניתוח ציטוטים דינמיים של מותגים במודלים של בינה מלאכותית.",
-          "gap_en": "Lacks a tool for analyzing dynamic brand citations inside AI models."
+          "name": "Lever",
+          "gap_he": "דורש סינון ידני רב ומספק ציון התאמה גנרי שאינו נלחם בספאם מודרני.",
+          "gap_en": "Requires heavy manual sorting and provides generic fit scores that do not combat modern spam."
         }
       ],
-      "solution_he": "כלי מעקב מבוסס AI המנתח מדי יום את התשובות של ChatGPT, Claude ו-Gemini וממליץ על אסטרטגיות תוכן לשיפור ציטוט המותג.",
-      "solution_en": "An AI tracking tool that daily analyzes answers from ChatGPT, Claude, and Gemini and recommends content strategies to improve brand citations.",
-      "pricing_he": "מנוי חודשי החל מ-49 דולר ועד 149 דולר לסוכנויות שיווק.",
-      "pricing_en": "Monthly subscription starting at $49 up to $149 for marketing agencies.",
-      "first_customers_he": "פנייה ישירה למנהלי שיווק ב-LinkedIn והצגת דוח מדגם חינם על המותג שלהם.",
-      "first_customers_en": "Direct outreach to marketing managers on LinkedIn offering a free sample audit report of their brand.",
-      "trend_keyword": "AI search optimization",
-      "ease_of_build": 75,
-      "mvp_he": "לוח בקרה שבודק שאילתות מפתח במנועי AI מרכזיים, מודד אזכורים ומציג המלצות אופטימיזציה.",
-      "mvp_en": "A dashboard checking key queries across major AI engines, measuring mentions, and displaying optimization recommendations.",
-      "tech_stack_he": "Next.js, Tailwind CSS, OpenAI API, Python scrapers.",
-      "tech_stack_en": "Next.js, Tailwind CSS, OpenAI API, Python scrapers.",
+      "solution_he": "כלי AI סינון קדמי שמנתח את עומק האותנטיות של מועמדויות, בודק עקביות בפרופילים ומדרג רק את המועמדים האמיתיים עם הוכחת עבודה.",
+      "solution_en": "A front-end AI screening tool that analyzes candidate authenticity depth, checks profile consistency, and ranks only real candidates with proof of work.",
+      "pricing_he": "מנוי חודשי לפי נפח משרות פתוחות, החל מ-99 דולר לחודש.",
+      "pricing_en": "Monthly subscription based on open job volume, starting at $99/month.",
+      "first_customers_he": "פנייה ישירה למנהלי גיוס בסטארטאפים ב-LinkedIn שפרסמו משרות טค לאחרונה ומתמודדים עם עומס ספאם.",
+      "first_customers_en": "Direct outreach on LinkedIn to tech startup hiring managers who recently posted engineering roles and are drowning in application spam.",
+      "trend_keyword": "ai resume spam filter",
+      "ease_of_build": 85,
+      "mvp_he": "מערכת ווב המקבלת קורות חיים ומכתבי מקсь, מריצה בדיקות אינטליגנטיות לזיהוי טקסט גנרי של LLM, ומחזירה דוח אימות מהיר.",
+      "mvp_en": "A web app taking resumes and cover letters, running intelligent heuristics to detect generic LLM text, and returning a rapid verification report.",
+      "tech_stack_he": "Next.js, Tailwind, FastAPI, OpenAI API, PostgreSQL",
+      "tech_stack_en": "Next.js, Tailwind, FastAPI, OpenAI API, PostgreSQL",
       "track": "saas",
       "mentions": 1,
       "engagement": 0,
       "sources": [
         "Hacker News"
       ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
-      "quote_source": "GitHub",
-      "score": 83,
-      "trend_change": -47,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "הוצאות גבוהות על הגשת מועמדות למשרות לפרילנסרים במדינות מתפתחות",
-      "title_en": "Prohibitive Pay-to-Apply Credit Costs for Global Freelancers",
-      "who_he": "פרילנסרים במדינות מתפתחות שמתקשים לממן את עלויות הקרדיטים להגשת הצעות עבודה בפלטפורמות.",
-      "who_en": "Freelancers in developing countries struggling to fund credit costs for applying to jobs on platforms.",
-      "member_indices": [
-        4
-      ],
-      "best_quote_index": 0,
-      "quote_he": "כמי שחי במדינה שלישית, תשלום הסכום הזה כבר יקר עבורי... ממש מאוכזב שבשביל לעבוד בשביל כסף, אני צריך לשלם כדי לעבוד.",
-      "quote_en": "as someone living in a 3rd world country, paying that amount is already expensive for me... really disappointed that in order to work for money, I have to pay to work.",
-      "category": "Marketing & sales",
-      "intensity": 80,
-      "frequency": 85,
-      "low_competition": 75,
-      "competitors": [
-        {
-          "name": "Upwork",
-          "gap_he": "גובה תשלום יקר על קונספט ה-Connects ללא התחשבות ביכולת הכלכלית המקומית של פרילנסרים.",
-          "gap_en": "Charges expensive fees for Connects without accounting for local economic realities of global freelancers."
-        }
-      ],
-      "solution_he": "כלי AI המייצר באופן אוטומטי הצעות עבודה מדויקות ואיכותיות בפעם הראשונה, ומצמצם את הצורך בבזבוז קרדיטים על הצעות סתמיות.",
-      "solution_en": "An AI tool that automatically generates precise, high-converting proposals on the first try, reducing wasted connects on generic pitches.",
-      "pricing_he": "מנוי חודשי זול של 15 דולר המותאם לשווקים מתפתחים.",
-      "pricing_en": "Affordable $15/month subscription tailored for developing markets.",
-      "first_customers_he": "שיווק בקasמפיינים ממוקדים ב-Facebook וקבוצות פרילנסרים באפריקה ואסיה.",
-      "first_customers_en": "Targeted marketing campaigns in Facebook groups and freelancer communities in Africa and Asia.",
-      "trend_keyword": "AI freelance proposal generator",
-      "ease_of_build": 90,
-      "mvp_he": "כלי ווב שמנתח את תיאור משרה ומייצר מכתב פנייה מותאם אישית שמוביל לראיון.",
-      "mvp_en": "A web tool analyzing job descriptions and generating a tailored cover letter driving interviews.",
-      "tech_stack_he": "Next.js, OpenAI API, Vercel.",
-      "tech_stack_en": "Next.js, OpenAI API, Vercel.",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 1,
-      "sources": [
-        "Google Play"
-      ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
-      "quote_source": "GitHub",
-      "score": 83,
-      "trend_change": -100,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "מרכז שירות לקוחות ממוקד צ'אט והזמנות לחברות הובלה קטנות",
-      "title_en": "Chat and Order-Integrated Support Desk for Small Moving Companies",
-      "who_he": "חברות הובלה קטנות שאין לו מערכת ניהול הזמנות מתקדמת, ולקוחותיהם נופלים בין הכיסאות בצ'אט ובאימייל.",
-      "who_en": "Small moving companies lacking advanced order management systems, causing customers to fall through the cracks between chat and email.",
-      "member_indices": [
-        2
-      ],
-      "best_quote_index": 0,
-      "quote_he": "כשתשתמשתי בצ'אט באפליקציה הם ביקשו ממני לחפש ידנית את מספר ההזמנה, ואז שלחו אותי לאימייל.",
-      "quote_en": "When I used the chat in the app they needed me to manually look up my order number... then they reply and say actually I now need to email them.",
-      "category": "Communication & coordination",
-      "intensity": 70,
-      "frequency": 80,
-      "low_competition": 85,
-      "competitors": [
-        {
-          "name": "Zendesk",
-          "gap_he": "יקר מדי ומורכב בהגדרתו עבור חברות הובלה קטנות בעלות 2-5 עובדים.",
-          "gap_en": "Too expensive and complex to set up for small moving companies with 2-5 employees."
-        }
-      ],
-      "solution_he": "שירות ניהול פניות מרוכז המשלב צ'אט חכם המזוהה אוטומטית עם מספר ההזמנה ומספק מענה מיידי ללקוחות חברת ההובלה.",
-      "solution_en": "A centralized customer inquiry management service combining smart chat automatically linked to order numbers for small moving companies.",
-      "pricing_he": "ריטיינר חודשי של 300 דולר לחברת הובלה עבור ניהול התקשורת.",
-      "pricing_en": "Monthly retainer of 300 USD per moving company for managing communications.",
-      "first_customers_he": "פנייה ישירה לחברות הובלה קטנות באזור המרכז בטלפון והצעת ניסיון חינם לשבוע בניהול הפניות שלהן.",
-      "first_customers_en": "Direct cold calling to small moving companies in the central district offering a free one-week trial of managing their inquiries.",
-      "trend_keyword": "moving company customer service software",
-      "ease_of_build": 90,
-      "delivery_model": "ai",
-      "roles_to_hire_he": "אין צורך בעובדים ביום הראשון, ניתן להפעיל הכל דרך כלי אוטומציה מבוססי AI.",
-      "roles_to_hire_en": "No employees needed on day one; everything can be run via AI-based automation tools.",
-      "ai_leverage_he": "AI קורא את ההודעות, מזהה את מספר ההזמנה מהטקסט, מקשר אותה למערכת ומנסח תשובות אוטומטיות ללקוח.",
-      "ai_leverage_en": "AI reads incoming messages, identifies the order number from the text, links it to the system, and drafts automated replies to the client.",
-      "startup_capital_usd": 200,
-      "startup_capital_he": "עלות מינוי לכלי אוטומציה (כגון Make.com ו-OpenAI API) ותוכנת צ'אט.",
-      "startup_capital_en": "Subscription cost for automation tools (like Make.com and OpenAI API) and chat software.",
-      "equipment_licensing_he": "ללא צורך בציוד מיוחד או רישיונות; עבודה מלאה מהמחשב בבית.",
-      "equipment_licensing_en": "No special equipment or licenses needed; fully remote work from a home computer.",
-      "gross_margin_pct": 90,
-      "moat_he": "חברות הובלה עסוקות ביום-יום בהובלות פיזיות ואין לו זמן לפתח או לחבר מערכות תוכנה לבד.",
-      "moat_en": "Moving companies are busy daily with physical moves and lack the time to develop or connect software systems themselves.",
-      "launch_plan_he": "יצירת בוט הדגמה אחד שקושר מספר הזמנה לצ'אט, והצגתו ל-15 בעלי חברות הובלה בשיחת טלפון.",
-      "launch_plan_en": "Building a single demo bot that links order numbers to chat, and pitching it to 15 moving company owners via phone calls.",
-      "market": "both",
-      "track": "lowtech",
-      "mentions": 1,
-      "engagement": 3,
-      "sources": [
-        "Google Play"
-      ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
-      "quote_source": "GitHub",
-      "mvp_he": "יצירת בוט הדגמה אחד שקושר מספר הזמנה לצ'אט, והצגתו ל-15 בעלי חברות הובלה בשיחת טלפון.",
-      "tech_stack_he": "AI קורא את ההודעות, מזהה את מספר ההזמנה מהטקסט, מקשר אותה למערכת ומנסח תשובות אוטומטיות ללקוח. | אין צורך בעובדים ביום הראשון, ניתן להפעיל הכל דרך כלי אוטומציה מבוססי AI.",
-      "mvp_en": "Building a single demo bot that links order numbers to chat, and pitching it to 15 moving company owners via phone calls.",
-      "tech_stack_en": "AI reads incoming messages, identifies the order number from the text, links it to the system, and drafts automated replies to the client. | No employees needed on day one; everything can be run via AI-based automation tools.",
-      "score": 80,
-      "trend_change": -86,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "תחזוקה מתמשכת של אוטומציות וזרימות נתונים ארגוניות",
-      "title_en": "High Maintenance Burden of Custom AI Workflows",
-      "who_he": "עובדי ידע ומנהלי תפעול הבונים אוטומציות וסובלים משינויי הרשאות וטוקנים תכופים.",
-      "who_en": "Knowledge workers and operations managers building automations who suffer from frequent permission and token changes.",
-      "member_indices": [
-        3
-      ],
-      "best_quote_index": 0,
-      "quote_he": "בכל פעם שאני יוצר זרימת עבודה, מרגיש כאילו אני יוצר אפליקציה שאני חייב לתחזק בעצמי.",
-      "quote_en": "every time I create a workflow, recurring data-pull, etc., it feels as if I am creating an app that I have to maintain myself.",
-      "category": "Operations & admin",
-      "intensity": 75,
-      "frequency": 85,
-      "low_competition": 85,
-      "competitors": [
-        {
-          "name": "Zapier",
-          "gap_he": "יקר מאוד ולא מתריע בצורה חכמה על שבירת אינטגרציות עקב שינויי הרשאות ארגוניות.",
-          "gap_en": "Very expensive and lacks smart proactive alerts for broken integrations due to organizational permission changes."
-        },
-        {
-          "name": "Make.com",
-          "gap_he": "דורש תחזוקה ידנית רבה כאשר מפתחות גישה או טוקנים פגים.",
-          "gap_en": "Requires heavy manual troubleshooting when access keys or tokens expire."
-        }
-      ],
-      "solution_he": "סוכן AI מנטר שמתחבר לכלי האוטומציה שלך, מזהה שגיאות הרשאה או פקיעת טוקנים מראש ומתקן אותן אוטומטית.",
-      "solution_en": "An AI monitoring agent that connects to your automation tools, detects permission errors or expired tokens in advance, and auto-fixes them.",
-      "pricing_he": "מנוי חודשי של 29 עד 79 דולר לפי מספר האוטומציות המנוהלות.",
-      "pricing_en": "Monthly subscription of $29 to $79 based on the number of managed automations.",
-      "first_customers_he": "פרסום מדריכים בקהילות אוטומציה ב-Reddit ופנייה למשתמשים מתוסכלים.",
-      "first_customers_en": "Publishing guides in Reddit automation communities and reaching out to frustrated users.",
-      "trend_keyword": "automation maintenance tool",
-      "ease_of_build": 70,
-      "mvp_he": "אפליקציית Web פשוטה שמתחברת ל-APIs מרכזיים ומריצה סריקות תקינות יומיות עם התראות חכמות.",
-      "mvp_en": "A simple web app connecting to core APIs running daily health checks with smart alerts.",
-      "tech_stack_he": "Node.js, Supabase, LLM API for error translation.",
-      "tech_stack_en": "Node.js, Supabase, LLM API for error translation.",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 2,
-      "sources": [
-        "Hacker News"
-      ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
-      "quote_source": "GitHub",
-      "score": 78,
+      "quote_original": "opening a position got me a thousand of applications per day, all ChatGPT’d resumes from monkeys... there is no way for me to tell without talking to them, which was impossible considering the sheer scale of the spam onslaught.",
+      "quote_url": "https://news.ycombinator.com/item?id=50584139",
+      "quote_source": "Hacker News",
+      "score": 89,
       "trend_change": 0,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "התמודדות עם ממשקי תוכנה מסורבלים ותקלות התחברות בעבודה",
-      "title_en": "Authentication Fatigue and Buggy Software UX in Offices",
-      "who_he": "עובדי משרד המבלים זמן רב בהתמודדות עם התנתקות, זיהוי רב-שלבי (MFA) והתראות מעצבנות.",
-      "who_en": "Office workers spending significant time dealing with logouts, complex multi-factor authentication, and annoying notifications.",
+      "title_he": "בדיקות ציות ותחזוקת מרכזי אמון של ספקים צד שלישי",
+      "title_en": "Manual Vendor Trust Center Compliance Monitoring",
+      "who_he": "צוותי אבטחת מידע וניהול סיכונים צד שלישי (TPRM)",
+      "who_en": "Information security and Third-Party Risk Management (TPRM) teams",
       "member_indices": [
-        8
+        26
       ],
-      "best_quote_index": 0,
-      "quote_he": "בחלק מהימים אני מרגיש שאני פשוט מבלים את כל היום בהתמודדות עם תוכנה מעצבנת: התנתקות, מעבר דרך זיהוי רב-שלבי...",
-      "quote_en": "some days I feel like I just spend the whole day dealing with annoying software: getting logged out, going through buggy multi-factor flows",
+      "best_quote_index": 26,
+      "quote_he": "צוותי ניהול סיכונים צד שלישי (TPRM) מבלים שעות בבדיקה ידנית של מרכזי אמון של ספקים על פני...",
+      "quote_en": "Third-Party Risk Management (TPRM) teams spend hours manually checking vendor Trust Centers across...",
       "category": "Operations & admin",
-      "intensity": 70,
-      "frequency": 90,
-      "low_competition": 75,
+      "intensity": 90,
+      "frequency": 95,
+      "low_competition": 80,
       "competitors": [
         {
-          "name": "1Password",
-          "gap_he": "מצוין בניהול סיסמאות אך אינו פותר את חוסר הנוחות של זרימות אימות מורכבות והתראות מערכת.",
-          "gap_en": "Great at password management but doesn't solve the friction of complex authentication flows and system notifications."
+          "name": "Whistic",
+          "gap_he": "יקר מאוד ומכוון רק לארגוני ענק, ללא מעקב אוטומטי מבוסס AI אחרי שינויים קטנים במסמכי ספקים.",
+          "gap_en": "Very expensive and targeted only at enterprise giants, lacking AI-powered auto-tracking of minor vendor document updates."
         },
         {
-          "name": "Okta",
-          "gap_he": "מערכת ארגונית כבדה הנשלטת על ידי מחלקת ה-IT ואינה מותאמת אישית לפרודוקטיביות העובד הבודד.",
-          "gap_en": "Heavy enterprise system controlled by IT and not customized for individual employee productivity."
+          "name": "OneTrust",
+          "gap_he": "מערכת כבדה ומורכבת הדורשת הטמעה ארוכה ויקרה.",
+          "gap_en": "Heavy and complex system requiring long and expensive onboarding."
         }
       ],
-      "solution_he": "תוסף דפדפן חכם המאשר אוטומטית הודעות MFA מורשות ומארגן את ההתראות המשרדיות למרכז שליטה אחד שקט.",
-      "solution_en": "A smart browser extension that automatically approves authorized MFA prompts and organizes office notifications into a quiet single control center.",
-      "pricing_he": "מנוי פרוסיומר של 12 דולר לחודש.",
-      "pricing_en": "Prosumer subscription of $12 per month.",
-      "first_customers_he": "כתיבת פוסט ויראלי ב-Hacker News והפצה בקרב עובדי הייטק מתוסכלים ב-Twitter.",
-      "first_customers_en": "Writing a viral Hacker News post and distributing it among frustrated tech employees on Twitter.",
-      "trend_keyword": "MFA notification fatigue",
+      "solution_he": "סוכן AI שעוקב אוטומטית אחרי מרכזי אמון, דפי SOC2 ומדיניות פרטיות של ספקים, ומתריע על כל שינוי חריג או פקיעת תוקף אישורים.",
+      "solution_en": "An AI agent that automatically monitors vendor Trust Centers, SOC2 pages, and privacy policies, alerting on any anomaly or expiring certification.",
+      "pricing_he": "תמחור מבוסס על מספר הספקים במעקב, החל מ-199 דולר לחודש.",
+      "pricing_en": "Tiered pricing based on number of monitored vendors, starting at $199/month.",
+      "first_customers_he": "הגעה למנהלי אבטחת מידע (CISOs) וקציני ציות בחברות בינוניות ב-LinkedIn ובקהילות SecOps.",
+      "first_customers_en": "Reaching out to CISOs and compliance officers at mid-market companies via LinkedIn and SecOps Slack communities.",
+      "trend_keyword": "vendor risk compliance automation",
       "ease_of_build": 80,
-      "mvp_he": "תוסף Chrome המזהה שדות אימות ומאשר בקשות מוכרות בצורה אוטומטית ומאובטחת.",
-      "mvp_en": "A Chrome extension detecting auth fields and automatically and securely approving recognized requests.",
-      "tech_stack_he": "Plasmo framework, JavaScript, Tailwind.",
-      "tech_stack_en": "Plasmo framework, JavaScript, Tailwind.",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "Hacker News"
-      ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
-      "quote_source": "GitHub",
-      "score": 78,
-      "trend_change": -100,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "הטמעת חיובים והתראות גישה מבוססי Stripe לפרילנסרים",
-      "title_en": "Lightweight Embedded Stripe Billing for Freelancers",
-      "who_he": "סוכנויות קטנות ופרילנסרים המנהלים שרתי לקוחות וזקוקים לחיוב מנויים פשוט ללא מערכות כבדות.",
-      "who_en": "Small agencies and freelancers managing client servers who need simple recurring billing without heavy platforms.",
-      "member_indices": [
-        1
-      ],
-      "best_quote_index": 0,
-      "quote_he": "הוספת תכונת חיוב מינימלית... כך שפרילנסרים או סוכנויות יוכלו בקלות לאפשר ללקוחותיהם להקים מנוי.",
-      "quote_en": "adding a minimal billing feature within the SlickStack dashboard area of WP Admin so that freelancers or agencies can easily have their clients setup a subscription",
-      "category": "Finance & billing",
-      "intensity": 80,
-      "frequency": 70,
-      "low_competition": 70,
-      "competitors": [
-        {
-          "name": "WHMCS",
-          "gap_he": "מערכת מיושנת, מורכבת להגדרה ודורשת תחזוקה שוטפת כבדה.",
-          "gap_en": "Outdated, complex to set up, and requires heavy ongoing maintenance."
-        },
-        {
-          "name": "Chargebee",
-          "gap_he": "יקרה מדי ומוכוונת לחברות SaaS גדולות ולא לפרילנסרים בודדים.",
-          "gap_en": "Too expensive and targeted at large SaaS companies rather than solo freelancers."
-        }
-      ],
-      "solution_he": "ווידג'ט Stripe מוטמע בקוד פתוח או כתוכנה קלה המאפשרת לפרילנסרים לגבות תשלומים חוזרים ישירות מלוח הניהול שלהם.",
-      "solution_en": "An embedded open-source Stripe widget or lightweight software allowing freelancers to collect recurring payments directly from their admin dashboard.",
-      "pricing_he": "מנוי חודשי פשוט של 19 דולר ללא עמלות נוספות מעבר ל-Stripe.",
-      "pricing_en": "Simple $19/month subscription with no added fees beyond Stripe.",
-      "first_customers_he": "פרסום פתרון ייעודי בפורומים של מפתחי וורדפרס וקהילות פרילנסרים ב-Dev.to.",
-      "first_customers_en": "Posting a dedicated solution in WordPress developer forums and Dev.to freelancer communities.",
-      "trend_keyword": "embed Stripe billing",
-      "ease_of_build": 85,
-      "mvp_he": "ווידג'ט מבוסס React המחובר ל-Stripe Connect ומייצר לינקים מהירים לתשלום מנוי חודשי.",
-      "mvp_en": "A React-based widget connected to Stripe Connect that generates quick monthly subscription payment links.",
-      "tech_stack_he": "Next.js, Stripe API, Tailwind CSS.",
-      "tech_stack_en": "Next.js, Stripe API, Tailwind CSS.",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 6,
-      "sources": [
-        "GitHub"
-      ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
-      "quote_source": "GitHub",
-      "score": 77,
-      "trend_change": 100,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "פגיעה בתפקוד אפליקציות ניהול נכסים לאחר מיזוג חברות",
-      "title_en": "Workflow Degradation in Property Management Apps After Mergers",
-      "who_he": "משכירי דירות ומנהלי נכסים שסובלים מאפליקציות גרועות ומוסתרות עקב מיזוגים טכנולוגיים.",
-      "who_en": "Landlords and property managers suffering from degraded, hidden features due to platform mergers.",
-      "member_indices": [
-        9
-      ],
-      "best_quote_index": 0,
-      "quote_he": "שדרוג לאחור מאפליקציית TenantCloud לנייד כמעט מכל בחינה. הרבה תכונות מוסתרות, מעצבנות לשימוש...",
-      "quote_en": "a downgrade from tenantcloud mobile app in almost every way. a lot of features are hidden, annoying to use, or locked",
-      "category": "Operations & admin",
-      "intensity": 75,
-      "frequency": 80,
-      "low_competition": 85,
-      "competitors": [
-        {
-          "name": "AppFolio",
-          "gap_he": "יקר מאוד ומיועד אך ורק לחברות נדל",
-          "gap_en": "Very expensive and tailored exclusively for massive real estate firms rather than small landlords."
-        }
-      ],
-      "solution_he": "מערכת ניהול נכסים רזה ומהירה מבוססת AI המרכזת גביית שכר דירה וניהול תקלות בממשק נייד נוח.",
-      "solution_en": "A lean, fast AI-powered property management system centralizing rent collection and maintenance tickets in a clean mobile interface.",
-      "pricing_he": "מנוי חודשי של 39 דולר לניהול עד 20 נכסים.",
-      "pricing_en": "$39/month subscription for managing up to 20 properties.",
-      "first_customers_he": "חיפוש משתמשים מתוסכלים בפורומים של נדל",
-      "first_customers_en": "Finding frustrated users in real estate forums and Reddit landlord communities.",
-      "trend_keyword": "property management software alternative",
-      "ease_of_build": 70,
-      "mvp_he": "אפליקציית Web רספונסיבית לניהול דיירים, הפקת חשבוניות ורישום תקלות תחזוקה.",
-      "mvp_en": "A responsive web app for tenant management, invoicing, and maintenance ticket logging.",
-      "tech_stack_he": "Next.js, Supabase, Tailwind CSS.",
-      "tech_stack_en": "Next.js, Supabase, Tailwind CSS.",
-      "track": "saas",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "Google Play"
-      ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
-      "quote_source": "GitHub",
-      "score": 77,
-      "trend_change": null,
-      "is_recurring": true,
-      "weeks_seen": 2
-    },
-    {
-      "title_he": "עזרת מומחה צעד-אחר-צעד לפרויקטי עשה-זאת-בעצמך בבית",
-      "title_en": "Step-by-Step Expert DIY Home Project Guidance",
-      "who_he": "בעלי בתים שרוצים לבצע תיקונים או שיפורים קטנים לבד אך מסתבכים בהוראות ובהיפוך זוויות ראייה.",
-      "who_en": "Homeowners who want to do minor repairs or improvements themselves but get confused by instructions and viewing angles.",
-      "member_indices": [
-        6
-      ],
-      "best_quote_index": 0,
-      "quote_he": "אני צריך מישהו שידריך אותי צעד אחר צעד, ובאותו הכיוון (אני מתבלבל כשהוא יושב מולי כי אני צריך למפות את הפעולות לצד שלי).",
-      "quote_en": "I need someone to guide me, step by step, AND in the same direction (I get confused if he sits opposite to me because I need to map the actions to my side).",
-      "category": "Home & local services",
-      "intensity": 75,
-      "frequency": 60,
-      "low_competition": 90,
-      "competitors": [
-        {
-          "name": "TaskRabbit",
-          "gap_he": "מציעים רק אדם שמבצע את העבודה פיזית, ולא שירות הדרכה מרחוק שמלמד את הלקוח לעשות זאת בעצמו מנקודת מבטו.",
-          "gap_en": "They only offer someone to physically do the work, not a remote coaching service that teaches the client to do it themselves from their perspective."
-        }
-      ],
-      "solution_he": "שירות ייעוץ והדרכה מרחוק בשידור חי (אפליקציית וידאו עם שכבת הדרכה ממבט ראשון) שבו אדם מקצועי מדריך את הבעלים צעד אחר צעד בזמן אמת.",
-      "solution_en": "A live remote coaching service (via video with first-person perspective guidance tools) where a skilled tradesperson guides the homeowner step-by-step in real-time.",
-      "pricing_he": "60 דולר לשעה או 150 דולר לפרויקט ביתי מוגדר.",
-      "pricing_en": "60 USD per hour or 150 USD per defined home project.",
-      "first_customers_he": "פרסום בקבוצות פייסבוק מקומיות של שיפוצים ותחזוקת הבית והצעת הפעלה חינם ל-10 הלקוחות הראשונים בתמורה למשוב.",
-      "first_customers_en": "Posting in local home renovation Facebook groups and offering a free session to the first 10 customers in exchange for feedback.",
-      "trend_keyword": "DIY home repair help",
-      "ease_of_build": 85,
-      "delivery_model": "hybrid",
-      "roles_to_hire_he": "שכירת הנדימן אחד או שניים במשרה חלקית שיעבדו כמומחי הדרכה מרחוק.",
-      "roles_to_hire_en": "Hire one or two part-time handymen to act as remote coaching experts.",
-      "ai_leverage_he": "כלי בינה מלאכותית מנהלים את זימון התורים, תזכורות ללקוח וסיכום שלבי העבודה לאחר השיחה.",
-      "ai_leverage_en": "AI tools handle appointment scheduling, client reminders, and post-call summaries of work steps.",
-      "startup_capital_usd": 500,
-      "startup_capital_he": "הקמת אתר אינטרנט פשוט, תוכנת זימון תורים, וציוד צילום בסיסי למומחה.",
-      "startup_capital_en": "Building a simple website, booking software, and basic video recording equipment for the expert.",
-      "equipment_licensing_he": "מצלמת אינטרנט רחבה ואוזניות אלחוטיות למומחה. אין צורך ברישיונות מיוחדים בישראל או בארה״ב.",
-      "equipment_licensing_en": "Wide webcam and wireless headset for the expert. No special licenses needed in Israel or the US.",
-      "gross_margin_pct": 75,
-      "moat_he": "ספקי שירות מסורתיים רוצים רק לבצע את העבודה בעצמם ולגבות מחיר גבוה; אנחנו מעצימים את הלקוח בזול ובמהירות.",
-      "moat_en": "Traditional service providers only want to do the job themselves and charge high rates; we empower the client cheaply and quickly.",
-      "launch_plan_he": "שליחת הודעות לעשר קבוצות פייסבוק של בעלי דירות, ביצוע 10 הדרכות ראשונות, ואיסוף המלצות וביקורות חיוביות.",
-      "launch_plan_en": "Posting in ten apartment owner Facebook groups, conducting the first 10 guidance sessions, and gathering positive reviews.",
-      "market": "both",
-      "track": "lowtech",
-      "mentions": 1,
-      "engagement": 0,
-      "sources": [
-        "Hacker News"
-      ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
-      "quote_source": "GitHub",
-      "mvp_he": "שליחת הודעות לעשר קבוצות פייסבוק של בעלי דירות, ביצוע 10 הדרכות ראשונות, ואיסוף המלצות וביקורות חיוביות.",
-      "tech_stack_he": "כלי בינה מלאכותית מנהלים את זימון התורים, תזכורות ללקוח וסיכום שלבי העבודה לאחר השיחה. | שכירת הנדימן אחד או שניים במשרה חלקית שיעבדו כמומחי הדרכה מרחוק.",
-      "mvp_en": "Posting in ten apartment owner Facebook groups, conducting the first 10 guidance sessions, and gathering positive reviews.",
-      "tech_stack_en": "AI tools handle appointment scheduling, client reminders, and post-call summaries of work steps. | Hire one or two part-time handymen to act as remote coaching experts.",
-      "score": 77,
-      "trend_change": 100,
-      "is_recurring": false,
-      "weeks_seen": 1
-    },
-    {
-      "title_he": "ייבוא היסטוריית דפי חשבון בנק לתוכנות תקציב",
-      "title_en": "Friction in Importing Historical PDF Bank Statements",
-      "who_he": "עצמאים ומשקי בית שרוצים לנהל תקציב אך נתקעים בהזנה ידנית של קבצי PDF ישנים.",
-      "who_en": "Freelancers and households wanting to budget who get stuck manually entering old PDF statements.",
-      "member_indices": [
-        10
-      ],
-      "best_quote_index": 0,
-      "quote_he": "אפליקציות תקציב מעולות בייבוא עסקאות חדשות: אתה מקשר את הבנק והן זורמות פנימה. הכאב...",
-      "quote_en": "Budgeting apps are great at importing new transactions: you link the bank and they flow in. The pain...",
-      "category": "Finance & billing",
-      "intensity": 80,
-      "frequency": 60,
-      "low_competition": 75,
-      "competitors": [
-        {
-          "name": "Plaid",
-          "gap_he": "מתמקד בחיבור בזמן אמת ואינו מטפל היטב בייבוא היסטורי של קבצי PDF מבולגנים מבקים שונים.",
-          "gap_en": "Focuses on real-time connections and handles historical messy PDF imports from various banks poorly."
-        },
-        {
-          "name": "Mint (Legacy)",
-          "gap_he": "נסגר ואינו מציע פתרון מודרני מבוסס AI לחילוץ נתוני PDF פרטיים מקומיים.",
-          "gap_en": "Shut down and offers no modern AI-based solution for extracting private local PDF data."
-        }
-      ],
-      "solution_he": "כלי AI מאובטח שמחלץ באופן מדויק עסקאות מקבצי PDF של כל בנק ומייצא אותם לפורמט מוכן לתוכנות תקציב מבלי לשמור מידע רגיש.",
-      "solution_en": "A secure AI tool that accurately extracts transactions from any bank PDF and exports them in a budgeting-ready format without storing sensitive data.",
-      "pricing_he": "תשלום חד פעמי של 19 דולר לחבילת ייבוא או מנוי חודשי של 9 דולר.",
-      "pricing_en": "One-time payment of $19 for an import bundle or a $9 monthly subscription.",
-      "first_customers_he": "הפצת כלי חינמי בקהילות Personal Finance ב-Reddit עם אופציה לשדרוג לקבצים מורכבים.",
-      "first_customers_en": "Distributing a free tool in Reddit personal finance communities with an upgrade option for complex files.",
-      "trend_keyword": "PDF bank statement parser",
-      "ease_of_build": 90,
-      "mvp_he": "דף נחיתה עם מעבד קבצי PDF מבוסס Vision LLM הממיר דפי בנק ל-CSV נקי.",
-      "mvp_en": "A landing page featuring a Vision LLM-powered PDF processor that converts bank pages into clean CSVs.",
-      "tech_stack_he": "React, FastAPI, OpenAI GPT-4o Vision API.",
-      "tech_stack_en": "React, FastAPI, OpenAI GPT-4o Vision API.",
+      "mvp_he": "בוט שמבצע סקריפר תקופתי לדפי אמון של רשימת כתובות URL, מנתח הבדלי טקסט בעזרת LLM, ושולח סיכום שינויים ל-Slack.",
+      "mvp_en": "A bot running periodic scrapes on a list of URL trust pages, analyzing text diffs via LLM, and sending change summaries to Slack.",
+      "tech_stack_he": "Python, Playwright, LangChain, PostgreSQL, Vercel",
+      "tech_stack_en": "Python, Playwright, LangChain, PostgreSQL, Vercel",
       "track": "saas",
       "mentions": 1,
       "engagement": 0,
       "sources": [
         "Dev.to"
       ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
+      "quote_original": "Third-Party Risk Management (TPRM) teams spend hours manually checking vendor Trust Centers across...",
+      "quote_url": "https://dev.to/wonderpick/monitoring-vanta-drata-safebase-trust-centers-for-soc-2-and-ai-subprocessors-without-a-headless-3nm1",
+      "quote_source": "Dev.to",
+      "score": 87,
+      "trend_change": 0,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "תיאום החלפות משמרות דחופות ועקב מחלה ללא תיעוד",
+      "title_en": "Informal and Unaudited Last-Minute Shift Cover Coordination",
+      "who_he": "מנהלי עסקים קטנים, מסעדות וקמעונאות",
+      "who_en": "Small business, retail, and hospitality managers",
+      "member_indices": [
+        1
+      ],
+      "best_quote_index": 1,
+      "quote_he": "כאשר עובד במשמרת הודיע על מחלה פחות משעתיים לפני תחילת המשמרת, אני רוצה למצוא מחליף מאושר מהר ולהיות בעל תיעוד של מי נוצר קשר איתו, מי סירב ומי הסכים",
+      "quote_en": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted, who declined, and who agreed",
+      "category": "Operations & admin",
+      "intensity": 85,
+      "frequency": 90,
+      "low_competition": 75,
+      "competitors": [
+        {
+          "name": "7shifts",
+          "gap_he": "מעולה לסידור עבודה שבועי אבל מציע תהליכי חירום איטיים ולא אוטומטיים במקרי מחלה של הרגע האחרון.",
+          "gap_en": "Great for weekly schedules but offers slow and unautomated emergency workflows for last-minute sick calls."
+        },
+        {
+          "name": "HotSchedules",
+          "gap_he": "מערכת מיושנת וכבדה המבוססת על הודעות טקסט ידניות ללא ניהול חכם מבוסס זמינות.",
+          "gap_en": "Legacy and heavy system relying on manual text blasts without smart availability-based management."
+        }
+      ],
+      "solution_he": "בוט וואטסאפ ו-SMS חכם שמנהל סבבי קריאות חירום אוטומטיים לעובדים פנויים לפי סטטוס זמינות ודירוג עדיפות, ויוצר דוח אישור משפטי מלא.",
+      "solution_en": "A smart WhatsApp and SMS bot running automated emergency call rounds to available workers based on availability and priority, generating full audit trails.",
+      "pricing_he": "מנוי חודשי לפי סניף או עסק, 49 דולר לחודש.",
+      "pricing_en": "Monthly subscription per location, $49/month.",
+      "first_customers_he": "ביקור פיזי ופנייה למנהלי בתי קפה, מסעדות וחנויות קמעונאות מקומיות המשתמשים בקבוצות WhatsApp בלגן.",
+      "first_customers_en": "Cold outreach and visits to local café, restaurant, and retail managers who currently struggle with chaotic WhatsApp groups.",
+      "trend_keyword": "shift replacement automation software",
+      "ease_of_build": 85,
+      "mvp_he": "מערכת המחוברת ל-Twilio ו-WhatsApp API שמקבלת התראת מחלה, שולחת הודעות מדורגות לעובדים ומעדכנת את יומן המשמרות אוטומטית.",
+      "mvp_en": "A system connected to Twilio and WhatsApp API that ingests sick alerts, blasts tiered worker texts, and auto-updates the shift calendar.",
+      "tech_stack_he": "Node.js, Twilio API, Supabase, React",
+      "tech_stack_en": "Node.js, Twilio API, Supabase, React",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 20,
+      "sources": [
+        "GitHub"
+      ],
+      "quote_original": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted, who declined, and who agreed",
+      "quote_url": "https://github.com/muaddibco/RealWorldProblems/issues/1820",
+      "quote_source": "GitHub",
+      "score": 84,
+      "trend_change": 0,
+      "is_recurring": true,
+      "weeks_seen": 2
+    },
+    {
+      "title_he": "חוסר סנכרון ופערים ברישומי ניקיון ותחזוקה במתקנים ציבוריים",
+      "title_en": "Gaps and Human Error in Manual Public Facility Cleaning Rosters",
+      "who_he": "מנהלי תפעול וחברות ניהול מתקנים ציבוריים ומסחריים",
+      "who_en": "Facility managers and commercial cleaning operations directors",
+      "member_indices": [
+        15
+      ],
+      "best_quote_index": 15,
+      "quote_he": "האם ראית את טבלאות הניקיון על הקירות בשירותים ציבוריים, לעתים קרובות יש שם פערים כי אנשים הם אנשים. גם בשיטה הידנית צריך לכתוב את זה במדויק",
+      "quote_en": "Have you seen the cleaning rostra on the walls in public toilets, there’s often gaps in that because people are people. Also with the manual method it needs to be accurately written down",
+      "category": "Operations & admin",
+      "intensity": 75,
+      "frequency": 85,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Swept",
+          "gap_he": "מערכת טובה לניהול חברות ניקיון אבל דורשת מהעובדים להקליד הכל ידנית באפליקציה מה שגורם להזנחה דומה.",
+          "gap_en": "Good for cleaning companies but requires workers to manually log everything in an app, leading to similar neglect."
+        },
+        {
+          "name": "CleanTelligent",
+          "gap_he": "תוכנה מיושנת וכבדה המיועדת לחוזים גדולים בלבד ואינה עושה שימוש באישוש חכם או חיישני נוכחות.",
+          "gap_en": "Legacy heavy software meant only for large enterprise contracts without smart confirmation or presence triggers."
+        }
+      ],
+      "solution_he": "מערכת דיווח תחזוקה וניקיון חכמה המבוססת על סריקת קוד QR במקום, תיוג תמונות מבוסס AI לפני/אחרי והתראות אוטומטיות למנהלים על חריגים.",
+      "solution_en": "A smart cleaning and maintenance reporting system based on local QR code scans, AI before/after photo verification, and automated alerts for managers.",
+      "pricing_he": "תמחור לפי מתקן או אזור מנוהל, החל מ-59 דולר לחודש.",
+      "pricing_en": "Pricing per facility or managed zone, starting at $59/month.",
+      "first_customers_he": "פנייה ישירה לחברות ניהול בנייני משרדים, קניונים ואולמות אירועים המעסיקים צוותי תחזוקה בשטח.",
+      "first_customers_en": "Direct outreach to office building management companies, malls, and event venues employing on-site maintenance crews.",
+      "trend_keyword": "facility cleaning audit app",
+      "ease_of_build": 90,
+      "mvp_he": "אפליקציית ווב מותאמת מובייל המאפשרת לסרוק QR בשירותים או במסדרון, לצלם את המצב, ולאמת את ביצוע המשימה באמצעות ניתוח תמונה מהיר.",
+      "mvp_en": "A mobile-optimized web app allowing workers to scan QR codes on-site, snap photos, and verify task completion via fast image analysis.",
+      "tech_stack_he": "React, Tailwind, Supabase, OpenAI Vision API",
+      "tech_stack_en": "React, Tailwind, Supabase, OpenAI Vision API",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "Have you seen the cleaning rostra on the walls in public toilets, there’s often gaps in that because people are people. Also with the manual method it needs to be accurately written down",
+      "quote_url": "https://news.ycombinator.com/item?id=50573110",
+      "quote_source": "Hacker News",
+      "score": 83,
+      "trend_change": 0,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "ניתוק בין צ'אט תמיכה למספרי הזמנות באפליקציות משלוחים",
+      "title_en": "Disconnect Between Support Chat and Order IDs in Delivery Apps",
+      "who_he": "משתמשי אפליקציות משלוחים ולוגיסטיקה עירונית",
+      "who_en": "On-demand delivery and logistics app users",
+      "member_indices": [
+        6
+      ],
+      "best_quote_index": 6,
+      "quote_he": "כשהשתמשתי בצ'אט באפליקציה הם דרשו ממני לחפש ידנית את מספר ההזמנה שלי, האפליקציה לא יכלה לקשר את ההודעה שלי להזמנה... בעצם אני צריך עכשיו לשלוח להם אימייל לתמיכה",
+      "quote_en": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order... actually I now need to email them for support",
+      "category": "Logistics & delivery",
+      "intensity": 75,
+      "frequency": 80,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Intercom",
+          "gap_he": "מחייב אינטגרציה ידנית מורכבת ומבוסס על צ'אטבוטים טיפשים שלא תמיד מזהים הקשר הזמנה מתוך מסרון פעיל.",
+          "gap_en": "Requires complex manual integration and relies on rigid chatbots that fail to pull active order context seamlessly."
+        },
+        {
+          "name": "Zendesk",
+          "gap_he": "מערכת כבדה מדי לחברות לוגיסטיקה קטנות ודורשת מעבר לערוצי אימייל מסורבלים.",
+          "gap_en": "Too heavy for small logistics companies and forces users into clunky email channels."
+        }
+      ],
+      "solution_he": "ווידג'ט תמיכה חכם מבוסס AI המזהה אוטומטית את ההזמנה הפעילה של המשתמש מההקשר או מה-App Session שלו, וחוסך את הצורך בהקלדת מספרים ידנית.",
+      "solution_en": "An AI-powered support widget that automatically detects the user's active order from session context, eliminating manual ID lookups.",
+      "pricing_he": "מנוי חודשי לחברות משלוחים לפי נפח פניות, החל מ-79 דולר לחודש.",
+      "pricing_en": "Monthly subscription for delivery companies based on ticket volume, starting at $79/month.",
+      "first_customers_he": "פנייה ישירה לחברות שליחויות מקומיות קטנות וסטארטאפי Quick Commerce שסובלים מנטישת לקוחות בגלל שירות לקוחות גרוע.",
+      "first_customers_en": "Direct sales to local courier services and quick-commerce startups suffering from churn due to poor support friction.",
+      "trend_keyword": "in-app support chat context ai",
+      "ease_of_build": 90,
+      "mvp_he": "ווידג'ט צ'אט מוטמע ששולף את ה-Order ID מה-Local Storage או מה-URL של המשתמש ומזין אותו ישירות להקשר של ה-LLM בנציג הווירטואלי.",
+      "mvp_en": "An embedded chat widget extracting Order ID from user local storage or URL, feeding it directly into the LLM context for the virtual agent.",
+      "tech_stack_he": "React, Tailwind, Vercel AI SDK, Supabase",
+      "tech_stack_en": "React, Tailwind, Vercel AI SDK, Supabase",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 3,
+      "sources": [
+        "Google Play"
+      ],
+      "quote_original": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order... actually I now need to email them for support",
+      "quote_url": "https://play.google.com/store/apps/details?id=com.lugg",
+      "quote_source": "Google Play",
+      "score": 82,
+      "trend_change": 100,
+      "is_recurring": true,
+      "weeks_seen": 3
+    },
+    {
+      "title_he": "ליווי הדרכה אישית לתיקונים ביתיים (DIY Coaching)",
+      "title_en": "Guided Home Repair Coaching Service",
+      "who_he": "בעלי בתים ושוכרים חסרי אוריינטציה טכנית שאינם מצליחים לתקן דברים לבד בעזרת יוטיוב.",
+      "who_en": "Homeowners and renters lacking physical skills who fail to fix things using static YouTube tutorials.",
+      "member_indices": [
+        14
+      ],
+      "best_quote_index": 0,
+      "quote_he": "אני גרוע בעבודות פיזיות ולא מצליח לעשות את הדברים שהנדימנים מחסלים כבדיחה. אמרו לי לראות סרטוני יוטיוב, אבל זה אף פעם לא עובד לי. אני צריך מישהו שידריך אותי שלב אחר שלב.",
+      "quote_en": "As someone who is very bad at physical labour, I can't do a lot of the things that handymen consider to be trivial. They basically told me to watch YouTube videos, but those never worked out for me. I need someone to guide me, step by step.",
+      "category": "Home & local services",
+      "intensity": 75,
+      "frequency": 80,
+      "low_competition": 90,
+      "competitors": [
+        {
+          "name": "Local Handymen (הנדימנים פרטיים)",
+          "gap_he": "לוקחים מחיר יקר על עבודות קטנות או מסרבים להגיע אליהן כלל, ולא מלמדים את הלקוח.",
+          "gap_en": "Charge high minimum call-out fees for tiny jobs or refuse them outright, and never teach the customer."
+        },
+        {
+          "name": "YouTube DIY channels",
+          "gap_he": "תוכן סטטי שלא נותן מענה מותאם אישית למבנה הבית של הלקוח ולטעויות שהוא עושה בזמן אמת.",
+          "gap_en": "Static content that lacks real-time custom troubleshooting for the user's specific home setup."
+        }
+      ],
+      "solution_he": "שירות פרימיום שבו מאמן תיקונים מגיע לבית הלקוח או מדריך אותו בווידאו בזמן אמת כדי לעזור לו לבצע תיקונים קלים בשיטת 'עשה זאת בעצמך' ולקבל ביטחון.",
+      "solution_en": "A premium service where a repair coach guides customers in-person or via live video to safely execute minor home DIY fixes and build confidence.",
+      "pricing_he": "150-250 ש\"ח לשעת הדרכה או חבילת מיני-פרויקט ב-600 ש\"ח.",
+      "pricing_en": "$50-$80 per coaching hour or $200 per project package.",
+      "first_customers_he": "פרסום בקבוצות פייסבוק שכונתיות של תל אביב והשרון (כגון 'מאמאזון') עם דגש על שוכרי דירות שחייבים להחזיר דירה במצב טוב.",
+      "first_customers_en": "Posting in local neighborhood Facebook and WhatsApp groups targeting renters who need to fix apartments before lease end.",
+      "trend_keyword": "handyman services near me",
+      "ease_of_build": 85,
+      "delivery_model": "hire",
+      "roles_to_hire_he": "גיוס הנדימנים פרילנסרים בעלי סבלנות ויכולת הסברה גבוהה (להתחיל עם 1-2).",
+      "roles_to_hire_en": "Hire 1-2 patient, communicative freelance handymen or retired tradespeople.",
+      "ai_leverage_he": "AI לניהול יומן פגישות, משפך שיווקי בוואטסאפ ושליחת סיכומי משימות ללקוח לאחר מפגש ההדרכה.",
+      "ai_leverage_en": "AI booking bot, WhatsApp qualification funnel, and automated follow-up summaries sent to clients.",
+      "startup_capital_usd": 500,
+      "startup_capital_he": "הוצאות על אתר אינטרנט פשוט, מודעות ממומנות ראשונות בפייסבוק וערכת כלים בסיסית.",
+      "startup_capital_en": "Basic website builder, initial local Facebook ads, and a starter tool kit.",
+      "equipment_licensing_he": "ארגז כלים ביתי בסיסי, רישיון עסק סטנדרטי (אין צורך ברישיונות מיוחדים בישראל לעבודות קלות).",
+      "equipment_licensing_en": "Standard consumer toolset, local business registration (no special trade licenses needed for minor non-structural coaching).",
+      "gross_margin_pct": 65,
+      "moat_he": "המתחרים רוצים רק לעשות את העבודה בעצמם ולגבות מחיר גבוה; אנחנו נותנים ללקוח שליטה תוך בניית קהילה ונאמנות.",
+      "moat_en": "Competitors only want to do the labor themselves at high rates; we empower the customer, building high trust and referral loops.",
+      "launch_plan_he": "פיילוט של 30 יום באזור גוש דן, מתן שירות ל-10 הלקוחות הראשונים שרוצים לתלות מדפים או לסתום חורים בקירות בעצמם.",
+      "launch_plan_en": "A 30-day pilot in the Tel Aviv metropolitan area, helping the first 10 customers successfully mount shelves or patch walls themselves.",
+      "market": "both",
+      "track": "lowtech",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "\"You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.\"",
       "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
       "quote_source": "GitHub",
-      "score": 76,
+      "mvp_he": "פיילוט של 30 יום באזור גוש דן, מתן שירות ל-10 הלקוחות הראשונים שרוצים לתלות מדפים או לסתום חורים בקירות בעצמם.",
+      "tech_stack_he": "AI לניהול יומן פגישות, משפך שיווקי בוואטסאפ ושליחת סיכומי משימות ללקוח לאחר מפגש ההדרכה. | גיוס הנדימנים פרילנסרים בעלי סבלנות ויכולת הסברה גבוהה (להתחיל עם 1-2).",
+      "mvp_en": "A 30-day pilot in the Tel Aviv metropolitan area, helping the first 10 customers successfully mount shelves or patch walls themselves.",
+      "tech_stack_en": "AI booking bot, WhatsApp qualification funnel, and automated follow-up summaries sent to clients. | Hire 1-2 patient, communicative freelance handymen or retired tradespeople.",
+      "score": 82,
+      "trend_change": -50,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "תחזוקת אוטומציות וצינורות נתונים שנשברים עקב שינויי הרשאות",
+      "title_en": "Maintenance Overhead of AI Workflows and Data Vaults",
+      "who_he": "מהנדסי נתונים, מפתחי אוטומציה ופרוסיומרים טכניים",
+      "who_en": "Data engineers, automation developers, and technical prosumers",
+      "member_indices": [
+        5
+      ],
+      "best_quote_index": 5,
+      "quote_he": "בכל פעם שאני יוצר זרימת עבודה, שליפת נתונים חוזרת וכו', זה מרגיש כאילו אני יוצר אפליקציה שאני צריך לתחזק בעצמי... עדכון האוטומציות ככל שהזמן עובר.",
+      "quote_en": "every time I create a workflow, recurring data-pull, etc., it feels as if I am creating an app that I have to maintain myself... updating the automations as time goes on.",
+      "category": "Tools & tech",
+      "intensity": 80,
+      "frequency": 85,
+      "low_competition": 80,
+      "competitors": [
+        {
+          "name": "Make.com",
+          "gap_he": "שולח התראות שגיאה גנריות אבל אינו מתקן באופן אוטומטי שבירות סכמה או פקיעת טוקנים באמצעות AI.",
+          "gap_en": "Sends generic error alerts but does not automatically fix schema breaks or token expirations using AI."
+        },
+        {
+          "name": "Zapier",
+          "gap_he": "יקר מאוד בנפחים גבוהים ודורש התערבות ידנית מתמדת כשה-API של צד שלישי משתנה.",
+          "gap_en": "Very expensive at high volumes and demands constant manual intervention when third-party APIs change."
+        }
+      ],
+      "solution_he": "סוכן AI ניטור שמזהה שגיאות בצינורות נתונים ואוטומציות, מנתח את שינויי ה-API, ומציע או מיישם תיקוני קוד ורענון טוקנים אוטומטיים.",
+      "solution_en": "An AI monitoring agent that detects pipeline and automation failures, analyzes API changes, and suggests or auto-applies code fixes and token refreshes.",
+      "pricing_he": "תמחור לפי כמות אוטומציות במעקב, החל מ-39 דולר לחודש.",
+      "pricing_en": "Pricing based on monitored automations, starting at $39/month.",
+      "first_customers_he": "פרסום בקהילות Maker, Reddit r/automation ו-Product Hunt למפתחים שבוחרים לבנות ב-Make ו-Zapier.",
+      "first_customers_en": "Posting in Maker communities, Reddit r/automation, and Product Hunt targeting developers building on Make and Zapier.",
+      "trend_keyword": "automation monitoring AI",
+      "ease_of_build": 80,
+      "mvp_he": "תוסף שמתחבר ללוגים של Webhook ו-API, מנתח שגיאות עם LLM, ושולח פתרונות מוצעים או תיקוני קוד ישירות לפלטפורמת האוטומציה.",
+      "mvp_en": "An add-on connecting to Webhook and API logs, analyzing errors with LLM, and sending proposed fixes or code patches directly.",
+      "tech_stack_he": "Python, FastAPI, OpenAI API, Next.js",
+      "tech_stack_en": "Python, FastAPI, OpenAI API, Next.js",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 6,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "every time I create a workflow, recurring data-pull, etc., it feels as if I am creating an app that I have to maintain myself... updating the automations as time goes on.",
+      "quote_url": "https://news.ycombinator.com/item?id=50581873",
+      "quote_source": "Hacker News",
+      "score": 81,
       "trend_change": null,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "ניהול הרשאות API וגישה לאינטגרציות עבור משתמשים אורחים",
-      "title_en": "API and MCP Access Restrictions for Workspace Guests",
-      "who_he": "יועצים חיצוניים וקבלנים העובדים במרחבי עבודה של לקוחות וחוסמים בגלל מגבלות גישה ל-API.",
-      "who_en": "External consultants and contractors working in client workspaces blocked by API access limitations.",
+      "title_he": "מחסור בחומרה חלופית זמינה להחלפה מהירה בחברות ללא מחלקת IT",
+      "title_en": "Lack of Hot Spares and Immediate Hardware Failover for Growing Teams",
+      "who_he": "מנהלי תפעול בחברות קטנות ובינוניות ללא צוות IT ייעודי",
+      "who_en": "Operations managers at SMBs without dedicated IT departments",
       "member_indices": [
-        0
+        10
       ],
-      "best_quote_index": 0,
-      "quote_he": "אתה אורח, ולכן איنك יכול להתחבר ל-Notion MCP. בקש מבעל מרחב העבודה לשדרג אותך לחבר, או החלף מרחבי עבודה.",
-      "quote_en": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
-      "category": "Tools & tech",
-      "intensity": 70,
-      "frequency": 80,
-      "low_competition": 80,
+      "best_quote_index": 10,
+      "quote_he": "חומרה לא צריכה להיות עצירת עבודה, ולכן קיום חלפים חמים עבור אנשים שיוחלפו מיד ומכונות באיכות גבוהה משתלם מהר מאוד.",
+      "quote_en": "hardware shouldn't be a work stoppage, so having hot spares for folks to be swapped immediately and having higher quality machines pays off very quickly.",
+      "category": "Operations & admin",
+      "intensity": 80,
+      "frequency": 70,
+      "low_competition": 90,
       "competitors": [
         {
-          "name": "Notion API",
-          "gap_he": "אינו מאפשר גישה גמישה ברמת האורח מטעמי אבטחה, מה שפוגע ביעילות קבלנים חיצוניים.",
-          "gap_en": "Does not allow flexible guest-level access for security reasons, hurting external contractor efficiency."
+          "name": "Device Magic",
+          "gap_he": "מתמקד בטפסים ניידים ולא בניהול מלאי חומרה תפעולי והחלקת תקלות מחשוב.",
+          "gap_en": "Focuses on mobile forms rather than operational hardware inventory and IT failure replacement."
+        },
+        {
+          "name": "Snipe-IT",
+          "gap_he": "מערכת ניהול מלאי קוד פתוח מצוינת אבל אינה מנבאת צרכי חומרה או מנהלת לוגיסטיקת החלפה חכמה.",
+          "gap_en": "Great open-source asset management but lacks predictive hardware needs or smart swap logistics."
         }
       ],
-      "solution_he": "שער גישה מאובטח מתווך המאפשר למשתמשים אורחים להפעיל קריאות API וכלים באמצעות פרוקסי מאושר מראש.",
-      "solution_en": "A secure mediating gateway allowing guest users to execute API calls and tools via a pre-approved proxy.",
-      "pricing_he": "מנוי חודשי של 29 דולר לקבלן או יועץ.",
-      "pricing_en": "$29/month subscription per contractor or consultant.",
-      "first_customers_he": "פרסום פתרון בקהילות משתמשי Notion וקבוצות פרילנסרים ב-Discord.",
-      "first_customers_en": "Posting the solution in Notion user communities and Discord freelancer groups.",
-      "trend_keyword": "Notion guest API access",
-      "ease_of_build": 70,
-      "mvp_he": "שרת פרוקסי קליל המאפשר קבלת טוקנים זמניים המאושרים על ידי מנהל מרחב העבודה.",
-      "mvp_en": "A lightweight proxy server enabling temporary tokens approved by workspace administrators.",
-      "tech_stack_he": "Node.js, Express, Redis.",
-      "tech_stack_en": "Node.js, Express, Redis.",
+      "solution_he": "מערכת ניהול ציוד ומלאי חומרה חכמה החזائية שמתריעה מראש על סכנת השבתה, ממליצה על רכש חלפים ומנהלת השאלות והחלפות מהירות לעובדים.",
+      "solution_en": "A predictive hardware asset management system forecasting downtime risks, recommending spare purchases, and managing rapid swap logistics.",
+      "pricing_he": "מנוי חודשי לפי מספר עובדים ומכונות מנוהלות, החל מ-49 דולר לחודש.",
+      "pricing_en": "Monthly subscription based on employee count and managed machines, starting at $49/month.",
+      "first_customers_he": "פנייה למנהלי משרד ותפעול בחברות הייטק וסוכנויות דיגיטל של 20-50 עובדים דרך LinkedIn.",
+      "first_customers_en": "Targeting office and ops managers at 20-50 person tech companies and digital agencies via LinkedIn.",
+      "trend_keyword": "it asset inventory management saas",
+      "ease_of_build": 85,
+      "mvp_he": "אפליקציית ווב לרישום ציוד חומרה, מעקב אחרי משתמשים, וחיזוי זמני חיים של מחשבים באמצעות שאלונים ואנליטיקת שימוש.",
+      "mvp_en": "A web app for logging hardware assets, tracking users, and predicting computer lifespans via simple metrics and forms.",
+      "tech_stack_he": "Next.js, PostgreSQL, Prisma, Tailwind",
+      "tech_stack_en": "Next.js, PostgreSQL, Prisma, Tailwind",
       "track": "saas",
       "mentions": 1,
-      "engagement": 198,
+      "engagement": 0,
       "sources": [
-        "GitHub"
+        "Hacker News"
       ],
-      "quote_original": "You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.",
+      "quote_original": "hardware shouldn't be a work stoppage, so having hot spares for folks to be swapped immediately and having higher quality machines pays off very quickly.",
+      "quote_url": "https://news.ycombinator.com/item?id=50577499",
+      "quote_source": "Hacker News",
+      "score": 81,
+      "trend_change": null,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "סיסמאות ברירת מחדל לא משנות בציוד תעשייתי ומכשור מורשת",
+      "title_en": "Unchanged Manufacturer Default Passwords in Legacy Industrial Equipment",
+      "who_he": "מהנדסי אבטחה תפעולית ומנהלי תשתיות במפעלים",
+      "who_en": "OT security engineers and facility infrastructure managers",
+      "member_indices": [
+        12
+      ],
+      "best_quote_index": 12,
+      "quote_he": "סיסמת ברירת מחדל של היצרן שניתן להשתמש בה כדי לנהל/לאפס/לתכנת מחדש את ההתקן מרחוק ושבעצם כל היחידות הפרוסות מעולם לא שינו/ביטלו אותה.",
+      "quote_en": "manufacture default master password that can be used to remotely manage/reset/reprogram the device and that essentially all deployed units never changed/disabled it.",
+      "category": "Tools & tech",
+      "intensity": 90,
+      "frequency": 70,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Nessus",
+          "gap_he": "סורק פגיעות כללי ומסורבל מאוד שדורש הגדרה ידנית מורכבת ואינו מייצר אוטומציה לתיקון סיסמאות ברירת מחדל במכשור תעשייתי.",
+          "gap_en": "A very heavy general vulnerability scanner requiring complex manual setup and lacking automated password remediation for OT."
+        },
+        {
+          "name": "Tenable",
+          "gap_he": "מכוון לארגוני ענק ומחיריו גבוהים פי כמה מהתקציב של מפעלים בינוניים.",
+          "gap_en": "Aimed at enterprises with prices far exceeding mid-market plant budgets."
+        }
+      ],
+      "solution_he": "סורק רשת פנימי מבוסס AI המזהה התקני קצה תעשייתי ומכשור מורשת ברשת הארגונית, בודק סיסמאות ברירת מחדל מוכרות, ומפיק דוח תיקון מאובטח.",
+      "solution_en": "An AI-powered internal network scanner detecting OT devices and legacy hardware on enterprise networks, checking default credentials, and generating remediation reports.",
+      "pricing_he": "רישיון חודשי לפי מספר כתובות IP ורשתות במעקב, החל מ-149 דולר לחודש.",
+      "pricing_en": "Monthly license based on monitored IP addresses and networks, starting at $149/month.",
+      "first_customers_he": "שיווק ישיר לקציני אבטחת מידע של מתקנים תעשייתיים, מרכזים לוגיסטיים ומפעלים ב-LinkedIn.",
+      "first_customers_en": "Direct marketing to CISO and IT security leads at industrial plants, warehouses, and manufacturing sites via LinkedIn.",
+      "trend_keyword": "ot security vulnerability scanner",
+      "ease_of_build": 75,
+      "mvp_he": "סקריפט פייתון מבוסס Nmap המשולב עם מודל שפה לאיתור ציוד ורשימת סיסמאות ברירת מחדל ידועות לפי יצרן.",
+      "mvp_en": "An Nmap-based Python script integrated with an LLM to identify equipment types and cross-reference known default credentials by manufacturer.",
+      "tech_stack_he": "Python, FastAPI, Nmap, PostgreSQL, React",
+      "tech_stack_en": "Python, FastAPI, Nmap, PostgreSQL, React",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "manufacture default master password that can be used to remotely manage/reset/reprogram the device and that essentially all deployed units never changed/disabled it.",
+      "quote_url": "https://news.ycombinator.com/item?id=50574787",
+      "quote_source": "Hacker News",
+      "score": 80,
+      "trend_change": null,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "שירות השכרת ומכירת מחשבים ניידים מודולריים ועמידים",
+      "title_en": "Durable Modular Laptop Fleet for Consumers",
+      "who_he": "סטודנטים, פרילנסרים ומשפחות שנמאס להם לקנות מחשבים חד-פעמיים שמתקלקלים וזורקים לפח.",
+      "who_en": "Students, freelancers, and families tired of buying fragile, unrepairable consumer laptops that become instant e-waste.",
+      "member_indices": [
+        13
+      ],
+      "best_quote_index": 0,
+      "quote_he": "אני משוכנע שאין יותר מחשבים ניידים טובים. נראה שהם בנויים להיות שבירים, חד פעמיים וייצור של פסולת אלקטרונית, בדיוק כמו סמארטפונים.",
+      "quote_en": "I'm convinced there aren't any good laptops any more. It seems to me that the laptop format is built to be fragile, disposable, e-waste, similar to smart phones.",
+      "category": "Tools & tech",
+      "intensity": 70,
+      "frequency": 60,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Traditional Retailers (חנויות מחשבים גדולות)",
+          "gap_he": "מוכרים מחשבים דקים מודבקים שאי אפשר לתקן ודוחפים שדרוגים יקרים כל שנתיים.",
+          "gap_en": "Sell glued-shut ultraportables that cannot be repaired and push expensive upgrades every two years."
+        },
+        {
+          "name": "Framework / Refurbished Sellers",
+          "gap_he": "מוכרים מחשבים כיחידות קצה ללא שירות כולל, תחזוקה שוטפת או תמיכה מקומית מהירה.",
+          "gap_en": "Sell modular hardware as isolated units without local subscription maintenance or fast swap support."
+        }
+      ],
+      "solution_he": "שירות השכרת מחשבים ניידים מודולריים (דוגמת Framework) הכולל תחזוקה, החלפת רכיבים חינם במקרה תקלה ושדרוג תקופתי בלי לייצר פסולת אלקטרונית.",
+      "solution_en": "A subscription rental service for modular, highly repairable laptops featuring instant part swaps, maintenance, and zero e-waste.",
+      "pricing_he": "מנוי חודשי של 150-250 ש\"ח כולל תחזוקה מלאה והחלפת חלפים.",
+      "pricing_en": "$40-$70 per month subscription including full maintenance and part swaps.",
+      "first_customers_he": "פנייה לקבוצות פייסבוק של סטודנטים באוניברסיטאות בישראל (תל אביב, העברית, הטכניון) ופרילנסרים עצמאיים.",
+      "first_customers_en": "Targeting university student groups in Israel (Tel Aviv, Hebrew U, Technion) and remote freelance communities.",
+      "trend_keyword": "repairable modular laptop",
+      "ease_of_build": 70,
+      "delivery_model": "hybrid",
+      "roles_to_hire_he": "טכנאי מחשבים פרילנסר למשרה חלקית לאחזקה והחלפת רכיבים.",
+      "roles_to_hire_en": "Part-time freelance computer technician for hardware swaps and servicing.",
+      "ai_leverage_he": "צ'אטבוט אוטומטי לאבחון תקלות חומרה, קביעת מועדי שליחות ותזכורות חידוש מנוי.",
+      "ai_leverage_en": "Automated hardware troubleshooting bot, courier dispatch scheduling, and subscription renewal flows.",
+      "startup_capital_usd": 3000,
+      "startup_capital_he": "רכישת מלאי ראשוני של 5-10 מחשבים מודולריים, חלקי חילוף ובניית אתר נחיתה.",
+      "startup_capital_en": "Purchasing initial inventory of 5-10 modular laptops, spare parts, and landing page creation.",
+      "equipment_licensing_he": "מלאי מחשבים מודולריים, ערכת תיקון אלקטרוניקה, רישום כעסק מורשה בישראל.",
+      "equipment_licensing_en": "Modular laptop inventory, basic electronics repair toolkits, local business registration.",
+      "gross_margin_pct": 60,
+      "moat_he": "המתחרים מרוויחים ממכירת מכשירים חדשים שמתקלקלים; אנחנו בונים מערכת יחסים מחזורית ואקולוגית שבה הלקוח לעולם לא זורק מחשב לפח.",
+      "moat_en": "Competitors profit from selling disposable hardware; we build a recurring eco-friendly loop where customers never discard a machine.",
+      "launch_plan_he": "השקת פיילוט קטן ל-10 סטודנטים או פרילנסרים באזור המרכז, עם אספקה ישירה עד הבית ושירות החלפה מיידי.",
+      "launch_plan_en": "Launch a pilot for 10 students or freelancers in central Israel, featuring white-glove delivery and instant hardware swaps.",
+      "market": "both",
+      "track": "lowtech",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "\"You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.\"",
       "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
       "quote_source": "GitHub",
-      "score": 74,
-      "trend_change": null,
-      "is_recurring": true,
-      "weeks_seen": 2
+      "mvp_he": "השקת פיילוט קטן ל-10 סטודנטים או פרילנסרים באזור המרכז, עם אספקה ישירה עד הבית ושירות החלפה מיידי.",
+      "tech_stack_he": "צ'אטבוט אוטומטי לאבחון תקלות חומרה, קביעת מועדי שליחות ותזכורות חידוש מנוי. | טכנאי מחשבים פרילנסר למשרה חלקית לאחזקה והחלפת רכיבים.",
+      "mvp_en": "Launch a pilot for 10 students or freelancers in central Israel, featuring white-glove delivery and instant hardware swaps.",
+      "tech_stack_en": "Automated hardware troubleshooting bot, courier dispatch scheduling, and subscription renewal flows. | Part-time freelance computer technician for hardware swaps and servicing.",
+      "score": 70,
+      "trend_change": 100,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "שירות תיווך וייצוג משפטי-הנדסי לבעלי קרקעות חקלאיות",
+      "title_en": "Agricultural Land Infrastructure Negotiation Service",
+      "who_he": "בעלי קרקעות חקלאיות ומגרשים פרטיים שנאלצים להתמודד עם הפקעות או דרישות תשתיות ממלכתיות ללא ייצוג.",
+      "who_en": "Private agricultural landowners forced to accommodate infrastructure projects without adequate negotiation leverage.",
+      "member_indices": [
+        9
+      ],
+      "best_quote_index": 0,
+      "quote_he": "בעלי קרקעות לא יכולים לסרב לקידוח בארות הזרקה והפקה על הקרקע החקלאית שלהם או להנחת צינורות וכבישי גישה... רבים זועמים כי אין לו ברירה ואין להם יכולת מיקוח אמיתית.",
+      "quote_en": "Landowners cannot refuse to having injection and extraction wells drilled on their agricultural land and pipes and access roads installed... many are furious because they don't get a choice in the matter or much ability to negotiate.",
+      "category": "Operations & admin",
+      "intensity": 80,
+      "frequency": 40,
+      "low_competition": 90,
+      "competitors": [
+        {
+          "name": "Traditional Law Firms (משרדי עורכי דין מסורתיים)",
+          "gap_he": "יקרים מאוד, מתמקדים רק בליטיגציה משפטית נוקשה ולא בפתרון מעשי ומהיר מול חברות תשתיות.",
+          "gap_en": "Extremely expensive, focused rigidly on litigation rather than rapid operational negotiation with utility companies."
+        },
+        {
+          "name": "Agricultural Associations (אגודות חקלאיות / מושבים)",
+          "gap_he": "מטפלות באינטרסים הכוללים של האגודה ולעיתים קרובות מזניחות את זכויותיו הפרטניות של בעל הקרקע הבודד.",
+          "gap_en": "Focus on macro cooperative interests and often neglect individual landowners' specific compensation claims."
+        }
+      ],
+      "solution_he": "שירות ניהול, ייעוץ וייצוג פרגמטי לבעלי קרקעות מול גופי תשתיות לאומיים, להבטחת פיצויים מקסימליים והקטנת פגיעה פיזית בנכס.",
+      "solution_en": "Pragmatic management and negotiation service for landowners dealing with national utility easements, maximizing compensation and mitigating property damage.",
+      "pricing_he": "מודל מבוסס הצלחה: אחוזים מהפיצוי הנוסף שגויס (למשל 10%-15% מהתוספת) או ריטיינר חודשי בסיסי.",
+      "pricing_en": "Success fee model: 10%-15% of the incremental compensation recovered, plus a small upfront advisory fee.",
+      "first_customers_he": "פנייה ישירה למושבים וקיבוצים במרכז הארץ ובשפלה שבהם מקודמים פרויקטים של תשתיות (כמו קווי מים, תשתיות אנרגיה ומסילות רכבת).",
+      "first_customers_en": "Direct outreach to moshav and kibbutz communities in central Israel where national infrastructure corridors are expanding.",
+      "trend_keyword": "agricultural land easement",
+      "ease_of_build": 65,
+      "delivery_model": "hire",
+      "roles_to_hire_he": "שמאי מקרקעין או סטודנט מתקדם למשפטים / מינהל עסקים כיועץ תפעולי (1-2 לפרילנס).",
+      "roles_to_hire_en": "Freelance real estate appraiser or law/business student consultant (1-2 to start).",
+      "ai_leverage_he": "AI לניתוח מסמכי הפקעה והסכמי תשתיות מורכבים, ניסוח מכתבי דרישה ואוטומציה של מעקב אחר תביעות פיצויים.",
+      "ai_leverage_en": "AI for parsing complex easement documents, drafting demand letters, and automating claim follow-ups.",
+      "startup_capital_usd": 1000,
+      "startup_capital_he": "הקמת אתר נחיתה מקצועי, רכישת גישה למאגרי מידע נדל\"ניש ומודעות ממוקדות.",
+      "startup_capital_en": "Professional landing page, access to real estate databases, and targeted digital ads.",
+      "equipment_licensing_he": "ללא צורך בציוד פיזי מיוחד; חובה לעבוד בשיתוף פעולה עם שמאי מקרקעין מוסמך בישראל.",
+      "equipment_licensing_en": "No heavy equipment needed; must partner with a licensed Israeli real estate appraiser (שמאי מקרקעין).",
+      "gross_margin_pct": 75,
+      "moat_he": "חברות תשתיות מנצלות את חוסר האונים של האזרח הקטן; אנחנו מביאים סטנדרט תאגידי ומשא ומתן מקצועי שמונע הפסדים כבדים.",
+      "moat_en": "Utility companies exploit individual helplessness; we bring corporate-grade negotiation standards that protect landowners from severe losses.",
+      "launch_plan_he": "איתור 10 בעלי קרקעות באזור השרון או הנגב שקיבלו צווי הפקעה או דרישות כניסה לשטח, והצעת בדיקת זכאות חינם.",
+      "launch_plan_en": "Identify 10 landowners in central or southern Israel who received entry notices or easement demands, offering a free eligibility audit.",
+      "market": "il",
+      "track": "lowtech",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "\"You are a guest, so you cannot connect to Notion MCP. Ask the workspace owner to upgrade you to a member, or switch workspaces.\"",
+      "quote_url": "https://github.com/makenotion/notion-mcp-server/issues/227",
+      "quote_source": "GitHub",
+      "mvp_he": "איתור 10 בעלי קרקעות באזור השרון או הנגב שקיבלו צווי הפקעה או דרישות כניסה לשטח, והצעת בדיקת זכאות חינם.",
+      "tech_stack_he": "AI לניתוח מסמכי הפקעה והסכמי תשתיות מורכבים, ניסוח מכתבי דרישה ואוטומציה של מעקב אחר תביעות פיצויים. | שמאי מקרקעין או סטודנט מתקדם למשפטים / מינהל עסקים כיועץ תפעולי (1-2 לפרילנס).",
+      "mvp_en": "Identify 10 landowners in central or southern Israel who received entry notices or easement demands, offering a free eligibility audit.",
+      "tech_stack_en": "AI for parsing complex easement documents, drafting demand letters, and automating claim follow-ups. | Freelance real estate appraiser or law/business student consultant (1-2 to start).",
+      "score": 68,
+      "trend_change": -100,
+      "is_recurring": false,
+      "weeks_seen": 1
     }
   ],
   "top_n": 10,
   "categories": {
-    "Tools & tech": 2,
-    "Finance & billing": 2,
+    "Tools & tech": 9,
+    "Operations & admin": 7,
+    "Personal & family": 5,
+    "Other": 1,
     "Logistics & delivery": 1,
-    "Operations & admin": 3,
     "Marketing & sales": 2,
-    "Home & local services": 1
+    "Home & local services": 1,
+    "Finance & billing": 1
   },
   "prev_categories": {
     "Communication & coordination": 1,
