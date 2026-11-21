@@ -68,21 +68,24 @@ function tradingTop10Score(record, stratKey) {
 const TOP10_STRATEGY_KEYS = ['sma150', 'vcp', 'rs', 'mean_rev'];
 
 function tradingPlanHtml(r, stratKey) {
-  const plans = r.trade_plans || {};
-  const plan = (stratKey && plans[stratKey]) || plans.default;
+  const plan = demoResolvePlan(r, stratKey);
   if (!plan || typeof plan.entry !== 'number') return '';
   const pStr = TRADE_S.top10.plan;
   const stopBasis = pStr.stopBasis[plan.stop_basis] || pStr.stopBasis.sma150;
   const targetBasis = pStr.targetBasis[plan.target_basis] || pStr.targetBasis.base;
   const rrClass = plan.worthwhile ? 'is-worthwhile' : 'is-tight';
   const rrVerdict = plan.worthwhile ? pStr.worthwhile : pStr.tight;
+  const inDemo = demoHasOpenTicker(r.ticker);
   return `
     <div class="setup-plan mono">
       <span class="setup-plan-cell"><span class="setup-plan-k">${escapeHtml(pStr.entry)}</span> ${fmtPrice(plan.entry)}</span>
       <span class="setup-plan-cell"><span class="setup-plan-k">${escapeHtml(pStr.stop)}</span> ${fmtPrice(plan.stop)} <span class="setup-plan-sub">(-${plan.stop_pct.toFixed(1)}% · ${escapeHtml(stopBasis)})</span></span>
       <span class="setup-plan-cell"><span class="setup-plan-k">${escapeHtml(pStr.target)}</span> ${fmtPrice(plan.target)} <span class="setup-plan-sub">(+${plan.target_pct.toFixed(1)}% · ${escapeHtml(targetBasis)})</span></span>
       <span class="setup-plan-badge ${rrClass}">${escapeHtml(pStr.rr(plan.rr_ratio.toFixed(1)))} · ${escapeHtml(rrVerdict)}</span>
-      <button type="button" class="setup-plan-size" data-plan-entry="${plan.entry}" data-plan-stop="${plan.stop}">${escapeHtml(pStr.sizeBtn)}</button>
+      <span class="setup-plan-actions">
+        <button type="button" class="setup-plan-size setup-plan-demo${inDemo ? ' is-active' : ''}" data-demo-ticker="${escapeHtml(r.ticker)}" data-demo-entry="${plan.entry}" data-demo-stop="${plan.stop}" data-demo-target="${plan.target || ''}">${escapeHtml(inDemo ? pStr.inDemoBadge : pStr.demoBtn)}</button>
+        <button type="button" class="setup-plan-size" data-plan-entry="${plan.entry}" data-plan-stop="${plan.stop}">${escapeHtml(pStr.sizeBtn)}</button>
+      </span>
     </div>`;
 }
 
@@ -310,12 +313,42 @@ function renderTradingTop10() {
     : `<div class="empty-state">${escapeHtml(TRADE_S.top10.noMatch(tradingState.search))}</div>`}
     <p class="trading-note">${TRADE_S.tagLegend}</p>
     ${hasFlags ? '' : `<p class="trading-note">${TRADE_S.top10.flagsPending}</p>`}
+    ${tradingDemoHtml(scan)}
     ${tradingSizingHtml()}`;
+  wireTradingDemo(scan);
   wireTradingSizing();
   mount.querySelectorAll('[data-top10-strat]').forEach(btn => {
     btn.addEventListener('click', () => {
       tradingState.top10Strategy = btn.dataset.top10Strat;
       renderTradingTop10();
+    });
+  });
+  mount.querySelectorAll('[data-demo-ticker]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const entry = parseFloat(btn.dataset.demoEntry);
+      const stop = parseFloat(btn.dataset.demoStop);
+      const target = parseFloat(btn.dataset.demoTarget);
+      const defaultUsd = 1500;
+      const calcShares = (Number.isFinite(entry) && entry > 0)
+        ? Math.max(0.01, Math.round((defaultUsd / entry) * 100) / 100)
+        : 10;
+      tradingDemoDraft = {
+        ticker: (btn.dataset.demoTicker || '').toUpperCase(),
+        entry: Number.isFinite(entry) ? entry : '',
+        stop: Number.isFinite(stop) ? stop : '',
+        target: Number.isFinite(target) ? target : '',
+        shares: calcShares,
+        amountUsd: Number.isFinite(entry) ? Math.round(calcShares * entry * 100) / 100 : defaultUsd,
+      };
+      tradingDemoOpen = true;
+      renderTradingTop10();
+      const tool = document.querySelector('.demo-tool');
+      if (tool) {
+        tool.open = true;
+        tool.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     });
   });
   mount.querySelectorAll('[data-plan-entry]').forEach(btn => {
@@ -438,6 +471,292 @@ function wireTradingSizing() {
     });
   });
   renderSizingResult();
+}
+
+// --- Demo paper portfolio (client-side, synced against latest scan) -------
+const DEMO_PORTFOLIO_KEY = 'jarvis:demoPortfolio:v1';
+let tradingDemoOpen = null;
+let tradingDemoDraft = { ticker: '', shares: '', amountUsd: '', entry: '', stop: '', target: '' };
+
+function demoLoad() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(DEMO_PORTFOLIO_KEY) || '{}') || {};
+    return {
+      startingCash: Number(raw.startingCash) > 0 ? Number(raw.startingCash) : 25000,
+      positions: Array.isArray(raw.positions) ? raw.positions : [],
+      closed: Array.isArray(raw.closed) ? raw.closed : [],
+    };
+  } catch (e) {
+    return { startingCash: 25000, positions: [], closed: [] };
+  }
+}
+
+function demoSave(state) {
+  try { localStorage.setItem(DEMO_PORTFOLIO_KEY, JSON.stringify(state)); } catch (e) { /* private mode */ }
+}
+
+function demoHasOpenTicker(ticker) {
+  if (!ticker) return false;
+  const up = String(ticker).toUpperCase();
+  return demoLoad().positions.some(p => String(p.ticker || '').toUpperCase() === up);
+}
+
+function demoPriceMap(scan) {
+  const out = {};
+  ((scan && scan.stocks) || []).forEach(s => {
+    if (s && s.ticker && typeof s.price === 'number') out[String(s.ticker).toUpperCase()] = s.price;
+  });
+  return out;
+}
+
+function demoFmtSignedUsd(val) {
+  const n = Number(val) || 0;
+  return `${n >= 0 ? '+' : '-'}$${Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function demoFmtUsd(val) {
+  const n = Number(val) || 0;
+  return `$${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function demoDraftPreviewText() {
+  const d = tradingDemoDraft;
+  const entry = parseFloat(d.entry);
+  const stop = parseFloat(d.stop);
+  const target = parseFloat(d.target);
+  const shares = parseFloat(d.shares);
+  if (!(entry > 0) || !(shares > 0)) return '';
+  const cost = (shares * entry).toFixed(0);
+  const risk = (stop > 0 && entry > stop) ? ((entry - stop) * shares).toFixed(0) : '0';
+  const rr = (stop > 0 && entry > stop && target > entry) ? ((target - entry) / (entry - stop)).toFixed(1) : '';
+  return TRADE_S.demo.summaryLine(cost, risk, rr);
+}
+
+function tradingDemoHtml(scan) {
+  const D = TRADE_S.demo;
+  const state = demoLoad();
+  const prices = demoPriceMap(scan);
+  const ev = demoEvaluatePortfolio(state, prices);
+  const isOpen = tradingDemoOpen !== null ? tradingDemoOpen : ev.openPositions.length > 0;
+  const d = tradingDemoDraft;
+
+  const badgeNote = ev.openPositions.length
+    ? `${ev.openPositions.length} ${ev.stopHitCount ? `· ${ev.stopHitCount} ${D.statusStop.toLowerCase()} · ` : '· '}${demoFmtSignedUsd(ev.unrealizedPnlUsd)}`
+    : D.note;
+
+  return `
+    <details class="sizing-tool demo-tool"${isOpen ? ' open' : ''}>
+      <summary><span class="sec-label">${escapeHtml(D.title)}</span><span class="sec-note mono">${escapeHtml(badgeNote)}</span></summary>
+      <div class="demo-stats-grid">
+        <div class="demo-stat-card">
+          <span class="demo-stat-k">${escapeHtml(D.equity)}</span>
+          <strong class="demo-stat-v mono">${escapeHtml(demoFmtUsd(ev.totalEquityUsd))}</strong>
+        </div>
+        <div class="demo-stat-card">
+          <span class="demo-stat-k">${escapeHtml(D.unrealized)}</span>
+          <strong class="demo-stat-v mono ${ev.unrealizedPnlUsd >= 0 ? 'is-up' : 'is-down'}">${escapeHtml(demoFmtSignedUsd(ev.unrealizedPnlUsd))}</strong>
+        </div>
+        <div class="demo-stat-card">
+          <span class="demo-stat-k">${escapeHtml(D.cash)}</span>
+          <strong class="demo-stat-v mono">${escapeHtml(demoFmtUsd(ev.cashUsd))}</strong>
+        </div>
+        <div class="demo-stat-card">
+          <span class="demo-stat-k">${escapeHtml(D.realized)}</span>
+          <strong class="demo-stat-v mono ${ev.realizedPnlUsd >= 0 ? 'is-up' : 'is-down'}">${escapeHtml(demoFmtSignedUsd(ev.realizedPnlUsd))}</strong>
+        </div>
+      </div>
+
+      ${ev.openPositions.length ? `
+        <h3 class="demo-subhead">${escapeHtml(D.openHeading)}</h3>
+        <div class="demo-pos-list">
+          ${ev.openPositions.map(p => {
+            const stCls = p.status === 'stop_hit' ? 'is-stop' : (p.status === 'target_hit' ? 'is-target' : 'is-open');
+            const stLbl = p.status === 'stop_hit' ? D.statusStop : (p.status === 'target_hit' ? D.statusTarget : D.statusOpen);
+            const rStr = p.rMultiple === null ? '' : ` · ${p.rMultiple >= 0 ? '+' : ''}${p.rMultiple.toFixed(1)}R`;
+            return `<div class="demo-pos-card ${stCls}">
+              <div class="demo-pos-top">
+                <div class="demo-pos-title">
+                  <strong class="mono">${escapeHtml(p.ticker)}</strong>
+                  <span class="demo-status-badge ${stCls}">${escapeHtml(stLbl)}</span>
+                </div>
+                <span class="demo-pos-pnl mono ${p.pnlUsd >= 0 ? 'is-up' : 'is-down'}">${escapeHtml(demoFmtSignedUsd(p.pnlUsd))} (${p.pnlPct >= 0 ? '+' : ''}${p.pnlPct.toFixed(1)}%${escapeHtml(rStr)})</span>
+              </div>
+              <p class="demo-pos-meta mono">${escapeHtml(D.posMeta(p.shares, p.entry.toFixed(2), p.currentPrice.toFixed(2)))}</p>
+              <p class="demo-pos-meta mono">${escapeHtml(D.stopMeta(p.stop.toFixed(2), p.toStopPct.toFixed(1), p.target ? p.target.toFixed(2) : ''))}</p>
+              <div class="demo-pos-actions">
+                <button type="button" class="setup-plan-size" data-demo-close="${escapeHtml(p.id)}" data-demo-exit="market">${escapeHtml(D.closeMarketBtn)}</button>
+                ${p.stop > 0 ? `<button type="button" class="setup-plan-size${p.status === 'stop_hit' ? ' is-stop-cta' : ''}" data-demo-close="${escapeHtml(p.id)}" data-demo-exit="stop">${escapeHtml(D.closeStopBtn)}</button>` : ''}
+                <button type="button" class="setup-plan-size" data-demo-remove="${escapeHtml(p.id)}">${escapeHtml(D.removeBtn)}</button>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>`
+      : `<p class="sizing-hint">${escapeHtml(D.emptyPositions)}</p>`}
+
+      <h3 class="demo-subhead">${escapeHtml(D.formHeading)}</h3>
+      <form class="demo-form" id="demo-trade-form">
+        <div class="demo-form-grid">
+          <label class="sizing-field"><span>${escapeHtml(D.ticker)}</span>
+            <input type="text" data-demo-field="ticker" value="${escapeHtml(d.ticker)}" placeholder="AVGO" maxlength="10" required></label>
+          <label class="sizing-field"><span>${escapeHtml(D.shares)}</span>
+            <input type="number" inputmode="decimal" step="0.01" min="0.01" data-demo-field="shares" value="${escapeHtml(String(d.shares))}" placeholder="10" required></label>
+          <label class="sizing-field"><span>${escapeHtml(D.amountUsd)}</span>
+            <input type="number" inputmode="decimal" step="1" min="1" data-demo-field="amountUsd" value="${escapeHtml(String(d.amountUsd))}" placeholder="1500"></label>
+          <label class="sizing-field"><span>${escapeHtml(D.entry)}</span>
+            <input type="number" inputmode="decimal" step="0.01" min="0.01" data-demo-field="entry" value="${escapeHtml(String(d.entry))}" required></label>
+          <label class="sizing-field"><span>${escapeHtml(D.stop)}</span>
+            <input type="number" inputmode="decimal" step="0.01" min="0" data-demo-field="stop" value="${escapeHtml(String(d.stop))}"></label>
+          <label class="sizing-field"><span>${escapeHtml(D.target)}</span>
+            <input type="number" inputmode="decimal" step="0.01" min="0" data-demo-field="target" value="${escapeHtml(String(d.target))}"></label>
+        </div>
+        <p class="sizing-line mono" id="demo-draft-preview">${escapeHtml(demoDraftPreviewText())}</p>
+        <div class="demo-form-actions">
+          <button type="submit" class="os-btn os-btn-primary">${escapeHtml(D.openBtn)}</button>
+          <label class="demo-cap-label mono">
+            <span>${escapeHtml(D.startingCash)}</span>
+            <input type="number" inputmode="numeric" min="100" step="100" id="demo-starting-cash" value="${state.startingCash}">
+          </label>
+          ${(ev.openPositions.length || ev.closedTrades.length) ? `<button type="button" class="os-btn os-btn-quiet" id="demo-reset-btn">${escapeHtml(D.resetBtn)}</button>` : ''}
+        </div>
+      </form>
+
+      ${ev.closedTrades.length ? `
+        <h3 class="demo-subhead">${escapeHtml(D.closedHeading)}</h3>
+        <div class="demo-closed-list">
+          ${ev.closedTrades.slice(0, 8).map(c => `
+            <div class="demo-closed-row mono">
+              <span><strong>${escapeHtml(c.ticker)}</strong> &middot; ${escapeHtml(D.closedMeta(c.shares, Number(c.entry).toFixed(2), Number(c.exit).toFixed(2), c.closed_at || ''))}</span>
+              <span class="${c.pnlUsd >= 0 ? 'is-up' : 'is-down'}">${escapeHtml(demoFmtSignedUsd(c.pnlUsd))}</span>
+            </div>`).join('')}
+        </div>` : ''}
+    </details>`;
+}
+
+function wireTradingDemo(scan) {
+  const tool = document.querySelector('.demo-tool');
+  if (!tool) return;
+  tool.addEventListener('toggle', () => { tradingDemoOpen = tool.open; });
+  const form = document.getElementById('demo-trade-form');
+  const previewEl = document.getElementById('demo-draft-preview');
+  const fieldEl = name => tool.querySelector(`[data-demo-field="${name}"]`);
+
+  tool.querySelectorAll('[data-demo-field]').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const f = inp.dataset.demoField;
+      tradingDemoDraft[f] = f === 'ticker' ? inp.value.toUpperCase() : inp.value;
+      const entry = parseFloat(tradingDemoDraft.entry);
+      if (f === 'shares' && entry > 0) {
+        const sh = parseFloat(inp.value);
+        if (sh > 0) {
+          const usd = Math.round(sh * entry * 100) / 100;
+          tradingDemoDraft.amountUsd = usd;
+          if (fieldEl('amountUsd')) fieldEl('amountUsd').value = usd;
+        }
+      } else if (f === 'amountUsd' && entry > 0) {
+        const usd = parseFloat(inp.value);
+        if (usd > 0) {
+          const sh = Math.round((usd / entry) * 100) / 100;
+          tradingDemoDraft.shares = sh;
+          if (fieldEl('shares')) fieldEl('shares').value = sh;
+        }
+      } else if (f === 'entry' && entry > 0) {
+        const usd = parseFloat(tradingDemoDraft.amountUsd);
+        if (usd > 0) {
+          const sh = Math.round((usd / entry) * 100) / 100;
+          tradingDemoDraft.shares = sh;
+          if (fieldEl('shares')) fieldEl('shares').value = sh;
+        }
+      }
+      if (previewEl) previewEl.textContent = demoDraftPreviewText();
+    });
+  });
+
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const ticker = String(tradingDemoDraft.ticker || '').trim().toUpperCase();
+      const entry = parseFloat(tradingDemoDraft.entry);
+      const stop = parseFloat(tradingDemoDraft.stop) || 0;
+      const target = parseFloat(tradingDemoDraft.target) || 0;
+      let shares = parseFloat(tradingDemoDraft.shares);
+      const amountUsd = parseFloat(tradingDemoDraft.amountUsd);
+      if (!(shares > 0) && amountUsd > 0 && entry > 0) {
+        shares = Math.round((amountUsd / entry) * 100) / 100;
+      }
+      if (!ticker || !(entry > 0) || !(shares > 0)) return;
+      const state = demoLoad();
+      state.positions.unshift({
+        id: `demo-${Date.now().toString(36)}`,
+        ticker,
+        shares,
+        entry,
+        stop: stop > 0 ? stop : null,
+        target: target > 0 ? target : null,
+        opened_at: new Date().toISOString().slice(0, 10),
+      });
+      demoSave(state);
+      tradingDemoDraft = { ticker: '', shares: '', amountUsd: '', entry: '', stop: '', target: '' };
+      tradingDemoOpen = true;
+      renderTradingTop10();
+    });
+  }
+
+  const cashInput = document.getElementById('demo-starting-cash');
+  if (cashInput) {
+    cashInput.addEventListener('change', () => {
+      const n = parseFloat(cashInput.value);
+      if (!(n >= 100)) return;
+      const state = demoLoad();
+      state.startingCash = Math.round(n);
+      demoSave(state);
+      renderTradingTop10();
+    });
+  }
+
+  const resetBtn = document.getElementById('demo-reset-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      const state = demoLoad();
+      demoSave({ startingCash: state.startingCash, positions: [], closed: [] });
+      renderTradingTop10();
+    });
+  }
+
+  const prices = demoPriceMap(scan);
+  tool.querySelectorAll('[data-demo-close]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.demoClose;
+      const mode = btn.dataset.demoExit;
+      const state = demoLoad();
+      const idx = state.positions.findIndex(p => p.id === id);
+      if (idx < 0) return;
+      const pos = demoEvaluatePosition(state.positions[idx], prices[String(state.positions[idx].ticker || '').toUpperCase()]);
+      const exitPrice = mode === 'stop' && pos.stop > 0 ? pos.stop : pos.currentPrice;
+      const pnlUsd = (exitPrice - pos.entry) * pos.shares;
+      state.positions.splice(idx, 1);
+      state.closed.unshift({
+        id: pos.id,
+        ticker: pos.ticker,
+        shares: pos.shares,
+        entry: pos.entry,
+        exit: exitPrice,
+        pnlUsd,
+        closed_at: new Date().toISOString().slice(0, 10),
+      });
+      demoSave(state);
+      renderTradingTop10();
+    });
+  });
+
+  tool.querySelectorAll('[data-demo-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.demoRemove;
+      const state = demoLoad();
+      state.positions = state.positions.filter(p => p.id !== id);
+      demoSave(state);
+      renderTradingTop10();
+    });
+  });
 }
 
 // --- "Can I trade today" (private tier) -----------------------------------

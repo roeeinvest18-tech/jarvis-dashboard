@@ -79,6 +79,119 @@ function breadthAboveSma150(scan) {
   return { above: known.filter(s => s.pct_SMA150 > 0).length, total: known.length };
 }
 
+// Resolve suggested entry, stop, and target for any scanned stock. Uses
+// scout.py's published trade_plans when present; otherwise derives an
+// actionable fallback from the stock's price and SMA150 shelf so every
+// Top 10 candidate can open a simulated demo position immediately.
+function demoResolvePlan(record, stratKey) {
+  const plans = (record && record.trade_plans) || {};
+  const plan = (stratKey && plans[stratKey]) || plans.default;
+  if (plan && typeof plan.entry === 'number' && typeof plan.stop === 'number') {
+    return plan;
+  }
+  if (!record || typeof record.price !== 'number' || !Number.isFinite(record.price) || record.price <= 0) {
+    return null;
+  }
+  const entry = Math.round(record.price * 100) / 100;
+  const sma150Price = (typeof record.pct_SMA150 === 'number' && Number.isFinite(record.pct_SMA150) && (1 + record.pct_SMA150 / 100) > 0)
+    ? record.price / (1 + record.pct_SMA150 / 100)
+    : null;
+  const rawStop = (sma150Price && sma150Price < entry && ((entry - sma150Price) / entry) <= 0.12)
+    ? sma150Price * 0.99
+    : entry * 0.95;
+  const stop = Math.round(rawStop * 100) / 100;
+  const risk = Math.max(0.01, entry - stop);
+  const target = Math.round((entry + 2 * risk) * 100) / 100;
+  return {
+    entry,
+    stop,
+    target,
+    stop_pct: Math.round(((entry - stop) / entry) * 1000) / 10,
+    target_pct: Math.round(((target - entry) / entry) * 1000) / 10,
+    rr_ratio: 2.0,
+    worthwhile: true,
+    stop_basis: (sma150Price && sma150Price < entry && ((entry - sma150Price) / entry) <= 0.12) ? 'sma150' : 'swing',
+    target_basis: 'base',
+    estimated: true,
+  };
+}
+
+function demoEvaluatePosition(pos, latestPrice) {
+  const entry = Number(pos && pos.entry) || 0;
+  const shares = Number(pos && pos.shares) || 0;
+  const stop = Number(pos && pos.stop) || 0;
+  const target = Number(pos && pos.target) || 0;
+  const price = (typeof latestPrice === 'number' && Number.isFinite(latestPrice) && latestPrice > 0)
+    ? latestPrice
+    : entry;
+  const costUsd = shares * entry;
+  const marketValueUsd = shares * price;
+  const pnlUsd = marketValueUsd - costUsd;
+  const pnlPct = costUsd > 0 ? (pnlUsd / costUsd) * 100 : 0;
+  const riskPerShare = (stop > 0 && entry > stop) ? (entry - stop) : 0;
+  const riskUsd = riskPerShare > 0 ? shares * riskPerShare : 0;
+  const rMultiple = riskPerShare > 0 ? (price - entry) / riskPerShare : null;
+  const toStopPct = (price > 0 && stop > 0) ? ((price - stop) / price) * 100 : 0;
+  const status = (stop > 0 && price <= stop)
+    ? 'stop_hit'
+    : (target > 0 && price >= target ? 'target_hit' : 'open');
+  return {
+    ...pos,
+    entry,
+    shares,
+    stop,
+    target: target > 0 ? target : null,
+    currentPrice: price,
+    costUsd,
+    marketValueUsd,
+    pnlUsd,
+    pnlPct,
+    riskUsd,
+    rMultiple,
+    toStopPct,
+    status,
+  };
+}
+
+function demoEvaluatePortfolio(state, priceByTicker) {
+  const startingCash = Number(state && state.startingCash) > 0 ? Number(state.startingCash) : 25000;
+  const openPositions = ((state && state.positions) || []).map(p =>
+    demoEvaluatePosition(p, priceByTicker ? priceByTicker[p.ticker] : null));
+  const closedTrades = (state && Array.isArray(state.closed)) ? state.closed : [];
+  const investedCostUsd = openPositions.reduce((a, p) => a + p.costUsd, 0);
+  const openMarketValueUsd = openPositions.reduce((a, p) => a + p.marketValueUsd, 0);
+  const unrealizedPnlUsd = openPositions.reduce((a, p) => a + p.pnlUsd, 0);
+  const realizedPnlUsd = closedTrades.reduce((a, c) => a + (Number(c.pnlUsd) || 0), 0);
+  const cashUsd = startingCash - investedCostUsd + realizedPnlUsd;
+  const totalEquityUsd = cashUsd + openMarketValueUsd;
+  const totalPnlUsd = totalEquityUsd - startingCash;
+  const totalPnlPct = startingCash > 0 ? (totalPnlUsd / startingCash) * 100 : 0;
+  const stopHitCount = openPositions.filter(p => p.status === 'stop_hit').length;
+  const targetHitCount = openPositions.filter(p => p.status === 'target_hit').length;
+  return {
+    startingCash,
+    cashUsd,
+    investedCostUsd,
+    openMarketValueUsd,
+    unrealizedPnlUsd,
+    realizedPnlUsd,
+    totalEquityUsd,
+    totalPnlUsd,
+    totalPnlPct,
+    stopHitCount,
+    targetHitCount,
+    openPositions,
+    closedTrades,
+  };
+}
+
 if (typeof module !== 'undefined') {
-  module.exports = { sizingCompute, correlationPeers, breadthAboveSma150 };
+  module.exports = {
+    sizingCompute,
+    correlationPeers,
+    breadthAboveSma150,
+    demoResolvePlan,
+    demoEvaluatePosition,
+    demoEvaluatePortfolio,
+  };
 }

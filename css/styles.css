@@ -6631,4 +6631,171 @@ body::before {
   color: var(--mark-hi);
 }
 
+/* ============================================================================
+   Top 10 Demo Paper Portfolio Tracker
+   ============================================================================ */
+.setup-plan-actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.setup-plan-actions .setup-plan-size {
+  margin-left: 0;
+}
+.setup-plan-demo.is-active {
+  border-color: var(--up);
+  color: var(--up);
+}
+.demo-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+.demo-stat-card {
+  background: var(--raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-panel);
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.demo-stat-k {
+  font-size: var(--fs-label);
+  color: var(--ink2);
+}
+.demo-stat-v {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.demo-stat-v.is-up, .demo-pos-pnl.is-up, .demo-closed-row .is-up { color: var(--up); }
+.demo-stat-v.is-down, .demo-pos-pnl.is-down, .demo-closed-row .is-down { color: var(--down); }
+.demo-subhead {
+  font-family: var(--font-serif);
+  font-size: var(--fs-label);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink2);
+  margin: var(--sp-4) 0 var(--sp-2);
+}
+.demo-pos-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.demo-pos-card {
+  background: var(--raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-panel);
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.demo-pos-card.is-stop { border-color: var(--down); }
+.demo-pos-card.is-target { border-color: var(--up); }
+.demo-pos-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+.demo-pos-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--ink);
+}
+.demo-status-badge {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--field-line);
+  color: var(--ink2);
+}
+.demo-status-badge.is-open { color: var(--mark-hi); border-color: rgba(127, 176, 255, 0.35); }
+.demo-status-badge.is-stop { color: var(--down); border-color: rgba(239, 68, 68, 0.5); background: rgba(239, 68, 68, 0.1); }
+.demo-status-badge.is-target { color: var(--up); border-color: rgba(74, 222, 128, 0.45); background: rgba(74, 222, 128, 0.1); }
+.demo-pos-pnl {
+  font-size: var(--fs-secondary);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.demo-pos-meta {
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--ink2);
+  font-variant-numeric: tabular-nums;
+}
+.demo-pos-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: var(--sp-2);
+}
+.setup-plan-size.is-stop-cta {
+  border-color: var(--down);
+  color: var(--down);
+}
+.demo-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.demo-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: var(--sp-3);
+}
+.demo-tool input {
+  font-size: 16px;
+}
+.demo-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+.demo-cap-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-label);
+  color: var(--ink2);
+}
+.demo-cap-label input {
+  width: 90px;
+  min-height: 36px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+.demo-closed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.demo-closed-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  padding: 6px 0;
+  border-top: 1px solid var(--rule-soft);
+  font-size: var(--fs-label);
+  color: var(--ink2);
+  font-variant-numeric: tabular-nums;
+}
+
 
