@@ -58,6 +58,9 @@ const STRINGS = {
       os: 'Personal OS',
       trading: 'Trading',
     },
+    subtabsLabel: 'Section tabs',
+    sidebarLabel: 'Navigation',
+    tabSelected: label => `${label} tab selected`,
     tabs: {
       today: 'Today',
       training: 'Training',

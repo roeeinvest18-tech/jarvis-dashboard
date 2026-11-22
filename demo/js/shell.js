@@ -169,7 +169,10 @@ function renderShellSidebar(activeAreaId, activeTabId, onTabChange) {
     sidebar = document.createElement('aside');
     sidebar.id = 'shell-sidebar';
     sidebar.className = 'shell-sidebar';
+    sidebar.setAttribute('aria-label', STRINGS.shell.sidebarLabel);
     document.body.insertBefore(sidebar, document.body.firstChild);
+  } else {
+    sidebar.setAttribute('aria-label', STRINGS.shell.sidebarLabel);
   }
 
   sidebar.innerHTML = `
@@ -221,15 +224,43 @@ function renderShellSubTabs(mount, area, activeTabId, onTabChange) {
   if (!mount) return;
   mount.className = 'shell-subtabs';
   mount.setAttribute('role', 'tablist');
-  mount.innerHTML = area.tabs.map(tab => `
-    <button type="button" role="tab"
-            class="shell-subtab accent-${area.accent} ${tab.id === activeTabId ? 'is-active' : ''}"
+  mount.setAttribute('aria-label', STRINGS.shell.subtabsLabel);
+  mount.innerHTML = area.tabs.map(tab => {
+    const active = tab.id === activeTabId;
+    return `
+    <button type="button" role="tab" id="tab-${tab.id}"
+            class="shell-subtab accent-${area.accent} ${active ? 'is-active' : ''}"
             data-shell-subtab="${tab.id}"
-            aria-selected="${tab.id === activeTabId ? 'true' : 'false'}">${tab.label}</button>`).join('');
+            aria-controls="panel-${tab.id}"
+            tabindex="${active ? '0' : '-1'}"
+            aria-selected="${active ? 'true' : 'false'}">${tab.label}</button>`;
+  }).join('');
 
   mount.querySelectorAll('[data-shell-subtab]').forEach(btn => {
     btn.addEventListener('click', () => onTabChange(btn.dataset.shellSubtab));
   });
+
+  // WAI-ARIA APG keyboard support for tablists without stacking listeners.
+  mount.onkeydown = (ev) => {
+    const keys = ['ArrowRight', 'ArrowLeft', 'Home', 'End'];
+    if (!keys.includes(ev.key)) return;
+    const tabs = area.tabs;
+    if (!tabs.length) return;
+    const curBtn = ev.target && ev.target.closest ? ev.target.closest('[data-shell-subtab]') : null;
+    const curId = curBtn ? curBtn.dataset.shellSubtab : activeTabId;
+    const idx = Math.max(0, tabs.findIndex(t => t.id === curId));
+    let nextIdx = idx;
+    if (ev.key === 'ArrowRight') nextIdx = (idx + 1) % tabs.length;
+    else if (ev.key === 'ArrowLeft') nextIdx = (idx - 1 + tabs.length) % tabs.length;
+    else if (ev.key === 'Home') nextIdx = 0;
+    else if (ev.key === 'End') nextIdx = tabs.length - 1;
+    const next = tabs[nextIdx];
+    if (!next) return;
+    ev.preventDefault();
+    onTabChange(next.id);
+    const targetBtn = mount.querySelector(`[data-shell-subtab="${next.id}"]`);
+    if (targetBtn && typeof targetBtn.focus === 'function') targetBtn.focus();
+  };
 
   // Keep the active tab in view when the strip scrolls horizontally, so a
   // tab at the far end is never hidden off-screen on a phone.
@@ -237,6 +268,25 @@ function renderShellSubTabs(mount, area, activeTabId, onTabChange) {
   if (active && active.scrollIntoView) {
     active.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   }
+}
+
+function shellAnnounce(message) {
+  if (typeof document === 'undefined' || !message) return;
+  let region = document.getElementById('shell-live-region');
+  if (!region && document.body) {
+    region = document.createElement('div');
+    region.id = 'shell-live-region';
+    region.className = 'sr-only';
+    region.setAttribute('role', 'status');
+    region.setAttribute('aria-live', 'polite');
+    region.setAttribute('aria-atomic', 'true');
+    document.body.appendChild(region);
+  }
+  if (!region) return;
+  region.textContent = '';
+  const write = () => { region.textContent = message; };
+  if (typeof requestAnimationFrame === 'function') requestAnimationFrame(write);
+  else write();
 }
 
 // --- the shell ------------------------------------------------------------
@@ -305,6 +355,8 @@ function mountShell({ areaId, titleFor, render }) {
       if (typeof osEnsureJobsMount === 'function') osEnsureJobsMount();
     }
     document.querySelectorAll('[data-shell-panel]').forEach(panel => {
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', `tab-${panel.dataset.shellPanel}`);
       panel.hidden = panel.dataset.shellPanel !== activeTab;
     });
     if (areaId === 'os' && activeTab === 'training' && typeof renderWorkoutZone === 'function') {
@@ -355,6 +407,8 @@ function mountShell({ areaId, titleFor, render }) {
       history.replaceState(null, '', `#${tabId}`);
     } catch (e) { /* non-fatal */ }
     paint();
+    const tabObj = area.tabs.find(t => t.id === tabId);
+    if (tabObj) shellAnnounce(STRINGS.shell.tabSelected(tabObj.label));
   }
 
   // A hash arriving from outside (a link, Back, or the address bar) selects
@@ -448,8 +502,8 @@ function osPaintPainpoints(mount, data) {
     <div class="pp-toolbar">
       <div class="sec-label">${esc(S.weekLabel(data.week || '', data.date || ''))}${bySource ? ` · ${bySource}` : ''}</div>
       <div class="pp-lang-switch">
-        <button type="button" class="os-btn ${isHe ? 'is-active' : ''}" data-pp-lang="he">${esc(S.langToggleHe)}</button>
-        <button type="button" class="os-btn ${!isHe ? 'is-active' : ''}" data-pp-lang="en">${esc(S.langToggleEn)}</button>
+        <button type="button" class="os-btn ${isHe ? 'is-active' : ''}" aria-pressed="${isHe ? 'true' : 'false'}" data-pp-lang="he">${esc(S.langToggleHe)}</button>
+        <button type="button" class="os-btn ${!isHe ? 'is-active' : ''}" aria-pressed="${!isHe ? 'true' : 'false'}" data-pp-lang="en">${esc(S.langToggleEn)}</button>
       </div>
     </div>
 

@@ -44,7 +44,9 @@
 // --ink at 12px / 13px, weight 500; styles.css and workout-ui.js changed.
 // v26: UI pass phase A -- a 12px type floor for content text, 11px index
 // marks, and 16px fields so iOS does not zoom on focus; styles.css changed.
-const CACHE_NAME = 'jarvis-shell-v72';
+// v27: Stale-While-Revalidate for versioned static shell assets + explicit
+// sw.js bypass, while keeping navigations network-first and deferring scripts.
+const CACHE_NAME = 'jarvis-shell-v73';
 const SHELL_ASSETS = [
   './',
   'index.html',
@@ -100,32 +102,50 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Never intercept data requests -- always go to the network so refresh
-  // is meaningful; data.js handles its own offline fallback.
-  if (url.pathname.includes('/dashboard_data/')) return;
+  // Never intercept data requests or the service worker script itself -- always
+  // go to the network so refresh is meaningful and SW updates install cleanly.
+  if (url.pathname.includes('/dashboard_data/') || url.pathname.endsWith('/sw.js')) return;
   if (event.request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  // Network-first for the app shell, cache as the offline fallback.
-  //
-  // Cache-first was the original strategy, but it meant every CSS/JS edit
-  // silently served the stale shell until CACHE_NAME was bumped by hand --
-  // a change would appear to have no effect, which is a genuinely confusing
-  // failure mode on a dashboard that gets iterated on. Network-first costs
-  // one conditional request per asset on a warm connection and keeps the
-  // offline guarantee intact, because a failed fetch still falls back to
-  // whatever was cached last.
+  const isHtmlNav =
+    event.request.mode === 'navigate' ||
+    url.pathname.endsWith('.html') ||
+    url.pathname.endsWith('/');
+
+  if (isHtmlNav) {
+    // Navigations stay network-first with an offline cache fallback so new
+    // HTML releases apply on first reload while preserving offline launch.
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request, { ignoreSearch: event.request.mode === 'navigate' }))
+    );
+    return;
+  }
+
+  // Static shell assets (css/, js/, icons/, manifest.json): Stale-While-
+  // Revalidate -- serve cached bytes immediately for zero-latency boot while
+  // refreshing the entry in the background (CACHE_NAME bump still forces a
+  // full reload on install). Calling event.waitUntil synchronously inside the
+  // fetch listener avoids iOS WebKit InvalidStateError warnings.
+  const fetchAndUpdate = fetch(event.request).then((response) => {
+    if (response && response.ok) {
+      const copy = response.clone();
+      return caches.open(CACHE_NAME)
+        .then((cache) => cache.put(event.request, copy))
+        .then(() => response);
+    }
+    return response;
+  });
+  event.waitUntil(fetchAndUpdate.catch(() => null));
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        if (response.ok) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-        }
-        return response;
-      })
-      // ignoreSearch for page loads: a home-screen shortcut opens
-      // index.html?action=..., which must still work offline.
-      .catch(() => caches.match(event.request, { ignoreSearch: event.request.mode === 'navigate' }))
+    caches.match(event.request).then((cached) => cached || fetchAndUpdate)
   );
 });
 

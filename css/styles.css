@@ -183,6 +183,58 @@ button {
   cursor: pointer;
 }
 
+button, a, [role="tab"], input, select, textarea {
+  touch-action: manipulation;
+}
+
+@media (pointer: fine) {
+  html {
+    overscroll-behavior-y: none;
+  }
+}
+
+.sr-only,
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link:focus-visible {
+  top: 8px;
+  left: 8px;
+  z-index: 9999;
+  width: auto;
+  height: auto;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  clip-path: none;
+  overflow: visible;
+  padding: 10px 16px;
+  background: var(--raise);
+  color: var(--ink);
+  border: 1px solid var(--mark);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+[data-shell-panel] h1,
+[data-shell-panel] h2,
+[data-shell-panel] h3 {
+  scroll-margin-top: 72px;
+}
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -2596,6 +2648,7 @@ a { color: var(--ink); }
 }
 .shell-tabbar-item {
   flex: 1;
+  min-height: 44px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3020,6 +3073,7 @@ table.os-table tr:has(+ .os-row-note) td { border-bottom: none; }
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  overscroll-behavior: contain;
 }
 .sheet {
   width: 100%;
@@ -3056,6 +3110,7 @@ table.os-table tr:has(+ .os-row-note) td { border-bottom: none; }
 .sheet-body {
   flex: 1;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 0 var(--sp-6) var(--sp-6);
   display: flex;
   flex-direction: column;
@@ -6433,6 +6488,8 @@ body::before {
 /* Tabular metrics alignment & subtle hover/press craft */
 .pp-badge-score,
 .pp-m-num,
+.pp-stat-num,
+.pp-stat-val,
 .job-score-pill,
 .content-cred-badge,
 .os-rating-btn {

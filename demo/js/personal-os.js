@@ -129,7 +129,7 @@ function osRatingWidgetHtml(type, id, title, metadata) {
         ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => {
           const isSel = n === current;
           const cls = isSel ? (n >= 8 ? ' is-selected is-high' : n <= 4 ? ' is-selected is-low' : ' is-selected') : '';
-          return `<button type="button" class="os-rating-btn${cls}" data-rating-score="${n}" title="Rate ${n}/10">${n}</button>`;
+          return `<button type="button" class="os-rating-btn${cls}" aria-pressed="${isSel ? 'true' : 'false'}" data-rating-score="${n}" title="Rate ${n}/10">${n}</button>`;
         }).join('')}
       </div>
       <span class="os-rating-feedback mono">${current > 0 ? '(' + current + '/10)' : ''}</span>
@@ -159,6 +159,7 @@ if (typeof document !== 'undefined') {
     widget.querySelectorAll('.os-rating-btn').forEach(b => {
       const s = parseInt(b.dataset.ratingScore, 10);
       b.className = 'os-rating-btn' + (s === score ? (score >= 8 ? ' is-selected is-high' : score <= 4 ? ' is-selected is-low' : ' is-selected') : '');
+      b.setAttribute('aria-pressed', s === score ? 'true' : 'false');
     });
     const fb = widget.querySelector('.os-rating-feedback');
     if (fb) {
@@ -482,14 +483,14 @@ function osPaintPainpoints(mount, data) {
     <div class="pp-toolbar">
       <div class="sec-label">${escapeHtml(S.weekLabel(data.week || '', data.date || ''))}${bySource ? ` · ${bySource}` : ''}</div>
       <div class="pp-lang-switch">
-        <button type="button" class="os-btn ${isHe ? 'is-active' : ''}" data-pp-lang="he">${escapeHtml(S.langToggleHe)}</button>
-        <button type="button" class="os-btn ${!isHe ? 'is-active' : ''}" data-pp-lang="en">${escapeHtml(S.langToggleEn)}</button>
+        <button type="button" class="os-btn ${isHe ? 'is-active' : ''}" aria-pressed="${isHe ? 'true' : 'false'}" data-pp-lang="he">${escapeHtml(S.langToggleHe)}</button>
+        <button type="button" class="os-btn ${!isHe ? 'is-active' : ''}" aria-pressed="${!isHe ? 'true' : 'false'}" data-pp-lang="en">${escapeHtml(S.langToggleEn)}</button>
       </div>
     </div>
 
     <div class="os-window-tabs pp-track-tabs" role="tablist">
       ${['all', 'saas', 'lowtech'].map(k => `
-        <button type="button" role="tab" aria-selected="${k === track}" class="os-window-btn${k === track ? ' is-active' : ''}" data-pp-track="${k}">
+        <button type="button" role="tab" aria-selected="${k === track}" tabindex="${k === track ? '0' : '-1'}" class="os-window-btn${k === track ? ' is-active' : ''}" data-pp-track="${k}">
           ${escapeHtml(S.filters[k])} <span class="pp-track-count mono">${escapeHtml(S.filters.count(counts[k]))}</span>
         </button>`).join('')}
     </div>
@@ -628,8 +629,8 @@ function osJobCardHtml(job) {
         <a class="job-open-link" href="${escapeHtml(safeExternalUrl(job.url, 'https://www.upwork.com'))}" target="_blank" rel="noopener noreferrer">
           ${escapeHtml(JOBS_S.labels.openListing)} &rarr;
         </a>
-        <button type="button" class="job-toggle-proposal-btn" data-proposal-toggle="${escapeHtml(jobId)}">
-          ${escapeHtml(JOBS_S.labels.proposalDraft)} <span class="job-chevron">&#9662;</span>
+        <button type="button" class="job-toggle-proposal-btn" aria-expanded="false" aria-controls="job-proposal-${escapeHtml(jobId)}" data-proposal-toggle="${escapeHtml(jobId)}">
+          ${escapeHtml(JOBS_S.labels.proposalDraft)} <span class="job-chevron" aria-hidden="true">&#9662;</span>
         </button>
       </div>
 
@@ -694,14 +695,14 @@ function osPaintJobs(mount, data) {
 
     <div class="os-window-tabs pp-track-tabs" role="tablist">
       ${['all', 'ai_automation', 'web_dashboards', 'cyber_soc', 'scraping_data'].map(k => `
-        <button type="button" role="tab" aria-selected="${k === filter}" class="os-window-btn${k === filter ? ' is-active' : ''}" data-job-filter="${k}">
+        <button type="button" role="tab" aria-selected="${k === filter}" tabindex="${k === filter ? '0' : '-1'}" class="os-window-btn${k === filter ? ' is-active' : ''}" data-job-filter="${k}">
           ${escapeHtml(JOBS_S.filters[k])} <span class="pp-track-count mono">${escapeHtml(JOBS_S.filters.count(counts[k] || 0))}</span>
         </button>`).join('')}
     </div>
 
     <div class="job-subfilters" role="tablist">
       ${['all', 'fixed', 'hourly'].map(b => `
-        <button type="button" role="tab" aria-selected="${b === budgetFilter}" class="job-subfilter-btn${b === budgetFilter ? ' is-active' : ''}" data-job-budget-filter="${b}">
+        <button type="button" role="tab" aria-selected="${b === budgetFilter}" tabindex="${b === budgetFilter ? '0' : '-1'}" class="job-subfilter-btn${b === budgetFilter ? ' is-active' : ''}" data-job-budget-filter="${b}">
           ${escapeHtml(JOBS_S.budgetFilters[b])}
         </button>`).join('')}
     </div>
@@ -744,6 +745,7 @@ function osPaintJobs(mount, data) {
       if (drawer) {
         drawer.hidden = !drawer.hidden;
         btn.classList.toggle('is-open', !drawer.hidden);
+        btn.setAttribute('aria-expanded', String(!drawer.hidden));
       }
     });
   });
@@ -906,7 +908,7 @@ function osPaintContent(mount, data) {
   mount.innerHTML = `
     <div class="os-window-tabs pp-track-tabs" role="tablist">
       ${filterKeys.map(([k, label, count]) => `
-        <button type="button" role="tab" aria-selected="${osContentFilter === k}" class="os-window-btn${osContentFilter === k ? ' is-active' : ''}" data-content-filter="${escapeHtml(k)}">
+        <button type="button" role="tab" aria-selected="${osContentFilter === k}" tabindex="${osContentFilter === k ? '0' : '-1'}" class="os-window-btn${osContentFilter === k ? ' is-active' : ''}" data-content-filter="${escapeHtml(k)}">
           ${escapeHtml(label)} <span class="pp-track-count mono">${count}</span>
         </button>
       `).join('')}
@@ -933,4 +935,13 @@ function osPaintContent(mount, data) {
 
   // Copy post handlers
   osWireCopyButtons(mount, '.content-copy-btn', 'postId', 'post-text-', CONTENT_S.labels.copied);
+}
+
+// System health at the foot of Personal OS too: the backups it reports
+// protect this area's data. Loaded here (after deferred scripts finish).
+if (typeof document !== 'undefined' && typeof DASHBOARD !== 'undefined' && typeof renderHealthStrip === 'function') {
+  const hs = document.getElementById('health-strip');
+  if (hs) {
+    DASHBOARD.fetchOne('scan').then(scan => renderHealthStrip(hs, scan));
+  }
 }
