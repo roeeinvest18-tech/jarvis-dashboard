@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T15:12:05.337315+00:00",
+  "generated_at": "2026-11-22T21:32:43.916794+00:00",
   "date": "2026-11-22",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,27 +32,27 @@
   },
   "jobs": [
     {
-      "title": "Netlify: Staff Software Engineer (Interfaces)",
+      "title": "Legion: Senior Deal Desk Manager",
       "platform": "WeWorkRemotely (Live Cloud)",
       "match_score": 96,
       "has_poc": true
     },
     {
-      "title": "Lead Creative (Superside)",
+      "title": "Senior Software Engineer (Platform Engineer), Cloud Governance (VTEX)",
       "platform": "Jobicy (Live Cloud)",
       "match_score": 96,
       "has_poc": true
     }
   ],
   "content": {
-    "topic": "GnuPG GPGME Memory Bug CVE-2026-129975",
+    "topic": "OpenRouter Drops 3 Providers After Prompt Theft",
     "category": "cyber_soc",
-    "opening_hook": "האם בדיקת תקינות של מפתחות הצפנה יכולה להפוך לווקטור תקיפה מרכזי?"
+    "opening_hook": "הגדרתם Zero Data Retention בבקשות ה AI שלכם והייתם בטוחים שהטוקנים נמחקים מיד?"
   },
   "painpoint": {
-    "title_en": "Database ID to Admin URL Translation for Data Analysts",
-    "title_he": "תרגום אוטומטי של מזהי מסדי נתונים לקישורי ניהול",
-    "validation_score": 82,
-    "weekend_mvp_verdict_en": "Go - extremely fast weekend build with a highly targeted developer audience."
+    "title_en": "AI Resume Spam Filtering and Intent Scoring for Overwhelmed Recruiters",
+    "title_he": "סינון והערכה אוטומטית של קורות חיים שנוצרו על ידי בינה מלאכותית למשרות פתוחות",
+    "validation_score": 92,
+    "weekend_mvp_verdict_en": "Go - Immediate monetization potential addressing an acute crisis for hiring teams."
   }
 }
