@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-11-22T11:09:38.216556+00:00",
+  "date": "2026-11-22",
+  "market": {
+    "regime": "DEFENSIVE",
+    "top3": [
+      {
+        "ticker": "CTSH",
+        "price": 58.060001373291016,
+        "pct_sma150": 4.466926021139767,
+        "catalyst_label": ""
+      },
+      {
+        "ticker": "KMB",
+        "price": 106.37999725341797,
+        "pct_sma150": 2.228367078347941,
+        "catalyst_label": ""
+      },
+      {
+        "ticker": "SAP",
+        "price": 198.92999267578125,
+        "pct_sma150": 2.463910302265567,
+        "catalyst_label": ""
+      }
+    ]
+  },
+  "paper_audit": {
+    "best_strategy": "overall",
+    "win_rate_pct": null,
+    "expectancy_r": null,
+    "live_trades": 13
+  },
+  "jobs": [
+    {
+      "title": "Legion: Senior Deal Desk Manager",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "match_score": 96,
+      "has_poc": true
+    },
+    {
+      "title": "Founding Engineer - Abacus (Pear VC)",
+      "platform": "Jobicy (Live Cloud)",
+      "match_score": 96,
+      "has_poc": true
+    }
+  ],
+  "content": {
+    "topic": "OpenRouter Data Leak via AI Inference Providers",
+    "category": "cyber_soc",
+    "opening_hook": "הגדרתם Zero Data Retention בפלטפורמת ה AI והאמנתם שהמידע נמחק מיד, אבל ספקים צד ג' אספו לכם את הפרומפטים בחשאי במשך חודשים."
+  },
+  "painpoint": {
+    "title_en": "Out-of-the-Box Email-Driven CRM for Small Businesses",
+    "title_he": "חוסר במערכת CRM מבוססת אימייל ללא צורך בהתקנה מורכבת",
+    "validation_score": 84,
+    "weekend_mvp_verdict_en": "A simple web app connecting to IMAP or Gmail API, extracting leads using an LLM, and displaying a basic task board."
+  }
+}

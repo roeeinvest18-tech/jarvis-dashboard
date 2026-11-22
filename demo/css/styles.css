@@ -6801,4 +6801,200 @@ body::before {
   font-variant-numeric: tabular-nums;
 }
 
+/* Catalyst badges on Top 10 cards */
+.catalyst-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  background: var(--raise);
+  color: var(--ink);
+  font-size: 11.5px;
+  line-height: 1.3;
+}
+.catalyst-badge.is-earnings_soon {
+  border-color: var(--down);
+  color: var(--down);
+}
+.catalyst-badge.is-news_catalyst {
+  border-color: var(--mark);
+  color: var(--mark);
+}
+.catalyst-badge.is-clean_setup {
+  color: var(--ink2);
+}
+
+/* Auto Paper-Trader Strategy Audit collapsible panel */
+.paper-audit-tool {
+  margin-top: var(--sp-3);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: var(--sp-3);
+  background: var(--raise);
+}
+.paper-audit-tool summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-2);
+  cursor: pointer;
+}
+.paper-audit-wrap {
+  overflow-x: auto;
+  margin-top: var(--sp-3);
+}
+.paper-audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-secondary);
+  color: var(--ink);
+}
+.paper-audit-table th,
+.paper-audit-table td {
+  text-align: left;
+  padding: 6px 8px;
+  border-top: 1px solid var(--rule-soft);
+}
+.paper-audit-table th {
+  color: var(--ink2);
+  font-weight: 500;
+  border-top: none;
+}
+
+/* Jobs Auto-Prototype PoC blueprint box */
+.job-poc-box {
+  margin-top: var(--sp-2);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: var(--bg);
+}
+.job-poc-box summary {
+  cursor: pointer;
+  color: var(--mark);
+  font-size: var(--fs-secondary);
+  font-weight: 500;
+}
+.job-poc-head {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+.job-poc-copy-btn {
+  border: 1px solid var(--rule);
+  background: var(--raise);
+  color: var(--ink);
+  border-radius: 5px;
+  padding: 4px 9px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.job-poc-text {
+  margin: 6px 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--ink);
+  font-size: var(--fs-secondary);
+  line-height: 1.5;
+}
+
+/* Micro-SaaS Validator spotlight on PainPoints */
+.pp-validator-card {
+  border: 1px solid var(--mark);
+  background: var(--raise);
+  border-radius: 8px;
+  padding: var(--sp-3);
+  margin: var(--sp-3) 0;
+}
+.pp-validator-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.pp-validator-score {
+  color: var(--mark);
+  font-size: var(--fs-secondary);
+  font-weight: 600;
+}
+.pp-validator-title {
+  margin: 6px 0;
+  color: var(--ink);
+  font-size: var(--fs-item);
+}
+.pp-validator-row {
+  margin: 4px 0 0;
+  color: var(--ink2);
+  font-size: var(--fs-secondary);
+  line-height: 1.45;
+}
+
+/* Jarvis Morning Briefing card on Today */
+.briefing-card {
+  border: 1px solid var(--rule);
+  background: var(--raise);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: var(--sp-3);
+}
+.briefing-card summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-2);
+  cursor: pointer;
+}
+.briefing-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.briefing-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 1px solid var(--rule-soft);
+  padding-top: 6px;
+}
+.briefing-k {
+  font-size: 11.5px;
+  color: var(--ink2);
+}
+.briefing-v {
+  font-size: var(--fs-secondary);
+  color: var(--ink);
+}
+.briefing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.briefing-audio-btn,
+.briefing-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.briefing-audio-btn {
+  border-color: var(--mark);
+  color: var(--mark);
+}
+.briefing-empty {
+  margin: 8px 0 0;
+  font-size: var(--fs-secondary);
+  color: var(--ink2);
+}
+
 

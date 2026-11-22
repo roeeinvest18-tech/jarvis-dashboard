@@ -1,100 +1,100 @@
 {
-  "generated_at": "2026-11-21T21:27:42.148360+00:00",
+  "generated_at": "2026-11-22T11:09:37.893161+00:00",
   "stats": {
     "total_drafted": 5,
-    "cyber_count": 3,
-    "ai_count": 2
+    "cyber_count": 4,
+    "ai_count": 1
   },
   "posts": [
     {
-      "id": "post-1-1795296462",
-      "topic": "GnuPG Warns Critical GPGME Flaw Could Expose App Data via Malicious OpenPGP Keys",
+      "id": "post-1-1795345777",
+      "topic": "OpenRouter Data Leak via AI Inference Providers",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/gnupg-warns-critical-gpgme-flaw-could.html",
+      "source_url": "https://thehackernews.com/2026/11/openrouter-drops-3-providers-after.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-21 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
+      "posted_at": "Updated 2026-11-22 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Reported by major cybersecurity news outlets citing Dragos research on AI infrastructure supply chain risks.",
       "key_takeaways": [
-        "מקור: The Hacker News (Cybersecurity & Threats)",
-        "GnuPG Warns Critical GPGME Flaw Could Expose App Data via Malicious OpenPGP Keys",
-        "A malicious OpenPGP key with an unusually long user ID can trigger a critical memory bug in GPGME, the standard library that programs use to work with GnuPG. The GnuPG project warned yesterday that the flaw could be used to steal data from "
+        "Zero Data Retention flags were ignored by inference providers.",
+        "Prompt theft occurred silently over months without internal detection.",
+        "Infrastructure layer security is completely missing from standard AI threat models."
       ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"GnuPG Warns Critical GPGME Flaw Could Expose App Data via Malicious OpenPGP Keys\":\n\nA malicious OpenPGP key with an unusually long user ID can trigger a critical memory bug in GPGME, the standard library that programs use to work with GnuPG. The GnuPG project warned yesterday that the flaw could be used to steal data from \n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "post_angle": "ההנחה שחוקי Zero Data Retention מגינים על פרומפטים ברמת ספקי האינפרסטרקצ'ר מתבררת כאשליה מוחלטת שלא מנוטרת ב SOC.",
+      "opening_hook": "הגדרתם Zero Data Retention בפלטפורמת ה AI והאמנתם שהמידע נמחק מיד, אבל ספקים צד ג' אספו לכם את הפרומפטים בחשאי במשך חודשים.",
+      "linkedin_post": "הגדרתם Zero Data Retention בפלטפורמת ה AI והאמנתם שהמידע נמחק מיד, אבל ספקים צד ג' אספו לכם את הפרומפטים בחשאי במשך חודשים.\nזה קרה במערכות של OpenRouter, שם חודשים של גניבת מידע עברו מתחת לרדאר של שלושה ספקי אינפרסטרקצ'ר שונים.\n1. החולשה אינה בקוד המודל אלא בשרשרת האספקה של תשתיות ההסקה Inference.\n2. לוגים פנימיים לא הראו חריגה כי הגישה בוצעה ברמת התשתית המארחת.\n3. כללי ה SOC המסורתיים מפספסים תעבורת API לגיטימית שמופנית החוצה לספקי צד ג'.\nהגנה אמיתית דורשת ניטור רשת קפדני ואימות הצפנה מקצה לקצה גם מול ספקי ענן חיצוניים.\nאיך אתם מוודאים שה-LLM של הארגון שלכם לא מדליף סודות מסחריים דרך צדדים שלישיים?\n#CyberSecurity #SOCAnalyst #BlueTeam #DataPrivacy #InfoSec"
     },
     {
-      "id": "post-2-1795296462",
-      "topic": "PrivacyLib: Privacy Controls at the Data Access Boundary",
+      "id": "post-2-1795345777",
+      "topic": "Autonomous AI Agents Finding Zero-Days in MONAI Label",
+      "category": "cyber_soc",
+      "source_url": "https://thehackernews.com/2026/11/attackers-ai-agents-found-zero-day-in.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "posted_at": "Updated 2026-11-22 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Detailed threat intelligence report from Amazon covering autonomous exploitation of open-source medical software.",
+      "key_takeaways": [
+        "Autonomous agents successfully identified an unauthenticated path traversal flaw.",
+        "Zero-day discovery is no longer exclusive to elite human research teams.",
+        "Medical imaging servers running default setups became immediate root access targets."
+      ],
+      "post_angle": "סוכני AI אוטונומיים מצליחים למצוא פגיעויות Zero-Day בקוד פתוח במהירות שמייתרת את הצורך בחוקרים אנושיים.",
+      "opening_hook": "תקיפות המבוססות על סוכני AI אוטונומיים הפסיקו להיות תיאוריה וכבר מצאו Zero-Day שהעניק גישת שורש לשרת רפואי.",
+      "linkedin_post": "תקיפות המבוססות על סוכני AI אוטונומיים הפסיקו להיות תיאוריה וכבר מצאו Zero-Day שהעניק גישת שורש לשרת רפואי.\nהאירוע במערכת MONAI Label מוכיח שתוקפים משתמשים באוטומציה מתקדמת לסריקת חולשות ביישומים רגישים.\n1. הסוכן איתר חולשת כתיבת קבצים מרוחקת ללא צורך בהזדהות מוקדמת.\n2. קצב גילוי הפגיעויות עולה על מהירות התיקון של צוותי הפיתוח.\n3. הרשאות ברירת המחדל בשרתים אפשרו השתלטות מלאה מיד לאחר הניצול.\nהגנת סייבר מודרנית חייבת לשלב סוכני AI הגנתיים שיסרקו את הקוד עוד לפני שהתוקפים יספיקו להריץ את שלהם.\nהאם מערכות ההגנה שלכם מסוגלות לזהות סריקות פגיעויות שמנוהלות על ידי סוכני AI אוטונומיים?\n#AIgents #CyberSecurity #ZeroDay #VulnerabilityManagement #BlueTeam"
+    },
+    {
+      "id": "post-3-1795345777",
+      "topic": "Ghostscript Sandbox-Escape RCE via File Uploads",
+      "category": "cyber_soc",
+      "source_url": "https://thehackernews.com/2026/11/researchers-demonstrate-ghostscript.html",
+      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "posted_at": "Updated 2026-11-22 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Documented exploit demonstration by pwn.ai showcasing critical sandbox escapes in standard document converters.",
+      "key_takeaways": [
+        "Crafted file uploads bypass Ghostscript security sandboxes natively.",
+        "Linux servers converting PDFs and images execute arbitrary code implicitly.",
+        "Applications often invoke Ghostscript in the background without direct developer awareness."
+      ],
+      "post_angle": "ההמרה השקטה של קבצים מנוצלת על ידי קבצים זדוניים כדי להימלט מסביבת הרימון של Ghostscript.",
+      "opening_hook": "המשתמש העלה קובץ PDF תמים לכאורה, אבל מאחורי הקלעים הוא גרם למנוע ההמרה להרים פקודות מערכת.",
+      "linkedin_post": "המשתמש העלה קובץ PDF תמים לכאורה, אבל מאחורי הקלעים הוא גרם למנוע ההמרה להרים פקודות מערכת.\nהחולשה החדשה ב Ghostscript מראה שסביבות הרימון של מנועי עיבוד קבצים ניתנות לעקיפה מלאה.\n1. אפליקציות רבות קוראות למנוע הזה בצורה עקיפה לחלוטין וללא ידיעת המפתח.\n2. הקובץ המעוצב מצליח לברוח מהסנדבוקס ולהריץ פקודות ברמת השרת.\n3. לוגים סטנדרטיים של מערכת ההפעלה לא בהכרח יראו את החריגה בזמן אמת.\nאיתור מוקדם מחייב בדיקה קפדנית של כל תהליך עיבוד קבצים חיצוני שרץ ברקע הארגוני.\nאיך אתם מפקחים על הרשאות הריצה של ספריות צד שלישי המטפלות בקבצי משתמשים?\n#CyberSecurity #SOCAnalyst #LinuxSecurity #Vulnerability #InfoSec"
+    },
+    {
+      "id": "post-4-1795345777",
+      "topic": "JiTTesting Human-on-the-Loop Approach at Meta",
       "category": "ai_agents",
-      "source_url": "https://engineering.fb.com/2026/10/27/security/privacylib/",
+      "source_url": "https://engineering.fb.com/2026/09/02/ml-applications/organizational-second-brain-ai-learns-from-experts/",
       "source_platform": "Engineering at Meta (AI & Systems)",
-      "posted_at": "Updated 2026-11-21 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Engineering at Meta (AI & Systems).",
+      "posted_at": "Updated 2026-11-22 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Direct engineering blog post from Meta detailing production deployment metrics of AI test generation.",
       "key_takeaways": [
-        "מקור: Engineering at Meta (AI & Systems)",
-        "PrivacyLib: Privacy Controls at the Data Access Boundary",
-        "This latest deep dive into Meta’s Privacy Aware Infrastructure (PAI) takes a look at PrivacyLib. A privacy requirement must hold as data moves through Meta&#8217;s diverse data and processing systems. Historically, supporting a new requirem"
+        "Just-in-Time tests are generated dynamically using LLMs during code deployment.",
+        "Human-on-the-loop architecture scales validation without creating developer bottlenecks.",
+        "Bugs are caught pre-production through automated test synthesis at scale."
       ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך Engineering at Meta (AI & Systems) על \"PrivacyLib: Privacy Controls at the Data Access Boundary\":\n\nThis latest deep dive into Meta’s Privacy Aware Infrastructure (PAI) takes a look at PrivacyLib. A privacy requirement must hold as data moves through Meta&#8217;s diverse data and processing systems. Historically, supporting a new requirem\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "post_angle": "במקום בדיקות ידניות איטיות, מערכות מודרניות מייצרות בדיקות אבטחה בזמן אמת באמצעות סוכני AI מותאמים.",
+      "opening_hook": "הבדיקות האוטומטיות שלכם מגיעות הרבה אחרי שהקוד כבר נכתב, אבל אפשר לייצר בדיקות אמת בזמן ריצה.",
+      "linkedin_post": "הבדיקות האוטומטיות שלכם מגיעות הרבה אחרי שהקוד כבר נכתב, אבל אפשר לייצר בדיקות אמת בזמן ריצה.\nהטמעת Just-in-Time Tests במטא מוכיחה שאפשר לעצור באגים עוד לפני שהם נוגעים בסביבת הפרודקשן.\n1. מודלי שפה מנתחים את הקוד ויוצרים בדיקות מותאמות אישית תוך כדי תנועה.\n2. מודל Human-on-the-loop מוודא שהתוצאות מדויקות בלי להעמיס על המפתחים.\n3. קנה המידה העצום מראה שזיהוי מוקדם חוסך שעות של תחקור אירועים מאוחרים.\nשילוב סוכני AI בתהליכי ה CI/CD משנה לחלוטין את הדרך שבה בודקים חולשות קוד.\nהאם צוות הפיתוח שלכם משתמש בסוכנים אוטומטיים לאיתור באגים לפני פריסה?\n#AIgents #DevSecOps #SoftwareEngineering #Automation #SecureCoding"
     },
     {
-      "id": "post-3-1795296462",
-      "topic": "Signal Blocks AI Agents From Reading Private Chats via Screenshots on Android and iOS",
+      "id": "post-5-1795345777",
+      "topic": "Meta Muse Webpage Hijacking Vulnerability",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/signal-blocks-ai-agents-from-reading.html",
+      "source_url": "https://thehackernews.com/2026/11/a-single-malicious-webpage-let.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-21 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
+      "posted_at": "Updated 2026-11-22 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Demonstrated security research showing complete memory extraction from an AI assistant via a web page.",
       "key_takeaways": [
-        "מקור: The Hacker News (Cybersecurity & Threats)",
-        "Signal Blocks AI Agents From Reading Private Chats via Screenshots on Android and iOS",
-        "Signal has announced that it will restrict screenshots by default to stop artificial intelligence (AI) agents from reading private chats on Android and iOS devices, but conceded that the protection is \"incomplete.\" The feature applies to ag"
+        "Malicious web pages extract private AI assistant conversations without approval prompts.",
+        "Stored memories and connected account credentials are fully accessible via UI flaws.",
+        "Client-side attacks on AI assistants bypass backend authorization models."
       ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"Signal Blocks AI Agents From Reading Private Chats via Screenshots on Android and iOS\":\n\nSignal has announced that it will restrict screenshots by default to stop artificial intelligence (AI) agents from reading private chats on Android and iOS devices, but conceded that the protection is \"incomplete.\" The feature applies to ag\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
-    },
-    {
-      "id": "post-4-1795296462",
-      "topic": "The Thin Orchestrator: How We Made Our AI Agents More Reliable by Giving the Router Less to Do",
-      "category": "ai_agents",
-      "source_url": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
-      "source_platform": "Engineering at Meta (AI & Systems)",
-      "posted_at": "Updated 2026-11-21 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Engineering at Meta (AI & Systems).",
-      "key_takeaways": [
-        "מקור: Engineering at Meta (AI & Systems)",
-        "The Thin Orchestrator: How We Made Our AI Agents More Reliable by Giving the Router Less to Do",
-        "Sometimes, giving an AI agent all of the knowledge it needs is the wrong approach. At Meta, we&#8217;ve seen notable improvements in efficiency and accuracy by keeping the orchestration layer of our data pipeline agents deliberately thin: I"
-      ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך Engineering at Meta (AI & Systems) על \"The Thin Orchestrator: How We Made Our AI Agents More Reliable by Giving the Router Less to Do\":\n\nSometimes, giving an AI agent all of the knowledge it needs is the wrong approach. At Meta, we&#8217;ve seen notable improvements in efficiency and accuracy by keeping the orchestration layer of our data pipeline agents deliberately thin: I\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
-    },
-    {
-      "id": "post-5-1795296462",
-      "topic": "Hackers Exploit Critical VMware, Cisco, and Apache Flaws as Espionage Attacks Emerge",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/hackers-exploit-critical-vmware-cisco.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-21 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך The Hacker News (Cybersecurity & Threats).",
-      "key_takeaways": [
-        "מקור: The Hacker News (Cybersecurity & Threats)",
-        "Hackers Exploit Critical VMware, Cisco, and Apache Flaws as Espionage Attacks Emerge",
-        "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Friday added four flaws impacting Apache Roller, Cisco Expressway, SAP NetWeaver, and Broadcom VMware vCenter to its Known Exploited Vulnerabilities (KEV), citing evidence "
-      ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך The Hacker News (Cybersecurity & Threats) על \"Hackers Exploit Critical VMware, Cisco, and Apache Flaws as Espionage Attacks Emerge\":\n\nThe U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Friday added four flaws impacting Apache Roller, Cisco Expressway, SAP NetWeaver, and Broadcom VMware vCenter to its Known Exploited Vulnerabilities (KEV), citing evidence \n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "post_angle": "דף אינטרנט זדוני יחיד מסוגל לשאוב את כל היסטוריית השיחות והזיכרונות של עוזר ה AI מבלי לבקש שום אישור.",
+      "opening_hook": "ביקור תמים בדף אינטרנט אחד הספיק כדי לשלוף את כל השיחות הפרטיות והזיכרונות השמורים של עוזר ה AI.",
+      "linkedin_post": "ביקור תמים בדף אינטרנט אחד הספיק כדי לשלוף את כל השיחות הפרטיות והזיכרונות השמורים של עוזר ה AI.\nהמחקר על מערכת Meta Muse חושף פרצה שבה תוקף גונב מידע רגיש דרך הדפדפן ללא צורך בהרשאות מיוחדות.\n1. המידע השמור והזיכרונות של העוזר נחשפים דרך פקודות צד לקוח בלבד.\n2. מנגנוני אישור פעולה סטנדרטיים לא מופעלים בזמן שליפת הנתונים האוטומטית.\n3. גישה לחיבורי חשבונות חיצוניים מתאפשרת דרך גניבת נתוני ההזדהות של העוזר.\nהגנה על עוזרי AI דורשת אבטחה מחמירה של ממשקי ה DOM ומניעת גישה ישירה לזיכרון הלקוח.\nאיזה בקרות אבטחה אתם מפעילים כדי למנוע מדפי אינטרנט חיצוניים לגשת לנתוני ה AI שלכם?\n#CyberSecurity #AIgents #WebSecurity #InfoSec #BlueTeam"
     }
   ]
 }

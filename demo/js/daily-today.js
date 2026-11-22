@@ -16,10 +16,15 @@
 let dailyActiveDate = null;
 let dailyClosingStep = null;
 let dailySleepModalOpen = false;
+let dailyBriefingPayload = null;
+let dailyBriefingFetched = false;
+let dailyBriefingOpen = false;
+let dailyBriefingSpeaking = false;
 
 const TODAY_S = STRINGS.today;
 const CLOSE_S = STRINGS.close;
 const SLEEP_S = STRINGS.sleep;
+const BRIEF_S = STRINGS.briefing;
 
 const DAILY_CLOSE_STEPS = Object.keys(CLOSE_S.steps).map(id => ({ id, label: CLOSE_S.steps[id] }));
 
@@ -342,6 +347,8 @@ function renderDailyToday() {
 
     ${dailyDateNavHtml(date)}
 
+    <div id="today-briefing-slot">${dailyBriefingHtml(dailyBriefingPayload)}</div>
+
     ${!isToday ? `<div class="today-editing">
       ${TODAY_S.editingPastDay}
       <button type="button" class="linkbtn" data-daily-back-today>${TODAY_S.backToToday}</button>
@@ -388,8 +395,131 @@ function renderDailyToday() {
   `;
 
   wireDailyToday();
+  wireDailyBriefing();
+  ensureDailyBriefingLoaded();
   if (dailySleepModalOpen) renderDailySleepModal();
   if (dailyClosingStep !== null) renderDailyCloseFlow();
+}
+
+function dailyBriefingSpeechText(b) {
+  if (!b) return '';
+  const parts = [];
+  const m = b.market || {};
+  const top3 = Array.isArray(m.top3) ? m.top3 : [];
+  if (top3.length) {
+    parts.push(`Market regime ${m.regime || 'neutral'}. Top setups: ${top3.map(x => `${x.ticker} at $${x.price}`).join(', ')}.`);
+  }
+  const pa = b.paper_audit || {};
+  if (pa.best_strategy) {
+    parts.push(`Best paper strategy is ${pa.best_strategy} with ${pa.live_trades || 0} open trades.`);
+  }
+  const jobs = Array.isArray(b.jobs) ? b.jobs : [];
+  if (jobs.length) {
+    parts.push(`Top jobs: ${jobs.map(j => j.title).join('; ')}.`);
+  }
+  const cnt = b.content || {};
+  if (cnt.topic) {
+    parts.push(`LinkedIn draft ready on ${cnt.topic}.`);
+  }
+  const pp = b.painpoint || {};
+  if (pp.title_en) {
+    parts.push(`Top software opportunity: ${pp.title_en}.`);
+  }
+  return parts.join(' ');
+}
+
+function dailyBriefingHtml(b) {
+  const m = (b && b.market) || {};
+  const top3 = Array.isArray(m.top3) ? m.top3 : [];
+  const pa = (b && b.paper_audit) || {};
+  const jobs = Array.isArray(b && b.jobs) ? b.jobs : [];
+  const cnt = (b && b.content) || {};
+  const pp = (b && b.painpoint) || {};
+  const hasAny = top3.length || jobs.length || cnt.topic || pp.title_en || pp.title_he;
+
+  const speechBtn = (typeof window !== 'undefined' && 'speechSynthesis' in window && hasAny)
+    ? `<button type="button" class="briefing-audio-btn" id="briefing-audio-btn">${escapeHtml(dailyBriefingSpeaking ? BRIEF_S.stopBtn : BRIEF_S.listenBtn)}</button>`
+    : '';
+
+  const bodyHtml = hasAny ? `
+    <div class="briefing-rows">
+      ${top3.length ? `<div class="briefing-row"><span class="briefing-k">${escapeHtml(BRIEF_S.marketLabel)}</span><span class="briefing-v mono">${escapeHtml(top3.map(x => `${x.ticker} $${x.price ?? '—'}`).join(' · '))}${m.regime ? ` (${escapeHtml(m.regime)})` : ''}</span></div>` : ''}
+      ${pa.best_strategy ? `<div class="briefing-row"><span class="briefing-k">${escapeHtml(BRIEF_S.paperLabel)}</span><span class="briefing-v mono">${escapeHtml(pa.best_strategy)}${typeof pa.win_rate_pct === 'number' ? ` · ${pa.win_rate_pct.toFixed(0)}%` : ''} · ${escapeHtml(String(pa.live_trades ?? 0))} open</span></div>` : ''}
+      ${jobs.length ? `<div class="briefing-row"><span class="briefing-k">${escapeHtml(BRIEF_S.jobsLabel)}</span><span class="briefing-v">${escapeHtml(jobs.map(j => j.title).join(' · '))}</span></div>` : ''}
+      ${cnt.topic ? `<div class="briefing-row"><span class="briefing-k">${escapeHtml(BRIEF_S.contentLabel)}</span><span class="briefing-v" dir="auto">${escapeHtml(cnt.topic)}</span></div>` : ''}
+      ${(pp.title_en || pp.title_he) ? `<div class="briefing-row"><span class="briefing-k">${escapeHtml(BRIEF_S.painpointLabel)}</span><span class="briefing-v" dir="auto">${escapeHtml(pp.title_en || pp.title_he)}${typeof pp.validation_score === 'number' ? ` (${pp.validation_score}/100)` : ''}</span></div>` : ''}
+    </div>
+    <div class="briefing-actions">
+      ${speechBtn}
+      <a class="briefing-link" href="trading.html#top10">${escapeHtml(BRIEF_S.openTrading)}</a>
+      <button type="button" class="briefing-link" data-briefing-tab="jobs">${escapeHtml(BRIEF_S.openJobs)}</button>
+      <button type="button" class="briefing-link" data-briefing-tab="content">${escapeHtml(BRIEF_S.openContent)}</button>
+      <button type="button" class="briefing-link" data-briefing-tab="painpoints">${escapeHtml(BRIEF_S.openOpportunities)}</button>
+    </div>` : `<p class="briefing-empty">${escapeHtml(BRIEF_S.empty)}</p>`;
+
+  return `
+    <details class="briefing-card" id="today-briefing"${dailyBriefingOpen ? ' open' : ''}>
+      <summary><span class="sec-label">${escapeHtml(BRIEF_S.title)}</span><span class="sec-note mono">${escapeHtml((b && b.date) || BRIEF_S.note)}</span></summary>
+      ${bodyHtml}
+    </details>`;
+}
+
+function wireDailyBriefing() {
+  const details = document.getElementById('today-briefing');
+  if (details) {
+    details.addEventListener('toggle', () => { dailyBriefingOpen = details.open; });
+  }
+  const audioBtn = document.getElementById('briefing-audio-btn');
+  if (audioBtn && typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    audioBtn.addEventListener('click', () => {
+      if (dailyBriefingSpeaking || window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        dailyBriefingSpeaking = false;
+        audioBtn.textContent = BRIEF_S.listenBtn;
+        return;
+      }
+      const txt = dailyBriefingSpeechText(dailyBriefingPayload);
+      if (!txt) return;
+      const utt = new SpeechSynthesisUtterance(txt);
+      utt.lang = 'en-US';
+      utt.onend = () => {
+        dailyBriefingSpeaking = false;
+        const b = document.getElementById('briefing-audio-btn');
+        if (b) b.textContent = BRIEF_S.listenBtn;
+      };
+      utt.onerror = () => {
+        dailyBriefingSpeaking = false;
+      };
+      dailyBriefingSpeaking = true;
+      audioBtn.textContent = BRIEF_S.stopBtn;
+      window.speechSynthesis.speak(utt);
+    });
+  }
+  document.querySelectorAll('[data-briefing-tab]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.briefingTab;
+      if (typeof osShell !== 'undefined' && osShell && typeof osShell.setTab === 'function') {
+        osShell.setTab(tab);
+      }
+    });
+  });
+}
+
+function ensureDailyBriefingLoaded() {
+  if (dailyBriefingFetched) return;
+  dailyBriefingFetched = true;
+  fetch('dashboard_data/briefing.json?t=' + Date.now(), { cache: 'no-store' })
+    .then(r => (r.ok ? r.json() : null))
+    .catch(() => null)
+    .then(payload => {
+      if (!payload) return;
+      dailyBriefingPayload = payload;
+      const slot = document.getElementById('today-briefing-slot');
+      if (slot) {
+        slot.innerHTML = dailyBriefingHtml(dailyBriefingPayload);
+        wireDailyBriefing();
+      }
+    });
 }
 
 function wireDailyToday() {

@@ -130,6 +130,7 @@ function tradingLinkAttrs(ticker, exchange) {
 const tradingState = {
   scan: null,
   traderResults: null,
+  paperPortfolio: null,
   account: null,
   breakouts: null,
   search: '',
@@ -314,9 +315,11 @@ function renderTradingTop10() {
     <p class="trading-note">${TRADE_S.tagLegend}</p>
     ${hasFlags ? '' : `<p class="trading-note">${TRADE_S.top10.flagsPending}</p>`}
     ${tradingDemoHtml(scan)}
-    ${tradingSizingHtml()}`;
+    ${tradingSizingHtml()}
+    ${tradingPaperAuditHtml(tradingState.paperPortfolio)}`;
   wireTradingDemo(scan);
   wireTradingSizing();
+  wireTradingPaperAudit();
   mount.querySelectorAll('[data-top10-strat]').forEach(btn => {
     btn.addEventListener('click', () => {
       tradingState.top10Strategy = btn.dataset.top10Strat;
@@ -403,8 +406,62 @@ function tradingFlagsHtml(r, peer, heldSector) {
   if (heldSector) {
     marks.push(TRADE_S.top10.heldSector(heldSector));
   }
-  if (!marks.length) return '';
-  return `<div class="setup-flags mono">${marks.map(m => `<span>${escapeHtml(m)}</span>`).join('')}</div>`;
+  const cat = r.catalyst && typeof r.catalyst === 'object' ? r.catalyst : null;
+  let catHtml = '';
+  if (cat && cat.tag) {
+    const prefix = cat.tag === 'earnings_soon'
+      ? TRADE_S.catalyst.earningsPrefix
+      : (cat.tag === 'news_catalyst' ? TRADE_S.catalyst.newsPrefix : '');
+    const catText = cat.headline
+      ? `${cat.label}: ${cat.headline}`
+      : (cat.label || TRADE_S.catalyst.clean);
+    catHtml = `<span class="catalyst-badge is-${escapeHtml(cat.tag)}">${prefix ? `${escapeHtml(prefix)} · ` : ''}${escapeHtml(catText)}</span>`;
+  }
+  if (!marks.length && !catHtml) return '';
+  return `<div class="setup-flags mono">${catHtml}${marks.map(m => `<span>${escapeHtml(m)}</span>`).join('')}</div>`;
+}
+
+let tradingPaperAuditOpen = false;
+function tradingPaperAuditHtml(paper) {
+  const P = TRADE_S.paperAudit;
+  const strats = paper && paper.strategies && typeof paper.strategies === 'object'
+    ? Object.entries(paper.strategies) : [];
+  const rows = strats.map(([k, st]) => {
+    const label = P.strategyLabels[k] || k;
+    const wr = typeof st.win_rate_pct === 'number' ? `${st.win_rate_pct.toFixed(0)}%` : '—';
+    const exp = typeof st.expectancy_r === 'number' ? `${st.expectancy_r >= 0 ? '+' : ''}${st.expectancy_r.toFixed(2)}R` : '—';
+    const closedPnl = typeof st.sim_closed_usd === 'number' && st.closed_count > 0
+      ? `${st.sim_closed_usd >= 0 ? '+$' : '-$'}${Math.abs(Math.round(st.sim_closed_usd))}` : '—';
+    return `<tr>
+      <td>${escapeHtml(label)}</td>
+      <td class="mono">${escapeHtml(String(st.open_trade_count ?? 0))}</td>
+      <td class="mono">${escapeHtml(String(st.closed_count ?? 0))}</td>
+      <td class="mono">${escapeHtml(wr)}</td>
+      <td class="mono">${escapeHtml(exp)}</td>
+      <td class="mono">${escapeHtml(closedPnl)}</td>
+    </tr>`;
+  }).join('');
+  return `
+    <details class="paper-audit-tool"${tradingPaperAuditOpen ? ' open' : ''}>
+      <summary><span class="sec-label">${escapeHtml(P.title)}</span><span class="sec-note mono">${escapeHtml(P.note)}</span></summary>
+      ${rows ? `<div class="paper-audit-wrap"><table class="paper-audit-table">
+        <thead><tr>
+          <th>${escapeHtml(P.stratCol)}</th>
+          <th>${escapeHtml(P.openCol)}</th>
+          <th>${escapeHtml(P.closedCol)}</th>
+          <th>${escapeHtml(P.winRateCol)}</th>
+          <th>${escapeHtml(P.avgRCol)}</th>
+          <th>${escapeHtml(P.pnlCol)}</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>` : `<p class="sizing-hint">${escapeHtml(P.empty)}</p>`}
+    </details>`;
+}
+
+function wireTradingPaperAudit() {
+  const el = document.querySelector('.paper-audit-tool');
+  if (!el) return;
+  el.addEventListener('toggle', () => { tradingPaperAuditOpen = el.open; });
 }
 
 // --- Position sizing (fully client-side) ----------------------------------
@@ -1483,16 +1540,20 @@ const tradingShell = mountShell({
 });
 
 async function tradingLoad() {
-  const [scan, breakouts, scorecard, traderResults] = await Promise.all([
+  const [scan, breakouts, scorecard, traderResults, paperPortfolio] = await Promise.all([
     DASHBOARD.fetchOne('scan'),
     DASHBOARD.fetchOne('breakoutAlerts'),
     DASHBOARD.fetchOne('scorecard'),
     DASHBOARD.fetchOne('traderResults'),
+    fetch('dashboard_data/paper_portfolio.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(r => (r.ok ? r.json() : null))
+      .catch(() => null),
   ]);
   tradingState.scan = scan;
   tradingState.breakouts = breakouts;
   tradingState.scorecard = scorecard;
   tradingState.traderResults = traderResults;
+  tradingState.paperPortfolio = paperPortfolio;
   if (tradingShell) tradingShell.repaint();
   renderHealthStrip(document.getElementById('health-strip'), scan);
   // Private tier: only a device holding the owner's sync token gets an answer.

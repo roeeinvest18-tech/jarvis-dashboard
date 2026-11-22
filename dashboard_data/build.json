@@ -2,9 +2,11 @@
   "variant": "public",
   "allowlist": [
     "breakout_alerts.json",
+    "briefing.json",
     "jobs.json",
     "linkedin_posts.json",
     "painpoints.json",
+    "paper_portfolio.json",
     "scan.json",
     "scorecard.json",
     "trader_results.json"
@@ -18,9 +20,11 @@
   ],
   "published": [
     "breakout_alerts.json",
+    "briefing.json",
     "jobs.json",
     "linkedin_posts.json",
     "painpoints.json",
+    "paper_portfolio.json",
     "scan.json",
     "scorecard.json",
     "trader_results.json"

@@ -503,6 +503,30 @@ function osPaintPainpoints(mount, data) {
 
     ${summaries.filter(Boolean).map(s => `<p class="pp-summary" ${dirAttr}>${escapeHtml(s)}</p>`).join('')}
 
+    ${(() => {
+      const saasList = data.clusters.filter(c => osPpTrack(c) === 'saas');
+      const spotlight = (saasList.length ? saasList : data.clusters).slice().sort((a, b) => ((b.validation_score ?? b.score ?? 0) - (a.validation_score ?? a.score ?? 0)))[0];
+      if (!spotlight) return '';
+      const vScore = typeof spotlight.validation_score === 'number' ? spotlight.validation_score : (spotlight.score || 0);
+      const spTitle = osPpPick(spotlight, 'title', isHe);
+      const spGap = isHe
+        ? (spotlight.competitor_pricing_gap_he || spotlight.competitor_pricing_gap_en || '')
+        : (spotlight.competitor_pricing_gap_en || spotlight.competitor_pricing_gap_he || '');
+      const spVerdict = isHe
+        ? (spotlight.weekend_mvp_verdict_he || spotlight.weekend_mvp_verdict_en || osPpPick(spotlight, 'mvp', isHe))
+        : (spotlight.weekend_mvp_verdict_en || spotlight.weekend_mvp_verdict_he || osPpPick(spotlight, 'mvp', isHe));
+      return `
+        <section class="pp-validator-card" ${dirAttr}>
+          <div class="pp-validator-head" dir="ltr">
+            <span class="sec-label">${escapeHtml(S.validator.heading)}</span>
+            <span class="pp-validator-score mono">${escapeHtml(S.validator.scoreLabel(vScore))}</span>
+          </div>
+          <h3 class="pp-validator-title">${escapeHtml(spTitle)}</h3>
+          ${spVerdict ? `<p class="pp-validator-row"><strong>${escapeHtml(S.validator.verdictLabel)}:</strong> ${escapeHtml(spVerdict)}</p>` : ''}
+          ${spGap ? `<p class="pp-validator-row"><strong>${escapeHtml(S.validator.pricingGapLabel)}:</strong> ${escapeHtml(spGap)}</p>` : ''}
+        </section>`;
+    })()}
+
     <div class="pp-cluster-list">
       ${shown.length ? shown.map(c => osPpCardHtml(c, isHe, dirAttr)).join('')
         : `<div class="empty-state">${escapeHtml(S.filterEmpty)}</div>`}
@@ -618,6 +642,16 @@ function osJobCardHtml(job) {
         </div>
         <pre class="job-proposal-text" id="job-proposal-text-${escapeHtml(jobId)}">${escapeHtml(job.proposal_draft || '')}</pre>
       </div>
+      ${(job.poc_blueprint || '').trim() ? `
+        <details class="job-poc-box">
+          <summary>${escapeHtml(JOBS_S.labels.pocTitle)}</summary>
+          <div class="job-poc-head">
+            <button type="button" class="job-poc-copy-btn" data-poc-job-id="${escapeHtml(jobId)}">
+              ${escapeHtml(JOBS_S.labels.copyPoc)}
+            </button>
+          </div>
+          <pre class="job-poc-text" id="job-poc-text-${escapeHtml(jobId)}">${escapeHtml(job.poc_blueprint)}</pre>
+        </details>` : ''}
       ${osRatingWidgetHtml('upwork', jobId, job.title || '', { track: track, budget: budget })}
     </article>
   `;
@@ -714,15 +748,19 @@ function osPaintJobs(mount, data) {
     });
   });
 
-  // Copy proposal handlers
-  mount.querySelectorAll('.job-copy-btn').forEach(btn => {
+  osWireCopyButtons(mount, '.job-copy-btn', 'jobId', 'job-proposal-text-', JOBS_S.labels.copied);
+  osWireCopyButtons(mount, '.job-poc-copy-btn', 'pocJobId', 'job-poc-text-', JOBS_S.labels.copied);
+}
+
+function osWireCopyButtons(mount, selector, datasetKey, textPrefix, copiedText) {
+  mount.querySelectorAll(selector).forEach(btn => {
     btn.addEventListener('click', () => {
-      const id = btn.dataset.jobId;
-      const textEl = document.getElementById('job-proposal-text-' + id);
+      const id = btn.dataset[datasetKey];
+      const textEl = document.getElementById(textPrefix + id);
       if (textEl && navigator.clipboard) {
         navigator.clipboard.writeText(textEl.textContent).then(() => {
           const original = btn.textContent;
-          btn.textContent = JOBS_S.labels.copied;
+          btn.textContent = copiedText;
           btn.classList.add('is-copied');
           setTimeout(() => {
             btn.textContent = original;
@@ -894,21 +932,5 @@ function osPaintContent(mount, data) {
   });
 
   // Copy post handlers
-  mount.querySelectorAll('.content-copy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.dataset.postId;
-      const textEl = document.getElementById('post-text-' + id);
-      if (textEl && navigator.clipboard) {
-        navigator.clipboard.writeText(textEl.textContent).then(() => {
-          const original = btn.textContent;
-          btn.textContent = CONTENT_S.labels.copied;
-          btn.classList.add('is-copied');
-          setTimeout(() => {
-            btn.textContent = original;
-            btn.classList.remove('is-copied');
-          }, 2000);
-        });
-      }
-    });
-  });
+  osWireCopyButtons(mount, '.content-copy-btn', 'postId', 'post-text-', CONTENT_S.labels.copied);
 }

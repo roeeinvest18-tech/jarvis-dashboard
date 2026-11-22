@@ -358,6 +358,29 @@ const STRINGS = {
       stopMeta: (stop, toStopPct, target) => `stop $${stop} (${toStopPct}%)${target ? ` · target $${target}` : ''}`,
       closedMeta: (shares, entry, exit, date) => `${shares} sh · $${entry} → $${exit} · ${date}`,
     },
+    catalyst: {
+      earningsPrefix: 'Risk',
+      newsPrefix: 'Catalyst',
+      clean: 'Clean setup',
+    },
+    paperAudit: {
+      title: 'Strategy paper audit',
+      note: 'simulated Top 3 per strategy · auto-tracked on each scan',
+      empty: 'Audit data appears after the next market scan runs.',
+      stratCol: 'Strategy',
+      openCol: 'Open',
+      closedCol: 'Closed',
+      winRateCol: 'Win rate',
+      avgRCol: 'Avg R',
+      pnlCol: 'Closed sim',
+      strategyLabels: {
+        overall: 'Overall',
+        sma150: 'SMA150',
+        vcp: 'VCP',
+        rs: 'Rel strength',
+        mean_rev: 'Mean rev',
+      },
+    },
     // The market runs on New York hours; the owner reads the app on Israel
     // time. Every clock here says which one it is.
     marketWindow: {
@@ -1180,6 +1203,8 @@ const STRINGS = {
       openListing: 'Open on Upwork',
       source: 'Source',
       budget: 'Budget',
+      pocTitle: 'Prototype blueprint',
+      copyPoc: 'Copy blueprint',
     },
   },
 
@@ -1254,6 +1279,12 @@ const STRINGS = {
       launchEase: 'Ease of launch',
     },
     sourceLinkLabel: 'View source complaint',
+    validator: {
+      heading: 'Weekly opportunity spotlight',
+      scoreLabel: (n) => `Viability ${n}/100`,
+      pricingGapLabel: 'Competitor gap',
+      verdictLabel: 'Weekend build verdict',
+    },
     metrics: {
       intensity: 'Intensity',
       frequency: 'Frequency',
@@ -1261,6 +1292,22 @@ const STRINGS = {
       competition: 'Low competition',
       mentions: count => `${count} mentions`,
     },
+  },
+  briefing: {
+    title: 'Morning briefing',
+    note: 'summary across agents · updates automatically',
+    empty: 'Briefing appears after the next scheduled scan.',
+    listenBtn: 'Listen',
+    stopBtn: 'Stop audio',
+    marketLabel: 'Market top setups',
+    paperLabel: 'Strategy audit',
+    jobsLabel: 'Top job matches',
+    contentLabel: 'LinkedIn draft ready',
+    painpointLabel: 'Top software opportunity',
+    openTrading: 'Trading',
+    openJobs: 'Jobs',
+    openContent: 'Content',
+    openOpportunities: 'PainPoints',
   },
   _endHistory: {
     pipLabel: (label, value) => `${label} ${value === null ? 'not rated' : `${value} of 10`}`,
