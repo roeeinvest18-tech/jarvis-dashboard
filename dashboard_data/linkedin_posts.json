@@ -1,100 +1,100 @@
 {
-  "generated_at": "2026-11-22T11:09:37.893161+00:00",
+  "generated_at": "2026-11-22T15:12:04.979625+00:00",
   "stats": {
     "total_drafted": 5,
-    "cyber_count": 4,
-    "ai_count": 1
+    "cyber_count": 3,
+    "ai_count": 2
   },
   "posts": [
     {
-      "id": "post-1-1795345777",
-      "topic": "OpenRouter Data Leak via AI Inference Providers",
+      "id": "post-1-1795360324",
+      "topic": "GnuPG GPGME Memory Bug CVE-2026-129975",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/openrouter-drops-3-providers-after.html",
+      "source_url": "https://thehackernews.com/2026/11/gnupg-warns-critical-gpgme-flaw-could.html",
       "source_platform": "The Hacker News (Cybersecurity & Threats)",
       "posted_at": "Updated 2026-11-22 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Reported by major cybersecurity news outlets citing Dragos research on AI infrastructure supply chain risks.",
+      "credibility_rationale": "Directly sourced from the GnuPG project advisory detailing technical vulnerability parameters and version constraints.",
       "key_takeaways": [
-        "Zero Data Retention flags were ignored by inference providers.",
-        "Prompt theft occurred silently over months without internal detection.",
-        "Infrastructure layer security is completely missing from standard AI threat models."
+        "Unusually long user IDs in OpenPGP keys trigger memory corruption.",
+        "Vulnerability resides in GPGME library rather than the core binary.",
+        "Affects all software consuming GPGME versions prior to 2.3.0."
       ],
-      "post_angle": "ההנחה שחוקי Zero Data Retention מגינים על פרומפטים ברמת ספקי האינפרסטרקצ'ר מתבררת כאשליה מוחלטת שלא מנוטרת ב SOC.",
-      "opening_hook": "הגדרתם Zero Data Retention בפלטפורמת ה AI והאמנתם שהמידע נמחק מיד, אבל ספקים צד ג' אספו לכם את הפרומפטים בחשאי במשך חודשים.",
-      "linkedin_post": "הגדרתם Zero Data Retention בפלטפורמת ה AI והאמנתם שהמידע נמחק מיד, אבל ספקים צד ג' אספו לכם את הפרומפטים בחשאי במשך חודשים.\nזה קרה במערכות של OpenRouter, שם חודשים של גניבת מידע עברו מתחת לרדאר של שלושה ספקי אינפרסטרקצ'ר שונים.\n1. החולשה אינה בקוד המודל אלא בשרשרת האספקה של תשתיות ההסקה Inference.\n2. לוגים פנימיים לא הראו חריגה כי הגישה בוצעה ברמת התשתית המארחת.\n3. כללי ה SOC המסורתיים מפספסים תעבורת API לגיטימית שמופנית החוצה לספקי צד ג'.\nהגנה אמיתית דורשת ניטור רשת קפדני ואימות הצפנה מקצה לקצה גם מול ספקי ענן חיצוניים.\nאיך אתם מוודאים שה-LLM של הארגון שלכם לא מדליף סודות מסחריים דרך צדדים שלישיים?\n#CyberSecurity #SOCAnalyst #BlueTeam #DataPrivacy #InfoSec"
+      "post_angle": "Focusing on how parsers handle metadata edge cases like abnormally long IDs rather than basic key validation.",
+      "opening_hook": "האם בדיקת תקינות של מפתחות הצפנה יכולה להפוך לווקטור תקיפה מרכזי?",
+      "linkedin_post": "האם בדיקת תקינות של מפתחות הצפנה יכולה להפוך לווקטור תקיפה מרכזי?\nחולשת הזיכרון החדשה ב ספריית GPGME, המסומנת כ CVE-2026-129975, מוכיחה ששגיאות פענוח במטא-דאטה עוקפות הגנות קלאסיות.\n1. התקיפה מנצלת מפתח OpenPGP עם מזהה משתמש באורך חריג שגורם לשגיאת זיכרון קריטית.\n2. פגיעות זו פוגעת בכל יישום צד שלישי המשתמש בספריה כדי לתקשר עם GnuPG מתחת לגרסה 2.3.0.\n3. אנליסטים ב SOC חייבים לבחון לא רק את תוכן הקבצים אלא את חריגות האורך במבנה הפרוטוקול.\nניטור לוגים ברמת הספרייה הוא הדרך היחידה לזהות חריגות לפני קריסת היישום.\nאיך אתם מתמודדים עם זיהוי אנומליות במבני מטא-דאטה של פרוטוקולים מוצפנים?\n#CyberSecurity #SOCAnalyst #BlueTeam #VulnerabilityManagement #InfoSec"
     },
     {
-      "id": "post-2-1795345777",
-      "topic": "Autonomous AI Agents Finding Zero-Days in MONAI Label",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/attackers-ai-agents-found-zero-day-in.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-22 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Detailed threat intelligence report from Amazon covering autonomous exploitation of open-source medical software.",
-      "key_takeaways": [
-        "Autonomous agents successfully identified an unauthenticated path traversal flaw.",
-        "Zero-day discovery is no longer exclusive to elite human research teams.",
-        "Medical imaging servers running default setups became immediate root access targets."
-      ],
-      "post_angle": "סוכני AI אוטונומיים מצליחים למצוא פגיעויות Zero-Day בקוד פתוח במהירות שמייתרת את הצורך בחוקרים אנושיים.",
-      "opening_hook": "תקיפות המבוססות על סוכני AI אוטונומיים הפסיקו להיות תיאוריה וכבר מצאו Zero-Day שהעניק גישת שורש לשרת רפואי.",
-      "linkedin_post": "תקיפות המבוססות על סוכני AI אוטונומיים הפסיקו להיות תיאוריה וכבר מצאו Zero-Day שהעניק גישת שורש לשרת רפואי.\nהאירוע במערכת MONAI Label מוכיח שתוקפים משתמשים באוטומציה מתקדמת לסריקת חולשות ביישומים רגישים.\n1. הסוכן איתר חולשת כתיבת קבצים מרוחקת ללא צורך בהזדהות מוקדמת.\n2. קצב גילוי הפגיעויות עולה על מהירות התיקון של צוותי הפיתוח.\n3. הרשאות ברירת המחדל בשרתים אפשרו השתלטות מלאה מיד לאחר הניצול.\nהגנת סייבר מודרנית חייבת לשלב סוכני AI הגנתיים שיסרקו את הקוד עוד לפני שהתוקפים יספיקו להריץ את שלהם.\nהאם מערכות ההגנה שלכם מסוגלות לזהות סריקות פגיעויות שמנוהלות על ידי סוכני AI אוטונומיים?\n#AIgents #CyberSecurity #ZeroDay #VulnerabilityManagement #BlueTeam"
-    },
-    {
-      "id": "post-3-1795345777",
-      "topic": "Ghostscript Sandbox-Escape RCE via File Uploads",
-      "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/researchers-demonstrate-ghostscript.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
-      "posted_at": "Updated 2026-11-22 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Documented exploit demonstration by pwn.ai showcasing critical sandbox escapes in standard document converters.",
-      "key_takeaways": [
-        "Crafted file uploads bypass Ghostscript security sandboxes natively.",
-        "Linux servers converting PDFs and images execute arbitrary code implicitly.",
-        "Applications often invoke Ghostscript in the background without direct developer awareness."
-      ],
-      "post_angle": "ההמרה השקטה של קבצים מנוצלת על ידי קבצים זדוניים כדי להימלט מסביבת הרימון של Ghostscript.",
-      "opening_hook": "המשתמש העלה קובץ PDF תמים לכאורה, אבל מאחורי הקלעים הוא גרם למנוע ההמרה להרים פקודות מערכת.",
-      "linkedin_post": "המשתמש העלה קובץ PDF תמים לכאורה, אבל מאחורי הקלעים הוא גרם למנוע ההמרה להרים פקודות מערכת.\nהחולשה החדשה ב Ghostscript מראה שסביבות הרימון של מנועי עיבוד קבצים ניתנות לעקיפה מלאה.\n1. אפליקציות רבות קוראות למנוע הזה בצורה עקיפה לחלוטין וללא ידיעת המפתח.\n2. הקובץ המעוצב מצליח לברוח מהסנדבוקס ולהריץ פקודות ברמת השרת.\n3. לוגים סטנדרטיים של מערכת ההפעלה לא בהכרח יראו את החריגה בזמן אמת.\nאיתור מוקדם מחייב בדיקה קפדנית של כל תהליך עיבוד קבצים חיצוני שרץ ברקע הארגוני.\nאיך אתם מפקחים על הרשאות הריצה של ספריות צד שלישי המטפלות בקבצי משתמשים?\n#CyberSecurity #SOCAnalyst #LinuxSecurity #Vulnerability #InfoSec"
-    },
-    {
-      "id": "post-4-1795345777",
-      "topic": "JiTTesting Human-on-the-Loop Approach at Meta",
+      "id": "post-2-1795360324",
+      "topic": "Thin Orchestrator Architecture for AI Agents at Meta",
       "category": "ai_agents",
-      "source_url": "https://engineering.fb.com/2026/09/02/ml-applications/organizational-second-brain-ai-learns-from-experts/",
+      "source_url": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
       "source_platform": "Engineering at Meta (AI & Systems)",
       "posted_at": "Updated 2026-11-22 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Direct engineering blog post from Meta detailing production deployment metrics of AI test generation.",
+      "credibility_rationale": "Published on Meta Engineering blog with detailed production architecture insights.",
       "key_takeaways": [
-        "Just-in-Time tests are generated dynamically using LLMs during code deployment.",
-        "Human-on-the-loop architecture scales validation without creating developer bottlenecks.",
-        "Bugs are caught pre-production through automated test synthesis at scale."
+        "Giving an AI agent too much context reduces overall reasoning accuracy.",
+        "Thin orchestrator design delegates domain logic to specialized sub-agents.",
+        "Routing layer is kept strictly minimal to enforce reliability checks."
       ],
-      "post_angle": "במקום בדיקות ידניות איטיות, מערכות מודרניות מייצרות בדיקות אבטחה בזמן אמת באמצעות סוכני AI מותאמים.",
-      "opening_hook": "הבדיקות האוטומטיות שלכם מגיעות הרבה אחרי שהקוד כבר נכתב, אבל אפשר לייצר בדיקות אמת בזמן ריצה.",
-      "linkedin_post": "הבדיקות האוטומטיות שלכם מגיעות הרבה אחרי שהקוד כבר נכתב, אבל אפשר לייצר בדיקות אמת בזמן ריצה.\nהטמעת Just-in-Time Tests במטא מוכיחה שאפשר לעצור באגים עוד לפני שהם נוגעים בסביבת הפרודקשן.\n1. מודלי שפה מנתחים את הקוד ויוצרים בדיקות מותאמות אישית תוך כדי תנועה.\n2. מודל Human-on-the-loop מוודא שהתוצאות מדויקות בלי להעמיס על המפתחים.\n3. קנה המידה העצום מראה שזיהוי מוקדם חוסך שעות של תחקור אירועים מאוחרים.\nשילוב סוכני AI בתהליכי ה CI/CD משנה לחלוטין את הדרך שבה בודקים חולשות קוד.\nהאם צוות הפיתוח שלכם משתמש בסוכנים אוטומטיים לאיתור באגים לפני פריסה?\n#AIgents #DevSecOps #SoftwareEngineering #Automation #SecureCoding"
+      "post_angle": "Challenging the assumption that a smart monolithic agent is better than a decoupled minimal orchestrator.",
+      "opening_hook": "למה מתן כל הידע הספציפי לסוכן AI אחד פוגע ישירות בדיוק הביצוע שלו?",
+      "linkedin_post": "למה מתן כל הידע הספציפי לסוכן AI אחד פוגע ישירות בדיוק הביצוע שלו?\nהארכיטקטורה החדשה של מטא מוכיחה שכדי לייצר אמינות גבוהה בפייפליין נתונים, צריך דווקא לתת לנתב פחות עבודה.\n1. מערכות מורכבות סובלות מירידה ביכולת ההחלטה כאשר מנפחים את ההקשר של הסוכן המרכזי.\n2. שכבת ניתוב רזה אחראית רק על העברת עבודה ואכיפת בדיקות אמינות קשיחות.\n3. סוכנים מתמחים מבצעים את החשיבה התחומית בצורה מבודדת וללא הסחות דעת.\nהפרדת רשויות כזו מצמצמת דרסטית לוגיקת שגיאות באוטומציות מורכבות.\nאיך אתם מחלקים את העומס בין סוכני AI בפרויקטים שלכם?\n#AIAutomation #AIAgents #MachineLearning #SystemArchitecture #SoftwareEngineering"
     },
     {
-      "id": "post-5-1795345777",
-      "topic": "Meta Muse Webpage Hijacking Vulnerability",
+      "id": "post-3-1795360324",
+      "topic": "Rackspace Spot Cloud Platform Kubernetes Secrets Breach",
       "category": "cyber_soc",
-      "source_url": "https://thehackernews.com/2026/11/a-single-malicious-webpage-let.html",
-      "source_platform": "The Hacker News (Cybersecurity & Threats)",
+      "source_url": "https://www.bleepingcomputer.com/news/security/rackspace-spot-breach-let-hackers-access-customer-kubernetes-secrets/",
+      "source_platform": "BleepingComputer (Security & Incidents)",
+      "posted_at": "Updated 2026-11-22 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "Reported by established security news outlet based on official company disclosures to affected customers.",
+      "key_takeaways": [
+        "Compromised credentials allowed attackers access to Rackspace Spot platform.",
+        "Attackers deployed unauthorized workloads inside customer environments.",
+        "Kubernetes secrets in customer clusters were directly exposed."
+      ],
+      "post_angle": "Highlighting the cascading risk when third-party cloud management platforms lack strict internal segmentation.",
+      "opening_hook": "איך פריצה לפלטפורמת ניהול ענן חיצונית חושפת באופן ישיר את סודות הקוברנטיס של הלקוחות?",
+      "linkedin_post": "איך פריצה לפלטפורמת ניהול ענן חיצונית חושפת באופן ישיר את סודות הקוברנטיס של הלקוחות?\nתקרית אבטחה ב Rackspace Spot ממחישה שגנבת פריטי זיהוי היא רק השלב הראשון בשרשרת ההרס.\n1. תוקפים ניצלו נתוני גישה שנחשפו כדי לפרוס עומסי עבודה לא מאושרים בסביבת הענן.\n2. הגישה למערכת הניהול אפשרה להם לשלוף סודות רגישים מתוך האשכולות של הלקוחות.\n3. ניטור קוברנטיס סטנדרטי מתקשה לזהות פעילות זדונית שמגיעה מצינורות ניהול מורשים.\nהפרדה קשיחה בין שכבת הניהול לבין סביבת הייצור היא תנאי הכרחי למניעת זליגה רוחבית.\nאיזו אסטרטגיית בקרת גישה אתם מיישמים על פלטפורמות ניהול צד שלישי בענן שלכם?\n#CyberSecurity #CloudSecurity #Kubernetes #SOCAnalyst #InfoSec"
+    },
+    {
+      "id": "post-4-1795360324",
+      "topic": "Just-in-Time Test Generation and Human-on-the-Loop at Meta",
+      "category": "ai_agents",
+      "source_url": "https://engineering.fb.com/2026/10/27/security/privacylib/",
+      "source_platform": "Engineering at Meta (AI & Systems)",
       "posted_at": "Updated 2026-11-22 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Demonstrated security research showing complete memory extraction from an AI assistant via a web page.",
+      "credibility_rationale": "Detailed engineering paper overview published by Meta regarding production code testing models.",
       "key_takeaways": [
-        "Malicious web pages extract private AI assistant conversations without approval prompts.",
-        "Stored memories and connected account credentials are fully accessible via UI flaws.",
-        "Client-side attacks on AI assistants bypass backend authorization models."
+        "LLMs deployed to catch bugs on the fly using Just-in-Time tests.",
+        "Human-on-the-loop architecture ensures validation at massive production scale.",
+        "Integration prevents bugs from ever reaching the production codebase."
       ],
-      "post_angle": "דף אינטרנט זדוני יחיד מסוגל לשאוב את כל היסטוריית השיחות והזיכרונות של עוזר ה AI מבלי לבקש שום אישור.",
-      "opening_hook": "ביקור תמים בדף אינטרנט אחד הספיק כדי לשלוף את כל השיחות הפרטיות והזיכרונות השמורים של עוזר ה AI.",
-      "linkedin_post": "ביקור תמים בדף אינטרנט אחד הספיק כדי לשלוף את כל השיחות הפרטיות והזיכרונות השמורים של עוזר ה AI.\nהמחקר על מערכת Meta Muse חושף פרצה שבה תוקף גונב מידע רגיש דרך הדפדפן ללא צורך בהרשאות מיוחדות.\n1. המידע השמור והזיכרונות של העוזר נחשפים דרך פקודות צד לקוח בלבד.\n2. מנגנוני אישור פעולה סטנדרטיים לא מופעלים בזמן שליפת הנתונים האוטומטית.\n3. גישה לחיבורי חשבונות חיצוניים מתאפשרת דרך גניבת נתוני ההזדהות של העוזר.\nהגנה על עוזרי AI דורשת אבטחה מחמירה של ממשקי ה DOM ומניעת גישה ישירה לזיכרון הלקוח.\nאיזה בקרות אבטחה אתם מפעילים כדי למנוע מדפי אינטרנט חיצוניים לגשת לנתוני ה AI שלכם?\n#CyberSecurity #AIgents #WebSecurity #InfoSec #BlueTeam"
+      "post_angle": "Analyzing how real-time LLM test generation shifts left beyond traditional CI pipelines into dynamic injection.",
+      "opening_hook": "מה קורה כשמערכות מודל שפה גדול מתחילות לייצר בדיקות אוטומטיות תוך כדי כתיבת הקוד?",
+      "linkedin_post": "מה קורה כשמערכות מודל שפה גדול מתחילות לייצר בדיקות אוטומטיות תוך כדי כתיבת הקוד?\nהטמעת בדיקות Just-in-Time בייצור במטא מציגה גישת אבטחה פרואקטיבית ברמת המפתח.\n1. מודלי שפה מנתחים קוד בזמן אמת ויוצרים בדיקות ייעודיות עוד לפני שהקוד מגיע למיזוג.\n2. מודל Human-on-the-loop מוודא שההתרעות מסוננות ומטופלות על ידי מפתחים ביעילות.\n3. מניעת באגים בשלב מוקדם חוסכת תיקוני אבטחה מורכבים לאחר פריסה לסביבת האם.\nאוטומציית בדיקות חכמה משנה את הדרך שבה צוותי פיתוח מטפלים בשגיאות לוגיות.\nאיך אתם משלבים כלי AI בתוך מחזור חיי פיתוח הקוד שלכם מבלי ליצור עומס התרעות?\n#AIAutomation #AIAgents #DevSecOps #SoftwareEngineering #TechInnovation"
+    },
+    {
+      "id": "post-5-1795360324",
+      "topic": "Microsoft Entra Connect Health Service Flaw and Data Theft",
+      "category": "cyber_soc",
+      "source_url": "https://www.bleepingcomputer.com/news/security/microsoft-entra-connect-health-flaw-exploited-to-steal-tenant-data/",
+      "source_platform": "BleepingComputer (Security & Incidents)",
+      "posted_at": "Updated 2026-11-22 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "Reported based on direct security advisories issued regarding Microsoft enterprise services.",
+      "key_takeaways": [
+        "Vulnerability exploited in Microsoft Entra Connect Health service.",
+        "Attackers gained unauthorized access to administrator email addresses.",
+        "Tenant configuration information was successfully extracted."
+      ],
+      "post_angle": "Examining the risks associated with diagnostic and monitoring agents having broad visibility into tenant metadata.",
+      "opening_hook": "איך כלי ניטור ודיאגנוסטיקה ארגוניים הופכים ליעד המועדף על תוקפים לשאיבת מידע רגיש?",
+      "linkedin_post": "איך כלי ניטור ודיאגנוסטיקה ארגוניים הופכים ליעד המועדף על תוקפים לשאיבת מידע רגיש?\nהניצול של פגיעות בשירות Entra Connect Health מזכיר ששירותי ניטור מחזיקים מפתחות זהב לכלל הארגון.\n1. התוקפים ניצלו פגם במנגנון הגישה כדי לשלוף כתובות מייל של מנהלים ופרטי קונפיגורציה.\n2. כלי ניטור דורשים הרשאות עמוקות ולכן חשיפתם מספקת תמונת מצב מלאה על הטרייד סקרט של הדפדפן.\n3. אנליסטים חייבים לנטר לא רק את משתמשי הקצה אלא את תעבורת הנתונים של סוכני הניהול.\nאבטחת כלי הדיאגנוסטיקה היא השכבה המפוספסת ביותר בארכיטקטורת האבטחה המודרנית.\nהאם מערכות ה SOC שלכם מפקחות על התנהגות כלי הניטור הפנימיים באותה רמת קפדנות?\n#CyberSecurity #SOCAnalyst #CloudSecurity #MicrosoftEntra #InfoSec"
     }
   ]
 }

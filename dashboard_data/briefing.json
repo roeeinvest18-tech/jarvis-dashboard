@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T11:09:38.216556+00:00",
+  "generated_at": "2026-11-22T15:12:05.337315+00:00",
   "date": "2026-11-22",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,27 +32,27 @@
   },
   "jobs": [
     {
-      "title": "Legion: Senior Deal Desk Manager",
+      "title": "Netlify: Staff Software Engineer (Interfaces)",
       "platform": "WeWorkRemotely (Live Cloud)",
       "match_score": 96,
       "has_poc": true
     },
     {
-      "title": "Founding Engineer - Abacus (Pear VC)",
+      "title": "Lead Creative (Superside)",
       "platform": "Jobicy (Live Cloud)",
       "match_score": 96,
       "has_poc": true
     }
   ],
   "content": {
-    "topic": "OpenRouter Data Leak via AI Inference Providers",
+    "topic": "GnuPG GPGME Memory Bug CVE-2026-129975",
     "category": "cyber_soc",
-    "opening_hook": "הגדרתם Zero Data Retention בפלטפורמת ה AI והאמנתם שהמידע נמחק מיד, אבל ספקים צד ג' אספו לכם את הפרומפטים בחשאי במשך חודשים."
+    "opening_hook": "האם בדיקת תקינות של מפתחות הצפנה יכולה להפוך לווקטור תקיפה מרכזי?"
   },
   "painpoint": {
-    "title_en": "Out-of-the-Box Email-Driven CRM for Small Businesses",
-    "title_he": "חוסר במערכת CRM מבוססת אימייל ללא צורך בהתקנה מורכבת",
-    "validation_score": 84,
-    "weekend_mvp_verdict_en": "A simple web app connecting to IMAP or Gmail API, extracting leads using an LLM, and displaying a basic task board."
+    "title_en": "Database ID to Admin URL Translation for Data Analysts",
+    "title_he": "תרגום אוטומטי של מזהי מסדי נתונים לקישורי ניהול",
+    "validation_score": 82,
+    "weekend_mvp_verdict_en": "Go - extremely fast weekend build with a highly targeted developer audience."
   }
 }
