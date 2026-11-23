@@ -1,64 +1,100 @@
 {
-  "generated_at": "2026-11-23T11:11:23.857656+00:00",
+  "generated_at": "2026-11-23T15:57:52.637327+00:00",
   "stats": {
-    "total_drafted": 3,
-    "cyber_count": 1,
+    "total_drafted": 5,
+    "cyber_count": 3,
     "ai_count": 2
   },
   "posts": [
     {
-      "id": "post-1-1795432283",
-      "topic": "Backporting security fixes at scale with Codex",
+      "id": "post-1-1795449472",
+      "topic": "Formal Verification of the Signal Protocol Using AI",
       "category": "cyber_soc",
-      "source_url": "https://blog.trailofbits.com/2026/11/02/backporting-security-fixes-at-scale-with-codex/",
-      "source_platform": "Trail of Bits (Security Research & AI)",
+      "source_url": "https://www.schneier.com/blog/archives/2026/11/formal-verification-of-the-signal-protocol-using-ai.html",
+      "source_platform": "Schneier on Security (Cryptography, Security & AI)",
       "posted_at": "Updated 2026-11-23 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "מבוסס על פוסט טכני רשמי של חברת מחקר הסייבר Trail of Bits, המתאר נתונים כמותיים ומדויקים על תיקון CVEs.",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Schneier on Security (Cryptography, Security & AI).",
       "key_takeaways": [
-        "צוותי מחקר משתמשים בכלי קוד אוטונומיים לבאקפורטינג של תיקוני אבטחה ללינוקס",
-        "התהליך מקצר את זמן העבודה מימים לשעות לכל פאץ",
-        "מאפשר לספק תיקונים למערכות ליבה ותיקות במהירות חסרת תקדים"
+        "מקור: Schneier on Security (Cryptography, Security & AI)",
+        "Formal Verification of the Signal Protocol Using AI",
+        "This seems like a good thing: Google Deepmind researchers used agentic AI to mathematically prove, or “formally verify,” a number of the Signal protocol’s key cryptographic guarantees­a landmark development for the widely used cryptography "
       ],
-      "post_angle": "המעבר של אוטומציית AI ממשימות סיכום קוד רגילות אל תוך תהליכי תחזוקה ובאקפורטינג קריטיים במערכות הפעלה.",
-      "opening_hook": "הצוותים שמחזיקים את תשתיות הקוד הפתוח בעולם קורסים תחת עומס הבאקפורטינג של תיקוני אבטחה.",
-      "linkedin_post": "הצוותים שמחזיקים את תשתיות הקוד הפתוח בעולם קורסים תחת עומס הבאקפורטינג של תיקוני אבטחה.\n\nהשבוע פורסם מחקר של Trail of Bits שמציג איך הם משתמשים במועמדי קוד אוטונומיים כדי לדחוף פאצ'ים למערכות לינוקס יציבות בזמן קצר.\n\nלמה זה מטלטל את עולם ה תחזוקה?\nכי עד היום תהליך הבאקפורטינג דרש שעות אדם ארוכות של אנשי פיתוח שנאלצו להתאים ידנית תיקוני אבטחה מגרסאות חדשות אל עבר ליבות ישנות ותשתיות אנטרפרייז מורכבות.\n\nהשילוב של מודלי שפה בתהליך הזה מצמצם את זמני הטיפול מימים שלמים לשעות ספורות עבור כל פאץ אבטחה קריטי.\n\nזה לא אומר שאנשי אבטחה או מפתחי ליבה יכולים ללכת הביתה ושהמערכת מתנהלת לבד. אבל זו קפיצת מדרגה ביכולת שלנו לסגור פערי חשיפה במערכות ישנות.\n\nהסיפור הגדול כאן הוא המעבר של כלי AI מעזרים כותבי קוד נחמדים אל תוך שרשרת ההפצה הקריטית שמגנה על תשתיות הייצור שלנו.\n\nאיך הצוות אצלכם מתמודד עם עומס עדכוני האבטחה בסביבות הפקה מורכבות?\n\n#CyberSecurity #OpenSource #DevSecOps #LinuxKernel #Automation #InfoSec"
+      "post_angle": "",
+      "opening_hook": "",
+      "linkedin_post": "בפרסום חדש מתוך Schneier on Security (Cryptography, Security & AI) על \"Formal Verification of the Signal Protocol Using AI\":\n\nThis seems like a good thing: Google Deepmind researchers used agentic AI to mathematically prove, or “formally verify,” a number of the Signal protocol’s key cryptographic guarantees­a landmark development for the widely used cryptography \n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
     },
     {
-      "id": "post-2-1795432283",
-      "topic": "The Thin Orchestrator: How We Made Our AI Agents More Reliable by Giving the Router Less to Do",
+      "id": "post-2-1795449472",
+      "topic": "llm-gemini 0.38.1",
       "category": "ai_agents",
-      "source_url": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
-      "source_platform": "Engineering at Meta (AI & Systems)",
+      "source_url": "https://simonwillison.net/2026/Nov/20/llm-gemini/",
+      "source_platform": "Simon Willison (AI Agents & LLM Architecture)",
       "posted_at": "Updated 2026-11-23 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "מדובר בפרסום רשמי מתוך הבלוג ההנדסי של מטא, המציג ארכיטקטורה אמיתית שנוסתה במערכות הייצור שלהם.",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Simon Willison (AI Agents & LLM Architecture).",
       "key_takeaways": [
-        "ארכיטקטורה המפחיתה עומס מנתב הסוכנים המרכזי משפרת אמינות ויעילות",
-        "סוכנים ייעודיים מטפלים בהחלטות דומיין בעוד השכבה המרכזית דואגת רק לנתב ולבדיקות",
-        "הפרדת סמכויות ברורה מקטינה את שיעור השגיאות בסוכנים אוטונומיים"
+        "מקור: Simon Willison (AI Agents & LLM Architecture)",
+        "llm-gemini 0.38.1",
+        "Release: llm-gemini 0.38.1 Gemini 4 Carbon only supports low , medium and high reasoning levels - but Gemini 4 Hydrogen and Gemini 4 Neon both have an extra xhigh level. I missed that when I added those models to the llm-gemini plugin, whic"
       ],
-      "post_angle": "הארכיטקטורה של מעמס נמוך על נתבים Orchestrators במערכות סוכני AI מרובי דומיינים.",
-      "opening_hook": "כשאנחנו בונים מערכות סוכני AI מורכבות, האינסטינקט הראשוני הוא לרכז את כל הידע במקום אחד מרכזי.",
-      "linkedin_post": "כשאנחנו בונים מערכות סוכני AI מורכבות, האינסטינקט הראשוני הוא לרכז את כל הידע במקום אחד מרכזי.\n\nהשבוע פרסמו מהנדסי מטא ארכיטקטורה שמוכיחה בדיוק את ההפך דרך מושג שהם קוראים לו Thin Orchestrator.\n\nאיך המנגנון הזה עובד בפועל?\nבמקום להעמיס על הנתב המרכזי את כל תמונת העולם, הם שמרו אותו רזה מאוד שתפקידו היחיד הוא ניתוב משימות ואכיפת בדיקות אמינות בסיסיות.\n\nההחלטות העמוקות ועיבוד הנתונים מבוצעים בפועל על ידי סוכנים מומחים וייעודיים לכל דומיין בנפרד.\n\nזה לא פותר לחלוטין את הבעיות המובנות של הלוצינציות או התנהגות בלתי צפויה במערכות מבוזרות. אבל זו בהחלט גישה ארכיטקטונית נקייה שמורידה רעש ומעלה את הדיוק.\n\nהסיפור הגדול כאן הוא ההבנה שמערכות אוטונומיות אמיתיות צריכות להיראות פחות כמו מוח מפלצתי אחד ויותר כמו צוות מומחים מנוהל היטב.\n\nאיזה אתגר ארכיטקטוני פגשתם לאחרונה בבניית סוכנים מרובי שלבים?\n\n#AIAgents #MachineLearning #SystemArchitecture #MetaEngineering #Automation #SoftwareEngineering"
+      "post_angle": "",
+      "opening_hook": "",
+      "linkedin_post": "בפרסום חדש מתוך Simon Willison (AI Agents & LLM Architecture) על \"llm-gemini 0.38.1\":\n\nRelease: llm-gemini 0.38.1 Gemini 4 Carbon only supports low , medium and high reasoning levels - but Gemini 4 Hydrogen and Gemini 4 Neon both have an extra xhigh level. I missed that when I added those models to the llm-gemini plugin, whic\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
     },
     {
-      "id": "post-3-1795432283",
-      "topic": "Combatting adversarial distillation",
-      "category": "ai_agents",
-      "source_url": "https://openai.com/index/combatting-adversarial-distillation",
-      "source_platform": "OpenAI (AI Releases & Research)",
+      "id": "post-3-1795449472",
+      "topic": "AI threats in the wild: The current state of prompt injections on the web",
+      "category": "cyber_soc",
+      "source_url": "http://security.googleblog.com/2026/04/ai-threats-in-wild-current-state-of.html",
+      "source_platform": "Google Security Blog (Security Research & AI)",
       "posted_at": "Updated 2026-11-23 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "מבוסס על מסמך מחקר והכרזה רשמית של OpenAI המתארת הגנות מפני זליגת יכולות של מודלים.",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Google Security Blog (Security Research & AI).",
       "key_takeaways": [
-        "מתקפות זיקוק עוינות מנסות לחלץ יכולות של מודלים מתקדמים למודלים קטנים",
-        "OpenAI מציגה שכבות הגנה המשלבות אימון מודל, בקרות אכיפה וזיהוי",
-        "ההגנה מחייבת מעקב מתמשך אחרי דפוסי שאילתות וחלצתיות מידע"
+        "מקור: Google Security Blog (Security Research & AI)",
+        "AI threats in the wild: The current state of prompt injections on the web",
+        "Posted by Thomas Brunner, Yu-Han Liu, Moni Pande At Google, our Threat Intelligence teams are dedicated to staying ahead of real-world adversarial activity, proactively monitoring emerging threats before they can impact users. Right now, In"
       ],
-      "post_angle": "ההתמודדות עם חילוץ יכולות מודלים Model Extraction וזיקוק עוין בעידן הבינה המלאכותית.",
-      "opening_hook": "ככל שמודלי שפה הופכים לנכס אסטרטגי יקר ערך, המאבק על שמירת היכולות שלהם עובר לשדה הקרב של אבטחת מודלים.",
-      "linkedin_post": "ככל שמודלי שפה הופכים לנכס אסטרטגי יקר ערך, המאבק על שמירת היכולות שלהם עובר לשדה הקרב של אבטחת מודלים.\n\nחברת OpenAI פרסמה השבוע את הגישה שלה להתמודדות עם תופעת הזיקוק העוין וניסיונות חילוץ היכולות.\n\nמה בעצם מנסים התוקפים לעשות?\nהם מריצים שאילתות שיטתיות במטרה לשאוב את ההתנהגות של המודל הגדול ולזקק אותה אל תוך מודל קטן וזול יותר ללא אישור.\n\nההגנה דורשת שילוב של מערכות ניטור המזהות דפוסי שימוש חשודים, יחד עם מנגנוני אימון שמששתלים חסינות מובנית נגד חילוץ פלט.\n\nזה לא אומר שתוקפים לא יוכלו לעולם להשיג עותקים מקורבים של מודלים מובילים. אבל זו בהחלט התפתחות חשובה במלחמה על הגנת הקניין הרוחני של ה AI.\n\nהסיפור הגדול כאן הוא שבעולם הסייבר החדש, דליפת נתונים כבר לא מתבססת רק על פריצת מאגר מידע אלא על גניבת התנהגות ויכולות קוגניטיביות.\n\nאיך לדעתכם צריך להיראות SOC שמגן על נכסי בינה מלאכותית ארגוניים?\n\n#AISecurity #OpenAI #MachineLearning #ModelExtraction #BlueTeam #InfoSec"
+      "post_angle": "",
+      "opening_hook": "",
+      "linkedin_post": "בפרסום חדש מתוך Google Security Blog (Security Research & AI) על \"AI threats in the wild: The current state of prompt injections on the web\":\n\nPosted by Thomas Brunner, Yu-Han Liu, Moni Pande At Google, our Threat Intelligence teams are dedicated to staying ahead of real-world adversarial activity, proactively monitoring emerging threats before they can impact users. Right now, In\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+    },
+    {
+      "id": "post-4-1795449472",
+      "topic": "Quoting Levent Alpöge",
+      "category": "ai_agents",
+      "source_url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/",
+      "source_platform": "Simon Willison (AI Agents & LLM Architecture)",
+      "posted_at": "Updated 2026-11-23 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Simon Willison (AI Agents & LLM Architecture).",
+      "key_takeaways": [
+        "מקור: Simon Willison (AI Agents & LLM Architecture)",
+        "Quoting Levent Alpöge",
+        "I believe I have, working with Claude, discovered a proof of the Riemann Hypothesis. In fact, the method easily extends much further, resolving the so-called Generalized Riemann Hypothesis, and I expect, with more time, the Extended Riemann"
+      ],
+      "post_angle": "",
+      "opening_hook": "",
+      "linkedin_post": "בפרסום חדש מתוך Simon Willison (AI Agents & LLM Architecture) על \"Quoting Levent Alpöge\":\n\nI believe I have, working with Claude, discovered a proof of the Riemann Hypothesis. In fact, the method easily extends much further, resolving the so-called Generalized Riemann Hypothesis, and I expect, with more time, the Extended Riemann\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+    },
+    {
+      "id": "post-5-1795449472",
+      "topic": "Probing DNS at Cloudflare",
+      "category": "cyber_soc",
+      "source_url": "https://blog.cloudflare.com/probing-dns-at-cloudflare/",
+      "source_platform": "Cloudflare Blog (Security & Engineering)",
+      "posted_at": "Updated 2026-11-23 (Auto)",
+      "credibility_score": "8/10",
+      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Cloudflare Blog (Security & Engineering).",
+      "key_takeaways": [
+        "מקור: Cloudflare Blog (Security & Engineering)",
+        "Probing DNS at Cloudflare",
+        "At Cloudflare we’ve built tools to enable teams to extend our internal testing framework and build test tooling for networking protocols. This is the story of how this was used for DNS."
+      ],
+      "post_angle": "",
+      "opening_hook": "",
+      "linkedin_post": "בפרסום חדש מתוך Cloudflare Blog (Security & Engineering) על \"Probing DNS at Cloudflare\":\n\nAt Cloudflare we’ve built tools to enable teams to extend our internal testing framework and build test tooling for networking protocols. This is the story of how this was used for DNS.\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
     }
   ]
 }
