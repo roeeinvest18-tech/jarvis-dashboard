@@ -5473,6 +5473,11 @@ body::before {
   background: rgba(246, 173, 85, 0.12);
   border: 1px solid rgba(246, 173, 85, 0.32);
 }
+.pp-badge-track.is-ecommerce {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.34);
+}
 .pp-badge-meta {
   font-family: var(--font-mono);
   font-size: var(--fs-tag);
@@ -5484,6 +5489,27 @@ body::before {
 }
 .pp-cluster-card.is-lowtech {
   border-left: 2px solid #f6ad55;
+}
+.pp-cluster-card.is-ecommerce {
+  border-left: 2px solid #34d399;
+}
+.pp-econ-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: var(--sp-2) 0;
+}
+.pp-econ-pill {
+  font-size: var(--fs-tag);
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  border-radius: var(--r-sm);
+  padding: 2px 8px;
+}
+.pp-cluster-card.is-ecommerce .pp-lt-grid {
+  background: rgba(52, 211, 153, 0.03);
+  border-color: rgba(52, 211, 153, 0.18);
 }
 .pp-lt-grid {
   display: grid;

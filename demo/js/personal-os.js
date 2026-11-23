@@ -357,6 +357,7 @@ function osRenderPainpoints() {
 }
 
 function osPpTrack(c) {
+  if (c && c.track === 'ecommerce') return 'ecommerce';
   return c && c.track === 'lowtech' ? 'lowtech' : 'saas';
 }
 
@@ -373,6 +374,7 @@ function osPpCardHtml(c, isHe, dirAttr) {
   const S = STRINGS.painpoints;
   const track = osPpTrack(c);
   const isLow = track === 'lowtech';
+  const isEcom = track === 'ecommerce';
   const title = osPpPick(c, 'title', isHe);
   const who = osPpPick(c, 'who', isHe);
   const quote = osPpPick(c, 'quote', isHe);
@@ -403,6 +405,28 @@ function osPpCardHtml(c, isHe, dirAttr) {
         ${osPpRow(L.moat, osPpPick(c, 'moat', isHe))}
         ${osPpRow(L.pilot, osPpPick(c, 'launch_plan', isHe))}
       </div>`;
+  } else if (isEcom) {
+    const E = S.ecommerce;
+    const econPills = [
+      typeof c.retail_price_usd === 'number' ? E.retail(c.retail_price_usd) : '',
+      typeof c.cogs_usd === 'number' ? E.cogs(c.cogs_usd) : '',
+      typeof c.gross_margin_pct === 'number' ? E.margin(c.gross_margin_pct) : '',
+      typeof c.max_cac_usd === 'number' ? E.maxCac(c.max_cac_usd) : '',
+    ].filter(Boolean).map(p => `<span class="pp-econ-pill mono">${escapeHtml(p)}</span>`).join('');
+    body = `
+      ${econPills ? `<div class="pp-econ-strip" dir="ltr">${econPills}</div>` : ''}
+      <div class="pp-cluster-mvp">
+        ${osPpRow(S.solutionLabel, solution)}
+        ${osPpRow(E.aiUx, osPpPick(c, 'ai_experience', isHe))}
+        ${osPpRow(E.supplier, osPpPick(c, 'supplier_match', isHe))}
+      </div>
+      <div class="pp-lt-grid">
+        ${osPpRow(E.unitEcon, osPpPick(c, 'unit_economics', isHe))}
+        ${osPpRow(E.platforms, osPpPick(c, 'target_platforms', isHe))}
+        ${osPpRow(E.marketing, osPpPick(c, 'marketing_angle', isHe))}
+        ${osPpRow(E.firstCustomers, osPpPick(c, 'first_customers', isHe))}
+        ${osPpRow(E.launch, osPpPick(c, 'launch_plan', isHe))}
+      </div>`;
   } else {
     const pricing = osPpPick(c, 'pricing', isHe);
     const stack = osPpPick(c, 'tech_stack', isHe);
@@ -420,10 +444,13 @@ function osPpCardHtml(c, isHe, dirAttr) {
   const extraBadges = isLow ? [
     c.delivery_model && S.delivery[c.delivery_model],
     c.market && S.market[c.market],
-  ].filter(Boolean).map(t => `<span class="pp-badge-meta">${escapeHtml(t)}</span>`).join('') : '';
+  ].filter(Boolean).map(t => `<span class="pp-badge-meta">${escapeHtml(t)}</span>`).join('')
+    : isEcom ? [
+      c.product_type && S.ecomProductType[c.product_type],
+    ].filter(Boolean).map(t => `<span class="pp-badge-meta">${escapeHtml(t)}</span>`).join('') : '';
 
   return `
-    <article class="pp-cluster-card${isLow ? ' is-lowtech' : ''}" ${dirAttr}>
+    <article class="pp-cluster-card${isLow ? ' is-lowtech' : isEcom ? ' is-ecommerce' : ''}" ${dirAttr}>
       <div class="pp-cluster-head" dir="ltr">
         <span class="pp-badge-track is-${track}">${escapeHtml(S.trackBadge[track])}</span>
         <span class="pp-badge-cat">${escapeHtml(c.category || '')}</span>
@@ -446,7 +473,7 @@ function osPpCardHtml(c, isHe, dirAttr) {
       <div class="pp-metrics-bar" dir="ltr">
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.intensity ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.intensity)}</span></div>
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.frequency ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.frequency)}</span></div>
-        <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.ease_of_build ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(isLow ? S.lowtech.launchEase : S.metrics.ease)}</span></div>
+        <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.ease_of_build ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(isLow ? S.lowtech.launchEase : isEcom ? S.ecommerce.launchEase : S.metrics.ease)}</span></div>
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.low_competition ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.competition)}</span></div>
       </div>
       ${osRatingWidgetHtml('painpoint', c.title_en || title || 'pp-' + Math.random().toString(36).slice(2), title || '', { track: track, category: c.category || '' })}
@@ -470,14 +497,18 @@ function osPaintPainpoints(mount, data) {
   const bySource = stats.by_source
     ? Object.entries(stats.by_source).map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(String(v))}`).join(' · ')
     : '';
-  const counts = { all: data.clusters.length, saas: 0, lowtech: 0 };
+  const counts = { all: data.clusters.length, saas: 0, ecommerce: 0, lowtech: 0 };
   data.clusters.forEach(c => { counts[osPpTrack(c)] += 1; });
   const track = osPainpointsTrack;
   const shown = track === 'all' ? data.clusters : data.clusters.filter(c => osPpTrack(c) === track);
 
   const sumMain = isHe ? (data.summary_he || data.summary_en || '') : (data.summary_en || data.summary_he || '');
+  const sumEcom = isHe ? (data.summary_ecommerce_he || data.summary_ecommerce_en || '') : (data.summary_ecommerce_en || data.summary_ecommerce_he || '');
   const sumLow = isHe ? (data.summary_lowtech_he || data.summary_lowtech_en || '') : (data.summary_lowtech_en || data.summary_lowtech_he || '');
-  const summaries = track === 'saas' ? [sumMain] : track === 'lowtech' ? [sumLow] : [sumMain, sumLow];
+  const summaries = track === 'saas' ? [sumMain]
+    : track === 'ecommerce' ? [sumEcom]
+    : track === 'lowtech' ? [sumLow]
+    : [sumMain, sumEcom, sumLow];
 
   mount.innerHTML = `
     <div class="pp-toolbar">
@@ -489,7 +520,7 @@ function osPaintPainpoints(mount, data) {
     </div>
 
     <div class="os-window-tabs pp-track-tabs" role="tablist">
-      ${['all', 'saas', 'lowtech'].map(k => `
+      ${['all', 'saas', 'ecommerce', 'lowtech'].map(k => `
         <button type="button" role="tab" aria-selected="${k === track}" tabindex="${k === track ? '0' : '-1'}" class="os-window-btn${k === track ? ' is-active' : ''}" data-pp-track="${k}">
           ${escapeHtml(S.filters[k])} <span class="pp-track-count mono">${escapeHtml(S.filters.count(counts[k]))}</span>
         </button>`).join('')}
