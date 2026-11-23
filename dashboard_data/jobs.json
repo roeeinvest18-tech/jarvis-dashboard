@@ -1,305 +1,305 @@
 {
-  "generated_at": "2026-11-22T21:31:55.898107+00:00",
+  "generated_at": "2026-11-23T11:11:04.449909+00:00",
   "stats": {
-    "total_scanned": 114,
+    "total_scanned": 113,
     "matched_count": 14,
-    "ai_count": 14,
+    "ai_count": 11,
     "cyber_count": 0,
     "scraping_count": 0,
-    "web_count": 0
+    "web_count": 3
   },
   "jobs": [
     {
-      "id": "wwr-715470580",
-      "title": "Legion: Senior Deal Desk Manager",
+      "id": "wwr-671499292",
+      "title": "Netlify: Staff Software Engineer (Interfaces)",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/legion-senior-deal-desk-manager",
-      "posted_at": "Sun, 22 Nov 2026",
+      "url": "https://weworkremotely.com/remote-jobs/netlify-staff-software-engineer-interfaces",
+      "posted_at": "Thu, 19 Nov 2026",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 96,
       "skills": [
         "Ai",
-        "Automation",
-        "Workflow"
+        "Workflow",
+        "Mcp"
       ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Python and n8n backend orchestration connected to a Next.js control panel for deal data.\n3-Step MVP: Ingest deal parameters from CRM, run validation and margin rules via Python, and output approval states to the dashboard.\nFlow: CRM Webhook -> Python Validation Engine -> Next.js Status Dashboard",
-      "client_problem": "The client needs to scale their global deal desk into an automated, AI-native function for pricing and contracts.",
-      "proposal_draft": "I can help build the n8n workflows and custom Python services needed to automate your global deal approvals. Using a lean Next.js interface, we can tie your CPQ data directly into clean internal dashboards. What CRM or database endpoints are currently driving your deal desk pipeline?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Modular React and Next.js frontend communicating with a TypeScript backend layer via tRPC. \n3-Step MVP: 1. Scaffold core layout and design tokens using Tailwind. 2. Implement unified state management for agent and human interaction logs. 3. Integrate telemetry and error boundaries for real-time debugging. \nFlow: User or Agent Action -> React Component State -> TypeScript API Layer -> UI Update",
+      "client_problem": "Netlify needs a staff software engineer to help build and scale core product interfaces and React web applications for developers and AI agents.",
+      "proposal_draft": "I saw you are scaling the core React experience layer for developers and autonomous agents interacting with Netlify. I regularly build robust Next.js dashboards and custom web apps with a heavy focus on intuitive UI/UX and clean component architecture. How are you currently managing state synchronization between human users and agent workflows in your React client?"
     },
     {
-      "id": "jobicy-163890",
-      "title": "Senior Software Engineer (Platform Engineer), Cloud Governance (VTEX)",
+      "id": "jobicy-156567",
+      "title": "Sr. Engineer, Infrastructure Security (Zapier)",
       "platform": "Jobicy (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/163890-senior-software-engineer-platform-engineer-cloud-governance",
-      "posted_at": "2026-11-22",
+      "url": "https://jobicy.com/jobs/156567-sr-engineer-infrastructure-security",
+      "posted_at": "2026-11-23",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 96,
       "skills": [
         "Ai",
-        "Ai Agent",
+        "Ai Tool",
+        "Zapier",
         "Automation",
-        "Workflow"
+        "Gemini"
       ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Backstage portal extension backed by Python worker scripts and a React analytics frontend.\n3-Step MVP: Pull cost metrics via cloud APIs, run anomaly detection logic, and surface insights on a custom dashboard.\nFlow: Cloud Telemetry -> Python Anomaly Detector -> Backstage UI Dashboard",
-      "client_problem": "The client needs platform APIs, dashboards, and AI agents to track and optimize cloud infrastructure governance.",
-      "proposal_draft": "I build custom Backstage plugins, analytics dashboards, and AI agent monitoring loops to streamline cloud cost governance. We can set up automated remediation scripts that flag compliance drift and present clear metrics in a unified interface. How are you currently ingesting your raw cloud billing telemetry?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Python-based security auditing script integrated with n8n webhook triggers and a centralized monitoring dashboard. \n3-Step MVP: 1. Set up automated log ingestion for workflow triggers. 2. Implement role-based access control and token validation checks. 3. Build a real-time alert panel in Streamlit for anomaly detection. \nFlow: Webhook Event -> Python Security Validation -> Automated Alert or Log -> Dashboard Display",
+      "client_problem": "Zapier requires a senior infrastructure security engineer to secure their internal automation tools and AI platforms.",
+      "proposal_draft": "I saw you are scaling infrastructure security and safe internal automation practices at Zapier. I bring hands-on SOC Tier 1 experience and build secure Python and n8n backend workflows with strict access controls. How are you currently validating runtime permissions for external AI tool integrations?"
     },
     {
-      "id": "remoteok-1137955",
-      "title": "Staff Software Engineer, Agentic Tools (Cribl)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-staff-software-engineer-agentic-tools-cribl-1137955",
-      "posted_at": "2026-11-21",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 93,
-      "skills": [
-        "Ai",
-        "Workflow",
-        "Prompt"
-      ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Python agent runtime paired with an n8n processing pipeline and interactive analytics UI.\n3-Step MVP: Capture agent log streams, parse performance metrics with Python, and render health analytics in real time.\nFlow: Agent Logs -> Python Parser -> Analytics Dashboard",
-      "client_problem": "The client needs telemetry infrastructure and agentic tools that help enterprise teams manage AI workloads.",
-      "proposal_draft": "I build specialized agentic toolchains and data ingestion pipelines using Python and high-performance logging frameworks. We can set up automated diagnostic interfaces so your users can easily parse complex telemetry streams. What specific telemetry data formats do your agents output most frequently?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137879",
-      "title": "Manager, Business Risk and AI Automation (Reddit)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-manager-business-risk-and-ai-automation-reddit-1137879",
-      "posted_at": "2026-11-20",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 93,
-      "skills": [
-        "Ai",
-        "Ai Automation",
-        "Automation"
-      ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Python risk-scoring microservice integrated with automated alert dispatchers and an admin dashboard.\n3-Step MVP: Ingest operational events, run risk evaluation algorithms, and trigger instant notifications for outliers.\nFlow: Event Stream -> Python Risk Engine -> Admin Alert UI",
-      "client_problem": "The client requires business risk management frameworks combined with automated AI operational workflows.",
-      "proposal_draft": "I can help design automated risk assessment workflows and internal dashboards to monitor operational compliance. Using Python and secure webhook automation, we can flag anomalies across large datasets instantly. What standard metrics dictate your current risk scoring matrix?\n\nBest,\nRoee"
-    },
-    {
-      "id": "jobicy-163859",
-      "title": "Director, Finance Systems & ERP (Smartsheet)",
+      "id": "jobicy-156674",
+      "title": "Principal Product Manager, HTS API Marketplace (Hopper)",
       "platform": "Jobicy (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/163859-director-finance-systems-erp-2",
-      "posted_at": "2026-11-22",
+      "url": "https://jobicy.com/jobs/156674-principal-product-manager-hts-api-marketplace",
+      "posted_at": "2026-11-23",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 92,
+      "match_score": 93,
+      "skills": [
+        "Ai",
+        "Ai Tool",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Next.js frontend paired with a Python FastAPI backend and interactive UI components built in Figma. \n3-Step MVP: 1. Design developer portal wireframes and token management UI. 2. Implement API key provisioning and usage tracking endpoints. 3. Build an analytics dashboard displaying real-time request metrics. \nFlow: Developer Request -> FastAPI Gateway -> Usage Metering Database -> Analytics Dashboard",
+      "client_problem": "Hopper is seeking a principal product manager to build and scale their new HTS API marketplace from the ground up.",
+      "proposal_draft": "I noticed you are building the HTS API marketplace as a 0-to-1 platform for enterprise travel capabilities. I design developer-facing portals and interactive API dashboards with a strong emphasis on clean UX and practical architecture. What pricing and packaging models are you leaning toward for initial enterprise developer onboarding?"
+    },
+    {
+      "id": "jobicy-156663",
+      "title": "Solutions Manager- (German Fluency) (Zip)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://jobicy.com/jobs/156663-solutions-manager-german-fluency",
+      "posted_at": "2026-11-23",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 93,
       "skills": [
         "Ai",
         "Ai Agent",
+        "Openai"
+      ],
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: n8n workflow automation engine connected to a Python backend and a React administrative control panel. \n3-Step MVP: 1. Map out multi-step procurement approval logic in n8n. 2. Build custom Python scripts for data transformation and supplier validation. 3. Create a clean admin dashboard for tracking agent actions. \nFlow: Supplier Input -> n8n Orchestration -> Python Validation Agent -> Admin Dashboard",
+      "client_problem": "Zip needs a bilingual solutions manager to support their AI-driven enterprise procurement orchestration platform.",
+      "proposal_draft": "I saw you are scaling AI-driven procurement orchestration workflows for enterprise clients across multiple regions. I build custom AI agents, automated n8n pipelines, and data-driven dashboards that streamline complex business processes. What backend triggers do you use to hand off procurement data between human approvers and AI agents?"
+    },
+    {
+      "id": "remoteok-1137970",
+      "title": "Sr. Forward Deployed Data Engineer (Natera)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-sr-forward-deployed-data-engineer-natera-1137970",
+      "posted_at": "2026-11-22",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 93,
+      "skills": [
+        "Ai",
+        "Llm",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Python ingestion pipeline feeding a structured SQL data warehouse, rendered via an interactive analytics dashboard. \n3-Step MVP: 1. Build robust data cleaning scripts using Pandas. 2. Set up automated ETL pipelines for clinical datasets. 3. Develop an analytics web interface using Streamlit or Next.js. \nFlow: Raw Clinical Data -> Python ETL Pipeline -> SQL Database -> Interactive UI",
+      "client_problem": "Natera requires a senior forward deployed data engineer to build clinical data platforms and enterprise AI systems.",
+      "proposal_draft": "I noticed you are expanding data and AI systems to turn clinical and genomic information into actionable products. I build custom Python data pipelines and interactive analytics dashboards that translate complex datasets into clear insights. What data warehouse tools are you using to aggregate genomic and operational records?"
+    },
+    {
+      "id": "arbeitnow-ui-ux-designer-mit-product-design-erfahrung-im-saas-umfeld-berlin-67875",
+      "title": "UI/UX Designer mit Product-Design-Erfahrung im SaaS-Umfeld (Cannaleo Digital GmbH)",
+      "platform": "Arbeitnow Remote (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://www.arbeitnow.com/jobs/companies/cannaleo-digital-gmbh/ui-ux-designer-mit-product-design-erfahrung-im-saas-umfeld-berlin-67875",
+      "posted_at": "Recent",
+      "budget": "Remote",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 92,
+      "skills": [
+        "Dashboard",
+        "Figma",
+        "Ux Design",
+        "Ui/Ux",
+        "Web Design"
+      ],
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Design systems built in Figma exported into responsive Next.js components with Tailwind CSS. \n3-Step MVP: 1. Audit current pharmacy ordering bottlenecks and design high-fidelity wireframes. 2. Build a unified component library for rapid UI iteration. 3. Implement interactive prototypes for user testing. \nFlow: User Journey -> Figma Component System -> Next.js Implementation -> Usability Feedback",
+      "client_problem": "Cannaleo Digital needs a UI/UX designer with SaaS product experience to optimize digital systems for pharmacies and medical partners.",
+      "proposal_draft": "I saw you are scaling digital software solutions and ordering systems for medical cannabis pharmacies and healthcare providers. I design clean SaaS interfaces, admin panels, and user workflows using Figma and modern frontend stacks. How are you currently testing new ordering flows with your pharmacy partners?"
+    },
+    {
+      "id": "hn-50445335",
+      "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
+      "platform": "HackerNews Freelance (Live)",
+      "track": "web_dashboards",
+      "url": "https://news.ycombinator.com/item?id=50445335",
+      "posted_at": "2026-11-10",
+      "budget": "Direct Contract / Freelance",
+      "budget_type": "contract",
+      "budget_val": 0,
+      "match_score": 90,
+      "skills": [
+        "Ui/Ux",
+        "Full Stack"
+      ],
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Full-stack Next.js application backed by a modular TypeScript or Python API service. \n3-Step MVP: 1. Review existing repository architecture and setup development containers. 2. Build critical missing user flows and dashboard components. 3. Deploy staging environments for rapid client review. \nFlow: Client Request -> Next.js Frontend -> API Service -> Database Storage",
+      "client_problem": "A client is looking for a full-stack engineer and SaaS specialist with strong UI/UX capabilities for contract work.",
+      "proposal_draft": "I saw your contract opening for a full-stack engineer and SaaS specialist with strong UI/UX expertise. I build end-to-end web applications, modern dashboards, and responsive interfaces using Next.js, Python, and Tailwind. What is the primary tech stack of the existing codebase you need help scaling?"
+    },
+    {
+      "id": "wwr-460483319",
+      "title": "Descript: Software Engineer, Product",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/descript-software-engineer-product",
+      "posted_at": "Mon, 23 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: React-based frontend application with WebAssembly modules for media processing and real-time state synchronization. \n3-Step MVP: 1. Profile current rendering bottlenecks in the editor timeline. 2. Optimize component re-renders using memoization and virtualized lists. 3. Implement automated performance regression tests. \nFlow: User Edit -> React State Update -> WebAssembly Engine -> Rendered Timeline",
+      "client_problem": "Descript is seeking a product software engineer to own video editor workflows from initial concept to shipped results.",
+      "proposal_draft": "I noticed you are looking for product engineers to take complex media editing workflows from idea to shipped code. I build performant interactive web apps and custom interfaces with a strong focus on frontend responsiveness. How do you handle performance optimization for heavy DOM rendering in your timeline editor?"
+    },
+    {
+      "id": "wwr-475871935",
+      "title": "Celonis: Lead Applied Value Engineer",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/celonis-lead-applied-value-engineer",
+      "posted_at": "Mon, 23 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Agent"
+      ],
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Python data ingestion scripts linked to an n8n processing layer and a custom analytics dashboard. \n3-Step MVP: 1. Build connectors to pull transactional logs from enterprise systems. 2. Process and normalize event data using Python pandas. 3. Render process digital twins on an interactive web dashboard. \nFlow: Enterprise Event Logs -> Python Ingestion -> n8n Transform -> Analytics Dashboard",
+      "client_problem": "Celonis needs a lead applied value engineer to industrialize enterprise AI and build digital twins of business processes.",
+      "proposal_draft": "I saw you are helping enterprises build digital twins and operational AI models using process data. I build automated workflows, data pipelines, and interactive analytics dashboards that translate raw metrics into business value. What data connectors are you primarily using to ingest process logs into the Celonis context model?"
+    },
+    {
+      "id": "wwr-278486797",
+      "title": "Gusto, Inc.: Staff Product Designer",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/gusto-inc-staff-product-designer",
+      "posted_at": "Sat, 21 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Tool"
+      ],
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Scalable Figma component library paired with token synchronization pipelines for engineering handoff. \n3-Step MVP: 1. Audit current payroll form flows for user friction. 2. Design streamlined multi-step wizard components in Figma. 3. Export design tokens for seamless Next.js integration. \nFlow: UX Research -> Figma Design System -> Token Export -> Frontend Implementation",
+      "client_problem": "Gusto is hiring a staff product designer to help scale HR, payroll, and benefits software for small businesses.",
+      "proposal_draft": "I saw you are designing intuitive financial and HR workflows to simplify payroll and benefits for small businesses. I design clear, human-centric SaaS dashboards and admin panels with a strong emphasis on user clarity. What tools are your product teams using to maintain and distribute your design system components?"
+    },
+    {
+      "id": "wwr-625032155",
+      "title": "No Sweat Work Media: Remote High-End Automotive AI Retoucher | South Africa | R700 per hour or project fee | Ad hoc work in 2027",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/no-sweat-work-media-remote-high-end-automotive-ai-retoucher-south-africa-r700-per",
+      "posted_at": "Sat, 21 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Tool"
+      ],
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Python script automation pipeline using OpenCV and Stable Diffusion APIs for high-resolution image retouching. \n3-Step MVP: 1. Set up batch image preprocessing scripts for raw vehicle shots. 2. Integrate AI enhancement models for high-end surface detailing. 3. Build a simple review interface for quick quality checks. \nFlow: Raw Image Input -> Python Batch Script -> AI Enhancement -> Output Review UI",
+      "client_problem": "No Sweat Work Media requires a remote high-end automotive AI retoucher for ad hoc freelance work in South Africa.",
+      "proposal_draft": "I noticed you are looking for a South Africa-based automotive retoucher for premium vehicle visuals. While my core focus is software engineering and AI automation, I frequently build custom media processing pipelines and generative visual workflows. What resolution and format standards do your automotive clients typically require for final delivery?"
+    },
+    {
+      "id": "wwr-481742976",
+      "title": "Elation Health: Head of Design",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/elation-health-head-of-design",
+      "posted_at": "Fri, 20 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
         "Automation",
         "Workflow"
       ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: n8n integration hub connecting ERP APIs to a modular Python processing and agent layer.\n3-Step MVP: Extract transactional data from ERP, execute automated reconciliation rules, and display results on a custom panel.\nFlow: ERP Data -> n8n / Python Pipeline -> Finance Dashboard",
-      "client_problem": "The client needs to integrate AI agents and financial systems to automate manual enterprise workflows.",
-      "proposal_draft": "I build custom integration layers and orchestration workflows that connect enterprise financial software with AI processing agents. We can design streamlined analytics dashboards to track automation performance across your ERP datasets. Which ERP platform are you currently using for your core financial data?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: HIPAA-compliant React and Next.js frontend paired with a secure Python backend and structured PostgreSQL database. \n3-Step MVP: 1. Map out streamlined primary care charting workflows in Figma. 2. Build secure, accessible form components for patient data entry. 3. Implement audit logging for compliance tracking. \nFlow: Clinical Input -> React Form Component -> Secure Python API -> Encrypted Storage",
+      "client_problem": "Elation Health needs a head of design to lead technology and workflows for independent primary care practices.",
+      "proposal_draft": "I saw you are building clinical-first electronic health record tools and intelligent automation for primary care practices. I design clean healthcare interfaces, dashboards, and automated clinical workflows that reduce administrative friction. How are clinicians currently providing feedback on your primary care EHR workflows?"
     },
     {
-      "id": "remoteok-1137944",
-      "title": "Enterprise Performance Lead (Clover Health)",
+      "id": "remoteok-1137951",
+      "title": "Revenue Operations Leader, Strategy & Planning (Contentstack)",
       "platform": "RemoteOK (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-enterprise-performance-lead-clover-health-1137944",
+      "url": "https://remoteOK.com/remote-jobs/remote-revenue-operations-leader-strategy-planning-contentstack-1137951",
       "posted_at": "2026-11-21",
       "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 92,
+      "match_score": 87,
       "skills": [
         "Ai",
-        "Gemini",
-        "Claude",
-        "Chatgpt",
+        "Ai Tool",
         "Workflow"
       ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Python data transformation engine paired with a responsive Next.js performance analytics interface.\n3-Step MVP: Aggregate data from disparate healthcare operational feeds, calculate key performance indicators, and render charts.\nFlow: Raw Data Feeds -> Python ETL Script -> Next.js Analytics UI",
-      "client_problem": "The client needs advanced analytics and AI integration to monitor financial and operational performance in healthcare.",
-      "proposal_draft": "I can build custom data analytics dashboards and automated Python pipelines to unify your operational metrics. We can structure clean visualization layers that make complex financial insights immediately actionable. What database or data warehouse hosts your current performance metrics?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: n8n automation engine syncing data between CRM endpoints and a centralized PostgreSQL analytics database. \n3-Step MVP: 1. Connect CRM webhooks to automated n8n synchronization flows. 2. Build data normalization scripts in Python for pipeline reporting. 3. Create an executive RevOps dashboard in Streamlit. \nFlow: CRM Event -> n8n Webhook -> Python Normalization -> RevOps Dashboard",
+      "client_problem": "Contentstack is seeking a revenue operations leader to drive strategy for their agentic experience platform and AI orchestration tools.",
+      "proposal_draft": "I saw you are scaling go-to-market operations for autonomous AI orchestration and headless content platforms. I build custom n8n automation workflows and operational analytics dashboards that track revenue funnels and pipeline health. Which CRM and data warehouse platforms form the core of your current RevOps stack?"
     },
     {
-      "id": "remoteok-1137932",
-      "title": "Senior Staff Machine Learning Engineer, Ads Ranking (Reddit)",
+      "id": "remoteok-1137928",
+      "title": "Senior Product Design Manager (LastPass)",
       "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-senior-staff-machine-learning-engineer-ads-ranking-reddit-1137932",
+      "track": "web_dashboards",
+      "url": "https://remoteOK.com/remote-jobs/remote-senior-product-design-manager-lastpass-1137928",
       "posted_at": "2026-11-21",
       "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 92,
+      "match_score": 87,
       "skills": [
-        "Ai",
-        "Claude",
-        "Workflow",
-        "Cursor"
+        "Product Design",
+        "Design System",
+        "Website"
       ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Distributed Python inference service with optimized feature caching and monitoring dashboards.\n3-Step MVP: Receive ad request payloads, compute ranking features via microservices, and return sorted candidates.\nFlow: Ad Request -> Python Ranking API -> Scored Ad Output",
-      "client_problem": "The client needs high-performance machine learning engineering for ad ranking systems at scale.",
-      "proposal_draft": "I can build robust data processing pipelines and backend inference services to support high-throughput ranking systems. We can optimize feature extraction flows to ensure low-latency model responses under heavy traffic. What framework are you currently using for your ad ranking model serving?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-884125753",
-      "title": "Doximity: Senior Software Engineer, Data Platform",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/doximity-senior-software-engineer-data-platform",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Workflow"
-      ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: HIPAA-compliant Python backend paired with a streamlined Next.js clinician workspace.\n3-Step MVP: Accept clinical inputs, process data through secure AI transcription or parsing APIs, and output structured notes.\nFlow: Clinical Input -> Python Backend -> Structured Output UI",
-      "client_problem": "The client needs clinical AI workflow platforms that boost productivity for medical professionals.",
-      "proposal_draft": "I build secure healthcare workflow automations and clinician-facing interfaces that integrate smoothly with existing health systems. We can use Python and custom API wrappers to ensure fast, reliable data handling. What clinical data standards do your current integration pipelines rely on?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-352494648",
-      "title": "Oddball: Senior Integration Engineer",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/oddball-senior-integration-engineer",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Claude"
-      ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Secure Python integration service with automated data validation and logging modules.\n3-Step MVP: Authenticate against federal endpoints, sync legacy data formats, and validate payloads automatically.\nFlow: Legacy Source -> Python Integration Service -> Target API Endpoint",
-      "client_problem": "The client needs reliable software integration engineering for federal digital systems and data platforms.",
-      "proposal_draft": "I specialize in building secure API integration layers and automated data pipelines for complex government software systems. We can implement strict monitoring and logging to guarantee high availability across federal endpoints. What authentication protocol do your target federal APIs require?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-803743952",
-      "title": "Oddball: Integration Engineer",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/oddball-integration-engineer",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Claude"
-      ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Modular Python middleware containerized for secure cloud deployment.\n3-Step MVP: Connect to source databases, map schema structures using automated scripts, and stream data to endpoints.\nFlow: Source DB -> Python Middleware -> Destination System",
-      "client_problem": "The client needs integration engineering support to build and maintain federal software systems.",
-      "proposal_draft": "I can help design and deploy custom integration services and data syncing pipelines for federal technology initiatives. Using Python and robust API wrappers, we can ensure seamless data flow between legacy and modern systems. Are your legacy systems exposed via standard REST APIs or SOAP endpoints?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-661645657",
-      "title": "Celonis: Applied AI Value Consultant",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/celonis-applied-ai-value-consultant",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Ai Agent"
-      ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: n8n workflow automation engine combined with a Python data processing script and React UI.\n3-Step MVP: Ingest process event logs, analyze bottlenecks via Python algorithms, and display metrics on a dashboard.\nFlow: Event Logs -> Python Analysis -> Enterprise Dashboard",
-      "client_problem": "The client needs enterprise AI value consulting and process intelligence models to operationalize AI agents.",
-      "proposal_draft": "I build custom process automation workflows and monitoring dashboards that help tie enterprise data to AI agents. We can use Python and n8n to turn raw event logs into actionable operational insights. What data formats are you exporting from your current process mining tools?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-112600759",
-      "title": "Smartsheet: Sr. Data Scientist II (Remote Eligible)",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/smartsheet-sr-data-scientist-ii-remote-eligible",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Ai Agent"
-      ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Python data science pipeline integrated with automated reporting scripts.\n3-Step MVP: Pull operational datasets, run predictive analytics models, and generate summarized output reports.\nFlow: Raw Dataset -> Python Model -> Output Report",
-      "client_problem": "The client needs data science capabilities and automated AI agents to scale workplace productivity solutions.",
-      "proposal_draft": "I can help build advanced data science pipelines and automated AI workflows to support scalable workplace applications. Using Python and custom machine learning models, we can extract actionable metrics from large datasets. What specific machine learning libraries make up your core tech stack?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-828567962",
-      "title": "CircleCI: Staff Software Engineer, On-Prem",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/circleci-staff-software-engineer-on-prem",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Ai Agent"
-      ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Containerized Python backend with a real-time Next.js developer dashboard.\n3-Step MVP: Monitor CI/CD pipeline event streams, parse agent actions, and visualize build states on a local UI.\nFlow: Pipeline Events -> Backend Parser -> Developer Dashboard",
-      "client_problem": "The client needs on-premise developer interfaces and management tools for AI-driven CI/CD pipeline automation.",
-      "proposal_draft": "I build custom developer dashboards and local orchestration tools designed to make AI agent pipelines transparent. Using Next.js and containerized backend services, we can build clean interfaces for monitoring automated code fixes. How are your on-premise runners currently communicating with your control plane?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-964578397",
-      "title": "Smartsheet: Sr. Software Engineer I (Remote Eligible)",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/smartsheet-sr-software-engineer-i-remote-eligible",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Ai Agent"
-      ],
-      "first_seen_at": "2026-11-22T21:31:55.898107+00:00",
-      "poc_blueprint": "Architecture: Python API microservice connected to a responsive Next.js frontend application.\n3-Step MVP: Handle user action triggers, process workflow rules via backend services, and update the UI state.\nFlow: User Action -> Python Service -> Next.js UI Update",
-      "client_problem": "The client needs software engineering support to build collaborative work automation platforms and AI agents.",
-      "proposal_draft": "I can help develop scalable backend services and user interfaces for automated team workflow solutions. Using Python and Next.js, we can build responsive tools that integrate AI assistance directly into user tasks. What backend frameworks power your primary collaboration services right now?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T11:11:04.449909+00:00",
+      "poc_blueprint": "Architecture: Modular Figma design system paired with secure React components for browser extension interfaces. \n3-Step MVP: 1. Audit current credential management flows for usability bottlenecks. 2. Design simplified multi-factor authentication and vault management screens. 3. Test prototype interactions with security stakeholders. \nFlow: User Action -> Figma Wireframe -> React Extension UI -> Security Validation",
+      "client_problem": "LastPass needs a senior product design manager to lead browser-based security and credential management user experience.",
+      "proposal_draft": "I saw you are leading product design for browser-based security tools that protect enterprise credentials and user access. I design security dashboards, admin panels, and credential management interfaces with a strong focus on reducing user friction. What metrics do you track to measure the success of your browser extension onboarding flows?"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-22T21:32:43.916794+00:00",
-  "date": "2026-11-22",
+  "generated_at": "2026-11-23T11:11:24.192160+00:00",
+  "date": "2026-11-23",
   "market": {
     "regime": "DEFENSIVE",
     "top3": [
@@ -32,22 +32,22 @@
   },
   "jobs": [
     {
-      "title": "Legion: Senior Deal Desk Manager",
+      "title": "Netlify: Staff Software Engineer (Interfaces)",
       "platform": "WeWorkRemotely (Live Cloud)",
       "match_score": 96,
       "has_poc": true
     },
     {
-      "title": "Senior Software Engineer (Platform Engineer), Cloud Governance (VTEX)",
+      "title": "Sr. Engineer, Infrastructure Security (Zapier)",
       "platform": "Jobicy (Live Cloud)",
       "match_score": 96,
       "has_poc": true
     }
   ],
   "content": {
-    "topic": "OpenRouter Drops 3 Providers After Prompt Theft",
+    "topic": "Backporting security fixes at scale with Codex",
     "category": "cyber_soc",
-    "opening_hook": "הגדרתם Zero Data Retention בבקשות ה AI שלכם והייתם בטוחים שהטוקנים נמחקים מיד?"
+    "opening_hook": "הצוותים שמחזיקים את תשתיות הקוד הפתוח בעולם קורסים תחת עומס הבאקפורטינג של תיקוני אבטחה."
   },
   "painpoint": {
     "title_en": "AI Resume Spam Filtering and Intent Scoring for Overwhelmed Recruiters",
