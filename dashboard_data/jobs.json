@@ -1,83 +1,129 @@
 {
-  "generated_at": "2026-11-23T16:09:02.258203+00:00",
+  "generated_at": "2026-11-23T17:08:45.988908+00:00",
   "stats": {
-    "total_scanned": 124,
+    "total_scanned": 122,
     "matched_count": 14,
-    "ai_count": 11,
+    "ai_count": 13,
     "cyber_count": 0,
     "scraping_count": 0,
-    "web_count": 3
+    "web_count": 1
   },
   "jobs": [
     {
-      "id": "wwr-240190097",
-      "title": "Netlify: Staff Software Engineer (Interfaces)",
+      "id": "wwr-856229753",
+      "title": "Legion: Senior Deal Desk Manager",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/netlify-staff-software-engineer-interfaces",
-      "posted_at": "Thu, 19 Nov 2026",
+      "url": "https://weworkremotely.com/remote-jobs/legion-senior-deal-desk-manager",
+      "posted_at": "Sun, 22 Nov 2026",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 96,
       "skills": [
         "Ai",
-        "Workflow",
-        "Mcp"
+        "Automation",
+        "Workflow"
       ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Workflow, Mcp).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Headquarters: Remote About the Team As a Staff Software Engineer at Netlify, you'll join a collaborative team that values continuous learning, mutual support, and shared growth. Together, we create tools that help develo",
-      "proposal_draft": "Hi,\n\nI read the brief for Netlify: Staff Software Engineer (Interfaces). I design and build custom dashboards, clean web interfaces, and Ai, Workflow, Mcp systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Automation, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Headquarters: Remote, United States JOB OVERVIEW The Senior Deal Desk Manager is a senior individual contributor role responsible for how Legion prices, structures, approves, and contracts global deals across every regio",
+      "proposal_draft": "Hi,\n\nI read the brief for Legion: Senior Deal Desk Manager. I design and build custom dashboards, clean web interfaces, and Ai, Automation, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "remoteok-1137970",
-      "title": "Sr. Forward Deployed Data Engineer (Natera)",
+      "id": "jobicy-163921",
+      "title": "AI Engineer (Makai Labs)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://jobicy.com/jobs/163921-ai-engineer-6",
+      "posted_at": "2026-11-23",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 93,
+      "skills": [
+        "Ai",
+        "Automation",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Automation, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "AI Engineer Who we are Makai Labs builds software that automates entire companies. We work across a diversified portfolio, which means our systems touch a wide range of domains, processes, and operational constraints. Ou",
+      "proposal_draft": "Hi,\n\nI read the brief for AI Engineer (Makai Labs). I design and build custom dashboards, clean web interfaces, and Ai, Automation, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "remoteok-1137955",
+      "title": "Staff Software Engineer, Agentic Tools (Cribl)",
       "platform": "RemoteOK (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-sr-forward-deployed-data-engineer-natera-1137970",
-      "posted_at": "2026-11-22",
+      "url": "https://remoteOK.com/remote-jobs/remote-staff-software-engineer-agentic-tools-cribl-1137955",
+      "posted_at": "2026-11-21",
       "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 93,
       "skills": [
         "Ai",
-        "Llm",
+        "Workflow",
+        "Prompt"
+      ],
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Workflow, Prompt).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Join the company thatâs building the telemetry infrastructure for the AI era. At Cribl, we partner with IT and Security teams at many of the worldâs biggest enterprises, including half of the Fortune 100, to bridge t",
+      "proposal_draft": "Hi,\n\nI read the brief for Staff Software Engineer, Agentic Tools (Cribl). I design and build custom dashboards, clean web interfaces, and Ai, Workflow, Prompt systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "remoteok-1137944",
+      "title": "Enterprise Performance Lead (Clover Health)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-enterprise-performance-lead-clover-health-1137944",
+      "posted_at": "2026-11-21",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 92,
+      "skills": [
+        "Ai",
+        "Gemini",
+        "Claude",
+        "Chatgpt",
         "Workflow"
       ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Llm, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "POSITION SUMMARY: Natera is a global leader in cell-free DNA testing, serving patients across oncology, womenâs health, and organ health. Our Data & AI organization builds the enterprise data platform and AI systems th",
-      "proposal_draft": "Hi,\n\nI read the brief for Sr. Forward Deployed Data Engineer (Natera). I design and build custom dashboards, clean web interfaces, and Ai, Llm, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Gemini, Claude).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Clover is reinventing health insurance by working to keep people healthier. The Actuarial Strategic Operations team serves as the operational and financial nerve center for Clover's Medicare Advantage business. Embedded",
+      "proposal_draft": "Hi,\n\nI read the brief for Enterprise Performance Lead (Clover Health). I design and build custom dashboards, clean web interfaces, and Ai, Gemini, Claude systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "hn-50445335",
-      "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
-      "platform": "HackerNews Freelance (Live)",
-      "track": "web_dashboards",
-      "url": "https://news.ycombinator.com/item?id=50445335",
-      "posted_at": "2026-11-10",
-      "budget": "Direct Contract / Freelance",
-      "budget_type": "contract",
+      "id": "remoteok-1137932",
+      "title": "Senior Staff Machine Learning Engineer, Ads Ranking (Reddit)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-senior-staff-machine-learning-engineer-ads-ranking-reddit-1137932",
+      "posted_at": "2026-11-21",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 90,
+      "match_score": 92,
       "skills": [
-        "Ui/Ux",
-        "Full Stack"
+        "Ai",
+        "Claude",
+        "Workflow",
+        "Cursor"
       ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ui/Ux, Full Stack).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Full Stack Engineer + UI/UX & SaaS specialist. Was recently part of a mass layoff by a major tech company. You can checkout my profile and reach out at https://mwathek.com The site includes my portfolio, resume, letters",
-      "proposal_draft": "Hi,\n\nI read the brief for HN Contract: Full Stack Engineer + UI/UX & SaaS specialist. I design and build custom dashboards, clean web interfaces, and Ui/Ux, Full Stack systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Claude, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Reddit is a community of communities. Itâs built on shared interests, passion, and trust, and is home to the most open and authentic conversations on the internet. Every day, Reddit users submit, vote, and comment on t",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior Staff Machine Learning Engineer, Ads Ranking (Reddit). I design and build custom dashboards, clean web interfaces, and Ai, Claude, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-807990627",
-      "title": "Descript: Software Engineer, Product",
+      "id": "wwr-178518188",
+      "title": "Doximity: Senior Software Engineer, Data Platform",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/descript-software-engineer-product",
-      "posted_at": "Mon, 23 Nov 2026",
+      "url": "https://weworkremotely.com/remote-jobs/doximity-senior-software-engineer-data-platform",
+      "posted_at": "Sun, 22 Nov 2026",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
@@ -86,18 +132,58 @@
         "Ai",
         "Workflow"
       ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
       "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Headquarters: San Francisco, CA or Remote, US Product engineering at Descript means owning outcomes, not just tickets , you'll take a problem from a rough idea to a shipped, measured result, working closely with product,",
-      "proposal_draft": "Hi,\n\nI read the brief for Descript: Software Engineer, Product. I design and build custom dashboards, clean web interfaces, and Ai, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "Headquarters: San Francisco, CA or Remote (U.S.) Location : This role is remote in the United States, Canada, or some countries in South America. Visa sponsorship is not available for this role. Doximity is the leading c",
+      "proposal_draft": "Hi,\n\nI read the brief for Doximity: Senior Software Engineer, Data Platform. I design and build custom dashboards, clean web interfaces, and Ai, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-977893850",
-      "title": "Celonis: Lead Applied Value Engineer",
+      "id": "wwr-234219985",
+      "title": "Oddball: Senior Integration Engineer",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/celonis-lead-applied-value-engineer",
-      "posted_at": "Mon, 23 Nov 2026",
+      "url": "https://weworkremotely.com/remote-jobs/oddball-senior-integration-engineer",
+      "posted_at": "Sun, 22 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Claude"
+      ],
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Claude).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Headquarters: URL: https://www.oddball.io Oddball believes that the best products are built when companies understand and value the things they are working on. We value learning and growth and the ability to make a big i",
+      "proposal_draft": "Hi,\n\nI read the brief for Oddball: Senior Integration Engineer. I design and build custom dashboards, clean web interfaces, and Ai, Claude systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-121464190",
+      "title": "Oddball: Integration Engineer",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/oddball-integration-engineer",
+      "posted_at": "Sun, 22 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Claude"
+      ],
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Claude).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Headquarters: URL: https://www.oddball.io Oddball believes that the best products are built when companies understand and value the things they are working on. We value learning and growth and the ability to make a big i",
+      "proposal_draft": "Hi,\n\nI read the brief for Oddball: Integration Engineer. I design and build custom dashboards, clean web interfaces, and Ai, Claude systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-113657810",
+      "title": "Celonis: Applied AI Value Consultant",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/celonis-applied-ai-value-consultant",
+      "posted_at": "Sun, 22 Nov 2026",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
@@ -106,119 +192,79 @@
         "Ai",
         "Ai Agent"
       ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
       "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Agent).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Headquarters: Remote, United Arab Emirates Celonis is the trusted platform to industrialize Enterprise AI. At our core is the Celonis Context Model , which combines process data, business knowledge, and intelligence into",
-      "proposal_draft": "Hi,\n\nI read the brief for Celonis: Lead Applied Value Engineer. I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "Headquarters: Remote, Canada Celonis is the trusted platform to industrialize Enterprise AI. At our core is the Celonis Context Model , which combines process data, business knowledge, and intelligence into a living digi",
+      "proposal_draft": "Hi,\n\nI read the brief for Celonis: Applied AI Value Consultant. I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-295426375",
-      "title": "Gusto, Inc.: Staff Product Designer",
+      "id": "wwr-201242434",
+      "title": "Smartsheet: Sr. Software Engineer I (Remote Eligible)",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/gusto-inc-staff-product-designer",
-      "posted_at": "Sat, 21 Nov 2026",
+      "url": "https://weworkremotely.com/remote-jobs/smartsheet-sr-software-engineer-i-remote-eligible",
+      "posted_at": "Sun, 22 Nov 2026",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 89,
       "skills": [
         "Ai",
-        "Ai Tool"
+        "Ai Agent"
       ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Tool).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Headquarters: Atlanta, GA - Hybrid; Denver, CO - Hybrid; New York, NY - Hybrid; San Francisco, CA - Hybrid; Toronto, Ontario - Remote About Gusto At Gusto, we're on a mission to grow the small business economy. We handle",
-      "proposal_draft": "Hi,\n\nI read the brief for Gusto, Inc.: Staff Product Designer. I design and build custom dashboards, clean web interfaces, and Ai, Ai Tool systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Agent).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Headquarters: -REMOTE, USA- For over 20 years, Smartsheet has empowered teams to manage work seamlessly and scale solutions smarter. Now, in our most ambitious chapter yet, we are uniting human teams with AI agents. By o",
+      "proposal_draft": "Hi,\n\nI read the brief for Smartsheet: Sr. Software Engineer I (Remote Eligible). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-267401579",
-      "title": "No Sweat Work Media: Remote High-End Automotive AI Retoucher | South Africa | R700 per hour or project fee | Ad hoc work in 2027",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/no-sweat-work-media-remote-high-end-automotive-ai-retoucher-south-africa-r700-per",
-      "posted_at": "Sat, 21 Nov 2026",
+      "id": "jobicy-163951",
+      "title": "Product Designer (UI/UX) (BJAK)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/163951-product-designer-ui-ux",
+      "posted_at": "2026-11-23",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 89,
+      "match_score": 87,
       "skills": [
-        "Ai",
-        "Ai Tool"
+        "Ux Design",
+        "Ui/Ux",
+        "Product Design"
       ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Tool).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Headquarters: URL: https://www.nosweat.co.za This is a remote position. High-End Automotive AI Retoucher (freelance, remote) Location: Remote, South African-based applicants only Type: Ongoing ad hoc freelance work in 20",
-      "proposal_draft": "Hi,\n\nI read the brief for No Sweat Work Media: Remote High-End Automotive AI Retoucher | South Africa | R700 per hour or project fee | Ad hoc work in 2027. I design and build custom dashboards, clean web interfaces, and Ai, Ai Tool systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ux Design, Ui/Ux, Product Design).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "About BJAK The original mission of BJAK is we believe people deserve smarter ways to plan, save and grow their money. This is the origin of our name. Started in 2019, we built the first mobile-first, insurance platform,",
+      "proposal_draft": "Hi,\n\nI read the brief for Product Designer (UI/UX) (BJAK). I design and build custom dashboards, clean web interfaces, and Ux Design, Ui/Ux, Product Design systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-36215288",
-      "title": "Elation Health: Head of Design",
-      "platform": "WeWorkRemotely (Live Cloud)",
+      "id": "jobicy-163918",
+      "title": "Senior Software Engineer (Makai Labs)",
+      "platform": "Jobicy (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/elation-health-head-of-design",
-      "posted_at": "Fri, 20 Nov 2026",
+      "url": "https://jobicy.com/jobs/163918-senior-software-engineer-29",
+      "posted_at": "2026-11-23",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 89,
+      "match_score": 87,
       "skills": [
+        "Ai Automation",
         "Automation",
         "Workflow"
       ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Automation, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Headquarters: US - Remote Elation Health exists to enable every patient to experience the highest quality care wherever they go in the healthcare system. We build technology for independent primary care practices and the",
-      "proposal_draft": "Hi,\n\nI read the brief for Elation Health: Head of Design. I design and build custom dashboards, clean web interfaces, and Automation, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai Automation, Automation, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "About Makai Makai uses best-in-class Al and data to solve real-world operational and strategic challenges at scale. Our Makai Automation Platform consists of a library of pre-built components and modules to facilitate en",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior Software Engineer (Makai Labs). I design and build custom dashboards, clean web interfaces, and Ai Automation, Automation, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "remoteok-1137951",
-      "title": "Revenue Operations Leader, Strategy & Planning (Contentstack)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-revenue-operations-leader-strategy-planning-contentstack-1137951",
-      "posted_at": "2026-11-21",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 87,
-      "skills": [
-        "Ai",
-        "Ai Tool",
-        "Workflow"
-      ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Tool, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "What is Contentstack? Contentstack is redefining how modern digital experiences are built and managed. As the pioneer of the Agentic Experience Platform (AXP), Contentstack brings together structured content and brand go",
-      "proposal_draft": "Hi,\n\nI read the brief for Revenue Operations Leader, Strategy & Planning (Contentstack). I design and build custom dashboards, clean web interfaces, and Ai, Ai Tool, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137928",
-      "title": "Senior Product Design Manager (LastPass)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remoteOK.com/remote-jobs/remote-senior-product-design-manager-lastpass-1137928",
-      "posted_at": "2026-11-21",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 87,
-      "skills": [
-        "Product Design",
-        "Design System",
-        "Website"
-      ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Product Design, Design System, Website).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "About LastPass LastPass delivers Secure Access Essentials, helping individuals and organizations manage and protect access to AI, applications, and credentials straight from the browser. Trusted by more than 100,000 busi",
-      "proposal_draft": "Hi,\n\nI read the brief for Senior Product Design Manager (LastPass). I design and build custom dashboards, clean web interfaces, and Product Design, Design System, Website systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "jobicy-163925",
-      "title": "Senior Azure Platform / DevOps Engineer (Makai Labs)",
+      "id": "jobicy-163938",
+      "title": "Staff Technical Writer (GitLab)",
       "platform": "Jobicy (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/163925-senior-azure-platform-devops-engineer",
+      "url": "https://jobicy.com/jobs/163938-staff-technical-writer",
       "posted_at": "2026-11-23",
       "budget": "Remote / Contract",
       "budget_type": "remote",
@@ -226,72 +272,32 @@
       "match_score": 86,
       "skills": [
         "Ai",
-        "Automation"
-      ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Automation).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Senior Azure Platform / DevOps Engineer About Makai Makai uses best-in-class AI and data to solve real-world operational and strategic challenges at scale. We help businesses with enterprise automation, human-machine tea",
-      "proposal_draft": "Hi,\n\nI read the brief for Senior Azure Platform / DevOps Engineer (Makai Labs). I design and build custom dashboards, clean web interfaces, and Ai, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137977",
-      "title": "Product Manager, Developer Ecosystem (Reddit)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-product-manager-developer-ecosystem-reddit-1137977",
-      "posted_at": "2026-11-22",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 86,
-      "skills": [
-        "Ai",
         "Workflow"
       ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Reddit is a community of communities. Itâs built on shared interests, passion, and trust, and is home to the most open and authentic conversations on the internet. Every day, Reddit users submit, vote, and comment on t",
-      "proposal_draft": "Hi,\n\nI read the brief for Product Manager, Developer Ecosystem (Reddit). I design and build custom dashboards, clean web interfaces, and Ai, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137967",
-      "title": "Senior Clinical Trials Systems Manager (Natera)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remoteOK.com/remote-jobs/remote-senior-clinical-trials-systems-manager-natera-1137967",
-      "posted_at": "2026-11-22",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 86,
-      "skills": [
-        "Ui/Ux",
-        "Prototype"
-      ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ui/Ux, Prototype).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Â POSITION SUMMARY: Job Function: Clinical Operations Title: Senior Clinical Trial Systems Lead The Senior Clinical Trials Systems Lead serves as the business owner representative for Clinical Operations systems, such as",
-      "proposal_draft": "Hi,\n\nI read the brief for Senior Clinical Trials Systems Manager (Natera). I design and build custom dashboards, clean web interfaces, and Ui/Ux, Prototype systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137965",
-      "title": "Business Development Representative, SLED - West (GitLab)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-business-development-representative-sled-west-gitlab-1137965",
-      "posted_at": "2026-11-22",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 86,
-      "skills": [
-        "Ai",
-        "Workflow"
-      ],
-      "first_seen_at": "2026-11-23T16:09:02.258203+00:00",
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
       "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
       "client_problem": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital",
-      "proposal_draft": "Hi,\n\nI read the brief for Business Development Representative, SLED - West (GitLab). I design and build custom dashboards, clean web interfaces, and Ai, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "proposal_draft": "Hi,\n\nI read the brief for Staff Technical Writer (GitLab). I design and build custom dashboards, clean web interfaces, and Ai, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "remoteok-1137964",
+      "title": "Regional Sales Director, Canada (GitLab)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-regional-sales-director-canada-gitlab-1137964",
+      "posted_at": "2026-11-22",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 86,
+      "skills": [
+        "Ai",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-23T17:08:45.988908+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital",
+      "proposal_draft": "Hi,\n\nI read the brief for Regional Sales Director, Canada (GitLab). I design and build custom dashboards, clean web interfaces, and Ai, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     }
   ]
 }
