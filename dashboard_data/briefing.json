@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T17:13:03.979967+00:00",
+  "generated_at": "2026-11-23T17:27:05.163621+00:00",
   "date": "2026-11-23",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,14 +32,14 @@
   },
   "jobs": [
     {
-      "title": "Netlify: Staff Software Engineer (Interfaces)",
+      "title": "Legion: Senior Deal Desk Manager",
       "platform": "WeWorkRemotely (Live Cloud)",
       "match_score": 96,
       "has_poc": true
     },
     {
-      "title": "Sr. Forward Deployed Data Engineer (Natera)",
-      "platform": "RemoteOK (Live Cloud)",
+      "title": "AI Engineer (Makai Labs)",
+      "platform": "Jobicy (Live Cloud)",
       "match_score": 93,
       "has_poc": true
     }
