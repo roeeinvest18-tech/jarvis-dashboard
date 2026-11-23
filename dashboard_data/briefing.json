@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T15:57:52.973243+00:00",
+  "generated_at": "2026-11-23T16:12:50.913999+00:00",
   "date": "2026-11-23",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,14 +32,14 @@
   },
   "jobs": [
     {
-      "title": "Legion: Senior Deal Desk Manager",
+      "title": "Netlify: Staff Software Engineer (Interfaces)",
       "platform": "WeWorkRemotely (Live Cloud)",
       "match_score": 96,
       "has_poc": true
     },
     {
-      "title": "AI Engineer (Makai Labs)",
-      "platform": "Jobicy (Live Cloud)",
+      "title": "Sr. Forward Deployed Data Engineer (Natera)",
+      "platform": "RemoteOK (Live Cloud)",
       "match_score": 93,
       "has_poc": true
     }
@@ -47,7 +47,7 @@
   "content": {
     "topic": "Formal Verification of the Signal Protocol Using AI",
     "category": "cyber_soc",
-    "opening_hook": ""
+    "opening_hook": "האם אנחנו מתחילים לראות את הנקודה שבה מודלי שפה לא רק כותבים קוד, אלא מוכיחים מתמטית את הצפנת הבסיas שלנו?"
   },
   "painpoint": {
     "title_en": "AI Resume Spam Filtering and Intent Scoring for Overwhelmed Recruiters",

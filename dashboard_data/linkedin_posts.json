@@ -1,100 +1,46 @@
 {
-  "generated_at": "2026-11-23T15:57:52.637327+00:00",
+  "generated_at": "2026-11-23T16:12:50.670521+00:00",
   "stats": {
-    "total_drafted": 5,
-    "cyber_count": 3,
-    "ai_count": 2
+    "total_drafted": 2,
+    "cyber_count": 1,
+    "ai_count": 1
   },
   "posts": [
     {
-      "id": "post-1-1795449472",
+      "id": "post-1-1795450370",
       "topic": "Formal Verification of the Signal Protocol Using AI",
       "category": "cyber_soc",
       "source_url": "https://www.schneier.com/blog/archives/2026/11/formal-verification-of-the-signal-protocol-using-ai.html",
       "source_platform": "Schneier on Security (Cryptography, Security & AI)",
       "posted_at": "Updated 2026-11-23 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Schneier on Security (Cryptography, Security & AI).",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Reported by Bruce Schneier detailing research from Google DeepMind on applying agentic AI to cryptographic protocol verification.",
       "key_takeaways": [
-        "מקור: Schneier on Security (Cryptography, Security & AI)",
-        "Formal Verification of the Signal Protocol Using AI",
-        "This seems like a good thing: Google Deepmind researchers used agentic AI to mathematically prove, or “formally verify,” a number of the Signal protocol’s key cryptographic guarantees­a landmark development for the widely used cryptography "
+        "Google DeepMind used agentic AI to formally verify cryptographic guarantees of the Signal protocol.",
+        "The proof-of-concept project was completed in just four weeks.",
+        "Combines AI reasoning with mathematical proof engines to validate massive-scale secure communications."
       ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך Schneier on Security (Cryptography, Security & AI) על \"Formal Verification of the Signal Protocol Using AI\":\n\nThis seems like a good thing: Google Deepmind researchers used agentic AI to mathematically prove, or “formally verify,” a number of the Signal protocol’s key cryptographic guarantees­a landmark development for the widely used cryptography \n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "post_angle": "The intersection of agentic AI and cryptographic formal verification to mathematically prove protocol security guarantees.",
+      "opening_hook": "האם אנחנו מתחילים לראות את הנקודה שבה מודלי שפה לא רק כותבים קוד, אלא מוכיחים מתמטית את הצפנת הבסיas שלנו?",
+      "linkedin_post": "האם אנחנו מתחילים לראות את הנקודה שבה מודלי שפה לא רק כותבים קוד, אלא מוכיחים מתמטית את הצפנת הבסיס שלנו?\n\nהשבוע פורסם שחוקרי Google DeepMind השתמשו בסוכני AI כדי לבצע אימות פורמלי ולהוכיח באופן מתמטי את ההבטחות הקריפטוגרפיות של פרוטוקול Signal.\n\nלמה זה משמעותי?\n\nעד היום, אימות פורמלי דרש מומחיות מתמטית נדירה וזמן רב של פיתוח ידני, מה שהשאיר את רוב הפרוטוקולים נסמכים על בדיקות אינטגרציה וסקירות קוד אנושיות.\n\nהשילוב של סוכני AI עם מנועי הוכחה מאפשר לבדוק את כל מרחב המצבים של מערכת הצפנה מורכבת בזמן קצר להפליא.\n\nזה לא אומר שמעכשיו פרוטוקולים חסינים לחלוטין ושאין צורך באנליסטים ובחוקרי קריפטוגרפיה. אבל זו בהחלט קפיצת מדרגה ביכולת שלנו לוודא שאין פערים בלוגיקה של ההצפנה.\n\nאלא שהסיפור הגדול באמת הוא המעבר של מודלי AI מתפקיד של עוזרי כתיבה למערכות שמנהלות הוכחות דטרמיניסטיות בעולמות הרגישים ביותר.\n\nאיך לדעתכם תיראה עבודת חוקר האבטחה כשהאימות המתמטי יהפוך לחלק סטנדרטי מפייתון או מצינור ה CI?\n\n#CyberSecurity #Cryptography #FormalVerification #AIagents #InfoSec #BlueTeam"
     },
     {
-      "id": "post-2-1795449472",
-      "topic": "llm-gemini 0.38.1",
+      "id": "post-2-1795450370",
+      "topic": "The Thin Orchestrator: How We Made Our AI Agents More Reliable by Giving the Router Less to Do",
       "category": "ai_agents",
-      "source_url": "https://simonwillison.net/2026/Nov/20/llm-gemini/",
-      "source_platform": "Simon Willison (AI Agents & LLM Architecture)",
+      "source_url": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
+      "source_platform": "Engineering at Meta (AI & Systems)",
       "posted_at": "Updated 2026-11-23 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Simon Willison (AI Agents & LLM Architecture).",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Direct engineering blog post from Meta detailing architectural patterns for production AI agent pipelines.",
       "key_takeaways": [
-        "מקור: Simon Willison (AI Agents & LLM Architecture)",
-        "llm-gemini 0.38.1",
-        "Release: llm-gemini 0.38.1 Gemini 4 Carbon only supports low , medium and high reasoning levels - but Gemini 4 Hydrogen and Gemini 4 Neon both have an extra xhigh level. I missed that when I added those models to the llm-gemini plugin, whic"
+        "Meta improved AI agent reliability by keeping the orchestration and routing layer deliberately thin.",
+        "Specialized agents handle complex domain reasoning while the router only routes and enforces basic checks.",
+        "Reducing router complexity prevents context pollution and erratic agent behavior in large data pipelines."
       ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך Simon Willison (AI Agents & LLM Architecture) על \"llm-gemini 0.38.1\":\n\nRelease: llm-gemini 0.38.1 Gemini 4 Carbon only supports low , medium and high reasoning levels - but Gemini 4 Hydrogen and Gemini 4 Neon both have an extra xhigh level. I missed that when I added those models to the llm-gemini plugin, whic\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
-    },
-    {
-      "id": "post-3-1795449472",
-      "topic": "AI threats in the wild: The current state of prompt injections on the web",
-      "category": "cyber_soc",
-      "source_url": "http://security.googleblog.com/2026/04/ai-threats-in-wild-current-state-of.html",
-      "source_platform": "Google Security Blog (Security Research & AI)",
-      "posted_at": "Updated 2026-11-23 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Google Security Blog (Security Research & AI).",
-      "key_takeaways": [
-        "מקור: Google Security Blog (Security Research & AI)",
-        "AI threats in the wild: The current state of prompt injections on the web",
-        "Posted by Thomas Brunner, Yu-Han Liu, Moni Pande At Google, our Threat Intelligence teams are dedicated to staying ahead of real-world adversarial activity, proactively monitoring emerging threats before they can impact users. Right now, In"
-      ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך Google Security Blog (Security Research & AI) על \"AI threats in the wild: The current state of prompt injections on the web\":\n\nPosted by Thomas Brunner, Yu-Han Liu, Moni Pande At Google, our Threat Intelligence teams are dedicated to staying ahead of real-world adversarial activity, proactively monitoring emerging threats before they can impact users. Right now, In\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
-    },
-    {
-      "id": "post-4-1795449472",
-      "topic": "Quoting Levent Alpöge",
-      "category": "ai_agents",
-      "source_url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/",
-      "source_platform": "Simon Willison (AI Agents & LLM Architecture)",
-      "posted_at": "Updated 2026-11-23 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Simon Willison (AI Agents & LLM Architecture).",
-      "key_takeaways": [
-        "מקור: Simon Willison (AI Agents & LLM Architecture)",
-        "Quoting Levent Alpöge",
-        "I believe I have, working with Claude, discovered a proof of the Riemann Hypothesis. In fact, the method easily extends much further, resolving the so-called Generalized Riemann Hypothesis, and I expect, with more time, the Extended Riemann"
-      ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך Simon Willison (AI Agents & LLM Architecture) על \"Quoting Levent Alpöge\":\n\nI believe I have, working with Claude, discovered a proof of the Riemann Hypothesis. In fact, the method easily extends much further, resolving the so-called Generalized Riemann Hypothesis, and I expect, with more time, the Extended Riemann\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
-    },
-    {
-      "id": "post-5-1795449472",
-      "topic": "Probing DNS at Cloudflare",
-      "category": "cyber_soc",
-      "source_url": "https://blog.cloudflare.com/probing-dns-at-cloudflare/",
-      "source_platform": "Cloudflare Blog (Security & Engineering)",
-      "posted_at": "Updated 2026-11-23 (Auto)",
-      "credibility_score": "8/10",
-      "credibility_rationale": "מבוסס ישירות על דיווח מתוך Cloudflare Blog (Security & Engineering).",
-      "key_takeaways": [
-        "מקור: Cloudflare Blog (Security & Engineering)",
-        "Probing DNS at Cloudflare",
-        "At Cloudflare we’ve built tools to enable teams to extend our internal testing framework and build test tooling for networking protocols. This is the story of how this was used for DNS."
-      ],
-      "post_angle": "",
-      "opening_hook": "",
-      "linkedin_post": "בפרסום חדש מתוך Cloudflare Blog (Security & Engineering) על \"Probing DNS at Cloudflare\":\n\nAt Cloudflare we’ve built tools to enable teams to extend our internal testing framework and build test tooling for networking protocols. This is the story of how this was used for DNS.\n\nשווה לוודא שיש כיסוי לוגי ובקרת התרעות מתאימה לסוג החשיפה הזו. כבר בדקתם את הרכיבים האלה אצלכם?"
+      "post_angle": "Architectural shift in agentic systems from monolithic heavy routers to thin orchestrators and specialized domain agents.",
+      "opening_hook": "כשאנחנו בונים מערכות סוכני AI מורכבות, האינסטינקט הראשוני הוא לנסות לרכז כמה שיותר ידע והחלטות בנתב המרכזי.",
+      "linkedin_post": "כשאנחנו בונים מערכות סוכני AI מורכבות, האינסטינקט הראשוני הוא לנסות לרכז כמה שיותר ידע והחלטות בנתב המרכזי.\n\nהשבוע חברת Meta פרסמה את הארכיטקטורה שלהם שמראה את ההיפך המוחלט, ושומרת על שכבת הניצوئ והניתוב רזה במיוחד.\n\nלמה זה משמעותי?\n\nכשמעמיסים על הנתב יותר מדי הקשר ולוגיקת תחום, הוא נוטה להתבלבל, לבזבז טוקנים ולשלוח את המשימות לסוכנים הלא נכונים בשרשרת.\n\nהפתרון שלהם מפריד לחלוטין בין הנתב הקל שרק מנהל מדיניות ואכיפת אמינות, לבין סוכנים מתמחים שיודעים לבצע את העבודה השחורה בתחום שלהם.\n\nזה לא אומר שתכנון מערכות מרובות סוכנים הפך למשימה פשוטה שכל אחד יכול להרים בלי ארכיטקטורה מוקפדת. אבל זו בהחלט גישה פרגמטית שמצמצמת כשלים בייצור.\n\nאלא שהСиפור הגדול באמת הוא ההבנה שבניית מערכות AI אמינות דורשת אותם עקרונות תכנון שאנחנו מכירים ממערכות מבוזרות וממיקרו-שירותים מסורתיים.\n\nאיזה אתגר ארכיטקטורלי אתם פוגשים כשאתם מנסים לחבר מספר סוכני AI למערכת עבודה אחת?\n\n#AIagents #SoftwareArchitecture #MachineLearning #AIEngineering #DevOps #TechLeadership"
     }
   ]
 }
