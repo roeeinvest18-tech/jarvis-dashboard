@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-22T10:57:36.271496+00:00",
-  "as_of_date": "2026-11-21",
+  "generated_at": "2026-11-24T03:12:44.983213+00:00",
+  "as_of_date": "2026-11-24",
   "notional_per_trade_usd": 1000.0,
   "max_open_per_strategy": 3,
   "strategies": {
@@ -12,7 +12,7 @@
       "win_rate_pct": null,
       "avg_r": null,
       "expectancy_r": null,
-      "sim_open_usd": 0.0,
+      "sim_open_usd": 43.85,
       "sim_closed_usd": 0
     },
     "sma150": {
@@ -23,7 +23,7 @@
       "win_rate_pct": null,
       "avg_r": null,
       "expectancy_r": null,
-      "sim_open_usd": 0.0,
+      "sim_open_usd": 2.07,
       "sim_closed_usd": 0
     },
     "vcp": {
@@ -34,18 +34,18 @@
       "win_rate_pct": null,
       "avg_r": null,
       "expectancy_r": null,
-      "sim_open_usd": 0.0,
+      "sim_open_usd": 5.74,
       "sim_closed_usd": 0
     },
     "rs": {
-      "open_trade_count": 1,
+      "open_trade_count": 3,
       "closed_count": 0,
       "wins": 0,
       "losses": 0,
       "win_rate_pct": null,
       "avg_r": null,
       "expectancy_r": null,
-      "sim_open_usd": 0.0,
+      "sim_open_usd": -11.42,
       "sim_closed_usd": 0
     },
     "mean_rev": {
@@ -56,7 +56,7 @@
       "win_rate_pct": null,
       "avg_r": null,
       "expectancy_r": null,
-      "sim_open_usd": 0.0,
+      "sim_open_usd": 44.34,
       "sim_closed_usd": 0
     }
   },
@@ -70,9 +70,9 @@
       "stop": 56.71,
       "target": 64.45,
       "shares": 17.2236,
-      "last_price": 58.06,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "last_price": 58.57,
+      "sim_open_usd": 8.78,
+      "r_now": 0.38
     },
     {
       "id": "overall:KMB:2026-11-21",
@@ -83,9 +83,9 @@
       "stop": 104.0,
       "target": 120.06,
       "shares": 9.4003,
-      "last_price": 106.38,
-      "sim_open_usd": -0.0,
-      "r_now": -0.0
+      "last_price": 107.72,
+      "sim_open_usd": 12.6,
+      "r_now": 0.56
     },
     {
       "id": "overall:SAP:2026-11-21",
@@ -96,9 +96,9 @@
       "stop": 191.82,
       "target": 229.94,
       "shares": 5.0269,
-      "last_price": 198.93,
-      "sim_open_usd": -0.0,
-      "r_now": -0.0
+      "last_price": 203.4,
+      "sim_open_usd": 22.47,
+      "r_now": 0.63
     },
     {
       "id": "sma150:CTSH:2026-11-21",
@@ -109,9 +109,9 @@
       "stop": 56.71,
       "target": 64.45,
       "shares": 17.2236,
-      "last_price": 58.06,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "last_price": 58.57,
+      "sim_open_usd": 8.78,
+      "r_now": 0.38
     },
     {
       "id": "sma150:KMB:2026-11-21",
@@ -122,9 +122,9 @@
       "stop": 104.0,
       "target": 120.06,
       "shares": 9.4003,
-      "last_price": 106.38,
-      "sim_open_usd": -0.0,
-      "r_now": -0.0
+      "last_price": 107.72,
+      "sim_open_usd": 12.6,
+      "r_now": 0.56
     },
     {
       "id": "sma150:XOM:2026-11-21",
@@ -135,9 +135,9 @@
       "stop": 155.65,
       "target": 177.59,
       "shares": 6.2504,
-      "last_price": 159.99,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "last_price": 156.9,
+      "sim_open_usd": -19.31,
+      "r_now": -0.71
     },
     {
       "id": "vcp:OTIS:2026-11-21",
@@ -148,9 +148,9 @@
       "stop": 73.39,
       "target": 93.54,
       "shares": 13.1492,
-      "last_price": 76.05,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "last_price": 77.21,
+      "sim_open_usd": 15.25,
+      "r_now": 0.44
     },
     {
       "id": "vcp:MMS:2026-11-21",
@@ -161,9 +161,9 @@
       "stop": 60.59,
       "target": 77.23,
       "shares": 15.9261,
-      "last_price": 62.79,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "last_price": 61.43,
+      "sim_open_usd": -21.66,
+      "r_now": -0.62
     },
     {
       "id": "vcp:LNT:2026-11-21",
@@ -174,9 +174,9 @@
       "stop": 70.2,
       "target": 86.66,
       "shares": 13.9626,
-      "last_price": 71.62,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "last_price": 72.49,
+      "sim_open_usd": 12.15,
+      "r_now": 0.61
     },
     {
       "id": "rs:KHC:2026-11-21",
@@ -187,9 +187,9 @@
       "stop": 23.99,
       "target": 31.48,
       "shares": 39.3856,
-      "last_price": 25.39,
-      "sim_open_usd": -0.0,
-      "r_now": -0.0
+      "last_price": 25.1,
+      "sim_open_usd": -11.42,
+      "r_now": -0.21
     },
     {
       "id": "mean_rev:MRK:2026-11-21",
@@ -200,9 +200,9 @@
       "stop": 131.01,
       "target": 151.77,
       "shares": 7.4783,
-      "last_price": 133.72,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "last_price": 135.47,
+      "sim_open_usd": 13.09,
+      "r_now": 0.65
     },
     {
       "id": "mean_rev:SAP:2026-11-21",
@@ -213,9 +213,9 @@
       "stop": 192.56,
       "target": 225.79,
       "shares": 5.0269,
-      "last_price": 198.93,
-      "sim_open_usd": -0.0,
-      "r_now": -0.0
+      "last_price": 203.4,
+      "sim_open_usd": 22.47,
+      "r_now": 0.7
     },
     {
       "id": "mean_rev:CTSH:2026-11-21",
@@ -226,7 +226,33 @@
       "stop": 56.2,
       "target": 63.17,
       "shares": 17.2236,
-      "last_price": 58.06,
+      "last_price": 58.57,
+      "sim_open_usd": 8.78,
+      "r_now": 0.27
+    },
+    {
+      "id": "rs:AMN:2026-11-24",
+      "strategy": "rs",
+      "ticker": "AMN",
+      "opened_at": "2026-11-24",
+      "entry": 35.6,
+      "stop": 33.64,
+      "target": 43.91,
+      "shares": 28.0899,
+      "last_price": 35.6,
+      "sim_open_usd": 0.0,
+      "r_now": 0.0
+    },
+    {
+      "id": "rs:ILMN:2026-11-24",
+      "strategy": "rs",
+      "ticker": "ILMN",
+      "opened_at": "2026-11-24",
+      "entry": 205.28,
+      "stop": 197.81,
+      "target": 254.55,
+      "shares": 4.8714,
+      "last_price": 205.28,
       "sim_open_usd": 0.0,
       "r_now": 0.0
     }

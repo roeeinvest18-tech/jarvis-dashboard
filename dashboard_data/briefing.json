@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-11-24T02:45:32.664978+00:00",
+  "generated_at": "2026-11-24T03:12:45.063462+00:00",
   "date": "2026-11-24",
   "market": {
     "regime": "DEFENSIVE",
     "top3": [
       {
-        "ticker": "CTSH",
-        "price": 58.060001373291016,
-        "pct_sma150": 4.466926021139767,
-        "catalyst_label": ""
+        "ticker": "HQY",
+        "price": 94.04000091552734,
+        "pct_sma150": 0.14227035918161968,
+        "catalyst_label": "News catalyst"
       },
       {
-        "ticker": "KMB",
-        "price": 106.37999725341797,
-        "pct_sma150": 2.228367078347941,
-        "catalyst_label": ""
+        "ticker": "MRK",
+        "price": 135.47000122070312,
+        "pct_sma150": 2.048862697021239,
+        "catalyst_label": "News catalyst"
       },
       {
-        "ticker": "SAP",
-        "price": 198.92999267578125,
-        "pct_sma150": 2.463910302265567,
-        "catalyst_label": ""
+        "ticker": "ISRG",
+        "price": 416.2300109863281,
+        "pct_sma150": 1.4776205204500021,
+        "catalyst_label": "News catalyst"
       }
     ]
   },
@@ -28,7 +28,7 @@
     "best_strategy": "overall",
     "win_rate_pct": null,
     "expectancy_r": null,
-    "live_trades": 13
+    "live_trades": 15
   },
   "jobs": [
     {
