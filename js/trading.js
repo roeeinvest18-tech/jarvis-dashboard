@@ -146,9 +146,15 @@ const tradingState = {
 
 function tradingMatchesSearch(r, term) {
   if (!term) return true;
-  const t = term.toLowerCase();
+  const t = term.toLowerCase().trim();
+  if (!t) return true;
+  const code = (r.sector_etf || '').toLowerCase();
+  const label = (r.sector_etf ? tradingSectorLabel(r.sector_etf) : '').toLowerCase();
+  const industry = (r.industry || '').toLowerCase();
   return (r.ticker || '').toLowerCase().includes(t)
-    || (r.sector_etf || '').toLowerCase().includes(t);
+    || code.includes(t)
+    || label.includes(t)
+    || industry.includes(t);
 }
 
 // --- market status bar ----------------------------------------------------
@@ -1195,6 +1201,44 @@ function tradingClearScanFilters() {
     panel.querySelectorAll('[data-scan-filter]').forEach(input => { input.value = ''; });
     panel.querySelectorAll('[data-scan-sector]').forEach(btn => btn.classList.remove('is-active'));
   }
+  syncScanQuickBar();
+  renderTradingScanTable();
+  refreshScanFiltersIndicator();
+}
+
+function syncScanQuickBar() {
+  const bar = document.getElementById('scan-quick-bar');
+  if (!bar) return;
+  const f = tradingState.scanFilters;
+  const aboveBtn = bar.querySelector('[data-scan-preset="above-sma150"]');
+  if (aboveBtn) {
+    const active = f.sma150Min !== null && f.sma150Min >= 0 && f.sma150Max === null;
+    aboveBtn.classList.toggle('is-active', active);
+    aboveBtn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  }
+  const allBtn = bar.querySelector('[data-scan-quick-all]');
+  if (allBtn) {
+    const isAll = f.sectors.length === 0;
+    allBtn.classList.toggle('is-active', isAll);
+    allBtn.setAttribute('aria-pressed', isAll ? 'true' : 'false');
+  }
+  bar.querySelectorAll('[data-scan-quick-sector]').forEach(btn => {
+    const on = f.sectors.includes(btn.dataset.scanQuickSector);
+    btn.classList.toggle('is-active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
+
+function tradingToggleSectorFilter(code) {
+  const sectors = tradingState.scanFilters.sectors;
+  const i = sectors.indexOf(code);
+  if (i === -1) sectors.push(code); else sectors.splice(i, 1);
+  const panel = document.getElementById('scan-filters');
+  if (panel) {
+    const btn = panel.querySelector(`[data-scan-sector="${code}"]`);
+    if (btn) btn.classList.toggle('is-active', sectors.includes(code));
+  }
+  syncScanQuickBar();
   renderTradingScanTable();
   refreshScanFiltersIndicator();
 }
@@ -1208,6 +1252,30 @@ function tradingMatchesScanFilters(r) {
   if (f.volMin !== null && !(typeof r.volume_ratio === 'number' && r.volume_ratio >= f.volMin)) return false;
   if (f.sectors.length && !f.sectors.includes(r.sector_etf)) return false;
   return true;
+}
+
+function tradingScanQuickBarHtml(scan) {
+  const f = tradingState.scanFilters;
+  const counts = {};
+  scan.stocks.forEach(s => { if (s.sector_etf) counts[s.sector_etf] = (counts[s.sector_etf] || 0) + 1; });
+  const sectors = Object.keys(counts)
+    .sort((a, b) => tradingSectorLabel(a).localeCompare(tradingSectorLabel(b)));
+  const aboveActive = f.sma150Min !== null && f.sma150Min >= 0 && f.sma150Max === null;
+  const isAll = f.sectors.length === 0;
+  return `
+    <div class="scan-quick-bar" id="scan-quick-bar">
+      <div class="scan-quick-row">
+        <button type="button" class="pill${aboveActive ? ' is-active' : ''}" aria-pressed="${aboveActive ? 'true' : 'false'}"
+          data-scan-preset="above-sma150">${escapeHtml(TRADE_S.fullScan.aboveSma150)}</button>
+        <button type="button" class="pill${isAll ? ' is-active' : ''}" aria-pressed="${isAll ? 'true' : 'false'}"
+          data-scan-quick-all="1">${escapeHtml(TRADE_S.fullScan.allSectors)}</button>
+        ${sectors.map(code => {
+          const on = f.sectors.includes(code);
+          return `<button type="button" class="pill${on ? ' is-active' : ''}" aria-pressed="${on ? 'true' : 'false'}"
+            data-scan-quick-sector="${escapeHtml(code)}">${escapeHtml(code)} · ${escapeHtml(tradingSectorLabel(code))} (${counts[code]})</button>`;
+        }).join('')}
+      </div>
+    </div>`;
 }
 
 function tradingScanFiltersHtml(scan) {
@@ -1234,7 +1302,7 @@ function tradingScanFiltersHtml(scan) {
       <p class="sizing-hint">Sector</p>
       <div class="pill-row" role="group" aria-label="Sector">
         ${sectors.map(code => `<button type="button" class="pill${f.sectors.includes(code) ? ' is-active' : ''}"
-          data-scan-sector="${escapeHtml(code)}">${escapeHtml(tradingSectorLabel(code))}</button>`).join('')}
+          data-scan-sector="${escapeHtml(code)}">${escapeHtml(code)} · ${escapeHtml(tradingSectorLabel(code))}</button>`).join('')}
       </div>
       <div class="scan-filters-actions">
         <button type="button" class="linkbtn" id="scan-filters-clear" ${count ? '' : 'hidden'}>${TRADE_S.fullScan.clearFilters}</button>
@@ -1261,6 +1329,7 @@ function wireTradingScanFilters() {
     input.addEventListener('input', () => {
       const n = parseFloat(input.value);
       tradingState.scanFilters[input.dataset.scanFilter] = Number.isFinite(n) ? n : null;
+      syncScanQuickBar();
       renderTradingScanTable();
       refreshScanFiltersIndicator();
     });
@@ -1268,15 +1337,44 @@ function wireTradingScanFilters() {
 
   panel.querySelectorAll('[data-scan-sector]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const code = btn.dataset.scanSector;
-      const sectors = tradingState.scanFilters.sectors;
-      const i = sectors.indexOf(code);
-      if (i === -1) sectors.push(code); else sectors.splice(i, 1);
-      btn.classList.toggle('is-active');
-      renderTradingScanTable();
-      refreshScanFiltersIndicator();
+      tradingToggleSectorFilter(btn.dataset.scanSector);
     });
   });
+
+  const bar = document.getElementById('scan-quick-bar');
+  if (bar) {
+    const aboveBtn = bar.querySelector('[data-scan-preset="above-sma150"]');
+    if (aboveBtn) {
+      aboveBtn.addEventListener('click', () => {
+        const f = tradingState.scanFilters;
+        const active = f.sma150Min !== null && f.sma150Min >= 0 && f.sma150Max === null;
+        f.sma150Min = active ? null : 0;
+        f.sma150Max = null;
+        const minEl = panel.querySelector('[data-scan-filter="sma150Min"]');
+        const maxEl = panel.querySelector('[data-scan-filter="sma150Max"]');
+        if (minEl) minEl.value = f.sma150Min === null ? '' : String(f.sma150Min);
+        if (maxEl) maxEl.value = '';
+        syncScanQuickBar();
+        renderTradingScanTable();
+        refreshScanFiltersIndicator();
+      });
+    }
+    const allBtn = bar.querySelector('[data-scan-quick-all]');
+    if (allBtn) {
+      allBtn.addEventListener('click', () => {
+        tradingState.scanFilters.sectors = [];
+        panel.querySelectorAll('[data-scan-sector]').forEach(btn => btn.classList.remove('is-active'));
+        syncScanQuickBar();
+        renderTradingScanTable();
+        refreshScanFiltersIndicator();
+      });
+    }
+    bar.querySelectorAll('[data-scan-quick-sector]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        tradingToggleSectorFilter(btn.dataset.scanQuickSector);
+      });
+    });
+  }
 
   const clearBtn = document.getElementById('scan-filters-clear');
   if (clearBtn) clearBtn.addEventListener('click', tradingClearScanFilters);
@@ -1311,6 +1409,7 @@ function renderTradingFullScan() {
         <h2 class="sec-label sec-label-gold">${TRADE_S.fullScan.heading}</h2>
         <span class="sec-note mono" id="scan-count"></span>
       </div>
+      ${tradingScanQuickBarHtml(scan)}
       ${tradingScanFiltersHtml(scan)}
       <div id="scan-table-wrap"></div>`;
     wireTradingScanFilters();
@@ -1379,7 +1478,7 @@ function renderTradingScanTable() {
             return `
               <tr class="is-link" data-tv-ticker="${escapeHtml(r.ticker)}"
                   data-tv-exchange="${escapeHtml(r.exchange || '')}">
-                <td class="col-ticker"><a ${tradingLinkAttrs(r.ticker, r.exchange)}>${escapeHtml(r.ticker)}</a></td>
+                <td class="col-ticker"><a ${tradingLinkAttrs(r.ticker, r.exchange)}>${escapeHtml(r.ticker)}</a>${r.sector_etf ? `<span class="scan-sector-tag mono">${escapeHtml(r.sector_etf)}</span>` : ''}</td>
                 <td class="col-num col-sma mono">${tradingSma150Value(r.pct_SMA150)}</td>
                 <td class="col-num mono">${fmtPrice(r.price)}</td>
                 <td class="col-num mono ${r.change_pct >= 0 ? 'is-up' : 'is-down'}">${fmtChange(r.change_pct)}</td>

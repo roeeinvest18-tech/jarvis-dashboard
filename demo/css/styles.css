@@ -3407,6 +3407,30 @@ table.scan-grid td {
 /* Full Scan filters. Same disclosure/grid/field recipe as .sizing-tool
    (Trading's other collapsible tool panel), sized and spaced for sitting
    right under the section heading rather than after a whole card list. */
+.scan-quick-bar {
+  margin: var(--sp-2) 0 var(--sp-3);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scan-quick-bar::-webkit-scrollbar { display: none; }
+.scan-quick-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--sp-2);
+  padding: 2px 0;
+}
+.scan-quick-row .pill {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.scan-sector-tag {
+  display: block;
+  font-size: var(--fs-label);
+  color: var(--ink2);
+  line-height: 1.15;
+  margin-top: 1px;
+}
 .scan-filters { border-top: 1px solid var(--rule); margin-bottom: var(--sp-3); }
 .scan-filters summary { display: flex; justify-content: space-between; align-items: baseline; padding: var(--sp-3) 0; cursor: pointer; min-height: 44px; list-style: none; }
 .scan-filters summary::-webkit-details-marker { display: none; }

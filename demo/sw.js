@@ -46,8 +46,8 @@
 // marks, and 16px fields so iOS does not zoom on focus; styles.css changed.
 // v27: Stale-While-Revalidate for versioned static shell assets + explicit
 // sw.js bypass, while keeping navigations network-first and deferring scripts.
-// v28: PainPoints AI E-Commerce & POD third track + Unit Economics cards in personal-os.js, strings.js, styles.css.
-const CACHE_NAME = 'jarvis-shell-v74';
+// v29: Full Scan sector-name/industry search + always-visible Above SMA150 & Sector ETF quick bar in trading.js, strings.js, styles.css.
+const CACHE_NAME = 'jarvis-shell-v75';
 const SHELL_ASSETS = [
   './',
   'index.html',

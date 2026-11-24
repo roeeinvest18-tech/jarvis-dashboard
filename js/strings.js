@@ -491,6 +491,8 @@ const STRINGS = {
       },
       sortAsc: '▲',
       sortDesc: '▼',
+      aboveSma150: 'Above SMA150',
+      allSectors: 'All sectors',
       clearFilters: 'Clear filters',
       noMatchSearchAndFilters: (q) => `No stocks match "${q}" and the current filters.`,
       noMatchSearch: (q) => `No stocks match "${q}".`,
