@@ -1,46 +1,82 @@
 {
-  "generated_at": "2026-11-23T16:12:50.670521+00:00",
+  "generated_at": "2026-11-24T02:45:32.393850+00:00",
   "stats": {
-    "total_drafted": 2,
-    "cyber_count": 1,
-    "ai_count": 1
+    "total_drafted": 4,
+    "cyber_count": 2,
+    "ai_count": 2
   },
   "posts": [
     {
-      "id": "post-1-1795450370",
-      "topic": "Formal Verification of the Signal Protocol Using AI",
+      "id": "post-1-1795488332",
+      "topic": "Backporting security fixes at scale with Codex",
       "category": "cyber_soc",
-      "source_url": "https://www.schneier.com/blog/archives/2026/11/formal-verification-of-the-signal-protocol-using-ai.html",
-      "source_platform": "Schneier on Security (Cryptography, Security & AI)",
-      "posted_at": "Updated 2026-11-23 (Auto)",
+      "source_url": "https://blog.trailofbits.com/2026/11/02/backporting-security-fixes-at-scale-with-codex/",
+      "source_platform": "Trail of Bits (Security Research & AI)",
+      "posted_at": "Updated 2026-11-24 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Reported by Bruce Schneier detailing research from Google DeepMind on applying agentic AI to cryptographic protocol verification.",
+      "credibility_rationale": "Published directly by Trail of Bits detailing a rigorous, real-world deployment of AI agents for kernel and OS backporting with concrete metrics.",
       "key_takeaways": [
-        "Google DeepMind used agentic AI to formally verify cryptographic guarantees of the Signal protocol.",
-        "The proof-of-concept project was completed in just four weeks.",
-        "Combines AI reasoning with mathematical proof engines to validate massive-scale secure communications."
+        "Trail of Bits used Codex agents to dramatically cut down the time required to backport security fixes for stable Linux releases.",
+        "By October 29, the workflow helped deliver fixes for 149 distinct CVEs into stable Linux kernel releases, Fedora, and Ubuntu.",
+        "Human effort per straightforward backport dropped to around 30 minutes, turning neglected maintenance into a practical operational reality."
       ],
-      "post_angle": "The intersection of agentic AI and cryptographic formal verification to mathematically prove protocol security guarantees.",
-      "opening_hook": "האם אנחנו מתחילים לראות את הנקודה שבה מודלי שפה לא רק כותבים קוד, אלא מוכיחים מתמטית את הצפנת הבסיas שלנו?",
-      "linkedin_post": "האם אנחנו מתחילים לראות את הנקודה שבה מודלי שפה לא רק כותבים קוד, אלא מוכיחים מתמטית את הצפנת הבסיס שלנו?\n\nהשבוע פורסם שחוקרי Google DeepMind השתמשו בסוכני AI כדי לבצע אימות פורמלי ולהוכיח באופן מתמטי את ההבטחות הקריפטוגרפיות של פרוטוקול Signal.\n\nלמה זה משמעותי?\n\nעד היום, אימות פורמלי דרש מומחיות מתמטית נדירה וזמן רב של פיתוח ידני, מה שהשאיר את רוב הפרוטוקולים נסמכים על בדיקות אינטגרציה וסקירות קוד אנושיות.\n\nהשילוב של סוכני AI עם מנועי הוכחה מאפשר לבדוק את כל מרחב המצבים של מערכת הצפנה מורכבת בזמן קצר להפליא.\n\nזה לא אומר שמעכשיו פרוטוקולים חסינים לחלוטין ושאין צורך באנליסטים ובחוקרי קריפטוגרפיה. אבל זו בהחלט קפיצת מדרגה ביכולת שלנו לוודא שאין פערים בלוגיקה של ההצפנה.\n\nאלא שהסיפור הגדול באמת הוא המעבר של מודלי AI מתפקיד של עוזרי כתיבה למערכות שמנהלות הוכחות דטרמיניסטיות בעולמות הרגישים ביותר.\n\nאיך לדעתכם תיראה עבודת חוקר האבטחה כשהאימות המתמטי יהפוך לחלק סטנדרטי מפייתון או מצינור ה CI?\n\n#CyberSecurity #Cryptography #FormalVerification #AIagents #InfoSec #BlueTeam"
+      "post_angle": "Focusing on how AI agents solve the critical bottleneck of security maintenance and backporting in legacy enterprise codebases.",
+      "opening_hook": "תחזוקת גרסאות ישנות ותיקוני אבטחה שקטים הם בדרך כלל העבודה השחורה שאף אנליסט או מפתח לא רוצה לגעת בה.",
+      "linkedin_post": "תחזוקת גרסאות ישנות ותיקוני אבטחה שקטים הם בדרך כלל העבודה השחורה שאף אנליסט או מפתח לא רוצה לגעת בה.\n\nחוקרי Trail of Bits פרסמו השבוע איך הם משתמשים במודלי Codex כדי לבצע בורות ובקטפורטינג של תיקוני אבטחה למערכות לינוקס יציבות ואบนטו.\n\nלמה זה משמעותי?\nכי עד כה, התאמת פאצ'ים גרסה אחורה דרשה שבועות של עבודה ידנית סיזיפית שמסכלת פרויקטים שלמים.\n\nהמנגנון המדויק מבוסס על סוכני AI שמזהים חוסרים, מתאימים קוד ישן, מריצים בדיקות ומרכיבים חבילות הגשה בזמן שמהנדסים אנושיים מבצעים ביקורת סופית.\n\nנכון לסוף אוקטובר, הגישה הזו אפשרה לדחוף תיקונים עבור 149 חולשות CVE שונות לגרסאות ליבה יציבות בזמן שמשך העבודה של מומחה ירד לחצי שעה בלבד.\n\nזה לא אומר שאפשר לוותר על בקרת איכות קפדנית או שסוכנים מחליפים את שיקול הדעת של מפתחי הליבה. אבל זו קפיצת מדרגה ניכרת ביכולת לסגור חוב טכנולוגי ואבטחתי שצובר אבק.\n\nהסיפור הגדול באמת הוא המעבר של AI מסטארטאפים נוצצים לתחזוקת תשתיות קריטיות ועמוקות שבלעדיהן האינטרנט היה קורס.\n\nאיך הצוות שלכם מטפל בפער שבין גרסאות הפיתוח החדשות לבין מערכות הפרודקשן הוותיקות?\n\n#CyberSecurity #LinuxKernel #AppSec #AIAutomation #VulnerabilityManagement #DevSecOps"
     },
     {
-      "id": "post-2-1795450370",
-      "topic": "The Thin Orchestrator: How We Made Our AI Agents More Reliable by Giving the Router Less to Do",
+      "id": "post-2-1795488332",
+      "topic": "Finding faster quantum algorithms with agents and formal verification",
       "category": "ai_agents",
-      "source_url": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
-      "source_platform": "Engineering at Meta (AI & Systems)",
-      "posted_at": "Updated 2026-11-23 (Auto)",
+      "source_url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+      "source_platform": "Google DeepMind (Frontier AI & Research)",
+      "posted_at": "Updated 2026-11-24 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Direct engineering blog post from Meta detailing architectural patterns for production AI agent pipelines.",
+      "credibility_rationale": "Directly from Google DeepMind, detailing the intersection of Gemini agents, Lean formal theorem provers, and quantum circuit optimization.",
       "key_takeaways": [
-        "Meta improved AI agent reliability by keeping the orchestration and routing layer deliberately thin.",
-        "Specialized agents handle complex domain reasoning while the router only routes and enforces basic checks.",
-        "Reducing router complexity prevents context pollution and erratic agent behavior in large data pipelines."
+        "Google DeepMind used teams of Gemini 4 agents to discover highly efficient quantum algorithms for complex scientific simulations.",
+        "Because classical hardware cannot simulate these massive circuits, the agents proved every result mathematically using Lean, a formal theorem prover.",
+        "Agent teams met every four hours in virtual conferences to trade and debate algorithmic improvements, successfully reducing computational costs."
       ],
-      "post_angle": "Architectural shift in agentic systems from monolithic heavy routers to thin orchestrators and specialized domain agents.",
-      "opening_hook": "כשאנחנו בונים מערכות סוכני AI מורכבות, האינסטינקט הראשוני הוא לנסות לרכז כמה שיותר ידע והחלטות בנתב המרכזי.",
-      "linkedin_post": "כשאנחנו בונים מערכות סוכני AI מורכבות, האינסטינקט הראשוני הוא לנסות לרכז כמה שיותר ידע והחלטות בנתב המרכזי.\n\nהשבוע חברת Meta פרסמה את הארכיטקטורה שלהם שמראה את ההיפך המוחלט, ושומרת על שכבת הניצوئ והניתוב רזה במיוחד.\n\nלמה זה משמעותי?\n\nכשמעמיסים על הנתב יותר מדי הקשר ולוגיקת תחום, הוא נוטה להתבלבל, לבזבז טוקנים ולשלוח את המשימות לסוכנים הלא נכונים בשרשרת.\n\nהפתרון שלהם מפריד לחלוטין בין הנתב הקל שרק מנהל מדיניות ואכיפת אמינות, לבין סוכנים מתמחים שיודעים לבצע את העבודה השחורה בתחום שלהם.\n\nזה לא אומר שתכנון מערכות מרובות סוכנים הפך למשימה פשוטה שכל אחד יכול להרים בלי ארכיטקטורה מוקפדת. אבל זו בהחלט גישה פרגמטית שמצמצמת כשלים בייצור.\n\nאלא שהСиפור הגדול באמת הוא ההבנה שבניית מערכות AI אמינות דורשת אותם עקרונות תכנון שאנחנו מכירים ממערכות מבוזרות וממיקרו-שירותים מסורתיים.\n\nאיזה אתגר ארכיטקטורלי אתם פוגשים כשאתם מנסים לחבר מספר סוכני AI למערכת עבודה אחת?\n\n#AIagents #SoftwareArchitecture #MachineLearning #AIEngineering #DevOps #TechLeadership"
+      "post_angle": "Examining how autonomous AI agent collaboration combined with rigorous formal verification is unlocking next-generation quantum computing.",
+      "opening_hook": "המגבלה הכי גדולה של מחשוב קוונטי היא לא רק חומרה, אלא העובדה שאי אפשר לבדוק מעגלים מורכבים במחשבים קלאסיים.",
+      "linkedin_post": "המגבלה הכי גדולה של מחשוב קוונטי היא לא רק חומרה, אלא העובדה שאי אפשר לבדוק מעגלים מורכבים במחשבים קלאסיים.\n\nחוקרי Google DeepMind פרסמו השבוע איך הם הפעילו צוותים של סוכני Gemini 4 כדי למצוא אלגוריתמים קוונטיים מהירים ויעילים יותר עבור מודלים של אנרגיית היתוך וכימיה.\n\nלמה זה משמעותי?\nכי כדי להימנע מניסויים בלתי אפשריים, המערכת משלבת בין סוכנים אוטונומיים לבין מוכח מתמטי פורמלי בשם Lean.\n\nהמכניקה מאפשרת לצוותים שונים של סוכנים לפתח רעיונות בנפרד, להיפגש כל ארבע שעות לוועידות וירטואליות כדי להתווכח על שיפורים, ולהוכיח דטרמיניסטית את תקינות הקוד.\n\nהתוצאה היא בניית ספריית קוד חדשה בקוד פתוח המאפשרת להריץ מעגלים קוונטיים ממוטבים שחוסכים משאבי חומרה קריטיים.\n\nזה לא אומר שמחשבים קוונטיים יפתחו את כל בעיות העולם מחר בבוקר. אבל זו בהחלט התקדמות הנדסית עצומה בבניית מערכות שמסוגלות להוכיח את עצמן מתמטית.\n\nהסיפור הגדול באמת הוא האופן שבו סוכנים לומדים לשתף פעולה כמו קבוצת מחקר אנושית כדי לייצר פתרונות עמוקים מעבר למהנדס בודד.\n\nאיך הארגון שלכם משלב הוכחות פורמליות בתהליכי הפיתוח של סוכני AI?\n\n#QuantumComputing #DeepMind #FormalVerification #AIgents #MachineLearning #TechResearch"
+    },
+    {
+      "id": "post-3-1795488332",
+      "topic": "Probing DNS at Cloudflare",
+      "category": "cyber_soc",
+      "source_url": "https://blog.cloudflare.com/probing-dns-at-cloudflare/",
+      "source_platform": "Cloudflare Blog (Security & Engineering)",
+      "posted_at": "Updated 2026-11-24 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Authored by Cloudflare engineering, explaining production-grade modular testing of distributed DNS infrastructure via Flamingo.",
+      "key_takeaways": [
+        "Cloudflare experienced a DNS scheduling bug where record updates sat unpublished for hours while the edge remained fully healthy.",
+        "To catch partial and slow distributed failures, the team extended Flamingo, an end-to-end testing framework running hundreds of millions of daily checks.",
+        "Modular architecture enabled the tool to speak network protocols directly against production, automatically blocking or rolling back faulty releases."
+      ],
+      "post_angle": "Highlighting the engineering challenge of monitoring slow, distributed DNS failures in large-scale edge networks.",
+      "opening_hook": "כל הבדיקות עברו ירוק, ה dashboards נקיים, ואז הטלפון מתחיל לרטוט כי פרודקשן למעשה תקוע.",
+      "linkedin_post": "כל הבדיקות עברו ירוק, ה dashboards נקיים, ואז הטלפון מתחיל לרטוט כי פרודקשן למעשה תקוע.\n\nצוות ה DNS של Cloudflare פרסם השבוע את הארכיטקטורה החדשה שהם פיתחו אחרי שבאג תזמון גרם לעדכוני רשומות לשבת שעות מבלי להתפרסם בקצוות הרשת.\n\nלמה זה קשה?\nכי תקלות DNS מבוזרות מתפשטות לאט, קשות לזיהוי בסביבות סטנדרטיות, ונראות חלקיות לחלוטין ממבט ראשון.\n\nכדי לפתור זאת, הצוות הרחיב את Flamingo, כלי הבדיקות המרכזי שלהם שרץ מאות מיליוני פעמים ביום מול הפרודקשן האמיתי.\n\nהארכיטקטורה המודולרית של הכלי מאפשרת להזריק פרוטוקולי רשת ייעודיים שמודדים הפצה רציפה ומחליטים אוטומטית אם לעצור שחרור קוד או לאשר אותו.\n\nזה לא אומר שתקלות רשת נעלמו מהעולם. אבל זו צורת חשיבה מתקדמת על איך בודקים מערכות מבוזרות בדיוק כפי שהלקוח חווה אותן.\n\nהסיפור הגדול באמת הוא המעבר מבדיקות יחידה מבודדות לבדיקות סינטטיות רציפות ומועצמות מול קצוות תשתית אמיתיים.\n\nאיך אתם מוודאים שהשחרורים שלכם לא משאירים פינות מתות ברשת?\n\n#Cloudflare #DNS #EdgeComputing #SiteReliability #Infrastructure #CyberSecurity"
+    },
+    {
+      "id": "post-4-1795488332",
+      "topic": "GEM Training: How Meta Doubled the Efficiency of Its LLM-Scale Ads Foundation Model",
+      "category": "ai_agents",
+      "source_url": "https://engineering.fb.com/2026/08/03/ml-applications/training-gem-at-llm-scale-meta-ads-recommendation-foundation-model/",
+      "source_platform": "Engineering at Meta (AI & Systems)",
+      "posted_at": "Updated 2026-11-24 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Published by Meta Engineering, detailing concrete hardware/software co-design metrics like MFU doubling to 20-25% on thousands of GPUs.",
+      "key_takeaways": [
+        "Meta’s Generative Ads Recommendation Model GEM now trains at LLM scale across several thousand of the latest-generation GPUs.",
+        "Engineering teams doubled end-to-end training efficiency to 20-25% Model FLOPs Utilization MFU while scaling training FLOPs 4x in 12 months.",
+        "They deployed Jagged Flash Attention JFA, mixed ultra-low precision MXFP8 training, and topology-aware 5D parallelism to handle trillions of sparse parameters."
+      ],
+      "post_angle": "Exploring the extreme systems engineering required to co-design hardware and software for massive recommendation foundation models.",
+      "opening_hook": "השילוב שבין מודלי שפה ענקיים לבין מערכות המלצה מבוססות טריליוני פרמטרים מציב אתגרים חסרי תקדים לארכיטקטורת החומרה.",
+      "linkedin_post": "השילוב שבין מודלי שפה ענקיים לבין מערכות המלצה מבוססות טריליוני פרמטרים מציב אתגרים חסרי תקדים לארכיטקטורת החומרה.\n\nמהנדסי Meta פרסמו השבוע איך הצליחו להכפיל את יעילות האימון של מודל ההמלצות המרכזי שלהם, GEM, על פני אלפי מעבדי GPU מתקדמים.\n\nמה עומד מאחורי הקלעים?\nהמודל משלב ארכיטקטורה היברידית עם מיליארדי פרמטרים צפופים וטריליוני פרמטרים דלילים, דרישה שלא נופלת תחת וניל LLM סטנדרטי.\n\nכדי להתמודד עם הצורך, הצוות פיתח ספריות קרנלים ייעודיות כמו Jagged Flash Attention יחד עם אימון בדיוק מעורב אולטרה-נמוך מסוג MXFP8.\n\nבמקביל, הם הפעילו פרדיגמה של 5D parallelism מודע-טופולוגיה בשילוב עם היררכיית תקשורת רב-שכבתית שהביאה להכפלת ה MFU לטווח של 20 עד 25 אחוזים.\n\nזה לא אומר שאימון מודלים הפך למשימה קלה או זולה. אבל זו קפיצת מדרגה אמיתית בסינכרון שבין חומרה מותאמת אישית לתוכנת בינה מלאכותית.\n\nהסיפור הגדול באמת הוא המעבר מתכנות תוכנה רגיל לקו-דיזיין מוחלט של שבבים, רשתות וקרנלים עבור עומסי עבודה של AI.\n\nאיך הצוות שלכם מטפל באתגרים של צווארי בקבוק בתשתיות אימון גדולות?\n\n#MachineLearning #MetaEngineering #AIInfrastructure #GPU #DeepLearning #SystemsEngineering"
     }
   ]
 }
