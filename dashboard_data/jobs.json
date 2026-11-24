@@ -1,304 +1,305 @@
 {
-  "generated_at": "2026-11-24T02:44:57.246602+00:00",
+  "generated_at": "2026-11-24T18:46:49.523899+00:00",
   "stats": {
-    "total_scanned": 113,
+    "total_scanned": 112,
     "matched_count": 14,
-    "ai_count": 9,
-    "cyber_count": 5,
+    "ai_count": 10,
+    "cyber_count": 0,
     "scraping_count": 0,
-    "web_count": 0
+    "web_count": 4
   },
   "jobs": [
     {
-      "id": "jobicy-164020",
-      "title": "Software Engineer (Python/Linux/Packaging) (Canonical)",
+      "id": "wwr-945340604",
+      "title": "Netlify: Staff Software Engineer (Interfaces)",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/netlify-staff-software-engineer-interfaces",
+      "posted_at": "Thu, 19 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 96,
+      "skills": [
+        "Ai",
+        "Workflow",
+        "Mcp"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Workflow, Mcp).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Headquarters: Remote About the Team As a Staff Software Engineer at Netlify, you'll join a collaborative team that values continuous learning, mutual support, and shared growth. Together, we create tools that help develo",
+      "proposal_draft": "Hi,\n\nI read the brief for Netlify: Staff Software Engineer (Interfaces). I design and build custom dashboards, clean web interfaces, and Ai, Workflow, Mcp systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-164147",
+      "title": "Product Designer (Binance)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164147-product-designer-7",
+      "posted_at": "2026-11-24",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 96,
+      "skills": [
+        "Ux Design",
+        "Product Design",
+        "Prototype",
+        "Wireframe"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ux Design, Product Design, Prototype).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Binance is a leading global blockchain ecosystem behind the world’s largest cryptocurrency exchange by trading volume and registered users. We are trusted by 300+ million people in 100+ countries for our industry-leading",
+      "proposal_draft": "Hi,\n\nI read the brief for Product Designer (Binance). I design and build custom dashboards, clean web interfaces, and Ux Design, Product Design, Prototype systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-164151",
+      "title": "Member Support Specialist (Fruitful Ventures)",
       "platform": "Jobicy (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/164020-software-engineer-python-linux-packaging",
-      "posted_at": "2026-11-23",
+      "url": "https://jobicy.com/jobs/164151-member-support-specialist",
+      "posted_at": "2026-11-24",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 93,
       "skills": [
         "Ai",
+        "Ai Automation",
+        "Automation"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Automation, Automation).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Fruitful is the financial membership that transforms every paycheck into progress, guided by experts and powered by AI automation. Through our proprietary Money Map, Fruitful converts financial advice into a personalized",
+      "proposal_draft": "Hi,\n\nI read the brief for Member Support Specialist (Fruitful Ventures). I design and build custom dashboards, clean web interfaces, and Ai, Ai Automation, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-164123",
+      "title": "Principal Software Engineer, DevOps (Legion)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://jobicy.com/jobs/164123-principal-software-engineer-devops-2",
+      "posted_at": "2026-11-24",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 93,
+      "skills": [
+        "Ai",
+        "Ai Agent",
+        "Automation"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Agent, Automation).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Principal Software Engineer, DevOps Remote, United States ABOUT POSITION: Are you passionate about automation, DevOps, public cloud services, Kubernetes, and observability? As a site reliability engineer at Legion , you",
+      "proposal_draft": "Hi,\n\nI read the brief for Principal Software Engineer, DevOps (Legion). I design and build custom dashboards, clean web interfaces, and Ai, Ai Agent, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-164110",
+      "title": "Tech Lead Manager, Consumer Facing Web Products (NerdWallet)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164110-tech-lead-manager-consumer-facing-web-products",
+      "posted_at": "2026-11-24",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 93,
+      "skills": [
+        "Next.Js",
+        "React",
+        "Frontend"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Next.Js, React, Frontend).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "At NerdWallet , we’re on a mission to bring clarity to all of life’s financial decisions and every great mission needs a team of exceptional Nerds. We’ve built an inclusive, flexible, and candid culture where you’re empo",
+      "proposal_draft": "Hi,\n\nI read the brief for Tech Lead Manager, Consumer Facing Web Products (NerdWallet). I design and build custom dashboards, clean web interfaces, and Next.Js, React, Frontend systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "remoteok-1137970",
+      "title": "Sr. Forward Deployed Data Engineer (Natera)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://remoteOK.com/remote-jobs/remote-sr-forward-deployed-data-engineer-natera-1137970",
+      "posted_at": "2026-11-22",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 93,
+      "skills": [
+        "Ai",
+        "Llm",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Llm, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "POSITION SUMMARY: Natera is a global leader in cell-free DNA testing, serving patients across oncology, womenâs health, and organ health. Our Data & AI organization builds the enterprise data platform and AI systems th",
+      "proposal_draft": "Hi,\n\nI read the brief for Sr. Forward Deployed Data Engineer (Natera). I design and build custom dashboards, clean web interfaces, and Ai, Llm, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-164149",
+      "title": "Director, Strategic AI Partnerships (Dropbox)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://jobicy.com/jobs/164149-director-strategic-ai-partnerships",
+      "posted_at": "2026-11-24",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 92,
+      "skills": [
+        "Ai",
+        "Ai Assistant",
+        "Openai",
+        "Anthropic",
+        "Mcp"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Assistant, Openai).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Role Description The Dropbox Business Development team builds strategic partnerships that expand product adoption, create new distribution channels, and drive long-term customer and revenue growth. We are hiring a Direct",
+      "proposal_draft": "Hi,\n\nI read the brief for Director, Strategic AI Partnerships (Dropbox). I design and build custom dashboards, clean web interfaces, and Ai, Ai Assistant, Openai systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "hn-50445335",
+      "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
+      "platform": "HackerNews Freelance (Live)",
+      "track": "web_dashboards",
+      "url": "https://news.ycombinator.com/item?id=50445335",
+      "posted_at": "2026-11-10",
+      "budget": "Direct Contract / Freelance",
+      "budget_type": "contract",
+      "budget_val": 0,
+      "match_score": 90,
+      "skills": [
+        "Ui/Ux",
+        "Full Stack"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ui/Ux, Full Stack).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Full Stack Engineer + UI/UX & SaaS specialist. Was recently part of a mass layoff by a major tech company. You can checkout my profile and reach out at https://mwathek.com The site includes my portfolio, resume, letters",
+      "proposal_draft": "Hi,\n\nI read the brief for HN Contract: Full Stack Engineer + UI/UX & SaaS specialist. I design and build custom dashboards, clean web interfaces, and Ui/Ux, Full Stack systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-972047609",
+      "title": "Airbnb: Senior Mobile Software Engineer, Quality Engineering",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/airbnb-senior-mobile-software-engineer-quality-engineering",
+      "posted_at": "Tue, 24 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Automation"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Automation).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Headquarters: Brazil - Remote Airbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almos",
+      "proposal_draft": "Hi,\n\nI read the brief for Airbnb: Senior Mobile Software Engineer, Quality Engineering. I design and build custom dashboards, clean web interfaces, and Ai, Automation systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-271344030",
+      "title": "Gusto, Inc.: Staff Product Designer",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/gusto-inc-staff-product-designer",
+      "posted_at": "Sat, 21 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Tool"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Tool).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Headquarters: Atlanta, GA - Hybrid; Denver, CO - Hybrid; New York, NY - Hybrid; San Francisco, CA - Hybrid; Toronto, Ontario - Remote About Gusto At Gusto, we're on a mission to grow the small business economy. We handle",
+      "proposal_draft": "Hi,\n\nI read the brief for Gusto, Inc.: Staff Product Designer. I design and build custom dashboards, clean web interfaces, and Ai, Ai Tool systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-716523380",
+      "title": "No Sweat Work Media: Remote High-End Automotive AI Retoucher | South Africa | R700 per hour or project fee | Ad hoc work in 2027",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/no-sweat-work-media-remote-high-end-automotive-ai-retoucher-south-africa-r700-per",
+      "posted_at": "Sat, 21 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Ai Tool"
+      ],
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Tool).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Headquarters: URL: https://www.nosweat.co.za This is a remote position. High-End Automotive AI Retoucher (freelance, remote) Location: Remote, South African-based applicants only Type: Ongoing ad hoc freelance work in 20",
+      "proposal_draft": "Hi,\n\nI read the brief for No Sweat Work Media: Remote High-End Automotive AI Retoucher | South Africa | R700 per hour or project fee | Ad hoc work in 2027. I design and build custom dashboards, clean web interfaces, and Ai, Ai Tool systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-650151999",
+      "title": "Elation Health: Head of Design",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/elation-health-head-of-design",
+      "posted_at": "Fri, 20 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
         "Automation",
         "Workflow"
       ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Python-based build automation using GitHub Actions and Docker containers. 3-Step MVP: Define build environment, implement automated testing suite, and configure package distribution. Flow: Source Code -> Automated Build/Test -> Debian/Snap Package Output",
-      "client_problem": "Canonical needs a software engineer to manage Python-based packaging and Linux infrastructure for their AI and cloud platforms.",
-      "proposal_draft": "I have extensive experience building Python-based automation workflows and managing Linux-based environments for AI applications. I am comfortable handling complex packaging requirements and scaling infrastructure for enterprise needs. How are you currently managing your CI/CD pipelines for these Python packages? Best,\nRoee"
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Automation, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "Headquarters: US - Remote Elation Health exists to enable every patient to experience the highest quality care wherever they go in the healthcare system. We build technology for independent primary care practices and the",
+      "proposal_draft": "Hi,\n\nI read the brief for Elation Health: Head of Design. I design and build custom dashboards, clean web interfaces, and Automation, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "jobicy-163990",
-      "title": "Reseller Sales Specialist - Chicago, IL (Huntress)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://jobicy.com/jobs/163990-reseller-sales-specialist-chicago-il",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 93,
-      "skills": [
-        "Soc",
-        "Threat",
-        "Cybersecurity"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Soc, Threat, Cybersecurity).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Huntress requires a sales specialist to help expand their cybersecurity solutions to a broader range of businesses.",
-      "proposal_draft": "I have a strong background in SOC Tier 1 analysis and understand the technical requirements of the cybersecurity tools you provide. I can effectively communicate the value of your platform to potential resellers because I work with these systems daily. What is the primary technical hurdle you find resellers facing when evaluating your security stack? Best,\nRoee"
-    },
-    {
-      "id": "jobicy-163987",
-      "title": "Reseller Sales Specialist - Austin, TX (Huntress)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://jobicy.com/jobs/163987-reseller-sales-specialist-austin-tx",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 93,
-      "skills": [
-        "Soc",
-        "Threat",
-        "Cybersecurity"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Soc, Threat, Cybersecurity).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Huntress needs a sales specialist to drive the adoption of their enterprise-grade cybersecurity tools among new partners.",
-      "proposal_draft": "My experience as a SOC analyst gives me a unique perspective when discussing security solutions with potential partners. I understand the technical pain points your clients face and can articulate how your platform solves them. How do you currently handle technical discovery calls with prospective resellers? Best,\nRoee"
-    },
-    {
-      "id": "jobicy-163986",
-      "title": "Senior Security Engineer, Threat Intelligence (Cyber - Actor Analysis) (CoreWeave)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://jobicy.com/jobs/163986-senior-security-engineer-threat-intelligence-cyber-actor-analysis",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 93,
-      "skills": [
-        "Threat",
-        "Cybersecurity",
-        "Detection"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: SIEM-integrated threat intelligence platform using Python for data ingestion. 3-Step MVP: Deploy log ingestion pipeline, configure automated threat pattern matching, and set up alert dashboard. Flow: Raw Network Logs -> Threat Intelligence Correlation -> Incident Response Alert",
-      "client_problem": "CoreWeave needs a security engineer to analyze threat actors and strengthen their AI infrastructure security.",
-      "proposal_draft": "I have experience working as a SOC Tier 1 analyst and can apply that knowledge to threat actor analysis and infrastructure hardening. I am comfortable working with cloud-scale environments and identifying malicious patterns in high-traffic networks. What specific threat intelligence feeds are you currently prioritizing for your actor analysis? Best,\nRoee"
-    },
-    {
-      "id": "jobicy-163982",
-      "title": "Procurement Specialist (Huntress)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://jobicy.com/jobs/163982-procurement-specialist-2",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 93,
-      "skills": [
-        "Soc",
-        "Threat",
-        "Cybersecurity"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Soc, Threat, Cybersecurity).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Huntress needs a procurement specialist to manage the acquisition of resources necessary for their cybersecurity operations.",
-      "proposal_draft": "My background in technical operations and SOC analysis allows me to understand the specific procurement needs of a cybersecurity-focused organization. I am detail-oriented and can manage the lifecycle of vendor and resource acquisitions efficiently. What is the biggest bottleneck you currently face in your procurement workflow? Best,\nRoee"
-    },
-    {
-      "id": "remoteok-1137955",
-      "title": "Staff Software Engineer, Agentic Tools (Cribl)",
+      "id": "remoteok-1137951",
+      "title": "Revenue Operations Leader, Strategy & Planning (Contentstack)",
       "platform": "RemoteOK (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-staff-software-engineer-agentic-tools-cribl-1137955",
+      "url": "https://remoteOK.com/remote-jobs/remote-revenue-operations-leader-strategy-planning-contentstack-1137951",
       "posted_at": "2026-11-21",
       "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 93,
+      "match_score": 87,
       "skills": [
         "Ai",
-        "Workflow",
-        "Prompt"
+        "Ai Tool",
+        "Workflow"
       ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Agentic orchestration layer using LangChain and Python. 3-Step MVP: Build data ingestion connector, implement agentic reasoning loop, and create telemetry visualization dashboard. Flow: Telemetry Data -> AI Agent Analysis -> Actionable Insights Output",
-      "client_problem": "Cribl needs a software engineer to build agentic tools for managing and analyzing telemetry data at scale.",
-      "proposal_draft": "I specialize in building AI agents and n8n workflows that integrate with complex data infrastructure. I can help develop the tools needed to bridge the gap between your telemetry data and actionable AI insights. What specific agentic frameworks or LLM integrations are you currently exploring for this infrastructure? Best,\nRoee"
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Tool, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "What is Contentstack? Contentstack is redefining how modern digital experiences are built and managed. As the pioneer of the Agentic Experience Platform (AXP), Contentstack brings together structured content and brand go",
+      "proposal_draft": "Hi,\n\nI read the brief for Revenue Operations Leader, Strategy & Planning (Contentstack). I design and build custom dashboards, clean web interfaces, and Ai, Ai Tool, Workflow systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "remoteok-1137944",
-      "title": "Enterprise Performance Lead (Clover Health)",
+      "id": "remoteok-1137928",
+      "title": "Senior Product Design Manager (LastPass)",
       "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-enterprise-performance-lead-clover-health-1137944",
+      "track": "web_dashboards",
+      "url": "https://remoteOK.com/remote-jobs/remote-senior-product-design-manager-lastpass-1137928",
       "posted_at": "2026-11-21",
       "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 92,
+      "match_score": 87,
       "skills": [
-        "Ai",
-        "Gemini",
-        "Claude",
-        "Chatgpt",
-        "Workflow"
+        "Product Design",
+        "Design System",
+        "Website"
       ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Python-based data processing pipeline feeding a React/Next.js dashboard. 3-Step MVP: Connect financial data sources, build automated analysis script, and deploy interactive dashboard. Flow: Financial Data -> AI Processing -> Performance Dashboard Output",
-      "client_problem": "Clover Health needs a performance lead to integrate AI and analytics into their actuarial and financial operations.",
-      "proposal_draft": "I have experience building interactive analytics dashboards and AI-driven automation workflows that translate complex data into operational insights. I can help your team streamline financial reporting and actuarial monitoring through custom AI apps. What is the primary data source you are looking to integrate into your performance monitoring dashboard? Best,\nRoee"
-    },
-    {
-      "id": "remoteok-1137932",
-      "title": "Senior Staff Machine Learning Engineer, Ads Ranking (Reddit)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://remoteOK.com/remote-jobs/remote-senior-staff-machine-learning-engineer-ads-ranking-reddit-1137932",
-      "posted_at": "2026-11-21",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 92,
-      "skills": [
-        "Ai",
-        "Claude",
-        "Workflow",
-        "Cursor"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Scalable ML pipeline using Python and real-time data processing. 3-Step MVP: Implement feature extraction, deploy ranking model, and set up performance monitoring dashboard. Flow: User Interaction Data -> ML Ranking Model -> Optimized Ad Delivery",
-      "client_problem": "Reddit needs a machine learning engineer to improve the ranking and performance of their advertising systems.",
-      "proposal_draft": "I have experience building AI-driven applications and data-heavy dashboards that can support complex ranking logic. I am comfortable working with large-scale data and optimizing workflows for performance. What specific metrics or features are you currently focusing on to improve your ads ranking model? Best,\nRoee"
-    },
-    {
-      "id": "wwr-586915513",
-      "title": "Doximity: Senior Software Engineer, Data Platform",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/doximity-senior-software-engineer-data-platform",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Workflow"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Workflow).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Doximity needs a software engineer to enhance their AI-powered clinical workflow platform.",
-      "proposal_draft": "I have experience building AI apps and interactive interfaces that improve user productivity in clinical settings. I can help scale your platform's capabilities by building efficient workflows and intuitive dashboards. What is the most significant bottleneck in your current clinical workflow that you are looking to automate? Best,\nRoee"
-    },
-    {
-      "id": "wwr-558717545",
-      "title": "Smartsheet: Sr. Software Engineer I (Remote Eligible)",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/smartsheet-sr-software-engineer-i-remote-eligible",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "Ai",
-        "Ai Agent"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Ai, Ai Agent).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "Smartsheet needs a software engineer to help integrate AI agents into their work management platform.",
-      "proposal_draft": "I specialize in building AI agents and n8n workflows that automate manual tasks and integrate seamlessly into existing platforms. I can help your team create the logic required for these agents to interact effectively with your users' data. What specific types of manual tasks are you prioritizing for your initial AI agent rollout? Best,\nRoee"
-    },
-    {
-      "id": "jobicy-164015",
-      "title": "Solutions Architect, Onchain Compliance - EMEA (TRM Labs)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/164015-solutions-architect-onchain-compliance-emea",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 86,
-      "skills": [
-        "Ai",
-        "Workflow"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Distributed AI compliance engine using Python and cloud-native services. 3-Step MVP: Define compliance logic, build API integration for threat data, and create reporting dashboard. Flow: Onchain Transaction Data -> AI Compliance Analysis -> Threat Report Output",
-      "client_problem": "TRM Labs needs a solutions architect to design AI-powered compliance and threat intelligence solutions for EMEA.",
-      "proposal_draft": "I have a strong background in both AI automation and security analysis, which allows me to design robust compliance architectures. I can help bridge the gap between complex regulatory requirements and technical implementation. How are you currently handling the integration of AI-driven threat intelligence into your compliance workflows? Best,\nRoee"
-    },
-    {
-      "id": "jobicy-163997",
-      "title": "Performance Marketer (Remote - Worldwide) (EverAI)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/163997-performance-marketer-remote-worldwide",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 86,
-      "skills": [
-        "Ai",
-        "Llm"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Automated marketing analytics dashboard using Python and Google Analytics API. 3-Step MVP: Connect acquisition data sources, build performance tracking dashboard, and implement automated reporting. Flow: User Acquisition Data -> Analytics Processing -> Growth Insights Output",
-      "client_problem": "EverAI needs a performance marketer to help scale their AI companionship platform to millions of users.",
-      "proposal_draft": "I have experience building interactive dashboards and automated marketing workflows that can help track and optimize user acquisition. I understand the technical side of AI products and can help translate that into effective growth strategies. What is your current primary channel for user acquisition and how are you tracking conversion? Best,\nRoee"
-    },
-    {
-      "id": "jobicy-163989",
-      "title": "Senior Security Engineer, Threat Intelligence (Cyber - Threat Hunting) (CoreWeave)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://jobicy.com/jobs/163989-senior-security-engineer-threat-intelligence-cyber-threat-hunting",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 86,
-      "skills": [
-        "Threat",
-        "Cybersecurity"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Threat, Cybersecurity).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
-      "client_problem": "CoreWeave needs a security engineer to focus on threat hunting within their AI-focused cloud infrastructure.",
-      "proposal_draft": "My background as a SOC Tier 1 analyst gives me the skills needed to hunt for threats in high-performance cloud environments. I am comfortable working with security logs and building automated detection logic to identify malicious activity. What specific log sources are you currently using for your threat hunting operations? Best,\nRoee"
-    },
-    {
-      "id": "jobicy-163980",
-      "title": "Staff Software Engineer, Backend (VTEX)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/163980-staff-software-engineer-backend-3",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 86,
-      "skills": [
-        "Ai",
-        "Workflow"
-      ],
-      "first_seen_at": "2026-11-24T02:44:57.246602+00:00",
-      "poc_blueprint": "Architecture: Agent-based workflow engine using Python and event-driven architecture. 3-Step MVP: Define order routing logic, implement agent decision-making module, and build order tracking interface. Flow: Order Input -> Agent-based Routing -> Fulfillment Output",
-      "client_problem": "VTEX needs a backend engineer to design and build an agent-based order management and allocation system.",
-      "proposal_draft": "I have experience building agent-based workflows and backend systems that handle complex order processing logic. I can help design a scalable architecture that allows merchants to customize their fulfillment workflows. What specific agentic framework or logic engine are you considering for the order routing system? Best,\nRoee"
+      "first_seen_at": "2026-11-24T18:46:49.523899+00:00",
+      "poc_blueprint": "Architecture: Lightweight Python/FastAPI worker + clean dashboard frontend (Product Design, Design System, Website).\n3-Step MVP: 1) Connect data/auth source -> 2) Automate core workflow & validation -> 3) Ship monitoring UI with export.\nFlow: Source Trigger -> Agent/Worker Engine -> Live Status & Client Output.",
+      "client_problem": "About LastPass LastPass delivers Secure Access Essentials, helping individuals and organizations manage and protect access to AI, applications, and credentials straight from the browser. Trusted by more than 100,000 busi",
+      "proposal_draft": "Hi,\n\nI read the brief for Senior Product Design Manager (LastPass). I design and build custom dashboards, clean web interfaces, and Product Design, Design System, Website systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     }
   ]
 }
