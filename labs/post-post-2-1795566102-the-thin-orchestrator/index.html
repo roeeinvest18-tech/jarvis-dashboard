@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.workers.dev https://*.up.railway.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Thin Orchestrator Pattern for Reliable AI Agents at Meta — Publish Pack</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="note" dir="ltr">MANUAL PUBLISH PACK · Never auto-posted to LinkedIn without your click.</div>
+    <div class="grid">
+      <section class="card" dir="ltr">
+        <h2 style="margin:0 0 10px; font-size:1rem;">1. Visual Card (1080x1080)</h2>
+        <img id="card-preview" src="card.svg" alt="Technical Insight Card">
+        <div class="btns">
+          <button type="button" id="btn-dl-png">Download PNG</button>
+          <a class="btn ghost" href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">Open LinkedIn Composer</a>
+        </div>
+      </section>
+
+      <section class="card" dir="rtl">
+        <h2 style="margin:0 0 8px; font-size:1rem;">2. פוסט מוכן + תגובה ראשונה</h2>
+        <pre id="post-body">לפעמים, לתת לסוכן ה AI את כל הידע שהוא צריך זו בדיוק הגישה השגויה.
+
+במהלך פיתוח מערכות אוטומציה להעלאת עמודי מידע במערכות ההמלצה של Meta, צוות ההנדסה גילה שכאשר מעמיסים על סוכן מרכזי את כל חוקי הקוד והקונפיגורציות, הביצועים דווקא יורדים.
+
+המודל החל לערבב בין קונספטים ולהחיל חוקי קוד ממערכת אחת על אחרת בגלל חציית רף הקונטקסט.
+
+הפתרון שנבנה ב Meta נקרא דפוס האורקסטרטור הרזה, שבו בנו מנהל ניתוב המורכב מ 1300 שורות קוד בלבד המנתב למעלה מ 20 זרימות עבודה ל 14 סוכנים מתמחים.
+
+האורקסטרטור עצמו מבצע אפס עבודה בתחום הדחיסה או הלוגיקה העסקית, ומתמקד אך ורק ברצפים ובבדיקות אמינות בזמן שסוכנים ייעודיים מטפלים בלוגיקה.
+
+זה לא אומר שצריך לוותר לחלוטין על מודלי ענק חכמים. אבל זו הוכחה לכך שארכיטקטורה מבוזרת מנצחת מונוליטים גדולים.
+
+הסיפור הגדול כאן הוא המעבר מתפיסת מודל אחד שיודע הכול אל מבנה ניהול דטרמיניסטי שמזכיר מיקרו-שירותים בעולם התוכנה המסורתי.
+
+איך אתם מחלקים את העבודה בין הסוכנים במערכות שלכם?
+
+#AIAgents #MachineLearning #SystemArchitecture #AIAutomation #Engineering #Meta</pre>
+        <div class="btns" dir="ltr">
+          <button type="button" id="btn-copy-post">Copy Post Text</button>
+          <button type="button" class="ghost" id="btn-copy-comment">Copy 1st Comment Link</button>
+        </div>
+        <p style="font-size:12px; color:var(--ink2); margin:14px 0 4px;">תגובה ראשונה (לשמירה על חשיפה אורגנית):</p>
+        <pre id="comment-body" dir="auto">לקריאת המחקר והפירוט הטכני המלא מתוך Engineering at Meta:
+https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/</pre>
+        <div id="pack-status" dir="ltr" style="font-size:13px; color:#5ec28f; min-height:20px; margin-top:8px;"></div>
+      </section>
+    </div>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>

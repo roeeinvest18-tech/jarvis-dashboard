@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T12:53:09.916795+00:00",
+  "generated_at": "2026-11-25T16:26:21.168604+00:00",
   "date": "2026-11-25",
   "market": {
     "regime": "DEFENSIVE",
@@ -36,26 +36,60 @@
       "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
       "platform": "HackerNews Freelance (Live)",
       "match_score": 82,
-      "has_poc": false
+      "has_poc": false,
+      "poc_live_url": ""
     },
     {
       "id": "remoteok-1138074",
       "title": "Strategic Technical Advisor (Thrive)",
       "platform": "RemoteOK (Live Cloud)",
       "match_score": 78,
-      "has_poc": false
+      "has_poc": false,
+      "poc_live_url": ""
     }
   ],
   "content": {
     "id": "post-1-1795566102",
     "topic": "Google Workspace Continuous Approach to Mitigating Indirect Prompt Injections",
     "category": "cyber_soc",
-    "opening_hook": "יש בעיות אבטחה שאי אפשר לסגור פעם אחת עם עדכון קוד ולהמשיך הלאה."
+    "opening_hook": "יש בעיות אבטחה שאי אפשר לסגור פעם אחת עם עדכון קוד ולהמשיך הלאה.",
+    "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795566102-google-workspace-cont/"
   },
   "painpoint": {
     "title_en": "Advanced Digital Planners and iPad Productivity Templates",
     "title_he": "תבניות דיגיטליות מתקדמות ויומנים דיגיטליים לאייפד",
     "validation_score": 90,
-    "weekend_mvp_verdict_en": "Launch Shopify and Gumroad stores in 3 days, upload 5 template bundles by day 5, and start TikTok ads on day 7."
-  }
+    "weekend_mvp_verdict_en": "Launch Shopify and Gumroad stores in 3 days, upload 5 template bundles by day 5, and start TikTok ads on day 7.",
+    "mvp_live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/ecom-advanced-digital-planners-and-ipad-prod/"
+  },
+  "labs_builds": [
+    {
+      "slug": "post-post-4-1795566102-cloudflare-open-weigh",
+      "kind": "content_pack",
+      "title": "Cloudflare Open-Weight Clairic and Clairic-Flash Extraction Models",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795566102-cloudflare-open-weigh/",
+      "status": "live"
+    },
+    {
+      "slug": "post-post-3-1795566102-trail-of-bits-bug-pat",
+      "kind": "content_pack",
+      "title": "Trail of Bits Bug Patching and Regression Hunt Plugins",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795566102-trail-of-bits-bug-pat/",
+      "status": "live"
+    },
+    {
+      "slug": "post-post-2-1795566102-the-thin-orchestrator",
+      "kind": "content_pack",
+      "title": "The Thin Orchestrator Pattern for Reliable AI Agents at Meta",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795566102-the-thin-orchestrator/",
+      "status": "live"
+    },
+    {
+      "slug": "post-post-1-1795566102-google-workspace-cont",
+      "kind": "content_pack",
+      "title": "Google Workspace Continuous Approach to Mitigating Indirect Prompt Injections",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795566102-google-workspace-cont/",
+      "status": "live"
+    }
+  ]
 }

@@ -435,10 +435,15 @@ function dailyBriefingHtml(b) {
   const jobs = Array.isArray(b && b.jobs) ? b.jobs : [];
   const cnt = (b && b.content) || {};
   const pp = (b && b.painpoint) || {};
-  const hasAny = top3.length || jobs.length || cnt.topic || pp.title_en || pp.title_he;
+  const labs = Array.isArray(b && b.labs_builds) ? b.labs_builds : [];
+  const hasAny = top3.length || jobs.length || cnt.topic || pp.title_en || pp.title_he || labs.length;
 
   const speechBtn = (typeof window !== 'undefined' && 'speechSynthesis' in window && hasAny)
     ? `<button type="button" class="briefing-audio-btn" id="briefing-audio-btn">${escapeHtml(dailyBriefingSpeaking ? BRIEF_S.stopBtn : BRIEF_S.listenBtn)}</button>`
+    : '';
+
+  const labsHtml = labs.length
+    ? `<div class="briefing-row"><span class="briefing-k">${escapeHtml(BRIEF_S.labsLabel)}</span><span class="briefing-v briefing-labs-links">${labs.map(lb => `<a class="briefing-labs-link" href="${escapeHtml(lb.live_url || '#')}" target="_blank" rel="noopener noreferrer">${escapeHtml(lb.title || lb.slug || 'Preview')} &rarr;</a>`).join(' · ')}</span></div>`
     : '';
 
   const bodyHtml = hasAny ? `
@@ -448,6 +453,7 @@ function dailyBriefingHtml(b) {
       ${jobs.length ? `<div class="briefing-row"><span class="briefing-k">${escapeHtml(BRIEF_S.jobsLabel)}</span><span class="briefing-v">${escapeHtml(jobs.map(j => j.title).join(' · '))}</span></div>` : ''}
       ${cnt.topic ? `<div class="briefing-row"><span class="briefing-k">${escapeHtml(BRIEF_S.contentLabel)}</span><span class="briefing-v" dir="auto">${escapeHtml(cnt.topic)}</span></div>` : ''}
       ${(pp.title_en || pp.title_he) ? `<div class="briefing-row"><span class="briefing-k">${escapeHtml(BRIEF_S.painpointLabel)}</span><span class="briefing-v" dir="auto">${escapeHtml(pp.title_en || pp.title_he)}${typeof pp.validation_score === 'number' ? ` (${pp.validation_score}/100)` : ''}</span></div>` : ''}
+      ${labsHtml}
     </div>
     <div class="briefing-actions">
       ${speechBtn}

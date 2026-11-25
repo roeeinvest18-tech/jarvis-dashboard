@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-11-25T16:26:20.985994+00:00",
+  "stats": {
+    "total_live": 5,
+    "saas_mvp": 0,
+    "ecom_kit": 1,
+    "job_poc": 0,
+    "content_pack": 4
+  },
+  "builds": [
+    {
+      "id": "post-post-4-1795566102-cloudflare-open-weigh",
+      "slug": "post-post-4-1795566102-cloudflare-open-weigh",
+      "kind": "content_pack",
+      "track": "cyber_soc",
+      "title": "Cloudflare Open-Weight Clairic and Clairic-Flash Extraction Models",
+      "summary": "האם חילוץ נתונים ממסמכים מובנים ולא מובנים דורש תמיד הרצת מודל ענק ויקר?",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795566102-cloudflare-open-weigh/",
+      "source_id": "post-4-1795566102",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-25T16:26:20.982053+00:00",
+      "updated_at": "2026-11-25T16:26:20.982053+00:00"
+    },
+    {
+      "id": "post-post-3-1795566102-trail-of-bits-bug-pat",
+      "slug": "post-post-3-1795566102-trail-of-bits-bug-pat",
+      "kind": "content_pack",
+      "track": "cyber_soc",
+      "title": "Trail of Bits Bug Patching and Regression Hunt Plugins",
+      "summary": "הסוכן תיקן את באג האבטחה בקוד, אבל איזה שבירות חדשות הוא הכניס בלי שנשים לב?",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795566102-trail-of-bits-bug-pat/",
+      "source_id": "post-3-1795566102",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-25T16:26:20.937020+00:00",
+      "updated_at": "2026-11-25T16:26:20.937020+00:00"
+    },
+    {
+      "id": "post-post-2-1795566102-the-thin-orchestrator",
+      "slug": "post-post-2-1795566102-the-thin-orchestrator",
+      "kind": "content_pack",
+      "track": "ai_agents",
+      "title": "The Thin Orchestrator Pattern for Reliable AI Agents at Meta",
+      "summary": "לפעמים, לתת לסוכן ה AI את כל הידע שהוא צריך זו בדיוק הגישה השגויה.",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795566102-the-thin-orchestrator/",
+      "source_id": "post-2-1795566102",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-25T16:26:20.903577+00:00",
+      "updated_at": "2026-11-25T16:26:20.903577+00:00"
+    },
+    {
+      "id": "post-post-1-1795566102-google-workspace-cont",
+      "slug": "post-post-1-1795566102-google-workspace-cont",
+      "kind": "content_pack",
+      "track": "cyber_soc",
+      "title": "Google Workspace Continuous Approach to Mitigating Indirect Prompt Injections",
+      "summary": "יש בעיות אבטחה שאי אפשר לסגור פעם אחת עם עדכון קוד ולהמשיך הלאה.",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795566102-google-workspace-cont/",
+      "source_id": "post-1-1795566102",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-25T16:26:20.877438+00:00",
+      "updated_at": "2026-11-25T16:26:20.877438+00:00"
+    },
+    {
+      "id": "ecom-advanced-digital-planners-and-ipad-prod",
+      "slug": "ecom-advanced-digital-planners-and-ipad-prod",
+      "kind": "ecom_kit",
+      "track": "ecommerce",
+      "title": "Advanced Digital Planners and iPad Productivity Templates",
+      "summary": "Retail $24 · 71% margin · Max CAC $9",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/ecom-advanced-digital-planners-and-ipad-prod/",
+      "source_id": "pp-ecom-advanced-digital-planners-and-ipad-p",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 6,
+      "created_at": "2026-11-25T16:26:20.847156+00:00",
+      "updated_at": "2026-11-25T16:26:20.847156+00:00"
+    }
+  ]
+}

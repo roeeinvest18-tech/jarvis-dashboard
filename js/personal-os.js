@@ -493,6 +493,12 @@ function osPpCardHtml(c, isHe, dirAttr) {
       ${quote ? `<blockquote class="pp-cluster-quote">"${escapeHtml(quote)}"${c.quote_url ? ` <a href="${escapeHtml(safeExternalUrl(c.quote_url, '#'))}" target="_blank" rel="noopener noreferrer" class="pp-quote-link">${escapeHtml(S.sourceLinkLabel)} &rarr;</a>` : ''}</blockquote>` : ''}
       ${body}
       ${deepDrawer}
+      ${(c.mvp_live_url || c.launch_kit_url) ? `
+        <div class="labs-action-bar" dir="ltr">
+          <a class="labs-live-btn" href="${escapeHtml(safeExternalUrl(c.mvp_live_url || c.launch_kit_url, '#'))}" target="_blank" rel="noopener noreferrer">
+            ${escapeHtml(isEcom ? S.openLaunchKit : S.openLiveMvp)} &rarr;
+          </a>
+        </div>` : ''}
       <div class="pp-metrics-bar" dir="ltr">
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.intensity ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.intensity)}</span></div>
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.frequency ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.frequency)}</span></div>
@@ -679,6 +685,10 @@ function osJobCardHtml(job) {
         <a class="job-open-link" href="${escapeHtml(safeExternalUrl(job.url, 'https://www.upwork.com'))}" target="_blank" rel="noopener noreferrer">
           ${escapeHtml(JOBS_S.labels.openListing)} &rarr;
         </a>
+        ${job.poc_live_url ? `
+          <a class="labs-live-btn" href="${escapeHtml(safeExternalUrl(job.poc_live_url, '#'))}" target="_blank" rel="noopener noreferrer">
+            ${escapeHtml(JOBS_S.labels.openLivePoc)} &rarr;
+          </a>` : ''}
         <button type="button" class="job-toggle-proposal-btn" aria-expanded="false" aria-controls="job-proposal-${escapeHtml(jobId)}" data-proposal-toggle="${escapeHtml(jobId)}">
           ${escapeHtml(JOBS_S.labels.proposalDraft)} <span class="job-chevron" aria-hidden="true">&#9662;</span>
         </button>
@@ -901,6 +911,14 @@ function osContentCardHtml(post) {
             <ul class="content-takeaways" dir="auto">
               ${post.key_takeaways.slice(0, 3).map(t => `<li>${escapeHtml(t)}</li>`).join('')}
             </ul>` : ''}
+          ${post.first_comment ? `
+            <div class="content-first-comment" dir="auto">
+              <div class="content-post-header">
+                <span class="content-post-badge">${escapeHtml(CONTENT_S.labels.firstCommentLabel)}</span>
+                <button type="button" class="content-comment-copy-btn" data-comment-id="${escapeHtml(postId)}">${escapeHtml(CONTENT_S.labels.copyFirstComment)}</button>
+              </div>
+              <pre class="content-post-text" id="post-comment-${escapeHtml(postId)}">${escapeHtml(post.first_comment)}</pre>
+            </div>` : ''}
         </div>
       </details>
 
@@ -908,6 +926,10 @@ function osContentCardHtml(post) {
         <a class="content-source-link" href="${escapeHtml(safeExternalUrl(post.source_url, '#'))}" target="_blank" rel="noopener noreferrer">
           ${escapeHtml(CONTENT_S.labels.openSource)} &rarr;
         </a>
+        ${post.pack_url ? `
+          <a class="labs-live-btn" href="${escapeHtml(safeExternalUrl(post.pack_url, '#'))}" target="_blank" rel="noopener noreferrer">
+            ${escapeHtml(CONTENT_S.labels.openPublishPack)} &rarr;
+          </a>` : ''}
         <a class="content-linkedin-link" href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">
           ${escapeHtml(CONTENT_S.labels.openLinkedIn)} &rarr;
         </a>
@@ -970,6 +992,7 @@ function osPaintContent(mount, data) {
 
   // Copy post handlers
   osWireCopyButtons(mount, '.content-copy-btn', 'postId', 'post-text-', CONTENT_S.labels.copied);
+  osWireCopyButtons(mount, '.content-comment-copy-btn', 'commentId', 'post-comment-', CONTENT_S.labels.copied);
 }
 
 // System health at the foot of Personal OS too: the backups it reports

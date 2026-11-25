@@ -7176,5 +7176,42 @@ body::before {
   align-items: center;
 }
 
+.labs-action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-2) 0;
+}
+
+.labs-live-btn,
+.content-comment-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-badge);
+  border: 1px solid var(--mark);
+  background: var(--bg);
+  color: var(--mark-hi);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.content-first-comment {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--rule-soft);
+}
+
+.briefing-labs-link {
+  color: var(--mark-hi);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 
 

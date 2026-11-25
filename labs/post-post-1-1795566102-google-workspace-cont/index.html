@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.workers.dev https://*.up.railway.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Google Workspace Continuous Approach to Mitigating Indirect Prompt Injections — Publish Pack</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="note" dir="ltr">MANUAL PUBLISH PACK · Never auto-posted to LinkedIn without your click.</div>
+    <div class="grid">
+      <section class="card" dir="ltr">
+        <h2 style="margin:0 0 10px; font-size:1rem;">1. Visual Card (1080x1080)</h2>
+        <img id="card-preview" src="card.svg" alt="Technical Insight Card">
+        <div class="btns">
+          <button type="button" id="btn-dl-png">Download PNG</button>
+          <a class="btn ghost" href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">Open LinkedIn Composer</a>
+        </div>
+      </section>
+
+      <section class="card" dir="rtl">
+        <h2 style="margin:0 0 8px; font-size:1rem;">2. פוסט מוכן + תגובה ראשונה</h2>
+        <pre id="post-body">יש בעיות אבטחה שאי אפשר לסגור פעם אחת עם עדכון קוד ולהמשיך הלאה.
+
+השבוע פרסם אדם גביש מ צוות הגנת ה GenAI של Google פירוט על הגישה המתמשכת שלהם להתמודדות עם הזרקות פרומפט עקיפות ביישומים מורכבים כמו Workspace המשלבים את Gemini.
+
+האתגר המרכזי הוא שכאשר מודלי שפה מעובדים יחד עם אוטומציה סוכנית ומקורות מידע מרובים, נוצר מרחב תקיפה דינמי שבו תוקפים יכולים להשפיע על התנהגות המודל מבלי שהמשתמש הקצה יקליד דבר.
+
+כדי להתמודד עם המורכבות הזו, צוותי האבטחה של גוגל משלבים שילוב של שני מנגנונים מרכזיים מתחת למכסה המנוע.
+
+מצד אחד, הם מפעילים צוותי אדום אנושיים המדמים פרופילי משתמש ריאליסטיים כדי לחשוף חולשות תפעוליות.
+
+מצד שני, הם משתמשים במסגרות אוטומטיות המייצרות פיילודי תקיפה באופן אלגוריתמי כדי לבדוק עשרות תרחישי קצה בקנה מידה רחב.
+
+זה לא אומר שחברות אחרות יכולות פשוט להעתיק את המודל ולשכוח מאבטחת שכבות. אבל גישה זו ממחישה שארכיטקטורת הגנה מחייבת מעקב בלתי פוסק אחרי נתונים נכנסים.
+
+הסיפור הגדול כאן הוא המעבר מתפיסת הגנה סטטית של סינון מילות מפתח להגנה התנהגותית דינמית שמבינה את הקשר הנתונים של סוכני ה AI.
+
+איך אתם בודקים את האפליקציות שלכם מול הזרקות עקיפות כאלה?
+
+#CyberSecurity #AIsecurity #PromptInjection #BlueTeam #InfoSec #CloudSecurity</pre>
+        <div class="btns" dir="ltr">
+          <button type="button" id="btn-copy-post">Copy Post Text</button>
+          <button type="button" class="ghost" id="btn-copy-comment">Copy 1st Comment Link</button>
+        </div>
+        <p style="font-size:12px; color:var(--ink2); margin:14px 0 4px;">תגובה ראשונה (לשמירה על חשיפה אורגנית):</p>
+        <pre id="comment-body" dir="auto">לקריאת המחקר והפירוט הטכני המלא מתוך Google Security Blog:
+http://security.googleblog.com/2026/04/google-workspaces-continuous-approach.html</pre>
+        <div id="pack-status" dir="ltr" style="font-size:13px; color:#5ec28f; min-height:20px; margin-top:8px;"></div>
+      </section>
+    </div>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "title": "Advanced Digital Planners and iPad Productivity Templates",
+  "sandbox_only": true,
+  "no_external_shop_created": true,
+  "unit_economics": {
+    "retail_usd": 24,
+    "cogs_usd": 7,
+    "platform_fee_usd": 3,
+    "net_profit_usd": 14,
+    "gross_margin_pct": 71,
+    "max_cac_usd": 9,
+    "breakeven_roas": 1.71
+  },
+  "supplier_recommendation": "Gumroad / Etsy Digital",
+  "target_platforms": "Etsy, Shopify, Gumroad",
+  "ad_hooks_en": [
+    "Watch a raw memory turn into a custom Advanced Digital Planners and iPad Productivity Templates in 15 seconds.",
+    "Why generic gifts get forgotten \u2014 and how custom Advanced Digital Planners and iPad Productivity Templates stands out.",
+    "Preview your exact personalization live before it goes to print."
+  ],
+  "seo_keywords": [
+    "digital planner tablet",
+    "custom made to order",
+    "personalized keepsake",
+    "instant preview gift"
+  ],
+  "supplier_setup_checklist": [
+    "Review prototype & unit economics manually (no store has been opened automatically).",
+    "Create draft SKU in Gumroad / Etsy Digital and order 1 sample or verify print DPI.",
+    "Upload 4 lifestyle mockups + 15-sec live-preview screen recording.",
+    "Set retail price at $24 (Max profitable CAC: $9)."
+  ]
+}

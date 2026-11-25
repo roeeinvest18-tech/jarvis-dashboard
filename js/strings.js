@@ -1214,6 +1214,7 @@ const STRINGS = {
       budget: 'Budget',
       pocTitle: 'Prototype blueprint',
       copyPoc: 'Copy blueprint',
+      openLivePoc: 'Open live prototype',
     },
   },
 
@@ -1244,6 +1245,9 @@ const STRINGS = {
       openLinkedIn: 'Open LinkedIn',
       sourcePlatform: 'Platform',
       intelSummary: (score) => `Source check (${score}) and key takeaways`,
+      openPublishPack: 'Open visual pack',
+      copyFirstComment: 'Copy source comment',
+      firstCommentLabel: 'First comment with source link',
     },
   },
 
@@ -1311,6 +1315,8 @@ const STRINGS = {
     },
     sourceLinkLabel: 'View source complaint',
     deepPlanSummary: 'Launch plan, unit details and competitor gaps',
+    openLiveMvp: 'Open live prototype',
+    openLaunchKit: 'Open launch kit preview',
     scanSummary: (pains, raw, sources) => `${pains} verified signals from ${raw} posts across ${sources} sources`,
     validator: {
       heading: 'Weekly opportunity spotlight',
@@ -1337,6 +1343,7 @@ const STRINGS = {
     jobsLabel: 'Top job matches',
     contentLabel: 'LinkedIn draft ready',
     painpointLabel: 'Top software opportunity',
+    labsLabel: 'Overnight prototypes',
     openTrading: 'Trading',
     openJobs: 'Jobs',
     openContent: 'Content',
