@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.workers.dev https://*.up.railway.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SubControl — Interactive MVP</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <span class="badge">Jarvis Labs · Interactive SaaS MVP</span>
+    <h1>SubControl</h1>
+    <p class="lead">Audit your business subscriptions and automate cancellations from one dashboard.</p>
+
+    <div class="grid grid-2">
+      <section class="card">
+        <h2>Try the Working Prototype</h2>
+        <label class="field-label" for="mvp-input">Paste raw operational items / logs (one per line):</label>
+        <textarea id="mvp-input" rows="7">Hours: 4 | Rate: 150</textarea>
+        <label class="field-label" for="mvp-threshold">Alert threshold (hours / severity):</label>
+        <input type="number" id="mvp-threshold" value="6" min="1" max="100">
+        <div class="actions">
+          <button type="button" id="mvp-run">Analyze Now</button>
+          <button type="button" class="ghost" id="mvp-export">Export CSV</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Structured Output</h2>
+        <div class="out-box" id="mvp-output" aria-live="polite">Initializing...</div>
+        <div class="meta-row">
+          <span><strong>Built for:</strong> Consumers and small businesses</span>
+          <span><strong>Planned pricing:</strong> Subscription fee of $49 per month per business.</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2>Why We Built This &amp; Early Access</h2>
+      <p class="lead" style="margin-bottom:12px;">Competitors only offer monitoring, not execution.</p>
+      <form id="waitlist-form">
+        <div class="grid grid-2" style="margin-bottom:0;">
+          <div>
+            <label class="field-label" for="waitlist-email">Work email for pilot access</label>
+            <input type="email" id="waitlist-email" placeholder="you@company.com" required>
+          </div>
+          <div>
+            <label class="field-label" for="waitlist-note">Biggest workflow bottleneck (optional)</label>
+            <input type="text" id="waitlist-note" maxlength="160" placeholder="e.g. manual weekly client reporting">
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit">Join Early Access Waitlist</button>
+        </div>
+        <div class="status-msg" id="waitlist-status" role="status"></div>
+      </form>
+    </section>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>

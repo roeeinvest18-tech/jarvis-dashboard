@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T19:37:38.527479+00:00",
+  "generated_at": "2026-11-25T23:36:43.717676+00:00",
   "date": "2026-11-25",
   "market": {
     "regime": "DEFENSIVE",
@@ -56,13 +56,20 @@
     "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/"
   },
   "painpoint": {
-    "title_en": "Advanced Digital Planners and iPad Productivity Templates",
-    "title_he": "תבניות דיגיטליות מתקדמות ויומנים דיגיטליים לאייפד",
+    "title_en": "Git-Integrated Time Tracking Automation",
+    "title_he": "אוטומציית מעקב זמן משולבת Git",
     "validation_score": 90,
-    "weekend_mvp_verdict_en": "Launch Shopify and Gumroad stores in 3 days, upload 5 template bundles by day 5, and start TikTok ads on day 7.",
-    "mvp_live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/ecom-advanced-digital-planners-and-ipad-prod/"
+    "weekend_mvp_verdict_en": "Go - High-value product that is easy to sell.",
+    "mvp_live_url": ""
   },
   "labs_builds": [
+    {
+      "slug": "mvp-subscription-management-and-cancellation",
+      "kind": "saas_mvp",
+      "title": "Subscription Management and Cancellation SaaS",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/mvp-subscription-management-and-cancellation/",
+      "status": "live"
+    },
     {
       "slug": "post-post-3-1795635457-how-ifood-scales-codi",
       "kind": "content_pack",
@@ -82,13 +89,6 @@
       "kind": "content_pack",
       "title": "Probing DNS at Cloudflare",
       "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/",
-      "status": "live"
-    },
-    {
-      "slug": "poc-remotive-2091179-wordpress-theme-plugin",
-      "kind": "job_poc",
-      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/",
       "status": "live"
     }
   ]

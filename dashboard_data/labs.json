@@ -1,13 +1,29 @@
 {
-  "generated_at": "2026-11-25T19:37:38.297071+00:00",
+  "generated_at": "2026-11-25T23:36:43.483157+00:00",
   "stats": {
-    "total_live": 9,
-    "saas_mvp": 0,
+    "total_live": 10,
+    "saas_mvp": 1,
     "ecom_kit": 1,
     "job_poc": 1,
     "content_pack": 7
   },
   "builds": [
+    {
+      "id": "mvp-subscription-management-and-cancellation",
+      "slug": "mvp-subscription-management-and-cancellation",
+      "kind": "saas_mvp",
+      "track": "saas",
+      "title": "Subscription Management and Cancellation SaaS",
+      "summary": "A platform that manages all business subscriptions and executes automated cancellations via API or AI agents.",
+      "score": 85,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/mvp-subscription-management-and-cancellation/",
+      "source_id": "pp-saas-subscription-management-and-cancella",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-25T23:36:43.479441+00:00",
+      "updated_at": "2026-11-25T23:36:43.479441+00:00"
+    },
     {
       "id": "post-post-3-1795635457-how-ifood-scales-codi",
       "slug": "post-post-3-1795635457-how-ifood-scales-codi",
