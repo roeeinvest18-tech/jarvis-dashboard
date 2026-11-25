@@ -1,98 +1,76 @@
 {
-  "generated_at": "2026-11-25T00:21:42.924904+00:00",
+  "generated_at": "2026-11-25T19:37:37.071277+00:00",
   "stats": {
-    "total_drafted": 4,
-    "cyber_count": 3,
+    "total_drafted": 3,
+    "cyber_count": 2,
     "ai_count": 1
   },
   "posts": [
     {
-      "id": "post-1-1795566102",
-      "topic": "Google Workspace Continuous Approach to Mitigating Indirect Prompt Injections",
+      "id": "post-1-1795635457",
+      "topic": "Probing DNS at Cloudflare",
       "category": "cyber_soc",
-      "source_url": "http://security.googleblog.com/2026/04/google-workspaces-continuous-approach.html",
-      "source_platform": "Google Security Blog (Security Research & AI)",
-      "posted_at": "Updated 2026-11-25 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Direct publication from Google GenAI Security Team detailing actual architectural mitigation strategies for indirect prompt injection.",
-      "key_takeaways": [
-        "Indirect prompt injection cannot be permanently solved once and for all in complex AI applications.",
-        "Google combines human red-teaming with automated machine learning driven frameworks.",
-        "Automated frameworks algorithmically generate attack payloads at scale to map complex attack paths."
-      ],
-      "post_angle": "Focusing on the operational reality that indirect prompt injection requires continuous architectural adaptation rather than a one-time patch.",
-      "opening_hook": "יש בעיות אבטחה שאי אפשר לסגור פעם אחת עם עדכון קוד ולהמשיך הלאה.",
-      "linkedin_post": "יש בעיות אבטחה שאי אפשר לסגור פעם אחת עם עדכון קוד ולהמשיך הלאה.\n\nהשבוע פרסם אדם גביש מ צוות הגנת ה GenAI של Google פירוט על הגישה המתמשכת שלהם להתמודדות עם הזרקות פרומפט עקיפות ביישומים מורכבים כמו Workspace המשלבים את Gemini.\n\nהאתגר המרכזי הוא שכאשר מודלי שפה מעובדים יחד עם אוטומציה סוכנית ומקורות מידע מרובים, נוצר מרחב תקיפה דינמי שבו תוקפים יכולים להשפיע על התנהגות המודל מבלי שהמשתמש הקצה יקליד דבר.\n\nכדי להתמודד עם המורכבות הזו, צוותי האבטחה של גוגל משלבים שילוב של שני מנגנונים מרכזיים מתחת למכסה המנוע.\n\nמצד אחד, הם מפעילים צוותי אדום אנושיים המדמים פרופילי משתמש ריאליסטיים כדי לחשוף חולשות תפעוליות.\n\nמצד שני, הם משתמשים במסגרות אוטומטיות המייצרות פיילודי תקיפה באופן אלגוריתמי כדי לבדוק עשרות תרחישי קצה בקנה מידה רחב.\n\nזה לא אומר שחברות אחרות יכולות פשוט להעתיק את המודל ולשכוח מאבטחת שכבות. אבל גישה זו ממחישה שארכיטקטורת הגנה מחייבת מעקב בלתי פוסק אחרי נתונים נכנסים.\n\nהסיפור הגדול כאן הוא המעבר מתפיסת הגנה סטטית של סינון מילות מפתח להגנה התנהגותית דינמית שמבינה את הקשר הנתונים של סוכני ה AI.\n\nאיך אתם בודקים את האפליקציות שלכם מול הזרקות עקיפות כאלה?\n\n#CyberSecurity #AIsecurity #PromptInjection #BlueTeam #InfoSec #CloudSecurity",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795566102-google-workspace-cont/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795566102-google-workspace-cont/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Google Security Blog:\nhttp://security.googleblog.com/2026/04/google-workspaces-continuous-approach.html",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Google Security Blog: Indirect prompt injection cannot be permanently solved once and for all in complex AI applications."
-    },
-    {
-      "id": "post-2-1795566102",
-      "topic": "The Thin Orchestrator Pattern for Reliable AI Agents at Meta",
-      "category": "ai_agents",
-      "source_url": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
-      "source_platform": "Engineering at Meta (AI & Systems)",
-      "posted_at": "Updated 2026-11-25 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Published directly by Meta Engineering, detailing concrete architectural metrics and production findings from large-scale data pipeline agents.",
-      "key_takeaways": [
-        "Loading an AI agent with too much context and domain knowledge leads to hallucinations and concept cross-contamination.",
-        "Meta built a 1,300-line orchestrator that routes 20 workflows to 14 specialized agents with zero domain work itself.",
-        "Keeping the orchestration layer thin improves reliability across multi-repository data onboarding."
-      ],
-      "post_angle": "Challenging the notion that a monolithic, all-knowing AI agent is better, demonstrating why splitting work into a thin router and specialized agents wins in production.",
-      "opening_hook": "לפעמים, לתת לסוכן ה AI את כל הידע שהוא צריך זו בדיוק הגישה השגויה.",
-      "linkedin_post": "לפעמים, לתת לסוכן ה AI את כל הידע שהוא צריך זו בדיוק הגישה השגויה.\n\nבמהלך פיתוח מערכות אוטומציה להעלאת עמודי מידע במערכות ההמלצה של Meta, צוות ההנדסה גילה שכאשר מעמיסים על סוכן מרכזי את כל חוקי הקוד והקונפיגורציות, הביצועים דווקא יורדים.\n\nהמודל החל לערבב בין קונספטים ולהחיל חוקי קוד ממערכת אחת על אחרת בגלל חציית רף הקונטקסט.\n\nהפתרון שנבנה ב Meta נקרא דפוס האורקסטרטור הרזה, שבו בנו מנהל ניתוב המורכב מ 1300 שורות קוד בלבד המנתב למעלה מ 20 זרימות עבודה ל 14 סוכנים מתמחים.\n\nהאורקסטרטור עצמו מבצע אפס עבודה בתחום הדחיסה או הלוגיקה העסקית, ומתמקד אך ורק ברצפים ובבדיקות אמינות בזמן שסוכנים ייעודיים מטפלים בלוגיקה.\n\nזה לא אומר שצריך לוותר לחלוטין על מודלי ענק חכמים. אבל זו הוכחה לכך שארכיטקטורה מבוזרת מנצחת מונוליטים גדולים.\n\nהסיפור הגדול כאן הוא המעבר מתפיסת מודל אחד שיודע הכול אל מבנה ניהול דטרמיניסטי שמזכיר מיקרו-שירותים בעולם התוכנה המסורתי.\n\nאיך אתם מחלקים את העבודה בין הסוכנים במערכות שלכם?\n\n#AIAgents #MachineLearning #SystemArchitecture #AIAutomation #Engineering #Meta",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795566102-the-thin-orchestrator/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795566102-the-thin-orchestrator/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Engineering at Meta:\nhttps://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture/",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Engineering at Meta: Loading an AI agent with too much context and domain knowledge leads to hallucinations and concept cross-conta"
-    },
-    {
-      "id": "post-3-1795566102",
-      "topic": "Trail of Bits Bug Patching and Regression Hunt Plugins",
-      "category": "cyber_soc",
-      "source_url": "https://blog.trailofbits.com/2026/10/21/your-ai-agent-fixed-the-bug-but-what-else-did-it-change/",
-      "source_platform": "Trail of Bits (Security Research & AI)",
-      "posted_at": "Updated 2026-11-25 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Empirical security research from Trail of Bits evaluating real-world open-source code patches generated by AI agents.",
-      "key_takeaways": [
-        "Trail of Bits released patching-bugs and regression-hunt plugins to let agents handle patch development and regression checks.",
-        "In evaluations, checking over 130 merged PRs upstream revealed 21 regressions, mostly functional.",
-        "The automated regression hunt plugin produced 25% fewer false-positive findings than a baseline Codex prompt."
-      ],
-      "post_angle": "Analyzing the trade-off of letting AI agents write security patches, focusing on the real regressions discovered in open-source repositories.",
-      "opening_hook": "הסוכן תיקן את באג האבטחה בקוד, אבל איזה שבירות חדשות הוא הכניס בלי שנשים לב?",
-      "linkedin_post": "הסוכן תיקן את באג האבטחה בקוד, אבל איזה שבירות חדשות הוא הכניס בלי שנשים לב?\n\nהשבוע פרסמו חוקרי Trail of Bits תוספים חדשים המיועדים להעברת פיתוח טלאים ובדיקות רגרסיה לסוכני AI, במסגרת יוזמת Patch the Planet המשותפת עם OpenAI.\n\nבבדיקה מקיפה שביצעו על למעלה מ 130 פול-רקוודס ממוזגים בפרויקטים של קוד פתוח כמו Scapy, החוקרים מצאו 21 רגרסיות שהוכנסו כתוצאה מהתיקונים.\n\nמתוכן, 16 היו רגרסיות פונקציונליות, אחת פגעה בביצועים וארבע פגעו בתהליכי הבנייה או הבדיקות, למרות שאף אחת מהן לא פרצה הגנת אבטחה קיימת.\n\nהמנגנון החדש משתמש בסוכן שסורק את השינויים, מריץ בדיקות הוכחת היתכנות לפני ואחרי השינוי, ומסנן רעשי רקע כדי להעלות את דיוק הזיהוי ב 25 אחוזים לעומת פרומפט בסיסי סטנדרטי.\n\nזה לא אומר שאי אפשר לסמוך על כלי אוטומציה בפיתוח תוכנה. אבל זו תזכורת חדה לכך שתיקון אוטומטי חייב להיות מלווה במערכות בקרה דטרמיניסטיות.\n\nהסיפור הגדול כאן הוא ההבנה שבעיית האבטחה האמיתית בעידן ה AI היא לא רק כתיבת קוד זדוני, אלא ניהול הרגרסיות השקטות שנוצרות במהירות עצומה.\n\nאיך צוות הפיתוח שלכם בודק טלאים שנוצרו על ידי מכונה?\n\n#AppSec #AIAutomation #CodeQuality #CyberSecurity #OpenSource #DevSecOps",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795566102-trail-of-bits-bug-pat/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795566102-trail-of-bits-bug-pat/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Trail of Bits:\nhttps://blog.trailofbits.com/2026/10/21/your-ai-agent-fixed-the-bug-but-what-else-did-it-change/",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Trail of Bits: Trail of Bits released patching-bugs and regression-hunt plugins to let agents handle patch development and re"
-    },
-    {
-      "id": "post-4-1795566102",
-      "topic": "Cloudflare Open-Weight Clairic and Clairic-Flash Extraction Models",
-      "category": "cyber_soc",
-      "source_url": "https://blog.cloudflare.com/open-clairic/",
+      "source_url": "https://blog.cloudflare.com/probing-dns-at-cloudflare/",
       "source_platform": "Cloudflare Blog (Security & Engineering)",
       "posted_at": "Updated 2026-11-25 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "Direct release announcement from Cloudflare Workers AI superintelligence team detailing architectural shifts in extraction models.",
+      "credibility_rationale": "מגיע מבלוג ההנדסה של קלאודפלייר ומפרט ארכיטקטורה אמיתית של בדיקות קצה למערכות DNS מבוזרות.",
       "key_takeaways": [
-        "Cloudflare released open-weight extraction models Clairic and the compact 9-billion-parameter Clairic-flash.",
-        "They use a parallel slot autoregressive generation approach instead of a single forward pass for text and number extraction.",
-        "Each field uses previously written tokens to choose its next token and stops at its own specific end marker."
+        "כישלונות DNS קשים לאיתור כי הם חלקיים ומתפשטים לאט ברשת",
+        "הרחבת מסגרת בדיקות קצה כמו Flamingo מאפשרת לבדוק פרוטוקולים מול סביבת הייצור האמיתית",
+        "מדידת התפשטות רשומה הפכה לשער כניסה שקובע אם פריסה תעבור או תתגלגל אחורה"
       ],
-      "post_angle": "Exploring how architectural changes in model generation, specifically parallel slot autoregressive generation, improve document and data extraction accuracy.",
-      "opening_hook": "האם חילוץ נתונים ממסמכים מובנים ולא מובנים דורש תמיד הרצת מודל ענק ויקר?",
-      "linkedin_post": "האם חילוץ נתונים ממסמכים מובנים ולא מובנים דורש תמיד הרצת מודל ענק ויקר?\n\nהשבוע הודיע צוות הבינה המלאכותית של Cloudflare על השקת גרסאות פתוחות משקל של מודלי החילוץ שלהם, הכוללים את Clairic המעודכן ואת Clairic-flash בקבצים קומפקטיים של 9 מיליארד פרמטרים.\n\nמה שמיוחד בגרסה הזו הוא השינוי המבני באופן שבו המודל מטפל בשדות טקסט ומספרים מורכבים כמו תמונות קבלות וקובצי PDF.\n\nבמקום להסתמך על מעבר קדימה בודד, המודל משתמש בשיטת יצירה אוטורגרסיבית מקבילית של חריצים.\n\nמתחת למכסה המנוע, כל שדה נתונים משתמש בטוקנים שכבר נכתבו כדי לבחור את הטוקן הבא שלו, ועוצר באופן עצמאי כשהוא מגיע לסימן הסיום הייעודי שלו.\n\nכל השדות מתקדמים יחד באותו אצווה ומאפשרים שמירה על השהיה נמוכה במיוחד לצד דיוק מוגבר בחילוץ מידע רגיש.\n\nזה לא אומר שמודלי ענק כלליים הולכים להיעלם מחר מהענן. אבל זו בהחלט התקדמות משמעותית ביעילות של מודלים מותאמים למשימות ספציפיות.\n\nהסיפור הגדול כאן הוא המעבר לארכיטקטורות קומפקטיות וייעודיות שרצות מקצה הענן ומספקות ביצועים מהירים בלי לשבור את התקציב.\n\nאיזה אתגרי חילוץ נתונים יש לכם במערכות האבטחה והניטור כיום?\n\n#Cloudflare #AIModels #DataExtraction #CloudSecurity #WorkersAI #MachineLearning",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795566102-cloudflare-open-weigh/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795566102-cloudflare-open-weigh/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:\nhttps://blog.cloudflare.com/open-clairic/",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Cloudflare Blog: Cloudflare released open-weight extraction models Clairic and the compact 9-billion-parameter Clairic-flash."
+      "post_angle": "זווית מהשטח המציגה כיצד בעיות DNS מתחת לרדאר נפתרות באמצעות ניטור מתמיד מקצה לקצה מול סביבת הייצור.",
+      "opening_hook": "הדשבורדים ירוקים והכל עבר טסטים בהצלחה, אבל אז הטלפון מתחיל לרעוד כי הלקוחות לא מצליחים לפתור כתובות חדשות.",
+      "linkedin_post": "הדשבורדים ירוקים והכל עבר טסטים בהצלחה, אבל אז הטלפון מתחיל לרעוד כי הלקוחות לא מצליחים לפתור כתובות חדשות.\n\nבעיות DNS הן מהקשות ביותר לאיתור בגלל שהן זוחלות לאט, מפוזרות לרוחב הרשת ומשפיעות רק בחלק מהמקומות.\n\nבצוות הנדסת הרשת של קלאודפלייר הבינו שכדי לתפוס את התקלות האלו בזמן, חייבים לבדוק את ה DNS בדיוק כמו שהמשתמשים חווים אותם, כל הזמן ומן הקצה אל הקצה.\n\nהפתרון היה להרחיב את מסגרת הבדיקות שנקראת Flamingo כך שתדע לדבר פרוטוקולי רשת נוספים.\n\nבתכלס, מה שזה אומר לצוותי ה SOC והפיתוח ביום יום הוא להפסיק לסמוך רק על בדיקות יחידה ולשלב בקרות קצה שרצות מול ה Edge האמיתי.\n\nמעקב קבוע כזה הפך אצלם לשער חובה שמחליט האם הקוד ממשיך ללקוחות או מתגלגל אחורה באופן אוטומטי.\n\nאיך אתם מוודאים שהשינוי הבא שלכם לא תוקע את רזולוציית השמות בייצור?\n\n#Cloudflare #DNS #DevOps #SecurityMonitoring #Engineering",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:\nhttps://blog.cloudflare.com/probing-dns-at-cloudflare/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Cloudflare Blog: כישלונות DNS קשים לאיתור כי הם חלקיים ומתפשטים לאט ברשת"
+    },
+    {
+      "id": "post-2-1795635457",
+      "topic": "CTO of ‘RansomwareHelp’ Indicted for Wire Fraud",
+      "category": "cyber_soc",
+      "source_url": "https://krebsonsecurity.com/2026/11/cto-of-ransomwarehelp-indicted-for-wire-fraud/",
+      "source_platform": "Krebs on Security (Threat Intelligence)",
+      "posted_at": "Updated 2026-11-25 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "דיווח חקירתי מדויק של קרובס על מעצר ומכתב אישום פדרלי נגד חברה שהתחזתה למומחית פענוח כופר.",
+      "key_takeaways": [
+        "חברות תיווך כופר מתחזות למומחי קריפטוגרפיה בזמן שהן פשוט משלמות לתוקפים",
+        "חקירות סמויות של ה FBI חושפות את הפער בין הבטחות השיווק למציאות בשטח",
+        "לקוחות ארגוניים צריכים לוודא אישורים קריפטוגרפיים ולא להסתמך על סיסמאות שיווקיות"
+      ],
+      "post_angle": "זווית סקפטית המאתגרת את ההבטחות של חברות חיצוניות לפתרון אירועי כופר ומציגה את המציאות שמאחורי הקלעים.",
+      "opening_hook": "הבטחות שיווקיות על כלי הצפנה קנייניים שמשחזרים מאה אחוז מהנתונים נשמעות טוב עד שמבצעים בדיקת עומק למערכת.",
+      "linkedin_post": "הבטחות שיווקיות על כלי הצפנה קנייניים שמשחזרים מאה אחוז מהנתונים נשמעות טוב עד שמבצעים בדיקת עומק למערכת.\n\nכתב האישום הפדרלי נגד בכירי חברת השירותים RansomwareHelp חושף מציאות עגומה שבה הבטחות לפתרונות קריפטוגרפיים מתקדמים היו בסך הכל תשלום שקט לתוקפים מאחורי הגב של הלקוח.\n\nהאתר טען שיש לו מומחים שמחזירים מידע נעול בלי לשלם סחיטה, אבל מבצע סמוי של ה FBI הראה שהם פשוט פנו לתוקפים וביקשו את המפתח הזול ביותר תוך גביית עמלת ענק מהקורבנות.\n\nבתכלס, עבור צוותי אבטחה וניהול אירועים בתוך ארגונים, הלקח פשוט מאוד: כשחברה חיצונית טוענת שיש לה קסמים בלעדיים, דורשו לראות את הארכיטקטורה וההוכחות הטכניות לפני שסומכים עליה בזמן משבר.\n\nאף כלי אוטומטי לא יחליף תהליך תגובה מנוהל שמתבסס על נתונים פתוחים ובדיקות פורנזיות אמיתיות.\n\nאיך צוות ה SOC שלכם מסנן ומאמת ספקי צד ג' שמבטיחים פתרונות קסם?\n\n#CyberSecurity #SOC #ThreatIntel #Ransomware #IncidentResponse",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795635457-cto-of-ransomwarehelp/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795635457-cto-of-ransomwarehelp/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Krebs on Security:\nhttps://krebsonsecurity.com/2026/11/cto-of-ransomwarehelp-indicted-for-wire-fraud/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Krebs on Security: חברות תיווך כופר מתחזות למומחי קריפטוגרפיה בזמן שהן פשוט משלמות לתוקפים"
+    },
+    {
+      "id": "post-3-1795635457",
+      "topic": "How iFood scales coding agents across 15,000 repositories",
+      "category": "ai_agents",
+      "source_url": "https://openai.com/business/customer-stories/ifood",
+      "source_platform": "OpenAI (AI Releases & Research)",
+      "posted_at": "Updated 2026-11-25 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "מקרה בוחן אמיתי על הרצת סוכני קוד מבוססי API על פני 15,000 מאגרים שונים באמצעות תשתיות מבודדות.",
+      "key_takeaways": [
+        "האתגר האמיתי בהטמעת סוכני קוד אינו יכולת המודל אלא תשתית הביצוע המבודדת",
+        "פלטפורמת סוכנים מרוחקים הופכת משימות הנדסיות מורכבות לקריאות API פשוטות",
+        "שלבי הרצה דטרמיניסטיים כמו גיבון וסביבת סנדבוקס שומרים על יציבות העבודה"
+      ],
+      "post_angle": "לקח לבוני מערכות ואוטומציות כיצד לבנות תשתיות סנדבוקס אמינות להרצת סוכני קוד בסקייל ארגוני ענק.",
+      "opening_hook": "לפתור בעיית אבטחה או תאימות בקוד עבור מאגר יחיד זה פשוט, אבל האתגר האמיתי מתחיל כשצריך להריץ את זה על חמש עשרה אלף מאגרים שונים.",
+      "linkedin_post": "לפתור בעיית אבטחה או תאימות בקוד עבור מאגר יחיד זה פשוט, אבל האתגר האמיתי מתחיל כשצריך להריץ את זה על חמש עשרה אלף מאגרים שונים.\n\nבחברת iFood הבינו שמה שהיה חסר להם זו לא עוד אינטליגנציה או פרומפט מוצלח, אלא תשתית ביצוע ייעודית ומבודדת שמנהלת את כל מחזור החיים של הסוכן.\n\nהם בנו פלטפורמה שמקבלת בקשת REST API, מעבירה אותה לסביבת סנדבוקס מבודדת, ומחזירה חזרה Pull Request מוכן לבדיקה.\n\nבתכלס, עבור מפתחי אוטומציות ובונים של סוכני AI, התובנה פה היא קריטית: אל תנסו לשלב סוכנים פרועים ישר לתוך סביבת הייצור מבלי לבנות מעטפת דטרמיניסטית שמתחילה בשכפול הקוד ומסתיימת בבקשת מיזוג מבוקרת.\n\nהפרדת הרשויות הזו היא ההבדל בין פיילוט שנשאר במעבדה לבין אוטומציה ארגונית יציבה שרצה בסקייל.\n\nהאם התשתיות שלכם מוכנות להריץ סוכני קוד באופן אוטומטי מבלי לסכן את יציבות המערכת?\n\n#AIAgents #DeveloperTools #Automation #SoftwareEngineering #CodeSecurity",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795635457-how-ifood-scales-codi/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795635457-how-ifood-scales-codi/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך OpenAI:\nhttps://openai.com/business/customer-stories/ifood",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך OpenAI: האתגר האמיתי בהטמעת סוכני קוד אינו יכולת המודל אלא תשתית הביצוע המבודדת"
     }
   ]
 }

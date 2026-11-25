@@ -1,56 +1,33 @@
 {
-  "generated_at": "2026-11-25T17:54:22.888857+00:00",
+  "generated_at": "2026-11-25T19:33:34.439293+00:00",
   "stats": {
     "total_scanned": 22,
     "matched_count": 14,
     "ai_count": 2,
-    "cyber_count": 3,
+    "cyber_count": 4,
     "scraping_count": 0,
-    "web_count": 9
+    "web_count": 8
   },
   "jobs": [
     {
-      "id": "remotive-2091179",
-      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
-      "platform": "Remotive (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remotive.com/remote-jobs/software-development/wordpress-theme-plugin-developer-2091179",
-      "posted_at": "2026-11-24",
-      "budget": "$57K - $67K",
+      "id": "arbeitnow-senior-leadership-ai-enablement-consultant-berlin-186615",
+      "title": "Senior Leadership & AI Enablement Consultant (w/d/m) (WEBUILDAI GmbH)",
+      "platform": "Arbeitnow Remote (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://www.arbeitnow.com/jobs/companies/webuildai-gmbh/senior-leadership-ai-enablement-consultant-berlin-186615",
+      "posted_at": "Recent",
+      "budget": "Remote",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 92,
+      "match_score": 84,
       "skills": [
-        "Wordpress",
-        "Fullstack"
+        "Ai",
+        "Generative Ai"
       ],
-      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
-      "poc_blueprint": "Architecture: Modular WordPress plugin using custom post types and React-based admin settings. \n3-Step MVP: 1. Scaffold plugin boilerplate with custom hooks. 2. Build React admin dashboard interface. 3. Hook REST API endpoints for data management. \nFlow: User input -> WordPress REST API -> Sanitized DB entry.",
-      "client_problem": "The client needs a full-stack WordPress developer to build and maintain custom themes and plugins over a five-month contract.",
-      "proposal_draft": "I write custom WordPress plugins and themes using clean, maintainable PHP and modern front-end tooling. I can integrate your required features without bloated code or slow load times. Are you using Sage or a standard starter theme for this project?\n\nI also put together a small working prototype for your setup so you can test the flow directly: https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/\nBest,\nRoee",
-      "poc_live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/",
-      "poc_verified": true
-    },
-    {
-      "id": "jobicy-164237",
-      "title": "Full Stack Developer - Java & React (f/m/d) (ecosio)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://jobicy.com/jobs/164237-full-stack-developer-java-react-f-m-d-3",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 89,
-      "skills": [
-        "React",
-        "Full Stack",
-        "Web App"
-      ],
-      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
-      "poc_blueprint": "Architecture: React SPA frontend communicating with a Java Spring Boot microservice backend via REST and WebSockets. \n3-Step MVP: 1. Setup Spring Boot API controllers for EDI data. 2. Build React dashboard views with Tailwind CSS. 3. Connect real-time status updates. \nFlow: Client Action -> Spring Boot Service -> EDI Engine.",
-      "client_problem": "The client needs a full-stack developer experienced in Java and React to work on B2B integration and e-invoicing platforms.",
-      "proposal_draft": "I build responsive React frontends paired with robust backend services and clean API integrations. I can help develop and maintain your B2B dashboard workflows with proper state management. What state library are you using alongside React for your frontend components?\nBest,\nRoee"
+      "first_seen_at": "2026-11-25T19:33:34.439293+00:00",
+      "poc_blueprint": "",
+      "client_problem": "The client needs to guide leadership teams on selecting the right AI, RPA, or agent architecture based on their specific process data.",
+      "proposal_draft": "Hey, I help teams map out practical AI architectures and automation workflows without getting bogged down in hype. I usually build out proof-of-concept pipelines using Python and n8n to test data readiness before committing to full integration. Are you using structured internal databases or messy document stores for these initial workshops? Best,\nRoee"
     },
     {
       "id": "hn-50445335",
@@ -69,69 +46,50 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client is seeking a full-stack engineer and UI/UX SaaS specialist to build and ship web applications.",
-      "proposal_draft": "I build full-stack SaaS applications with clean Next.js frontends and solid backend logic. I handle both the UI/UX design and the implementation so everything ships smoothly. Which database or ORM are you using for your core data models?\nBest,\nRoee"
+      "client_problem": "The client is seeking a full stack engineer and UI/UX specialist to build out SaaS web applications and modern interfaces.",
+      "proposal_draft": "Hey, I build responsive SaaS dashboards and clean web interfaces using Next.js, Tailwind, and Figma. I focus on shipping functional UI components quickly while keeping the backend state clean. Are you looking to migrate an existing prototype or start fresh from a design system? Best,\nRoee"
     },
     {
-      "id": "jobicy-164279",
-      "title": "Crux - Video and Audio Raters - German (Germany) (Welo Global)",
-      "platform": "Jobicy (Live Cloud)",
+      "id": "remotive-2091179",
+      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
+      "platform": "Remotive (Live Cloud)",
       "track": "web_dashboards",
-      "url": "https://jobicy.com/jobs/164279-crux-video-and-audio-raters-german-germany",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Contract",
+      "url": "https://remotive.com/remote-jobs/software-development/wordpress-theme-plugin-developer-2091179",
+      "posted_at": "2026-11-24",
+      "budget": "$57K - $67K",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 78,
       "skills": [
-        "Analytics",
-        "Internal Tool"
+        "Wordpress",
+        "Fullstack"
       ],
       "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
       "poc_blueprint": "",
-      "client_problem": "Overview We are seeking evaluators for a project that combines Search Evaluation and Linguistic Analysis. In this role, you will assess user intent, annotate search queries, classify text, and evaluate multimedia content",
-      "proposal_draft": "Hi,\n\nI read the brief for Crux - Video and Audio Raters - German (Germany) (Welo Global). I design and build custom dashboards, clean web interfaces, and Analytics, Internal Tool systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client needs a fullstack developer to handle custom WordPress theme and plugin development over a multi-month contract.",
+      "proposal_draft": "Hey, I build custom web solutions and can easily handle custom WordPress themes and plugin development. I usually set up clean development environments using PHP and modern build tools to keep codebases maintainable. Are you relying on custom Gutenberg blocks or a traditional page builder setup for these themes? Best,\nRoee"
     },
     {
-      "id": "jobicy-164246",
-      "title": "Director AI Native Product Builder | New Ventures (Wellhub)",
+      "id": "jobicy-164298",
+      "title": "Certificate Authority Program Steward (Mozilla)",
       "platform": "Jobicy (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/164246-director-ai-native-product-builder-new-ventures",
+      "track": "cyber_soc",
+      "url": "https://jobicy.com/jobs/164298-certificate-authority-program-steward",
       "posted_at": "2026-11-25",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 75,
       "skills": [
-        "Ai"
+        "Cybersecurity"
       ],
-      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
+      "first_seen_at": "2026-11-25T19:33:34.439293+00:00",
       "poc_blueprint": "",
-      "client_problem": "Your wellbeing, our mission. Join a company shaping a healthier world. GET TO KNOW US At Wellhub we're revolutionizing workplace wellness. Our platform connects employees worldwide to the best partners for fitness, mindf",
-      "proposal_draft": "Hi,\n\nI read the brief for Director AI Native Product Builder | New Ventures (Wellhub). I design and build custom dashboards, clean web interfaces, and Ai systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client is looking for a steward to manage and oversee certificate authority programs within a major tech ecosystem.",
+      "proposal_draft": "Hey, I saw your opening for program stewardship and bring strong analytical and security baseline experience to the table. I deal with compliance checking and security log reviews regularly in my SOC work. What specific compliance frameworks are you prioritizing for this program right now? Best,\nRoee"
     },
     {
-      "id": "jobicy-164284",
-      "title": "Project Beid - Korean E-commerce Product Matching Annotator (Welo Global)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://jobicy.com/jobs/164284-project-beid-korean-e-commerce-product-matching-annotator",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 75,
-      "skills": [
-        "Analytics"
-      ],
-      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
-      "poc_blueprint": "",
-      "client_problem": "Responsibilities - Review pairs of e-commerce listings and decide whether they are the same product and the same sellable variant, returning ACCEPT or REJECT. - Compare key attributes such as brand, model number, size/ca",
-      "proposal_draft": "Hi,\n\nI read the brief for Project Beid - Korean E-commerce Product Matching Annotator (Welo Global). I design and build custom dashboards, clean web interfaces, and Analytics systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-820371686",
+      "id": "wwr-687668711",
       "title": "Reddit: Frontend Engineer, Ads Campaign Manager",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -146,11 +104,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Headquarters: Remote - United States Reddit is a community of communities. It’s built on shared interests, passion, and trust, and is home to the most open and authentic conversations on the internet. Every day, Reddit u",
-      "proposal_draft": "Hi,\n\nI read the brief for Reddit: Frontend Engineer, Ads Campaign Manager. I design and build custom dashboards, clean web interfaces, and Frontend systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client requires a frontend engineer to work on advertising campaign management interfaces.",
+      "proposal_draft": "Hey, I build clean interactive dashboards and campaign management interfaces using modern frontend tooling. I focus on making data-heavy views fast and intuitive for everyday users. What component library or state management tool are you currently using for your ad manager? Best,\nRoee"
     },
     {
-      "id": "wwr-912285038",
+      "id": "wwr-913106161",
       "title": "Upstart: Frontend Software Engineer, Personal Loans",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -165,11 +123,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Headquarters: United States | Remote About Upstart At Upstart, we’re united by a mission that matters: to radically reduce the cost and complexity of borrowing for all Americans. Every day, we bring creativity, experimen",
-      "proposal_draft": "Hi,\n\nI read the brief for Upstart: Frontend Software Engineer, Personal Loans. I design and build custom dashboards, clean web interfaces, and Frontend systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client needs a frontend engineer to help streamline the borrowing and personal loan application experience.",
+      "proposal_draft": "Hey, I build high-conversion user interfaces and clean web apps with a strong focus on UX flow. I can help streamline multi-step loan applications into fast, responsive Next.js views. Are you managing form state locally or passing payloads through a centralized API gateway? Best,\nRoee"
     },
     {
-      "id": "wwr-590633094",
+      "id": "wwr-794469359",
       "title": "Pinterest: Machine Learning Engineer II, Responsible AI",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
@@ -184,11 +142,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Headquarters: San Francisco, CA, US; Remote, US About Pinterest: Millions of people around the world come to our platform to find creative ideas, dream about new possibilities and plan for memories that will last a lifet",
-      "proposal_draft": "Hi,\n\nI read the brief for Pinterest: Machine Learning Engineer II, Responsible AI. I design and build custom dashboards, clean web interfaces, and Ai systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client is seeking a machine learning engineer to work on responsible AI initiatives and model evaluation.",
+      "proposal_draft": "Hey, I build and evaluate AI pipelines with a strong focus on safe, predictable output handling. I typically use Python to audit workflow behavior and filter edge cases before deployment. What evaluation frameworks are you currently using for your responsible AI metrics? Best,\nRoee"
     },
     {
-      "id": "wwr-176891174",
+      "id": "wwr-899244280",
       "title": "Carrot: Manager, Product Design",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -203,11 +161,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Headquarters: Remote About Carrot: Carrot is the leading global fertility and family care platform, built on intelligent care orchestration: the right clinical guidance, at the right moment, in the context of each member",
-      "proposal_draft": "Hi,\n\nI read the brief for Carrot: Manager, Product Design. I design and build custom dashboards, clean web interfaces, and Product Design systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client is hiring a product design manager to oversee global health and family care platform experiences.",
+      "proposal_draft": "Hey, I design clean user interfaces and data-driven dashboards with a strong emphasis on user clarity. I bridge the gap between design and development by building out interactive Figma prototypes that translate directly into code. How large is the current design team you are managing? Best,\nRoee"
     },
     {
-      "id": "wwr-6426915",
+      "id": "wwr-684166933",
       "title": "Tebra: Product Designer",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -222,8 +180,28 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Headquarters: United States - Remote Tebra only initiates contact with candidates via email from an official Tebra email address (@ tebra.com , @ patientpop.com , or @ kareo.com ) or through our applicant tracking system",
-      "proposal_draft": "Hi,\n\nI read the brief for Tebra: Product Designer. I design and build custom dashboards, clean web interfaces, and Product Design systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client needs a product designer to create intuitive digital interfaces for their platform.",
+      "proposal_draft": "Hey, I design user interfaces and functional web apps with a focus on clean design systems and usability. I build out interactive prototypes in Figma that make developer handoff straightforward. Are you looking to scale an existing design system or build new modules from scratch? Best,\nRoee"
+    },
+    {
+      "id": "jobicy-164279",
+      "title": "Crux - Video and Audio Raters - German (Germany) (Welo Global)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164279-crux-video-and-audio-raters-german-germany",
+      "posted_at": "2026-11-25",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 64,
+      "skills": [
+        "Analytics",
+        "Internal Tool"
+      ],
+      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
+      "poc_blueprint": "",
+      "client_problem": "The client is looking for evaluators to analyze search queries and assess multimedia content relevance and quality.",
+      "proposal_draft": "Hey, I handle detailed content analysis and classification tasks with a methodical, structured approach. I regularly process and categorize text and media payloads using automated scripts. Are you handling these evaluations via a custom internal annotation tool? Best,\nRoee"
     },
     {
       "id": "remoteok-1138074",
@@ -242,8 +220,8 @@
       ],
       "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
       "poc_blueprint": "",
-      "client_problem": "Thrive is an innovative technology solutions provider focused on Cyber Security, Hybrid Cloud, Global Network Management, Disaster Recovery, and traditional Managed Services. Our corporate culture, engineering talent, cu",
-      "proposal_draft": "Hi,\n\nI read the brief for Strategic Technical Advisor (Thrive). I design and build custom dashboards, clean web interfaces, and Infosec, Cybersecurity systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client requires a strategic technical advisor focused on cybersecurity, hybrid cloud, and managed services.",
+      "proposal_draft": "Hey, I have a strong background in security operations and technical infrastructure advisory. I look at system logs and threat intelligence daily to help shore up organizational security. What specific cloud environments make up the core of your managed services portfolio? Best,\nRoee"
     },
     {
       "id": "remoteok-1138067",
@@ -262,8 +240,27 @@
       ],
       "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
       "poc_blueprint": "",
-      "client_problem": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital",
-      "proposal_draft": "Hi,\n\nI read the brief for Threat Research Engineer, Security Factory: Threat Research (GitLab). I design and build custom dashboards, clean web interfaces, and Threat, Devsecops systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client needs a threat research engineer to analyze security threats and improve DevSecOps platform defenses.",
+      "proposal_draft": "Hey, I work as a SOC Tier 1 analyst and track threat vectors to keep systems secure. I can help analyze security telemetry and build out detection rules. What SIEM or logging platform are you currently using for your threat research workflows? Best,\nRoee"
+    },
+    {
+      "id": "jobicy-164284",
+      "title": "Project Beid - Korean E-commerce Product Matching Annotator (Welo Global)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164284-project-beid-korean-e-commerce-product-matching-annotator",
+      "posted_at": "2026-11-25",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 61,
+      "skills": [
+        "Analytics"
+      ],
+      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
+      "poc_blueprint": "",
+      "client_problem": "The client needs annotators to review e-commerce listings and match product variants across platforms.",
+      "proposal_draft": "Hey, I build automated matching workflows and can easily handle structured data verification tasks. I often use Python scripts to parse attribute data and flag discrepancies across datasets. Are you processing these matches through a batch CSV pipeline or an API? Best,\nRoee"
     },
     {
       "id": "remoteok-1138078",
@@ -281,8 +278,8 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Please whitelist the domains \"lever.co\" and \"hire.lever.co\" with your email provider to make sure you get our emails. Disclaimer: This is a generic job description for the position stated below. Actual tasks and tools wi",
-      "proposal_draft": "Hi,\n\nI read the brief for Real Estate Executive Assistant 21370 (Wing Assistant). I design and build custom dashboards, clean web interfaces, and Infosec systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "The client is seeking a real estate executive assistant to manage daily administrative tasks and scheduling.",
+      "proposal_draft": "Hey, I am highly organized and comfortable managing fast-paced workflows and communications. I regularly use automation tools to streamline administrative bottlenecks and keep operations running smoothly. What scheduling and CRM tools are central to your daily routine? Best,\nRoee"
     }
   ]
 }

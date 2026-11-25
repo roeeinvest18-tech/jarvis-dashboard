@@ -1,13 +1,61 @@
 {
-  "generated_at": "2026-11-25T17:56:56.477871+00:00",
+  "generated_at": "2026-11-25T19:37:38.297071+00:00",
   "stats": {
-    "total_live": 6,
+    "total_live": 9,
     "saas_mvp": 0,
     "ecom_kit": 1,
     "job_poc": 1,
-    "content_pack": 4
+    "content_pack": 7
   },
   "builds": [
+    {
+      "id": "post-post-3-1795635457-how-ifood-scales-codi",
+      "slug": "post-post-3-1795635457-how-ifood-scales-codi",
+      "kind": "content_pack",
+      "track": "ai_agents",
+      "title": "How iFood scales coding agents across 15,000 repositories",
+      "summary": "לפתור בעיית אבטחה או תאימות בקוד עבור מאגר יחיד זה פשוט, אבל האתגר האמיתי מתחיל כשצריך להריץ את זה על חמש עשרה אלף מאגרים שונים.",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795635457-how-ifood-scales-codi/",
+      "source_id": "post-3-1795635457",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-25T19:37:38.294623+00:00",
+      "updated_at": "2026-11-25T19:37:38.294623+00:00"
+    },
+    {
+      "id": "post-post-2-1795635457-cto-of-ransomwarehelp",
+      "slug": "post-post-2-1795635457-cto-of-ransomwarehelp",
+      "kind": "content_pack",
+      "track": "cyber_soc",
+      "title": "CTO of ‘RansomwareHelp’ Indicted for Wire Fraud",
+      "summary": "הבטחות שיווקיות על כלי הצפנה קנייניים שמשחזרים מאה אחוז מהנתונים נשמעות טוב עד שמבצעים בדיקת עומק למערכת.",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795635457-cto-of-ransomwarehelp/",
+      "source_id": "post-2-1795635457",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-25T19:37:38.258261+00:00",
+      "updated_at": "2026-11-25T19:37:38.258261+00:00"
+    },
+    {
+      "id": "post-post-1-1795635457-probing-dns-at-cloudf",
+      "slug": "post-post-1-1795635457-probing-dns-at-cloudf",
+      "kind": "content_pack",
+      "track": "cyber_soc",
+      "title": "Probing DNS at Cloudflare",
+      "summary": "הדשבורדים ירוקים והכל עבר טסטים בהצלחה, אבל אז הטלפון מתחיל לרעוד כי הלקוחות לא מצליחים לפתור כתובות חדשות.",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/",
+      "source_id": "post-1-1795635457",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-25T19:37:38.223302+00:00",
+      "updated_at": "2026-11-25T19:37:38.223302+00:00"
+    },
     {
       "id": "poc-remotive-2091179-wordpress-theme-plugin",
       "slug": "poc-remotive-2091179-wordpress-theme-plugin",

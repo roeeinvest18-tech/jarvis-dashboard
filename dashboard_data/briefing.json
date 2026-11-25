@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T17:56:56.605652+00:00",
+  "generated_at": "2026-11-25T19:37:38.527479+00:00",
   "date": "2026-11-25",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,28 +32,28 @@
   },
   "jobs": [
     {
-      "id": "remotive-2091179",
-      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
-      "platform": "Remotive (Live Cloud)",
-      "match_score": 92,
-      "has_poc": true,
-      "poc_live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/"
+      "id": "arbeitnow-senior-leadership-ai-enablement-consultant-berlin-",
+      "title": "Senior Leadership & AI Enablement Consultant (w/d/m) (WEBUILDAI GmbH)",
+      "platform": "Arbeitnow Remote (Live Cloud)",
+      "match_score": 84,
+      "has_poc": false,
+      "poc_live_url": ""
     },
     {
-      "id": "jobicy-164237",
-      "title": "Full Stack Developer - Java & React (f/m/d) (ecosio)",
-      "platform": "Jobicy (Live Cloud)",
-      "match_score": 89,
-      "has_poc": true,
+      "id": "hn-50445335",
+      "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
+      "platform": "HackerNews Freelance (Live)",
+      "match_score": 82,
+      "has_poc": false,
       "poc_live_url": ""
     }
   ],
   "content": {
-    "id": "post-1-1795566102",
-    "topic": "Google Workspace Continuous Approach to Mitigating Indirect Prompt Injections",
+    "id": "post-1-1795635457",
+    "topic": "Probing DNS at Cloudflare",
     "category": "cyber_soc",
-    "opening_hook": "יש בעיות אבטחה שאי אפשר לסגור פעם אחת עם עדכון קוד ולהמשיך הלאה.",
-    "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795566102-google-workspace-cont/"
+    "opening_hook": "הדשבורדים ירוקים והכל עבר טסטים בהצלחה, אבל אז הטלפון מתחיל לרעוד כי הלקוחות לא מצליחים לפתור כתובות חדשות.",
+    "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/"
   },
   "painpoint": {
     "title_en": "Advanced Digital Planners and iPad Productivity Templates",
@@ -64,31 +64,31 @@
   },
   "labs_builds": [
     {
+      "slug": "post-post-3-1795635457-how-ifood-scales-codi",
+      "kind": "content_pack",
+      "title": "How iFood scales coding agents across 15,000 repositories",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795635457-how-ifood-scales-codi/",
+      "status": "live"
+    },
+    {
+      "slug": "post-post-2-1795635457-cto-of-ransomwarehelp",
+      "kind": "content_pack",
+      "title": "CTO of ‘RansomwareHelp’ Indicted for Wire Fraud",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795635457-cto-of-ransomwarehelp/",
+      "status": "live"
+    },
+    {
+      "slug": "post-post-1-1795635457-probing-dns-at-cloudf",
+      "kind": "content_pack",
+      "title": "Probing DNS at Cloudflare",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/",
+      "status": "live"
+    },
+    {
       "slug": "poc-remotive-2091179-wordpress-theme-plugin",
       "kind": "job_poc",
       "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
       "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/",
-      "status": "live"
-    },
-    {
-      "slug": "post-post-4-1795566102-cloudflare-open-weigh",
-      "kind": "content_pack",
-      "title": "Cloudflare Open-Weight Clairic and Clairic-Flash Extraction Models",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795566102-cloudflare-open-weigh/",
-      "status": "live"
-    },
-    {
-      "slug": "post-post-3-1795566102-trail-of-bits-bug-pat",
-      "kind": "content_pack",
-      "title": "Trail of Bits Bug Patching and Regression Hunt Plugins",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795566102-trail-of-bits-bug-pat/",
-      "status": "live"
-    },
-    {
-      "slug": "post-post-2-1795566102-the-thin-orchestrator",
-      "kind": "content_pack",
-      "title": "The Thin Orchestrator Pattern for Reliable AI Agents at Meta",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795566102-the-thin-orchestrator/",
       "status": "live"
     }
   ]
