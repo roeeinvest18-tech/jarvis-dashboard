@@ -183,7 +183,7 @@ const EXERCISES = [
     why: 'Rear delts and external rotation, for shoulders that press a lot.',
     rationale: 'The small muscles at the back of the shoulder do not get '
       + 'trained by pressing or by heavy pulling. High reps at a low RIR '
-      + 'target because the goal is positional endurance, not maximal force.',
+      + 'target because the aim is positional endurance, not maximal force.',
   },
   {
     id: 'handstand',
@@ -587,7 +587,7 @@ const EXERCISES = [
     id: 'run_2k', name: 'Run 2 km', category: 'conditioning', movement_pattern: 'run',
     primary_muscles: ['whole_body'], equipment: 'outdoors', progression_type: 'time_or_distance', variations: [],
     why: 'A steady, controlled 2 km. The time is what you log.',
-    rationale: 'The goal is to improve the time a little each cycle. It is also the benchmark leading into a Cooper test in June 2027.',
+    rationale: 'The aim is to improve the time a little each cycle. It is also the benchmark leading into a Cooper test in June 2027.',
   },
   {
     id: 'bike_easy', name: 'Bike, easy pace', category: 'conditioning', movement_pattern: 'cycle',
@@ -1165,7 +1165,7 @@ function programCardioWorkout(dateIso, overrideType) {
   if (type === 'run') {
     return { ...common, focus: 'Cardio - Run 2 km', estimated_duration_min: 30, warm_up_min: 5,
       warm_up: '5 min walk or easy jog, then 2 km at a steady, controlled pace. Log the time.',
-      exercises: [{ exercise_id: 'run_2k', rest: '', note: 'The goal is to slowly improve the time each cycle.', measure: 'run' }] };
+      exercises: [{ exercise_id: 'run_2k', rest: '', note: 'Aim to slowly improve the time each cycle.', measure: 'run' }] };
   }
   if (type === 'sprints') {
     const plan = programSprintPlan(dateIso);

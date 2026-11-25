@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-25T12:41:28.331591+00:00",
+  "generated_at": "2026-11-25T12:51:58.027480+00:00",
   "stats": {
-    "total_scanned": 24,
+    "total_scanned": 21,
     "matched_count": 14,
-    "ai_count": 4,
-    "cyber_count": 3,
+    "ai_count": 2,
+    "cyber_count": 5,
     "scraping_count": 0,
     "web_count": 7
   },
@@ -19,55 +19,55 @@
       "budget": "Direct Contract / Freelance",
       "budget_type": "contract",
       "budget_val": 0,
-      "match_score": 96,
+      "match_score": 82,
       "skills": [
         "Ui/Ux",
         "Full Stack"
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "Architecture: Next.js frontend communicating with a Node/Python backend and PostgreSQL database.\n3-Step MVP: 1. Setup responsive dashboard layouts in Next.js and Tailwind. 2. Implement core authentication and database schema. 3. Deploy the application with CI/CD pipelines.\nFlow: User Request -> Next.js Frontend -> Backend API -> PostgreSQL Database.",
-      "client_problem": "The client needs a full stack engineer and SaaS specialist with strong UI/UX capabilities to build and scale web applications.",
-      "proposal_draft": "I saw your portfolio request and build full-stack web applications using Next.js and Tailwind with clean UI/UX designs. I handle end-to-end development from database architecture to responsive frontend interfaces. Are you using a specific backend framework for this project?\n\nBest,\nRoee"
+      "poc_blueprint": "",
+      "client_problem": "The client is seeking a full stack engineer with UI/UX expertise to support SaaS development and project management.",
+      "proposal_draft": "I can help you build out your SaaS interfaces and integrate the necessary automation workflows. I have experience with Next.js and Figma to ensure your product dashboard is both functional and intuitive. Are you currently using a specific framework for your backend services? Best,\nRoee"
     },
     {
-      "id": "wwr-680963441",
-      "title": "Celonis: Lead Applied Value Engineer - AI & Process Intelligence Consultant",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/celonis-lead-applied-value-engineer-ai-process-intelligence-consultant",
-      "posted_at": "Wed, 25 Nov 2026",
-      "budget": "Remote / Contract",
+      "id": "remoteok-1138074",
+      "title": "Strategic Technical Advisor (Thrive)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "cyber_soc",
+      "url": "https://remoteOK.com/remote-jobs/remote-strategic-technical-advisor-thrive-1138074",
+      "posted_at": "2026-11-23",
+      "budget": "$128,091-$128,091/yr",
       "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 87,
+      "budget_val": 128091,
+      "match_score": 78,
       "skills": [
-        "Ai",
-        "Ai Agent"
+        "Infosec",
+        "Cybersecurity"
       ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "Architecture: Python and n8n automation pipelines connected to process intelligence APIs.\n3-Step MVP: 1. Ingest enterprise workflow data sources. 2. Build custom data transformation scripts. 3. Output actionable insights to an analytics dashboard.\nFlow: Raw Enterprise Data -> n8n/Python Processing Engine -> AI Context Model -> Analytics Output.",
-      "client_problem": "The client requires an applied value engineer to implement and industrialize enterprise AI and process intelligence models.",
-      "proposal_draft": "I build custom AI agents and automated data workflows using Python and n8n to integrate intelligence into existing business operations. I can help bridge the gap between raw process data and actionable AI insights. What specific data sources will the context model pull from initially?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Thrive needs a technical advisor to assist with cyber security, hybrid cloud, and managed services operations.",
+      "proposal_draft": "I have a background in SOC Tier 1 analysis and can help streamline your security monitoring and cloud management processes. I focus on building automations that reduce manual overhead in incident response. Which specific cloud environments are you currently prioritizing for your security monitoring? Best,\nRoee"
     },
     {
-      "id": "wwr-824864940",
-      "title": "No Sweat Work Media: Remote High-End Automotive AI Retoucher | South Africa | R700 per hour or project fee | Ad hoc work in 2027",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/no-sweat-work-media-remote-high-end-automotive-ai-retoucher-south-africa-r700-per",
-      "posted_at": "Sat, 21 Nov 2026",
-      "budget": "Remote / Contract",
+      "id": "remoteok-1138067",
+      "title": "Threat Research Engineer, Security Factory: Threat Research (GitLab)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "cyber_soc",
+      "url": "https://remoteOK.com/remote-jobs/remote-threat-research-engineer-security-factory-threat-research-gitlab-1138067",
+      "posted_at": "2026-11-23",
+      "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 87,
+      "match_score": 78,
       "skills": [
-        "Ai",
-        "Ai Tool"
+        "Threat",
+        "Devsecops"
       ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "Architecture: Custom AI image processing pipeline paired with manual Photoshop retouching.\n3-Step MVP: 1. Ingest raw automotive imagery. 2. Apply advanced AI upscaling and artifact cleanup. 3. Finalize color grading and detail touch-ups.\nFlow: Raw Image -> AI Enhancement Pipeline -> Manual Retouching -> Final Asset.",
-      "client_problem": "The client needs a high-end automotive AI retoucher for ad-hoc visual projects and heavy-duty vehicle imagery.",
-      "proposal_draft": "I design high-end digital assets and handle complex visual workflows with precision tools like Photoshop and custom AI pipelines. I can help refine automotive imagery to match your exact brand standards. What file formats and resolution specifications do you typically require for delivery?\n\nBest,\nRoee"
+      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
+      "poc_blueprint": "",
+      "client_problem": "GitLab is looking for a threat research engineer to improve security orchestration and threat detection capabilities.",
+      "proposal_draft": "I have experience in SOC Tier 1 analysis and can assist with automating threat research workflows to improve detection efficiency. I am comfortable working within DevSecOps environments to integrate security tooling. What is the primary data source you are looking to automate for your current threat research pipeline? Best,\nRoee"
     },
     {
       "id": "arbeitnow-remote-detection-security-automation-engineer-bonn-348290",
@@ -79,7 +79,7 @@
       "budget": "Remote",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 84,
+      "match_score": 70,
       "skills": [
         "Detection",
         "Soc",
@@ -88,28 +88,145 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs a detection and security automation engineer to build threat detection mechanisms and secure public sector infrastructure.",
-      "proposal_draft": "I have hands-on SOC Tier 1 experience and build automated security workflows using Python and SIEM tooling. I can help streamline your incident detection and response pipelines. What SIEM platform are you currently using for log ingestion?\n\nBest,\nRoee"
+      "client_problem": "The client requires a security automation engineer to develop detection solutions for public sector partners.",
+      "proposal_draft": "I can help you design and implement security automation workflows to improve your detection capabilities. My experience includes setting up automated response triggers that integrate directly with existing security infrastructure. Are you currently using SIEM tools like Splunk or ELK for your detection logic? Best,\nRoee"
     },
     {
-      "id": "wwr-15876919",
-      "title": "6sense: Business Solutions Partner - Enterprise AI",
+      "id": "jobicy-156966",
+      "title": "Senior Automation & Process Specialist (Thumbtack)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://jobicy.com/jobs/156966-senior-automation-process-specialist",
+      "posted_at": "2026-11-25",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 69,
+      "skills": [
+        "Automation",
+        "Ai",
+        "Ai Tool"
+      ],
+      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Thumbtack needs an automation specialist to improve internal processes and support their AI-driven home improvement tools.",
+      "proposal_draft": "I can help you build custom AI agents and n8n workflows to automate your internal processes. I focus on creating efficient pipelines that connect your existing tools to reduce manual data entry. What is the most time-consuming manual task your team is currently looking to automate? Best,\nRoee"
+    },
+    {
+      "id": "remoteok-1137928",
+      "title": "Senior Product Design Manager (LastPass)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remoteOK.com/remote-jobs/remote-senior-product-design-manager-lastpass-1137928",
+      "posted_at": "2026-11-21",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 69,
+      "skills": [
+        "Product Design",
+        "Design System",
+        "Website"
+      ],
+      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
+      "poc_blueprint": "",
+      "client_problem": "LastPass is looking for a product design manager to improve the user experience of their secure access and credential management platform.",
+      "proposal_draft": "I can help you refine your product dashboards and user interfaces to reduce friction in your credential management workflows. I have experience building clean, functional interfaces using Figma and Next.js. How are you currently measuring user engagement or friction points within your existing dashboard? Best,\nRoee"
+    },
+    {
+      "id": "wwr-195463169",
+      "title": "Reddit: Frontend Engineer, Ads Campaign Manager",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://weworkremotely.com/remote-jobs/reddit-frontend-engineer-ads-campaign-manager",
+      "posted_at": "Mon, 23 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 64,
+      "skills": [
+        "Frontend"
+      ],
+      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Reddit needs a frontend engineer to work on their ads campaign management interface.",
+      "proposal_draft": "I can help you build and optimize frontend components for your ads management dashboard. I focus on creating responsive, high-performance interfaces that handle complex data visualization. Which frontend framework are you currently using for your campaign management tools? Best,\nRoee"
+    },
+    {
+      "id": "wwr-719778577",
+      "title": "Upstart: Frontend Software Engineer, Personal Loans",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://weworkremotely.com/remote-jobs/upstart-frontend-software-engineer-personal-loans",
+      "posted_at": "Mon, 23 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 64,
+      "skills": [
+        "Frontend"
+      ],
+      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Upstart requires a frontend engineer to improve the user experience of their AI lending marketplace.",
+      "proposal_draft": "I can help you build interactive dashboards and interfaces that simplify the lending application process for your users. I have experience with Next.js and creating clean UI/UX for complex financial data. How are you currently handling state management for your user application forms? Best,\nRoee"
+    },
+    {
+      "id": "wwr-113146933",
+      "title": "Pinterest: Machine Learning Engineer II, Responsible AI",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/6sense-business-solutions-partner-enterprise-ai",
+      "url": "https://weworkremotely.com/remote-jobs/pinterest-machine-learning-engineer-ii-responsible-ai",
+      "posted_at": "Mon, 23 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 64,
+      "skills": [
+        "Ai"
+      ],
+      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Pinterest is seeking a machine learning engineer to work on responsible AI initiatives.",
+      "proposal_draft": "I can help you build the automation workflows and internal tools needed to monitor and manage your AI model outputs. I have experience connecting Python-based ML pipelines to interactive dashboards for better visibility. What specific metrics are you currently tracking to ensure your AI models remain responsible? Best,\nRoee"
+    },
+    {
+      "id": "wwr-739410746",
+      "title": "Carrot: Manager, Product Design",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://weworkremotely.com/remote-jobs/carrot-manager-product-design",
+      "posted_at": "Sun, 22 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 64,
+      "skills": [
+        "Product Design"
+      ],
+      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Carrot needs a product design manager to oversee the design of their fertility and family care platform.",
+      "proposal_draft": "I can help you design and develop intuitive dashboards that improve the orchestration of clinical guidance for your members. I focus on creating accessible, clean interfaces that simplify complex health data. How are you currently gathering user feedback to inform your design iterations? Best,\nRoee"
+    },
+    {
+      "id": "wwr-150949504",
+      "title": "Tebra: Product Designer",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://weworkremotely.com/remote-jobs/tebra-product-designer",
       "posted_at": "Thu, 19 Nov 2026",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 81,
+      "match_score": 64,
       "skills": [
-        "Ai",
-        "Automation"
+        "Product Design"
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs an enterprise AI business solutions partner to drive growth, retention, and operational efficiency.",
-      "proposal_draft": "I design and deploy custom AI automation solutions and intelligent workflows that integrate directly into existing business stacks. I focus on practical systems that deliver measurable operational efficiency. What core metrics are you targeting with this AI initiative?\n\nBest,\nRoee"
+      "client_problem": "Tebra is looking for a product designer to improve their healthcare platform's user interface.",
+      "proposal_draft": "I can help you design and prototype new features for your healthcare dashboard to improve user efficiency. I have experience with Figma and can translate designs directly into functional frontend components. What is the biggest challenge your users currently face when navigating your platform? Best,\nRoee"
     },
     {
       "id": "jobicy-156961",
@@ -121,110 +238,15 @@
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 78,
+      "match_score": 64,
       "skills": [
         "Cybersecurity",
         "Threat"
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs a global investigator to handle threat triage and disrupt illicit activity using intelligence tools.",
-      "proposal_draft": "Hi,\n\nI read the brief for Global Investigator - Triage (APAC) (TRM Labs). I design and build custom dashboards, clean web interfaces, and Cybersecurity, Threat systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-8048585",
-      "title": "Reddit: Frontend Engineer, Ads Campaign Manager",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://weworkremotely.com/remote-jobs/reddit-frontend-engineer-ads-campaign-manager",
-      "posted_at": "Mon, 23 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 78,
-      "skills": [
-        "Frontend"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The client needs a frontend engineer to build and optimize ad campaign management interfaces.",
-      "proposal_draft": "Hi,\n\nI read the brief for Reddit: Frontend Engineer, Ads Campaign Manager. I design and build custom dashboards, clean web interfaces, and Frontend systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-574826700",
-      "title": "Upstart: Frontend Software Engineer, Personal Loans",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://weworkremotely.com/remote-jobs/upstart-frontend-software-engineer-personal-loans",
-      "posted_at": "Mon, 23 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 78,
-      "skills": [
-        "Frontend"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The client needs a frontend software engineer to improve personal loan lending interfaces and reduce borrowing complexity.",
-      "proposal_draft": "Hi,\n\nI read the brief for Upstart: Frontend Software Engineer, Personal Loans. I design and build custom dashboards, clean web interfaces, and Frontend systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-287217002",
-      "title": "Pinterest: Machine Learning Engineer II, Responsible AI",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/pinterest-machine-learning-engineer-ii-responsible-ai",
-      "posted_at": "Mon, 23 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 78,
-      "skills": [
-        "Ai"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The client needs a machine learning engineer to build responsible AI models and secure recommendation systems.",
-      "proposal_draft": "Hi,\n\nI read the brief for Pinterest: Machine Learning Engineer II, Responsible AI. I design and build custom dashboards, clean web interfaces, and Ai systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-963912067",
-      "title": "Carrot: Manager, Product Design",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://weworkremotely.com/remote-jobs/carrot-manager-product-design",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 78,
-      "skills": [
-        "Product Design"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The client needs a product design manager to lead global fertility and family care platform user experiences.",
-      "proposal_draft": "Hi,\n\nI read the brief for Carrot: Manager, Product Design. I design and build custom dashboards, clean web interfaces, and Product Design systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-734461531",
-      "title": "Tebra: Product Designer",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://weworkremotely.com/remote-jobs/tebra-product-designer",
-      "posted_at": "Thu, 19 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 78,
-      "skills": [
-        "Product Design"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The client needs a product designer to craft patient and practice management software interfaces.",
-      "proposal_draft": "Hi,\n\nI read the brief for Tebra: Product Designer. I design and build custom dashboards, clean web interfaces, and Product Design systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "TRM Labs needs a global investigator to triage and trace illicit activity within threat networks.",
+      "proposal_draft": "I have a background in SOC Tier 1 analysis and can help you automate the triage process for your threat investigations. I can build workflows that aggregate and visualize threat data to speed up your case building. What is your current process for ingesting and prioritizing new threat alerts? Best,\nRoee"
     },
     {
       "id": "remoteok-1138078",
@@ -236,14 +258,14 @@
       "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 75,
+      "match_score": 61,
       "skills": [
         "Infosec"
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs a real estate executive assistant to manage administrative workflows and daily operational tasks.",
-      "proposal_draft": "Hi,\n\nI read the brief for Real Estate Executive Assistant 21370 (Wing Assistant). I design and build custom dashboards, clean web interfaces, and Infosec systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "Wing Assistant needs a real estate executive assistant to handle administrative tasks and process management.",
+      "proposal_draft": "I can help you automate your real estate administrative workflows using tools like n8n and Python. I focus on creating systems that handle scheduling, data entry, and client communication automatically. What is the most repetitive task you are currently handling that you would like to automate? Best,\nRoee"
     },
     {
       "id": "remoteok-1137927",
@@ -255,34 +277,14 @@
       "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 75,
+      "match_score": 61,
       "skills": [
         "Product Design"
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs a product design manager to orchestrate digital health platform user experiences.",
-      "proposal_draft": "Hi,\n\nI read the brief for Manager, Product Design (Carrot). I design and build custom dashboards, clean web interfaces, and Product Design systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
-    },
-    {
-      "id": "jobicy-157027",
-      "title": "Senior Product Designer II (Wrapbook)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://jobicy.com/jobs/157027-senior-product-designer-ii",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 74,
-      "skills": [
-        "Ux Design",
-        "Product Design"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The client needs a senior product designer to build production finance and accounting software interfaces.",
-      "proposal_draft": "Hi,\n\nI read the brief for Senior Product Designer II (Wrapbook). I design and build custom dashboards, clean web interfaces, and Ux Design, Product Design systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+      "client_problem": "Carrot is hiring a product design manager to lead the design of their fertility care orchestration platform.",
+      "proposal_draft": "I can help you design and build intuitive interfaces that simplify the clinical care journey for your members. I focus on creating clean, responsive dashboards that make complex data easy to understand. How do you currently manage your design system and component library for your platform? Best,\nRoee"
     }
   ]
 }

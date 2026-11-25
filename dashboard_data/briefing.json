@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T12:45:21.443473+00:00",
+  "generated_at": "2026-11-25T12:53:09.916795+00:00",
   "date": "2026-11-25",
   "market": {
     "regime": "DEFENSIVE",
@@ -35,15 +35,15 @@
       "id": "hn-50445335",
       "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
       "platform": "HackerNews Freelance (Live)",
-      "match_score": 96,
-      "has_poc": true
+      "match_score": 82,
+      "has_poc": false
     },
     {
-      "id": "wwr-680963441",
-      "title": "Celonis: Lead Applied Value Engineer - AI & Process Intelligence Consultant",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "match_score": 87,
-      "has_poc": true
+      "id": "remoteok-1138074",
+      "title": "Strategic Technical Advisor (Thrive)",
+      "platform": "RemoteOK (Live Cloud)",
+      "match_score": 78,
+      "has_poc": false
     }
   ],
   "content": {
