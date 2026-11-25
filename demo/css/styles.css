@@ -6321,10 +6321,30 @@ body::before {
   unicode-bidi: plaintext;
 }
 
+.content-intel-details {
+  border-top: 1px solid var(--rule-soft);
+  padding-top: var(--sp-2);
+}
+
+.content-intel-summary {
+  cursor: pointer;
+  font-size: var(--fs-label);
+  color: var(--ink2);
+  font-weight: 500;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.content-intel-summary:hover {
+  color: var(--ink);
+}
+
 .content-intel-box {
-  background: rgba(255, 255, 255, 0.02);
+  margin-top: var(--sp-2);
+  background: var(--bg);
   border: 1px solid var(--rule-soft);
-  border-left: 3px solid #8ab4f8;
+  border-left: 2px solid var(--mark);
   border-radius: var(--r-sm);
   padding: 8px 12px;
   display: flex;
@@ -6346,7 +6366,7 @@ body::before {
 
 .content-intel-score {
   font-size: var(--fs-label);
-  color: #8ab4f8;
+  color: var(--mark-hi);
   font-weight: 600;
 }
 
@@ -6372,8 +6392,8 @@ body::before {
 }
 
 .content-post-box {
-  background: rgba(0, 0, 0, 0.28);
-  border: 1px solid var(--rule-soft);
+  background: var(--bg);
+  border: 1px solid var(--rule);
   border-radius: var(--r-sm);
   padding: var(--sp-3);
   display: flex;
@@ -6397,24 +6417,27 @@ body::before {
 }
 
 .content-copy-btn {
-  background: rgba(138, 180, 248, 0.15);
-  border: 1px solid rgba(138, 180, 248, 0.35);
-  color: #8ab4f8;
-  padding: 3px 10px;
+  background: var(--raise);
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  min-height: 36px;
+  padding: 4px 12px;
   border-radius: var(--r-sm);
   font-size: var(--fs-label);
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .content-copy-btn:hover {
-  background: rgba(138, 180, 248, 0.25);
+  border-color: var(--mark);
 }
 
 .content-copy-btn.is-copied {
-  background: rgba(82, 196, 26, 0.2);
-  border-color: rgba(82, 196, 26, 0.5);
-  color: #73d13d;
+  background: var(--up);
+  border-color: var(--up);
+  color: var(--bg);
+  font-weight: 600;
 }
 
 .content-post-text {
@@ -6474,25 +6497,25 @@ body::before {
 
 .os-rating-pills {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   flex-wrap: wrap;
   align-items: center;
 }
 
 .os-rating-btn {
-  width: 28px;
-  height: 28px;
+  min-height: 38px;
+  padding: 0 11px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  background: transparent;
+  border-radius: 999px;
+  background: var(--bg);
   border: 1px solid var(--rule);
-  color: var(--ink2);
+  color: var(--ink);
   font-size: var(--fs-label);
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s ease;
-  padding: 0;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .os-rating-btn:hover {
@@ -7101,5 +7124,57 @@ body::before {
   font-size: var(--fs-secondary);
   color: var(--ink2);
 }
+
+/* Mobile decluttering: collapsible account summary, Top 10 plan toggle & PainPoints deep drawer */
+.acct-card {
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.acct-collapse > summary.acct-summary {
+  cursor: pointer;
+  list-style: none;
+  min-height: 36px;
+  margin-bottom: 0;
+}
+
+.acct-collapse > summary.acct-summary::-webkit-details-marker {
+  display: none;
+}
+
+.acct-collapse[open] > summary.acct-summary {
+  margin-bottom: var(--sp-2);
+}
+
+.top10-strat-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+
+.top10-plans-toggle {
+  color: var(--mark-hi);
+  font-size: var(--fs-label);
+  min-height: 36px;
+  padding: 0;
+}
+
+.pp-deep-details {
+  border-top: 1px solid var(--rule-soft);
+  padding-top: var(--sp-2);
+  margin-top: var(--sp-1);
+}
+
+.pp-deep-summary {
+  cursor: pointer;
+  font-size: var(--fs-label);
+  color: var(--mark-hi);
+  font-weight: 500;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+
 
 

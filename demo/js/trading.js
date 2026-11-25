@@ -135,6 +135,7 @@ const tradingState = {
   breakouts: null,
   search: '',
   top10Strategy: 'sma150',
+  top10PlansAll: false,
   breakoutFilter: 'all',
   sortKey: 'score',
   sortDir: 'desc',
@@ -278,9 +279,11 @@ function renderTradingTop10() {
       }).join('')}
     </div>
     <div class="top10-strat-banner">
-      <span class="top10-strat-horizon mono">${escapeHtml(stratMeta.horizon)}</span>
+      <div class="top10-strat-meta">
+        <span class="top10-strat-horizon mono">${escapeHtml(stratMeta.horizon)}</span>
+        <button type="button" class="linkbtn top10-plans-toggle" id="top10-toggle-plans" aria-pressed="${tradingState.top10PlansAll ? 'true' : 'false'}">${escapeHtml(tradingState.top10PlansAll ? TRADE_S.top10.plan.compactPlans : TRADE_S.top10.plan.showAllPlans)}</button>
+      </div>
       <p class="top10-strat-desc">${escapeHtml(stratMeta.desc)}</p>
-    </div><div style="display:none">
     </div>
     ${shown.length ? `<div class="setup-table">
       <div class="setup-head" aria-hidden="true">
@@ -297,6 +300,7 @@ function renderTradingTop10() {
       // the 4.5:1 floor the design now enforces (test_contrast_e2e.js).
       const tail = rank >= 6 ? ' is-tail' : '';
       const score = tradingTop10Score(r, stratKey);
+      const showDetail = tradingState.top10PlansAll || rank <= 3;
       // A table row: the column header says what each figure is, so the
       // cells carry the bare value. The whole row is still one link.
       return `
@@ -308,8 +312,8 @@ function renderTradingTop10() {
           <span class="mono setup-change ${change >= 0 ? 'is-up' : 'is-down'}">${fmtChange(change)}</span>
           <span class="mono setup-vol">${fmtCompactNumber(r.today_volume)}</span>
           <span class="setup-score mono ${tradingScoreClass(score)}">${Math.round(score)}</span>
-          ${tradingPlanHtml(r, stratKey)}
-          ${tradingFlagsHtml(r, peers[r.ticker], held[r.ticker])}
+          ${showDetail ? tradingPlanHtml(r, stratKey) : ''}
+          ${(showDetail || held[r.ticker]) ? tradingFlagsHtml(r, peers[r.ticker], held[r.ticker]) : ''}
         </a>`;
     }).join('')}</div>
     </div>
@@ -393,6 +397,13 @@ function renderTradingTop10() {
       }
     });
   });
+  const togglePlans = document.getElementById('top10-toggle-plans');
+  if (togglePlans) {
+    togglePlans.addEventListener('click', () => {
+      tradingState.top10PlansAll = !tradingState.top10PlansAll;
+      renderTradingTop10();
+    });
+  }
   const all = document.getElementById('top10-all');
   if (all) all.addEventListener('click', () => { if (tradingShell) tradingShell.setTab('fullscan'); });
 }
@@ -899,6 +910,7 @@ function accountEditorHtml(record) {
     </details>`;
 }
 
+let accountCardOpen = null;
 function renderAccountCard() {
   const mount = document.getElementById('account-card');
   if (!mount) return;
@@ -906,31 +918,47 @@ function renderAccountCard() {
   mount.className = 'acct-card';
 
   if (status === 'no-sync') {
-    mount.innerHTML = `<div class="sec-label-row"><h2 class="sec-label">${STRINGS.account.title}</h2></div>
-      ${renderWithheldZone(TRADE_S.accountCard.withheldLabel)}`;
+    const open = accountCardOpen === true;
+    mount.innerHTML = `
+      <details class="acct-collapse"${open ? ' open' : ''}>
+        <summary class="sec-label-row acct-summary">
+          <h2 class="sec-label">${STRINGS.account.title}</h2>
+          <span class="sec-note">${TRADE_S.accountCard.withheldLabel}</span>
+        </summary>
+        ${renderWithheldZone(TRADE_S.accountCard.withheldLabel)}
+      </details>`;
+    const det = mount.querySelector('.acct-collapse');
+    if (det) det.addEventListener('toggle', () => { accountCardOpen = det.open; });
     return;
   }
   const now = new Date();
   const win = accountEntryWindow(now, record && record.entry_cutoff_israel, ACCOUNT_CALENDAR);
   const lines = accountCardLines(record, win, now);
   // The same four sentences the health strip uses, so one condition is
-   // never described two ways on one screen.
+  // never described two ways on one screen.
   const note = { ...STRINGS.health.remote, loading: TRADE_S.accountCard.checking }[status];
+  const isOpen = accountCardOpen !== null ? accountCardOpen : Boolean(lines && lines.length);
+  const compactMeta = record
+    ? (record.source === 'ibkr' ? TRADE_S.accountCard.sourceIbkr : TRADE_S.accountCard.sourceManual)
+    : '';
 
   mount.innerHTML = `
-    <div class="sec-label-row">
-      <h2 class="sec-label">${STRINGS.account.title}</h2>
-      <span class="sec-note">${record ? escapeHtml(record.source === 'ibkr'
-        ? TRADE_S.accountCard.sourceIbkr : TRADE_S.accountCard.sourceManual) : ''}</span>
-    </div>
-    ${lines ? `<ul class="acct-lines">${lines.map(l => `
-      <li class="acct-line">
-        <span class="acct-label">${escapeHtml(l.label)}</span>
-        <span class="acct-value mono">${escapeHtml(l.value)}</span>
-        ${l.note ? `<span class="acct-note mono">${escapeHtml(l.note)}</span>` : ''}
-      </li>`).join('')}</ul>`
-    : `<p class="sizing-hint">${escapeHtml(note || STRINGS.account.empty)}</p>`}
-    ${status === 'ok' || record ? accountEditorHtml(record) : ''}`;
+    <details class="acct-collapse"${isOpen ? ' open' : ''}>
+      <summary class="sec-label-row acct-summary">
+        <h2 class="sec-label">${STRINGS.account.title}</h2>
+        <span class="sec-note">${escapeHtml(compactMeta)}</span>
+      </summary>
+      ${lines ? `<ul class="acct-lines">${lines.map(l => `
+        <li class="acct-line">
+          <span class="acct-label">${escapeHtml(l.label)}</span>
+          <span class="acct-value mono">${escapeHtml(l.value)}</span>
+          ${l.note ? `<span class="acct-note mono">${escapeHtml(l.note)}</span>` : ''}
+        </li>`).join('')}</ul>`
+      : `<p class="sizing-hint">${escapeHtml(note || STRINGS.account.empty)}</p>`}
+      ${status === 'ok' || record ? accountEditorHtml(record) : ''}
+    </details>`;
+  const det = mount.querySelector('.acct-collapse');
+  if (det) det.addEventListener('toggle', () => { accountCardOpen = det.open; });
   wireAccountEditor(record);
 }
 
@@ -1216,6 +1244,12 @@ function syncScanQuickBar() {
     aboveBtn.classList.toggle('is-active', active);
     aboveBtn.setAttribute('aria-pressed', active ? 'true' : 'false');
   }
+  const nearBtn = bar.querySelector('[data-scan-preset="near-sma150"]');
+  if (nearBtn) {
+    const nearActive = f.sma150Min === 0 && f.sma150Max === 5;
+    nearBtn.classList.toggle('is-active', nearActive);
+    nearBtn.setAttribute('aria-pressed', nearActive ? 'true' : 'false');
+  }
   const allBtn = bar.querySelector('[data-scan-quick-all]');
   if (allBtn) {
     const isAll = f.sectors.length === 0;
@@ -1261,12 +1295,15 @@ function tradingScanQuickBarHtml(scan) {
   const sectors = Object.keys(counts)
     .sort((a, b) => tradingSectorLabel(a).localeCompare(tradingSectorLabel(b)));
   const aboveActive = f.sma150Min !== null && f.sma150Min >= 0 && f.sma150Max === null;
+  const nearActive = f.sma150Min === 0 && f.sma150Max === 5;
   const isAll = f.sectors.length === 0;
   return `
     <div class="scan-quick-bar" id="scan-quick-bar">
       <div class="scan-quick-row">
         <button type="button" class="pill${aboveActive ? ' is-active' : ''}" aria-pressed="${aboveActive ? 'true' : 'false'}"
           data-scan-preset="above-sma150">${escapeHtml(TRADE_S.fullScan.aboveSma150)}</button>
+        <button type="button" class="pill${nearActive ? ' is-active' : ''}" aria-pressed="${nearActive ? 'true' : 'false'}"
+          data-scan-preset="near-sma150">${escapeHtml(TRADE_S.fullScan.nearSma150)}</button>
         <button type="button" class="pill${isAll ? ' is-active' : ''}" aria-pressed="${isAll ? 'true' : 'false'}"
           data-scan-quick-all="1">${escapeHtml(TRADE_S.fullScan.allSectors)}</button>
         ${sectors.map(code => {
@@ -1354,6 +1391,22 @@ function wireTradingScanFilters() {
         const maxEl = panel.querySelector('[data-scan-filter="sma150Max"]');
         if (minEl) minEl.value = f.sma150Min === null ? '' : String(f.sma150Min);
         if (maxEl) maxEl.value = '';
+        syncScanQuickBar();
+        renderTradingScanTable();
+        refreshScanFiltersIndicator();
+      });
+    }
+    const nearBtn = bar.querySelector('[data-scan-preset="near-sma150"]');
+    if (nearBtn) {
+      nearBtn.addEventListener('click', () => {
+        const f = tradingState.scanFilters;
+        const active = f.sma150Min === 0 && f.sma150Max === 5;
+        f.sma150Min = active ? null : 0;
+        f.sma150Max = active ? null : 5;
+        const minEl = panel.querySelector('[data-scan-filter="sma150Min"]');
+        const maxEl = panel.querySelector('[data-scan-filter="sma150Max"]');
+        if (minEl) minEl.value = f.sma150Min === null ? '' : String(f.sma150Min);
+        if (maxEl) maxEl.value = f.sma150Max === null ? '' : String(f.sma150Max);
         syncScanQuickBar();
         renderTradingScanTable();
         refreshScanFiltersIndicator();

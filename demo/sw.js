@@ -47,7 +47,7 @@
 // v27: Stale-While-Revalidate for versioned static shell assets + explicit
 // sw.js bypass, while keeping navigations network-first and deferring scripts.
 // v29: Full Scan sector-name/industry search + always-visible Above SMA150 & Sector ETF quick bar in trading.js, strings.js, styles.css.
-const CACHE_NAME = 'jarvis-shell-v75';
+const CACHE_NAME = 'jarvis-shell-v76';
 const SHELL_ASSETS = [
   './',
   'index.html',

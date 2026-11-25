@@ -11,7 +11,7 @@ function isAllowedSyncOrigin(rawUrl) {
   try {
     const u = new URL(rawUrl.trim());
     if (u.username || u.password) return false;
-    if (u.protocol === 'https:' && /^[a-z0-9-]+\.up\.railway\.app$/i.test(u.hostname)) return true;
+    if (u.protocol === 'https:' && (/^[a-z0-9-]+\.up\.railway\.app$/i.test(u.hostname) || /^[a-z0-9.-]+\.workers\.dev$/i.test(u.hostname))) return true;
     if ((u.protocol === 'http:' || u.protocol === 'https:') && (u.hostname === 'localhost' || u.hostname === '127.0.0.1')) {
       return true;
     }
@@ -117,22 +117,29 @@ function osSaveRating(type, id, score, title, metadata) {
 }
 
 function osRatingWidgetHtml(type, id, title, metadata) {
+  const FB_S = STRINGS.feedback;
   const key = type + ':' + id;
   const current = (osFeedbackRatings[key] && osFeedbackRatings[key].score) || 0;
   const metaStr = escapeHtml(JSON.stringify(metadata || {}));
   const titleStr = escapeHtml(title || '');
+  const presets = [
+    { score: 2, label: FB_S.tiers.skip, band: [1, 3] },
+    { score: 5, label: FB_S.tiers.okay, band: [4, 6] },
+    { score: 8, label: FB_S.tiers.good, band: [7, 9] },
+    { score: 10, label: FB_S.tiers.great, band: [10, 10] },
+  ];
 
   return `
-    <div class="os-rating-widget" data-rating-type="${escapeHtml(type)}" data-rating-id="${escapeHtml(id)}" data-rating-title="${titleStr}" data-rating-meta="${metaStr}">
-      <span class="os-rating-label">Rate (1–10):</span>
+    <div class="os-rating-widget" dir="ltr" data-rating-type="${escapeHtml(type)}" data-rating-id="${escapeHtml(id)}" data-rating-title="${titleStr}" data-rating-meta="${metaStr}">
+      <span class="os-rating-label">${escapeHtml(FB_S.label)}</span>
       <div class="os-rating-pills">
-        ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => {
-          const isSel = n === current;
-          const cls = isSel ? (n >= 8 ? ' is-selected is-high' : n <= 4 ? ' is-selected is-low' : ' is-selected') : '';
-          return `<button type="button" class="os-rating-btn${cls}" aria-pressed="${isSel ? 'true' : 'false'}" data-rating-score="${n}" title="Rate ${n}/10">${n}</button>`;
+        ${presets.map(p => {
+          const isSel = current >= p.band[0] && current <= p.band[1];
+          const cls = isSel ? (p.score >= 8 ? ' is-selected is-high' : p.score <= 4 ? ' is-selected is-low' : ' is-selected') : '';
+          return `<button type="button" class="os-rating-btn${cls}" aria-pressed="${isSel ? 'true' : 'false'}" data-rating-score="${p.score}">${escapeHtml(p.label)}</button>`;
         }).join('')}
       </div>
-      <span class="os-rating-feedback mono">${current > 0 ? '(' + current + '/10)' : ''}</span>
+      <span class="os-rating-feedback mono">${current > 0 ? escapeHtml(FB_S.current(current)) : ''}</span>
     </div>
   `;
 }
@@ -163,7 +170,7 @@ if (typeof document !== 'undefined') {
     });
     const fb = widget.querySelector('.os-rating-feedback');
     if (fb) {
-      fb.textContent = 'Saved (' + score + '/10)';
+      fb.textContent = STRINGS.feedback.saved(score);
     }
   });
 }
@@ -365,6 +372,10 @@ function osPpPick(c, key, isHe) {
   return isHe ? (c[key + '_he'] || c[key + '_en'] || '') : (c[key + '_en'] || c[key + '_he'] || '');
 }
 
+function osPpSlug(raw) {
+  return String(raw || 'item').toLowerCase().replace(/[^a-z0-9\u0590-\u05ff]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48) || 'item';
+}
+
 function osPpRow(label, value) {
   if (!value) return '';
   return `<div class="pp-mvp-row"><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</div>`;
@@ -384,7 +395,17 @@ function osPpCardHtml(c, isHe, dirAttr) {
   const sourcesList = Array.isArray(c.sources) ? c.sources.join(' · ') : '';
   const competitors = Array.isArray(c.competitors) ? c.competitors : [];
 
+  const competitorsHtml = competitors.length ? `
+    <div class="pp-competitors">
+      <div class="sec-label">${escapeHtml(S.competitorsLabel)}</div>
+      <div class="pp-comp-list">
+        ${competitors.map(comp => `
+          <div class="pp-comp-item"><strong>${escapeHtml(comp.name || '')}:</strong> ${escapeHtml(isHe ? (comp.gap_he || comp.gap_en || '') : (comp.gap_en || comp.gap_he || ''))}</div>`).join('')}
+      </div>
+    </div>` : '';
+
   let body;
+  let deepRows = '';
   if (isLow) {
     const L = S.lowtech;
     const capital = [typeof c.startup_capital_usd === 'number' ? L.capitalValue(c.startup_capital_usd) : '',
@@ -396,7 +417,8 @@ function osPpCardHtml(c, isHe, dirAttr) {
         ${osPpRow(S.solutionLabel, solution)}
         ${osPpRow(L.roles, osPpPick(c, 'roles_to_hire', isHe))}
         ${osPpRow(L.ai, osPpPick(c, 'ai_leverage', isHe))}
-      </div>
+      </div>`;
+    deepRows = `
       <div class="pp-lt-grid">
         ${osPpRow(L.capital, capital)}
         ${osPpRow(L.equipment, osPpPick(c, 'equipment_licensing', isHe))}
@@ -419,7 +441,8 @@ function osPpCardHtml(c, isHe, dirAttr) {
         ${osPpRow(S.solutionLabel, solution)}
         ${osPpRow(E.aiUx, osPpPick(c, 'ai_experience', isHe))}
         ${osPpRow(E.supplier, osPpPick(c, 'supplier_match', isHe))}
-      </div>
+      </div>`;
+    deepRows = `
       <div class="pp-lt-grid">
         ${osPpRow(E.unitEcon, osPpPick(c, 'unit_economics', isHe))}
         ${osPpRow(E.platforms, osPpPick(c, 'target_platforms', isHe))}
@@ -440,6 +463,13 @@ function osPpCardHtml(c, isHe, dirAttr) {
         </div>
       </div>`;
   }
+
+  const deepDrawer = (deepRows.trim() || competitorsHtml.trim()) ? `
+    <details class="pp-deep-details">
+      <summary class="pp-deep-summary">${escapeHtml(S.deepPlanSummary)}</summary>
+      ${deepRows}
+      ${competitorsHtml}
+    </details>` : '';
 
   const extraBadges = isLow ? [
     c.delivery_model && S.delivery[c.delivery_model],
@@ -462,21 +492,14 @@ function osPpCardHtml(c, isHe, dirAttr) {
       ${who ? `<div class="pp-cluster-who"><strong>${escapeHtml(S.whoLabel)}:</strong> ${escapeHtml(who)}</div>` : ''}
       ${quote ? `<blockquote class="pp-cluster-quote">"${escapeHtml(quote)}"${c.quote_url ? ` <a href="${escapeHtml(safeExternalUrl(c.quote_url, '#'))}" target="_blank" rel="noopener noreferrer" class="pp-quote-link">${escapeHtml(S.sourceLinkLabel)} &rarr;</a>` : ''}</blockquote>` : ''}
       ${body}
-      ${competitors.length ? `
-        <div class="pp-competitors">
-          <div class="sec-label">${escapeHtml(S.competitorsLabel)}</div>
-          <div class="pp-comp-list">
-            ${competitors.map(comp => `
-              <div class="pp-comp-item"><strong>${escapeHtml(comp.name || '')}:</strong> ${escapeHtml(isHe ? (comp.gap_he || comp.gap_en || '') : (comp.gap_en || comp.gap_he || ''))}</div>`).join('')}
-          </div>
-        </div>` : ''}
+      ${deepDrawer}
       <div class="pp-metrics-bar" dir="ltr">
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.intensity ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.intensity)}</span></div>
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.frequency ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.frequency)}</span></div>
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.ease_of_build ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(isLow ? S.lowtech.launchEase : isEcom ? S.ecommerce.launchEase : S.metrics.ease)}</span></div>
         <div class="pp-metric-cell"><span class="pp-m-num">${escapeHtml(String(c.low_competition ?? 0))}</span><span class="pp-m-lbl">${escapeHtml(S.metrics.competition)}</span></div>
       </div>
-      ${osRatingWidgetHtml('painpoint', c.title_en || title || 'pp-' + Math.random().toString(36).slice(2), title || '', { track: track, category: c.category || '' })}
+      ${osRatingWidgetHtml('painpoint', osPpSlug(c.title_en || title), title || '', { track: track, category: c.category || '' })}
     </article>`;
 }
 
@@ -512,7 +535,10 @@ function osPaintPainpoints(mount, data) {
 
   mount.innerHTML = `
     <div class="pp-toolbar">
-      <div class="sec-label">${escapeHtml(S.weekLabel(data.week || '', data.date || ''))}${bySource ? ` · ${bySource}` : ''}</div>
+      <div>
+        <div class="sec-label">${escapeHtml(S.weekLabel(data.week || '', data.date || ''))}</div>
+        <div class="sec-note mono">${escapeHtml(S.scanSummary(stats.pains ?? 0, stats.raw ?? 0, stats.sources ?? 0))}</div>
+      </div>
       <div class="pp-lang-switch">
         <button type="button" class="os-btn ${isHe ? 'is-active' : ''}" aria-pressed="${isHe ? 'true' : 'false'}" data-pp-lang="he">${escapeHtml(S.langToggleHe)}</button>
         <button type="button" class="os-btn ${!isHe ? 'is-active' : ''}" aria-pressed="${!isHe ? 'true' : 'false'}" data-pp-lang="en">${escapeHtml(S.langToggleEn)}</button>
@@ -526,14 +552,7 @@ function osPaintPainpoints(mount, data) {
         </button>`).join('')}
     </div>
 
-    <div class="pp-stats-grid">
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(S.stats.raw)}</div><div class="pp-stat-num">${escapeHtml(String(stats.raw ?? 0))}</div></div>
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(S.stats.analyzed)}</div><div class="pp-stat-num">${escapeHtml(String(stats.analyzed ?? 0))}</div></div>
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(S.stats.pains)}</div><div class="pp-stat-num is-accent">${escapeHtml(String(stats.pains ?? 0))}</div></div>
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(S.stats.sources)}</div><div class="pp-stat-num is-up">${escapeHtml(String(stats.sources ?? 0))}</div></div>
-    </div>
-
-    ${summaries.filter(Boolean).map(s => `<p class="pp-summary" ${dirAttr}>${escapeHtml(s)}</p>`).join('')}
+    ${summaries.filter(Boolean).slice(0, 1).map(s => `<p class="pp-summary" ${dirAttr}>${escapeHtml(s)}</p>`).join('')}
 
     ${(() => {
       const saasList = data.clusters.filter(c => osPpTrack(c) === 'saas');
@@ -721,7 +740,7 @@ function osPaintJobs(mount, data) {
 
   mount.innerHTML = `
     <div class="pp-toolbar">
-      <div class="sec-label">${escapeHtml(JOBS_S.stats.scanned)}: ${escapeHtml(String(stats.total_scanned || jobs.length))}</div>
+      <span class="sec-note mono">${escapeHtml(JOBS_S.labels.summaryLine(counts.all, stats.total_scanned || jobs.length))}</span>
     </div>
 
     <div class="os-window-tabs pp-track-tabs" role="tablist">
@@ -736,14 +755,6 @@ function osPaintJobs(mount, data) {
         <button type="button" role="tab" aria-selected="${b === budgetFilter}" tabindex="${b === budgetFilter ? '0' : '-1'}" class="job-subfilter-btn${b === budgetFilter ? ' is-active' : ''}" data-job-budget-filter="${b}">
           ${escapeHtml(JOBS_S.budgetFilters[b])}
         </button>`).join('')}
-    </div>
-
-    <div class="pp-stats-grid">
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.scanned)}</div><div class="pp-stat-val mono">${escapeHtml(String(stats.total_scanned || jobs.length))}</div></div>
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.matched)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.all))}</div></div>
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.ai)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.ai_automation))}</div></div>
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.web)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.web_dashboards))}</div></div>
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(JOBS_S.stats.cyber)}</div><div class="pp-stat-val mono">${escapeHtml(String(counts.cyber_soc))}</div></div>
     </div>
 
     <div class="job-list">
@@ -870,20 +881,6 @@ function osContentCardHtml(post) {
 
       <h3 class="content-title" dir="rtl">${escapeHtml(post.topic || '')}</h3>
 
-      <div class="content-intel-box">
-        <div class="content-intel-head">
-          <span class="content-intel-kicker">${escapeHtml(CONTENT_S.labels.credibility)}:</span>
-          <span class="content-intel-score mono">${escapeHtml(post.credibility_score || '9/10')}</span>
-        </div>
-        <p class="content-intel-rationale" dir="auto">${escapeHtml(post.credibility_rationale || '')}</p>
-        ${post.post_angle ? `<p class="content-intel-rationale" dir="auto"><strong>${escapeHtml(CONTENT_S.labels.angle)}:</strong> ${escapeHtml(post.post_angle)}</p>` : ''}
-        ${post.opening_hook ? `<p class="content-intel-rationale" dir="auto"><strong>${escapeHtml(CONTENT_S.labels.hook)}:</strong> ${escapeHtml(post.opening_hook)}</p>` : ''}
-        ${Array.isArray(post.key_takeaways) && post.key_takeaways.length ? `
-          <ul class="content-takeaways" dir="auto">
-            ${post.key_takeaways.slice(0, 3).map(t => `<li>${escapeHtml(t)}</li>`).join('')}
-          </ul>` : ''}
-      </div>
-
       <div class="content-post-box" dir="rtl">
         <div class="content-post-header">
           <span class="content-post-badge">${escapeHtml(CONTENT_S.labels.draftedPost)}</span>
@@ -893,6 +890,19 @@ function osContentCardHtml(post) {
         </div>
         <pre class="content-post-text" id="post-text-${escapeHtml(postId)}">${escapeHtml(post.linkedin_post || '')}</pre>
       </div>
+
+      <details class="content-intel-details">
+        <summary class="content-intel-summary">${escapeHtml(CONTENT_S.labels.intelSummary(post.credibility_score || '9/10'))}</summary>
+        <div class="content-intel-box">
+          <p class="content-intel-rationale" dir="auto">${escapeHtml(post.credibility_rationale || '')}</p>
+          ${post.post_angle ? `<p class="content-intel-rationale" dir="auto"><strong>${escapeHtml(CONTENT_S.labels.angle)}:</strong> ${escapeHtml(post.post_angle)}</p>` : ''}
+          ${post.opening_hook ? `<p class="content-intel-rationale" dir="auto"><strong>${escapeHtml(CONTENT_S.labels.hook)}:</strong> ${escapeHtml(post.opening_hook)}</p>` : ''}
+          ${Array.isArray(post.key_takeaways) && post.key_takeaways.length ? `
+            <ul class="content-takeaways" dir="auto">
+              ${post.key_takeaways.slice(0, 3).map(t => `<li>${escapeHtml(t)}</li>`).join('')}
+            </ul>` : ''}
+        </div>
+      </details>
 
       <div class="content-actions-row">
         <a class="content-source-link" href="${escapeHtml(safeExternalUrl(post.source_url, '#'))}" target="_blank" rel="noopener noreferrer">
@@ -943,12 +953,6 @@ function osPaintContent(mount, data) {
           ${escapeHtml(label)} <span class="pp-track-count mono">${count}</span>
         </button>
       `).join('')}
-    </div>
-
-    <div class="pp-stats-grid">
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(CONTENT_S.stats.total)}</div><div class="pp-stat-val mono">${totalDrafted}</div></div>
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(CONTENT_S.stats.cyber)}</div><div class="pp-stat-val mono">${cyberCount}</div></div>
-      <div class="pp-stat-box"><div class="sec-label">${escapeHtml(CONTENT_S.stats.ai)}</div><div class="pp-stat-val mono">${aiCount}</div></div>
     </div>
 
     <div class="content-feed">

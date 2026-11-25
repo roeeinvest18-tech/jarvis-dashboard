@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T03:23:00.977721+00:00",
+  "generated_at": "2026-11-25T12:45:21.443473+00:00",
   "date": "2026-11-25",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,19 +32,22 @@
   },
   "jobs": [
     {
-      "title": "Staff Software Engineer, Agentic Tools (Cribl)",
-      "platform": "RemoteOK (Live Cloud)",
-      "match_score": 93,
+      "id": "hn-50445335",
+      "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
+      "platform": "HackerNews Freelance (Live)",
+      "match_score": 96,
       "has_poc": true
     },
     {
-      "title": "Enterprise Performance Lead (Clover Health)",
-      "platform": "RemoteOK (Live Cloud)",
-      "match_score": 92,
+      "id": "wwr-680963441",
+      "title": "Celonis: Lead Applied Value Engineer - AI & Process Intelligence Consultant",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "match_score": 87,
       "has_poc": true
     }
   ],
   "content": {
+    "id": "post-1-1795566102",
     "topic": "Google Workspace Continuous Approach to Mitigating Indirect Prompt Injections",
     "category": "cyber_soc",
     "opening_hook": "יש בעיות אבטחה שאי אפשר לסגור פעם אחת עם עדכון קוד ולהמשיך הלאה."

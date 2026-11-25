@@ -292,6 +292,8 @@ const STRINGS = {
         sizeBtn: 'Size →',
         demoBtn: '+ Demo trade',
         inDemoBadge: 'In demo',
+        showAllPlans: 'Show all 10 trade plans',
+        compactPlans: 'Compact rows (top 3 plans)',
         stopBasis: {
           zone: 'below support shelf',
           sma150: 'below SMA150',
@@ -492,6 +494,7 @@ const STRINGS = {
       sortAsc: '▲',
       sortDesc: '▼',
       aboveSma150: 'Above SMA150',
+      nearSma150: 'Near SMA150 (0–5%)',
       allSectors: 'All sectors',
       clearFilters: 'Clear filters',
       noMatchSearchAndFilters: (q) => `No stocks match "${q}" and the current filters.`,
@@ -1205,7 +1208,8 @@ const STRINGS = {
       proposalDraft: 'Outreach draft',
       copyProposal: 'Copy proposal',
       copied: 'Copied',
-      openListing: 'Open on Upwork',
+      openListing: 'Open listing',
+      summaryLine: (matched, scanned) => `${matched} matched of ${scanned} scanned`,
       source: 'Source',
       budget: 'Budget',
       pocTitle: 'Prototype blueprint',
@@ -1239,6 +1243,7 @@ const STRINGS = {
       openSource: 'Open source',
       openLinkedIn: 'Open LinkedIn',
       sourcePlatform: 'Platform',
+      intelSummary: (score) => `Source check (${score}) and key takeaways`,
     },
   },
 
@@ -1305,6 +1310,8 @@ const STRINGS = {
       launchEase: 'Ease of launch',
     },
     sourceLinkLabel: 'View source complaint',
+    deepPlanSummary: 'Launch plan, unit details and competitor gaps',
+    scanSummary: (pains, raw, sources) => `${pains} verified signals from ${raw} posts across ${sources} sources`,
     validator: {
       heading: 'Weekly opportunity spotlight',
       scoreLabel: (n) => `Viability ${n}/100`,
@@ -1334,6 +1341,17 @@ const STRINGS = {
     openJobs: 'Jobs',
     openContent: 'Content',
     openOpportunities: 'PainPoints',
+  },
+  feedback: {
+    label: 'Fit',
+    saved: (score) => `Saved ${score}/10`,
+    current: (score) => `${score}/10`,
+    tiers: {
+      skip: 'Off target',
+      okay: 'Okay',
+      good: 'Strong',
+      great: 'Spot on',
+    },
   },
   _endHistory: {
     pipLabel: (label, value) => `${label} ${value === null ? 'not rated' : `${value} of 10`}`,
