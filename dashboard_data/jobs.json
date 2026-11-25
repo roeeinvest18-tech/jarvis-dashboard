@@ -1,34 +1,14 @@
 {
-  "generated_at": "2026-11-25T19:33:34.439293+00:00",
+  "generated_at": "2026-11-25T23:58:53.357654+00:00",
   "stats": {
-    "total_scanned": 22,
+    "total_scanned": 21,
     "matched_count": 14,
-    "ai_count": 2,
+    "ai_count": 1,
     "cyber_count": 4,
     "scraping_count": 0,
-    "web_count": 8
+    "web_count": 9
   },
   "jobs": [
-    {
-      "id": "arbeitnow-senior-leadership-ai-enablement-consultant-berlin-186615",
-      "title": "Senior Leadership & AI Enablement Consultant (w/d/m) (WEBUILDAI GmbH)",
-      "platform": "Arbeitnow Remote (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://www.arbeitnow.com/jobs/companies/webuildai-gmbh/senior-leadership-ai-enablement-consultant-berlin-186615",
-      "posted_at": "Recent",
-      "budget": "Remote",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 84,
-      "skills": [
-        "Ai",
-        "Generative Ai"
-      ],
-      "first_seen_at": "2026-11-25T19:33:34.439293+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The client needs to guide leadership teams on selecting the right AI, RPA, or agent architecture based on their specific process data.",
-      "proposal_draft": "Hey, I help teams map out practical AI architectures and automation workflows without getting bogged down in hype. I usually build out proof-of-concept pipelines using Python and n8n to test data readiness before committing to full integration. Are you using structured internal databases or messy document stores for these initial workshops? Best,\nRoee"
-    },
     {
       "id": "hn-50445335",
       "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
@@ -46,8 +26,8 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client is seeking a full stack engineer and UI/UX specialist to build out SaaS web applications and modern interfaces.",
-      "proposal_draft": "Hey, I build responsive SaaS dashboards and clean web interfaces using Next.js, Tailwind, and Figma. I focus on shipping functional UI components quickly while keeping the backend state clean. Are you looking to migrate an existing prototype or start fresh from a design system? Best,\nRoee"
+      "client_problem": "The client is looking for a full stack engineer and UI/UX specialist to build and improve web applications.",
+      "proposal_draft": "I saw you are looking for a full stack engineer with strong UI/UX background for SaaS products. I build clean web interfaces using Next.js and Tailwind, backed by robust APIs. Are you using Tailwind for the styling on your current project?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091179",
@@ -66,30 +46,11 @@
       ],
       "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs a fullstack developer to handle custom WordPress theme and plugin development over a multi-month contract.",
-      "proposal_draft": "Hey, I build custom web solutions and can easily handle custom WordPress themes and plugin development. I usually set up clean development environments using PHP and modern build tools to keep codebases maintainable. Are you relying on custom Gutenberg blocks or a traditional page builder setup for these themes? Best,\nRoee"
+      "client_problem": "The client needs a fullstack WordPress developer for custom theme and plugin development over a 5-month contract.",
+      "proposal_draft": "I saw your opening for a WordPress theme and plugin developer. I have experience building custom PHP plugins and optimizing custom themes for performance. Do you require custom Gutenberg blocks or traditional template files for this project?\nBest,\nRoee"
     },
     {
-      "id": "jobicy-164298",
-      "title": "Certificate Authority Program Steward (Mozilla)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://jobicy.com/jobs/164298-certificate-authority-program-steward",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 75,
-      "skills": [
-        "Cybersecurity"
-      ],
-      "first_seen_at": "2026-11-25T19:33:34.439293+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The client is looking for a steward to manage and oversee certificate authority programs within a major tech ecosystem.",
-      "proposal_draft": "Hey, I saw your opening for program stewardship and bring strong analytical and security baseline experience to the table. I deal with compliance checking and security log reviews regularly in my SOC work. What specific compliance frameworks are you prioritizing for this program right now? Best,\nRoee"
-    },
-    {
-      "id": "wwr-687668711",
+      "id": "wwr-869597627",
       "title": "Reddit: Frontend Engineer, Ads Campaign Manager",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -104,11 +65,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client requires a frontend engineer to work on advertising campaign management interfaces.",
-      "proposal_draft": "Hey, I build clean interactive dashboards and campaign management interfaces using modern frontend tooling. I focus on making data-heavy views fast and intuitive for everyday users. What component library or state management tool are you currently using for your ad manager? Best,\nRoee"
+      "client_problem": "Reddit is hiring a frontend engineer to work on their ads campaign manager interface.",
+      "proposal_draft": "I saw your opening for a frontend engineer on the ads campaign manager team. I build complex dashboards with React and state management libraries that handle heavy data tables. What charting library are you using for campaign analytics?\nBest,\nRoee"
     },
     {
-      "id": "wwr-913106161",
+      "id": "wwr-779439991",
       "title": "Upstart: Frontend Software Engineer, Personal Loans",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -123,11 +84,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs a frontend engineer to help streamline the borrowing and personal loan application experience.",
-      "proposal_draft": "Hey, I build high-conversion user interfaces and clean web apps with a strong focus on UX flow. I can help streamline multi-step loan applications into fast, responsive Next.js views. Are you managing form state locally or passing payloads through a centralized API gateway? Best,\nRoee"
+      "client_problem": "Upstart is hiring a frontend software engineer to work on their personal loans lending platform.",
+      "proposal_draft": "I saw your listing for a frontend engineer on the personal loans platform. I develop responsive interfaces with Next.js and Tailwind, focusing on clean user journeys for financial flows. How do you currently handle form validation across multi-step loan applications?\nBest,\nRoee"
     },
     {
-      "id": "wwr-794469359",
+      "id": "wwr-336180150",
       "title": "Pinterest: Machine Learning Engineer II, Responsible AI",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
@@ -142,11 +103,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client is seeking a machine learning engineer to work on responsible AI initiatives and model evaluation.",
-      "proposal_draft": "Hey, I build and evaluate AI pipelines with a strong focus on safe, predictable output handling. I typically use Python to audit workflow behavior and filter edge cases before deployment. What evaluation frameworks are you currently using for your responsible AI metrics? Best,\nRoee"
+      "client_problem": "Pinterest is hiring a machine learning engineer for responsible AI development.",
+      "proposal_draft": "I saw your opening for a machine learning engineer in responsible AI. I build custom Python automation workflows and integrate ML models via APIs. What frameworks are you using for model evaluation and fairness checks?\nBest,\nRoee"
     },
     {
-      "id": "wwr-899244280",
+      "id": "wwr-896963830",
       "title": "Carrot: Manager, Product Design",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -161,11 +122,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client is hiring a product design manager to oversee global health and family care platform experiences.",
-      "proposal_draft": "Hey, I design clean user interfaces and data-driven dashboards with a strong emphasis on user clarity. I bridge the gap between design and development by building out interactive Figma prototypes that translate directly into code. How large is the current design team you are managing? Best,\nRoee"
+      "client_problem": "Carrot is looking for a product design manager to lead design efforts for their global fertility platform.",
+      "proposal_draft": "I saw your opening for a product design manager on the Carrot platform. I design complex web apps and analytics dashboards in Figma with a focus on accessible component systems. What design system framework are you currently using?\nBest,\nRoee"
     },
     {
-      "id": "wwr-684166933",
+      "id": "wwr-729468421",
       "title": "Tebra: Product Designer",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -180,8 +141,8 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs a product designer to create intuitive digital interfaces for their platform.",
-      "proposal_draft": "Hey, I design user interfaces and functional web apps with a focus on clean design systems and usability. I build out interactive prototypes in Figma that make developer handoff straightforward. Are you looking to scale an existing design system or build new modules from scratch? Best,\nRoee"
+      "client_problem": "Tebra is looking for a product designer to create healthcare software workflows.",
+      "proposal_draft": "I saw your opening for a product designer. I design clean UI/UX interfaces and admin dashboards using Figma with a strong focus on usability. Are you building these workflows for desktop web browsers or mobile devices?\nBest,\nRoee"
     },
     {
       "id": "jobicy-164279",
@@ -200,8 +161,8 @@
       ],
       "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client is looking for evaluators to analyze search queries and assess multimedia content relevance and quality.",
-      "proposal_draft": "Hey, I handle detailed content analysis and classification tasks with a methodical, structured approach. I regularly process and categorize text and media payloads using automated scripts. Are you handling these evaluations via a custom internal annotation tool? Best,\nRoee"
+      "client_problem": "The project requires German-speaking evaluators to assess search queries, text classification, and multimedia content.",
+      "proposal_draft": "I saw your listing for a German language audio and video rater. I am analytical and comfortable classifying digital media content against specific quality guidelines. Are there specific annotation tools you use for this workflow?\nBest,\nRoee"
     },
     {
       "id": "remoteok-1138074",
@@ -220,8 +181,8 @@
       ],
       "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client requires a strategic technical advisor focused on cybersecurity, hybrid cloud, and managed services.",
-      "proposal_draft": "Hey, I have a strong background in security operations and technical infrastructure advisory. I look at system logs and threat intelligence daily to help shore up organizational security. What specific cloud environments make up the core of your managed services portfolio? Best,\nRoee"
+      "client_problem": "Thrive is looking for a strategic technical advisor focused on cybersecurity and hybrid cloud solutions.",
+      "proposal_draft": "I saw your opening for a strategic technical advisor in cybersecurity. I have experience working as a SOC analyst tracking threats and securing infrastructure. What security information and event management tools are primary in your stack?\nBest,\nRoee"
     },
     {
       "id": "remoteok-1138067",
@@ -240,8 +201,27 @@
       ],
       "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs a threat research engineer to analyze security threats and improve DevSecOps platform defenses.",
-      "proposal_draft": "Hey, I work as a SOC Tier 1 analyst and track threat vectors to keep systems secure. I can help analyze security telemetry and build out detection rules. What SIEM or logging platform are you currently using for your threat research workflows? Best,\nRoee"
+      "client_problem": "GitLab is seeking a threat research engineer for their security factory threat research team.",
+      "proposal_draft": "I saw your listing for a threat research engineer. I work with security logs and automation workflows to detect and analyze vulnerabilities. Do you primarily use Python for your threat analysis scripts?\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-164298",
+      "title": "Certificate Authority Program Steward (Mozilla)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "cyber_soc",
+      "url": "https://jobicy.com/jobs/164298-certificate-authority-program-steward",
+      "posted_at": "2026-11-25",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 61,
+      "skills": [
+        "Cybersecurity"
+      ],
+      "first_seen_at": "2026-11-25T19:33:34.439293+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Mozilla is looking for a certificate authority program steward to manage security policies and compliance.",
+      "proposal_draft": "I saw your opening for a certificate authority program steward. I have a background in cybersecurity analysis and compliance frameworks. What primary ticketing system do you use for policy reviews?\nBest,\nRoee"
     },
     {
       "id": "jobicy-164284",
@@ -259,8 +239,8 @@
       ],
       "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs annotators to review e-commerce listings and match product variants across platforms.",
-      "proposal_draft": "Hey, I build automated matching workflows and can easily handle structured data verification tasks. I often use Python scripts to parse attribute data and flag discrepancies across datasets. Are you processing these matches through a batch CSV pipeline or an API? Best,\nRoee"
+      "client_problem": "The project requires annotators to review pairs of e-commerce listings for product matching and attribute comparison.",
+      "proposal_draft": "I saw your listing for an e-commerce product matching annotator. I have strong attention to detail for comparing product attributes and image data. Do you provide a proprietary internal tool for logging the accept and reject decisions?\nBest,\nRoee"
     },
     {
       "id": "remoteok-1138078",
@@ -278,8 +258,27 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client is seeking a real estate executive assistant to manage daily administrative tasks and scheduling.",
-      "proposal_draft": "Hey, I am highly organized and comfortable managing fast-paced workflows and communications. I regularly use automation tools to streamline administrative bottlenecks and keep operations running smoothly. What scheduling and CRM tools are central to your daily routine? Best,\nRoee"
+      "client_problem": "Wing Assistant is hiring a real estate executive assistant for administrative operations.",
+      "proposal_draft": "I saw your opening for a real estate executive assistant. I am organized, tech-savvy, and experienced with digital workspace tools and dashboards. What CRM platform do you use for managing real estate listings?\nBest,\nRoee"
+    },
+    {
+      "id": "remoteok-1137927",
+      "title": "Manager, Product Design (Carrot)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remoteOK.com/remote-jobs/remote-manager-product-design-carrot-1137927",
+      "posted_at": "2026-11-21",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 61,
+      "skills": [
+        "Product Design"
+      ],
+      "first_seen_at": "2026-11-25T23:58:53.357654+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Carrot is hiring a product design manager to lead care orchestration design systems.",
+      "proposal_draft": "I saw your opening for a product design manager. I design clean interfaces and scalable component libraries in Figma for web applications. What is the current size of the design team you are managing?\nBest,\nRoee"
     }
   ]
 }

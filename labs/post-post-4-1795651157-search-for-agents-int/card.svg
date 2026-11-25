@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080" role="img" aria-label="Technical Insight Card">
+  <rect width="1080" height="1080" fill="#0c0e12"/>
+  <rect x="44" y="44" width="992" height="992" rx="20" fill="#13171f" stroke="#283040" stroke-width="2"/>
+  <rect x="88" y="92" width="210" height="38" rx="19" fill="#1c222e" stroke="#d4a359" stroke-width="1.5"/>
+  <text x="193" y="117" fill="#d4a359" font-family="monospace" font-size="17" font-weight="700" text-anchor="middle">CYBER &amp; SOC</text>
+  <text x="992" y="117" fill="#9aa4b5" font-family="monospace" font-size="17" text-anchor="end">Cloudflare Blog</text>
+  <text x="88" y="205" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">Search for Agents introduced by</text>
+  <text x="88" y="261" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">Cloudflare</text>
+  <line x1="88" y1="339" x2="992" y2="339" stroke="#283040" stroke-width="2"/>
+  <rect x="88" y="397" width="904" height="114" rx="12" fill="#0d1016" stroke="#232a38" stroke-width="1.5"/>
+  <text x="118" y="441" fill="#d4a359" font-family="monospace" font-size="22" font-weight="700">01</text>
+  <text x="168" y="441" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Automatically creates AI search instance from zone</text>
+  <text x="168" y="475" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">dashboard toggle.</text>
+  <rect x="88" y="533" width="904" height="114" rx="12" fill="#0d1016" stroke="#232a38" stroke-width="1.5"/>
+  <text x="118" y="577" fill="#d4a359" font-family="monospace" font-size="22" font-weight="700">02</text>
+  <text x="168" y="577" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Converts HTML to Markdown in real time using content</text>
+  <text x="168" y="611" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">negotiation headers.</text>
+  <rect x="88" y="669" width="904" height="114" rx="12" fill="#0d1016" stroke="#232a38" stroke-width="1.5"/>
+  <text x="118" y="713" fill="#d4a359" font-family="monospace" font-size="22" font-weight="700">03</text>
+  <text x="168" y="713" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Exposes discoverable APIs for any AI agent on the</text>
+  <text x="168" y="747" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">internet.</text>
+  <text x="88" y="985" fill="#9aa4b5" font-family="monospace" font-size="18">Roee Nir · SOC &amp; AI Automation Notes</text>
+  <text x="992" y="985" fill="#d4a359" font-family="monospace" font-size="18" text-anchor="end">Architecture Brief</text>
+</svg>

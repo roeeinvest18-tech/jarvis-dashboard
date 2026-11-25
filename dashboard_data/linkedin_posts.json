@@ -1,76 +1,98 @@
 {
-  "generated_at": "2026-11-25T19:37:37.071277+00:00",
+  "generated_at": "2026-11-25T23:59:17.396892+00:00",
   "stats": {
-    "total_drafted": 3,
-    "cyber_count": 2,
+    "total_drafted": 4,
+    "cyber_count": 3,
     "ai_count": 1
   },
   "posts": [
     {
-      "id": "post-1-1795635457",
-      "topic": "Probing DNS at Cloudflare",
+      "id": "post-1-1795651157",
+      "topic": "Cloudflare WAF protection against ruby2shell CVE-2026-132825",
       "category": "cyber_soc",
-      "source_url": "https://blog.cloudflare.com/probing-dns-at-cloudflare/",
+      "source_url": "https://blog.cloudflare.com/ruby2shell-waf-protection/",
       "source_platform": "Cloudflare Blog (Security & Engineering)",
       "posted_at": "Updated 2026-11-25 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "מגיע מבלוג ההנדסה של קלאודפלייר ומפרט ארכיטקטורה אמיתית של בדיקות קצה למערכות DNS מבוזרות.",
+      "credibility_rationale": "Published on Cloudflare official security blog detailing a critical heap buffer overflow in Ruby string case conversion affecting popular platforms like GitLab and GitHub Enterprise.",
       "key_takeaways": [
-        "כישלונות DNS קשים לאיתור כי הם חלקיים ומתפשטים לאט ברשת",
-        "הרחבת מסגרת בדיקות קצה כמו Flamingo מאפשרת לבדוק פרוטוקולים מול סביבת הייצור האמיתית",
-        "מדידת התפשטות רשומה הפכה לשער כניסה שקובע אם פריסה תעבור או תתגלגל אחורה"
+        "Heap buffer overflow occurs when converting German sharp s in legacy encodings.",
+        "Cloudflare WAF deployed managed rules as compensating controls.",
+        "Upgrading Ruby versions 3.3.14, 3.4.13, and 4.0.10 is the only complete fix."
       ],
-      "post_angle": "זווית מהשטח המציגה כיצד בעיות DNS מתחת לרדאר נפתרות באמצעות ניטור מתמיד מקצה לקצה מול סביבת הייצור.",
-      "opening_hook": "הדשבורדים ירוקים והכל עבר טסטים בהצלחה, אבל אז הטלפון מתחיל לרעוד כי הלקוחות לא מצליחים לפתור כתובות חדשות.",
-      "linkedin_post": "הדשבורדים ירוקים והכל עבר טסטים בהצלחה, אבל אז הטלפון מתחיל לרעוד כי הלקוחות לא מצליחים לפתור כתובות חדשות.\n\nבעיות DNS הן מהקשות ביותר לאיתור בגלל שהן זוחלות לאט, מפוזרות לרוחב הרשת ומשפיעות רק בחלק מהמקומות.\n\nבצוות הנדסת הרשת של קלאודפלייר הבינו שכדי לתפוס את התקלות האלו בזמן, חייבים לבדוק את ה DNS בדיוק כמו שהמשתמשים חווים אותם, כל הזמן ומן הקצה אל הקצה.\n\nהפתרון היה להרחיב את מסגרת הבדיקות שנקראת Flamingo כך שתדע לדבר פרוטוקולי רשת נוספים.\n\nבתכלס, מה שזה אומר לצוותי ה SOC והפיתוח ביום יום הוא להפסיק לסמוך רק על בדיקות יחידה ולשלב בקרות קצה שרצות מול ה Edge האמיתי.\n\nמעקב קבוע כזה הפך אצלם לשער חובה שמחליט האם הקוד ממשיך ללקוחות או מתגלגל אחורה באופן אוטומטי.\n\nאיך אתם מוודאים שהשינוי הבא שלכם לא תוקע את רזולוציית השמות בייצור?\n\n#Cloudflare #DNS #DevOps #SecurityMonitoring #Engineering",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:\nhttps://blog.cloudflare.com/probing-dns-at-cloudflare/",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Cloudflare Blog: כישלונות DNS קשים לאיתור כי הם חלקיים ומתפשטים לאט ברשת"
+      "post_angle": "זווית מהשטח / SOC & Ops: תרחיש מוכר מלוגים שמראה חולשת זיכרון בסיסית ואיך צוותי הגנה מטפלים בה באמצעות WAF כהגנה זמנית עד שמתבצע Patch.",
+      "opening_hook": "כשבדיקת המרת תווים פשוטה בקוד ישן מצליחה להפיל שרתים דרך Heap Buffer Overflow, ברור לנו שארכיטקטורה ישנה תמיד תרדוף אותנו.",
+      "linkedin_post": "כשבדיקת המרת תווים פשוטה בקוד ישן מצליחה להפיל שרתים דרך Heap Buffer Overflow, ברור לנו שארכיטקטורה ישנה תמיד תרדוף אותנו.\n\nהחשיפה של ruby2shell מוכיחה שוב כמה תלויות עמוקות בקוד כמו Ruby on Rails או מוצרים מוכרים כמו GitLab עלולות להיפגע עוד לפני שלב האימות ברשת.\n\nבפועל, מה שזה אומר לצוותי ה SOC ולמנהלי האבטחה ביום יום הוא שחוקי חסימה ב WAF הם אמנם שכבת בלימה מצוינת לעצירת תעבורה חשודה על המסלול, אבל הם לעולם לא תחליף לעדכון גרסה אמיתי.\n\nבתכלס, ההמלצה היחידה שעובדת מול חולשות קריטיות כאלה היא לוודא שצוותי ה DevOps מריצים שדרוג גרסאות לרובי בהקדם האפשרי.\n\nאיך צוות ה SOC שלכם מזהה ניסיונות ניצול של חולשות זיכרון כאלה לפני שהם מגיעים ללוגים המרכזיים?\n\nCyberSecurity SOC DevSecOps Cloudflare VulnerabilityManagement",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795651157-cloudflare-waf-protec/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795651157-cloudflare-waf-protec/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:\nhttps://blog.cloudflare.com/ruby2shell-waf-protection/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Cloudflare Blog: Heap buffer overflow occurs when converting German sharp s in legacy encodings."
     },
     {
-      "id": "post-2-1795635457",
-      "topic": "CTO of ‘RansomwareHelp’ Indicted for Wire Fraud",
-      "category": "cyber_soc",
-      "source_url": "https://krebsonsecurity.com/2026/11/cto-of-ransomwarehelp-indicted-for-wire-fraud/",
-      "source_platform": "Krebs on Security (Threat Intelligence)",
-      "posted_at": "Updated 2026-11-25 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "דיווח חקירתי מדויק של קרובס על מעצר ומכתב אישום פדרלי נגד חברה שהתחזתה למומחית פענוח כופר.",
-      "key_takeaways": [
-        "חברות תיווך כופר מתחזות למומחי קריפטוגרפיה בזמן שהן פשוט משלמות לתוקפים",
-        "חקירות סמויות של ה FBI חושפות את הפער בין הבטחות השיווק למציאות בשטח",
-        "לקוחות ארגוניים צריכים לוודא אישורים קריפטוגרפיים ולא להסתמך על סיסמאות שיווקיות"
-      ],
-      "post_angle": "זווית סקפטית המאתגרת את ההבטחות של חברות חיצוניות לפתרון אירועי כופר ומציגה את המציאות שמאחורי הקלעים.",
-      "opening_hook": "הבטחות שיווקיות על כלי הצפנה קנייניים שמשחזרים מאה אחוז מהנתונים נשמעות טוב עד שמבצעים בדיקת עומק למערכת.",
-      "linkedin_post": "הבטחות שיווקיות על כלי הצפנה קנייניים שמשחזרים מאה אחוז מהנתונים נשמעות טוב עד שמבצעים בדיקת עומק למערכת.\n\nכתב האישום הפדרלי נגד בכירי חברת השירותים RansomwareHelp חושף מציאות עגומה שבה הבטחות לפתרונות קריפטוגרפיים מתקדמים היו בסך הכל תשלום שקט לתוקפים מאחורי הגב של הלקוח.\n\nהאתר טען שיש לו מומחים שמחזירים מידע נעול בלי לשלם סחיטה, אבל מבצע סמוי של ה FBI הראה שהם פשוט פנו לתוקפים וביקשו את המפתח הזול ביותר תוך גביית עמלת ענק מהקורבנות.\n\nבתכלס, עבור צוותי אבטחה וניהול אירועים בתוך ארגונים, הלקח פשוט מאוד: כשחברה חיצונית טוענת שיש לה קסמים בלעדיים, דורשו לראות את הארכיטקטורה וההוכחות הטכניות לפני שסומכים עליה בזמן משבר.\n\nאף כלי אוטומטי לא יחליף תהליך תגובה מנוהל שמתבסס על נתונים פתוחים ובדיקות פורנזיות אמיתיות.\n\nאיך צוות ה SOC שלכם מסנן ומאמת ספקי צד ג' שמבטיחים פתרונות קסם?\n\n#CyberSecurity #SOC #ThreatIntel #Ransomware #IncidentResponse",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795635457-cto-of-ransomwarehelp/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795635457-cto-of-ransomwarehelp/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Krebs on Security:\nhttps://krebsonsecurity.com/2026/11/cto-of-ransomwarehelp-indicted-for-wire-fraud/",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Krebs on Security: חברות תיווך כופר מתחזות למומחי קריפטוגרפיה בזמן שהן פשוט משלמות לתוקפים"
-    },
-    {
-      "id": "post-3-1795635457",
-      "topic": "How iFood scales coding agents across 15,000 repositories",
+      "id": "post-2-1795651157",
+      "topic": "Finding faster quantum algorithms with Gemini 4 agents and Lean",
       "category": "ai_agents",
-      "source_url": "https://openai.com/business/customer-stories/ifood",
-      "source_platform": "OpenAI (AI Releases & Research)",
+      "source_url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+      "source_platform": "Google DeepMind (Frontier AI & Research)",
       "posted_at": "Updated 2026-11-25 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "מקרה בוחן אמיתי על הרצת סוכני קוד מבוססי API על פני 15,000 מאגרים שונים באמצעות תשתיות מבודדות.",
+      "credibility_rationale": "Directly from Google DeepMind research blog describing agent teams using Lean formal verification for quantum algorithm optimization.",
       "key_takeaways": [
-        "האתגר האמיתי בהטמעת סוכני קוד אינו יכולת המודל אלא תשתית הביצוע המבודדת",
-        "פלטפורמת סוכנים מרוחקים הופכת משימות הנדסיות מורכבות לקריאות API פשוטות",
-        "שלבי הרצה דטרמיניסטיים כמו גיבון וסביבת סנדבוקס שומרים על יציבות העבודה"
+        "Gemini 4 agent teams collaborated and debated algorithmic improvements every four hours.",
+        "Lean formal theorem prover verified mathematical correctness of quantum circuits.",
+        "Open-sourced Lean library and solutions on GitHub for scientific simulations."
       ],
-      "post_angle": "לקח לבוני מערכות ואוטומציות כיצד לבנות תשתיות סנדבוקס אמינות להרצת סוכני קוד בסקייל ארגוני ענק.",
-      "opening_hook": "לפתור בעיית אבטחה או תאימות בקוד עבור מאגר יחיד זה פשוט, אבל האתגר האמיתי מתחיל כשצריך להריץ את זה על חמש עשרה אלף מאגרים שונים.",
-      "linkedin_post": "לפתור בעיית אבטחה או תאימות בקוד עבור מאגר יחיד זה פשוט, אבל האתגר האמיתי מתחיל כשצריך להריץ את זה על חמש עשרה אלף מאגרים שונים.\n\nבחברת iFood הבינו שמה שהיה חסר להם זו לא עוד אינטליגנציה או פרומפט מוצלח, אלא תשתית ביצוע ייעודית ומבודדת שמנהלת את כל מחזור החיים של הסוכן.\n\nהם בנו פלטפורמה שמקבלת בקשת REST API, מעבירה אותה לסביבת סנדבוקס מבודדת, ומחזירה חזרה Pull Request מוכן לבדיקה.\n\nבתכלס, עבור מפתחי אוטומציות ובונים של סוכני AI, התובנה פה היא קריטית: אל תנסו לשלב סוכנים פרועים ישר לתוך סביבת הייצור מבלי לבנות מעטפת דטרמיניסטית שמתחילה בשכפול הקוד ומסתיימת בבקשת מיזוג מבוקרת.\n\nהפרדת הרשויות הזו היא ההבדל בין פיילוט שנשאר במעבדה לבין אוטומציה ארגונית יציבה שרצה בסקייל.\n\nהאם התשתיות שלכם מוכנות להריץ סוכני קוד באופן אוטומטי מבלי לסכן את יציבות המערכת?\n\n#AIAgents #DeveloperTools #Automation #SoftwareEngineering #CodeSecurity",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795635457-how-ifood-scales-codi/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795635457-how-ifood-scales-codi/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך OpenAI:\nhttps://openai.com/business/customer-stories/ifood",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך OpenAI: האתגר האמיתי בהטמעת סוכני קוד אינו יכולת המודל אלא תשתית הביצוע המבודדת"
+      "post_angle": "פירוק מנגנון הנדסי: צלילה לנתון טכני שמראה איך עבודה משותפת של סוכני AI עם הוכחה פורמלית מייצרת קוד מדויק מתחת למכסה המנוע.",
+      "opening_hook": "העובדה שסוכני AI נפגשים בוירטואל קונפרנס כל ארבע שעות כדי להתווכח על אופטימיזציה של מעגלים קוונטיים משנה את כל מה שידענו על פיתוח.",
+      "linkedin_post": "העובדה שסוכני AI נפגשים בוירטואל קונפרנס כל ארבע שעות כדי להתווכח על אופטימיזציה של מעגלים קוונטיים משנה את כל מה שידענו על פיתוח.\n\nבמקום להסתמך רק על ניסוי וטעייה, צוותי המחקר של גוגל השתמשו במודלי Gemini 4 בשילוב עם Lean ככלי להוכחה מתמטית פורמלית של מעגלים אלו.\n\nבפועל, מה שזה אומר למפתחי מערכות ובוני סוכנים הוא שהעתיד של ארכיטקטורת תוכנה מורכבת מבוסס על סוכנים שבודקים את עצמם בצורה מתמטית ולא רק דרך טקסט חופשי.\n\nבתכלס, השילוב הזה של אוטומציה מבוססת סוכנים עם כלי ורידציות קשיחים הופך את תהליכי ה Review והבדיקות שלנו להרבה יותר עמוקים ומדויקים.\n\nאילו משימות פיתוח אצליכם בצוות הייתם מפקידים בידי סוכנים שעובדים בצוותים משותפים?\n\nAIagents DeepMind QuantumComputing SoftwareEngineering Automation",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795651157-finding-faster-quantu/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795651157-finding-faster-quantu/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Google DeepMind:\nhttps://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Google DeepMind: Gemini 4 agent teams collaborated and debated algorithmic improvements every four hours."
+    },
+    {
+      "id": "post-3-1795651157",
+      "topic": "Attackers used Optimizely to A/B test malware on top websites",
+      "category": "cyber_soc",
+      "source_url": "https://blog.cloudflare.com/search-for-agents/",
+      "source_platform": "Cloudflare Blog (Security & Engineering)",
+      "posted_at": "Updated 2026-11-25 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Reported by Brian Krebs detailing real supply chain compromise via Optimizely affecting 178 major websites including CNN and BBC.",
+      "key_takeaways": [
+        "Malicious JavaScript injected through Optimizely platform on 178 websites.",
+        "Payloads rebuilt 26 times in a single day to evade detection.",
+        "Highlighted lack of strict third-party content source enforcement by major sites."
+      ],
+      "post_angle": "זווית סקפטית / Reality Check: אתגור ההנחה שתוכן צד שלישי המאוחסן אצל ספקים מוכרים הוא בהכרח בטוח, בעזרת נתונים אמיתיים על תקיפות שרשרת אספקה.",
+      "opening_hook": "ההנחה שספריות JavaScript חיצוניות מספקים מוכרים מוגנות לחלוטין מתבררת שוב כמהמורה המסוכנת ביותר בארכיטקטורת האבטחה שלנו.",
+      "linkedin_post": "ההנחה שספריות JavaScript חיצוניות מספקים מוכרים מוגנות לחלוטין מתבררת שוב כמהמורה המסוכנת ביותר בארכיטקטורת האבטחה שלנו.\n\nהאירוע שבו תוקפים ניצלו פלטפורמה כמו Optimizely כדי להזריק קוד זדוני ללמעלה ממאתיים אתרים מובילים מוכיח ששרשרת האספקה הדיגיטלית פרוצה לחלוטין.\n\nבפועל, מה שזה אומר לצוותי ה SOC ולמהנדסי האבטחה הוא שהאתר שלכם יכול להיפגע קשות גם בלי שום פריצת תשתית ישירה לשרתים שלכם.\n\nבתכלס, אם אתם לא מטמיעים מדיניות אבטחה קשוחה כמו CSP ומעקב דקדקני אחרי סקריפטים חיצוניים שרצים בדפדפן של המשתמש, אתם משאירים דלת פתוחה לרווחה.\n\nאיך צוות הניטור שלכם מתמודד כיום עם בקרת סקריפטים צד שלישי בייצור?\n\nCyberSecurity ThreatIntelligence SupplyChain SecurityOperations WebSecurity",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795651157-attackers-used-optimi/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795651157-attackers-used-optimi/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:\nhttps://blog.cloudflare.com/search-for-agents/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Cloudflare Blog: Malicious JavaScript injected through Optimizely platform on 178 websites."
+    },
+    {
+      "id": "post-4-1795651157",
+      "topic": "Search for Agents introduced by Cloudflare",
+      "category": "cyber_soc",
+      "source_url": "https://blog.cloudflare.com/search-for-agents/",
+      "source_platform": "Cloudflare Blog (Security & Engineering)",
+      "posted_at": "Updated 2026-11-25 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "Cloudflare engineering announcement regarding network-level AI search capabilities and automatic Markdown generation for agents.",
+      "key_takeaways": [
+        "Automatically creates AI search instance from zone dashboard toggle.",
+        "Converts HTML to Markdown in real time using content negotiation headers.",
+        "Exposes discoverable APIs for any AI agent on the internet."
+      ],
+      "post_angle": "לקח לבוני מערכות ואוטומציות: חיבור בין חידושי תשתיות רשת להחלטת תכנון קונקרטית בבניית סוכנים שצריכים לגשת למידע בצורה יעילה.",
+      "opening_hook": "המעבר מאינדוקס תוכן ידני לבניית תשתיות שבהן סוכני AI מוצאים מידע ברמת הרשת משנה לחלוטין את הדרך שבה אנחנו מתכננים ארכיטקטורת מידע.",
+      "linkedin_post": "המעבר מאינדוקס תוכן ידני לבניית תשתיות שבהן סוכני AI מוצאים מידע ברמת הרשת משנה לחלוטין את הדרך שבה אנחנו מתכננים ארכיטקטורת מידע.\n\nעם ההשקה של יכולות כמו Search for Agents ברמת ה CDN, כל אתר יכול להפוך לנגיש אוטומטית לסוכנים בלי צורך להקים תשתיות Retrieval מורכבות מאפס.\n\nבפועל, מה שזה אומר למפתחי מערכות ובוני סוכנים הוא שהדגש עובר מכתיבת קוד חיפוש מסורבל לניהול מדיניות נכונה של מקורות מידע.\n\nבתכלס, היכולת להמיר עמודי HTML לפורמט Markdown בזמן אמת ולחשוף ממשק API מובנה חוסכת שעות של פיתוח תשתית בתוך הפרויקט.\n\nאיך הסוכנים שבניתם ניגשים כיום למידע חיצוני והאם אתם מסתמכים על תשתיות מוכנות מראש?\n\nAIagents Cloudflare SoftwareArchitecture Developers API",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795651157-search-for-agents-int/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795651157-search-for-agents-int/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:\nhttps://blog.cloudflare.com/search-for-agents/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Cloudflare Blog: Automatically creates AI search instance from zone dashboard toggle."
     }
   ]
 }

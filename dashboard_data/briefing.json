@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T23:36:43.717676+00:00",
+  "generated_at": "2026-11-25T23:59:18.648689+00:00",
   "date": "2026-11-25",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,28 +32,28 @@
   },
   "jobs": [
     {
-      "id": "arbeitnow-senior-leadership-ai-enablement-consultant-berlin-",
-      "title": "Senior Leadership & AI Enablement Consultant (w/d/m) (WEBUILDAI GmbH)",
-      "platform": "Arbeitnow Remote (Live Cloud)",
-      "match_score": 84,
-      "has_poc": false,
-      "poc_live_url": ""
-    },
-    {
       "id": "hn-50445335",
       "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
       "platform": "HackerNews Freelance (Live)",
       "match_score": 82,
       "has_poc": false,
       "poc_live_url": ""
+    },
+    {
+      "id": "remotive-2091179",
+      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
+      "platform": "Remotive (Live Cloud)",
+      "match_score": 78,
+      "has_poc": false,
+      "poc_live_url": ""
     }
   ],
   "content": {
-    "id": "post-1-1795635457",
-    "topic": "Probing DNS at Cloudflare",
+    "id": "post-1-1795651157",
+    "topic": "Cloudflare WAF protection against ruby2shell CVE-2026-132825",
     "category": "cyber_soc",
-    "opening_hook": "הדשבורדים ירוקים והכל עבר טסטים בהצלחה, אבל אז הטלפון מתחיל לרעוד כי הלקוחות לא מצליחים לפתור כתובות חדשות.",
-    "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/"
+    "opening_hook": "כשבדיקת המרת תווים פשוטה בקוד ישן מצליחה להפיל שרתים דרך Heap Buffer Overflow, ברור לנו שארכיטקטורה ישנה תמיד תרדוף אותנו.",
+    "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795651157-cloudflare-waf-protec/"
   },
   "painpoint": {
     "title_en": "Git-Integrated Time Tracking Automation",
@@ -64,31 +64,31 @@
   },
   "labs_builds": [
     {
-      "slug": "mvp-subscription-management-and-cancellation",
-      "kind": "saas_mvp",
-      "title": "Subscription Management and Cancellation SaaS",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/mvp-subscription-management-and-cancellation/",
+      "slug": "post-post-4-1795651157-search-for-agents-int",
+      "kind": "content_pack",
+      "title": "Search for Agents introduced by Cloudflare",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795651157-search-for-agents-int/",
       "status": "live"
     },
     {
-      "slug": "post-post-3-1795635457-how-ifood-scales-codi",
+      "slug": "post-post-3-1795651157-attackers-used-optimi",
       "kind": "content_pack",
-      "title": "How iFood scales coding agents across 15,000 repositories",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795635457-how-ifood-scales-codi/",
+      "title": "Attackers used Optimizely to A/B test malware on top websites",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795651157-attackers-used-optimi/",
       "status": "live"
     },
     {
-      "slug": "post-post-2-1795635457-cto-of-ransomwarehelp",
+      "slug": "post-post-2-1795651157-finding-faster-quantu",
       "kind": "content_pack",
-      "title": "CTO of ‘RansomwareHelp’ Indicted for Wire Fraud",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795635457-cto-of-ransomwarehelp/",
+      "title": "Finding faster quantum algorithms with Gemini 4 agents and Lean",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795651157-finding-faster-quantu/",
       "status": "live"
     },
     {
-      "slug": "post-post-1-1795635457-probing-dns-at-cloudf",
+      "slug": "post-post-1-1795651157-cloudflare-waf-protec",
       "kind": "content_pack",
-      "title": "Probing DNS at Cloudflare",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795635457-probing-dns-at-cloudf/",
+      "title": "Cloudflare WAF protection against ruby2shell CVE-2026-132825",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795651157-cloudflare-waf-protec/",
       "status": "live"
     }
   ]

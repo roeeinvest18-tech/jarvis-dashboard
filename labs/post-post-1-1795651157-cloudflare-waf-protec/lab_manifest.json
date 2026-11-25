@@ -1,0 +1,8 @@
+{
+  "slug": "post-post-1-1795651157-cloudflare-waf-protec",
+  "kind": "content_pack",
+  "track": "cyber_soc",
+  "title": "Cloudflare WAF protection against ruby2shell CVE-2026-132825",
+  "source_id": "post-1-1795651157",
+  "human_gate_required": true
+}
