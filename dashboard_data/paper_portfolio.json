@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-24T03:12:44.983213+00:00",
-  "as_of_date": "2026-11-24",
+  "generated_at": "2026-11-25T01:18:17.128416+00:00",
+  "as_of_date": "2026-11-25",
   "notional_per_trade_usd": 1000.0,
   "max_open_per_strategy": 3,
   "strategies": {
@@ -240,8 +240,8 @@
       "target": 43.91,
       "shares": 28.0899,
       "last_price": 35.6,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "sim_open_usd": -0.0,
+      "r_now": -0.0
     },
     {
       "id": "rs:ILMN:2026-11-24",
@@ -253,8 +253,8 @@
       "target": 254.55,
       "shares": 4.8714,
       "last_price": 205.28,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "sim_open_usd": -0.0,
+      "r_now": -0.0
     }
   ],
   "closed_trades": []
