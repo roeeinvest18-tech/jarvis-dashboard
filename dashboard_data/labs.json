@@ -1,13 +1,29 @@
 {
-  "generated_at": "2026-11-25T17:01:28.004168+00:00",
+  "generated_at": "2026-11-25T17:56:56.477871+00:00",
   "stats": {
-    "total_live": 5,
+    "total_live": 6,
     "saas_mvp": 0,
     "ecom_kit": 1,
-    "job_poc": 0,
+    "job_poc": 1,
     "content_pack": 4
   },
   "builds": [
+    {
+      "id": "poc-remotive-2091179-wordpress-theme-plugin",
+      "slug": "poc-remotive-2091179-wordpress-theme-plugin",
+      "kind": "job_poc",
+      "track": "web_dashboards",
+      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
+      "summary": "The client needs a full-stack WordPress developer to build and maintain custom themes and plugins over a five-month contract.",
+      "score": 92,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/",
+      "source_id": "remotive-2091179",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 8,
+      "created_at": "2026-11-25T17:56:56.134414+00:00",
+      "updated_at": "2026-11-25T17:56:56.134414+00:00"
+    },
     {
       "id": "post-post-4-1795566102-cloudflare-open-weigh",
       "slug": "post-post-4-1795566102-cloudflare-open-weigh",
@@ -22,7 +38,7 @@
       "human_gate_required": true,
       "files_count": 5,
       "created_at": "2026-11-25T16:26:20.982053+00:00",
-      "updated_at": "2026-11-25T16:26:20.982053+00:00"
+      "updated_at": "2026-11-25T17:56:56.421767+00:00"
     },
     {
       "id": "post-post-3-1795566102-trail-of-bits-bug-pat",
@@ -38,7 +54,7 @@
       "human_gate_required": true,
       "files_count": 5,
       "created_at": "2026-11-25T16:26:20.937020+00:00",
-      "updated_at": "2026-11-25T16:26:20.937020+00:00"
+      "updated_at": "2026-11-25T17:56:56.380102+00:00"
     },
     {
       "id": "post-post-2-1795566102-the-thin-orchestrator",
@@ -54,7 +70,7 @@
       "human_gate_required": true,
       "files_count": 5,
       "created_at": "2026-11-25T16:26:20.903577+00:00",
-      "updated_at": "2026-11-25T16:26:20.903577+00:00"
+      "updated_at": "2026-11-25T17:56:56.356233+00:00"
     },
     {
       "id": "post-post-1-1795566102-google-workspace-cont",
@@ -70,7 +86,7 @@
       "human_gate_required": true,
       "files_count": 5,
       "created_at": "2026-11-25T16:26:20.877438+00:00",
-      "updated_at": "2026-11-25T16:26:20.877438+00:00"
+      "updated_at": "2026-11-25T17:56:56.331302+00:00"
     },
     {
       "id": "ecom-advanced-digital-planners-and-ipad-prod",

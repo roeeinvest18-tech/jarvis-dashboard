@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T17:01:28.124755+00:00",
+  "generated_at": "2026-11-25T17:56:56.605652+00:00",
   "date": "2026-11-25",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,19 +32,19 @@
   },
   "jobs": [
     {
-      "id": "hn-50445335",
-      "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
-      "platform": "HackerNews Freelance (Live)",
-      "match_score": 82,
-      "has_poc": false,
-      "poc_live_url": ""
+      "id": "remotive-2091179",
+      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
+      "platform": "Remotive (Live Cloud)",
+      "match_score": 92,
+      "has_poc": true,
+      "poc_live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/"
     },
     {
-      "id": "remoteok-1138074",
-      "title": "Strategic Technical Advisor (Thrive)",
-      "platform": "RemoteOK (Live Cloud)",
-      "match_score": 78,
-      "has_poc": false,
+      "id": "jobicy-164237",
+      "title": "Full Stack Developer - Java & React (f/m/d) (ecosio)",
+      "platform": "Jobicy (Live Cloud)",
+      "match_score": 89,
+      "has_poc": true,
       "poc_live_url": ""
     }
   ],
@@ -64,6 +64,13 @@
   },
   "labs_builds": [
     {
+      "slug": "poc-remotive-2091179-wordpress-theme-plugin",
+      "kind": "job_poc",
+      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/",
+      "status": "live"
+    },
+    {
       "slug": "post-post-4-1795566102-cloudflare-open-weigh",
       "kind": "content_pack",
       "title": "Cloudflare Open-Weight Clairic and Clairic-Flash Extraction Models",
@@ -82,13 +89,6 @@
       "kind": "content_pack",
       "title": "The Thin Orchestrator Pattern for Reliable AI Agents at Meta",
       "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795566102-the-thin-orchestrator/",
-      "status": "live"
-    },
-    {
-      "slug": "post-post-1-1795566102-google-workspace-cont",
-      "kind": "content_pack",
-      "title": "Google Workspace Continuous Approach to Mitigating Indirect Prompt Injections",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795566102-google-workspace-cont/",
       "status": "live"
     }
   ]

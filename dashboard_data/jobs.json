@@ -1,14 +1,57 @@
 {
-  "generated_at": "2026-11-25T12:51:58.027480+00:00",
+  "generated_at": "2026-11-25T17:54:22.888857+00:00",
   "stats": {
-    "total_scanned": 21,
+    "total_scanned": 22,
     "matched_count": 14,
     "ai_count": 2,
-    "cyber_count": 5,
+    "cyber_count": 3,
     "scraping_count": 0,
-    "web_count": 7
+    "web_count": 9
   },
   "jobs": [
+    {
+      "id": "remotive-2091179",
+      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
+      "platform": "Remotive (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remotive.com/remote-jobs/software-development/wordpress-theme-plugin-developer-2091179",
+      "posted_at": "2026-11-24",
+      "budget": "$57K - $67K",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 92,
+      "skills": [
+        "Wordpress",
+        "Fullstack"
+      ],
+      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
+      "poc_blueprint": "Architecture: Modular WordPress plugin using custom post types and React-based admin settings. \n3-Step MVP: 1. Scaffold plugin boilerplate with custom hooks. 2. Build React admin dashboard interface. 3. Hook REST API endpoints for data management. \nFlow: User input -> WordPress REST API -> Sanitized DB entry.",
+      "client_problem": "The client needs a full-stack WordPress developer to build and maintain custom themes and plugins over a five-month contract.",
+      "proposal_draft": "I write custom WordPress plugins and themes using clean, maintainable PHP and modern front-end tooling. I can integrate your required features without bloated code or slow load times. Are you using Sage or a standard starter theme for this project?\n\nI also put together a small working prototype for your setup so you can test the flow directly: https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/\nBest,\nRoee",
+      "poc_live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/",
+      "poc_verified": true
+    },
+    {
+      "id": "jobicy-164237",
+      "title": "Full Stack Developer - Java & React (f/m/d) (ecosio)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164237-full-stack-developer-java-react-f-m-d-3",
+      "posted_at": "2026-11-25",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "React",
+        "Full Stack",
+        "Web App"
+      ],
+      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
+      "poc_blueprint": "Architecture: React SPA frontend communicating with a Java Spring Boot microservice backend via REST and WebSockets. \n3-Step MVP: 1. Setup Spring Boot API controllers for EDI data. 2. Build React dashboard views with Tailwind CSS. 3. Connect real-time status updates. \nFlow: Client Action -> Spring Boot Service -> EDI Engine.",
+      "client_problem": "The client needs a full-stack developer experienced in Java and React to work on B2B integration and e-invoicing platforms.",
+      "proposal_draft": "I build responsive React frontends paired with robust backend services and clean API integrations. I can help develop and maintain your B2B dashboard workflows with proper state management. What state library are you using alongside React for your frontend components?\nBest,\nRoee"
+    },
     {
       "id": "hn-50445335",
       "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
@@ -26,115 +69,69 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client is seeking a full stack engineer with UI/UX expertise to support SaaS development and project management.",
-      "proposal_draft": "I can help you build out your SaaS interfaces and integrate the necessary automation workflows. I have experience with Next.js and Figma to ensure your product dashboard is both functional and intuitive. Are you currently using a specific framework for your backend services? Best,\nRoee"
+      "client_problem": "The client is seeking a full-stack engineer and UI/UX SaaS specialist to build and ship web applications.",
+      "proposal_draft": "I build full-stack SaaS applications with clean Next.js frontends and solid backend logic. I handle both the UI/UX design and the implementation so everything ships smoothly. Which database or ORM are you using for your core data models?\nBest,\nRoee"
     },
     {
-      "id": "remoteok-1138074",
-      "title": "Strategic Technical Advisor (Thrive)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://remoteOK.com/remote-jobs/remote-strategic-technical-advisor-thrive-1138074",
-      "posted_at": "2026-11-23",
-      "budget": "$128,091-$128,091/yr",
-      "budget_type": "remote",
-      "budget_val": 128091,
-      "match_score": 78,
-      "skills": [
-        "Infosec",
-        "Cybersecurity"
-      ],
-      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
-      "poc_blueprint": "",
-      "client_problem": "Thrive needs a technical advisor to assist with cyber security, hybrid cloud, and managed services operations.",
-      "proposal_draft": "I have a background in SOC Tier 1 analysis and can help streamline your security monitoring and cloud management processes. I focus on building automations that reduce manual overhead in incident response. Which specific cloud environments are you currently prioritizing for your security monitoring? Best,\nRoee"
-    },
-    {
-      "id": "remoteok-1138067",
-      "title": "Threat Research Engineer, Security Factory: Threat Research (GitLab)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://remoteOK.com/remote-jobs/remote-threat-research-engineer-security-factory-threat-research-gitlab-1138067",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 78,
-      "skills": [
-        "Threat",
-        "Devsecops"
-      ],
-      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
-      "poc_blueprint": "",
-      "client_problem": "GitLab is looking for a threat research engineer to improve security orchestration and threat detection capabilities.",
-      "proposal_draft": "I have experience in SOC Tier 1 analysis and can assist with automating threat research workflows to improve detection efficiency. I am comfortable working within DevSecOps environments to integrate security tooling. What is the primary data source you are looking to automate for your current threat research pipeline? Best,\nRoee"
-    },
-    {
-      "id": "arbeitnow-remote-detection-security-automation-engineer-bonn-348290",
-      "title": "Detection & Security Automation Engineer (m/w/d) (virtual7 GmbH)",
-      "platform": "Arbeitnow Remote (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://www.arbeitnow.com/jobs/companies/virtual7-gmbh/remote-detection-security-automation-engineer-bonn-348290",
-      "posted_at": "Recent",
-      "budget": "Remote",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 70,
-      "skills": [
-        "Detection",
-        "Soc",
-        "Siem",
-        "Threat"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The client requires a security automation engineer to develop detection solutions for public sector partners.",
-      "proposal_draft": "I can help you design and implement security automation workflows to improve your detection capabilities. My experience includes setting up automated response triggers that integrate directly with existing security infrastructure. Are you currently using SIEM tools like Splunk or ELK for your detection logic? Best,\nRoee"
-    },
-    {
-      "id": "jobicy-156966",
-      "title": "Senior Automation & Process Specialist (Thumbtack)",
+      "id": "jobicy-164279",
+      "title": "Crux - Video and Audio Raters - German (Germany) (Welo Global)",
       "platform": "Jobicy (Live Cloud)",
-      "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/156966-senior-automation-process-specialist",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164279-crux-video-and-audio-raters-german-germany",
       "posted_at": "2026-11-25",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 69,
+      "match_score": 78,
       "skills": [
-        "Automation",
-        "Ai",
-        "Ai Tool"
+        "Analytics",
+        "Internal Tool"
       ],
-      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
+      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
       "poc_blueprint": "",
-      "client_problem": "Thumbtack needs an automation specialist to improve internal processes and support their AI-driven home improvement tools.",
-      "proposal_draft": "I can help you build custom AI agents and n8n workflows to automate your internal processes. I focus on creating efficient pipelines that connect your existing tools to reduce manual data entry. What is the most time-consuming manual task your team is currently looking to automate? Best,\nRoee"
+      "client_problem": "Overview We are seeking evaluators for a project that combines Search Evaluation and Linguistic Analysis. In this role, you will assess user intent, annotate search queries, classify text, and evaluate multimedia content",
+      "proposal_draft": "Hi,\n\nI read the brief for Crux - Video and Audio Raters - German (Germany) (Welo Global). I design and build custom dashboards, clean web interfaces, and Analytics, Internal Tool systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "remoteok-1137928",
-      "title": "Senior Product Design Manager (LastPass)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remoteOK.com/remote-jobs/remote-senior-product-design-manager-lastpass-1137928",
-      "posted_at": "2026-11-21",
-      "budget": "Remote / Competitive",
+      "id": "jobicy-164246",
+      "title": "Director AI Native Product Builder | New Ventures (Wellhub)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://jobicy.com/jobs/164246-director-ai-native-product-builder-new-ventures",
+      "posted_at": "2026-11-25",
+      "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 69,
+      "match_score": 75,
       "skills": [
-        "Product Design",
-        "Design System",
-        "Website"
+        "Ai"
       ],
-      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
+      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
       "poc_blueprint": "",
-      "client_problem": "LastPass is looking for a product design manager to improve the user experience of their secure access and credential management platform.",
-      "proposal_draft": "I can help you refine your product dashboards and user interfaces to reduce friction in your credential management workflows. I have experience building clean, functional interfaces using Figma and Next.js. How are you currently measuring user engagement or friction points within your existing dashboard? Best,\nRoee"
+      "client_problem": "Your wellbeing, our mission. Join a company shaping a healthier world. GET TO KNOW US At Wellhub we're revolutionizing workplace wellness. Our platform connects employees worldwide to the best partners for fitness, mindf",
+      "proposal_draft": "Hi,\n\nI read the brief for Director AI Native Product Builder | New Ventures (Wellhub). I design and build custom dashboards, clean web interfaces, and Ai systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-195463169",
+      "id": "jobicy-164284",
+      "title": "Project Beid - Korean E-commerce Product Matching Annotator (Welo Global)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164284-project-beid-korean-e-commerce-product-matching-annotator",
+      "posted_at": "2026-11-25",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 75,
+      "skills": [
+        "Analytics"
+      ],
+      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Responsibilities - Review pairs of e-commerce listings and decide whether they are the same product and the same sellable variant, returning ACCEPT or REJECT. - Compare key attributes such as brand, model number, size/ca",
+      "proposal_draft": "Hi,\n\nI read the brief for Project Beid - Korean E-commerce Product Matching Annotator (Welo Global). I design and build custom dashboards, clean web interfaces, and Analytics systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-820371686",
       "title": "Reddit: Frontend Engineer, Ads Campaign Manager",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -149,11 +146,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Reddit needs a frontend engineer to work on their ads campaign management interface.",
-      "proposal_draft": "I can help you build and optimize frontend components for your ads management dashboard. I focus on creating responsive, high-performance interfaces that handle complex data visualization. Which frontend framework are you currently using for your campaign management tools? Best,\nRoee"
+      "client_problem": "Headquarters: Remote - United States Reddit is a community of communities. It’s built on shared interests, passion, and trust, and is home to the most open and authentic conversations on the internet. Every day, Reddit u",
+      "proposal_draft": "Hi,\n\nI read the brief for Reddit: Frontend Engineer, Ads Campaign Manager. I design and build custom dashboards, clean web interfaces, and Frontend systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-719778577",
+      "id": "wwr-912285038",
       "title": "Upstart: Frontend Software Engineer, Personal Loans",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -168,11 +165,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Upstart requires a frontend engineer to improve the user experience of their AI lending marketplace.",
-      "proposal_draft": "I can help you build interactive dashboards and interfaces that simplify the lending application process for your users. I have experience with Next.js and creating clean UI/UX for complex financial data. How are you currently handling state management for your user application forms? Best,\nRoee"
+      "client_problem": "Headquarters: United States | Remote About Upstart At Upstart, we’re united by a mission that matters: to radically reduce the cost and complexity of borrowing for all Americans. Every day, we bring creativity, experimen",
+      "proposal_draft": "Hi,\n\nI read the brief for Upstart: Frontend Software Engineer, Personal Loans. I design and build custom dashboards, clean web interfaces, and Frontend systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-113146933",
+      "id": "wwr-590633094",
       "title": "Pinterest: Machine Learning Engineer II, Responsible AI",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
@@ -187,11 +184,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Pinterest is seeking a machine learning engineer to work on responsible AI initiatives.",
-      "proposal_draft": "I can help you build the automation workflows and internal tools needed to monitor and manage your AI model outputs. I have experience connecting Python-based ML pipelines to interactive dashboards for better visibility. What specific metrics are you currently tracking to ensure your AI models remain responsible? Best,\nRoee"
+      "client_problem": "Headquarters: San Francisco, CA, US; Remote, US About Pinterest: Millions of people around the world come to our platform to find creative ideas, dream about new possibilities and plan for memories that will last a lifet",
+      "proposal_draft": "Hi,\n\nI read the brief for Pinterest: Machine Learning Engineer II, Responsible AI. I design and build custom dashboards, clean web interfaces, and Ai systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-739410746",
+      "id": "wwr-176891174",
       "title": "Carrot: Manager, Product Design",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -206,11 +203,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Carrot needs a product design manager to oversee the design of their fertility and family care platform.",
-      "proposal_draft": "I can help you design and develop intuitive dashboards that improve the orchestration of clinical guidance for your members. I focus on creating accessible, clean interfaces that simplify complex health data. How are you currently gathering user feedback to inform your design iterations? Best,\nRoee"
+      "client_problem": "Headquarters: Remote About Carrot: Carrot is the leading global fertility and family care platform, built on intelligent care orchestration: the right clinical guidance, at the right moment, in the context of each member",
+      "proposal_draft": "Hi,\n\nI read the brief for Carrot: Manager, Product Design. I design and build custom dashboards, clean web interfaces, and Product Design systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-150949504",
+      "id": "wwr-6426915",
       "title": "Tebra: Product Designer",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -225,28 +222,48 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Tebra is looking for a product designer to improve their healthcare platform's user interface.",
-      "proposal_draft": "I can help you design and prototype new features for your healthcare dashboard to improve user efficiency. I have experience with Figma and can translate designs directly into functional frontend components. What is the biggest challenge your users currently face when navigating your platform? Best,\nRoee"
+      "client_problem": "Headquarters: United States - Remote Tebra only initiates contact with candidates via email from an official Tebra email address (@ tebra.com , @ patientpop.com , or @ kareo.com ) or through our applicant tracking system",
+      "proposal_draft": "Hi,\n\nI read the brief for Tebra: Product Designer. I design and build custom dashboards, clean web interfaces, and Product Design systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
-      "id": "jobicy-156961",
-      "title": "Global Investigator - Triage (APAC) (TRM Labs)",
-      "platform": "Jobicy (Live Cloud)",
+      "id": "remoteok-1138074",
+      "title": "Strategic Technical Advisor (Thrive)",
+      "platform": "RemoteOK (Live Cloud)",
       "track": "cyber_soc",
-      "url": "https://jobicy.com/jobs/156961-global-investigator-triage-apac",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Contract",
+      "url": "https://remoteOK.com/remote-jobs/remote-strategic-technical-advisor-thrive-1138074",
+      "posted_at": "2026-11-23",
+      "budget": "$128,091-$128,091/yr",
+      "budget_type": "remote",
+      "budget_val": 128091,
+      "match_score": 64,
+      "skills": [
+        "Infosec",
+        "Cybersecurity"
+      ],
+      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Thrive is an innovative technology solutions provider focused on Cyber Security, Hybrid Cloud, Global Network Management, Disaster Recovery, and traditional Managed Services. Our corporate culture, engineering talent, cu",
+      "proposal_draft": "Hi,\n\nI read the brief for Strategic Technical Advisor (Thrive). I design and build custom dashboards, clean web interfaces, and Infosec, Cybersecurity systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
+    },
+    {
+      "id": "remoteok-1138067",
+      "title": "Threat Research Engineer, Security Factory: Threat Research (GitLab)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "cyber_soc",
+      "url": "https://remoteOK.com/remote-jobs/remote-threat-research-engineer-security-factory-threat-research-gitlab-1138067",
+      "posted_at": "2026-11-23",
+      "budget": "Remote / Competitive",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 64,
       "skills": [
-        "Cybersecurity",
-        "Threat"
+        "Threat",
+        "Devsecops"
       ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
+      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
       "poc_blueprint": "",
-      "client_problem": "TRM Labs needs a global investigator to triage and trace illicit activity within threat networks.",
-      "proposal_draft": "I have a background in SOC Tier 1 analysis and can help you automate the triage process for your threat investigations. I can build workflows that aggregate and visualize threat data to speed up your case building. What is your current process for ingesting and prioritizing new threat alerts? Best,\nRoee"
+      "client_problem": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital",
+      "proposal_draft": "Hi,\n\nI read the brief for Threat Research Engineer, Security Factory: Threat Research (GitLab). I design and build custom dashboards, clean web interfaces, and Threat, Devsecops systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     },
     {
       "id": "remoteok-1138078",
@@ -264,27 +281,8 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Wing Assistant needs a real estate executive assistant to handle administrative tasks and process management.",
-      "proposal_draft": "I can help you automate your real estate administrative workflows using tools like n8n and Python. I focus on creating systems that handle scheduling, data entry, and client communication automatically. What is the most repetitive task you are currently handling that you would like to automate? Best,\nRoee"
-    },
-    {
-      "id": "remoteok-1137927",
-      "title": "Manager, Product Design (Carrot)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remoteOK.com/remote-jobs/remote-manager-product-design-carrot-1137927",
-      "posted_at": "2026-11-21",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 61,
-      "skills": [
-        "Product Design"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "Carrot is hiring a product design manager to lead the design of their fertility care orchestration platform.",
-      "proposal_draft": "I can help you design and build intuitive interfaces that simplify the clinical care journey for your members. I focus on creating clean, responsive dashboards that make complex data easy to understand. How do you currently manage your design system and component library for your platform? Best,\nRoee"
+      "client_problem": "Please whitelist the domains \"lever.co\" and \"hire.lever.co\" with your email provider to make sure you get our emails. Disclaimer: This is a generic job description for the position stated below. Actual tasks and tools wi",
+      "proposal_draft": "Hi,\n\nI read the brief for Real Estate Executive Assistant 21370 (Wing Assistant). I design and build custom dashboards, clean web interfaces, and Infosec systems, and can scope a clear first milestone from your existing setup. What is the main screen, workflow, or manual bottleneck you want shipped first?\n\nBest,\nRoee"
     }
   ]
 }

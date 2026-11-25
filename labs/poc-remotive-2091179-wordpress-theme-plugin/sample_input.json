@@ -1,0 +1,28 @@
+{
+  "records": [
+    {
+      "segment": "Enterprise",
+      "mrr_usd": 14200,
+      "status": "Active",
+      "latency_ms": 118
+    },
+    {
+      "segment": "Mid-Market",
+      "mrr_usd": 6800,
+      "status": "Active",
+      "latency_ms": 142
+    },
+    {
+      "segment": "SMB",
+      "mrr_usd": 2950,
+      "status": "At Risk",
+      "latency_ms": 265
+    },
+    {
+      "segment": "Enterprise",
+      "mrr_usd": 18400,
+      "status": "Active",
+      "latency_ms": 96
+    }
+  ]
+}
