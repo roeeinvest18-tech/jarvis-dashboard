@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-11-25T23:59:18.648689+00:00",
-  "date": "2026-11-25",
+  "generated_at": "2026-11-26T00:54:20.252899+00:00",
+  "date": "2026-11-26",
   "market": {
     "regime": "DEFENSIVE",
     "top3": [
       {
-        "ticker": "HQY",
-        "price": 94.04000091552734,
-        "pct_sma150": 0.14227035918161968,
+        "ticker": "ASH",
+        "price": 70.58999633789062,
+        "pct_sma150": 4.460467167084487,
         "catalyst_label": "News catalyst"
       },
       {
-        "ticker": "MRK",
-        "price": 135.47000122070312,
-        "pct_sma150": 2.048862697021239,
-        "catalyst_label": "News catalyst"
+        "ticker": "FCF",
+        "price": 20.309999465942383,
+        "pct_sma150": 0.03381761482745599,
+        "catalyst_label": "Clean setup"
       },
       {
-        "ticker": "ISRG",
-        "price": 416.2300109863281,
-        "pct_sma150": 1.4776205204500021,
+        "ticker": "ETSY",
+        "price": 78.9000015258789,
+        "pct_sma150": 3.0303207498636526,
         "catalyst_label": "News catalyst"
       }
     ]
   },
   "paper_audit": {
-    "best_strategy": "overall",
-    "win_rate_pct": null,
-    "expectancy_r": null,
+    "best_strategy": "mean_rev",
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.75,
     "live_trades": 15
   },
   "jobs": [
