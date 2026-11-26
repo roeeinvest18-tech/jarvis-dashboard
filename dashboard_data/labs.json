@@ -1,13 +1,29 @@
 {
-  "generated_at": "2026-11-26T17:39:13.987145+00:00",
+  "generated_at": "2026-11-26T23:44:23.330386+00:00",
   "stats": {
-    "total_live": 19,
-    "saas_mvp": 1,
+    "total_live": 20,
+    "saas_mvp": 2,
     "ecom_kit": 2,
     "job_poc": 1,
     "content_pack": 15
   },
   "builds": [
+    {
+      "id": "mvp-save-failures-and-glitches-in-small-busi",
+      "slug": "mvp-save-failures-and-glitches-in-small-busi",
+      "kind": "saas_mvp",
+      "track": "saas",
+      "title": "Save Failures and Glitches in Small Business Accounting Apps",
+      "summary": "An error tracking and diagnostic plugin for accounting software that detects data drops and alerts users before receipts are lost.",
+      "score": 85,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/mvp-save-failures-and-glitches-in-small-busi/",
+      "source_id": "pp-saas-save-failures-and-glitches-in-small",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-26T23:44:23.318745+00:00",
+      "updated_at": "2026-11-26T23:44:23.318745+00:00"
+    },
     {
       "id": "post-post-4-1795714753-clay-helps-sales-team",
       "slug": "post-post-4-1795714753-clay-helps-sales-team",
