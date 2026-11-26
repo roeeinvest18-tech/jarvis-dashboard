@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-25T23:58:53.357654+00:00",
+  "generated_at": "2026-11-26T17:38:46.545264+00:00",
   "stats": {
-    "total_scanned": 21,
-    "matched_count": 14,
+    "total_scanned": 18,
+    "matched_count": 12,
     "ai_count": 1,
-    "cyber_count": 4,
+    "cyber_count": 5,
     "scraping_count": 0,
-    "web_count": 9
+    "web_count": 6
   },
   "jobs": [
     {
@@ -26,8 +26,47 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client is looking for a full stack engineer and UI/UX specialist to build and improve web applications.",
-      "proposal_draft": "I saw you are looking for a full stack engineer with strong UI/UX background for SaaS products. I build clean web interfaces using Next.js and Tailwind, backed by robust APIs. Are you using Tailwind for the styling on your current project?\nBest,\nRoee"
+      "client_problem": "The client is an engineer looking for contract work or collaboration opportunities leveraging full-stack and SaaS expertise.",
+      "proposal_draft": "Hey, I saw your post looking for full-stack and UI/UX support for SaaS apps. I usually build modern web apps using Next.js and Tailwind, focusing on clean user flows and fast delivery. Are you using a specific backend stack right now, or starting fresh from a boilerplate?\n\nBest,\nRoee"
+    },
+    {
+      "id": "remoteok-1138104",
+      "title": "Intermediate Security Engineer, Security Incident Response Team (SIRT) (GitLab)",
+      "platform": "RemoteOK (Live Cloud)",
+      "track": "cyber_soc",
+      "url": "https://remoteOK.com/remote-jobs/remote-intermediate-security-engineer-security-incident-response-team-sirt-gitlab-1138104",
+      "posted_at": "2026-11-25",
+      "budget": "Remote / Competitive",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 78,
+      "skills": [
+        "Incident Response",
+        "Devsecops"
+      ],
+      "first_seen_at": "2026-11-26T17:38:46.545264+00:00",
+      "poc_blueprint": "",
+      "client_problem": "GitLab needs an intermediate security engineer to join their security incident response team.",
+      "proposal_draft": "Hey, I saw your opening for a security engineer on the incident response team. My background as a SOC Tier 1 analyst gives me plenty of hands-on experience triaging alerts and reviewing logs. What specific SIEM or telemetry tools does your SIRT rely on most daily?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-833141172",
+      "title": "Pinterest: Product Design Intern (USA)",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://weworkremotely.com/remote-jobs/pinterest-product-design-intern-usa",
+      "posted_at": "Thu, 26 Nov 2026",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 78,
+      "skills": [
+        "Product Design"
+      ],
+      "first_seen_at": "2026-11-26T17:38:46.545264+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Pinterest is hiring a product design intern for their design teams in the United States.",
+      "proposal_draft": "Hey, I saw Pinterest is looking for a product design intern to join the team. I design clean interfaces and dashboards using Figma with a strong focus on user-centric layouts. What core tools or design systems does your team use day-to-day?\n\nBest,\nRoee"
     },
     {
       "id": "remotive-2091179",
@@ -46,11 +85,30 @@
       ],
       "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
       "poc_blueprint": "",
-      "client_problem": "The client needs a fullstack WordPress developer for custom theme and plugin development over a 5-month contract.",
-      "proposal_draft": "I saw your opening for a WordPress theme and plugin developer. I have experience building custom PHP plugins and optimizing custom themes for performance. Do you require custom Gutenberg blocks or traditional template files for this project?\nBest,\nRoee"
+      "client_problem": "Steward Web Development needs a full-stack WordPress developer for custom theme and plugin projects.",
+      "proposal_draft": "Hey, I saw you are looking for a full-stack WordPress developer for custom themes and plugins. I build custom solutions and manage clean PHP and JavaScript workflows for client sites. Are you currently using Sage or standard underscores for your theme boilerplate?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-869597627",
+      "id": "jobicy-164416",
+      "title": "Cobalt Core Pentester (Cobalt)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "cyber_soc",
+      "url": "https://jobicy.com/jobs/164416-cobalt-core-pentester-2",
+      "posted_at": "2026-11-26",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 75,
+      "skills": [
+        "Cybersecurity"
+      ],
+      "first_seen_at": "2026-11-26T17:38:46.545264+00:00",
+      "poc_blueprint": "",
+      "client_problem": "Cobalt requires vetted security professionals to join their core community of penetration testers.",
+      "proposal_draft": "Hey, I saw you are expanding the Cobalt core pentester community for offensive security work. My background in security analysis helps me quickly spot vulnerabilities and trace exploitation vectors. What specific vulnerability types are you seeing the highest volume of lately?\n\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-637077837",
       "title": "Reddit: Frontend Engineer, Ads Campaign Manager",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -65,11 +123,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Reddit is hiring a frontend engineer to work on their ads campaign manager interface.",
-      "proposal_draft": "I saw your opening for a frontend engineer on the ads campaign manager team. I build complex dashboards with React and state management libraries that handle heavy data tables. What charting library are you using for campaign analytics?\nBest,\nRoee"
+      "client_problem": "Reddit needs a frontend engineer to work on their ads campaign manager interface.",
+      "proposal_draft": "Hey, I saw your opening for a frontend engineer on the Ads Campaign Manager team. I build reactive dashboards and data-heavy interfaces using Next.js and Tailwind CSS. Are you managing your component library with Tailwind or a custom design system?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-779439991",
+      "id": "wwr-69637745",
       "title": "Upstart: Frontend Software Engineer, Personal Loans",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -84,11 +142,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Upstart is hiring a frontend software engineer to work on their personal loans lending platform.",
-      "proposal_draft": "I saw your listing for a frontend engineer on the personal loans platform. I develop responsive interfaces with Next.js and Tailwind, focusing on clean user journeys for financial flows. How do you currently handle form validation across multi-step loan applications?\nBest,\nRoee"
+      "client_problem": "Upstart is hiring a frontend software engineer to work on their personal loans platform.",
+      "proposal_draft": "Hey, I saw your team is looking for a frontend engineer to work on personal loan experiences. I build clean, accessible web interfaces and dashboards with a focus on performance and usability. Are you currently using React or Next.js for your frontend architecture?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-336180150",
+      "id": "wwr-976647034",
       "title": "Pinterest: Machine Learning Engineer II, Responsible AI",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
@@ -103,11 +161,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Pinterest is hiring a machine learning engineer for responsible AI development.",
-      "proposal_draft": "I saw your opening for a machine learning engineer in responsible AI. I build custom Python automation workflows and integrate ML models via APIs. What frameworks are you using for model evaluation and fairness checks?\nBest,\nRoee"
+      "client_problem": "Pinterest is seeking a machine learning engineer to work on responsible AI initiatives.",
+      "proposal_draft": "Hey, I saw you are hiring an ML engineer focused on responsible AI development. I build custom AI workflows and python-based backend automation services. Are you deploying your models primarily through PyTorch or custom cloud endpoints?\n\nBest,\nRoee"
     },
     {
-      "id": "wwr-896963830",
+      "id": "wwr-639067009",
       "title": "Carrot: Manager, Product Design",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -122,47 +180,8 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Carrot is looking for a product design manager to lead design efforts for their global fertility platform.",
-      "proposal_draft": "I saw your opening for a product design manager on the Carrot platform. I design complex web apps and analytics dashboards in Figma with a focus on accessible component systems. What design system framework are you currently using?\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-729468421",
-      "title": "Tebra: Product Designer",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://weworkremotely.com/remote-jobs/tebra-product-designer",
-      "posted_at": "Thu, 19 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 64,
-      "skills": [
-        "Product Design"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "Tebra is looking for a product designer to create healthcare software workflows.",
-      "proposal_draft": "I saw your opening for a product designer. I design clean UI/UX interfaces and admin dashboards using Figma with a strong focus on usability. Are you building these workflows for desktop web browsers or mobile devices?\nBest,\nRoee"
-    },
-    {
-      "id": "jobicy-164279",
-      "title": "Crux - Video and Audio Raters - German (Germany) (Welo Global)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://jobicy.com/jobs/164279-crux-video-and-audio-raters-german-germany",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 64,
-      "skills": [
-        "Analytics",
-        "Internal Tool"
-      ],
-      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The project requires German-speaking evaluators to assess search queries, text classification, and multimedia content.",
-      "proposal_draft": "I saw your listing for a German language audio and video rater. I am analytical and comfortable classifying digital media content against specific quality guidelines. Are there specific annotation tools you use for this workflow?\nBest,\nRoee"
+      "client_problem": "Carrot is looking for a product design manager to oversee fertility and family care platform experiences.",
+      "proposal_draft": "Hey, I saw your opening for a product design manager to lead care orchestration experiences. I design intuitive user flows and complex dashboards using Figma, keeping user retention front and center. What is your current design toolchain for cross-functional collaboration?\n\nBest,\nRoee"
     },
     {
       "id": "remoteok-1138074",
@@ -181,8 +200,8 @@
       ],
       "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
       "poc_blueprint": "",
-      "client_problem": "Thrive is looking for a strategic technical advisor focused on cybersecurity and hybrid cloud solutions.",
-      "proposal_draft": "I saw your opening for a strategic technical advisor in cybersecurity. I have experience working as a SOC analyst tracking threats and securing infrastructure. What security information and event management tools are primary in your stack?\nBest,\nRoee"
+      "client_problem": "Thrive is looking for a strategic technical advisor with a background in cybersecurity and managed services.",
+      "proposal_draft": "Hey, I saw your post looking for a technical advisor with a strong cybersecurity and hybrid cloud background. My experience as a security analyst gives me solid context on threat mitigation and incident response. What specific managed services verticals are you targeting right now?\n\nBest,\nRoee"
     },
     {
       "id": "remoteok-1138067",
@@ -201,46 +220,8 @@
       ],
       "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
       "poc_blueprint": "",
-      "client_problem": "GitLab is seeking a threat research engineer for their security factory threat research team.",
-      "proposal_draft": "I saw your listing for a threat research engineer. I work with security logs and automation workflows to detect and analyze vulnerabilities. Do you primarily use Python for your threat analysis scripts?\nBest,\nRoee"
-    },
-    {
-      "id": "jobicy-164298",
-      "title": "Certificate Authority Program Steward (Mozilla)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://jobicy.com/jobs/164298-certificate-authority-program-steward",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 61,
-      "skills": [
-        "Cybersecurity"
-      ],
-      "first_seen_at": "2026-11-25T19:33:34.439293+00:00",
-      "poc_blueprint": "",
-      "client_problem": "Mozilla is looking for a certificate authority program steward to manage security policies and compliance.",
-      "proposal_draft": "I saw your opening for a certificate authority program steward. I have a background in cybersecurity analysis and compliance frameworks. What primary ticketing system do you use for policy reviews?\nBest,\nRoee"
-    },
-    {
-      "id": "jobicy-164284",
-      "title": "Project Beid - Korean E-commerce Product Matching Annotator (Welo Global)",
-      "platform": "Jobicy (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://jobicy.com/jobs/164284-project-beid-korean-e-commerce-product-matching-annotator",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 61,
-      "skills": [
-        "Analytics"
-      ],
-      "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
-      "poc_blueprint": "",
-      "client_problem": "The project requires annotators to review pairs of e-commerce listings for product matching and attribute comparison.",
-      "proposal_draft": "I saw your listing for an e-commerce product matching annotator. I have strong attention to detail for comparing product attributes and image data. Do you provide a proprietary internal tool for logging the accept and reject decisions?\nBest,\nRoee"
+      "client_problem": "GitLab needs a threat research engineer to join their security factory threat research team.",
+      "proposal_draft": "Hey, I saw you are looking for a threat research engineer to track emerging vulnerabilities. My analytical background helps me break down attack vectors and analyze threat intelligence feeds. What primary data sources do you use for your threat telemetry analysis?\n\nBest,\nRoee"
     },
     {
       "id": "remoteok-1138078",
@@ -258,27 +239,8 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Wing Assistant is hiring a real estate executive assistant for administrative operations.",
-      "proposal_draft": "I saw your opening for a real estate executive assistant. I am organized, tech-savvy, and experienced with digital workspace tools and dashboards. What CRM platform do you use for managing real estate listings?\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1137927",
-      "title": "Manager, Product Design (Carrot)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://remoteOK.com/remote-jobs/remote-manager-product-design-carrot-1137927",
-      "posted_at": "2026-11-21",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 61,
-      "skills": [
-        "Product Design"
-      ],
-      "first_seen_at": "2026-11-25T23:58:53.357654+00:00",
-      "poc_blueprint": "",
-      "client_problem": "Carrot is hiring a product design manager to lead care orchestration design systems.",
-      "proposal_draft": "I saw your opening for a product design manager. I design clean interfaces and scalable component libraries in Figma for web applications. What is the current size of the design team you are managing?\nBest,\nRoee"
+      "client_problem": "Wing Assistant is hiring a real estate executive assistant for remote support duties.",
+      "proposal_draft": "Hey, I saw your opening for a real estate executive assistant to help manage day-to-day operations. I am highly organized with strong communication and digital workflow automation skills. What CRM or property management software do you use daily?\n\nBest,\nRoee"
     }
   ]
 }

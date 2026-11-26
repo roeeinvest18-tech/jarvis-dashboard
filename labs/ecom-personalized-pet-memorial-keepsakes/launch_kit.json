@@ -1,0 +1,33 @@
+{
+  "title": "Personalized Pet Memorial Keepsakes",
+  "sandbox_only": true,
+  "no_external_shop_created": true,
+  "unit_economics": {
+    "retail_usd": 50,
+    "cogs_usd": 18,
+    "platform_fee_usd": 6,
+    "net_profit_usd": 26,
+    "gross_margin_pct": 64,
+    "max_cac_usd": 17,
+    "breakeven_roas": 1.92
+  },
+  "supplier_recommendation": "Printify or Prodigi for high-quality textile and canvas printing with automated API fulfillment.",
+  "target_platforms": "Shopify with paid Meta ads and Etsy marketplace integration.",
+  "ad_hooks_en": [
+    "Watch a raw memory turn into a custom Personalized Pet Memorial Keepsakes in 15 seconds.",
+    "Why generic gifts get forgotten \u2014 and how custom Personalized Pet Memorial Keepsakes stands out.",
+    "Preview your exact personalization live before it goes to print."
+  ],
+  "seo_keywords": [
+    "personalized pet memorial",
+    "custom made to order",
+    "personalized keepsake",
+    "instant preview gift"
+  ],
+  "supplier_setup_checklist": [
+    "Review prototype & unit economics manually (no store has been opened automatically).",
+    "Create draft SKU in Printify or Prodigi for high-quality textile and canvas printing with automated API fulfillment. and order 1 sample or verify print DPI.",
+    "Upload 4 lifestyle mockups + 15-sec live-preview screen recording.",
+    "Set retail price at $50 (Max profitable CAC: $17)."
+  ]
+}

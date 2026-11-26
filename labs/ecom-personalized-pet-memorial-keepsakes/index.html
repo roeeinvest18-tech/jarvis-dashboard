@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.workers.dev https://*.up.railway.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Personalized Pet Memorial Keepsakes — Storefront Prototype &amp; Launch Kit</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="notice">SANDBOX PROTOTYPE &amp; LAUNCH KIT · No Etsy/Amazon/Shopify shop is opened automatically.</div>
+
+    <div class="hero">
+      <div class="preview-stage">
+        <div class="preview-frame">
+          <div class="preview-style" id="preview-style">Edition: Minimal Archival</div>
+          <div class="preview-custom" id="preview-text">Your Custom Inscription</div>
+          <div class="preview-style">Live Personalization Preview</div>
+        </div>
+      </div>
+
+      <section class="card" style="margin-bottom:0;">
+        <h1>Personalized Pet Memorial Keepsakes</h1>
+        <p style="color:var(--ink2); margin:0;">A Shopify store integrated with an AI tool that lets buyers upload a pet photo, select a memorial style, and view an instant preview on blankets, pillows, or ornaments before ordering.</p>
+        <div class="price">$50 <span style="font-size:13px; color:var(--ink2); font-weight:400;">· Free shipping</span></div>
+
+        <form id="preorder-form">
+          <label for="custom-text">1. Personalize your inscription</label>
+          <input type="text" id="custom-text" maxlength="48" value="Forever Home · Est. 2026">
+
+          <label for="custom-style">2. Choose finish / variant</label>
+          <select id="custom-style">
+            <option value="Minimal Archival">Minimal Archival</option>
+            <option value="Warm Gallery Matte">Warm Gallery Matte</option>
+            <option value="Collector Walnut Frame">Collector Walnut Frame</option>
+          </select>
+
+          <label for="preorder-email">3. Reserve early-bird launch invite (no payment)</label>
+          <input type="email" id="preorder-email" placeholder="you@example.com" required>
+
+          <button type="submit">Notify Me at Launch</button>
+          <div class="status-msg" id="preorder-status" role="status"></div>
+        </form>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2>Verified Unit Economics (Founder View)</h2>
+      <div class="econ-grid">
+        <div class="econ-cell"><div class="econ-num">$50</div><div class="econ-lbl">Retail Price</div></div>
+        <div class="econ-cell"><div class="econ-num">$18</div><div class="econ-lbl">Unit Cost (COGS)</div></div>
+        <div class="econ-cell"><div class="econ-num">$6</div><div class="econ-lbl">Est. Marketplace Fee</div></div>
+        <div class="econ-cell"><div class="econ-num">64%</div><div class="econ-lbl">Gross Margin</div></div>
+        <div class="econ-cell"><div class="econ-num">$17</div><div class="econ-lbl">Max Profitable CAC</div></div>
+        <div class="econ-cell"><div class="econ-num">1.92x</div><div class="econ-lbl">Break-even ROAS</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Creative Hooks &amp; Manual Launch Checklist</h2>
+      <p style="color:var(--ink2); margin:0 0 8px;"><strong>Angle:</strong> An emotional TikTok/Reels video showing tears of joy from a customer receiving their pet memorial blanket, with a CTA to create the memory in seconds. · <strong>Platforms:</strong> Shopify with paid Meta ads and Etsy marketplace integration.</p>
+      <ul><li>Watch a raw memory turn into a custom Personalized Pet Memorial Keepsakes in 15 seconds.</li><li>Why generic gifts get forgotten — and how custom Personalized Pet Memorial Keepsakes stands out.</li><li>Preview your exact personalization live before it goes to print.</li></ul>
+      <h2 style="margin-top:16px;">Manual Supplier &amp; Store Setup Steps</h2>
+      <ul><li>Review prototype &amp; unit economics manually (no store has been opened automatically).</li><li>Create draft SKU in Printify or Prodigi for high-quality textile and canvas printing with automated API fulfillment. and order 1 sample or verify print DPI.</li><li>Upload 4 lifestyle mockups + 15-sec live-preview screen recording.</li><li>Set retail price at $50 (Max profitable CAC: $17).</li></ul>
+    </section>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>
