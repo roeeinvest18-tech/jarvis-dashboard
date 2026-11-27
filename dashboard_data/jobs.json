@@ -1,36 +1,55 @@
 {
-  "generated_at": "2026-11-27T00:17:58.100224+00:00",
+  "generated_at": "2026-11-27T17:22:24.450843+00:00",
   "stats": {
-    "total_scanned": 22,
+    "total_scanned": 21,
     "matched_count": 14,
-    "ai_count": 3,
-    "cyber_count": 3,
+    "ai_count": 4,
+    "cyber_count": 0,
     "scraping_count": 0,
-    "web_count": 8
+    "web_count": 10
   },
   "jobs": [
     {
-      "id": "jobicy-164433",
-      "title": "Virtual Assistant - AI, Marketing and Operations (Fresh Prints)",
-      "platform": "Jobicy (Live Cloud)",
+      "id": "arbeitnow-claude-ai-automatisierungsexperte-berlin-492010",
+      "title": "Claude AI Automatisierungsexperte (m/w/d) (DPT - Deutsche Prüftechnik GmbH)",
+      "platform": "Arbeitnow Remote (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://jobicy.com/jobs/164433-virtual-assistant-ai-marketing-and-operations",
-      "posted_at": "2026-11-26",
+      "url": "https://www.arbeitnow.com/jobs/companies/dpt-deutsche-pruftechnik-gmbh/claude-ai-automatisierungsexperte-berlin-492010",
+      "posted_at": "Recent",
+      "budget": "Remote",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 89,
+      "skills": [
+        "Ai",
+        "Claude",
+        "Workflow"
+      ],
+      "first_seen_at": "2026-11-27T17:22:24.450843+00:00",
+      "poc_blueprint": "Architecture: Python and n8n backend connected to Anthropic Claude API with secure logging. Step 1: Ingest field service inspection notes via webhook. Step 2: Process and structure data using Claude prompts. Step 3: Output validated documentation into your internal software. Flow: Field Data -> n8n/Python Pipeline -> Structured Docs Output",
+      "client_problem": "The company needs a Claude AI automation expert to integrate LLM workflows into their electrical inspection and documentation processes.",
+      "proposal_draft": "I build robust Claude and Python automation pipelines that handle document processing and data sync cleanly. We can set up a custom n8n workflow to parse your field service data securely. Are you planning to host the Claude integration via Anthropic's API or a self-hosted gateway?\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-730454255",
+      "title": "3Y Health: AI Product Engineer",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "track": "ai_automation",
+      "url": "https://weworkremotely.com/remote-jobs/3y-health-ai-product-engineer",
+      "posted_at": "Fri, 27 Nov 2026",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
       "match_score": 84,
       "skills": [
         "Ai",
-        "Ai Tool",
-        "Chatgpt",
-        "Workflow",
-        "Prompt"
+        "Ai Agent",
+        "Workflow"
       ],
-      "first_seen_at": "2026-11-27T00:17:58.100224+00:00",
+      "first_seen_at": "2026-11-27T17:22:24.450843+00:00",
       "poc_blueprint": "",
-      "client_problem": "A commercial real estate brokerage team needs a proactive virtual assistant to manage marketing and operations.",
-      "proposal_draft": "Hey there, I saw you are looking for an operations and marketing assistant to support your real estate team. I build custom automation workflows in n8n and Python that can handle repetitive tasks like data entry and lead management. Are you currently using a specific CRM or project management tool for your daily operations?\nBest,\nRoee"
+      "client_problem": "The company needs an AI product engineer to build an operating system and back-office automation platform for healthcare practices.",
+      "proposal_draft": "I build custom AI apps and internal automation workflows tailored for operational efficiency. We can integrate Python backend agents with a clean Next.js interface to streamline your clinical workflows. What specific back-office process are you looking to automate first?\nBest,\nRoee"
     },
     {
       "id": "hn-50445335",
@@ -49,27 +68,28 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "A tech company needs a full stack engineer with UI/UX and SaaS specialization to help build product interfaces.",
-      "proposal_draft": "Hey, I saw your post for a full stack engineer and SaaS UI/UX specialist. I build responsive web applications using Next.js, Tailwind, and Figma with a heavy focus on clean interfaces. What is the primary frontend stack you are currently using for your SaaS products?\nBest,\nRoee"
+      "client_problem": "The client needs a full-stack engineer and UI/UX specialist to build responsive web applications and SaaS interfaces.",
+      "proposal_draft": "I design and develop high-performance web applications using Next.js, Tailwind, and custom UI components. I can help polish your user flows and build out your frontend architecture efficiently. Are you currently using Tailwind for styling on this stack?\nBest,\nRoee"
     },
     {
-      "id": "wwr-84230067",
-      "title": "Instacart: Director, AI Solutions Strategy & Planning",
+      "id": "wwr-37265937",
+      "title": "Sardine: QA Automation Engineer",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
-      "url": "https://weworkremotely.com/remote-jobs/instacart-director-ai-solutions-strategy-planning",
-      "posted_at": "Thu, 26 Nov 2026",
+      "url": "https://weworkremotely.com/remote-jobs/sardine-qa-automation-engineer",
+      "posted_at": "Fri, 27 Nov 2026",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 78,
+      "match_score": 81,
       "skills": [
+        "Automation",
         "Ai"
       ],
-      "first_seen_at": "2026-11-27T00:17:58.100224+00:00",
+      "first_seen_at": "2026-11-27T17:22:24.450843+00:00",
       "poc_blueprint": "",
-      "client_problem": "Instacart needs a director of AI solutions strategy and planning to lead grocery delivery innovation.",
-      "proposal_draft": "Hey, I saw your opening for an AI solutions strategy lead to drive complex product initiatives. I build custom AI applications and agents that integrate directly with modern business workflows. How are you currently evaluating the ROI of your internal machine learning initiatives?\nBest,\nRoee"
+      "client_problem": "The company needs a QA automation engineer to build testing workflows for an agentic risk and fraud prevention platform.",
+      "proposal_draft": "I build automated testing scripts and Python workflows to validate complex agentic systems. We can set up reliable end-to-end test suites to catch edge cases in real-time fraud detection pipelines. What testing framework are you currently using for your risk pipelines?\nBest,\nRoee"
     },
     {
       "id": "remotive-2091179",
@@ -88,36 +108,16 @@
       ],
       "first_seen_at": "2026-11-25T17:54:22.888857+00:00",
       "poc_blueprint": "",
-      "client_problem": "Steward Web Development needs a fullstack WordPress developer for custom theme and plugin projects.",
-      "proposal_draft": "Hey, I saw you are looking for a fullstack developer with custom WordPress theme and plugin expertise. I build tailored web solutions and custom components using modern PHP, JavaScript, and CSS. What is your preferred workflow for handling staging environments and custom plugin deployments?\nBest,\nRoee"
+      "client_problem": "The company needs a full-stack WordPress and Joomla developer to build and maintain custom themes and plugins.",
+      "proposal_draft": "I develop custom WordPress themes and plugins with clean, maintainable PHP and modern frontend assets. I can jump right into your development cycle and deliver robust backend and frontend features. Do you require custom Gutenberg block development for these themes?\nBest,\nRoee"
     },
     {
-      "id": "arbeitnow-webdesigner-entwickler-wordpress-ai-kaiserslautern-345614",
-      "title": "Webdesigner-/Entwickler – WordPress & AI (m/w/d) (ANY Marketing GmbH)",
-      "platform": "Arbeitnow Remote (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://www.arbeitnow.com/jobs/companies/any-marketing-gmbh/webdesigner-entwickler-wordpress-ai-kaiserslautern-345614",
-      "posted_at": "Recent",
-      "budget": "Remote",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 78,
-      "skills": [
-        "Wordpress",
-        "Website"
-      ],
-      "first_seen_at": "2026-11-27T00:17:58.100224+00:00",
-      "poc_blueprint": "",
-      "client_problem": "ANY Marketing GmbH needs a web developer specializing in WordPress and AI-driven applications.",
-      "proposal_draft": "Hey, I saw your opening for a developer who combines WordPress development with AI tooling. I build custom AI integrations and automated workflows that connect directly with web frontends. Are you building these AI tools as custom plugins or leveraging external API microservices?\nBest,\nRoee"
-    },
-    {
-      "id": "jobicy-164467",
-      "title": "Brazilian Subject Matter Expert in Fandoms (Music, Pop, Disney & Political Memes) (Welo Global)",
+      "id": "jobicy-164570",
+      "title": "Brazilian Subject Matter Expert in TV & Movies (Welo Global)",
       "platform": "Jobicy (Live Cloud)",
       "track": "web_dashboards",
-      "url": "https://jobicy.com/jobs/164467-brazilian-subject-matter-expert-in-fandoms-music-pop-disney-political-memes",
-      "posted_at": "2026-11-26",
+      "url": "https://jobicy.com/jobs/164570-brazilian-subject-matter-expert-in-tv-movies",
+      "posted_at": "2026-11-27",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
@@ -125,32 +125,108 @@
       "skills": [
         "Analytics"
       ],
-      "first_seen_at": "2026-11-27T00:17:58.100224+00:00",
+      "first_seen_at": "2026-11-27T17:22:24.450843+00:00",
       "poc_blueprint": "",
-      "client_problem": "Welo Global needs a Brazilian subject matter expert in pop culture and fandoms for multilingual AI solutions.",
-      "proposal_draft": "Hey, I saw you are looking for a subject matter expert in pop culture and fandoms to support AI training and localization. I have a strong background in digital media trends and computational content analysis. What specific language models or NLP datasets are you currently training?\nBest,\nRoee"
+      "client_problem": "The company needs a Brazilian subject matter expert in TV and movies to support multilingual AI and NLP training data.",
+      "proposal_draft": "I work with AI data pipelines and understand the linguistic precision required for NLP training models. I can help evaluate and curate Brazilian Portuguese content for your localization datasets. What specific dataset format do you use for your NLP models?\nBest,\nRoee"
     },
     {
-      "id": "wwr-945767591",
-      "title": "Pinterest: Product Design Intern (USA)",
-      "platform": "WeWorkRemotely (Live Cloud)",
+      "id": "jobicy-164569",
+      "title": "Brazilian Subject Matter Expert in Literature and Linguistics (Welo Global)",
+      "platform": "Jobicy (Live Cloud)",
       "track": "web_dashboards",
-      "url": "https://weworkremotely.com/remote-jobs/pinterest-product-design-intern-usa",
-      "posted_at": "Thu, 26 Nov 2026",
+      "url": "https://jobicy.com/jobs/164569-brazilian-subject-matter-expert-in-literature-and-linguistics",
+      "posted_at": "2026-11-27",
       "budget": "Remote / Contract",
       "budget_type": "remote",
       "budget_val": 0,
-      "match_score": 64,
+      "match_score": 75,
       "skills": [
-        "Product Design"
+        "Analytics"
       ],
-      "first_seen_at": "2026-11-26T17:38:46.545264+00:00",
+      "first_seen_at": "2026-11-27T17:22:24.450843+00:00",
       "poc_blueprint": "",
-      "client_problem": "Pinterest needs a product design intern in the USA to help design user inspiration features.",
-      "proposal_draft": "Hey, I saw your product design internship opening for building creative user experiences. I design and prototype interactive web dashboards and mobile interfaces using Figma and modern design systems. What core design tool or framework does your team rely on most heavily?\nBest,\nRoee"
+      "client_problem": "The company needs a Brazilian subject matter expert in literature and linguistics for multilingual AI solutions.",
+      "proposal_draft": "I have experience with multilingual content pipelines and linguistic data annotation for AI models. I can assist in verifying Brazilian Portuguese linguistic nuances for your datasets. How do you handle quality control for your annotator outputs?\nBest,\nRoee"
     },
     {
-      "id": "wwr-722509717",
+      "id": "jobicy-164568",
+      "title": "Brazilian Subject Matter Expert in Home & Garden (Welo Global)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164568-brazilian-subject-matter-expert-in-home-garden",
+      "posted_at": "2026-11-27",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 75,
+      "skills": [
+        "Analytics"
+      ],
+      "first_seen_at": "2026-11-27T17:22:24.450843+00:00",
+      "poc_blueprint": "",
+      "client_problem": "The company needs a Brazilian subject matter expert in home and garden to support multilingual NLP and AI datasets.",
+      "proposal_draft": "I understand the domain-specific nuances required for accurate multilingual AI training datasets. I can help validate Brazilian Portuguese terminology for home and garden content. Are you using custom annotation tools for this project?\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-164567",
+      "title": "Brazilian Subject Matter Expert in Games, Puzzles & Play (Welo Global)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164567-brazilian-subject-matter-expert-in-games-puzzles-play",
+      "posted_at": "2026-11-27",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 75,
+      "skills": [
+        "Analytics"
+      ],
+      "first_seen_at": "2026-11-27T17:22:24.450843+00:00",
+      "poc_blueprint": "",
+      "client_problem": "The company needs a Brazilian subject matter expert in games, puzzles, and play for multilingual AI applications.",
+      "proposal_draft": "I can assist with domain-specific dataset curation and linguistic evaluation for gaming and play content. I am comfortable working with large-scale multilingual NLP pipelines. What is your typical turnaround time per dataset batch?\nBest,\nRoee"
+    },
+    {
+      "id": "jobicy-164566",
+      "title": "Brazilian Subject Matter Expert in Fashion & Style (Welo Global)",
+      "platform": "Jobicy (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://jobicy.com/jobs/164566-brazilian-subject-matter-expert-in-fashion-style",
+      "posted_at": "2026-11-27",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 75,
+      "skills": [
+        "Analytics"
+      ],
+      "first_seen_at": "2026-11-27T17:22:24.450843+00:00",
+      "poc_blueprint": "",
+      "client_problem": "The company needs a Brazilian subject matter expert in fashion and style for multilingual AI and NLP solutions.",
+      "proposal_draft": "I can help annotate and validate Brazilian Portuguese fashion terminology for your multilingual AI models. I ensure high accuracy and adherence to strict dataset guidelines. Do you provide style guides for the terminology mapping?\nBest,\nRoee"
+    },
+    {
+      "id": "remotive-2091212",
+      "title": "Produktspezialist:in (German-speaking) (Creative Force)",
+      "platform": "Remotive (Live Cloud)",
+      "track": "web_dashboards",
+      "url": "https://remotive.com/remote-jobs/customer-service/produktspezialist-in-german-speaking-2091212",
+      "posted_at": "2026-11-25",
+      "budget": "Remote / Contract",
+      "budget_type": "remote",
+      "budget_val": 0,
+      "match_score": 75,
+      "skills": [
+        "Responsive"
+      ],
+      "first_seen_at": "2026-11-27T17:22:24.450843+00:00",
+      "poc_blueprint": "",
+      "client_problem": "The company needs a German-speaking product specialist to support DACH market customers on a B2B SaaS platform.",
+      "proposal_draft": "I speak native German and have deep technical familiarity with modern SaaS platforms and developer workflows. I can help DACH customers navigate complex product setups and technical integrations. Have you defined standard onboarding playbooks for these markets?\nBest,\nRoee"
+    },
+    {
+      "id": "wwr-931025630",
       "title": "Reddit: Frontend Engineer, Ads Campaign Manager",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -165,11 +241,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Reddit needs a frontend engineer to work on their ads campaign manager interface.",
-      "proposal_draft": "Hey, I saw you are looking for a frontend engineer to help build out your advertising campaign management tools. I build responsive web apps and analytics dashboards using Next.js, TypeScript, and Tailwind CSS. What state management library are you currently using for your ad interfaces?\nBest,\nRoee"
+      "client_problem": "The company needs a frontend engineer to build and optimize interfaces for their ads campaign manager.",
+      "proposal_draft": "I build responsive, high-performance dashboards and campaign management interfaces using modern frontend tooling. I can help optimize your ads manager UI for speed and usability. Are you building this interface with React and TypeScript?\nBest,\nRoee"
     },
     {
-      "id": "wwr-527198373",
+      "id": "wwr-642941008",
       "title": "Upstart: Frontend Software Engineer, Personal Loans",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "web_dashboards",
@@ -184,11 +260,11 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Upstart needs a frontend software engineer to improve their personal loans AI lending platform.",
-      "proposal_draft": "Hey, I saw your opening for a frontend engineer to work on your AI-driven financial lending platform. I build clean, accessible user interfaces and interactive dashboards using React and Next.js. How do you currently handle form state and validation across your multi-step loan applications?\nBest,\nRoee"
+      "client_problem": "The company needs a frontend software engineer to build user interfaces for their AI personal loans marketplace.",
+      "proposal_draft": "I build clean, accessible user interfaces and analytics dashboards for financial platforms. I can help implement secure loan application flows with seamless state management. What state management library does your frontend team rely on?\nBest,\nRoee"
     },
     {
-      "id": "wwr-808630239",
+      "id": "wwr-339878002",
       "title": "Pinterest: Machine Learning Engineer II, Responsible AI",
       "platform": "WeWorkRemotely (Live Cloud)",
       "track": "ai_automation",
@@ -203,87 +279,8 @@
       ],
       "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
       "poc_blueprint": "",
-      "client_problem": "Pinterest needs a machine learning engineer to work on responsible AI initiatives.",
-      "proposal_draft": "Hey, I saw your opening for a machine learning engineer focused on responsible AI and safety systems. I build Python-based automation pipelines and integrate AI models with backend services. What frameworks are you using for model evaluation and bias mitigation?\nBest,\nRoee"
-    },
-    {
-      "id": "wwr-74320631",
-      "title": "Carrot: Manager, Product Design",
-      "platform": "WeWorkRemotely (Live Cloud)",
-      "track": "web_dashboards",
-      "url": "https://weworkremotely.com/remote-jobs/carrot-manager-product-design",
-      "posted_at": "Sun, 22 Nov 2026",
-      "budget": "Remote / Contract",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 64,
-      "skills": [
-        "Product Design"
-      ],
-      "first_seen_at": "2026-11-25T12:41:28.331591+00:00",
-      "poc_blueprint": "",
-      "client_problem": "Carrot needs a product design manager to lead care orchestration and family care platforms.",
-      "proposal_draft": "Hey, I saw you are looking for a product design manager to guide digital health and care orchestration experiences. I design intuitive user interfaces and admin dashboards with a strong focus on usability and workflow efficiency. What design system framework are your product teams currently utilizing?\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1138104",
-      "title": "Intermediate Security Engineer, Security Incident Response Team (SIRT) (GitLab)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://remoteOK.com/remote-jobs/remote-intermediate-security-engineer-security-incident-response-team-sirt-gitlab-1138104",
-      "posted_at": "2026-11-25",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 64,
-      "skills": [
-        "Incident Response",
-        "Devsecops"
-      ],
-      "first_seen_at": "2026-11-26T17:38:46.545264+00:00",
-      "poc_blueprint": "",
-      "client_problem": "GitLab needs an intermediate security engineer for their Security Incident Response Team.",
-      "proposal_draft": "Hey, I saw your opening for a security engineer to join the incident response team. I have a strong foundation as a SOC Tier 1 analyst, handling alert triage, log analysis, and threat investigation. What SIEM platform do you primarily use for your incident detection workflows?\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1138074",
-      "title": "Strategic Technical Advisor (Thrive)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://remoteOK.com/remote-jobs/remote-strategic-technical-advisor-thrive-1138074",
-      "posted_at": "2026-11-23",
-      "budget": "$128,091-$128,091/yr",
-      "budget_type": "remote",
-      "budget_val": 128091,
-      "match_score": 64,
-      "skills": [
-        "Infosec",
-        "Cybersecurity"
-      ],
-      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
-      "poc_blueprint": "",
-      "client_problem": "Thrive needs a strategic technical advisor focused on cybersecurity, hybrid cloud, and managed services.",
-      "proposal_draft": "Hey, I saw you are looking for a technical advisor with expertise in cybersecurity and enterprise infrastructure. I combine hands-on technical development with security analysis experience from my background in SOC operations. What security frameworks or compliance standards do your clients focus on most?\nBest,\nRoee"
-    },
-    {
-      "id": "remoteok-1138067",
-      "title": "Threat Research Engineer, Security Factory: Threat Research (GitLab)",
-      "platform": "RemoteOK (Live Cloud)",
-      "track": "cyber_soc",
-      "url": "https://remoteOK.com/remote-jobs/remote-threat-research-engineer-security-factory-threat-research-gitlab-1138067",
-      "posted_at": "2026-11-23",
-      "budget": "Remote / Competitive",
-      "budget_type": "remote",
-      "budget_val": 0,
-      "match_score": 64,
-      "skills": [
-        "Threat",
-        "Devsecops"
-      ],
-      "first_seen_at": "2026-11-25T12:51:58.027480+00:00",
-      "poc_blueprint": "",
-      "client_problem": "GitLab needs a threat research engineer to join their Security Factory threat research team.",
-      "proposal_draft": "Hey, I saw your opening for a threat research engineer to analyze emerging attack vectors. I have analytical experience in security operations, threat hunting, and writing detection logic. What scripting language do you prefer for your automated threat analysis pipelines?\nBest,\nRoee"
+      "client_problem": "The company needs a machine learning engineer to build and maintain responsible AI models and safety classifiers.",
+      "proposal_draft": "I build Python and machine learning pipelines focused on secure, reliable system outputs and threat analysis. I can help implement safety filters and evaluation loops for your AI models. What framework are you using for your model evaluation pipelines?\nBest,\nRoee"
     }
   ]
 }

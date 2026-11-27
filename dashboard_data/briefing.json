@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T16:25:52.650184+00:00",
+  "generated_at": "2026-11-27T17:23:45.806613+00:00",
   "date": "2026-11-27",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,18 +32,18 @@
   },
   "jobs": [
     {
-      "id": "jobicy-164433",
-      "title": "Virtual Assistant - AI, Marketing and Operations (Fresh Prints)",
-      "platform": "Jobicy (Live Cloud)",
-      "match_score": 84,
-      "has_poc": false,
+      "id": "arbeitnow-claude-ai-automatisierungsexperte-berlin-492010",
+      "title": "Claude AI Automatisierungsexperte (m/w/d) (DPT - Deutsche Prüftechnik GmbH)",
+      "platform": "Arbeitnow Remote (Live Cloud)",
+      "match_score": 89,
+      "has_poc": true,
       "poc_live_url": ""
     },
     {
-      "id": "hn-50445335",
-      "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
-      "platform": "HackerNews Freelance (Live)",
-      "match_score": 82,
+      "id": "wwr-730454255",
+      "title": "3Y Health: AI Product Engineer",
+      "platform": "WeWorkRemotely (Live Cloud)",
+      "match_score": 84,
       "has_poc": false,
       "poc_live_url": ""
     }
