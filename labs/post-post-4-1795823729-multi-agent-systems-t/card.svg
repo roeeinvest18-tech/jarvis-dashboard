@@ -3,22 +3,22 @@
   <rect x="44" y="44" width="992" height="992" rx="20" fill="#13171f" stroke="#283040" stroke-width="2"/>
   <rect x="88" y="92" width="210" height="38" rx="19" fill="#1c222e" stroke="#d4a359" stroke-width="1.5"/>
   <text x="193" y="117" fill="#d4a359" font-family="monospace" font-size="17" font-weight="700" text-anchor="middle">AI &amp; AGENTS</text>
-  <text x="992" y="117" fill="#9aa4b5" font-family="monospace" font-size="17" text-anchor="end">Engineering at Meta</text>
-  <text x="88" y="205" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">The Thin Orchestrator Pattern for</text>
-  <text x="88" y="261" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">Reliable AI Agents at Meta</text>
+  <text x="992" y="117" fill="#9aa4b5" font-family="monospace" font-size="17" text-anchor="end">Hugging Face Blog</text>
+  <text x="88" y="205" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">Multi-agent systems training and</text>
+  <text x="88" y="261" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">communication swarms</text>
   <line x1="88" y1="339" x2="992" y2="339" stroke="#283040" stroke-width="2"/>
   <rect x="88" y="397" width="904" height="114" rx="12" fill="#0d1016" stroke="#232a38" stroke-width="1.5"/>
   <text x="118" y="441" fill="#d4a359" font-family="monospace" font-size="22" font-weight="700">01</text>
-  <text x="168" y="441" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Loading an AI agent with too much context and domain</text>
-  <text x="168" y="475" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">knowledge leads to hallucinations and concept cro...</text>
+  <text x="168" y="441" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Adding multiple agents changes context budgets and</text>
+  <text x="168" y="475" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">overall system complexity.</text>
   <rect x="88" y="533" width="904" height="114" rx="12" fill="#0d1016" stroke="#232a38" stroke-width="1.5"/>
   <text x="118" y="577" fill="#d4a359" font-family="monospace" font-size="22" font-weight="700">02</text>
-  <text x="168" y="577" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Meta built a 1,300-line orchestrator that routes 20</text>
-  <text x="168" y="611" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">workflows to 14 specialized agents with zero doma...</text>
+  <text x="168" y="577" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Communication between agents does not automatically</text>
+  <text x="168" y="611" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">boost performance without explicit training.</text>
   <rect x="88" y="669" width="904" height="114" rx="12" fill="#0d1016" stroke="#232a38" stroke-width="1.5"/>
   <text x="118" y="713" fill="#d4a359" font-family="monospace" font-size="22" font-weight="700">03</text>
-  <text x="168" y="713" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Keeping the orchestration layer thin improves</text>
-  <text x="168" y="747" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">reliability across multi-repository data onboarding.</text>
+  <text x="168" y="713" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Models need to learn how to communicate effectively</text>
+  <text x="168" y="747" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">through targeted training loops.</text>
   <text x="88" y="985" fill="#9aa4b5" font-family="monospace" font-size="18">Roee Nir · SOC &amp; AI Automation Notes</text>
   <text x="992" y="985" fill="#d4a359" font-family="monospace" font-size="18" text-anchor="end">Architecture Brief</text>
 </svg>

@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.workers.dev https://*.up.railway.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Probing DNS at Cloudflare — Publish Pack</title>
+  <title>Multi-agent systems training and communication swarms — Publish Pack</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,28 +22,26 @@
 
       <section class="card" dir="rtl">
         <h2 style="margin:0 0 8px; font-size:1rem;">2. פוסט מוכן + תגובה ראשונה</h2>
-        <pre id="post-body">הדשבורדים ירוקים והכל עבר טסטים בהצלחה, אבל אז הטלפון מתחיל לרעוד כי הלקוחות לא מצליחים לפתור כתובות חדשות.
+        <pre id="post-body">הוספת עוד סוכנים למערכת לא משפרת את הביצועים אלא אם מלמדים אותם איך לדבר ביניהם.
 
-בעיות DNS הן מהקשות ביותר לאיתור בגלל שהן זוחלות לאט, מפוזרות לרוחב הרשת ומשפיעות רק בחלק מהמקומות.
+פוסט טכני חדש מקהילת Hugging Face צולל לעומק הארכיטקטורה של מערכות נחיל מרובות סוכנים ומסביר מדוע ערבוב הקונטקסט של מספר סוכנים יחד מייצר מורכבות עצומה בתקציב החישוב.
 
-בצוות הנדסת הרשת של קלאודפלייר הבינו שכדי לתפוס את התקלות האלו בזמן, חייבים לבדוק את ה DNS בדיוק כמו שהמשתמשים חווים אותם, כל הזמן ומן הקצה אל הקצה.
+המחקר מראה שחיבור תקשורת בין מודלים דורש תהליך אימון ייעודי שבו המודל לומד מה לשתף ואיך להעביר מידע רלוונטי לסוכן הבא בתור.
 
-הפתרון היה להרחיב את מסגרת הבדיקות שנקראת Flamingo כך שתדע לדבר פרוטוקולי רשת נוספים.
+בתכלס, עבור מפתחים שונים שמעוניינים לבנות ארכיטקטורות מבוססות סוכנים מרובים, אסור להניח ששרשור פשוט של מודלים שונים יפתח ביצועים טובים יותר באופן אוטומטי.
 
-בתכלס, מה שזה אומר לצוותי ה SOC והפיתוח ביום יום הוא להפסיק לסמוך רק על בדיקות יחידה ולשלב בקרות קצה שרצות מול ה Edge האמיתי.
+ניהול נכון של פרוטוקול התקשורת והגבלת הקונטקסט הם המפתח למערכת יציבה.
 
-מעקב קבוע כזה הפך אצלם לשער חובה שמחליט האם הקוד ממשיך ללקוחות או מתגלגל אחורה באופן אוטומטי.
+איך אתם מנהלים את העברת המידע והזיכרון המשותף בין הסוכנים השונים במערכות שלכם?
 
-איך אתם מוודאים שהשינוי הבא שלכם לא תוקע את רזולוציית השמות בייצור?
-
-#Cloudflare #DNS #DevOps #SecurityMonitoring #Engineering</pre>
+#AIAgents #MachineLearning #LLM #SoftwareArchitecture #Development</pre>
         <div class="btns" dir="ltr">
           <button type="button" id="btn-copy-post">Copy Post Text</button>
           <button type="button" class="ghost" id="btn-copy-comment">Copy 1st Comment Link</button>
         </div>
         <p style="font-size:12px; color:var(--ink2); margin:14px 0 4px;">תגובה ראשונה (לשמירה על חשיפה אורגנית):</p>
-        <pre id="comment-body" dir="auto">לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:
-https://blog.cloudflare.com/probing-dns-at-cloudflare/</pre>
+        <pre id="comment-body" dir="auto">לקריאת המחקר והפירוט הטכני המלא מתוך Hugging Face Blog:
+https://huggingface.co/blog/training-swarms</pre>
         <div id="pack-status" dir="ltr" style="font-size:13px; color:#5ec28f; min-height:20px; margin-top:8px;"></div>
       </section>
     </div>

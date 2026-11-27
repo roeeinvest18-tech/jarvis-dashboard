@@ -3,22 +3,22 @@
   <rect x="44" y="44" width="992" height="992" rx="20" fill="#13171f" stroke="#283040" stroke-width="2"/>
   <rect x="88" y="92" width="210" height="38" rx="19" fill="#1c222e" stroke="#d4a359" stroke-width="1.5"/>
   <text x="193" y="117" fill="#d4a359" font-family="monospace" font-size="17" font-weight="700" text-anchor="middle">CYBER &amp; SOC</text>
-  <text x="992" y="117" fill="#9aa4b5" font-family="monospace" font-size="17" text-anchor="end">Trail of Bits</text>
-  <text x="88" y="205" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">Trail of Bits Bug Patching and</text>
-  <text x="88" y="261" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">Regression Hunt Plugins</text>
+  <text x="992" y="117" fill="#9aa4b5" font-family="monospace" font-size="17" text-anchor="end">BleepingComputer</text>
+  <text x="88" y="205" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">Unpatched Cacti zero-day</text>
+  <text x="88" y="261" fill="#f1f4f9" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">vulnerability 4HTTP2SHELL</text>
   <line x1="88" y1="339" x2="992" y2="339" stroke="#283040" stroke-width="2"/>
   <rect x="88" y="397" width="904" height="114" rx="12" fill="#0d1016" stroke="#232a38" stroke-width="1.5"/>
   <text x="118" y="441" fill="#d4a359" font-family="monospace" font-size="22" font-weight="700">01</text>
-  <text x="168" y="441" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Trail of Bits released patching-bugs and regression-</text>
-  <text x="168" y="475" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">hunt plugins to let agents handle patch developme...</text>
+  <text x="168" y="441" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Unauthenticated attackers can achieve command</text>
+  <text x="168" y="475" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">execution in four HTTP requests.</text>
   <rect x="88" y="533" width="904" height="114" rx="12" fill="#0d1016" stroke="#232a38" stroke-width="1.5"/>
   <text x="118" y="577" fill="#d4a359" font-family="monospace" font-size="22" font-weight="700">02</text>
-  <text x="168" y="577" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">In evaluations, checking over 130 merged PRs</text>
-  <text x="168" y="611" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">upstream revealed 21 regressions, mostly functional.</text>
+  <text x="168" y="577" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">The flaw abuses weak input validation in guest user</text>
+  <text x="168" y="611" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">graph display settings.</text>
   <rect x="88" y="669" width="904" height="114" rx="12" fill="#0d1016" stroke="#232a38" stroke-width="1.5"/>
   <text x="118" y="713" fill="#d4a359" font-family="monospace" font-size="22" font-weight="700">03</text>
-  <text x="168" y="713" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">The automated regression hunt plugin produced 25%</text>
-  <text x="168" y="747" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">fewer false-positive findings than a baseline Cod...</text>
+  <text x="168" y="713" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">Compromising a monitoring platform exposes</text>
+  <text x="168" y="747" fill="#dce2ec" font-family="system-ui, -apple-system, sans-serif" font-size="24">credentials and SNMP passphrases to other systems.</text>
   <text x="88" y="985" fill="#9aa4b5" font-family="monospace" font-size="18">Roee Nir · SOC &amp; AI Automation Notes</text>
   <text x="992" y="985" fill="#d4a359" font-family="monospace" font-size="18" text-anchor="end">Architecture Brief</text>
 </svg>
