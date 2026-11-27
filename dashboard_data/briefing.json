@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T17:23:45.806613+00:00",
+  "generated_at": "2026-11-27T23:22:56.201035+00:00",
   "date": "2026-11-27",
   "market": {
     "regime": "DEFENSIVE",
@@ -56,10 +56,10 @@
     "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795738762-phpaftershell-vulnera/"
   },
   "painpoint": {
-    "title_en": "Manual Database ID to Admin URL Mapping in Dashboards",
-    "title_he": "מיפוי ידני איטי של מזהי בסיס נתונים לכתובות אדמין בלוחות בקרה",
+    "title_en": "Interactive Digital Planner Link Automation",
+    "title_he": "אוטומציית יצירת תבניות דיגיטליות אינטראקטיביות",
     "validation_score": 85,
-    "weekend_mvp_verdict_en": "Go - extremely simple tool to build that delivers instant value to engineers and analysts.",
+    "weekend_mvp_verdict_en": "Go, build a simple plugin over the weekend.",
     "mvp_live_url": ""
   },
   "labs_builds": [
