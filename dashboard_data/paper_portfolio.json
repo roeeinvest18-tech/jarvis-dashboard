@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-26T00:54:20.011611+00:00",
-  "as_of_date": "2026-11-26",
+  "generated_at": "2026-11-27T01:03:14.029010+00:00",
+  "as_of_date": "2026-11-27",
   "notional_per_trade_usd": 1000.0,
   "max_open_per_strategy": 3,
   "strategies": {
@@ -253,8 +253,8 @@
       "target": 66.55,
       "shares": 16.3479,
       "last_price": 61.17,
-      "sim_open_usd": 0.0,
-      "r_now": 0.0
+      "sim_open_usd": -0.0,
+      "r_now": -0.0
     }
   ],
   "closed_trades": [
