@@ -1,0 +1,8 @@
+{
+  "slug": "post-post-1-1795738762-phpaftershell-vulnera",
+  "kind": "content_pack",
+  "track": "cyber_soc",
+  "title": "phpAfterShell vulnerability and WAF detection limits",
+  "source_id": "post-1-1795738762",
+  "human_gate_required": true
+}

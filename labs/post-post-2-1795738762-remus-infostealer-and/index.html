@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.workers.dev https://*.up.railway.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Remus Infostealer and malicious Chrome extensions — Publish Pack</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="note" dir="ltr">MANUAL PUBLISH PACK · Never auto-posted to LinkedIn without your click.</div>
+    <div class="grid">
+      <section class="card" dir="ltr">
+        <h2 style="margin:0 0 10px; font-size:1rem;">1. Visual Card (1080x1080)</h2>
+        <img id="card-preview" src="card.svg" alt="Technical Insight Card">
+        <div class="btns">
+          <button type="button" id="btn-dl-png">Download PNG</button>
+          <a class="btn ghost" href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">Open LinkedIn Composer</a>
+        </div>
+      </section>
+
+      <section class="card" dir="rtl">
+        <h2 style="margin:0 0 8px; font-size:1rem;">2. פוסט מוכן + תגובה ראשונה</h2>
+        <pre id="post-body">הבטחת אבטחה בסיסית נשברת ברגע שתוקפים עוקפים את מגבלות הטעינה של דפדפן כרום.
+
+ניתוח מעמיק של נוזקת Remus מראה איך קובץ DLL יחיד יכול להחביא בתוכו הרחבת דפדפן זדונית כארכיון ZIP ולשנות את פרופיל המשתמש כך שיפעיל מצב מפתח.
+
+המנגנון הזה מאפשר לה לאסוף הודעות אימייל רגישות ולהמשיך לפעול גם אחרי שהקורבן שינה סיסמאות או ניתק סשנים פעילים.
+
+בפועל, מה שמוצג כנוזקת גניבת מידע מתקדמת מנצל בסופו של דבר את התנהגות הלגיטימיות לכאורה של הדפדפן עצמו.
+
+בתכלס, עבור אנליסטים שמנתחים אירועי קצה, זה דורש מעקב עמוק אחרי שינויים בפרופילי דפדפן והרשאות הרחבה חשודות במערכות הקצה הארגוניות.
+
+#EndpointSecurity #MalwareAnalysis #SOC #CyberThreats #BrowserSecurity</pre>
+        <div class="btns" dir="ltr">
+          <button type="button" id="btn-copy-post">Copy Post Text</button>
+          <button type="button" class="ghost" id="btn-copy-comment">Copy 1st Comment Link</button>
+        </div>
+        <p style="font-size:12px; color:var(--ink2); margin:14px 0 4px;">תגובה ראשונה (לשמירה על חשיפה אורגנית):</p>
+        <pre id="comment-body" dir="auto">לקריאת המחקר והפירוט הטכני המלא מתוך BleepingComputer:
+https://www.bleepingcomputer.com/news/security/remus-malware-steals-gmail-messages-via-fake-google-sheets-extension/</pre>
+        <div id="pack-status" dir="ltr" style="font-size:13px; color:#5ec28f; min-height:20px; margin-top:8px;"></div>
+      </section>
+    </div>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>

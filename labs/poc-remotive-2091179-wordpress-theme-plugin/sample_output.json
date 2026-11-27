@@ -1,9 +1,0 @@
-{
-  "total_accounts": 4,
-  "active_accounts": 3,
-  "total_mrr_usd": 42350,
-  "avg_latency_ms": 155.2,
-  "at_risk_segments": [
-    "SMB"
-  ]
-}

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-26T23:44:23.533445+00:00",
-  "date": "2026-11-26",
+  "generated_at": "2026-11-27T00:19:23.515835+00:00",
+  "date": "2026-11-27",
   "market": {
     "regime": "DEFENSIVE",
     "top3": [
@@ -32,28 +32,28 @@
   },
   "jobs": [
     {
+      "id": "jobicy-164433",
+      "title": "Virtual Assistant - AI, Marketing and Operations (Fresh Prints)",
+      "platform": "Jobicy (Live Cloud)",
+      "match_score": 84,
+      "has_poc": false,
+      "poc_live_url": ""
+    },
+    {
       "id": "hn-50445335",
       "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
       "platform": "HackerNews Freelance (Live)",
       "match_score": 82,
       "has_poc": false,
       "poc_live_url": ""
-    },
-    {
-      "id": "remoteok-1138104",
-      "title": "Intermediate Security Engineer, Security Incident Response Team (SIRT) (GitLab)",
-      "platform": "RemoteOK (Live Cloud)",
-      "match_score": 78,
-      "has_poc": false,
-      "poc_live_url": ""
     }
   ],
   "content": {
-    "id": "post-1-1795714753",
-    "topic": "nginx2root vulnerabilities and Cloudflare protection",
+    "id": "post-1-1795738762",
+    "topic": "phpAfterShell vulnerability and WAF detection limits",
     "category": "cyber_soc",
-    "opening_hook": "כשאנליסט ב SOC רואה התראת זיכרון בשרת פרוקסי מרכזי, הדופק מיד עולה.",
-    "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795714753-nginx2root-vulnerabil/"
+    "opening_hook": "לא כל מתקפת RCE קריטית תיתפס במלואה אך ורק ברמת ה WAF המערכתי.",
+    "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795738762-phpaftershell-vulnera/"
   },
   "painpoint": {
     "title_en": "Digital Planners and Tablet Productivity Life Templates",
@@ -64,31 +64,31 @@
   },
   "labs_builds": [
     {
-      "slug": "mvp-save-failures-and-glitches-in-small-busi",
-      "kind": "saas_mvp",
-      "title": "Save Failures and Glitches in Small Business Accounting Apps",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/mvp-save-failures-and-glitches-in-small-busi/",
+      "slug": "post-post-4-1795738762-llama-cpp-benchmark-d",
+      "kind": "content_pack",
+      "title": "Llama.cpp benchmark dashboard for AMD hardware optimization",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795738762-llama-cpp-benchmark-d/",
       "status": "live"
     },
     {
-      "slug": "post-post-4-1795714753-clay-helps-sales-team",
+      "slug": "post-post-3-1795738762-llm-agent-coding-infl",
       "kind": "content_pack",
-      "title": "Clay helps sales teams win with Codex and ChatGPT",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795714753-clay-helps-sales-team/",
+      "title": "LLM agent coding inflection points and tool reliability",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795738762-llm-agent-coding-infl/",
       "status": "live"
     },
     {
-      "slug": "post-post-3-1795714753-internet-traffic-and",
+      "slug": "post-post-2-1795738762-remus-infostealer-and",
       "kind": "content_pack",
-      "title": "Internet traffic and attacks during the 2026 U.S. midterm elections",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795714753-internet-traffic-and/",
+      "title": "Remus Infostealer and malicious Chrome extensions",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795738762-remus-infostealer-and/",
       "status": "live"
     },
     {
-      "slug": "post-post-2-1795714753-attackers-used-optimi",
+      "slug": "post-post-1-1795738762-phpaftershell-vulnera",
       "kind": "content_pack",
-      "title": "Attackers used Optimizely to A/B test malware on top websites",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795714753-attackers-used-optimi/",
+      "title": "phpAfterShell vulnerability and WAF detection limits",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795738762-phpaftershell-vulnera/",
       "status": "live"
     }
   ]

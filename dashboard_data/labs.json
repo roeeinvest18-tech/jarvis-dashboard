@@ -1,13 +1,77 @@
 {
-  "generated_at": "2026-11-26T23:44:23.330386+00:00",
+  "generated_at": "2026-11-27T00:19:23.324882+00:00",
   "stats": {
-    "total_live": 20,
+    "total_live": 21,
     "saas_mvp": 2,
-    "ecom_kit": 2,
-    "job_poc": 1,
-    "content_pack": 15
+    "ecom_kit": 1,
+    "job_poc": 0,
+    "content_pack": 18
   },
   "builds": [
+    {
+      "id": "post-post-4-1795738762-llama-cpp-benchmark-d",
+      "slug": "post-post-4-1795738762-llama-cpp-benchmark-d",
+      "kind": "content_pack",
+      "track": "ai_agents",
+      "title": "Llama.cpp benchmark dashboard for AMD hardware optimization",
+      "summary": "הרצת מודלים מקומיים דורשת מדידה מדויקת של ביצועי חומרה ולא רק הסתמכות על נתוני מעבדה תיאורטיים.",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795738762-llama-cpp-benchmark-d/",
+      "source_id": "post-4-1795738762",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-27T00:19:23.319018+00:00",
+      "updated_at": "2026-11-27T00:19:23.319018+00:00"
+    },
+    {
+      "id": "post-post-3-1795738762-llm-agent-coding-infl",
+      "slug": "post-post-3-1795738762-llm-agent-coding-infl",
+      "kind": "content_pack",
+      "track": "ai_agents",
+      "title": "LLM agent coding inflection points and tool reliability",
+      "summary": "המעבר של סוכני קדדינג מרמת כלי עזר משחק אל כלי עבודה מרכזי תלוי ביציבות התוצאה הראשונית.",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795738762-llm-agent-coding-infl/",
+      "source_id": "post-3-1795738762",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-27T00:19:23.286914+00:00",
+      "updated_at": "2026-11-27T00:19:23.286914+00:00"
+    },
+    {
+      "id": "post-post-2-1795738762-remus-infostealer-and",
+      "slug": "post-post-2-1795738762-remus-infostealer-and",
+      "kind": "content_pack",
+      "track": "cyber_soc",
+      "title": "Remus Infostealer and malicious Chrome extensions",
+      "summary": "הבטחת אבטחה בסיסית נשברת ברגע שתוקפים עוקפים את מגבלות הטעינה של דפדפן כרום.",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795738762-remus-infostealer-and/",
+      "source_id": "post-2-1795738762",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-27T00:19:23.253593+00:00",
+      "updated_at": "2026-11-27T00:19:23.253593+00:00"
+    },
+    {
+      "id": "post-post-1-1795738762-phpaftershell-vulnera",
+      "slug": "post-post-1-1795738762-phpaftershell-vulnera",
+      "kind": "content_pack",
+      "track": "cyber_soc",
+      "title": "phpAfterShell vulnerability and WAF detection limits",
+      "summary": "לא כל מתקפת RCE קריטית תיתפס במלואה אך ורק ברמת ה WAF המערכתי.",
+      "score": 90,
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795738762-phpaftershell-vulnera/",
+      "source_id": "post-1-1795738762",
+      "status": "live",
+      "human_gate_required": true,
+      "files_count": 5,
+      "created_at": "2026-11-27T00:19:23.221925+00:00",
+      "updated_at": "2026-11-27T00:19:23.221925+00:00"
+    },
     {
       "id": "mvp-save-failures-and-glitches-in-small-busi",
       "slug": "mvp-save-failures-and-glitches-in-small-busi",
@@ -233,22 +297,6 @@
       "updated_at": "2026-11-25T19:37:38.223302+00:00"
     },
     {
-      "id": "poc-remotive-2091179-wordpress-theme-plugin",
-      "slug": "poc-remotive-2091179-wordpress-theme-plugin",
-      "kind": "job_poc",
-      "track": "web_dashboards",
-      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
-      "summary": "The client needs a full-stack WordPress developer to build and maintain custom themes and plugins over a five-month contract.",
-      "score": 92,
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/poc-remotive-2091179-wordpress-theme-plugin/",
-      "source_id": "remotive-2091179",
-      "status": "live",
-      "human_gate_required": true,
-      "files_count": 8,
-      "created_at": "2026-11-25T17:56:56.134414+00:00",
-      "updated_at": "2026-11-25T17:56:56.134414+00:00"
-    },
-    {
       "id": "post-post-4-1795566102-cloudflare-open-weigh",
       "slug": "post-post-4-1795566102-cloudflare-open-weigh",
       "kind": "content_pack",
@@ -295,38 +343,6 @@
       "files_count": 5,
       "created_at": "2026-11-25T16:26:20.903577+00:00",
       "updated_at": "2026-11-25T17:56:56.356233+00:00"
-    },
-    {
-      "id": "post-post-1-1795566102-google-workspace-cont",
-      "slug": "post-post-1-1795566102-google-workspace-cont",
-      "kind": "content_pack",
-      "track": "cyber_soc",
-      "title": "Google Workspace Continuous Approach to Mitigating Indirect Prompt Injections",
-      "summary": "יש בעיות אבטחה שאי אפשר לסגור פעם אחת עם עדכון קוד ולהמשיך הלאה.",
-      "score": 90,
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795566102-google-workspace-cont/",
-      "source_id": "post-1-1795566102",
-      "status": "live",
-      "human_gate_required": true,
-      "files_count": 5,
-      "created_at": "2026-11-25T16:26:20.877438+00:00",
-      "updated_at": "2026-11-25T17:56:56.331302+00:00"
-    },
-    {
-      "id": "ecom-advanced-digital-planners-and-ipad-prod",
-      "slug": "ecom-advanced-digital-planners-and-ipad-prod",
-      "kind": "ecom_kit",
-      "track": "ecommerce",
-      "title": "Advanced Digital Planners and iPad Productivity Templates",
-      "summary": "Retail $24 · 71% margin · Max CAC $9",
-      "score": 90,
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/ecom-advanced-digital-planners-and-ipad-prod/",
-      "source_id": "pp-ecom-advanced-digital-planners-and-ipad-p",
-      "status": "live",
-      "human_gate_required": true,
-      "files_count": 6,
-      "created_at": "2026-11-25T16:26:20.847156+00:00",
-      "updated_at": "2026-11-25T16:26:20.847156+00:00"
     }
   ]
 }

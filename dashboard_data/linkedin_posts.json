@@ -1,98 +1,98 @@
 {
-  "generated_at": "2026-11-26T17:39:13.250179+00:00",
+  "generated_at": "2026-11-27T00:19:22.154188+00:00",
   "stats": {
     "total_drafted": 4,
-    "cyber_count": 3,
-    "ai_count": 1
+    "cyber_count": 2,
+    "ai_count": 2
   },
   "posts": [
     {
-      "id": "post-1-1795714753",
-      "topic": "nginx2root vulnerabilities and Cloudflare protection",
+      "id": "post-1-1795738762",
+      "topic": "phpAfterShell vulnerability and WAF detection limits",
       "category": "cyber_soc",
-      "source_url": "https://blog.cloudflare.com/nginx2root/",
+      "source_url": "https://blog.cloudflare.com/phpaftershell-waf-protection/",
       "source_platform": "Cloudflare Blog (Security & Engineering)",
-      "posted_at": "Updated 2026-11-26 (Auto)",
+      "posted_at": "Updated 2026-11-27 (Auto)",
       "credibility_score": "9",
-      "credibility_rationale": "Published by Cloudflare security engineering with detailed technical breakdowns of memory corruption CVEs and container breakout vectors.",
+      "credibility_rationale": "High-value engineering analysis from Cloudflare security team detailing CVE-2026-126714 and specific WAF rule behaviors.",
       "key_takeaways": [
-        "Five out of ten disclosed nginx vulnerabilities are memory corruption flaws leading to remote execution.",
-        "A Linux kernel bug can escalate a container foothold to root on the host.",
-        "Edge termination prevents proxy-bound origins from reaching vulnerable HTTP/2 and HTTP/3 paths."
+        "phpAfterShell allows remote code execution via PHP session handlers.",
+        "WAF rules provide a layer of defense but cannot replace full patching.",
+        "Some PHP vulnerabilities require server configuration changes invisible to WAF."
       ],
-      "post_angle": "פוסט א (זווית מהשטח / SOC & Ops) - התמקדות בתרחיש ניטור ותגובה לאירועים מול חולשות חומרה וזיכרון בשרתי פרוקסי.",
-      "opening_hook": "כשאנליסט ב SOC רואה התראת זיכרון בשרת פרוקסי מרכזי, הדופק מיד עולה.",
-      "linkedin_post": "כשאנליסט ב SOC רואה התראת זיכרון בשרת פרוקסי מרכזי, הדופק מיד עולה.\n\nהשבוע פורסמו עשרה CVEs חדשים תחת השם nginx2root שחושפים חמש בעיות שחיתות זיכרון קריטיות.\n\nמתקפה מוצלחת עלולה לאפשר לתוקף להריץ פקודות ישירות ברמת השרת או לברוח החוצה מתוך קונטיינר של Docker אל מערכת ההפעלה המארחת.\n\nבתכלס, בפועל, מה זה אומר לצוותי האבטחה ביום יום?\n\nמי שלא מריץ עדכוני Patch דחופים או מסתמך על שכבת הגנה חיצונית בנקודת הקצה, נשאר חשוף לחלוטין לחולשות פרוטוקול מתקדמות.\n\nחובה לעבור על כל תצורות ה nginx הארגוניות, לסגור פיצ מיותרים ולוודא שום קוד זדוני לא מנצל נתיבי תקשורת פתוחים.\n\nמה הלוש שלך לעדכון מערכות פרוקסי בסביבת הייצור שלך?\n\n#CyberSecurity #SOC #Infosec #DevSecOps #Nginx",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795714753-nginx2root-vulnerabil/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795714753-nginx2root-vulnerabil/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:\nhttps://blog.cloudflare.com/nginx2root/",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Cloudflare Blog: Five out of ten disclosed nginx vulnerabilities are memory corruption flaws leading to remote execution."
+      "post_angle": "זווית מהשטח / SOC & Ops: ניתוח תרחיש תקיפה מלוגים ואירועי WAF",
+      "opening_hook": "לא כל מתקפת RCE קריטית תיתפס במלואה אך ורק ברמת ה WAF המערכתי.",
+      "linkedin_post": "לא כל מתקפת RCE קריטית תיתפס במלואה אך ורק ברמת ה WAF המערכתי.\n\nכשחברת depthfirst חשפה את פגיעות phpAfterShell במסגרת טיפול בברירת המחדל של PHP, ראינו שוב עד כמה חשוב להבין את מגבלות שכבת ההגנה החיצונית.\n\nבפועל, מתקפות כאלו מנוצלות דרך נתיבים שלא תמיד עוברים תחת העין של חוקי ה WAF הקיימים.\n\nבתכלס, עבור צוותי ה SOC והאבטחה ביום־יום, זה אומר שחוקי חסימה אוטומטיים הם בלם ראשוני קריטי, אבל הם לעולם לא תחליף לעדכון גרסה מלא והפעלה מחדש של השרתים.\n\nהמערכות שלנו חייבות לשלב בין ניטור אירועי אבטחה בזמן אמת לבין מעקב הדוק אחרי פאצ'ים ברמת התשתית כדי לסגור את הפרצות האמיתיות.\n\n#CyberSecurity #SOC #WebSecurity #VulnerabilityManagement #Cloudflare",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795738762-phpaftershell-vulnera/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795738762-phpaftershell-vulnera/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:\nhttps://blog.cloudflare.com/phpaftershell-waf-protection/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Cloudflare Blog: phpAfterShell allows remote code execution via PHP session handlers."
     },
     {
-      "id": "post-2-1795714753",
-      "topic": "Attackers used Optimizely to A/B test malware on top websites",
+      "id": "post-2-1795738762",
+      "topic": "Remus Infostealer and malicious Chrome extensions",
       "category": "cyber_soc",
-      "source_url": "https://krebsonsecurity.com/2026/11/attackers-used-optimizely-to-a-b-test-malware-on-top-websites/",
-      "source_platform": "Krebs on Security (Threat Intelligence)",
-      "posted_at": "Updated 2026-11-26 (Auto)",
+      "source_url": "https://www.bleepingcomputer.com/news/security/remus-malware-steals-gmail-messages-via-fake-google-sheets-extension/",
+      "source_platform": "BleepingComputer (Security & Incidents)",
+      "posted_at": "Updated 2026-11-27 (Auto)",
       "credibility_score": "9",
-      "credibility_rationale": "Investigative reporting by Brian Krebs detailing real-world supply chain compromises affecting major global platforms via third-party JavaScript injection.",
+      "credibility_rationale": "Detailed technical breakdown by security researchers at GenDigital and Invoke RE on advanced infostealer behavior.",
       "key_takeaways": [
-        "178 major web destinations were manipulated via a security flaw in Optimizely.",
-        "Malicious JavaScript was rebuilt 26 times in a single day to evade detection.",
-        "Attackers deployed zero-click exploit kits targeting outdated mobile operating systems."
+        "Remus infostealer installs malicious extensions by modifying Chrome profiles.",
+        "The extension survives password changes and session revocations.",
+        "DLL files store the extension as an unencrypted ZIP inside the rdata section."
       ],
-      "post_angle": "פוסט ב (פירוק מנגנון הנדסי) - צלילה לנתון טכני מתוך המקור על הזרקת קוד דרך ספקי צד שלישי.",
-      "opening_hook": "תשתיות צד שלישי הפכו לדלת האחורית הנוחה ביותר לתוקפים שרוצים לעקוף מנגנוני הגנה.",
-      "linkedin_post": "תשתיות צד שלישי הפכו לדלת האחורית הנוחה ביותר לתוקפים שרוצים לעקוף מנגנוני הגנה.\n\nלאחרונה התגלה כי תוקפים חדרו לפלטפורמת Optimizely והזריקו קוד זדוני ל-178 אתרים מובילים ברחבי העולם.\n\nאותו קוד עבר שינויים וקומפילציות מחדש עשרות פעמים ביום כדי להתחמק מזיהוי של כלי ניטור ושל מערכות SIEM סטנדרטיות.\n\nבתכלס, בפועל, מה זה אומר לצוותי הפיתוח והאבטחה?\n\nברגע שהאתר שלכם תלוי בסקריפט חיצוני שלא עובר Review קפדני או נעדר מדיניות אבטחה מחמירה, הלקוחות שלכם חשופים לגניבת נתונים מבלי שהארגון שלכם נפגע ישירות בקוד המקור.\n\nאיך הארגון שלך מפקח כיום על סקריפטים שמגיעים ממקור חיצוני?\n\n#ThreatIntel #WebSecurity #SOC #AppSec #CyberSecurity",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795714753-attackers-used-optimi/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795714753-attackers-used-optimi/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Krebs on Security:\nhttps://krebsonsecurity.com/2026/11/attackers-used-optimizely-to-a-b-test-malware-on-top-websites/",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Krebs on Security: 178 major web destinations were manipulated via a security flaw in Optimizely."
+      "post_angle": "פירוק מנגנון הנדסי: צלילה לקרביים של תוכנת נוזקה",
+      "opening_hook": "הבטחת אבטחה בסיסית נשברת ברגע שתוקפים עוקפים את מגבלות הטעינה של דפדפן כרום.",
+      "linkedin_post": "הבטחת אבטחה בסיסית נשברת ברגע שתוקפים עוקפים את מגבלות הטעינה של דפדפן כרום.\n\nניתוח מעמיק של נוזקת Remus מראה איך קובץ DLL יחיד יכול להחביא בתוכו הרחבת דפדפן זדונית כארכיון ZIP ולשנות את פרופיל המשתמש כך שיפעיל מצב מפתח.\n\nהמנגנון הזה מאפשר לה לאסוף הודעות אימייל רגישות ולהמשיך לפעול גם אחרי שהקורבן שינה סיסמאות או ניתק סשנים פעילים.\n\nבפועל, מה שמוצג כנוזקת גניבת מידע מתקדמת מנצל בסופו של דבר את התנהגות הלגיטימיות לכאורה של הדפדפן עצמו.\n\nבתכלס, עבור אנליסטים שמנתחים אירועי קצה, זה דורש מעקב עמוק אחרי שינויים בפרופילי דפדפן והרשאות הרחבה חשודות במערכות הקצה הארגוניות.\n\n#EndpointSecurity #MalwareAnalysis #SOC #CyberThreats #BrowserSecurity",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795738762-remus-infostealer-and/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795738762-remus-infostealer-and/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך BleepingComputer:\nhttps://www.bleepingcomputer.com/news/security/remus-malware-steals-gmail-messages-via-fake-google-sheets-extension/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך BleepingComputer: Remus infostealer installs malicious extensions by modifying Chrome profiles."
     },
     {
-      "id": "post-3-1795714753",
-      "topic": "Internet traffic and attacks during the 2026 U.S. midterm elections",
-      "category": "cyber_soc",
-      "source_url": "https://blog.cloudflare.com/internet-traffic-2026-us-election/",
-      "source_platform": "Cloudflare Blog (Security & Engineering)",
-      "posted_at": "Updated 2026-11-26 (Auto)",
-      "credibility_score": "8",
-      "credibility_rationale": "Empirical traffic analysis from Cloudflare covering thousands of election domains and shifting threat vectors.",
-      "key_takeaways": [
-        "Government election websites faced vulnerability scanning 180 times more often than DDoS attacks.",
-        "Vulnerability exploit attempts scaled from 200,000 per day in January to 2 million per day by October.",
-        "On Election Day itself, overall attack volume plateaued with zero major disruptions."
-      ],
-      "post_angle": "פוסט ג (זווית סקפטית / Reality Check) - הפרכת המיתוס לפיו מתקפות מניעת שירות הן האיום המרכזי באירועים גדולים.",
-      "opening_hook": "כולם מחכים למתקפת מניעת שירות ענקית ביום הבחירות, אבל המציאות בשטח שונה לחלוטין.",
-      "linkedin_post": "כולם מחכים למתקפת מניעת שירות ענקית ביום הבחירות, אבל המציאות בשטח שונה לחלוטין.\n\nנתונים חדשים מראים שאתרי ממשל ספגו ניסיונות ניצול חולשות קוד בקצב גבוה פי 180 בהשוואה למתקפות DDoS מסורתיות.\n\nנפח הסריקות ואיתור חורי האבטחה טיפס בעקביות מחודש ינואר ועד לאוקטובר, בעוד שביום היעד עצמו נרשמה יציבות מפתיעה.\n\nבתכלס, בפועל, מה זה אומר למנהלי האבטחה בארגונים?\n\nתוקפים לא מחפשים להפיל את האתר עם רעש רשת מיותר אלא להתבסס בשקט בתוך המערכות חודשים לפני האירוע המרכזי.\n\nהמאמץ המרכזי חייב להיות מופנה לזיהוי חריגות בלוגים של אפליקציה ולא רק בניטור רוחב פס.\n\nהאם ה SOC שלך מוגדר להתריע על סריקות עומק או רק על נפחי תעבורה?\n\n#CyberSecurity #SOC #SecOps #ThreatHunting #Cloudflare",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795714753-internet-traffic-and/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795714753-internet-traffic-and/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:\nhttps://blog.cloudflare.com/internet-traffic-2026-us-election/",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Cloudflare Blog: Government election websites faced vulnerability scanning 180 times more often than DDoS attacks."
-    },
-    {
-      "id": "post-4-1795714753",
-      "topic": "Clay helps sales teams win with Codex and ChatGPT",
+      "id": "post-3-1795738762",
+      "topic": "LLM agent coding inflection points and tool reliability",
       "category": "ai_agents",
-      "source_url": "https://openai.com/business/customer-stories/clay-plugins-openai",
-      "source_platform": "OpenAI (AI Releases & Research)",
-      "posted_at": "Updated 2026-11-26 (Auto)",
+      "source_url": "https://simonwillison.net/2026/Nov/24/llm-inflection-points/",
+      "source_platform": "Simon Willison (AI Agents & LLM Architecture)",
+      "posted_at": "Updated 2026-11-27 (Auto)",
       "credibility_score": "8",
-      "credibility_rationale": "Official case study detailing production integration of multi-model LLM architectures and agents for automated workflows.",
+      "credibility_rationale": "Thoughtful engineering retrospective on agent capabilities and reliability milestones over the past year.",
       "key_takeaways": [
-        "Workflows leverage distinct models like GPT-6 Sol and Astra for different pricing and reasoning tiers.",
-        "Codex integrations enable technical teams to execute go-to-market plays directly inside development environments.",
-        "Agents handle data enrichment, qualification, and background research autonomously."
+        "Coding agents have reached points where default outputs are frequently correct.",
+        "Handling multi-system bugs requires reasoning about tradeoffs without hand-holding.",
+        "Transitioning from tinkering to daily production work depends on output reliability."
       ],
-      "post_angle": "פוסט ד (לקח לבוני מערכות ואוטומציות) - חיבור בין מחקר מודלים מתקדמים להחלטת ארכיטקטורה של סוכני AI.",
-      "opening_hook": "המעבר לשימוש במודלי שפה מרובים באותו תהליך אוטומטי הפך לתקן החדש בפיתוח סוכני AI.",
-      "linkedin_post": "המעבר לשימוש במודלי שפה מרובים באותו תהליך אוטומטי הפך לתקן החדש בפיתוח סוכני AI.\n\nפלטפורמות מתקדמות משלבות כיום מודלים שונים כמו GPT-6 Sol למשימות שוטפות יחד עם Astra למשימות היגיון מורכבות, תוך שימוש בממשק תכנות אחיד.\n\nבתכלס, בפועל, מה זה אומר למפתחים ובונים של סוכני AI?\n\nאין שום הצדקה כלכלית או ארכיטקטונית להריץ מודל ענק ויקר על כל קריאת API פשוטה בתוך תהליך ה CI/CD או זרימת הנתונים.\n\nחובה לבנות מנגנון ניתוב חכם שמחלק את המשימות לפי רמת מורכבות ועלות ביצוע.\n\nהאם המערכות שאתה מפתח יודעות לנתב אוטומטית בין מודלים שונים לפי הצורך?\n\n#AIAgents #LLM #Automation #OpenAI #SoftwareEngineering",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795714753-clay-helps-sales-team/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795714753-clay-helps-sales-team/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך OpenAI:\nhttps://openai.com/business/customer-stories/clay-plugins-openai",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך OpenAI: Workflows leverage distinct models like GPT-6 Sol and Astra for different pricing and reasoning tiers."
+      "post_angle": "זווית סקפטית / Reality Check: הפרכת מיתוסים סביב אמינות כלי AI",
+      "opening_hook": "המעבר של סוכני קדדינג מרמת כלי עזר משחק אל כלי עבודה מרכזי תלוי ביציבות התוצאה הראשונית.",
+      "linkedin_post": "המעבר של סוכני קדדינג מרמת כלי עזר משחק אל כלי עבודה מרכזי תלוי ביציבות התוצאה הראשונית.\n\nלאורך השנה האחרונה ראינו איך מודלים מתקדמים הפסיקו לדרוש יד מכוונת צמודה בכל שורת קוד והתחילו להתמודד עם באגים מרובי מערכות בצורה עצמאית.\n\nעם זאת, ההבדל בין כלי שדורש תיקון מתמיד לבין כלי שמספק פתרון נכון כבר בניסיון הראשון הוא קריטי לשילובו בסביבת פיתוח אמיתית.\n\nבפועל, מפתחים שמנסים לשלב סוכני AI ללא בקרה מתאימים מגלים מהר מאוד שחוסר ודאות מביא איתו סיכונים חדשים.\n\nבתכלס, האתגר האמיתי כיום הוא לא לייצר קוד מהר יותר, אלא להבטיח שהארכיטקטורה המנוהלת יודעת לסנן ולסקור את התוצרים האוטומטיים בצורה הדוקה.\n\n#AIEngineering #DeveloperTools #AIAgents #SoftwareArchitecture #CodeQuality",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795738762-llm-agent-coding-infl/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795738762-llm-agent-coding-infl/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Simon Willison:\nhttps://simonwillison.net/2026/Nov/24/llm-inflection-points/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Simon Willison: Coding agents have reached points where default outputs are frequently correct."
+    },
+    {
+      "id": "post-4-1795738762",
+      "topic": "Llama.cpp benchmark dashboard for AMD hardware optimization",
+      "category": "ai_agents",
+      "source_url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+      "source_platform": "Hugging Face Blog (AI Models & Engineering)",
+      "posted_at": "Updated 2026-11-27 (Auto)",
+      "credibility_score": "8",
+      "credibility_rationale": "Concrete engineering dashboard and benchmark metrics for local LLM inference on AMD hardware.",
+      "key_takeaways": [
+        "Inference performance changes continuously as local models and kernels evolve.",
+        "Benchmark dashboards track prompt processing and generation throughput across quantizations.",
+        "Systematic evaluation requires measuring token throughput from zero context depth."
+      ],
+      "post_angle": "לקח לבוני מערכות ואוטומציות: החלטות תכנון מבוססות ביצועים מקומיים",
+      "opening_hook": "הרצת מודלים מקומיים דורשת מדידה מדויקת של ביצועי חומרה ולא רק הסתמכות על נתוני מעבדה תיאורטיים.",
+      "linkedin_post": "הרצת מודלים מקומיים דורשת מדידה מדויקת של ביצועי חומרה ולא רק הסתמכות על נתוני מעבדה תיאורטיים.\n\nהשקת לוחות הבקרה החדשים למעקב אחרי ביצועי llama.cpp על גבי חומרה מקומית מציגה תמונה ברורה של מה שקורה כשמודלים, קרנלים וגרסאות קימות משתנים תחת עומס.\n\nבפועל, תהליכי אינפרנס מקומיים דורשים אופטימיזציה עדינה של קידודים ופורמטים שונים כדי לשמור על קצב ייצור טוקנים גבוה.\n\nבתכלס, עבור צוותי פיתוח שבונים ארכיטקטורות מבוססות מודלים מקומיים בארגון, המדדים האלו הם הכלי המרכזי לתכנון נכון של משאבים, זיכרון ורוחב פס בזמן אמת.\n\n#LocalLLM #AIPerformance #HardwareOptimization #LLMCpp #AIInfrastructure",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795738762-llama-cpp-benchmark-d/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795738762-llama-cpp-benchmark-d/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Hugging Face Blog:\nhttps://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Hugging Face Blog: Inference performance changes continuously as local models and kernels evolve."
     }
   ]
 }
