@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-27T01:03:14.029010+00:00",
-  "as_of_date": "2026-11-27",
+  "generated_at": "2026-11-28T01:58:21.989857+00:00",
+  "as_of_date": "2026-11-28",
   "notional_per_trade_usd": 1000.0,
   "max_open_per_strategy": 3,
   "strategies": {
