@@ -1,158 +1,482 @@
 {
   "week": "2026-W48",
   "week_num": 48,
-  "date": "2026-11-27",
+  "date": "2026-11-28",
   "stats": {
-    "raw": 863,
-    "analyzed": 110,
-    "pains": 10,
-    "sources": 8,
+    "raw": 723,
+    "analyzed": 88,
+    "pains": 11,
+    "sources": 7,
     "by_source": {
       "Amazon Demand": 9,
       "Etsy": 9,
-      "Hacker News": 55,
-      "Dev.to": 5,
+      "Hacker News": 45,
       "Lobste.rs": 3,
-      "GitHub": 17,
-      "Hacker News (Ask HN)": 1,
+      "GitHub": 9,
+      "Hacker News (Ask HN)": 2,
       "Google Play": 11
     },
     "by_track": {
-      "saas": 2,
+      "saas": 7,
       "ecommerce": 0,
       "lowtech": 0
     }
   },
-  "summary_he": "מסמך זה מנתח נקודות כאב נבחרות של עסקים קטנים ויוצרי מוצרים דיגיטליים, ומתמקד בבעיות פעילותיות ותפעוליות. האנליזה מספקת פתרונות תוכנה מבוססי בינה מלאכותית המותאמים לפיתוח מהיר בסוף שבוע על ידי יזם בודד. כל הצעה כוללת מודל תמחור ברור, אסטרטגיית שיווק ראשונית וטכנולוגיית פיתוח מתקדמת.",
-  "summary_en": "This document analyzes selected pain points for small businesses and digital product creators, focusing on operational bottlenecks. The analysis provides AI-powered software solutions optimized for fast weekend MVP development by a solo builder. Each proposal includes clear pricing, initial go-to-market strategy, and a modern AI tech stack.",
+  "summary_he": "המערכת מציגה שמונה הזדמנויות עסקיות ממוקדות תוכנה כשירות (SaaS) עבור מפתחי סולו, עם דגש על פתרון צווארי בקבוק תפעוליים ומערכתיים בארגונים, עסקים קטנים ופלטפורמות מסחר. האפיון כולל ניתוח תחרותי, אסטרטגיית תמחור חודשית, וארכיטקטורת פיתוח מהירה באמצעות כלי בינה מלאכותית. כל פתרון מותאם לזמן הקמה קצר של שבוע עד שלושה שבועות ומוכוון לייצור הכנסות מיידיות מלקוחות משלמים.",
+  "summary_en": "The system presents eight targeted SaaS business opportunities for solo developers, focusing on solving operational and systemic bottlenecks in organizations, small businesses, and commerce platforms. The analysis includes competitive landscapes, monthly pricing strategies, and rapid AI-powered development architectures. Each solution is tailored for a short 1-to-3-week MVP build time and geared toward generating immediate revenue from paying customers.",
   "summary_ecommerce_he": "",
   "summary_ecommerce_en": "",
   "summary_lowtech_he": "",
   "summary_lowtech_en": "",
   "clusters": [
     {
-      "title_he": "אוטומציית יצירת תבניות דיגיטליות אינטראקטיביות",
-      "title_en": "Interactive Digital Planner Link Automation",
-      "who_he": "יוצרי מוצרים דיגיטליים ומעצבי תבניות ב-Figma ו-Notion",
-      "who_en": "Digital product creators and template designers using Figma",
+      "title_he": "ניהול ותיאור החלפת משמרות חירום בעסקים",
+      "title_en": "Emergency Shift Replacement and Audit Trail Coordination",
+      "who_he": "מנהלי משמרות ואחראי כוח אדם בעסקים קטנים ובינוניים, חברות אבטחה ושירותים",
+      "who_en": "Shift managers and HR coordinators in SMBs, security firms, and service industries",
       "member_indices": [
-        7
+        2
       ],
-      "best_quote_index": 7,
-      "quote_he": "אני משתמש כעת בתוסף כדי לאכלס נתונים ב-Figma באמצעות Google Sheets. עם זאת, אשמח להוסיף קישורים לאלמנטים טקסטואליים ספציפיים שיעזרו למשתמשים לנווט ביומנים הדיגיטליים שלי בקלות.",
-      "quote_en": "I'm currently using the plugin to populate data in Figma via Google Sheets. However, I would love to add links to specific text elements. These links would help users navigate within my digital planners more easily",
-      "category": "E-Commerce & POD",
-      "intensity": 70,
-      "frequency": 80,
-      "low_competition": 85,
+      "best_quote_index": 2,
+      "quote_he": "כאשר עובד משמרת מודיע על מחלה פחות משעתיים לפני תחילת המשמרת, אני רוצה למצוא מחליף מאושר במהירות ולנהל תיעוד של מי נוצר קשר איתו... מבלי להסתמך על קבוצות וואטסאפ פרטיות",
+      "quote_en": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted... without relying on personal text threads",
+      "category": "Operations & admin",
+      "intensity": 85,
+      "frequency": 90,
+      "low_competition": 80,
       "competitors": [
         {
-          "name": "Figma",
-          "gap_he": "חסר כלי ייעודי להזרקת קישורים דינמיים ואינטראקטיביים בקנה מידה רחב לקבצי PDF ויומנים.",
-          "gap_en": "Lacks a dedicated tool for injecting dynamic, interactive hyperlinks at scale into exported PDFs and planners."
+          "name": "When I Work",
+          "gap_he": "מערכת כבדה ויקרה מדי לעסקים קטנים שלא צריכים ניהול נוכחות מלא אלא פתרון חירום מהיר",
+          "gap_en": "Too heavy and expensive for small businesses that only need a fast emergency broadcast tool rather than full attendance tracking"
         },
         {
-          "name": "Canva",
-          "gap_he": "מציע תבניות בסיסיות אך חסר יכולות אוטומציה מבוססות נתונים חיצוניים ליצירת פלאנרים מורכבים.",
-          "gap_en": "Offers basic templates but lacks data-driven automation capabilities for complex interactive planners."
+          "name": "7shifts",
+          "gap_he": "מתמקדת במסעדות גדולות ודורשת הגדרה מורכבת של כל צוות העובדים מראש",
+          "gap_en": "Focused on large restaurant chains and requires complex preliminary setup of the entire staff roster"
+        },
+        {
+          "name": "Connecteam",
+          "gap_he": "דורשת התקנת אפליקציה ארגונית מלאה לעובדים שלא משתמשים בה ביום-יום",
+          "gap_en": "Requires installing a full enterprise mobile app for workers who don't use it daily"
         }
       ],
-      "solution_he": "כלי מבוסס AI שמתחבר ל-Figma ול-Google Sheets כדי להטמיע אוטומטית קישורים פנימיים ועוגנים ביומנים דיגיטליים בהתאמה אישית.",
-      "solution_en": "An AI plugin connecting Figma and Google Sheets to automatically inject internal hyperlinks and anchors into customized digital planners.",
-      "pricing_he": "מנוי חודשי של 29 דולר או 49 דולר ליוצרי תוכן מקצועיים.",
-      "pricing_en": "Monthly subscription at $29 or $49 for professional digital creators.",
-      "first_customers_he": "פרסום מדריכים ממוקדים בקבוצות פייסבוק וקהילות Reddit של מעצבי תבניות דיגיטליות ויוצרי Etsy.",
-      "first_customers_en": "Publishing targeted tutorials in digital planner Facebook groups and Reddit creator communities.",
-      "trend_keyword": "digital planner automation",
+      "solution_he": "מערכת מבוססת SMS ו-WhatsApp ששולחת הודעות אוטומטיות לפי סבב לעובדים פנויים כשעובד מבטל, ומתעדת את כל התשובות והאישורים לתוך יומן ניהולי.",
+      "solution_en": "An SMS and WhatsApp-based system that automatically broadcasts shift replacement requests in waves to available workers when someone cancels, logging all responses and confirmations.",
+      "pricing_he": "מנוי חודשי לפי מספר עובדים פעילים, החל מ-49 דולר לחודש ועד 149 דולר לחודש.",
+      "pricing_en": "Monthly subscription based on active staff count, ranging from $49/month to $149/month.",
+      "first_customers_he": "פנייה ישירה למנהלי סניפים ברשתות מזון מהיר ובתי קפה מקומיים הסובלים מתחלופת עובדים גבוהה.",
+      "first_customers_en": "Direct outreach to branch managers in local fast-food chains and cafes suffering from high staff turnover.",
+      "trend_keyword": "shift replacement software",
       "ease_of_build": 90,
-      "validation_score": 85,
-      "competitor_pricing_gap_he": "כלי עיצוב כלליים יקרים ואינם מותאמים לצרכים הנישתיים של יוצרי פלאנרים דיגיטליים.",
-      "competitor_pricing_gap_en": "General design tools are expensive and fail to address the niche needs of digital planner creators.",
-      "weekend_mvp_verdict_he": "רוץ על זה, ניתן לבנות תוסף פשוט בתוך סוף שבוע.",
-      "weekend_mvp_verdict_en": "Go, build a simple plugin over the weekend.",
-      "mvp_he": "תוסף פשוט המקבל קובץ JSON או גיליון ומייצר עוגנים וקישורים בתוך עמודי העיצוב.",
-      "mvp_en": "A simple plugin accepting a data sheet and automatically generating anchored hyperlinks within design pages.",
-      "tech_stack_he": "React, Figma Plugin API, Tailwind CSS, Node.js",
-      "tech_stack_en": "React, Figma Plugin API, Tailwind CSS, Node.js",
+      "validation_score": 88,
+      "competitor_pricing_gap_he": "המתחרים גובים לפי משתמש בארגון מה שהופך אותם ליקרים ולא מתאימים לקריאות חירום נקודתיות.",
+      "competitor_pricing_gap_en": "Competitors charge per user organization-wide, making them expensive and unsuited for targeted emergency broadcasts.",
+      "weekend_mvp_verdict_he": "לבנות מיד. מדובר בכאב חד-יומי שבעלי עסקים מוכנים לשלם עליו מיד כדי למנוע קריסת משמרת.",
+      "weekend_mvp_verdict_en": "Build immediately. This is an acute daily pain that business owners will pay for instantly to prevent shift collapse.",
+      "mvp_he": "בוט הודעות המקבל התראת ביטול משמרת, שולח סבב הודעות וואטסאפ לעובדים לפי כישורים, ומציג דשבורד פשוט לאישור המחליף.",
+      "mvp_en": "A messaging bot that accepts shift cancellation alerts, broadcasts WhatsApp waves to qualified workers, and shows a simple dashboard to confirm the replacement.",
+      "tech_stack_he": "Next.js, Tailwind CSS, Supabase, Twilio/WhatsApp Business API",
+      "tech_stack_en": "Next.js, Tailwind CSS, Supabase, Twilio/WhatsApp Business API",
       "track": "saas",
       "mentions": 1,
-      "engagement": 0,
+      "engagement": 20,
       "sources": [
         "GitHub"
       ],
-      "quote_original": "I'm currently using the plugin to populate data in Figma via Google Sheets. However, I would love to add links to specific text elements. These links would help users navigate within my digital planners more easily",
-      "quote_url": "https://github.com/DWilliames/google-sheets-sync-figma/issues/251",
+      "quote_original": "When a shift worker calls in sick less than 2 hours before their shift starts, I want to find a confirmed replacement quickly and have a record of who was contacted... without relying on personal text threads",
+      "quote_url": "https://github.com/muaddibco/RealWorldProblems/issues/1820",
       "quote_source": "GitHub",
-      "score": 80,
+      "score": 86,
+      "trend_change": 0,
+      "is_recurring": true,
+      "weeks_seen": 2
+    },
+    {
+      "title_he": "אוטומציה של כתובות URL במערכות ניתוח נתונים (Analytics to Admin)",
+      "title_en": "Database ID to Admin Panel URL Analytics Automation",
+      "who_he": "מנתחי נתונים, מנהלי מוצר ומהנדסי תמיכה טכנית",
+      "who_en": "Data analysts, product managers, and support engineers",
+      "member_indices": [
+        0
+      ],
+      "best_quote_index": 0,
+      "quote_he": "נכון לעכשיו זה דורש לדעת איך לתרגם את מזהי מסד הנתונים ב-Metabase לכתובות אתר ניהול. זה באמת יאיץ את העבודה אם נוכל לשייך תבנית כתובת אתר לטבלה",
+      "quote_en": "Currently this requires knowing how to translate the database ID's in Metabase into admin URLs. It would really speed up these workflows if we could associate a URL template with a table",
+      "category": "Tools & tech",
+      "intensity": 75,
+      "frequency": 90,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Metabase Custom Actions",
+          "gap_he": "דורש כתיבת קוד וסקריפטים מותאמים אישית לכל חיבור ולא מספק פתרון גלובלי מהיר",
+          "gap_en": "Requires writing custom code and scripts for every connection rather than providing a quick global solution"
+        },
+        {
+          "name": "Retool",
+          "gap_he": "כבד ויקר מדי אם כל מה שצריך הוא הפיכת מזהה מספרי לקישור לחיץ בתוך כלי BI",
+          "gap_en": "Too heavy and expensive if all you need is turning a numeric ID into a clickable link inside BI tools"
+        },
+        {
+          "name": "Apache Superset",
+          "gap_he": "חסר יכולת מובנית להגדיר תבניות URL דינמיות המקושרות ישירות למערכות ניהול חיצוניות",
+          "gap_en": "Lacks built-in capability to configure dynamic URL templates linked directly to external admin systems"
+        }
+      ],
+      "solution_he": "תוסף דפדפן ושירות ענן המזהה מזהים במסדי נתונים וכלי BI (כמו Metabase ו-Looker) והופך אותם אוטומטית לקישורים ישירים למערכת הניהול הפנימית.",
+      "solution_en": "A browser extension and cloud service that detects IDs in BI tools like Metabase and automatically turns them into direct links to internal admin panels.",
+      "pricing_he": "מנוי חודשי לכל משתמש צוות, 19 עד 39 דולר לחודש.",
+      "pricing_en": "Monthly per-user team subscription, $19 to $39/month.",
+      "first_customers_he": "פרסום בקהילות דאטה והודעות ישירות למנהלי הנדסה בחברות טק צומחות.",
+      "first_customers_en": "Posting in data communities and direct outreach to engineering leads at growing tech companies.",
+      "trend_keyword": "metabase URL action plugin",
+      "ease_of_build": 90,
+      "validation_score": 82,
+      "competitor_pricing_gap_he": "אין תוסף מדף קליל שפתור את הבעיה הספציפית הזו מבלי להקים מערכת פנימית שלמה ב-Retool.",
+      "competitor_pricing_gap_en": "There is no lightweight off-the-shelf plugin solving this specific issue without building an entire Retool app.",
+      "weekend_mvp_verdict_he": "לבנות. מוצר קלאסי לסולו-בילדר שניתן להפיץ במהירות בקהילות מפתחים.",
+      "weekend_mvp_verdict_en": "Build. A classic solo-builder product that can be rapidly distributed in developer communities.",
+      "mvp_he": "תוסף כרום המאפשר להגדיר חוקי URL לפי דומיין וטבלה, ומזהה מזהים מספריים בעמודי אינטרנט כדי לעטוף אותם בקישור.",
+      "mvp_en": "A Chrome extension allowing users to define URL rules per domain and table, identifying numeric IDs on web pages to wrap them in links.",
+      "tech_stack_he": "Chrome Extension API, TypeScript, Tailwind",
+      "tech_stack_en": "Chrome Extension API, TypeScript, Tailwind",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 114,
+      "sources": [
+        "GitHub"
+      ],
+      "quote_original": "Currently this requires knowing how to translate the database ID's in Metabase into admin URLs. It would really speed up these workflows if we could associate a URL template with a table",
+      "quote_url": "https://github.com/metabase/metabase/issues/8461",
+      "quote_source": "GitHub",
+      "score": 84,
+      "trend_change": -100,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "ניהול סביבות עבודה מרובות סוכני AI ללא ניתוקי התחברות",
+      "title_en": "Multi-Account AI Agent Session and Artifact Synchronization",
+      "who_he": "מפתחי תוכנה עצמאיים, חוקרי AI ומהנדסים המנהלים מספר סוכני AI",
+      "who_en": "Independent software developers, AI researchers, and engineers managing multiple AI agents",
+      "member_indices": [
+        1
+      ],
+      "best_quote_index": 1,
+      "quote_he": "הפעלת כל כך הרבה חשבונות שונים אומרת שלא יכולתי להשתמש יותר ב-claude.ai artifacts, מכיוון שהדפדפן חייב להיות מחובר לאותו חשבון... זה כאב ראש להמשיך להתחבר ולהתנתק מחשבונות",
+      "quote_en": "Running so many different accounts meant that I couldn't use claude.ai artifacts anymore, because the browser has to be signed in to the same account... It's a pain to keep signing in and out of accounts.",
+      "category": "Tools & tech",
+      "intensity": 80,
+      "frequency": 90,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Multilogin",
+          "gap_he": "יקר מאוד ומותאם לניהול קמפיינים שיווקיים ולא לפיתוח תוכנה וסוכני AI",
+          "gap_en": "Very expensive and tailored for marketing campaigns rather than software development and AI agents"
+        },
+        {
+          "name": "AdsPower",
+          "gap_he": "דפדפן פרופילים מורכב ומסורבל שאינו מתמקד בסנכרון פרויקטים וקוד של כלי AI",
+          "gap_en": "Complex and clunky profile browser not focused on syncing AI tool projects and code"
+        },
+        {
+          "name": "Standard Browser Profiles",
+          "gap_he": "מחייב פתיחת חלונות רבים ואינו מאפשר ניהול מרכזי של תוצרי קוד (Artifacts)",
+          "gap_en": "Forces opening multiple windows and lacks centralized management of code artifacts"
+        }
+      ],
+      "solution_he": "כלי מנוהל לניהול פרופילים מבודדים המאפשר להפעיל מספר חשבונות סוכני AI במקביל בממשק אחיד, עם שמירה וסינכרון של תוצרים.",
+      "solution_en": "A managed tool for isolated profile management enabling the simultaneous execution of multiple AI agent accounts in a unified interface with artifact syncing.",
+      "pricing_he": "מנוי חודשי למפתחים, 29 עד 79 דולר לחודש.",
+      "pricing_en": "Monthly developer subscription, $29 to $79/month.",
+      "first_customers_he": "פרסום בקהילות מפתחים ב-Hacker News, Reddit ובקבוצות טלגרם של מפתחי AI.",
+      "first_customers_en": "Posting in developer communities on Hacker News, Reddit, and AI developer Telegram groups.",
+      "trend_keyword": "multi account AI manager",
+      "ease_of_build": 80,
+      "validation_score": 85,
+      "competitor_pricing_gap_he": "הכלים הקיימים בשוק מיוצרים לשיווק שותפים ופרופילים מזויפים ועולים מאות דולרים בחודש, מפתחים צריכים כלי קל וזול.",
+      "competitor_pricing_gap_en": "Existing tools are built for affiliate marketing and fake profiles costing hundreds monthly; developers need a lightweight affordable tool.",
+      "weekend_mvp_verdict_he": "לבנות. בעיה חמה בקרב מתכנתים המשתמשים במספר חשבונות AI במקביל.",
+      "weekend_mvp_verdict_en": "Build. A hot pain point among programmers using multiple AI accounts simultaneously.",
+      "mvp_he": "אפליקציית דפדפן המריצה סสצ'ינג מבודד לכל לשונית עם שמירת cookies נפרדת וגישה מהירה לתוצרי קוד משותפים.",
+      "mvp_en": "A browser app running isolated sessions per tab with separate cookie storage and quick access to shared code artifacts.",
+      "tech_stack_he": "Electron, React, Tailwind, Node.js",
+      "tech_stack_en": "Electron, React, Tailwind, Node.js",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 29,
+      "sources": [
+        "Hacker News"
+      ],
+      "quote_original": "Running so many different accounts meant that I couldn't use claude.ai artifacts anymore, because the browser has to be signed in to the same account... It's a pain to keep signing in and out of accounts.",
+      "quote_url": "https://news.ycombinator.com/item?id=50675831",
+      "quote_source": "Hacker News",
+      "score": 84,
       "trend_change": 100,
       "is_recurring": false,
       "weeks_seen": 1
     },
     {
-      "title_he": "ממשק תצוגה מלא ומאומת לכתובות ארנק קריפטו",
-      "title_en": "Full View Crypto Wallet Address Verification Interface",
-      "who_he": "משתמשי קריפטו וסוחרים המבצעים העברות מול בורסות",
-      "who_en": "Crypto users and traders executing exchange withdrawals",
+      "title_he": "קישור אוטומטי של הודעות תמיכה למספרי הזמנות באפליקציות מובייל",
+      "title_en": "Automatic Support Chat and Order Number Context Linking",
+      "who_he": "מנהלי מוצר ושירות לקוחות בחנויות איקומרס ואפליקציות מובייל",
+      "who_en": "Product managers and customer support leads in e-commerce apps and mobile marketplaces",
       "member_indices": [
-        8
+        4
       ],
-      "best_quote_index": 8,
-      "quote_he": "בממשק ה-Snap, הכתובת נקטעת עם שלוש נקודות. אני לא מוצא אף מסך שמציג את הכתובת המלאה בתצוגה אחת, מה שיוצר בעיה אמיתית מול בורסות הדורשות צילום מסך ברור.",
-      "quote_en": "In the Snap UI, the address is truncated with ellipses. I can’t find any screen that shows the full address in one view... This becomes a real problem because some exchanges require a screenshot that clearly shows the entire wallet address",
-      "category": "Tools & tech",
-      "intensity": 75,
-      "frequency": 70,
-      "low_competition": 80,
+      "best_quote_index": 4,
+      "quote_he": "כשתשתמשתי בצ'אט באפליקציה הם ביקשו ממני לחפש ידנית את מספר ההזמנה שלי, האפליקציה לא יכלה לקשר את ההודעה שלי להזמנה",
+      "quote_en": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order. Fine.",
+      "category": "Operations & admin",
+      "intensity": 80,
+      "frequency": 85,
+      "low_competition": 75,
       "competitors": [
         {
-          "name": "MetaMask Snaps",
-          "gap_he": "ממשקי המשתמש מוגבלים לחלונות קטנים שחוסכים מקום וקוטעים כתובות ארוכות.",
-          "gap_en": "User interfaces are constrained to small window sizes that truncate long addresses."
+          "name": "Intercom",
+          "gap_he": "דורש אינטגרציות מורכבות ומאוד יקר לחברות צומחות",
+          "gap_en": "Requires complex integrations and is very expensive for growing companies"
         },
         {
-          "name": "Etherscan",
-          "gap_he": "דורש פתיחת דפדפן נפרד ואינו מספק שכבת אימות ישירה ונוחה בזמן אמת לבורסות.",
-          "gap_en": "Requires opening a separate browser and lacks a direct, convenient real-time verification overlay for exchanges."
+          "name": "Zendesk",
+          "gap_he": "מערכת כבדה מדי שדורשת מעבר לטיקט מלא במקום פתרון מהיר בתוך צ'אט אפליקציה",
+          "gap_en": "Too heavy, forcing full ticket workflows instead of instant in-app chat resolution"
+        },
+        {
+          "name": "Gorgias",
+          "gap_he": "מותאם בעיקר לשופיפיי בדסקטופ ופחות לזיהוי הקשר מובייל מקומי",
+          "gap_en": "Tailored mostly for Shopify desktop rather than native mobile app context resolution"
         }
       ],
-      "solution_he": "אפליקציית Web פשוטה המייצרת תצוגה נקייה, מלאה ומאושרת של כתובות ארנק יחד עם קודי QR מותאמים לצילומי מסך מהירים לבורסות.",
-      "solution_en": "A simple web app generating a clean, full, and verified display of wallet addresses with tailored QR codes for fast exchange screenshots.",
-      "pricing_he": "תשלום חד-פעמי של 19 דולר או מודל חינמי עם פרסומות מינימליות.",
-      "pricing_en": "One-time fee of $19 or a free tier with minimal ads.",
-      "first_customers_he": "פנייה למנהלי קהילות Web3 וקבוצות טלגרם של סוחרים פעילים.",
-      "first_customers_en": "Reaching out to Web3 community managers and active trader Telegram groups.",
-      "trend_keyword": "crypto wallet qr generator",
-      "ease_of_build": 95,
-      "validation_score": 75,
-      "competitor_pricing_gap_he": "אין כלים ייעודיים לפתרון בעיית החיתוך בממשקי ארנקים חוץ מפתרונות ידניים מסורבלים.",
-      "competitor_pricing_gap_en": "No dedicated tools solve the wallet truncation issue except cumbersome manual workarounds.",
-      "weekend_mvp_verdict_he": "רוץ על זה, פרויקט של ערב אחד.",
-      "weekend_mvp_verdict_en": "Go, a one-evening project.",
-      "mvp_he": "אתר המאפשר הדבקת מפתח ציבורי והפקת תצוגת מסך מלאה עם QR ברור וחותמת זמן.",
-      "mvp_en": "A website allowing public key input and generating a full screen view with a clear QR code and timestamp.",
-      "tech_stack_he": "Next.js, Tailwind CSS, QRCode.js",
-      "tech_stack_en": "Next.js, Tailwind CSS, QRCode.js",
+      "solution_he": "תוסף SDK קליל לאפליקציות מובייל ששולף אוטומטית את ההזמנה האחרונה של המשתמש ומצמיד אותה לכל פניית שירות בצ'אט.",
+      "solution_en": "A lightweight mobile SDK that automatically fetches the user's latest order and attaches it to every support chat ticket.",
+      "pricing_he": "תמחור לפי נפח שיחות תמיכה חודשי, החל מ-79 דולר ועד 299 דולר לחודש.",
+      "pricing_en": "Pricing based on monthly support conversation volume, ranging from $79 to $299/month.",
+      "first_customers_he": "פנייה למפתחי אפליקציות מובייל בחנויות שופיפיי וווקומרס שסובלים מביקורות שליליות בחנות האפליקציות.",
+      "first_customers_en": "Outreach to mobile app developers in Shopify and WooCommerce stores suffering from negative app store reviews.",
+      "trend_keyword": "in-app support SDK",
+      "ease_of_build": 85,
+      "validation_score": 85,
+      "competitor_pricing_gap_he": "הפתרונות הקיימים יקרים ודורשים הטמעה ארגונית מורכבת בזמן שחברות סטאארט-אפ מחפשות SDK פשוט.",
+      "competitor_pricing_gap_en": "Existing solutions are expensive and require complex enterprise integration while startups need a simple SDK.",
+      "weekend_mvp_verdict_he": "לבנות. אפשר להרים MVP שמחבר בין ה-SDK לבין ממשק הניהול של שופיפיי תוך סוף שבוע.",
+      "weekend_mvp_verdict_en": "Build. An MVP linking the SDK to Shopify admin data can be built over a single weekend.",
+      "mvp_he": "React Native/Flutter SDK ששולף מזהה משתמש ומוסיף את פרטי ההזמנה כ-metadata לכל פנייה הנשלחת לשרת.",
+      "mvp_en": "React Native/Flutter SDK that grabs user ID and appends order metadata to every ticket sent to the backend.",
+      "tech_stack_he": "Node.js, React Native, PostgreSQL, Redis",
+      "tech_stack_en": "Node.js, React Native, PostgreSQL, Redis",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 3,
+      "sources": [
+        "Google Play"
+      ],
+      "quote_original": "When I used the chat in the app they needed me to manually look up my order number, the app could not link my message to the order. Fine. I send that to them then they reply and say actually I now need to email them.",
+      "quote_url": "https://play.google.com/store/apps/details?id=com.lugg",
+      "quote_source": "Google Play",
+      "score": 82,
+      "trend_change": 0,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "מעקב נוכחות ודוח אימפקט אמיתי לעמותות ומתנדבים",
+      "title_en": "Actual Volunteer Attendance Tracking and Impact Reporting",
+      "who_he": "מנהלי עמותות, ארגונים קהילתיים ומרכזי התנדבות",
+      "who_en": "Non-profit directors, community organizers, and volunteer coordinators",
+      "member_indices": [
+        10
+      ],
+      "best_quote_index": 10,
+      "quote_he": "נכון לעכשיו רישומי משמרות אינם עוקבים אחר השתתפות בפועל של מתנדבים. סטטיסטיקות האימפקט מבוססות על הרשמות ולא על נוכחות בפועל.",
+      "quote_en": "Currently shift signups don't track whether volunteers actually attended. Impact statistics are based on signups, not actual attendance.",
+      "category": "Operations & admin",
+      "intensity": 75,
+      "frequency": 80,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "VolunteerLocal",
+          "gap_he": "מתמקד בהרשמה בלבד ואינו כולל אימות הגעה פיזי או הפקת דוחות למענקים",
+          "gap_en": "Focuses purely on registration and lacks physical attendance verification or grant reporting"
+        },
+        {
+          "name": "Bloomerang",
+          "gap_he": "מערכת CRM כללית ויקרה מאוד המיועדת לגיוס תרומות ולא לניהול מתנדבים בשטח",
+          "gap_en": "Very expensive general CRM aimed at fundraising rather than on-the-ground volunteer management"
+        },
+        {
+          "name": "SignUpGenius",
+          "gap_he": "כלי בסיסי להרשמה ללוחות זמנים ללא שום יכולת למדוד אימפקט או נוכחות בפועל",
+          "gap_en": "Basic signup sheet tool with zero ability to measure actual impact or attendance"
+        }
+      ],
+      "solution_he": "פלטפורמת אימות נוכחות למתנדבים הכוללת צ'ק-אין מהיר באמצעות סריקת QR קלה ודוחות אימפקט מוכנים להגשה למענקים.",
+      "solution_en": "A volunteer attendance verification platform featuring quick QR code check-in and impact reports ready for grant submissions.",
+      "pricing_he": "מנוי חודשי לעמותות לפי מספר מתנדבים פעילים, 49 עד 199 דולר לחודש.",
+      "pricing_en": "Monthly subscription for nonprofits based on active volunteers, $49 to $199/month.",
+      "first_customers_he": "פנייה ישירה לרכזי מתנדבים בעמותות מקומיות דרך לינקדאין וקבוצות פייסבוק ייעודיות.",
+      "first_customers_en": "Direct outreach to volunteer coordinators in local nonprofits via LinkedIn and targeted Facebook groups.",
+      "trend_keyword": "volunteer management software",
+      "ease_of_build": 90,
+      "validation_score": 84,
+      "competitor_pricing_gap_he": "רוב הכלים הם לוח מודעות הרשמה חינמי או CRM יקר מאוד, אין פתרון ביניים ממוקד מדידה.",
+      "competitor_pricing_gap_en": "Most tools are either free signup boards or very expensive CRMs, lacking a mid-market measurement tool.",
+      "weekend_mvp_verdict_he": "לבנות. השוק צמא לכלים המצדיקים דיווח לממשלה ולקרנות פילנתרופיות.",
+      "weekend_mvp_verdict_en": "Build. The market is hungry for tools that justify reporting to governments and philanthropic funds.",
+      "mvp_he": "אפליקציית ווב המייצרת קוד QR למשמרת, מאפשרת למתנדבים לסרוק בכניסה, ויוצרת דוח PDF חודשי של שעות בפועל.",
+      "mvp_en": "A web app generating a shift QR code, allowing volunteers to scan upon arrival, and producing a monthly actual-hours PDF report.",
+      "tech_stack_he": "Next.js, Tailwind, PostgreSQL, Vercel",
+      "tech_stack_en": "Next.js, Tailwind, PostgreSQL, Vercel",
       "track": "saas",
       "mentions": 1,
       "engagement": 0,
       "sources": [
         "GitHub"
       ],
-      "quote_original": "In the Snap UI, the address is truncated with ellipses. I can’t find any screen that shows the full address in one view... This becomes a real problem because some exchanges require a screenshot that clearly shows the entire wallet address",
-      "quote_url": "https://github.com/pianity/arsnap/issues/28",
+      "quote_original": "Currently shift signups don't track whether volunteers actually attended. Impact statistics are based on signups, not actual attendance.",
+      "quote_url": "https://github.com/everybody-eats-nz/volunteer-portal/issues/265",
       "quote_source": "GitHub",
-      "score": 80,
-      "trend_change": 100,
+      "score": 82,
+      "trend_change": -55,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "ניתוח אנליטיקה תפעולית אוטומטית למסעדות ובתי קפה",
+      "title_en": "Automated Operational Analytics Endpoints for Restaurants",
+      "who_he": "בעלי מסעדות, מנהלי תפעול וספקי תוכנות קופה (POS)",
+      "who_en": "Restaurant owners, operations managers, and POS software vendors",
+      "member_indices": [
+        9
+      ],
+      "best_quote_index": 9,
+      "quote_he": "נקודת קצה זו תספק אנליטיקה שימושית למסעדה מבלי לדרוש ממנהלים לחשב זאת ידנית",
+      "quote_en": "This endpoint would provide useful restaurant analytics without requiring managers to manually calculate it.",
+      "category": "Hospitality & food",
+      "intensity": 80,
+      "frequency": 85,
+      "low_competition": 80,
+      "competitors": [
+        {
+          "name": "Toast POS Analytics",
+          "gap_he": "יקר ומציג דוחות כלליים בלבד ללא יכולת חיזוי זמני המתנה ותחלופת שולחנות בזמן אמת",
+          "gap_en": "Expensive and shows general reports without real-time wait time and table turnover prediction"
+        },
+        {
+          "name": "Restaurant365",
+          "gap_he": "מערכת הנהלת חשבונות ותפעול ענקית שלא מותאמת לניתוח מהיר של עומסי שולחנות",
+          "gap_en": "Huge accounting and operations suite not tailored for rapid table load analysis"
+        },
+        {
+          "name": "Lightspeed",
+          "gap_he": "מספק נתונים גולמיים ודורש מהמנהל להוציא קבצי אקסל ולחשב מדדים ידנית",
+          "gap_en": "Provides raw data requiring managers to export spreadsheets and calculate metrics manually"
+        }
+      ],
+      "solution_he": "תוכנת ענן המתחברת למערכות קופה נפוצות ומייצרת דשבורד אוטומטי של זמני המתנה, תחלופת שולחנות ושעות שיא.",
+      "solution_en": "Cloud software connecting to popular POS systems to generate automated dashboards for wait times, table turnover, and peak hours.",
+      "pricing_he": "מנוי חודשי לפי סניף, 99 עד 249 דולר לחודש.",
+      "pricing_en": "Monthly subscription per location, $99 to $249/month.",
+      "first_customers_he": "פנייה ישירה לבעלי מסעדות ורשתות מזון קטנות באזור המרכז המשתמשים במערכות קופה פתוחות.",
+      "first_customers_en": "Direct outreach to restaurant owners and small food chains using open-API POS systems.",
+      "trend_keyword": "restaurant analytics software",
+      "ease_of_build": 85,
+      "validation_score": 83,
+      "competitor_pricing_gap_he": "מערכות הקופה הגדולות דורשות חבילות פרימיום יקרות בשביל דוחות תפעול בסיסיים.",
+      "competitor_pricing_gap_en": "Major POS systems require expensive enterprise tiers for basic operational reports.",
+      "weekend_mvp_verdict_he": "לבנות. בעלי מסעדות משלמים בקלות על כל כלי שמייעל את שעות העומס ומגדיל את תחלופת הלקוחות.",
+      "weekend_mvp_verdict_en": "Build. Restaurant owners readily pay for any tool optimizing rush hours and increasing table turnover.",
+      "mvp_he": "דשבורד ווב המושך נתוני הזמנות דרך API של קופה נפוצה (למשל Square), ומחשב אוטומטית מדדי תחלופת שולחנות.",
+      "mvp_en": "Web dashboard pulling order data via a common POS API (e.g., Square) and automatically computing table turnover metrics.",
+      "tech_stack_he": "Next.js, Python FastAPI, PostgreSQL, Chart.js",
+      "tech_stack_en": "Next.js, Python FastAPI, PostgreSQL, Chart.js",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 0,
+      "sources": [
+        "GitHub"
+      ],
+      "quote_original": "This endpoint would provide useful restaurant analytics without requiring managers to manually calculate it.",
+      "quote_url": "https://github.com/PranavN2005/SQueaL/issues/16",
+      "quote_source": "GitHub",
+      "score": 82,
+      "trend_change": null,
+      "is_recurring": false,
+      "weeks_seen": 1
+    },
+    {
+      "title_he": "עריכת מודלים תלת-ממדיים עם כלי יישור והדבקה מהירים",
+      "title_en": "3D Model Text Editor Clipboard and Alignment Toolset",
+      "who_he": "מעצבי תלת-ממד, יוצרי תוכן למשחקים ומעצבי מוצר",
+      "who_en": "3D designers, game content creators, and product designers",
+      "member_indices": [
+        3
+      ],
+      "best_quote_index": 3,
+      "quote_he": "בתוך עורך הטקסט, אי אפשר להדביק טקסט שהעתקת ללוח הגזירים... הדרך היחידה לעשות זאת היא להטמיע טקסט ואז להשתמש בכלי ההזזה... זה תהליך מרובה שלבים שהוא סבל",
+      "quote_en": "in the text editor, you cannot paste text that you have copied into the clipboard... The only way to do this is to make text embedded and then use the move tool... This is a multi step process that is a pain.",
+      "category": "Tools & tech",
+      "intensity": 70,
+      "frequency": 80,
+      "low_competition": 85,
+      "competitors": [
+        {
+          "name": "Blender",
+          "gap_he": "תוכנה כבדה ומורכבת מאוד הדורשת תוספים צד שלישי לפעולות עריכת טקסט בסיסיות",
+          "gap_en": "Extremely heavy and complex software requiring third-party plugins for basic text editing operations"
+        },
+        {
+          "name": "Spline",
+          "gap_he": "חסר כלי עריכת טקסט מתקדמים ויישור מהיר ללוח הגזירים במסגרת פרויקטי ווב",
+          "gap_en": "Lacks advanced text editing tools and fast clipboard alignment within web projects"
+        },
+        {
+          "name": "Autodesk Maya",
+          "gap_he": "מערכת תעשייתית יקרה באופן קיצוני שאינה מותאמת ליוצרים עצמאיים מהירים",
+          "gap_en": "Extrordinarily expensive industrial suite unsuited for fast independent creators"
+        }
+      ],
+      "solution_he": "תוסף צדדי לעורכי תלת-ממד המאפשר הדבקת טקסט מהירה מהלוח ויישור אוטומטי בלחיצת כפתור אחת.",
+      "solution_en": "A companion plugin for 3D editors enabling fast clipboard text pasting and automatic alignment with a single click.",
+      "pricing_he": "תשלום חד-פעמי או מנוי של 19 דולר לחודש.",
+      "pricing_en": "One-time purchase or $19/month subscription.",
+      "first_customers_he": "שיווק בקהילות דיסקורד של יוצרי תלת-ממד, Blender ו-Spline.",
+      "first_customers_en": "Marketing in Discord communities of 3D creators, Blender, and Spline.",
+      "trend_keyword": "3D text editor plugin",
+      "ease_of_build": 85,
+      "validation_score": 79,
+      "competitor_pricing_gap_he": "תוכנות ענק לא מתקנות באגים קטנים המציקים ליוצרים ביום-יום, יוצרים ישמחו לשלם על פתרון נקודתי.",
+      "competitor_pricing_gap_en": "Giants don't fix small daily annoyances for creators; creators will gladly pay for a targeted fix.",
+      "weekend_mvp_verdict_he": "לבנות אם יש רקע בגרפיקה ווב, נישה ממוקדת מאוד עם קהל משלם.",
+      "weekend_mvp_verdict_en": "Build if experienced in web graphics; a very niche market with a paying audience.",
+      "mvp_he": "תוסף מבוסס Three.js המוסיף פאנל עריכת טקסט נוח עם הדבקת לוח ואלגוריתם יישור אוטומטי.",
+      "mvp_en": "A Three.js-based plugin adding a convenient text editing panel with clipboard pasting and auto-alignment algorithms.",
+      "tech_stack_he": "Three.js, React, TypeScript, Webpack",
+      "tech_stack_en": "Three.js, React, TypeScript, Webpack",
+      "track": "saas",
+      "mentions": 1,
+      "engagement": 4,
+      "sources": [
+        "GitHub"
+      ],
+      "quote_original": "in the text editor, you cannot paste text that you have copied into the clipboard... The only way to do this is to make text embedded and then use the move tool... This is a multi step process that is a pain.",
+      "quote_url": "https://github.com/bambulab/BambuStudio/issues/2921",
+      "quote_source": "GitHub",
+      "score": 79,
+      "trend_change": null,
       "is_recurring": false,
       "weeks_seen": 1
     }
   ],
   "top_n": 15,
   "categories": {
-    "Finance & billing": 5,
+    "Operations & admin": 5,
     "Tools & tech": 3,
-    "Operations & admin": 1,
-    "Marketing & sales": 1
+    "Communication & coordination": 1,
+    "Finance & billing": 2
   },
   "prev_categories": {
     "Communication & coordination": 1,

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T02:29:42.282533+00:00",
+  "generated_at": "2026-11-28T15:19:45.724556+00:00",
   "date": "2026-11-28",
   "market": {
     "regime": "DEFENSIVE",
@@ -56,10 +56,10 @@
     "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795823729-unpatched-cacti-zero/"
   },
   "painpoint": {
-    "title_en": "Interactive Digital Planner Link Automation",
-    "title_he": "אוטומציית יצירת תבניות דיגיטליות אינטראקטיביות",
-    "validation_score": 85,
-    "weekend_mvp_verdict_en": "Go, build a simple plugin over the weekend.",
+    "title_en": "Emergency Shift Replacement and Audit Trail Coordination",
+    "title_he": "ניהול ותיאור החלפת משמרות חירום בעסקים",
+    "validation_score": 88,
+    "weekend_mvp_verdict_en": "Build immediately. This is an acute daily pain that business owners will pay for instantly to prevent shift collapse.",
     "mvp_live_url": ""
   },
   "labs_builds": [
