@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T15:19:45.724556+00:00",
+  "generated_at": "2026-11-28T16:06:06.270608+00:00",
   "date": "2026-11-28",
   "market": {
     "regime": "DEFENSIVE",
@@ -32,28 +32,28 @@
   },
   "jobs": [
     {
+      "id": "jobicy-164605",
+      "title": "Threat Intelligence Analyst, Crypto (Transnational Crime Organizations) (TRM Labs)",
+      "platform": "Jobicy (Live Cloud)",
+      "match_score": 86,
+      "has_poc": true,
+      "poc_live_url": ""
+    },
+    {
       "id": "hn-50445335",
       "title": "HN Contract: Full Stack Engineer + UI/UX & SaaS specialist",
       "platform": "HackerNews Freelance (Live)",
       "match_score": 82,
       "has_poc": false,
       "poc_live_url": ""
-    },
-    {
-      "id": "remotive-2091179",
-      "title": "WordPress Theme & Plugin Developer (Steward Web Development)",
-      "platform": "Remotive (Live Cloud)",
-      "match_score": 78,
-      "has_poc": false,
-      "poc_live_url": ""
     }
   ],
   "content": {
-    "id": "post-1-1795823729",
-    "topic": "Unpatched Cacti zero-day vulnerability 4HTTP2SHELL",
+    "id": "post-1-1795881963",
+    "topic": "חולשת זיכרון קריטית ב GnuPG דרך מפתחות OpenPGP זדוניים",
     "category": "cyber_soc",
-    "opening_hook": "ארבעה בקשות HTTP פשוטות ואין צורך בשום אימות כדי לקבל גישת פקודה על שרתי ניטור.",
-    "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795823729-unpatched-cacti-zero/"
+    "opening_hook": "כשמפתח הצפנה תמים לכאורה מתחיל להתנהג מוזר בזיכרון, אנליסט ה SOC המנוסה יודע שמדובר ביותר מסתם שגיאת תצורה.",
+    "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795881963/"
   },
   "painpoint": {
     "title_en": "Emergency Shift Replacement and Audit Trail Coordination",
@@ -64,31 +64,31 @@
   },
   "labs_builds": [
     {
-      "slug": "post-post-4-1795823729-multi-agent-systems-t",
+      "slug": "post-post-4-1795881963-sqlite",
       "kind": "content_pack",
-      "title": "Multi-agent systems training and communication swarms",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795823729-multi-agent-systems-t/",
+      "title": "כלי הגיבוי החדש sqlite3_rsync לסביבות SQLite מוקטנות",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795881963-sqlite/",
       "status": "live"
     },
     {
-      "slug": "post-post-3-1795823729-us-air-force-cloud-pl",
+      "slug": "post-post-3-1795881963",
       "kind": "content_pack",
-      "title": "US Air Force cloud platform breach",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795823729-us-air-force-cloud-pl/",
+      "title": "פיתוח סוכנים קוליים בשפות אזוריות עם CUGA",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795881963/",
       "status": "live"
     },
     {
-      "slug": "post-post-2-1795823729-gpt-6-models-intrinsi",
+      "slug": "post-post-2-1795881963-q-dir-deskt",
       "kind": "content_pack",
-      "title": "GPT-6 models intrinsic protein-design capabilities",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795823729-gpt-6-models-intrinsi/",
+      "title": "כלי העזר Q-Dir ו DesktopOK ל Windows שוחדו להפצת Python RAT",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795881963-q-dir-deskt/",
       "status": "live"
     },
     {
-      "slug": "post-post-1-1795823729-unpatched-cacti-zero",
+      "slug": "post-post-1-1795881963",
       "kind": "content_pack",
-      "title": "Unpatched Cacti zero-day vulnerability 4HTTP2SHELL",
-      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795823729-unpatched-cacti-zero/",
+      "title": "חולשת זיכרון קריטית ב GnuPG דרך מפתחות OpenPGP זדוניים",
+      "live_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795881963/",
       "status": "live"
     }
   ]

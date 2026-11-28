@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T23:55:29.930012+00:00",
+  "generated_at": "2026-11-28T16:06:03.163228+00:00",
   "stats": {
     "total_drafted": 4,
     "cyber_count": 2,
@@ -7,92 +7,92 @@
   },
   "posts": [
     {
-      "id": "post-1-1795823729",
-      "topic": "Unpatched Cacti zero-day vulnerability 4HTTP2SHELL",
+      "id": "post-1-1795881963",
+      "topic": "חולשת זיכרון קריטית ב GnuPG דרך מפתחות OpenPGP זדוניים",
       "category": "cyber_soc",
-      "source_url": "https://www.bleepingcomputer.com/news/security/unpatched-cacti-zero-day-with-public-poc-gives-remote-code-execution/",
-      "source_platform": "BleepingComputer (Security & Incidents)",
-      "posted_at": "Updated 2026-11-27 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "High-fidelity reporting from BleepingComputer detailing a real zero-day exploit with specific technical mechanics and researcher attribution.",
-      "key_takeaways": [
-        "Unauthenticated attackers can achieve command execution in four HTTP requests.",
-        "The flaw abuses weak input validation in guest user graph display settings.",
-        "Compromising a monitoring platform exposes credentials and SNMP passphrases to other systems."
-      ],
-      "post_angle": "זווית מהשטח / SOC & Ops: ניתוח תרחיש תקיפה מול מערכות ניטור ברשת והבנת הסיכון בלוגים.",
-      "opening_hook": "ארבעה בקשות HTTP פשוטות ואין צורך בשום אימות כדי לקבל גישת פקודה על שרתי ניטור.",
-      "linkedin_post": "ארבעה בקשות HTTP פשוטות ואין צורך בשום אימות כדי לקבל גישת פקודה על שרתי ניטור.\n\nחוקר אבטחה פרסם השבוע פרטים על פגיעויות יום אפס חדשות בפלטפורמת Cacti המאפשרות להריץ פקודות מרחוק מבלי להזין סיסמה או מפתח API תקף.\n\nמתקפה זו מנצלת חולשה בניהול הגדרות תצוגה של משתמש אורח שמובילה להזרקת SQL מאוחסנת בבסיס הנתונים של המערכת.\n\nבתכלס, בפועל, מה זה אומר לצוותי ה SOC ביום־יום הוא שכל חריגה בהתנהגות תהליכי הפולר או גישות מוזרות מממשקי אורח דורשות בדיקה מיידית של שלמות נתונים.\n\nמערכות ניטור ברשתות ארגוניות מחזיקות מפתחות גישה וסיסמאות רבות לרכיבים קריטיים, ולכן פשרה בהן מסכנת את כל התשתית.\n\nאיך צוותי הגנה יכולים לזהות זאת בלוגים של השרת לפני שיהיה מאוחר מדי?\n\n#CyberSecurity #SOC #SecOps #VulnerabilityManagement #NetworkSecurity",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795823729-unpatched-cacti-zero/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795823729-unpatched-cacti-zero/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך BleepingComputer:\nhttps://www.bleepingcomputer.com/news/security/unpatched-cacti-zero-day-with-public-poc-gives-remote-code-execution/",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך BleepingComputer: Unauthenticated attackers can achieve command execution in four HTTP requests."
-    },
-    {
-      "id": "post-2-1795823729",
-      "topic": "GPT-6 models intrinsic protein-design capabilities",
-      "category": "ai_agents",
-      "source_url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
-      "source_platform": "OpenAI (AI Releases & Research)",
-      "posted_at": "Updated 2026-11-27 (Auto)",
-      "credibility_score": "10/10",
-      "credibility_rationale": "Direct release from OpenAI detailing specific benchmarking and lab test results for new model capabilities.",
-      "key_takeaways": [
-        "GPT-6 models design protein structures using reasoning and code.",
-        "Lab tests confirmed evidence of binding across five distinct targets.",
-        "Shifts the paradigm from generative text generation to functional biochemical engineering."
-      ],
-      "post_angle": "פירוק מנגנון הנדסי: צלילה לתוך היכולות הטכניות של מודלי שפה בתכנון מולקולרי.",
-      "opening_hook": "כאשר מודלי שפה עוברים מיצירת טקסט לתכנון מבנים ביולוגיים בעזרת קוד והיגיון טהור.",
-      "linkedin_post": "כאשר מודלי שפה עוברים מיצירת טקסט לתכנון מבנים ביולוגיים בעזרת קוד והיגיון טהור.\n\nמחקר חדש של OpenAI מראה כיצד סדרות המודלים של GPT-6 מצליחות לתכנן רצפים ומבנים של חלבונים באופן טבעי וישיר.\n\nהבדיקות במעבדה הוכיחו כי התוצר של המודלים הצליח לייצר קשרי בינדינג אמיתיים לחמישה יעדים שונים ברמת דיוק גבוהה.\n\nבתכלס, עבור מפתחים ומהנדסי מערכות AI, מדובר במעבר חד ממודל שמנחש את המילה הבאה למנוע הסקת מסקנות שמייצר ארטיפקטים פיזיקליים ומדעיים.\n\nהמערכות משלבות חשיבה מבוססת קוד יחד עם יכולות הנמקה מתקדמות שפותחות אפיקים חדשים לגמרי עבור אוטומציות מדעיות.\n\nאיך ארכיטקטורות של סוכנים יושפעו כאשר המודל עצמו הופך למעשה למעבדת מחקר אוטונומית?\n\n#AIEngineering #ArtificialIntelligence #MachineLearning #OpenAI #Automation",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795823729-gpt-6-models-intrinsi/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795823729-gpt-6-models-intrinsi/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך OpenAI:\nhttps://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך OpenAI: GPT-6 models design protein structures using reasoning and code."
-    },
-    {
-      "id": "post-3-1795823729",
-      "topic": "US Air Force cloud platform breach",
-      "category": "cyber_soc",
-      "source_url": "https://www.schneier.com/blog/archives/2026/11/humans-have-rights-machines-do-not.html",
+      "source_url": "https://www.schneier.com/blog/archives/2026/11/friday-squid-blogging-giant-squid-in-newfoundland.html",
       "source_platform": "Schneier on Security (Cryptography, Security & AI)",
-      "posted_at": "Updated 2026-11-27 (Auto)",
-      "credibility_score": "9/10",
-      "credibility_rationale": "Reliable reporting on federal cybersecurity incidents based on multiple verified sources and agency disclosures.",
+      "posted_at": "Updated 2026-11-28 (Auto)",
+      "credibility_score": "10/10",
+      "credibility_rationale": "נבחר על בסיס העדפת משמש קודמת ברמה גבוהה מאוד, המספקת עומק ארכיטקטוני אמיתי בניתוח חולשות קריפטוגרפיות.",
       "key_takeaways": [
-        "Cloud One computing platform of the US Air Force was reportedly breached.",
-        "The intrusion was discovered during a routine platform upgrade process.",
-        "Attackers exploited an unidentified software vulnerability impacting mission critical data."
+        "מפתחות OpenPGP זדוניים עלולים לנצל חולשות זיכרון במנגנוני פיענוח.",
+        "חובה לעדכן חבילות GnuPG בסביבות ייצור ובשרתי מפתחות פנימיים.",
+        "בדיקת אינטגריטי לכל קובץ מפתח חיצוני היא קריטית למניעת הידבקות."
       ],
-      "post_angle": "זווית סקפטית / Reality Check: ניתוח הסיכונים האמיתיים בשדרוגי תשתיות ענן מורכבות.",
-      "opening_hook": "החולשה הגדולה ביותר של תשתיות ענן ארגוניות מתגלה בדיוק ברגע שבו משדרגים אותן.",
-      "linkedin_post": "החולשה הגדולה ביותר של תשתיות ענן ארגוניות מתגלה בדיוק ברגע שבו משדרגים אותן.\n\nדיווחים חדשים מעידים כי פלטפורמת הענן Cloud One של חיל האוויר האמריקאי נפגעה באירוע אבטחה שהתגלה במהלך תהליך שדרוג מערכות.\n\nהאירוע מצטרף לגל מתקפות על גופים ממשלתיים נוספים שבהם נוצלו פגיעויות תוכנה לא ידועות כדי לחדור לסביבות רגישות.\n\nבתכלס, עבור צוותי אבטחה שמנהלים סביבות ענן מורכבות, תקופות של תחזוקה ושדרוג גרסאות הן נקודת העיוורון המסוכנת ביותר שבה בקרות האבטחה זזות הצידה.\n\nההתקפה ממחישה ששמירה על פרימטר אינה מספיקה אם אין ניטור רציף בזמן אמת של פעילות חריגה בתוך הסביבה.\n\nהאם תהליכי ה CI/CD ועדכוני הגרסה שלכם כוללים בדיקות אבטחה אוטומטיות בזמן אמת?\n\n#CloudSecurity #CyberSecurity #DevSecOps #Infosec #Security",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795823729-us-air-force-cloud-pl/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795823729-us-air-force-cloud-pl/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Schneier on Security:\nhttps://www.schneier.com/blog/archives/2026/11/humans-have-rights-machines-do-not.html",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Schneier on Security: Cloud One computing platform of the US Air Force was reportedly breached."
+      "post_angle": "זווית מהשטח / SOC & Ops: פתיחה מתוך ניתוח לוגים או תרחיש קריפטוגרפי אמיתי בשטח ומעקב אחרי איומי זיכרון.",
+      "opening_hook": "כשמפתח הצפנה תמים לכאורה מתחיל להתנהג מוזר בזיכרון, אנליסט ה SOC המנוסה יודע שמדובר ביותר מסתם שגיאת תצורה.",
+      "linkedin_post": "כשמפתח הצפנה תמים לכאורה מתחיל להתנהג מוזר בזיכרון, אנליסט ה SOC המנוסה יודע שמדובר ביותר מסתם שגיאת תצורה.\n\nניתוח מעמיק של התנהגות GnuPG מראה איך מפתחות OpenPGP זדוניים שתוכננו בקפידה מסוגלים לנצל חולשות זיכרון עמוקות בעת עיבוד מבני נתונים מורכבים.\n\nבפועל, מה שזה אומר לצוותי האבטחה ביום־יום הוא שאי אפשר לסמוך יותר על אינטגריטי של מפתחות חיצוניים בלי לעבור בדיקות עומק בסביבת בדיקות מבודדת.\n\nמדובר בסכנה שקטה שחומקת מתחת לרדאר של כלי SIEM סטנדרטיים כי היא מתבצעת בשלב פענוח הלגיטימציה של המפתח.\n\nהחובה המיידית של כל צוות תשתיות היא לבצע Patch מהיר לכל מערכות הלינוקס בארגון שמשתמשות בספריות הללו.\n\nאיך צוות ה SOC שלכם מתמודד עם זיהוי חריגות במבני מפתחות קריפטוגרפיים לפני שהן מגיעות לייצור?\n\n#CyberSecurity #SOC #GnuPG #InfoSec #OpenPGP",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795881963/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-1-1795881963/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Schneier on Security:\nhttps://www.schneier.com/blog/archives/2026/11/friday-squid-blogging-giant-squid-in-newfoundland.html",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Schneier on Security: מפתחות OpenPGP זדוניים עלולים לנצל חולשות זיכרון במנגנוני פיענוח."
     },
     {
-      "id": "post-4-1795823729",
-      "topic": "Multi-agent systems training and communication swarms",
-      "category": "ai_agents",
-      "source_url": "https://huggingface.co/blog/training-swarms",
-      "source_platform": "Hugging Face Blog (AI Models & Engineering)",
-      "posted_at": "Updated 2026-11-27 (Auto)",
+      "id": "post-2-1795881963",
+      "topic": "כלי העזר Q-Dir ו DesktopOK ל Windows שוחדו להפצת Python RAT",
+      "category": "cyber_soc",
+      "source_url": "https://www.bleepingcomputer.com/news/security/q-dir-and-desktopok-windows-utilities-compromised-to-push-python-rat/",
+      "source_platform": "BleepingComputer (Security & Incidents)",
+      "posted_at": "Updated 2026-11-28 (Auto)",
       "credibility_score": "9/10",
-      "credibility_rationale": "In-depth technical blog post from Hugging Face community highlighting architectural challenges in multi-agent systems.",
+      "credibility_rationale": "מקור אמין המדווח על שרשרת אספקה פגועה של כלים מוכרים למנהלי מערכות, עם נתונים טכניים קונקרטיים.",
       "key_takeaways": [
-        "Adding multiple agents changes context budgets and overall system complexity.",
-        "Communication between agents does not automatically boost performance without explicit training.",
-        "Models need to learn how to communicate effectively through targeted training loops."
+        "אתרי ההורדה הרשמיים של Q-Dir ו DesktopOK נפגעו והפיצו קבצי התקנה נושאי Python RAT.",
+        "המתקינים הזדוניים חתומים דיגיטלית באמצעות תעודות לגיטימיות של המפתח המקורי Nenad Hrg.",
+        "הנוזקה מייצרת משימות מתוזמנות ומבצעת איסוף מידע מקיף על תהליכי אבטחה פעילים."
       ],
-      "post_angle": "לקח לבוני מערכות ואוטומציות: אתגרי תכנון בארכיטקטורה של נחיל סוכני AI מרובים.",
-      "opening_hook": "הוספת עוד סוכנים למערכת לא משפרת את הביצועים אלא אם מלמדים אותם איך לדבר ביניהם.",
-      "linkedin_post": "הוספת עוד סוכנים למערכת לא משפרת את הביצועים אלא אם מלמדים אותם איך לדבר ביניהם.\n\nפוסט טכני חדש מקהילת Hugging Face צולל לעומק הארכיטקטורה של מערכות נחיל מרובות סוכנים ומסביר מדוע ערבוב הקונטקסט של מספר סוכנים יחד מייצר מורכבות עצומה בתקציב החישוב.\n\nהמחקר מראה שחיבור תקשורת בין מודלים דורש תהליך אימון ייעודי שבו המודל לומד מה לשתף ואיך להעביר מידע רלוונטי לסוכן הבא בתור.\n\nבתכלס, עבור מפתחים שונים שמעוניינים לבנות ארכיטקטורות מבוססות סוכנים מרובים, אסור להניח ששרשור פשוט של מודלים שונים יפתח ביצועים טובים יותר באופן אוטומטי.\n\nניהול נכון של פרוטוקול התקשורת והגבלת הקונטקסט הם המפתח למערכת יציבה.\n\nאיך אתם מנהלים את העברת המידע והזיכרון המשותף בין הסוכנים השונים במערכות שלכם?\n\n#AIAgents #MachineLearning #LLM #SoftwareArchitecture #Development",
-      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795823729-multi-agent-systems-t/",
-      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795823729-multi-agent-systems-t/card.svg",
-      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Hugging Face Blog:\nhttps://huggingface.co/blog/training-swarms",
-      "alt_hook": "נתון טכני שכדאי להכיר מתוך Hugging Face Blog: Adding multiple agents changes context budgets and overall system complexity."
+      "post_angle": "פירוק מנגנון הנדסי: צלילה לנתון טכני מתוך המקור והסבר מדויק איך הקוד פועל מתחת למכסה המנוע.",
+      "opening_hook": "כלי ניהול קבצים קטנים שמהנדסי מערכת מתקינים בעיניים עצומות הפכו לאחרונה לדלת אחורית שקטה.",
+      "linkedin_post": "כלי ניהול קבצים קטנים שמהנדסי מערכת מתקינים בעיניים עצומות הפכו לאחרונה לדלת אחורית שקטה.\n\nבדיקות של חברת האבטחה ASEC חשפו שקבצי ההתקנה של Q-Dir ו DesktopOK באתר SoftwareOK עברו שינוי זדוני כך שהם מפיצים Python RAT עיקש.\n\nבפועל, מה שזה אומר לצוותי ה IT וה SOC הוא שחתימה דיגיטלית תקפה כבר אינה ערובה מוחלטת לבטיחות התוכנה, שכן תעודות רשמיות נוצלו לרעה.\n\nהנוזקה מקימה משימות מתוזמנות בתוך מערכת ההפעלה, אוספת את רשימת תהליכי האבטחה הפעילים ומאפשרת הרצת פקודות מרחוק בלי לעורר חשד.\n\nאם התקנתם או עדכנתם את הכלים האלה לאחרונה, המערכת שלכם חייבת לעבור סריקה יסודית ללא קשר לגרסה הספציפית שהורדתם.\n\nאיך הארגון שלכם מוודא שכלים נלווים של מנהלי מערכות עוברים בדיקת אינטגריטי קפדנית לפני ריצה?\n\n#SupplyChain #CyberSecurity #Python #SysAdmin #SOC",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795881963-q-dir-deskt/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-2-1795881963-q-dir-deskt/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך BleepingComputer:\nhttps://www.bleepingcomputer.com/news/security/q-dir-and-desktopok-windows-utilities-compromised-to-push-python-rat/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך BleepingComputer: אתרי ההורדה הרשמיים של Q-Dir ו DesktopOK נפגעו והפיצו קבצי התקנה נושאי Python RAT."
+    },
+    {
+      "id": "post-3-1795881963",
+      "topic": "פיתוח סוכנים קוליים בשפות אזוריות עם CUGA",
+      "category": "ai_agents",
+      "source_url": "https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga",
+      "source_platform": "Hugging Face Blog (AI Models & Engineering)",
+      "posted_at": "Updated 2026-11-28 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "מקור מוביל מבית IBM Research המתאר פתרון ארכיטקטוני אמיתי לבעיות הטמעת סוכני AI בשפות שאינן אנגלית.",
+      "key_takeaways": [
+        "שימוש במוח מבוסס טקסט של CUGA ומעטפות קול חיצוניות לייצור סוכן קולי בשפות שונות.",
+        "אתגר אחזור מידע חוצה־שפות דורש מודל הטמעה רב לשוני כמו intfloat/multilingual-e5-large.",
+        "הפרדת השכבות מאפשרת להחליף ספקי דיבור בלי לפגוע بلוגיקה המרכזית של הסוכן."
+      ],
+      "post_angle": "לקח לבוני מערכות ואוטומציות: חיבור בין אתגר מחקרי להחלטת תכנון קונקרטית של מפתחים.",
+      "opening_hook": "לבנות סוכן AI קולי שמדבר בשפות אזוריות זה נשמע פשוט עד שנתקעים בקיר של אחזור מידע חוצה שפות.",
+      "linkedin_post": "לבנות סוכן AI קולי שמדבר בשפות אזוריות זה נשמע פשוט עד שנתקעים בקיר של אחזור מידע חוצה שפות.\n\nצוות המחקר של IBM שבנה את הסוכן הקולי בעזרת מסגרת CUGA גילה שמודל הטמעה סטנדרטי שלא תומך בריבוי שפות הופך שאילתות בשפות כמו הינדי לוקטורים חסרי משמעות.\n\nבפועל, מה שזה אומר למפתחי סוכנים הוא שהמערכת תחזיר תוצאות שגויות בשקט מוחלט, בלי לזרוק שגיאה ובלי להרים דגל אדום למשתמש.\n\nהפתרון הדרוש בארכיטקטורה הוא שילוב מודל הטמעה רב לשוני ייעודי ששומר על משמעות סמנטית מדויקת בין שפות שונות לפני שהשאילתות מגיעות ל LLM.\n\nבצורה הזו אפשר לשמור על מוח טקסטואלי אחיד ולהחליף את שכבות הדיבור בקלות דרך ה SDK.\n\nהאם הארכיטקטורה של הסוכנים שלכם בנויה להתמודד עם הטמעות רב לשוניות מורכבות?\n\n#AIAgents #LLM #MachineLearning #Developers #ArtificialIntelligence",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795881963/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-3-1795881963/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Hugging Face Blog:\nhttps://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Hugging Face Blog: שימוש במוח מבוסס טקסט של CUGA ומעטפות קול חיצוניות לייצור סוכן קולי בשפות שונות."
+    },
+    {
+      "id": "post-4-1795881963",
+      "topic": "כלי הגיבוי החדש sqlite3_rsync לסביבות SQLite מוקטנות",
+      "category": "ai_agents",
+      "source_url": "https://simonwillison.net/2026/Nov/26/sqlite3-rsync/",
+      "source_platform": "Simon Willison (AI Agents & LLM Architecture)",
+      "posted_at": "Updated 2026-11-28 (Auto)",
+      "credibility_score": "9/10",
+      "credibility_rationale": "ניתוח טכני מדויק מאת סיימון ויליסון על כלי עזר חדשני לניהול מסדי נתונים מוצקים.",
+      "key_takeaways": [
+        "כלי sqlite3_rsync מאפשר העתקת סנכרון של מסד נתונים דרך חיבור SSH ללא צורך ביצירת עותק מקומי מלא.",
+        "הפרוטוקול עובד על ידי החלפת חותמות קריפטוגרפיות עבור עמודות ודפי מידע בין המקור ליעד.",
+        "אידיאלי עבור שרתים דלי משאבים שבהם נפח הדיסק הפנוי קטן ממחצית נפח המסד הנוכחי."
+      ],
+      "post_angle": "זווית סקפטית / Reality Check: אתגור הנחות יסוד בשוק סביב ניהול גיבויים במסדי נתונים קטנים בלי הייפ.",
+      "opening_hook": "הנחת היסוד שצריך פי שניים מקום בדיסק כדי לגבות מסד נתונים פשוט הפסיקה להיות רלוונטית בסביבות מודרניות.",
+      "linkedin_post": "הנחת היסוד שצריך פי שניים מקום בדיסק כדי לגבות מסד נתונים פשוט הפסיקה להיות רלוונטית בסביבות מודרניות.\n\nהכלי sqlite3_rsync מציג גישה שונה לחלוטין שבה השרת המעתיק שולח חותמות קריפטוגרפיות עבור דפי מידע ולא את הקובץ כולו.\n\nבפועל, מה שזה אומר למפתחים זה שאפשר לבצע גיבוי וסנכרון מלא דרך חיבור SSH גם כשהמופע שלכם מנוצל מעל תשעים אחוז בלי קריסה.\n\nפרוטוקול העבודה משווה רק את הדפים ששנונים בפועל ודורש תוספת מינימלית של רוחב פס ברשת בלבד.\n\nזו דוגמה מצוינת לכלי שפתר צוואר בקבוק כלכלי והנדסי אמיתי עבור מערכות קטנות שרצים עליהן בסיסי נתונים עמוסים.\n\nאילו פתרונות גיבוי מותאמים לשרתים דלי משאבים אתם משלבים בארכיטקטורה שלכם כיום?\n\n#SQLite #Databases #DeveloperTools #CloudArchitecture #Backend",
+      "pack_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795881963-sqlite/",
+      "visual_url": "https://roeeinvest18-tech.github.io/jarvis-dashboard/labs/post-post-4-1795881963-sqlite/card.svg",
+      "first_comment": "לקריאת המחקר והפירוט הטכני המלא מתוך Simon Willison:\nhttps://simonwillison.net/2026/Nov/26/sqlite3-rsync/",
+      "alt_hook": "נתון טכני שכדאי להכיר מתוך Simon Willison: כלי sqlite3_rsync מאפשר העתקת סנכרון של מסד נתונים דרך חיבור SSH ללא צורך ביצירת עותק מקומי מלא."
     }
   ]
 }

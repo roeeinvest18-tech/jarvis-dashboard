@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://*.workers.dev https://*.up.railway.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cloudflare WAF protection against ruby2shell CVE-2026-132825 — Publish Pack</title>
+  <title>פיתוח סוכנים קוליים בשפות אזוריות עם CUGA — Publish Pack</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,24 +22,26 @@
 
       <section class="card" dir="rtl">
         <h2 style="margin:0 0 8px; font-size:1rem;">2. פוסט מוכן + תגובה ראשונה</h2>
-        <pre id="post-body">כשבדיקת המרת תווים פשוטה בקוד ישן מצליחה להפיל שרתים דרך Heap Buffer Overflow, ברור לנו שארכיטקטורה ישנה תמיד תרדוף אותנו.
+        <pre id="post-body">לבנות סוכן AI קולי שמדבר בשפות אזוריות זה נשמע פשוט עד שנתקעים בקיר של אחזור מידע חוצה שפות.
 
-החשיפה של ruby2shell מוכיחה שוב כמה תלויות עמוקות בקוד כמו Ruby on Rails או מוצרים מוכרים כמו GitLab עלולות להיפגע עוד לפני שלב האימות ברשת.
+צוות המחקר של IBM שבנה את הסוכן הקולי בעזרת מסגרת CUGA גילה שמודל הטמעה סטנדרטי שלא תומך בריבוי שפות הופך שאילתות בשפות כמו הינדי לוקטורים חסרי משמעות.
 
-בפועל, מה שזה אומר לצוותי ה SOC ולמנהלי האבטחה ביום יום הוא שחוקי חסימה ב WAF הם אמנם שכבת בלימה מצוינת לעצירת תעבורה חשודה על המסלול, אבל הם לעולם לא תחליף לעדכון גרסה אמיתי.
+בפועל, מה שזה אומר למפתחי סוכנים הוא שהמערכת תחזיר תוצאות שגויות בשקט מוחלט, בלי לזרוק שגיאה ובלי להרים דגל אדום למשתמש.
 
-בתכלס, ההמלצה היחידה שעובדת מול חולשות קריטיות כאלה היא לוודא שצוותי ה DevOps מריצים שדרוג גרסאות לרובי בהקדם האפשרי.
+הפתרון הדרוש בארכיטקטורה הוא שילוב מודל הטמעה רב לשוני ייעודי ששומר על משמעות סמנטית מדויקת בין שפות שונות לפני שהשאילתות מגיעות ל LLM.
 
-איך צוות ה SOC שלכם מזהה ניסיונות ניצול של חולשות זיכרון כאלה לפני שהם מגיעים ללוגים המרכזיים?
+בצורה הזו אפשר לשמור על מוח טקסטואלי אחיד ולהחליף את שכבות הדיבור בקלות דרך ה SDK.
 
-CyberSecurity SOC DevSecOps Cloudflare VulnerabilityManagement</pre>
+האם הארכיטקטורה של הסוכנים שלכם בנויה להתמודד עם הטמעות רב לשוניות מורכבות?
+
+#AIAgents #LLM #MachineLearning #Developers #ArtificialIntelligence</pre>
         <div class="btns" dir="ltr">
           <button type="button" id="btn-copy-post">Copy Post Text</button>
           <button type="button" class="ghost" id="btn-copy-comment">Copy 1st Comment Link</button>
         </div>
         <p style="font-size:12px; color:var(--ink2); margin:14px 0 4px;">תגובה ראשונה (לשמירה על חשיפה אורגנית):</p>
-        <pre id="comment-body" dir="auto">לקריאת המחקר והפירוט הטכני המלא מתוך Cloudflare Blog:
-https://blog.cloudflare.com/ruby2shell-waf-protection/</pre>
+        <pre id="comment-body" dir="auto">לקריאת המחקר והפירוט הטכני המלא מתוך Hugging Face Blog:
+https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga</pre>
         <div id="pack-status" dir="ltr" style="font-size:13px; color:#5ec28f; min-height:20px; margin-top:8px;"></div>
       </section>
     </div>
