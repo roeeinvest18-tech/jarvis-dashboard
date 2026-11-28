@@ -547,10 +547,20 @@ function wireTradingSizing() {
   renderSizingResult();
 }
 
-// --- Demo paper portfolio (client-side, synced against latest scan) -------
+// --- Demo paper portfolio (client-side + cross-device sync via /daily) ----
 const DEMO_PORTFOLIO_KEY = 'jarvis:demoPortfolio:v1';
 let tradingDemoOpen = null;
+let tradingDemoSynced = false;
 let tradingDemoDraft = { ticker: '', shares: '', amountUsd: '', entry: '', stop: '', target: '' };
+
+function demoSyncCreds() {
+  try {
+    const url = (localStorage.getItem('jarvis:daily:syncUrl') || localStorage.getItem('jarvis:training:syncUrl') || '').trim().replace(/\/+$/, '');
+    const token = (localStorage.getItem('jarvis:daily:syncToken') || localStorage.getItem('jarvis:training:syncToken') || '').trim();
+    if (url && token && /^https?:\/\//i.test(url)) return { url, token };
+  } catch (e) { /* private mode */ }
+  return null;
+}
 
 function demoLoad() {
   try {
@@ -559,14 +569,56 @@ function demoLoad() {
       startingCash: Number(raw.startingCash) > 0 ? Number(raw.startingCash) : 25000,
       positions: Array.isArray(raw.positions) ? raw.positions : [],
       closed: Array.isArray(raw.closed) ? raw.closed : [],
+      updated_at: typeof raw.updated_at === 'string' ? raw.updated_at : '',
     };
   } catch (e) {
-    return { startingCash: 25000, positions: [], closed: [] };
+    return { startingCash: 25000, positions: [], closed: [], updated_at: '' };
   }
 }
 
-function demoSave(state) {
-  try { localStorage.setItem(DEMO_PORTFOLIO_KEY, JSON.stringify(state)); } catch (e) { /* private mode */ }
+function demoSave(state, opts) {
+  const next = {
+    startingCash: Number(state.startingCash) > 0 ? Number(state.startingCash) : 25000,
+    positions: Array.isArray(state.positions) ? state.positions : [],
+    closed: Array.isArray(state.closed) ? state.closed : [],
+    updated_at: (opts && opts.keepTimestamp && state.updated_at) ? state.updated_at : new Date().toISOString(),
+  };
+  try { localStorage.setItem(DEMO_PORTFOLIO_KEY, JSON.stringify(next)); } catch (e) { /* private mode */ }
+  if (opts && opts.skipRemote) return;
+  const creds = demoSyncCreds();
+  if (creds && typeof fetch === 'function') {
+    fetch(`${creds.url}/daily`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${creds.token}` },
+      body: JSON.stringify({ settings: { demo_portfolio: next } }),
+    }).catch(() => {});
+  }
+}
+
+function demoSyncFromServer() {
+  if (tradingDemoSynced) return;
+  tradingDemoSynced = true;
+  const creds = demoSyncCreds();
+  if (!creds || typeof fetch !== 'function') return;
+  fetch(`${creds.url}/daily`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${creds.token}` },
+  })
+    .then(r => (r.ok ? r.json() : null))
+    .then(data => {
+      const remote = data && data.settings && data.settings.demo_portfolio;
+      if (!remote || typeof remote !== 'object') return;
+      const local = demoLoad();
+      const localEmpty = local.positions.length === 0 && local.closed.length === 0;
+      const remoteHasData = (Array.isArray(remote.positions) && remote.positions.length > 0)
+        || (Array.isArray(remote.closed) && remote.closed.length > 0);
+      const remoteNewer = typeof remote.updated_at === 'string' && remote.updated_at > (local.updated_at || '');
+      if (remoteNewer || (localEmpty && remoteHasData)) {
+        demoSave(remote, { skipRemote: true, keepTimestamp: true });
+        renderTradingTop10();
+      }
+    })
+    .catch(() => {});
 }
 
 function demoHasOpenTicker(ticker) {
@@ -707,17 +759,28 @@ function tradingDemoHtml(scan) {
 }
 
 function wireTradingDemo(scan) {
+  demoSyncFromServer();
   const tool = document.querySelector('.demo-tool');
   if (!tool) return;
   tool.addEventListener('toggle', () => { tradingDemoOpen = tool.open; });
   const form = document.getElementById('demo-trade-form');
   const previewEl = document.getElementById('demo-draft-preview');
   const fieldEl = name => tool.querySelector(`[data-demo-field="${name}"]`);
+  const prices = demoPriceMap(scan);
 
   tool.querySelectorAll('[data-demo-field]').forEach(inp => {
     inp.addEventListener('input', () => {
       const f = inp.dataset.demoField;
       tradingDemoDraft[f] = f === 'ticker' ? inp.value.toUpperCase() : inp.value;
+      if (f === 'ticker') {
+        const up = String(tradingDemoDraft.ticker || '').trim().toUpperCase();
+        const scanPrice = prices[up];
+        if (scanPrice > 0 && !(parseFloat(tradingDemoDraft.entry) > 0)) {
+          const rounded = Math.round(scanPrice * 100) / 100;
+          tradingDemoDraft.entry = rounded;
+          if (fieldEl('entry')) fieldEl('entry').value = rounded;
+        }
+      }
       const entry = parseFloat(tradingDemoDraft.entry);
       if (f === 'shares' && entry > 0) {
         const sh = parseFloat(inp.value);
@@ -733,12 +796,17 @@ function wireTradingDemo(scan) {
           tradingDemoDraft.shares = sh;
           if (fieldEl('shares')) fieldEl('shares').value = sh;
         }
-      } else if (f === 'entry' && entry > 0) {
+      } else if ((f === 'entry' || f === 'ticker') && entry > 0) {
         const usd = parseFloat(tradingDemoDraft.amountUsd);
+        const shExisting = parseFloat(tradingDemoDraft.shares);
         if (usd > 0) {
           const sh = Math.round((usd / entry) * 100) / 100;
           tradingDemoDraft.shares = sh;
           if (fieldEl('shares')) fieldEl('shares').value = sh;
+        } else if (shExisting > 0) {
+          const calcUsd = Math.round(shExisting * entry * 100) / 100;
+          tradingDemoDraft.amountUsd = calcUsd;
+          if (fieldEl('amountUsd')) fieldEl('amountUsd').value = calcUsd;
         }
       }
       if (previewEl) previewEl.textContent = demoDraftPreviewText();
@@ -748,16 +816,31 @@ function wireTradingDemo(scan) {
   if (form) {
     form.addEventListener('submit', e => {
       e.preventDefault();
-      const ticker = String(tradingDemoDraft.ticker || '').trim().toUpperCase();
-      const entry = parseFloat(tradingDemoDraft.entry);
-      const stop = parseFloat(tradingDemoDraft.stop) || 0;
-      const target = parseFloat(tradingDemoDraft.target) || 0;
-      let shares = parseFloat(tradingDemoDraft.shares);
-      const amountUsd = parseFloat(tradingDemoDraft.amountUsd);
+      const readField = (name, fallback) => {
+        const el = fieldEl(name);
+        return el ? el.value : (fallback || '');
+      };
+      const ticker = String(readField('ticker', tradingDemoDraft.ticker) || '').trim().toUpperCase();
+      let entry = parseFloat(readField('entry', tradingDemoDraft.entry));
+      if (!(entry > 0) && ticker && prices[ticker] > 0) {
+        entry = Math.round(prices[ticker] * 100) / 100;
+      }
+      const stop = parseFloat(readField('stop', tradingDemoDraft.stop)) || 0;
+      const target = parseFloat(readField('target', tradingDemoDraft.target)) || 0;
+      let shares = parseFloat(readField('shares', tradingDemoDraft.shares));
+      const amountUsd = parseFloat(readField('amountUsd', tradingDemoDraft.amountUsd));
       if (!(shares > 0) && amountUsd > 0 && entry > 0) {
         shares = Math.round((amountUsd / entry) * 100) / 100;
+      } else if (!(shares > 0) && entry > 0) {
+        shares = Math.round((1500 / entry) * 100) / 100;
       }
-      if (!ticker || !(entry > 0) || !(shares > 0)) return;
+      if (!ticker || !(entry > 0) || !(shares > 0)) {
+        if (previewEl && ticker && !(entry > 0)) {
+          previewEl.textContent = `Enter an entry price for ${ticker}`;
+          if (fieldEl('entry')) fieldEl('entry').focus();
+        }
+        return;
+      }
       const state = demoLoad();
       state.positions.unshift({
         id: `demo-${Date.now().toString(36)}`,
@@ -796,7 +879,6 @@ function wireTradingDemo(scan) {
     });
   }
 
-  const prices = demoPriceMap(scan);
   tool.querySelectorAll('[data-demo-close]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.demoClose;
